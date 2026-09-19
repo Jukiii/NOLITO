@@ -2,6 +2,13 @@ import { availableTitles, evaluateAchievements, titleName as titleNameOf } from 
 import { applyCorrect, applyHit, applyMiss, createGameState, tick } from "./engine.js";
 import { attachInput } from "./input.js";
 import {
+  createKeyStats,
+  mostMissedKeys,
+  recordHit,
+  recordMiss,
+  topConfusions,
+} from "./keystats.js";
+import {
   getRanking,
   isRoleUnlocked,
   recordResult,
@@ -131,6 +138,7 @@ async function startGame({ jobId, roleId }) {
     index: 0,
     matcher: createMatcher(words[0].reading),
     state: createGameState(stage),
+    keyStats: createKeyStats(),
     lastFrame: performance.now(),
     frameId: 0,
   };
@@ -174,6 +182,10 @@ function finish() {
     accuracy,
     cps,
     vocabularyVersion: session.vocabularyVersion,
+    // ミス分析・苦手文字の元データ(キーごとの集計・打ち間違いの組・語ごとのミス数)
+    keys: session.keyStats.keys,
+    confusions: session.keyStats.confusions,
+    wordMisses: session.keyStats.wordMisses,
   };
 
   const before = store.load().data;
@@ -214,6 +226,11 @@ function finish() {
     newAchievements,
     kaichoUnlocked,
     notice: storageNotice,
+    analysis: {
+      misses: state.miss,
+      keys: mostMissedKeys(session.keyStats, 3),
+      confusions: topConfusions(session.keyStats, 3),
+    },
   });
   const cleared = state.status === "cleared";
   const extras = [
@@ -230,12 +247,18 @@ function finish() {
 
 function handleChar(char) {
   if (!session || session.state.status !== "playing") return;
+  // 打鍵の集計は、結果を確定する(finish が呼ばれる)前に済ませる。最後の1打も記録に入れるため。
+  const key = char.toLowerCase();
+  const expected = session.matcher.remaining.charAt(0);
+  const word = session.words[session.index];
   const result = session.matcher.input(char);
   if (result === "miss") {
+    session.keyStats = recordMiss(session.keyStats, expected, key, word.id);
     view.flashMiss();
     update(applyMiss(session.state, session.stage));
     return;
   }
+  session.keyStats = recordHit(session.keyStats, key);
   session.state = applyHit(session.state);
   if (result === "ok") {
     view.renderWord(session.words[session.index], session.matcher);

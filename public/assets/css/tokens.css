@@ -20,6 +20,10 @@
   --color-border: #1b2033;
   --color-focus: #1b2033;
 
+  /* グラフ(グリッドは背景より一段だけ濃い実線のヘアライン。データより目立たせない) */
+  --color-chart-grid: #e6e0d0;
+  --color-chart-axis: #a9a391;
+
   /* Typography */
   --font-base:
     system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", meiryo, sans-serif;

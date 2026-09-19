@@ -1,8 +1,23 @@
 // 端末内の保存(LocalStorage)。保存できない環境・壊れたデータ・改ざんされたデータでもゲームが落ちないようにする。
-// 保存形式にはバージョンを付ける(Phase 4・19 で項目を追加するときに移行できるようにするため)。
+// 保存形式にはバージョンを付ける(項目を追加するときに移行できるようにするため)。
+//
+// バージョン履歴
+//   1: Phase 3。プロフィール・結果・ランキング・実績・進行状況
+//   2: Phase 4。各結果に、キーごとの集計(keys)・打ち間違いの組(confusions)・語ごとのミス数(wordMisses)を追加
+//      バージョン 1 のデータは、読み込み時に自動で 2 として扱う(追加項目は空)。移行前の元データは一度だけ退避する。
+//
+// 保存先のキー名の "v1" は、キーの名前。データの中の version とは別で、変えない(変えると既存の記録が読めなくなる)。
+import { CONFUSION_PATTERN, KEY_PATTERN } from "./keystats.js";
 
 export const STORAGE_KEY = "nolito:escape-boss:v1";
-export const DATA_VERSION = 1;
+const BACKUP_V1_KEY = `${STORAGE_KEY}:backup-v1`;
+export const DATA_VERSION = 2;
+const READABLE_VERSIONS = [1, 2];
+// 改ざんされたデータで、保存内容が膨らみすぎないようにする上限
+// (キーは a-z・0-9・- の1文字だけなので、種類は最大37で、上限は不要)
+const MAX_CONFUSION_ENTRIES = 100;
+const MAX_WORD_ENTRIES = 60;
+const WORD_ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 export const MAX_RESULTS = 200;
 export const MAX_RANKING = 10;
 export const NICKNAME_MAX = 12;
@@ -38,6 +53,30 @@ const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(v
 const isString = (value) => typeof value === "string" && value.length > 0 && value.length <= 100;
 const count = (value) => (isFiniteNumber(value) && value >= 0 ? Math.floor(value) : 0);
 
+// キーごとの集計。キー名は a-z・0-9・- の1文字だけ。
+function normalizeKeys(raw) {
+  const keys = {};
+  if (!isObject(raw)) return keys;
+  for (const [key, value] of Object.entries(raw)) {
+    if (!KEY_PATTERN.test(key) || !isObject(value)) continue;
+    keys[key] = { hits: count(value.hits), misses: count(value.misses) };
+  }
+  return keys;
+}
+
+// 名前(パターンに合うものだけ)→ 回数 の対応。回数の多いものを上限まで残す。
+function normalizeCounts(raw, pattern, max) {
+  if (!isObject(raw)) return {};
+  return Object.fromEntries(
+    Object.entries(raw)
+      .filter(([name]) => pattern.test(name) && name.length <= 40)
+      .map(([name, value]) => [name, count(value)])
+      .filter(([, value]) => value > 0)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, max),
+  );
+}
+
 function normalizeResult(raw) {
   if (!isObject(raw)) return null;
   const numbers = ["playedAt", "score", "correct", "miss", "hits", "elapsed", "distance"];
@@ -58,6 +97,10 @@ function normalizeResult(raw) {
     accuracy: isFiniteNumber(raw.accuracy) ? raw.accuracy : 0,
     cps: isFiniteNumber(raw.cps) ? raw.cps : 0,
     vocabularyVersion: typeof raw.vocabularyVersion === "string" ? raw.vocabularyVersion : "",
+    // バージョン 1 の結果には無い(空として扱う)
+    keys: normalizeKeys(raw.keys),
+    confusions: normalizeCounts(raw.confusions, CONFUSION_PATTERN, MAX_CONFUSION_ENTRIES),
+    wordMisses: normalizeCounts(raw.wordMisses, WORD_ID_PATTERN, MAX_WORD_ENTRIES),
   };
 }
 
@@ -82,7 +125,7 @@ const sortRanking = (a, b) => b.score - a.score || a.playedAt - b.playedAt;
  * 一部の項目だけがおかしい場合は、その項目だけを捨てる。
  */
 export function normalizeData(raw) {
-  if (!isObject(raw) || raw.version !== DATA_VERSION) return null;
+  if (!isObject(raw) || !READABLE_VERSIONS.includes(raw.version)) return null;
   const data = createEmptyData();
 
   if (isObject(raw.profile)) {
@@ -141,6 +184,14 @@ export function createStore(backend) {
   let memory = null;
   let status = backend ? "empty" : "unavailable";
 
+  function backUpOnce(key, text) {
+    try {
+      if (backend.getItem(key) === null) backend.setItem(key, text);
+    } catch {
+      // 退避できなくても続行する
+    }
+  }
+
   function load() {
     if (!backend) return { data: memory ?? createEmptyData(), status };
     let text;
@@ -154,13 +205,17 @@ export function createStore(backend) {
       status = memory ? "ok" : "empty";
       return { data: memory ?? createEmptyData(), status };
     }
+    let parsed;
     let data;
     try {
-      data = normalizeData(JSON.parse(text));
+      parsed = JSON.parse(text);
+      data = normalizeData(parsed);
     } catch {
       data = null;
     }
     if (data) {
+      // バージョン 1 から移行する場合は、移行前の元データを一度だけ退避する(移行の不具合に備える)
+      if (parsed.version === 1) backUpOnce(BACKUP_V1_KEY, text);
       status = "ok";
       return { data, status };
     }
