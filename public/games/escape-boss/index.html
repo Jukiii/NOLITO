@@ -33,13 +33,15 @@
         <section data-view="dashboard" aria-labelledby="game-title">
           <h1 id="game-title" tabindex="-1" data-title>上司から逃げろ</h1>
           <p>仕事・会社の用語をローマ字で入力して、追ってくる上司から逃げ切ろう。</p>
+          <p class="game__notice" role="status" data-storage-notice hidden></p>
 
           <div class="card game__rules">
             <h2 class="card__title">遊び方</h2>
             <ul>
               <li>画面に出る言葉を、ローマ字で入力する。</li>
               <li>逃走距離は時間とともに減り、ミスでも減る。0 になるとつかまる。</li>
-              <li>言葉を打ち終えると距離が増える。8語打てば逃げ切り。</li>
+              <li>言葉を打ち終えると距離が増える。決められた語数を打てば逃げ切り。</li>
+              <li>追ってくる人が上の役職ほど、速く、厳しくなる。</li>
               <li>日本語入力(IME)はオフにして、半角英数で入力する。</li>
             </ul>
           </div>
@@ -49,17 +51,97 @@
               <legend>職種を選ぶ</legend>
               <div class="job-select__list" data-job-list></div>
             </fieldset>
-            <p class="game-setup__role">追ってくるのは:<strong>先輩</strong></p>
+            <fieldset class="job-select">
+              <legend>追ってくる人を選ぶ</legend>
+              <div class="job-select__list job-select__list--roles" data-role-list></div>
+              <p class="game-setup__hint" data-role-hint hidden></p>
+            </fieldset>
             <button class="button button--primary" type="submit" data-start disabled>
               スタート
             </button>
             <noscript><p>このゲームを遊ぶには JavaScript を有効にしてください。</p></noscript>
           </form>
+
+          <section class="dash-section" aria-labelledby="profile-title">
+            <h2 id="profile-title">プレイヤー</h2>
+            <form class="profile-form" data-profile>
+              <div class="profile-form__field">
+                <label for="nickname">ニックネーム(12文字まで)</label>
+                <input
+                  class="game-input__field"
+                  id="nickname"
+                  type="text"
+                  maxlength="12"
+                  autocomplete="off"
+                  data-nickname
+                />
+              </div>
+              <div class="profile-form__field">
+                <label for="title-select">称号</label>
+                <select class="game-input__field" id="title-select" data-title-select></select>
+              </div>
+              <div class="profile-form__actions">
+                <button class="button button--secondary" type="submit">保存する</button>
+              </div>
+            </form>
+            <p class="dash-section__note">
+              記録はこの端末(ブラウザ)にだけ保存されます。ほかの端末には引き継がれません。
+            </p>
+          </section>
+
+          <section class="dash-section" aria-labelledby="ranking-title">
+            <h2 id="ranking-title">ランキング</h2>
+            <div class="profile-form__field">
+              <label for="ranking-role">追ってくる人</label>
+              <select class="game-input__field" id="ranking-role" data-ranking-role></select>
+            </div>
+            <p class="dash-section__note" data-ranking-empty hidden>
+              まだ記録がありません。クリアするとここに載ります。
+            </p>
+            <table class="ranking" data-ranking-table>
+              <caption class="visually-hidden">
+                クリアした記録の上位10件(スコアの高い順)
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">順位</th>
+                  <th scope="col">プレイヤー</th>
+                  <th scope="col">スコア</th>
+                </tr>
+              </thead>
+              <tbody data-ranking-body></tbody>
+            </table>
+          </section>
+
+          <section class="dash-section" aria-labelledby="achievements-title">
+            <h2 id="achievements-title">称号・実績</h2>
+            <p class="dash-section__note" data-achievement-summary></p>
+            <ul class="achievement-list" data-achievement-list></ul>
+          </section>
         </section>
 
         <section data-view="play" aria-label="プレイ中" hidden>
           <div class="game-play">
             <div class="game-play__main">
+              <div class="scene" aria-hidden="true" data-scene>
+                <div class="scene__road"></div>
+                <img
+                  class="scene__chaser"
+                  alt=""
+                  width="120"
+                  height="80"
+                  src="/assets/img/escape-boss/senpai.svg"
+                  data-chaser
+                />
+                <img
+                  class="scene__player"
+                  alt=""
+                  width="64"
+                  height="80"
+                  src="/assets/img/escape-boss/player.svg"
+                />
+              </div>
+
               <div class="gauge-block">
                 <!-- [html-validate-disable-next prefer-native-element -- 縞模様と幅アニメーションを独自に描画するため] -->
                 <div
@@ -140,11 +222,20 @@
         <section data-view="result" aria-labelledby="result-title" hidden>
           <h1 id="result-title" tabindex="-1" data-result-title>結果</h1>
           <p data-result-message></p>
+          <p class="result-score">
+            スコア <strong data-result-score></strong>
+            <span class="badge badge--live" data-result-rank hidden></span>
+          </p>
+          <p class="game__notice" role="status" data-result-notice hidden></p>
           <div class="card">
             <dl class="game-status game-status--result">
               <div>
                 <dt>職種</dt>
                 <dd data-result-stat="job"></dd>
+              </div>
+              <div>
+                <dt>追ってくる人</dt>
+                <dd data-result-stat="role"></dd>
               </div>
               <div>
                 <dt>正解</dt>
@@ -153,6 +244,10 @@
               <div>
                 <dt>ミス</dt>
                 <dd data-result-stat="miss"></dd>
+              </div>
+              <div>
+                <dt>正確率</dt>
+                <dd data-result-stat="accuracy"></dd>
               </div>
               <div>
                 <dt>残り距離</dt>
@@ -164,10 +259,14 @@
               </div>
             </dl>
           </div>
+          <section class="dash-section" aria-labelledby="result-new-title" data-result-new hidden>
+            <h2 id="result-new-title">新しい実績</h2>
+            <ul class="achievement-list" data-result-new-list></ul>
+          </section>
           <div class="game-actions">
             <button class="button button--primary" type="button" data-retry>もう一度</button>
             <button class="button button--secondary" type="button" data-back>
-              職種を選びなおす
+              ダッシュボードへ戻る
             </button>
           </div>
         </section>

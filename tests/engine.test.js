@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   applyCorrect,
+  applyHit,
   applyMiss,
   createGameState,
   tick,
@@ -25,8 +26,17 @@ describe("ゲームロジック", () => {
       distance: 60,
       correct: 0,
       miss: 0,
+      hits: 0,
       elapsed: 0,
     });
+  });
+
+  it("正しい打鍵を数える(距離は変わらない)", () => {
+    const state = applyHit(applyHit(createGameState(stage)));
+    assert.equal(state.hits, 2);
+    assert.equal(state.distance, 60);
+    const over = { ...createGameState(stage), status: "gameover" };
+    assert.equal(applyHit(over), over);
   });
 
   it("時間経過で距離が減り、経過時間が増える", () => {

@@ -1,0 +1,98 @@
+{
+  "default_title": { "id": "newbie", "name": "新入社員" },
+  "achievements": [
+    {
+      "id": "clear-senpai",
+      "name": "先輩を振り切った",
+      "description": "先輩から逃げ切る",
+      "kind": "role_clear",
+      "params": { "role": "senpai" },
+      "title": "先輩超え"
+    },
+    {
+      "id": "clear-kakaricho",
+      "name": "係長を振り切った",
+      "description": "係長から逃げ切る",
+      "kind": "role_clear",
+      "params": { "role": "kakaricho" },
+      "title": "係長超え"
+    },
+    {
+      "id": "clear-buchou",
+      "name": "部長を振り切った",
+      "description": "部長から逃げ切る",
+      "kind": "role_clear",
+      "params": { "role": "buchou" },
+      "title": "部長超え"
+    },
+    {
+      "id": "clear-shachou",
+      "name": "社長を振り切った",
+      "description": "社長から逃げ切る",
+      "kind": "role_clear",
+      "params": { "role": "shachou" },
+      "title": "社長超え"
+    },
+    {
+      "id": "unlock-kaicho",
+      "name": "裏ボス出現",
+      "description": "先輩・係長・部長・社長をすべてクリアして、会長に挑戦できるようにする",
+      "kind": "all_roles_clear",
+      "params": { "roles": ["senpai", "kakaricho", "buchou", "shachou"] }
+    },
+    {
+      "id": "clear-kaicho",
+      "name": "会長を振り切った",
+      "description": "会長から逃げ切る",
+      "kind": "role_clear",
+      "params": { "role": "kaicho" },
+      "title": "伝説の逃走者"
+    },
+    {
+      "id": "perfect",
+      "name": "パーフェクト",
+      "description": "ノーミスでクリアする",
+      "kind": "no_miss_clear",
+      "params": {},
+      "title": "ミスなしの達人"
+    },
+    {
+      "id": "close-call",
+      "name": "ギリギリセーフ",
+      "description": "残り距離5m以下でクリアする",
+      "kind": "close_call",
+      "params": { "max_distance": 5 }
+    },
+    {
+      "id": "lightning",
+      "name": "電光石火",
+      "description": "平均4打鍵/秒以上でクリアする",
+      "kind": "fast_clear",
+      "params": { "min_cps": 4 },
+      "title": "電光石火"
+    },
+    {
+      "id": "all-jobs",
+      "name": "なんでも屋",
+      "description": "すべての職種でクリアする",
+      "kind": "all_jobs_clear",
+      "params": {},
+      "title": "マルチプレイヤー"
+    },
+    {
+      "id": "clears-10",
+      "name": "逃げ上手",
+      "description": "累計10回クリアする",
+      "kind": "total_clears",
+      "params": { "count": 10 },
+      "title": "逃げ上手"
+    },
+    {
+      "id": "words-100",
+      "name": "百語の使い手",
+      "description": "累計100語を正解する",
+      "kind": "total_words",
+      "params": { "count": 100 }
+    }
+  ]
+}

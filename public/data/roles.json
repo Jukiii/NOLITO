@@ -2,6 +2,9 @@
   {
     "id": "senpai",
     "name": "先輩",
+    "vehicle": "徒歩",
+    "image": "/assets/img/escape-boss/senpai.svg",
+    "score_multiplier": 1,
     "stage": {
       "max_distance": 100,
       "initial_distance": 60,
@@ -10,6 +13,75 @@
       "gain_per_char": 0.6,
       "miss_penalty": 3,
       "goal_words": 8
+    }
+  },
+  {
+    "id": "kakaricho",
+    "name": "係長",
+    "vehicle": "自転車",
+    "image": "/assets/img/escape-boss/kakaricho.svg",
+    "score_multiplier": 1.2,
+    "stage": {
+      "max_distance": 100,
+      "initial_distance": 55,
+      "drain_per_second": 2.2,
+      "base_gain": 4,
+      "gain_per_char": 0.4,
+      "miss_penalty": 3,
+      "goal_words": 8
+    }
+  },
+  {
+    "id": "buchou",
+    "name": "部長",
+    "vehicle": "セダン",
+    "image": "/assets/img/escape-boss/buchou.svg",
+    "score_multiplier": 1.5,
+    "stage": {
+      "max_distance": 100,
+      "initial_distance": 50,
+      "drain_per_second": 2.4,
+      "base_gain": 4,
+      "gain_per_char": 0.6,
+      "miss_penalty": 4,
+      "goal_words": 9
+    }
+  },
+  {
+    "id": "shachou",
+    "name": "社長",
+    "vehicle": "リムジン",
+    "image": "/assets/img/escape-boss/shachou.svg",
+    "score_multiplier": 2,
+    "stage": {
+      "max_distance": 100,
+      "initial_distance": 50,
+      "drain_per_second": 2.6,
+      "base_gain": 5,
+      "gain_per_char": 0.6,
+      "miss_penalty": 4,
+      "goal_words": 10
+    }
+  },
+  {
+    "id": "kaicho",
+    "name": "会長",
+    "vehicle": "ヘリコプター",
+    "image": "/assets/img/escape-boss/kaicho.svg",
+    "score_multiplier": 3,
+    "unlock": {
+      "type": "clear_roles",
+      "roles": ["senpai", "kakaricho", "buchou", "shachou"],
+      "hint": "先輩・係長・部長・社長をすべてクリアすると挑戦できます"
+    },
+    "stage": {
+      "max_distance": 100,
+      "initial_distance": 45,
+      "drain_per_second": 3,
+      "base_gain": 4,
+      "gain_per_char": 0.5,
+      "miss_penalty": 5,
+      "goal_words": 10
     }
   }
 ]
