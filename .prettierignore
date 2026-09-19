@@ -2,5 +2,6 @@ node_modules/
 package-lock.json
 docs/
 .github/
+.vscode/
 CLAUDE.md
 README.md
