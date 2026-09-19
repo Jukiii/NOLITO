@@ -57,8 +57,8 @@ video {
   outline-offset: 3px;
 }
 
-/* スキップリンクの移動先。操作対象ではないため枠は出さない */
-main:focus {
+/* プログラムでフォーカスを移す先(スキップリンクの移動先、結果画面の見出しなど)。操作対象ではないため枠は出さない */
+[tabindex="-1"]:focus {
   outline: none;
 }
 
@@ -78,6 +78,19 @@ main:focus {
 
 .skip-link:focus {
   transform: translateY(0);
+}
+
+/* 画面には出さず、スクリーンリーダーにだけ読ませる */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* アニメーションの軽減。サイト内の切替設定は Phase 21 で対応する */

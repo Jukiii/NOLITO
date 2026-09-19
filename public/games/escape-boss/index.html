@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>上司から逃げろ | NOLITO</title>
+    <meta
+      name="description"
+      content="仕事・会社の用語をローマ字で入力して、追ってくる上司から逃げ切るタイピングゲーム。"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/game.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/games/escape-boss/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <div class="game" data-game>
+        <p class="game__error" role="alert" data-error hidden></p>
+
+        <section data-view="dashboard" aria-labelledby="game-title">
+          <h1 id="game-title" tabindex="-1" data-title>上司から逃げろ</h1>
+          <p>仕事・会社の用語をローマ字で入力して、追ってくる上司から逃げ切ろう。</p>
+
+          <div class="card game__rules">
+            <h2 class="card__title">遊び方</h2>
+            <ul>
+              <li>画面に出る言葉を、ローマ字で入力する。</li>
+              <li>逃走距離は時間とともに減り、ミスでも減る。0 になるとつかまる。</li>
+              <li>言葉を打ち終えると距離が増える。8語打てば逃げ切り。</li>
+              <li>日本語入力(IME)はオフにして、半角英数で入力する。</li>
+            </ul>
+          </div>
+
+          <form class="game-setup" data-setup>
+            <fieldset class="job-select">
+              <legend>職種を選ぶ</legend>
+              <div class="job-select__list" data-job-list></div>
+            </fieldset>
+            <p class="game-setup__role">追ってくるのは:<strong>先輩</strong></p>
+            <button class="button button--primary" type="submit" data-start disabled>
+              スタート
+            </button>
+            <noscript><p>このゲームを遊ぶには JavaScript を有効にしてください。</p></noscript>
+          </form>
+        </section>
+
+        <section data-view="play" aria-label="プレイ中" hidden>
+          <div class="game-play">
+            <div class="game-play__main">
+              <div class="gauge-block">
+                <!-- [html-validate-disable-next prefer-native-element -- 縞模様と幅アニメーションを独自に描画するため] -->
+                <div
+                  class="gauge"
+                  role="progressbar"
+                  aria-label="逃走距離"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                  data-gauge
+                >
+                  <div class="gauge__fill" data-gauge-fill></div>
+                </div>
+                <p class="gauge__label">
+                  逃走距離 <strong><span data-stat="distance">0</span>m</strong>
+                  <span class="gauge__danger" data-danger hidden>あぶない!</span>
+                </p>
+              </div>
+
+              <div class="game-word">
+                <p class="game-word__japanese" lang="ja" data-word-japanese></p>
+                <p class="game-word__reading" lang="ja" data-word-reading></p>
+                <p class="game-word__romaji" aria-hidden="true">
+                  <span class="game-word__typed" data-word-typed></span
+                  ><span class="game-word__rest" data-word-rest></span>
+                </p>
+              </div>
+
+              <div class="game-input" data-input-box>
+                <label class="game-input__label" for="game-input">
+                  ここにローマ字で入力(半角英数)
+                </label>
+                <input
+                  class="game-input__field"
+                  id="game-input"
+                  type="text"
+                  autocomplete="off"
+                  autocapitalize="none"
+                  autocorrect="off"
+                  spellcheck="false"
+                  enterkeyhint="done"
+                  data-input
+                />
+                <p class="game-input__miss" data-miss></p>
+                <p class="game-input__hint" data-focus-hint hidden>
+                  入力欄をクリック(タップ)すると入力を続けられます。
+                </p>
+                <p class="game-input__hint" data-ime-hint hidden>
+                  日本語入力(IME)がオンです。オフにして半角英数で入力してください。
+                </p>
+              </div>
+            </div>
+
+            <aside class="game-play__side" aria-label="ステータス">
+              <dl class="game-status">
+                <div>
+                  <dt>職種</dt>
+                  <dd data-stat="job"></dd>
+                </div>
+                <div>
+                  <dt>追ってくる人</dt>
+                  <dd data-stat="role"></dd>
+                </div>
+                <div>
+                  <dt>正解</dt>
+                  <dd><span data-stat="correct">0</span> / <span data-stat="goal">0</span>語</dd>
+                </div>
+                <div>
+                  <dt>ミス</dt>
+                  <dd><span data-stat="miss">0</span>回</dd>
+                </div>
+              </dl>
+              <button class="button button--secondary" type="button" data-quit>やめる</button>
+            </aside>
+          </div>
+        </section>
+
+        <section data-view="result" aria-labelledby="result-title" hidden>
+          <h1 id="result-title" tabindex="-1" data-result-title>結果</h1>
+          <p data-result-message></p>
+          <div class="card">
+            <dl class="game-status game-status--result">
+              <div>
+                <dt>職種</dt>
+                <dd data-result-stat="job"></dd>
+              </div>
+              <div>
+                <dt>正解</dt>
+                <dd data-result-stat="correct"></dd>
+              </div>
+              <div>
+                <dt>ミス</dt>
+                <dd data-result-stat="miss"></dd>
+              </div>
+              <div>
+                <dt>残り距離</dt>
+                <dd data-result-stat="distance"></dd>
+              </div>
+              <div>
+                <dt>時間</dt>
+                <dd data-result-stat="time"></dd>
+              </div>
+            </dl>
+          </div>
+          <div class="game-actions">
+            <button class="button button--primary" type="button" data-retry>もう一度</button>
+            <button class="button button--secondary" type="button" data-back>
+              職種を選びなおす
+            </button>
+          </div>
+        </section>
+
+        <p class="visually-hidden" role="status" aria-live="polite" data-announce></p>
+      </div>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

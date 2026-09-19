@@ -25,10 +25,13 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - HTML / 通常CSS / Vanilla JS(ES Modules)。フレームワーク・バンドラは使わない。
 - CSS: `tokens.css`(色・余白などのトークン)→ `base.css` → `layout.css` → `components.css` を各HTMLから `<link>`。色は必ずトークン経由で指定する(ダークテーマ対応のため)。クラス名は kebab-case か BEM。
 - JS: Header / Footer は `assets/js/components/` が描画する。ナビ項目は `assets/js/config/nav.js` だけを編集する。
+- ゲーム「上司から逃げろ」: `public/assets/js/games/escape-boss/`。ロジック(`romaji.js` `engine.js` `vocabulary.js`)は DOM に依存させず、`view.js` / `input.js` / `main.js` だけが DOM に触れる。
+- ゲームのデータは `public/data/`(`jobs.json` `roles.json` `vocabulary/<職種ID>.json`)。バランス値は `roles.json` の `stage`。語録を追加・変更したら `npm run test` で形式と入力可否が検証される。語録はAIの下書きを人間が確認してから公開する。
 - `/styleguide/` は共通コンポーネントの確認用(noindex)。コンポーネントを追加・変更したらここも更新する。
 
 ## コマンド
 
-- `npm run check` … lint(ESLint / Stylelint / html-validate)と Prettier のチェック。PR前に必ず通す。
+- `npm run check` … lint(ESLint / Stylelint / html-validate)、Prettier のチェック、単体テスト。PR前に必ず通す。
+- `npm run test` … 単体テストのみ(Node 標準の `node --test`。`tests/` 配下)。ロジック(`romaji.js` `engine.js` など)を変えたらテストも書く。
 - `npm run format` … Prettier で整形。
 - ローカル表示は VS Code の Live Server(`public/` をルートにする)。詳細は `docs/dev-setup.md`。
