@@ -29,8 +29,17 @@ describe("役職データ", () => {
     }
   });
 
-  it("目標語数は、職種ごとの語数(10語)を超えない(重複なしで出題できる)", () => {
-    for (const role of roles) assert.ok(role.stage.goal_words <= 10, role.id);
+  it("目標語数は、職種ごとの語数を超えない(重複なしで出題できる)", () => {
+    const smallest = Math.min(
+      ...readJson("jobs.json").map((job) => readJson(`vocabulary/${job.id}.json`).items.length),
+    );
+    for (const role of roles) assert.ok(role.stage.goal_words <= smallest, role.id);
+  });
+
+  it("目標語数は、1プレイが1〜3分に収まる範囲(12〜20語。ふつうの打鍵速度で約1分)", () => {
+    for (const role of roles) {
+      assert.ok(role.stage.goal_words >= 12 && role.stage.goal_words <= 20, role.id);
+    }
   });
 
   it("画像ファイルが存在する", () => {

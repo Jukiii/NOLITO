@@ -1,7 +1,7 @@
 {
   "job_id": "engineer",
   "job_name": "エンジニア",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-09-20",
   "items": [
     {
@@ -15,7 +15,9 @@
       "explanation": "プログラムの不具合や誤りのこと。",
       "related_terms": ["デバッグ"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-002",
@@ -28,7 +30,9 @@
       "explanation": "プログラムの命令を書いた文字列のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-003",
@@ -41,7 +45,9 @@
       "explanation": "ほかの機器の求めに応じて、データや機能を提供するコンピューターのこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-004",
@@ -54,7 +60,9 @@
       "explanation": "プログラムの不具合(バグ)を見つけて直すこと。",
       "related_terms": ["バグ"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-005",
@@ -67,7 +75,9 @@
       "explanation": "変更内容をバージョン管理システムに記録すること。",
       "related_terms": ["バージョン"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-006",
@@ -80,7 +90,9 @@
       "explanation": "書いた成果物を他の人が確認し、問題点や改善点を指摘すること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-007",
@@ -93,7 +105,9 @@
       "explanation": "ソフトウェアの版を区別する番号のこと。",
       "related_terms": ["コミット"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-008",
@@ -106,7 +120,9 @@
       "explanation": "データを整理して保存し、検索や更新をしやすくした仕組みのこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-009",
@@ -119,7 +135,9 @@
       "explanation": "変更内容を取り込んでもらうために、確認を依頼する仕組みのこと。",
       "related_terms": ["レビュー"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "engineer-010",
@@ -132,7 +150,99 @@
       "explanation": "動作を変えずに、コードの構造を整理して読みやすくすること。",
       "related_terms": ["コード"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-011",
+      "japanese": "テスト",
+      "reading": "てすと",
+      "romaji": ["tesuto"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムが期待どおりに動くかを確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-012",
+      "japanese": "ログ",
+      "reading": "ろぐ",
+      "romaji": ["rogu"],
+      "category": "インフラ",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムやソフトウェアの動作の記録のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-013",
+      "japanese": "ブランチ",
+      "reading": "ぶらんち",
+      "romaji": ["buranchi", "buranti"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "バージョン管理で、作業の流れを枝分かれさせたもののこと。",
+      "related_terms": ["コミット", "バージョン"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-014",
+      "japanese": "リリース",
+      "reading": "りりーす",
+      "romaji": ["riri-su"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "完成したソフトウェアを、利用者が使えるように公開すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-015",
+      "japanese": "フレームワーク",
+      "reading": "ふれーむわーく",
+      "romaji": ["fure-muwa-ku", "hure-muwa-ku"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムを作るための、土台となる枠組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-016",
+      "japanese": "ネットワーク",
+      "reading": "ねっとわーく",
+      "romaji": ["nettowa-ku"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コンピューターなどをつないで、データをやり取りできるようにした仕組みのこと。",
+      "related_terms": ["サーバー"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
     }
   ]
 }

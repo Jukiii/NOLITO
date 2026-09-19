@@ -8,11 +8,11 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 60,
-      "drain_per_second": 1.5,
+      "drain_per_second": 1.25,
       "base_gain": 5,
       "gain_per_char": 0.6,
       "miss_penalty": 3,
-      "goal_words": 8
+      "goal_words": 14
     }
   },
   {
@@ -24,11 +24,11 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 55,
-      "drain_per_second": 2.2,
-      "base_gain": 4,
+      "drain_per_second": 1.9,
+      "base_gain": 5,
       "gain_per_char": 0.4,
       "miss_penalty": 3,
-      "goal_words": 8
+      "goal_words": 14
     }
   },
   {
@@ -40,11 +40,11 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 50,
-      "drain_per_second": 2.4,
-      "base_gain": 4,
+      "drain_per_second": 2.1,
+      "base_gain": 5,
       "gain_per_char": 0.6,
       "miss_penalty": 4,
-      "goal_words": 9
+      "goal_words": 15
     }
   },
   {
@@ -56,11 +56,11 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 50,
-      "drain_per_second": 2.6,
+      "drain_per_second": 2.2,
       "base_gain": 5,
       "gain_per_char": 0.6,
       "miss_penalty": 4,
-      "goal_words": 10
+      "goal_words": 15
     }
   },
   {
@@ -77,11 +77,11 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 45,
-      "drain_per_second": 3,
+      "drain_per_second": 2.3,
       "base_gain": 4,
-      "gain_per_char": 0.5,
+      "gain_per_char": 0.4,
       "miss_penalty": 5,
-      "goal_words": 10
+      "goal_words": 16
     }
   }
 ]

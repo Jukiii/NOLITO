@@ -1,7 +1,7 @@
 {
   "job_id": "food-service",
   "job_name": "飲食",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-09-20",
   "items": [
     {
@@ -15,7 +15,9 @@
       "explanation": "あらかじめ席や日時を約束しておくこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-002",
@@ -28,7 +30,9 @@
       "explanation": "店に保管されている材料や商品のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-003",
@@ -41,7 +45,9 @@
       "explanation": "客が飲食代金を支払う手続きのこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-004",
@@ -54,7 +60,9 @@
       "explanation": "料理を作る場所のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-005",
@@ -67,7 +75,9 @@
       "explanation": "客が料理や飲み物を頼むこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-006",
@@ -80,7 +90,9 @@
       "explanation": "できあがった料理を客の席へ運ぶこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-007",
@@ -93,7 +105,9 @@
       "explanation": "営業の前に、材料を下ごしらえして準備しておくこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-008",
@@ -106,7 +120,9 @@
       "explanation": "客に対応して、もてなすこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-009",
@@ -119,7 +135,9 @@
       "explanation": "おいしく食べられる目安の期限のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "food-service-010",
@@ -132,7 +150,99 @@
       "explanation": "食中毒などを防ぐために、清潔と安全を保つこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-011",
+      "japanese": "盛り付け",
+      "reading": "もりつけ",
+      "romaji": ["moritsuke", "morituke"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "できあがった料理を、器に並べること。",
+      "related_terms": ["配膳"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-012",
+      "japanese": "下ごしらえ",
+      "reading": "したごしらえ",
+      "romaji": ["shitagoshirae", "sitagosirae"],
+      "category": "調理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "調理の前に、材料を洗ったり切ったりして準備しておくこと。",
+      "related_terms": ["仕込み"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-013",
+      "japanese": "分量",
+      "reading": "ぶんりょう",
+      "romaji": ["bunryou"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "材料などの量のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-014",
+      "japanese": "洗い場",
+      "reading": "あらいば",
+      "romaji": ["araiba"],
+      "category": "店舗運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食器や調理器具を洗う場所のこと。",
+      "related_terms": ["厨房"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-015",
+      "japanese": "客席",
+      "reading": "きゃくせき",
+      "romaji": ["kyakuseki"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が座る席のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-016",
+      "japanese": "定食",
+      "reading": "ていしょく",
+      "romaji": ["teishoku", "teisyoku"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "主食・主菜・汁物などを組み合わせて出す食事のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
     }
   ]
 }
