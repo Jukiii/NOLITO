@@ -1,0 +1,28 @@
+{
+  "name": "nolito",
+  "version": "0.0.0",
+  "private": true,
+  "description": "NOLITO 個人開発プロダクトポータルサイト",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"public/**/*.css\"",
+    "lint:html": "html-validate \"public/**/*.html\"",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm run format:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
+    "html-validate": "^11.16.0",
+    "prettier": "^3.9.8",
+    "stylelint": "^17.15.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}
