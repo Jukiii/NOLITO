@@ -39,8 +39,10 @@
 
 ## 未確認・既知事項
 
-- `/favicon.ico` が 404 になり、ブラウザのコンソールに出る。favicon は仕様書にないため未追加(要判断)
-- 確認したのは Chromium 系(Edge)のみ。Safari(iOS)・Firefox は未確認(`<dialog>` と `:has()` を使用)
+- 確認したのは Chromium 系(Edge)のみ(ユーザーが Windows の Chrome と iPhone の Safari で表示を確認済み。2026-09-20)。Firefox は未確認(`<dialog>` と `:has()` を使用)
 - スクリーンリーダーでの読み上げは未確認
-- 実機(スマホ・タブレット)での表示は未確認
+
+## 追記(2026-09-20)
+
+- favicon: ユーザー承認のうえ `public/favicon.svg`(NOLITO の頭文字「N」、primary 背景・accent 文字)を追加し、3ページの `<head>` にリンクした。`/favicon.ico` の 404 はこれで解消する(`<link rel="icon">` があるとブラウザは `favicon.ico` を要求しない)
 - JS 描画のヘッダーは html-validate の対象外(DOM はブラウザ操作で確認)

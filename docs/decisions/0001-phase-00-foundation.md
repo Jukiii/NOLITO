@@ -25,6 +25,13 @@
 - マージ方式(Squash / 通常マージ)。ブランチ履歴を残す方針から通常マージを仮置き
 - Cloudflare のプロジェクト種別(Pages / Workers Static Assets)と独自ドメイン
 
+## 未確定事項の決着(2026-09-20 追記)
+
+- LICENSE: 付けない(全権利留保)。有料販売を予定しているため、README に「All rights reserved」を明記した。収益化方針の確定後に見直す
+- マージ方式: 通常マージ(PR #1・#2 で実施)
+- Cloudflare: Pages を接続済み(`https://nolito.pages.dev/`)。ビルドコマンドなし、出力ディレクトリ `public`、本番ブランチ `main`。`/`・`/styleguide/`・CSS/JS の配信と、未存在パスへの 404 ステータス(共通UI付き `404.html`)を確認
+- 独自ドメイン: 未定(必要になった時点で決める)
+
 ## GitHub 設定(2026-09-19 実施)
 
 - リポジトリを Private → Public に変更。無料プランでは Private のブランチ保護が使えないため(ユーザー判断)
