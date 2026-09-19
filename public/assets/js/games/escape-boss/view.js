@@ -175,6 +175,24 @@ export function createView(root) {
     );
   }
 
+  // 今回のミス分析。キー名は a-z・0-9・- だけだが、他の文字列と同じく textContent で入れる。
+  const keyBadge = (key) => el("kbd", { class: "key" }, key);
+
+  function renderAnalysis({ misses, keys, confusions }) {
+    $("[data-analysis-empty]").hidden = misses > 0;
+    $("[data-analysis-body]").hidden = misses === 0;
+    $("[data-analysis-keys]").replaceChildren(
+      ...keys.map(({ key, misses: count, attempts }) =>
+        el("li", {}, keyBadge(key), ` を ${count}回ミス(このキーを打つ場面 ${attempts}回のうち)`),
+      ),
+    );
+    $("[data-analysis-confusions]").replaceChildren(
+      ...confusions.map(({ expected, typed, count }) =>
+        el("li", {}, keyBadge(expected), " のところで ", keyBadge(typed), ` を打った ${count}回`),
+      ),
+    );
+  }
+
   function renderAchievements({ definitions, unlocked }) {
     const done = definitions.filter((definition) => definition.id in unlocked).length;
     setText("[data-achievement-summary]", `解放済み ${done} / ${definitions.length}`);
@@ -325,8 +343,10 @@ export function createView(root) {
       newAchievements,
       kaichoUnlocked,
       notice,
+      analysis,
     }) {
       showView("result");
+      renderAnalysis(analysis);
       const cleared = state.status === "cleared";
       setText("[data-result-title]", cleared ? "逃げ切った!" : "つかまった…");
       setText(

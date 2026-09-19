@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>成績 | 上司から逃げろ | NOLITO</title>
+    <meta
+      name="description"
+      content="「上司から逃げろ」の成績、成長グラフ、苦手なキーを確認できます。"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/game.css" />
+    <link rel="stylesheet" href="/assets/css/stats.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/games/escape-boss/stats-page.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <p class="breadcrumb"><a href="/games/escape-boss/">← 上司から逃げろ</a></p>
+      <h1>成績</h1>
+      <p class="game__notice" role="status" data-storage-notice hidden></p>
+      <p class="game__error" role="alert" data-error hidden></p>
+      <noscript><p>成績を表示するには JavaScript を有効にしてください。</p></noscript>
+
+      <section aria-labelledby="empty-title" data-empty hidden>
+        <h2 id="empty-title">まだ記録がありません</h2>
+        <p>遊ぶと、ここに成績・成長グラフ・苦手なキーが表示されます。</p>
+        <p><a class="button button--primary" href="/games/escape-boss/">ゲームで遊ぶ</a></p>
+      </section>
+
+      <div data-content hidden>
+        <fieldset class="filter-row">
+          <legend class="visually-hidden">表示する記録の絞り込み</legend>
+          <div class="filter-row__field">
+            <label for="filter-range">対象の回数</label>
+            <select class="game-input__field" id="filter-range" data-filter-range>
+              <option value="10">直近10回</option>
+              <option value="30" selected>直近30回</option>
+              <option value="100">直近100回</option>
+              <option value="200">保存されているすべて</option>
+            </select>
+          </div>
+          <div class="filter-row__field">
+            <label for="filter-role">追ってくる人</label>
+            <select class="game-input__field" id="filter-role" data-filter-role></select>
+          </div>
+        </fieldset>
+        <p class="dash-section__note" data-scope-note></p>
+
+        <p data-no-scope hidden>この条件の記録はありません。絞り込みを変えてください。</p>
+
+        <div data-scoped>
+          <section class="dash-section" aria-labelledby="summary-title">
+            <h2 id="summary-title">成績のまとめ</h2>
+            <dl class="stat-grid" data-summary></dl>
+            <p class="stats-compare" data-compare></p>
+          </section>
+
+          <section class="dash-section" aria-labelledby="growth-title">
+            <h2 id="growth-title">成長グラフ</h2>
+            <p class="dash-section__note">
+              プレイした順に、入力速度・正確率・スコアの推移を表示します。値の一覧(表)も見られます。
+            </p>
+            <div class="chart-list">
+              <div data-chart="cpm"></div>
+              <div data-chart="accuracy"></div>
+              <div data-chart="score"></div>
+            </div>
+          </section>
+
+          <section class="dash-section" aria-labelledby="best-title">
+            <h2 id="best-title">ベストスコア</h2>
+            <p class="dash-section__note" data-best-empty hidden>クリアした記録がありません。</p>
+            <table class="data-table" data-best-table>
+              <caption class="visually-hidden">
+                追ってくる人ごとの、クリアした記録のベストスコア
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">追ってくる人</th>
+                  <th scope="col">スコア</th>
+                  <th scope="col">職種</th>
+                  <th scope="col">日付</th>
+                </tr>
+              </thead>
+              <tbody data-best-body></tbody>
+            </table>
+          </section>
+
+          <section class="dash-section" aria-labelledby="weak-title">
+            <h2 id="weak-title">苦手なキー</h2>
+            <p class="dash-section__note" data-weak-note></p>
+            <ol class="key-bars" data-weak-list></ol>
+            <h3 class="stats-subtitle">よくある打ち間違い</h3>
+            <p class="dash-section__note" data-confusion-empty hidden>
+              打ち間違いの記録がまだありません。
+            </p>
+            <ul class="key-list" data-confusion-list></ul>
+          </section>
+
+          <section class="dash-section" aria-labelledby="recent-title">
+            <h2 id="recent-title">最近のプレイ</h2>
+            <div class="table-scroll">
+              <table class="data-table">
+                <caption class="visually-hidden">
+                  最近のプレイ(新しい順)
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">日時</th>
+                    <th scope="col">職種・追ってくる人</th>
+                    <th scope="col">結果</th>
+                    <th scope="col">スコア</th>
+                    <th scope="col">入力速度</th>
+                    <th scope="col">正確率</th>
+                  </tr>
+                </thead>
+                <tbody data-recent-body></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+      <p class="visually-hidden" role="status" aria-live="polite" data-announce></p>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

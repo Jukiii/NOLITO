@@ -34,6 +34,7 @@
           <h1 id="game-title" tabindex="-1" data-title>上司から逃げろ</h1>
           <p>仕事・会社の用語をローマ字で入力して、追ってくる上司から逃げ切ろう。</p>
           <p class="game__notice" role="status" data-storage-notice hidden></p>
+          <p><a href="/games/escape-boss/stats/">成績・成長グラフ・苦手文字を見る</a></p>
 
           <div class="card game__rules">
             <h2 class="card__title">遊び方</h2>
@@ -227,6 +228,20 @@
             <span class="badge badge--live" data-result-rank hidden></span>
           </p>
           <p class="game__notice" role="status" data-result-notice hidden></p>
+          <section
+            class="dash-section"
+            aria-labelledby="result-analysis-title"
+            data-result-analysis
+          >
+            <h2 id="result-analysis-title">今回のミス分析</h2>
+            <p data-analysis-empty hidden>ミスはありませんでした。</p>
+            <div data-analysis-body>
+              <h3>ミスしたキー</h3>
+              <ul class="key-list" data-analysis-keys></ul>
+              <h3>よくある打ち間違い</h3>
+              <ul class="key-list" data-analysis-confusions></ul>
+            </div>
+          </section>
           <div class="card">
             <dl class="game-status game-status--result">
               <div>
@@ -268,6 +283,7 @@
             <button class="button button--secondary" type="button" data-back>
               ダッシュボードへ戻る
             </button>
+            <a class="button button--secondary" href="/games/escape-boss/stats/">成績を見る</a>
           </div>
         </section>
 

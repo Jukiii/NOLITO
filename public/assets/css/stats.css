@@ -1,0 +1,311 @@
+/* 成績ページ・グラフ */
+.breadcrumb {
+  margin: 0 0 var(--space-4);
+  font-size: var(--font-size-xs);
+}
+
+/* 絞り込みは、ページの上に1行で置く(その下のすべてに適用する) */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  border: 0;
+}
+
+.filter-row__field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.filter-row__field label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.stat-grid {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+}
+
+.stat {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.stat dt {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.stat dd {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-tight);
+}
+
+.stat__unit {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.stats-compare {
+  margin: 0;
+}
+
+.stats-subtitle {
+  margin-top: var(--space-6);
+}
+
+/* 表 */
+.table-scroll {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  font-size: var(--font-size-xs);
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-chart-grid);
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table[hidden] {
+  display: none;
+}
+
+.data-table__number {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* グラフ */
+.chart-list {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.chart {
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.chart__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.chart__unit,
+.chart__note {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.chart__key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: var(--space-1) 0 var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.chart__key-item {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.chart__key-mark,
+.chart__dot {
+  fill: var(--color-primary);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+
+.chart__plot {
+  position: relative;
+  width: 100%;
+
+  /* 横のなぞりでグラフの値を見て、縦のスクロールはページに任せる */
+  touch-action: pan-y;
+}
+
+.chart__svg {
+  display: block;
+  max-width: 100%;
+}
+
+.chart__grid {
+  stroke: var(--color-chart-grid);
+  stroke-width: 1;
+}
+
+.chart__axis,
+.chart__crosshair {
+  stroke: var(--color-chart-axis);
+  stroke-width: 1;
+}
+
+.chart__tick,
+.chart__axis-title {
+  fill: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.chart__label {
+  fill: var(--color-text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: var(--font-weight-bold);
+}
+
+.chart__line {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.chart__dot.is-active {
+  stroke: var(--color-text);
+  transform: scale(1.3);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.chart__tooltip {
+  position: absolute;
+  z-index: 1;
+  min-width: 9rem;
+  max-width: 16rem;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-pop-sm);
+  pointer-events: none;
+}
+
+.chart__tooltip[hidden] {
+  display: none;
+}
+
+.chart__tooltip-value {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-tight);
+}
+
+.chart__tooltip-unit,
+.chart__tooltip-meta {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.chart__tooltip-meta {
+  margin: 0;
+}
+
+.chart__data {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-xs);
+}
+
+.chart__data summary {
+  min-height: var(--tap-size);
+  padding-block: var(--space-2);
+  cursor: pointer;
+}
+
+.chart__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.chart__table th,
+.chart__table td {
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--color-chart-grid);
+  text-align: left;
+}
+
+.chart__table-value {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.chart__empty {
+  margin: 0;
+  padding: var(--space-4);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+}
+
+/* 苦手なキー */
+.key-bars {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.key-bar {
+  display: grid;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  grid-template-columns: 2.5rem minmax(4rem, 1fr);
+}
+
+.key-bar__track {
+  height: 0.75rem;
+  overflow: hidden;
+  background: var(--color-chart-grid);
+  border-radius: var(--radius-pill);
+}
+
+.key-bar__fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+}
+
+.key-bar__text {
+  grid-column: 2;
+  font-size: var(--font-size-xs);
+}
+
+@media (width >= 48rem) {
+  .key-bar {
+    grid-template-columns: 2.5rem minmax(6rem, 1fr) 14rem;
+  }
+
+  .key-bar__text {
+    grid-column: auto;
+  }
+}
