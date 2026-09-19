@@ -1,0 +1,15 @@
+[
+  {
+    "id": "senpai",
+    "name": "先輩",
+    "stage": {
+      "max_distance": 100,
+      "initial_distance": 60,
+      "drain_per_second": 1.5,
+      "base_gain": 5,
+      "gain_per_char": 0.6,
+      "miss_penalty": 3,
+      "goal_words": 8
+    }
+  }
+]

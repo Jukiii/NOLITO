@@ -2,7 +2,7 @@
 
 ## 必要なもの
 
-- Node.js 20 以上(品質チェック用。サイト本体の実行には不要)
+- Node.js 22 以上(品質チェック・テスト用。サイト本体の実行には不要)
 - VS Code + 拡張機能 Live Server
 - Claude Code
 
@@ -10,7 +10,8 @@
 
 ```sh
 npm install
-npm run check   # lint + フォーマットチェック
+npm run check   # lint + フォーマットチェック + 単体テスト
+npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --test)
 ```
 
 ## ローカル表示

@@ -1,0 +1,270 @@
+/* 「上司から逃げろ」専用のスタイル */
+.game__error {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.game__rules {
+  margin-block: var(--space-6);
+}
+
+.game__rules ul {
+  margin: 0;
+  padding-left: var(--space-6);
+}
+
+/* 職種の選択(ラジオボタン。選択状態はチェックの丸と背景の両方で示す) */
+.job-select {
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  border: 0;
+}
+
+.job-select legend {
+  margin-bottom: var(--space-3);
+  padding: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.job-select__list {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+}
+
+.job-option {
+  position: relative;
+  display: block;
+}
+
+.job-option__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.job-option__label {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: var(--tap-size);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-pop-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.job-option__label::before {
+  content: "";
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.job-option__input:checked + .job-option__label {
+  background: var(--color-soft);
+  box-shadow: var(--shadow-pop);
+}
+
+.job-option__input:checked + .job-option__label::before {
+  background: radial-gradient(circle, var(--color-primary) 50%, transparent 55%);
+}
+
+.job-option__input:focus-visible {
+  outline: none;
+}
+
+.job-option__input:focus-visible + .job-option__label {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.game-setup__role {
+  margin-bottom: var(--space-4);
+}
+
+/* プレイ画面: 上部に距離ゲージ、中央に単語、下部に入力欄、横にステータス */
+.game-play {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.game-play__main {
+  display: grid;
+  gap: var(--space-6);
+}
+
+@media (width >= 48rem) {
+  .game-play {
+    grid-template-columns: minmax(0, 1fr) 14rem;
+    align-items: start;
+  }
+}
+
+.gauge {
+  height: 2rem;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.gauge__fill {
+  width: 0;
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.1s linear;
+}
+
+/* 危険なときは色に加えて縞模様と「あぶない!」の文字でも示す */
+.gauge.is-danger .gauge__fill {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-accent) 0 10px,
+    var(--color-soft) 10px 20px
+  );
+}
+
+.gauge__label {
+  margin: var(--space-2) 0 0;
+  font-size: var(--font-size-lg);
+}
+
+.gauge__danger {
+  margin-left: var(--space-2);
+  padding: 0 var(--space-3);
+  background: var(--color-accent);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-on-accent);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.game-word {
+  padding: var(--space-8) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-pop);
+  text-align: center;
+}
+
+.game-word__japanese {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-tight);
+  overflow-wrap: anywhere;
+}
+
+.game-word__reading {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.game-word__romaji {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: clamp(1.25rem, 5vw, 2rem);
+  letter-spacing: 0.08em;
+  overflow-wrap: anywhere;
+}
+
+/* 入力済みは太字・下線で示す(色だけに頼らない) */
+.game-word__typed {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-black);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.2em;
+}
+
+.game-word__rest {
+  color: var(--color-text-muted);
+}
+
+.game-input {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.game-input__label {
+  font-weight: var(--font-weight-bold);
+}
+
+/* 16px 以上にして、iOS の入力時の自動ズームを防ぐ */
+.game-input__field {
+  min-height: 3.25rem;
+  padding: 0 var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-lg);
+}
+
+.game-input.is-miss .game-input__field {
+  border-style: dashed;
+}
+
+.game-input__miss {
+  min-height: 1.7em;
+  margin: 0;
+  font-weight: var(--font-weight-black);
+}
+
+.game-input__hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.game-play__side {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.game-status {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.game-status div {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.game-status dt {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.game-status dd {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.game-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
