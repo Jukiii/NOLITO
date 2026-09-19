@@ -19,3 +19,8 @@
 - `04_templates`: 語録・Issue・PR等のテンプレート
 - `05_checklists`: 品質・公開・受け入れチェック
 - `06_ai`: AI生成用プロンプト
+
+## 開発
+- 公開ルートは `public/`(Cloudflare Pagesの出力ディレクトリ)。`docs/` は公開しない
+- `npm install` の後、`npm run check` で品質チェック
+- セットアップ・ブランチ運用・Cloudflare設定は `docs/dev-setup.md`、決定事項は `docs/decisions/` を参照

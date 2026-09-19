@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Local tooling
+.wrangler/
+.claude/settings.local.json
+
+# Logs / OS
+*.log
+.DS_Store
+Thumbs.db
