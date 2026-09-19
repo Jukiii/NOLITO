@@ -37,9 +37,18 @@
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
 }
 
+/* 役職は名前・乗り物・ロック表示が並ぶため、少し広くとる(5つが1行に収まる幅) */
+.job-select__list--roles {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+}
+
 .job-option {
   position: relative;
   display: block;
+}
+
+.job-option__name {
+  white-space: nowrap;
 }
 
 .job-option__input {
@@ -54,7 +63,8 @@
 
 .job-option__label {
   display: flex;
-  gap: var(--space-2);
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
   align-items: center;
   min-height: var(--tap-size);
   padding: var(--space-2) var(--space-4);
@@ -267,4 +277,272 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-6);
+}
+
+/* 通知(保存できない・壊れていた など) */
+.game__notice {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-soft);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+/* 役職の選択(乗り物の名前・ロック表示) */
+.job-option__sub {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.job-option__input:disabled {
+  cursor: not-allowed;
+}
+
+/* ロック中は破線の枠と影なしでも示す(色だけに頼らない) */
+.job-option__input:disabled + .job-option__label {
+  border-style: dashed;
+  box-shadow: none;
+  color: var(--color-text-muted);
+}
+
+.game-setup__hint {
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* 追跡シーン: 追ってくる人が、距離が減るほど右のあなたに近づく */
+.scene {
+  --closeness: 0;
+
+  position: relative;
+  height: 7rem;
+  overflow: hidden;
+  background: linear-gradient(var(--color-soft), var(--color-surface));
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.scene__road {
+  position: absolute;
+  right: 0;
+  bottom: 0.9rem;
+  left: 0;
+  height: 0.4rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-border) 0 1.5rem,
+    transparent 1.5rem 3rem
+  );
+  animation: scene-road 0.6s linear infinite;
+}
+
+.scene__chaser,
+.scene__player {
+  position: absolute;
+  bottom: 1.2rem;
+  animation: scene-bob 0.35s ease-in-out infinite alternate;
+}
+
+.scene__chaser {
+  left: calc((100% - 6rem - 3.2rem - 1rem) * var(--closeness));
+  width: 6rem;
+  height: auto;
+  transition: left 0.1s linear;
+}
+
+.scene__player {
+  right: 1rem;
+  width: 3.2rem;
+  height: auto;
+  animation-delay: -0.15s;
+}
+
+@keyframes scene-bob {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-0.35rem);
+  }
+}
+
+@keyframes scene-road {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -3rem 0;
+  }
+}
+
+/* ダッシュボードのセクション */
+.dash-section {
+  margin-top: var(--space-12);
+}
+
+.dash-section__note {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.profile-form {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+@media (width >= 48rem) {
+  .profile-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.profile-form__field {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.profile-form__field label {
+  font-weight: var(--font-weight-bold);
+}
+
+.profile-form .profile-form__field {
+  margin-bottom: 0;
+}
+
+.profile-form__actions {
+  display: flex;
+  align-items: flex-end;
+}
+
+@media (width >= 48rem) {
+  .profile-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  }
+}
+
+/* ランキング */
+.ranking {
+  width: 100%;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+}
+
+.ranking[hidden] {
+  display: none;
+}
+
+.ranking th,
+.ranking td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ranking thead th {
+  font-size: var(--font-size-xs);
+}
+
+.ranking__rank {
+  width: 4rem;
+  font-weight: var(--font-weight-black);
+  white-space: nowrap;
+}
+
+.ranking__name {
+  display: block;
+  font-weight: var(--font-weight-bold);
+  overflow-wrap: anywhere;
+}
+
+.ranking__title,
+.ranking__meta {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ranking__score {
+  text-align: right;
+}
+
+.ranking thead th:last-child {
+  text-align: right;
+}
+
+.ranking__points {
+  display: block;
+  font-weight: var(--font-weight-black);
+}
+
+.ranking tbody tr:last-child th,
+.ranking tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* 称号・実績 */
+.achievement-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (width >= 48rem) {
+  .achievement-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.achievement {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.achievement.is-locked {
+  border-style: dashed;
+  color: var(--color-text-muted);
+}
+
+.achievement p {
+  margin: 0;
+}
+
+.achievement__name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  font-weight: var(--font-weight-bold);
+}
+
+.achievement__text,
+.achievement__meta {
+  font-size: var(--font-size-xs);
+}
+
+/* 結果 */
+.result-score {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-lg);
+}
+
+.result-score strong {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-black);
 }
