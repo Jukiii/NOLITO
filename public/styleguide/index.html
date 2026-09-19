@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>スタイルガイド | NOLITO</title>
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/styleguide.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <h1>スタイルガイド</h1>
+      <p>共通コンポーネントの確認用ページです(検索エンジンには登録しません)。</p>
+
+      <section class="section" aria-labelledby="sg-color">
+        <h2 id="sg-color">カラー</h2>
+        <ul class="swatches">
+          <li class="swatch">
+            <span class="swatch__color swatch__color--bg"></span>
+            <span class="swatch__label">bg #fffaf0</span>
+          </li>
+          <li class="swatch">
+            <span class="swatch__color swatch__color--surface"></span>
+            <span class="swatch__label">surface #ffffff</span>
+          </li>
+          <li class="swatch">
+            <span class="swatch__color swatch__color--text"></span>
+            <span class="swatch__label">text #1b2033</span>
+          </li>
+          <li class="swatch">
+            <span class="swatch__color swatch__color--muted"></span>
+            <span class="swatch__label">text-muted #4a5068</span>
+          </li>
+          <li class="swatch">
+            <span class="swatch__color swatch__color--primary"></span>
+            <span class="swatch__label">primary #4b3fe0</span>
+          </li>
+          <li class="swatch">
+            <span class="swatch__color swatch__color--accent"></span>
+            <span class="swatch__label">accent #ffd23f</span>
+          </li>
+          <li class="swatch">
+            <span class="swatch__color swatch__color--soft"></span>
+            <span class="swatch__label">soft #fff1b8</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" aria-labelledby="sg-type">
+        <h2 id="sg-type">文字</h2>
+        <h3>見出し3のサンプル</h3>
+        <p>本文のサンプルです。ノリよく、楽しく使えるものを作る。</p>
+        <p><a href="/styleguide/">リンクのサンプル</a></p>
+      </section>
+
+      <section class="section" aria-labelledby="sg-button">
+        <h2 id="sg-button">Button</h2>
+        <div class="row">
+          <button class="button button--primary" type="button">プライマリ</button>
+          <button class="button button--secondary" type="button">セカンダリ</button>
+          <button class="button button--primary" type="button" disabled>無効</button>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="sg-card">
+        <h2 id="sg-card">Card</h2>
+        <div class="grid">
+          <article class="card">
+            <h3 class="card__title">カードのタイトル</h3>
+            <p class="card__text">カードの本文です。短い説明を入れます。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="sg-product">
+        <h2 id="sg-product">ProductCard</h2>
+        <div class="grid">
+          <article class="product-card">
+            <div class="product-card__media" aria-hidden="true"></div>
+            <div class="product-card__body">
+              <span class="badge badge--soon">準備中</span>
+              <h3 class="product-card__title">プロダクト名</h3>
+              <p class="product-card__text">プロダクトの短い説明が入ります。</p>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-card__media" aria-hidden="true"></div>
+            <div class="product-card__body">
+              <span class="badge badge--live">公開中</span>
+              <h3 class="product-card__title">プロダクト名</h3>
+              <p class="product-card__text">状態は色だけでなく文字でも示します。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="sg-modal">
+        <h2 id="sg-modal">Modal</h2>
+        <button class="button button--primary" type="button" data-modal-open="sample-modal">
+          モーダルを開く
+        </button>
+        <dialog class="modal" id="sample-modal" aria-labelledby="sample-modal-title">
+          <div class="modal__body">
+            <h2 id="sample-modal-title">モーダルのタイトル</h2>
+            <p>Esc キー、閉じるボタン、背景のクリックで閉じられます。</p>
+            <div class="modal__actions">
+              <button class="button button--secondary" type="button" data-modal-close>
+                閉じる
+              </button>
+            </div>
+          </div>
+        </dialog>
+      </section>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

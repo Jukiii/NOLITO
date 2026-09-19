@@ -1,0 +1,63 @@
+/* styleguide ページ専用。サイト本体のスタイルには含めない */
+.swatches {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+  list-style: none;
+}
+
+.swatch {
+  overflow: hidden;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.swatch__color {
+  display: block;
+  height: 3.5rem;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.swatch__color--bg {
+  background: var(--color-bg);
+}
+
+.swatch__color--surface {
+  background: var(--color-surface);
+}
+
+.swatch__color--text {
+  background: var(--color-text);
+}
+
+.swatch__color--muted {
+  background: var(--color-text-muted);
+}
+
+.swatch__color--primary {
+  background: var(--color-primary);
+}
+
+.swatch__color--accent {
+  background: var(--color-accent);
+}
+
+.swatch__color--soft {
+  background: var(--color-soft);
+}
+
+.swatch__label {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}

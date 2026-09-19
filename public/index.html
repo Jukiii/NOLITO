@@ -8,13 +8,30 @@
       name="description"
       content="ノリよく、楽しく使えるものを作る。NOLITOの個人開発プロダクトポータルサイト。"
     />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
     <script type="module" src="/assets/js/main.js"></script>
   </head>
   <body>
-    <main>
-      <h1>NOLITO</h1>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <h1>NOLITO(ノリト)</h1>
+      <p>ノリよく、楽しく使えるものを作る。</p>
       <p>ただいま準備中です。</p>
     </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
   </body>
 </html>

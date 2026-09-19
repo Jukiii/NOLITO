@@ -1,12 +1,3 @@
-:root {
-  color-scheme: light;
-
-  --color-bg: #fff;
-  --color-text: #1f2430;
-  --font-base:
-    system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", meiryo, sans-serif;
-}
-
 *,
 *::before,
 *::after {
@@ -18,17 +9,85 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-base);
-  line-height: 1.7;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
 }
 
-main {
-  max-width: 60rem;
-  margin: 0 auto;
-  padding: 1rem;
+h1,
+h2,
+h3 {
+  margin: 0 0 var(--space-4);
+  line-height: var(--line-height-tight);
+}
+
+h1 {
+  font-size: var(--font-size-2xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin: 0 0 var(--space-4);
+}
+
+a {
+  color: var(--color-primary);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--color-primary-strong);
 }
 
 img,
 video {
   max-width: 100%;
   height: auto;
+}
+
+/* フォーカスは常に視認できるようにする(色だけに頼らず、太い枠線とオフセットで示す) */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* スキップリンクの移動先。操作対象ではないため枠は出さない */
+main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: var(--space-4);
+  z-index: var(--z-skip-link);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  transform: translateY(-120%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* アニメーションの軽減。サイト内の切替設定は Phase 21 で対応する */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

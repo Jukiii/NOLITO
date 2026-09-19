@@ -23,6 +23,9 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - `public/` … 公開ルート(Cloudflare Pages の出力ディレクトリ)。ビルド工程なし。パスは `/` 始まりの絶対パス。
 - `docs/` … 仕様書(公開しない)。
 - HTML / 通常CSS / Vanilla JS(ES Modules)。フレームワーク・バンドラは使わない。
+- CSS: `tokens.css`(色・余白などのトークン)→ `base.css` → `layout.css` → `components.css` を各HTMLから `<link>`。色は必ずトークン経由で指定する(ダークテーマ対応のため)。クラス名は kebab-case か BEM。
+- JS: Header / Footer は `assets/js/components/` が描画する。ナビ項目は `assets/js/config/nav.js` だけを編集する。
+- `/styleguide/` は共通コンポーネントの確認用(noindex)。コンポーネントを追加・変更したらここも更新する。
 
 ## コマンド
 
