@@ -88,3 +88,18 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - **キーを受け取るのは、答えの枠(`#practice-answer`)だけ**。`document` 全体では聞かない。枠にフォーカスがあるときだけ判定し、**Tab・Shift+Tab は、判定も抑止もせず、移動に使う**(キーボードトラップにしない)。Esc は答えとして判定する。中断は「やめる」ボタン(Tab で行ける)。この性質を変えない。
 - 押したキーの既定の動作(F5・Ctrl+S など)は、枠の中では止める。IME の変換中・修飾キーだけ・押しっぱなし(repeat)は、判定しない(間違いに数えない)。
 - 画面の更新: 合っている・違うだけのときは、枠を作り直さず、文だけを更新する(フォーカス・読み上げを乱さないため)。
+
+## アカウント(Phase 9)
+
+- サーバー処理は `functions/`(Cloudflare Pages Functions。ルートは `/api/*`・`/auth/*` だけ)、データは D1(`migrations/`。**既存のファイルは書き換えず、新しい番号のファイルを足す**)。設定・手順は `docs/auth-setup.md`、決定は `docs/decisions/0013-auth.md`。
+- 秘密(`GOOGLE_CLIENT_SECRET`・`SESSION_SECRET`)は、Cloudflare の環境変数(シークレット)だけに置く。**コード・GitHub・チャットに書かない**。`.dev.vars` は Git に入れない。
+- 必要な設定と `AUTH_ENABLED=true` がそろうまで、何もしない(`/api/me` は `{enabled:false}`、ほかは 503)。**プレビューが壊れないこの性質を変えない**(テストで検証している)。
+- ログインは、認可コード + PKCE + state + nonce のリダイレクト方式。**ブラウザに Google のスクリプトを読み込まない**。ID トークンは RS256 だけを受け、署名・`iss`・`aud`・`exp`・`nonce`・`email_verified` を検証する(`functions/_lib/google.js`)。緩めない。スコープは `openid email` だけ(名前・写真は取得しない)。
+- セッションのトークンは、DB には SHA-256 のハッシュだけを置く。Cookie は `__Host-` つき・`Secure`・`HttpOnly`・`SameSite=Lax`。JavaScript から Cookie を読まない・LocalStorage にアカウントの情報を置かない。
+- 状態を変える API(POST・DELETE)は、`guard.js` の `checkCsrf`(Origin が `SITE_ORIGIN` と一致 + `X-NOLITO-CSRF: 1` + JSON)を通す。新しい API も、`requireUser(context, { write: true })` を使う。GET で状態を変えない。
+- **招待制(`SIGNUP_MODE=invite`。既定)**: 許可リスト(`ALLOWED_EMAILS`)にないメールアドレスは、アカウントも作らない。リクエストのたびに再確認する。一般公開(`open`)にする前に、Issue #19(連絡先・ポリシー v2・規約・Google の公開審査)を終える。
+- 監査ログ・回数の制限のキーに、メールアドレス・IP をそのまま入れない。アカウントの削除は、直近 10 分以内にログインしたセッションだけ(`reauth-required`)。
+- サーバーが返すエラーの種類を足したら、`public/assets/js/account/messages.js` の文も足す(`tests/account-page.test.js` が検査する)。表示は `textContent` だけ。
+- `wrangler.toml` はローカル専用。**`pages_build_output_dir` を書かない**(書くと、Cloudflare のダッシュボードの設定が読み取り専用になる)。
+- フッター・ナビに「アカウント」を出すのは、一般公開のとき(いまは `/account/` は `noindex` で、リンクなし)。ゲームの記録・ランキングのアカウント連携は Phase 19。
+- プライバシーポリシーの版は、個人情報の取り扱いの変更(一般公開・第三者への提供など)で上げる。限定公開の間の取り扱いは、`/account/` に書いてある。

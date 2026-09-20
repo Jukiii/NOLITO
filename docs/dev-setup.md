@@ -93,3 +93,10 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 4. `file` の場合は、`exportJson()` で書き出した文字列をファイルにして保存させ、`importJson(text)` で取り込む。取り込みの前に、利用者に確認する(置き換わる)。
 5. 最初のツールを公開するときは、`config/nav.js` の「ツール」の `available: false` を外す。
 6. 保存するデータの内容を増やす・外部に送るようになるときは、プライバシーポリシーの版を上げる(同意を取り直す)。
+
+## アカウント機能(Phase 9)を動かす
+
+- 設定(Cloudflare の D1・環境変数・Google の OAuth クライアント)は、`docs/auth-setup.md`。設定がなければ、機能は、何もしない(ページは「準備中」)。
+- テストは、`npm run test` だけで足りる(偽の Google と、SQLite で、外部には通信しない)。
+- 動かして確認するには、`npx wrangler pages dev public`(`wrangler` は devDependency)。環境変数は、`.dev.vars`(Git に入れない)か、`--binding KEY=VALUE` で渡す。ローカルの D1 は、`npx wrangler d1 migrations apply nolito --local`。
+- `functions/` を変えたら、`tests/auth-*.test.js` も更新する。`migrations/` に新しいファイルを足す PR は、本番の D1 にも、マージの**前**に、同じ SQL を適用する(PR の説明に書く)。
