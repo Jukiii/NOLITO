@@ -189,3 +189,40 @@ a.site-nav__link:hover {
   color: var(--color-text-muted);
   font-size: var(--font-size-xs);
 }
+
+/* フッターのリンク */
+.site-footer__nav {
+  margin: var(--space-3) 0;
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-size);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+}
+
+/* 「アクセス解析の設定」はボタンだが、見た目はリンクと揃える */
+.site-footer__button {
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-footer__button[hidden] {
+  display: none;
+}

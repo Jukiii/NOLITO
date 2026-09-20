@@ -1,0 +1,14 @@
+{
+  "products": [
+    {
+      "id": "escape-boss",
+      "category": "game",
+      "title": "上司から逃げろ",
+      "description": "仕事・会社の用語をローマ字で入力して、追ってくる上司から逃げ切るタイピングゲーム。",
+      "status": "beta",
+      "url": "/games/escape-boss/",
+      "cta": "遊ぶ",
+      "updated_at": "2026-09-20"
+    }
+  ]
+}

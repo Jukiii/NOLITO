@@ -168,3 +168,38 @@
 body:has(dialog[open]) {
   overflow: hidden;
 }
+
+/* 同意バナー(ヘッダーの直後に差し込む。画面の内容には重ねない) */
+.consent {
+  background: var(--color-soft);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.consent__inner {
+  padding-block: var(--space-4);
+}
+
+.consent__title {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-lg);
+}
+
+.consent__text {
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-xs);
+}
+
+.consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* 広告の枠。非表示のあいだは、場所も占めない */
+.ad-slot {
+  margin-block: var(--space-6);
+}
+
+.ad-slot[hidden] {
+  display: none;
+}
