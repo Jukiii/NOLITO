@@ -38,6 +38,7 @@
             <ol>
               <li>「操作」で、使うアプリと、よく使うキー操作を登録します。</li>
               <li>「ルート」で、登録した操作を、自分の作業の順番に並べます。</li>
+              <li>「練習」で、ルートの手順を、順番どおりに、キーを押して練習します。</li>
               <li>
                 「一覧」で、登録した内容を確認できます。「チートシート」で、印刷や保存ができます。
               </li>
@@ -76,6 +77,16 @@
             data-tab="routes"
           >
             ルート
+          </button>
+          <button
+            class="kii-tab"
+            role="tab"
+            id="tab-practice"
+            aria-controls="panel-practice"
+            type="button"
+            data-tab="practice"
+          >
+            練習
           </button>
           <button
             class="kii-tab"
@@ -123,6 +134,14 @@
           id="panel-routes"
           aria-labelledby="tab-routes"
           data-panel="routes"
+          hidden
+        ></section>
+        <section
+          class="kii-panel"
+          role="tabpanel"
+          id="panel-practice"
+          aria-labelledby="tab-practice"
+          data-panel="practice"
           hidden
         ></section>
         <section

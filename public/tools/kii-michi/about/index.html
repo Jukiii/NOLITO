@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.1.0</dd>
+              <dd>v0.2.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -91,8 +91,13 @@
             で使えるチートシートを作れます。
           </p>
           <p>
+            「練習」の画面で、ルートの手順を、順番どおりに、キーを押して練習できます。答えのキーは隠れていて、思い出して押します。ブラウザや
+            OS
+            が先に処理するキーなどは、判定できないので、答えを見て確認します。練習の結果は、保存しません。
+          </p>
+          <p>
             登録した内容は、お使いのブラウザの中にだけ保存されます(送信しません)。JSON
-            ファイルに書き出して、バックアップすることもできます。練習モードは、準備中です。
+            ファイルに書き出して、バックアップすることもできます。
           </p>
         </section>
         <section class="product__section" id="screenshots" aria-labelledby="screenshots-title">
@@ -111,6 +116,15 @@
               <img
                 src="/assets/img/products/kii-michi/routes.webp"
                 alt="ルートの画面。登録した操作を、作業の順番に並べる"
+                width="1000"
+                height="700"
+                loading="lazy"
+              />
+            </li>
+            <li class="shots__item">
+              <img
+                src="/assets/img/products/kii-michi/practice.webp"
+                alt="練習の画面。手順のアプリと操作名が出て、押したキーが合っているかを判定する"
                 width="1000"
                 height="700"
                 loading="lazy"
@@ -137,7 +151,7 @@
             <div class="spec__row">
               <dt>入力</dt>
               <dd>
-                「キーを押して入力」は、パソコンのキーボードで使います。文字での入力は、スマートフォンでもできます
+                「キーを押して入力」と、練習でのキーの判定は、パソコンのキーボードで使います。文字での入力と、答えを見て確認する練習は、スマートフォンでもできます
               </dd>
             </div>
             <div class="spec__row">
@@ -214,7 +228,7 @@
               <summary class="faq__question">スマートフォンで使えますか?</summary>
               <div class="faq__answer">
                 <p>
-                  登録・一覧・チートシートは、使えます。「キーを押して入力」には、キーボードが必要です。
+                  登録・一覧・チートシートと、答えを見て確認する練習は、使えます。「キーを押して入力」と、キーを押して判定する練習には、キーボードが必要です。
                 </p>
               </div>
             </details>
@@ -224,13 +238,36 @@
             </details>
             <details class="faq__item">
               <summary class="faq__question">練習モードはありますか?</summary>
-              <div class="faq__answer"><p>まだありません。準備中です。</p></div>
+              <div class="faq__answer">
+                <p>
+                  あります。「練習」の画面で、ルートを選ぶと、その手順を、順番どおりに練習できます。答えのキーは隠れていて、キーを押すと、合っているかを判定します。ヒント・スキップ・やめるもできます。ただし、Ctrl+W
+                  や Alt+Tab など、ブラウザや OS が先に処理するキーと、単独の Tab
+                  は、判定できないので、答えを見て確認します(押しても反応しないキーは、その場で「自己確認にする」に切り替えられます)。練習の結果は、保存されません。
+                </p>
+              </div>
             </details>
           </div>
         </section>
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.2.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-20">2026年9月20日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  練習モードを追加。ルートの手順を、順番どおりに、キーを押して練習できる(順に押すキーの判定・ヒント・スキップ・結果の表)
+                </li>
+                <li>
+                  ブラウザ・OS
+                  が先に処理するキーなど、判定できない手順は、答えを見て確認する(自己確認)。練習の方法として、すべて自己確認にすることもできる
+                </li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.1.0
