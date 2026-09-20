@@ -1,16 +1,17 @@
 // プロダクト(ゲーム・ソフト・ツールなど)の一覧を、public/data/products.json から描く。
 // data-product-list の要素に、data-category で指定したカテゴリの ProductCard を並べる。
 // データの形と安全性の検証は products/schema.js。不正な項目は外して、他は表示する。
-import { formatDate, platformLabels, priceLabel, versionLabel } from "../products/format.js";
+import {
+  PRODUCT_STATUS,
+  formatDate,
+  platformLabels,
+  priceLabel,
+  versionLabel,
+} from "../products/format.js";
 import { usableProducts } from "../products/schema.js";
 import { el } from "./dom.js";
 
-// 状態の表示。状態は色だけでなく、必ず文字でも示す
-export const PRODUCT_STATUS = {
-  released: { label: "公開中", badge: "badge--live" },
-  beta: { label: "テスト版", badge: "badge--soon" },
-  "coming-soon": { label: "準備中", badge: "badge--soon" },
-};
+export { PRODUCT_STATUS };
 
 // 外部のURL(https)は、開いた先にこのページの情報を渡さない
 const linkAttributes = (url) => (url.startsWith("/") ? {} : { rel: "noopener noreferrer" });
@@ -45,6 +46,10 @@ export function productCard(product) {
         product.cta ?? "見る",
       ),
     );
+  }
+  // 詳細ページが、遊ぶ・使う先とは別にあるとき(サイト内のページの詳細)
+  if (product.detail_path && product.detail_path !== product.url) {
+    actions.push(el("a", { class: "button button--secondary", href: product.detail_path }, "詳細"));
   }
   if (product.download) {
     actions.push(

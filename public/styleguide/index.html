@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/assets/css/base.css" />
     <link rel="stylesheet" href="/assets/css/layout.css" />
     <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/products.css" />
     <link rel="stylesheet" href="/assets/css/styleguide.css" />
     <script type="module" src="/assets/js/main.js"></script>
   </head>
@@ -147,6 +148,50 @@
               </div>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="sg-detail">
+        <h2 id="sg-detail">プロダクト詳細のページの部品</h2>
+        <p>
+          <code>scripts/build-products.mjs</code>
+          が生成する詳細ページで使います(動作環境・よくある質問・更新履歴・画像)。
+        </p>
+        <div class="product">
+          <dl class="spec">
+            <div class="spec__row">
+              <dt>対応OS</dt>
+              <dd>Windows 10 以降</dd>
+            </div>
+            <div class="spec__row">
+              <dt>メモリ</dt>
+              <dd>4GB 以上</dd>
+            </div>
+          </dl>
+          <div class="faq">
+            <details class="faq__item">
+              <summary class="faq__question">よくある質問の見出し(押すと答えが開きます)</summary>
+              <div class="faq__answer"><p>答えの本文です。</p></div>
+            </details>
+            <details class="faq__item" open>
+              <summary class="faq__question">開いた状態</summary>
+              <div class="faq__answer"><p>キーボードでも開閉できます。</p></div>
+            </details>
+          </div>
+          <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v1.1.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-20">2026年9月20日</time></span
+                >
+              </h3>
+              <ul>
+                <li>変更の内容</li>
+              </ul>
+            </li>
+          </ol>
+          <p class="product__note">配布ページ(GitHub Releases・外部サイト)へ移動します。</p>
         </div>
       </section>
 

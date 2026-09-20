@@ -11,7 +11,7 @@
       "id": "software",
       "name": "ソフト",
       "description": "パソコンやスマートフォンで使うソフトウェア。",
-      "path": null
+      "path": "/software/"
     },
     {
       "id": "tool",

@@ -69,6 +69,15 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 - カテゴリの追加: `categories.json` の `categories` に `{ id, name, description, path }` を足す。一覧のページがまだなければ `path` は `null`。
 - プロダクトの追加: `products.json` の `products` に足す。項目の意味と制約は `public/assets/js/products/schema.js`(検証の実装)が定義で、`tests/products.test.js` が守っている。
   - 公開前のものは `status: "coming-soon"`(準備中)にする。**`public/data/` の JSON は誰でも読める**ので、まだ見せたくないものは、JSON に入れず、ブランチの中だけに置く。
-  - 画像は `image: { src, alt }`(alt は必須)。ダウンロードは `download: { label, url }`(https かサイト内のパスだけ)。
+  - 画像は `image: { src, alt }`(カード用。alt は必須)。ダウンロードは `download: { label, url }`(https かサイト内のパスだけ)。
   - `changelog` は新しい順。先頭の `version` は、プロダクトの `version` と同じにする。
 - `npm run check` が、形式・URL・日付・並び順を検査する。間違いがあると、ここで失敗する。
+
+### 詳細ページを作る(ソフトなど)
+
+1. `products.json` に、`detail_path`(例: `"/software/sample-app/"`。カテゴリの一覧ページの下)を書く。ソフトは `url` も同じにする。
+2. 詳細ページに出す内容を書く: `details`(説明の段落)、`screenshots`(画像。alt と width・height が必須。最大6枚)、`requirements`(動作環境。項目名と値)、`faq`(質問と答え)、`changelog`(更新履歴)。
+3. **配布は GitHub Releases**: リリースを作り、`download` に、そのページの URL(例: `https://github.com/<ユーザー>/<リポジトリ>/releases/latest`)を書く。ページを表示するときに GitHub へは通信しない。バージョンや更新履歴の自動反映は、まだない(手で書く)。
+4. **有料の場合**: `price` を `paid` にして、`purchase: { label, url }` に外部の販売サービスの URL を書く。**販売サービスの選定・特定商取引法の表記・利用規約を決めてから**にする(Issue #12)。
+5. `npm run build:products` で詳細ページを生成し、**生成物もコミットする**(`npm run check` が、最新かを検査する)。
+6. 最初のソフトを公開するときは、`config/nav.js` の「ソフト」の `available: false` を外す。

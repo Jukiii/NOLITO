@@ -2,7 +2,7 @@
 // 使う場所: 単体テスト(データが正しいか)と、一覧の描画(不正な項目を外して、他は表示する)。
 // 将来、管理画面(Phase 26)などから書かれても安全なように、URL・文字数・値の種類を厳しく確認する。
 
-export const PRODUCT_DATA_VERSION = 2;
+export const PRODUCT_DATA_VERSION = 3;
 export const CATEGORY_DATA_VERSION = 1;
 
 export const STATUSES = ["released", "beta", "coming-soon"];
@@ -12,6 +12,12 @@ export const PRICE_TYPES = ["free", "paid", "undecided"];
 const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const VERSION_PATTERN = /^\d+\.\d+\.\d+$/;
 const MAX_PRICE = 10_000_000;
+// 詳細ページの場所(/software/sample-app/ のような、小文字・数字・ハイフンの階層。最後は /)
+const DETAIL_PATH_PATTERN = /^\/[a-z0-9]+(-[a-z0-9]+)*(\/[a-z0-9]+(-[a-z0-9]+)*)*\/$/;
+const MAX_SCREENSHOTS = 6;
+const MAX_REQUIREMENTS = 20;
+const MAX_FAQ = 20;
+const MAX_IMAGE_SIZE = 10_000;
 
 const isObject = (value) => typeof value === "object" && value !== null && !Array.isArray(value);
 const isText = (value, max) =>
@@ -46,6 +52,16 @@ export function isSafeUrl(value) {
   } catch {
     return false;
   }
+}
+
+// 外部のサービスへのリンク(https だけ。サイト内のパスは不可)
+export const isExternalUrl = (value) => isSafeUrl(value) && value.startsWith("https://");
+
+// GitHub Releases のページか(配布の案内の文言を変えるために使う)
+export function isGithubReleaseUrl(value) {
+  if (!isExternalUrl(value)) return false;
+  const url = new URL(value);
+  return url.hostname === "github.com" && /^\/[^/]+\/[^/]+\/releases(\/|$)/.test(url.pathname);
 }
 
 // x.y.z 同士の比較(新しい方が正)
@@ -100,16 +116,63 @@ function checkChangelog(changelog, product, add) {
   }
 }
 
-// 1件のプロダクトを検証して、問題の一覧(なければ空)を返す
-export function validateProduct(product, { categoryIds = [] } = {}) {
+function checkPairs(list, label, max, fields, add) {
+  if (!Array.isArray(list) || list.length > max) {
+    return add(`${label} は、${max}件までの配列にしてください(なければ [])`);
+  }
+  list.forEach((item, index) => {
+    if (!isObject(item)) return add(`${label}[${index}] はオブジェクトにしてください`);
+    for (const [key, limit] of fields) {
+      if (!isText(item[key], limit))
+        add(`${label}[${index}].${key} は、1〜${limit}字にしてください`);
+    }
+  });
+}
+
+function checkScreenshots(screenshots, add) {
+  if (!Array.isArray(screenshots) || screenshots.length > MAX_SCREENSHOTS) {
+    return add(`screenshots は、${MAX_SCREENSHOTS}枚までの配列にしてください(なければ [])`);
+  }
+  screenshots.forEach((shot, index) => {
+    const label = `screenshots[${index}]`;
+    if (!isObject(shot)) return add(`${label} はオブジェクトにしてください`);
+    if (!isSafeUrl(shot.src)) add(`${label}.src は、/ 始まりのパスか https の URL にしてください`);
+    if (!isText(shot.alt, 200)) add(`${label}.alt(代替テキスト)は必須です(200字以内)`);
+    for (const key of ["width", "height"]) {
+      if (!Number.isInteger(shot[key]) || shot[key] <= 0 || shot[key] > MAX_IMAGE_SIZE) {
+        add(`${label}.${key} は、1以上の整数(px)にしてください(レイアウトのずれを防ぐため)`);
+      }
+    }
+  });
+}
+
+// 詳細ページの場所。カテゴリの一覧ページの下で、一覧そのものではないこと
+function checkDetailPath(detailPath, category, add) {
+  if (detailPath === null) return;
+  if (typeof detailPath !== "string" || !DETAIL_PATH_PATTERN.test(detailPath)) {
+    return add(
+      "detail_path は、/software/sample-app/ のような、小文字・数字・ハイフンの / 終わりのパス(なければ null)",
+    );
+  }
+  if (!category?.path) {
+    return add("そのカテゴリには一覧ページ(path)がないので、詳細ページは作れません");
+  }
+  if (!detailPath.startsWith(category.path) || detailPath === category.path) {
+    add(`detail_path は、カテゴリの一覧ページ(${category.path})の下にしてください`);
+  }
+}
+
+// 1件のプロダクトを検証して、問題の一覧(なければ空)を返す。categories: [{ id, path }]
+export function validateProduct(product, { categories = [] } = {}) {
   const errors = [];
   const add = (message) => errors.push(message);
   if (!isObject(product)) return ["プロダクトはオブジェクトにしてください"];
+  const category = categories.find((item) => item.id === product.category);
 
   if (typeof product.id !== "string" || !ID_PATTERN.test(product.id)) {
     add("id は英小文字・数字・ハイフンだけにしてください");
   }
-  if (!categoryIds.includes(product.category)) add(`存在しないカテゴリです: ${product.category}`);
+  if (!category) add(`存在しないカテゴリです: ${product.category}`);
   if (!isText(product.title, 60)) add("title は、1〜60字にしてください");
   if (!isText(product.description, 160)) add("description は、1〜160字にしてください");
   const detailsOk =
@@ -173,6 +236,43 @@ export function validateProduct(product, { categoryIds = [] } = {}) {
     add("released_at は、updated_at より後にできません");
   }
   checkChangelog(product.changelog, product, add);
+
+  checkDetailPath(product.detail_path, category, add);
+  checkScreenshots(product.screenshots, add);
+  checkPairs(
+    product.requirements,
+    "requirements",
+    MAX_REQUIREMENTS,
+    [
+      ["label", 30],
+      ["value", 200],
+    ],
+    add,
+  );
+  checkPairs(
+    product.faq,
+    "faq",
+    MAX_FAQ,
+    [
+      ["question", 200],
+      ["answer", 1000],
+    ],
+    add,
+  );
+
+  // 外部の販売サービスへのリンク。有料で、準備中でないものだけ
+  if (product.purchase !== null) {
+    if (!isObject(product.purchase)) {
+      add("purchase は、{ label, url } か null にしてください");
+    } else {
+      if (!isText(product.purchase.label, 40)) add("purchase.label は、1〜40字にしてください");
+      if (!isExternalUrl(product.purchase.url)) {
+        add("purchase.url は、外部サービスの https の URL にしてください");
+      }
+    }
+    if (product.price?.type !== "paid") add("purchase は、有料(paid)のものだけに付けられます");
+    if (upcoming) add("準備中(coming-soon)のものに purchase は付けられません");
+  }
   return errors;
 }
 
@@ -219,20 +319,36 @@ export function validateProducts(data, categories) {
       `products.json は { version: ${PRODUCT_DATA_VERSION}, products: [...] } の形にしてください`,
     ];
   }
-  const categoryIds = categories.map((category) => category.id);
   const errors = [];
   const ids = new Set();
+  const paths = new Map(); // 詳細ページ・カテゴリの一覧ページの場所 → 使っているもの
+  for (const category of categories)
+    if (category.path) paths.set(category.path, `カテゴリ ${category.id}`);
   data.products.forEach((product, index) => {
     const known = isObject(product) && typeof product.id === "string";
     const name = known ? product.id : `#${index}`;
-    for (const message of validateProduct(product, { categoryIds })) {
+    for (const message of validateProduct(product, { categories })) {
       errors.push(`${name}: ${message}`);
     }
     if (known) {
       if (ids.has(product.id)) errors.push(`${name}: id が重複しています`);
       ids.add(product.id);
     }
+    if (isObject(product) && typeof product.detail_path === "string") {
+      const owner = paths.get(product.detail_path);
+      if (owner) errors.push(`${name}: detail_path が、${owner} と重複しています`);
+      paths.set(product.detail_path, `プロダクト ${name}`);
+    }
   });
+  // 詳細ページと同じ場所を、別のプロダクトの url が使っていないか(上書き・取り違えを防ぐ)
+  for (const product of data.products) {
+    if (!isObject(product)) continue;
+    for (const other of data.products) {
+      if (isObject(other) && other !== product && other.url === product.detail_path) {
+        errors.push(`${product.id}: detail_path が、${other.id} の url と重複しています`);
+      }
+    }
+  }
   return errors;
 }
 
@@ -241,13 +357,12 @@ export function usableProducts(data, categories) {
   if (!isObject(data) || data.version !== PRODUCT_DATA_VERSION || !Array.isArray(data.products)) {
     return { products: [], skipped: ["(形式が不正です)"] };
   }
-  const categoryIds = categories.map((category) => category.id);
   const products = [];
   const skipped = [];
   const seen = new Set();
   for (const product of data.products) {
     const known = isObject(product) && typeof product.id === "string";
-    if (validateProduct(product, { categoryIds }).length > 0 || (known && seen.has(product.id))) {
+    if (validateProduct(product, { categories }).length > 0 || (known && seen.has(product.id))) {
       skipped.push(known ? product.id : "(不明)");
       continue;
     }

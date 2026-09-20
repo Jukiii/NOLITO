@@ -48,8 +48,18 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## プロダクト(Phase 6)
 
-- プロダクトは `public/data/products.json`(version 2)、カテゴリは `categories.json` で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存)、表示用の文字列は `format.js`、カードの描画は `components/product-list.js`。
+- プロダクトは `public/data/products.json`(version 3)、カテゴリは `categories.json` で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存)、表示用の文字列は `format.js`、カードの描画は `components/product-list.js`。
 - 形式を変えるときは、`schema.js` の検証と `tests/products.test.js` を一緒に更新し、`PRODUCT_DATA_VERSION` を上げる。
 - **URL は、`/` 始まりのサイト内パスか `https://` だけ**(`isSafeUrl`)。画像には alt が必須。表示は必ず `textContent`(`el()`)。不正な項目は、テストで失敗させ、実行時は「その項目だけ外して、他は表示」する。この安全側の挙動を緩めない(将来、管理画面からも書かれる)。
 - `public/data/` は誰でも読める。**下書き(未公開)の項目を入れない**。公開前は `coming-soon`。
 - カードを変えたら `/styleguide/` の見本も更新する。
+
+## プロダクトの詳細ページ(Phase 7)
+
+- 詳細ページは、`products.json` の `detail_path` があるものを、`npm run build:products` が **静的な HTML として生成**する(`public/games/escape-boss/about/` など)。**生成物もコミットする**(`npm run check` が最新かを検査する)。生成物を手で書き換えない(ページ先頭の印で、手書きと区別している)。`npm run build` は、記事と詳細ページの両方を作る。
+- 生成のコードは `scripts/lib/product-pages.mjs`(HTML)と `product-build.mjs`(整形・書き出し・検査)。生成した HTML は Prettier で整形する。値は必ずエスケープする。
+- 配布は GitHub Releases などの**外部の URL へのリンクだけ**。ページの表示時に、GitHub や販売サービスへ**通信しない**(プライバシー・レート制限のため)。リンクには `rel="noopener noreferrer"` と、移動先の注意書きを付ける。
+- 外部販売(`purchase`)は、有料(paid)で準備中でないものだけ。**有料のソフトを公開する前に、販売サービスの選定・特定商取引法の表記・利用規約が要る**(Issue #12)。
+- ソフトの `url` は、詳細ページ(`/software/<id>/`)にする。ゲームは、遊ぶ先(`url`)と詳細ページ(`detail_path`)が別。
+- 画像(`screenshots`)には alt と width・height が要る。ゲームの画面を変えたら、`public/assets/img/products/escape-boss/` の画面も撮り直す。
+- `/software/` の一覧ページはあるが、ナビの「ソフト」は、最初のソフトを公開するまで「準備中」(`config/nav.js` の `available`)。

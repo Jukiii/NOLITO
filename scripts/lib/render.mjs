@@ -16,8 +16,17 @@ function tagList(tags) {
 /**
  * ページ全体。canonicalPath は "/articles/xxx/" のようなサイト内のパス。
  * ogType は "article" か "website"。画像は使わない(OGP の画像なし)。
+ * stylesheets は、読み込む CSS の名前(既定は記事用)。
  */
-export function renderDocument({ site, title, description, canonicalPath, ogType, main }) {
+export function renderDocument({
+  site,
+  title,
+  description,
+  canonicalPath,
+  ogType,
+  main,
+  stylesheets = STYLESHEETS,
+}) {
   const fullTitle = `${title} | ${site.name}`;
   const url = `${site.url}${canonicalPath}`;
   return `<!doctype html>
@@ -36,7 +45,7 @@ export function renderDocument({ site, title, description, canonicalPath, ogType
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-${STYLESHEETS.map((name) => `    <link rel="stylesheet" href="/assets/css/${name}.css" />`).join("\n")}
+${stylesheets.map((name) => `    <link rel="stylesheet" href="/assets/css/${name}.css" />`).join("\n")}
     <script type="module" src="/assets/js/main.js"></script>
   </head>
   <body>
