@@ -6,9 +6,11 @@ import { fileURLToPath } from "node:url";
 import { PRODUCT_STATUS } from "../public/assets/js/components/product-list.js";
 import {
   PLATFORM_LABELS,
+  downloadNote,
   formatDate,
   platformLabels,
   priceLabel,
+  purchaseNote,
   versionLabel,
 } from "../public/assets/js/products/format.js";
 import {
@@ -17,6 +19,8 @@ import {
   PRODUCT_DATA_VERSION,
   STATUSES,
   compareVersions,
+  isExternalUrl,
+  isGithubReleaseUrl,
   isSafeUrl,
   isValidDate,
   usableProducts,
@@ -27,7 +31,12 @@ import {
 
 const publicDir = fileURLToPath(new URL("../public/", import.meta.url));
 const readJson = (path) => JSON.parse(readFileSync(join(publicDir, path), "utf8"));
-const categoryIds = ["game", "software", "tool"];
+// software は一覧ページ(/software/)があり、tool はまだない
+const categories = [
+  { id: "game", path: "/games/" },
+  { id: "software", path: "/software/" },
+  { id: "tool", path: null },
+];
 
 // 検証を通る、最小の完全なプロダクト。各テストで一部だけ書き換える
 const valid = (overrides = {}) => ({
@@ -41,6 +50,11 @@ const valid = (overrides = {}) => ({
   price: { type: "free" },
   status: "released",
   url: "/software/sample-app/",
+  detail_path: null,
+  screenshots: [],
+  requirements: [],
+  faq: [],
+  purchase: null,
   download: null,
   version: "1.0.0",
   released_at: "2026-01-01",
@@ -48,7 +62,7 @@ const valid = (overrides = {}) => ({
   changelog: [],
   ...overrides,
 });
-const errorsOf = (product) => validateProduct(product, { categoryIds });
+const errorsOf = (product) => validateProduct(product, { categories });
 const has = (errors, word) => errors.some((message) => message.includes(word));
 
 describe("実際のデータ(categories.json・products.json)", () => {
@@ -90,6 +104,8 @@ describe("実際のデータ(categories.json・products.json)", () => {
         assert.ok(exists(product.url), `${product.id}: ${product.url}`);
       }
       if (product.image) assert.ok(exists(product.image.src), product.image.src);
+      for (const shot of product.screenshots) assert.ok(exists(shot.src), shot.src);
+      if (product.detail_path) assert.ok(exists(product.detail_path), product.detail_path);
       if (product.download?.url.startsWith("/")) assert.ok(exists(product.download.url));
     }
   });
@@ -127,6 +143,11 @@ describe("プロダクトの検証", () => {
       "released_at",
       "updated_at",
       "changelog",
+      "detail_path",
+      "screenshots",
+      "requirements",
+      "faq",
+      "purchase",
     ]) {
       const product = valid();
       delete product[key];
@@ -136,7 +157,7 @@ describe("プロダクトの検証", () => {
 
   it("オブジェクトでないものは落ちる", () => {
     for (const value of [null, undefined, "x", 5, [], true]) {
-      assert.ok(validateProduct(value, { categoryIds }).length > 0, String(value));
+      assert.ok(validateProduct(value, { categories }).length > 0, String(value));
     }
   });
 
@@ -151,7 +172,9 @@ describe("プロダクトの検証", () => {
   it("存在しないカテゴリは落ちる。カテゴリはデータで足せる", () => {
     assert.ok(has(errorsOf(valid({ category: "music" })), "カテゴリ"));
     assert.deepEqual(
-      validateProduct(valid({ category: "music" }), { categoryIds: [...categoryIds, "music"] }),
+      validateProduct(valid({ category: "music" }), {
+        categories: [...categories, { id: "music", path: null }],
+      }),
       [],
     );
   });
@@ -407,9 +430,209 @@ describe("プロダクトの検証", () => {
   });
 });
 
-describe("プロダクト一覧全体の検証", () => {
-  const categories = categoryIds.map((id) => ({ id }));
+describe("詳細ページ・画像・動作環境・FAQ・購入(version 3 で加わった項目)", () => {
+  describe("detail_path(詳細ページの場所)", () => {
+    it("カテゴリの一覧ページの下の、小文字・数字・ハイフンの / 終わりのパスなら通る。null なら詳細ページなし", () => {
+      for (const detail_path of ["/software/sample-app/", "/software/a/b/", null]) {
+        assert.deepEqual(errorsOf(valid({ detail_path })), [], String(detail_path));
+      }
+      const game = valid({ category: "game", url: "/games/x/", detail_path: "/games/x/about/" });
+      assert.deepEqual(errorsOf(game), []);
+    });
 
+    it("不正なパスは落ちる(大文字・.. ・別サイト・javascript・末尾の / なし・空)", () => {
+      for (const detail_path of [
+        "/software/Sample/",
+        "/software/../etc/",
+        "/software/./a/",
+        "//evil.example/",
+        "https://example.com/software/a/",
+        "javascript:alert(1)",
+        "/software/a",
+        "software/a/",
+        "/software//a/",
+        "/software/a b/",
+        "",
+        5,
+      ]) {
+        assert.ok(has(errorsOf(valid({ detail_path })), "detail_path"), String(detail_path));
+      }
+    });
+
+    it("カテゴリの一覧ページ(path)がない・その下でない・一覧そのものは落ちる", () => {
+      assert.ok(has(errorsOf(valid({ category: "tool", detail_path: "/tools/a/" })), "一覧ページ"));
+      assert.ok(has(errorsOf(valid({ detail_path: "/games/a/" })), "の下"));
+      assert.ok(has(errorsOf(valid({ detail_path: "/software/" })), "の下"));
+    });
+  });
+
+  describe("一覧全体での、場所の重複", () => {
+    const list = (...products) => validateProducts({ version: 3, products }, categories);
+
+    it("同じ詳細ページの場所を、2つのプロダクトが使うと落ちる", () => {
+      const errors = list(
+        valid({ id: "a", detail_path: "/software/x/" }),
+        valid({ id: "b", detail_path: "/software/x/" }),
+      );
+      assert.ok(has(errors, "重複"));
+    });
+
+    it("別のプロダクトの url と同じ場所は落ちる(上書き・取り違えを防ぐ)", () => {
+      const errors = list(
+        valid({ id: "a", url: "/software/x/", detail_path: null }),
+        valid({ id: "b", url: "/software/y/", detail_path: "/software/x/" }),
+      );
+      assert.ok(has(errors, "url と重複"));
+    });
+
+    it("自分の url と同じ場所は、よい(ソフトは、詳細ページが使う先)", () => {
+      assert.deepEqual(
+        list(valid({ id: "a", url: "/software/x/", detail_path: "/software/x/" })),
+        [],
+      );
+    });
+  });
+
+  describe("screenshots(画像)", () => {
+    const shot = { src: "/assets/img/a.webp", alt: "画面", width: 1000, height: 700 };
+
+    it("alt と、幅・高さ(レイアウトのずれ防止)が必須。6枚まで", () => {
+      assert.deepEqual(errorsOf(valid({ screenshots: [shot] })), []);
+      assert.ok(has(errorsOf(valid({ screenshots: [{ ...shot, alt: "" }] })), "alt"));
+      for (const width of [0, -1, 1.5, "100", undefined, 10_001]) {
+        assert.ok(
+          has(errorsOf(valid({ screenshots: [{ ...shot, width }] })), "width"),
+          String(width),
+        );
+      }
+      assert.ok(has(errorsOf(valid({ screenshots: [{ ...shot, height: null }] })), "height"));
+      assert.deepEqual(errorsOf(valid({ screenshots: Array(6).fill(shot) })), []);
+      assert.ok(errorsOf(valid({ screenshots: Array(7).fill(shot) })).length > 0);
+    });
+
+    it("場所は、/ 始まりのパスか https だけ", () => {
+      for (const src of [
+        "javascript:alert(1)",
+        "http://example.com/a.png",
+        "data:image/png;base64,AA",
+        "//evil.example/a.png",
+      ]) {
+        assert.ok(has(errorsOf(valid({ screenshots: [{ ...shot, src }] })), "src"), src);
+      }
+      assert.ok(errorsOf(valid({ screenshots: "なし" })).length > 0);
+      assert.ok(errorsOf(valid({ screenshots: [null] })).length > 0);
+    });
+  });
+
+  describe("requirements(動作環境)・faq", () => {
+    it("動作環境は、項目名と値の組。空の文字や長すぎる文字は落ちる", () => {
+      const ok = [{ label: "対応OS", value: "Windows 10 以降" }];
+      assert.deepEqual(errorsOf(valid({ requirements: ok })), []);
+      assert.ok(has(errorsOf(valid({ requirements: [{ label: "", value: "x" }] })), "label"));
+      const longValue = [{ label: "x", value: "あ".repeat(201) }];
+      assert.ok(has(errorsOf(valid({ requirements: longValue })), "value"));
+      assert.ok(errorsOf(valid({ requirements: [{ label: "x" }] })).length > 0);
+      const many = Array.from({ length: 21 }, (_, i) => ({ label: `l${i}`, value: "v" }));
+      assert.ok(has(errorsOf(valid({ requirements: many })), "requirements"));
+    });
+
+    it("faq は、質問と答えの組。20件まで", () => {
+      assert.deepEqual(errorsOf(valid({ faq: [{ question: "Q?", answer: "A" }] })), []);
+      assert.ok(has(errorsOf(valid({ faq: [{ question: "Q?", answer: "" }] })), "answer"));
+      const longQ = [{ question: "あ".repeat(201), answer: "A" }];
+      assert.ok(has(errorsOf(valid({ faq: longQ })), "question"));
+      const longA = [{ question: "Q?", answer: "あ".repeat(1001) }];
+      assert.ok(has(errorsOf(valid({ faq: longA })), "answer"));
+      const many = Array.from({ length: 21 }, () => ({ question: "Q?", answer: "A" }));
+      assert.ok(has(errorsOf(valid({ faq: many })), "faq"));
+      assert.ok(errorsOf(valid({ faq: "なし" })).length > 0);
+    });
+  });
+
+  describe("purchase(外部の販売サービスへのリンク)", () => {
+    const paid = { price: { type: "paid", amount: 1200, currency: "JPY" } };
+    const purchase = { label: "購入する", url: "https://example.com/items/1" };
+
+    it("有料で、準備中でなければ付けられる", () => {
+      assert.deepEqual(errorsOf(valid({ ...paid, purchase })), []);
+      assert.deepEqual(errorsOf(valid({ ...paid, status: "beta", purchase })), []);
+    });
+
+    it("無料・価格未定・準備中のものには付けられない", () => {
+      assert.ok(has(errorsOf(valid({ purchase })), "有料"));
+      assert.ok(has(errorsOf(valid({ price: { type: "undecided" }, purchase })), "有料"));
+      const soon = { ...paid, status: "coming-soon", version: null, released_at: null };
+      assert.ok(has(errorsOf(valid({ ...soon, purchase })), "準備中"));
+    });
+
+    it("外部サービスの https の URL だけ(サイト内のパス・http・javascript は不可)", () => {
+      for (const url of [
+        "/pay/",
+        "http://example.com/",
+        "javascript:alert(1)",
+        "//evil.example/",
+        "https:example.com",
+        "",
+      ]) {
+        const errors = errorsOf(valid({ ...paid, purchase: { ...purchase, url } }));
+        assert.ok(has(errors, "purchase.url"), url);
+      }
+      assert.ok(
+        has(errorsOf(valid({ ...paid, purchase: { url: purchase.url } })), "purchase.label"),
+      );
+      assert.ok(has(errorsOf(valid({ ...paid, purchase: "https://example.com/" })), "purchase"));
+    });
+  });
+
+  describe("外部リンクの判定と注意書き", () => {
+    it("外部サービスの URL は https だけ", () => {
+      assert.equal(isExternalUrl("https://example.com/a"), true);
+      for (const url of [
+        "/a/",
+        "http://example.com/",
+        "javascript:alert(1)",
+        "https://",
+        "",
+        null,
+      ]) {
+        assert.equal(isExternalUrl(url), false, String(url));
+      }
+    });
+
+    it("GitHub Releases の URL の判定(github.com の releases だけ)", () => {
+      for (const url of [
+        "https://github.com/Jukiii/tool/releases",
+        "https://github.com/Jukiii/tool/releases/latest",
+        "https://github.com/Jukiii/tool/releases/download/v1.0.0/tool.zip",
+      ]) {
+        assert.equal(isGithubReleaseUrl(url), true, url);
+      }
+      for (const url of [
+        "https://github.com/Jukiii/tool",
+        "https://github.com/Jukiii/tool/issues",
+        "https://evilgithub.com/a/b/releases",
+        "https://github.com.evil.example/a/b/releases",
+        "https://example.com/a/b/releases",
+        "http://github.com/a/b/releases",
+        "/releases/",
+      ]) {
+        assert.equal(isGithubReleaseUrl(url), false, url);
+      }
+    });
+
+    it("ダウンロードの注意書き: サイト内は空・GitHub Releases・その他の外部サイト", () => {
+      assert.equal(downloadNote("/downloads/a.zip"), "");
+      assert.ok(downloadNote("https://github.com/o/r/releases/latest").includes("GitHub Releases"));
+      assert.ok(downloadNote("https://example.com/a.zip").includes("example.com"));
+    });
+
+    it("購入の注意書きは、移動先のサービスのホストを示す", () => {
+      assert.ok(purchaseNote("https://shop.example.com/items/1").includes("shop.example.com"));
+    });
+  });
+});
+
+describe("プロダクト一覧全体の検証", () => {
   it("形式(version・products の配列)が違うと落ちる。旧形式(version なし)も落ちる", () => {
     for (const data of [
       null,
@@ -417,18 +640,19 @@ describe("プロダクト一覧全体の検証", () => {
       {},
       { products: [] },
       { version: 1, products: [] },
-      { version: 2 },
+      { version: 2, products: [] },
+      { version: 3 },
     ]) {
       assert.ok(validateProducts(data, categories).length > 0, JSON.stringify(data));
     }
-    assert.deepEqual(validateProducts({ version: 2, products: [] }, categories), []);
+    assert.deepEqual(validateProducts({ version: 3, products: [] }, categories), []);
   });
 
   it("id の重複は落ちる。エラーは、どの項目かがわかる", () => {
-    const data = { version: 2, products: [valid(), valid()] };
+    const data = { version: 3, products: [valid(), valid()] };
     assert.ok(has(validateProducts(data, categories), "重複"));
     const broken = {
-      version: 2,
+      version: 3,
       products: [valid({ id: "ok-one" }), valid({ id: "bad-one", status: "x" })],
     };
     const errors = validateProducts(broken, categories);
@@ -438,11 +662,9 @@ describe("プロダクト一覧全体の検証", () => {
 });
 
 describe("表示用の、不正な項目の除外", () => {
-  const categories = categoryIds.map((id) => ({ id }));
-
   it("不正な項目・重複した項目だけを外して、残りは表示できる", () => {
     const data = {
-      version: 2,
+      version: 3,
       products: [
         valid({ id: "good-one" }),
         valid({ id: "bad-url", url: "javascript:alert(1)" }),

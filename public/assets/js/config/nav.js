@@ -14,5 +14,6 @@ export const mainNav = [
 // フッターのリンク。ページができたものだけを並べる(存在しないページへのリンクは張らない)
 export const footerLinks = [
   { label: "サイト紹介", href: "/about/" },
+  { label: "サポート", href: "/support/" },
   { label: "プライバシーポリシー", href: "/privacy/" },
 ];

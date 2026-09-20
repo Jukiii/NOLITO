@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "products": [
     {
       "id": "escape-boss",
@@ -15,15 +15,83 @@
         "src": "/assets/img/escape-boss/player.svg",
         "alt": "走って逃げる、主人公のイラスト"
       },
+      "screenshots": [
+        {
+          "src": "/assets/img/products/escape-boss/dashboard.webp",
+          "alt": "上司から逃げろのスタート画面。職種と、追ってくる役職を選ぶ",
+          "width": 1000,
+          "height": 700
+        },
+        {
+          "src": "/assets/img/products/escape-boss/play.webp",
+          "alt": "プレイ中の画面。お題の言葉をローマ字で入力すると、追ってくる上司との距離が広がる",
+          "width": 1000,
+          "height": 700
+        },
+        {
+          "src": "/assets/img/products/escape-boss/result.webp",
+          "alt": "ゲームが終わったあとの結果画面。スコア・正確さ・ミスの分析が出る",
+          "width": 1000,
+          "height": 700
+        }
+      ],
       "platforms": ["web"],
-      "price": { "type": "free" },
+      "requirements": [
+        {
+          "label": "対応ブラウザ",
+          "value": "JavaScript が使える、最近のブラウザ"
+        },
+        {
+          "label": "入力",
+          "value": "キーボード。日本語入力(IME)はオフにして、半角英数で入力します"
+        },
+        {
+          "label": "通信",
+          "value": "お題のデータを読み込むため、遊ぶあいだはインターネットに接続している必要があります"
+        },
+        {
+          "label": "保存",
+          "value": "記録は、お使いのブラウザにだけ保存されます。アカウントの登録・ログインは不要です"
+        },
+        {
+          "label": "動作確認",
+          "value": "Microsoft Edge(Windows)で確認しています。ほかのブラウザやスマートフォンでの確認は、まだ十分ではありません"
+        }
+      ],
+      "price": {
+        "type": "free"
+      },
       "status": "beta",
       "url": "/games/escape-boss/",
+      "detail_path": "/games/escape-boss/about/",
       "cta": "遊ぶ",
       "download": null,
+      "purchase": null,
       "version": "0.3.0",
       "released_at": "2026-09-20",
       "updated_at": "2026-09-20",
+      "faq": [
+        {
+          "question": "記録は、どこに保存されますか?",
+          "answer": "お使いのブラウザの中(LocalStorage)にだけ保存されます。サーバーには送りません。ほかの端末やブラウザには引き継がれず、ブラウザのサイトデータを消すと、記録も消えます。"
+        },
+        {
+          "question": "キーを押しても、反応しません。",
+          "answer": "日本語入力(IME)がオンになっていないか、確認してください。オフにして、半角英数で入力します。オンのままだと、ゲーム画面に注意が出ます。"
+        },
+        {
+          "question": "ローマ字は、どの書き方でも入力できますか?",
+          "answer": "複数の書き方に対応しています。たとえば、「し」は shi でも si でも入力できます。"
+        },
+        {
+          "question": "会長には、どうすれば挑戦できますか?",
+          "answer": "先輩・係長・部長・社長の4人から、それぞれ逃げ切ると、裏ボスの会長に挑戦できるようになります。"
+        },
+        {
+          "question": "ランキングは、ほかの人と競うものですか?",
+          "answer": "いいえ。いまのランキングは、この端末の中の記録だけを並べたものです。オンラインでほかの人と比べる機能は、ありません。"
+        }
+      ],
       "changelog": [
         {
           "version": "0.3.0",
