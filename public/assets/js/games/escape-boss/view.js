@@ -1,4 +1,5 @@
 import { el } from "../../components/dom.js";
+import { reviewItem } from "./review-item.js";
 import { closenessOf } from "./scene.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
@@ -20,22 +21,6 @@ const MODES = [
   { value: "chase", label: "連続タイピング", sub: "追ってくる人から逃げる" },
   { value: "check", label: "用語確認", sub: "説明を見ながら練習" },
 ];
-
-// 用語の一覧の 1 件(語・読み・説明。ミスした回数があれば、それも)
-function reviewItem({ word, misses }) {
-  return el(
-    "li",
-    { class: "review-item" },
-    el(
-      "p",
-      { class: "review-item__term" },
-      el("span", { class: "review-item__japanese", lang: "ja" }, word.japanese),
-      el("span", { class: "review-item__reading", lang: "ja" }, `(${word.reading})`),
-      misses ? el("span", { class: "badge badge--soon" }, `ミス ${misses}回`) : "",
-    ),
-    el("p", { class: "review-item__text", lang: "ja" }, word.explanation),
-  );
-}
 
 export function createView(root) {
   const $ = (selector) => root.querySelector(selector);

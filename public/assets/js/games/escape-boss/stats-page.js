@@ -12,6 +12,8 @@ import {
   formatDuration,
   summarizeResults,
 } from "./stats.js";
+import { REVIEW_LIMIT, REVIEW_PLAYS, buildReviewList, indexWords } from "./review.js";
+import { reviewItem } from "./review-item.js";
 import { createStore, getBackend } from "./storage.js";
 
 const $ = (selector) => document.querySelector(selector);
@@ -223,6 +225,23 @@ function renderRecent(scope) {
   );
 }
 
+// 復習リスト: 直近のプレイでミスした語。期間・役職の絞り込みには、影響されない
+function renderReview(vocabularies) {
+  const list = buildReviewList(allResults, indexWords(vocabularies));
+  $("[data-review-list]").replaceChildren(
+    ...list.map(({ word, jobId, misses }) =>
+      reviewItem({ word, misses, jobName: jobsById[jobId] ?? jobId }),
+    ),
+  );
+  $("[data-review-list]").hidden = list.length === 0;
+  $("[data-review-action]").hidden = list.length === 0;
+  $("[data-review-note]").textContent =
+    list.length === 0
+      ? "復習する語は、まだありません。連続タイピングでミスすると、ここに出ます。"
+      : `直近${Math.min(allResults.length, REVIEW_PLAYS)}プレイでミスした語を、ミスの多い順に並べています(最大${REVIEW_LIMIT}語。期間・役職の絞り込みの影響は受けません。用語確認の結果は、含みません)。`;
+  $("[data-review-start]").textContent = `復習リストで用語確認をする(${list.length}語)`;
+}
+
 function render() {
   const filtered = allResults.filter((r) => !filter.roleId || r.roleId === filter.roleId);
   const scope = filtered.slice(0, filter.range);
@@ -284,6 +303,19 @@ async function init() {
 
   $("[data-content]").hidden = false;
   render();
+
+  // 復習リストは、語録から語の説明を引く(読み込めなくても、ほかの成績は、そのまま見られる)
+  try {
+    const vocabularies = await Promise.all(
+      Object.keys(jobsById).map((jobId) => loadJson(`/data/vocabulary/${jobId}.json`)),
+    );
+    renderReview(vocabularies);
+  } catch {
+    $("[data-review-note]").textContent =
+      "復習リストを読み込めませんでした。ページを再読み込みしてください。";
+    $("[data-review-list]").hidden = true;
+    $("[data-review-action]").hidden = true;
+  }
 }
 
 init();

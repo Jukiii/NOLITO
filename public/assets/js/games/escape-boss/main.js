@@ -25,15 +25,18 @@ import {
   updateProfile,
 } from "./records.js";
 import { createMatcher } from "./romaji.js";
+import { buildReviewList, indexWords } from "./review.js";
 import { summarize } from "./score.js";
 import { loadSettings, saveSettings } from "./settings.js";
 import { createStore, getBackend } from "./storage.js";
-import { loadJobs, loadRoles, loadVocabulary, pickWords } from "./vocabulary.js";
+import { loadJobs, loadRoles, loadVocabulary, pickWords, shuffle } from "./vocabulary.js";
 import { createView } from "./view.js";
 
 // 1フレームで進める時間の上限(重い処理や一時停止からの復帰で距離が一気に減らないようにする)
 const MAX_FRAME_SECONDS = 0.1;
 const DEFAULT_ROLE_ID = "senpai";
+// 復習リストで始めた用語確認の「職種」の表示(職種ではないので、名前だけ)
+const REVIEW_JOB = { id: "review", name: "復習リスト" };
 
 const view = createView(document.querySelector("[data-game]"));
 const backend = getBackend();
@@ -107,7 +110,11 @@ async function init() {
       settings = { ...settings, showExplanation: checked };
       saveSettings(backend, settings);
     },
-    onCheckRetry: () => session?.kind === "check" && startCheck({ jobId: session.job.id }),
+    onCheckRetry: () => {
+      if (session?.kind !== "check") return;
+      if (session.review) startReview();
+      else startCheck({ jobId: session.job.id });
+    },
     onProfileChange: handleProfileChange,
     onRankingRoleChange: (roleId) => {
       rankingRoleId = roleId;
@@ -118,6 +125,13 @@ async function init() {
     onQuit: quit,
   });
   refreshDashboard();
+
+  // 成績ページの「復習リストで用語確認をする」から来たとき(?review=1)。アドレスからは消す
+  const params = new URLSearchParams(location.search);
+  if (params.get("review") === "1") {
+    history.replaceState(null, "", location.pathname);
+    startReview();
+  }
 }
 
 function handleProfileChange({ nickname, titleId }) {
@@ -164,11 +178,44 @@ async function beginCheck({ jobId }) {
     return;
   }
   view.showError("");
+  startCheckSession({ job, words: pickCheckWords(vocabulary.items) });
+}
 
-  const words = pickCheckWords(vocabulary.items);
+// 復習リスト(直近のプレイでミスした語)で、用語確認を始める。結果は、保存しない。
+async function startReview() {
+  await guardedStart(beginReview);
+}
+
+async function beginReview() {
+  let vocabularies;
+  try {
+    vocabularies = await Promise.all(jobs.map((job) => loadVocabulary(job.id)));
+  } catch {
+    view.showError("語録を読み込めませんでした。時間をおいてもう一度お試しください。");
+    return;
+  }
+  const list = buildReviewList(store.load().data.results, indexWords(vocabularies));
+  if (list.length === 0) {
+    view.showError(
+      "復習する語は、まだありません。連続タイピングでミスすると、成績ページの復習リストに出ます。",
+    );
+    return;
+  }
+  view.showError("");
+  // 語の順は、ミスの多い順のままだと、順番を覚えてしまうので、混ぜる
+  startCheckSession({
+    job: REVIEW_JOB,
+    words: shuffle(list.map((entry) => entry.word)),
+    review: true,
+  });
+}
+
+// 用語確認の進行を始める(職種の 10 語でも、復習リストでも共通)
+function startCheckSession({ job, words, review = false }) {
   if (session) cancelAnimationFrame(session.frameId);
   session = {
     kind: "check",
+    review,
     job,
     words,
     matcher: createMatcher(words[0].reading),
@@ -178,7 +225,7 @@ async function beginCheck({ jobId }) {
   view.showPlay({ mode: "check", jobName: job.name, goal: words.length });
   view.renderWord(words[0], session.matcher);
   view.renderCheckProgress(session.state);
-  announceWord(`用語確認を始めます。職種は${job.name}。${words.length}語です。`);
+  announceWord(`用語確認を始めます。${review ? "" : "職種は"}${job.name}。${words.length}語です。`);
 }
 
 // 用語確認では、語が変わるたびに、語・読み・説明を読み上げる

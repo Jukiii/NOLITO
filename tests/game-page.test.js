@@ -115,8 +115,10 @@ describe("表示は textContent だけ", () => {
 
   it("説明・語の表示は、setText か el()(textContent 相当)を通す", () => {
     assert.match(view, /setText\("\[data-word-explanation\]", word\.explanation \?\? ""\)/);
+    // 一覧の 1 件の描画は、共通の部品(review-item.js)。説明は el() で入れる
+    const item = read("public/assets/js/games/escape-boss/review-item.js");
     assert.match(
-      view,
+      item,
       /el\("p", \{ class: "review-item__text", lang: "ja" \}, word\.explanation\)/,
     );
   });
@@ -150,6 +152,79 @@ describe("保存(記録は変えない)", () => {
       main.indexOf("async function beginGame"),
     );
     assert.ok(checkPart.includes("finishCheck"), "用語確認の部分を、切り出せていません");
-    assert.ok(!/store[.]|recordResult|saveSettings/.test(checkPart));
+    // 記録を読む(store.load)のは、復習リストのため。書き込む呼び出しは、ない
+    assert.ok(!/store\.(update|save)|recordResult|saveSettings/.test(checkPart));
+  });
+});
+
+describe("復習リスト(成績ページ)", () => {
+  const stats = read("public/games/escape-boss/stats/index.html");
+  const statsPage = read("public/assets/js/games/escape-boss/stats-page.js");
+  const review = read("public/assets/js/games/escape-boss/review.js");
+
+  it("stats-page.js が探す目印が、成績ページの HTML にある", () => {
+    const found = hooks(statsPage);
+    assert.ok(found.size >= 10, `目印を、拾えていません(${found.size})`);
+    for (const hook of found) {
+      const [attribute, value] = hook.split("=");
+      assert.ok(stats.includes(attribute), `成績ページの HTML に ${attribute} がありません`);
+      if (value !== undefined) assert.ok(stats.includes(hook), hook);
+    }
+  });
+
+  it("復習リストの節: 見出し・説明・一覧・用語確認のボタン(リンク)がある", () => {
+    for (const hook of [
+      "data-review-note",
+      "data-review-list",
+      "data-review-action",
+      "data-review-start",
+    ]) {
+      assert.ok(stats.includes(hook), hook);
+    }
+    assert.match(stats, /<h2 id="review-title">復習リスト<\/h2>/);
+    assert.match(stats, /aria-labelledby="review-title"/);
+  });
+
+  it("ボタンは、ゲームのページに ?review=1 で移る。ゲームの main.js が、それを受ける", () => {
+    assert.match(stats, /href="\/games\/escape-boss\/\?review=1"/);
+    assert.match(main, /params\.get\("review"\) === "1"/);
+    // アドレスから消す(再読み込みで、もう一度始まらないように)
+    assert.match(main, /history\.replaceState\(null, "", location\.pathname\)/);
+  });
+
+  it("復習リストの節は、期間・役職の絞り込みの外にある(絞り込みの影響を受けない)", () => {
+    const section = stats.indexOf("data-review");
+    const scoped = stats.indexOf("data-scoped");
+    assert.ok(section > 0 && scoped > section);
+    assert.ok(stats.indexOf("data-filter-range") > section, "絞り込みより前に置く");
+  });
+
+  it("復習リストの作成(review.js)は、記録の保存・DOM に触れない", () => {
+    assert.ok(
+      !/localStorage|document|window|store\b|storage\.js|fetch\(/.test(
+        review.replace(/\/\/.*$/gm, ""),
+      ),
+    );
+  });
+
+  it("結果の画面と成績ページは、同じ部品(review-item.js)で、語を描く。表示は el() だけ", () => {
+    assert.match(view, /import \{ reviewItem \} from "\.\/review-item\.js"/);
+    assert.match(statsPage, /import \{ reviewItem \} from "\.\/review-item\.js"/);
+    const item = read("public/assets/js/games/escape-boss/review-item.js");
+    assert.ok(!/innerHTML|outerHTML|insertAdjacentHTML/.test(item));
+    assert.match(item, /word\.explanation/);
+  });
+
+  it("復習リストで始めた用語確認は、記録を保存しない(beginReview〜startCheckSession)", () => {
+    const part = main.slice(
+      main.indexOf("async function beginReview"),
+      main.indexOf("// 用語確認では、語が変わるたびに"),
+    );
+    assert.ok(part.includes("startCheckSession"), "切り出せていません");
+    assert.ok(!/store\.(update|save)|recordResult|saveSettings/.test(part));
+  });
+
+  it("ダッシュボードのリンクに、復習リストがある", () => {
+    assert.match(html, /成績・成長グラフ・苦手文字・復習リストを見る/);
   });
 });
