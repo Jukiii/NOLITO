@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.4.0</dd>
+              <dd>v0.5.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -65,7 +65,7 @@
             </div>
             <div class="product__meta-row">
               <dt>更新</dt>
-              <dd><time datetime="2026-09-20">2026年9月20日</time></dd>
+              <dd><time datetime="2026-09-21">2026年9月21日</time></dd>
             </div>
           </dl>
           <div class="product__actions">
@@ -213,7 +213,15 @@
               <summary class="faq__question">「用語確認」では、何ができますか?</summary>
               <div class="faq__answer">
                 <p>
-                  追ってくる人も時間制限もない練習です。職種を選ぶと、その職種の言葉が10語出ます。日本語・読み・説明を見ながら、読みを入力します。終わると、ミスした語と、今回の用語の説明を読み返せます。結果は保存されず、ランキングや成績には入りません。
+                  追ってくる人も時間制限もない練習です。職種を選ぶと、その職種の言葉が10語出ます。日本語・読み・説明を見ながら、読みを入力します。終わると、ミスした語と、今回の用語の説明を読み返せます。結果は保存されず、ランキングや成績には入りません。成績ページの「復習リスト」から、ミスした語だけで用語確認をすることもできます。
+                </p>
+              </div>
+            </details>
+            <details class="faq__item">
+              <summary class="faq__question">「復習リスト」には、何が載りますか?</summary>
+              <div class="faq__answer">
+                <p>
+                  連続タイピングで、直近20プレイのうちにミスした語が、ミスの多い順に、最大20語まで載ります。成績ページで見られます。用語確認の結果は、保存されないので、載りません。用語確認で打ち直しても、リストは変わりません。連続タイピングを遊ぶと、直近20プレイの範囲が新しくなり、リストも入れ替わります。
                 </p>
               </div>
             </details>
@@ -222,6 +230,20 @@
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.5.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-21">2026年9月21日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  成績ページに「復習リスト」を追加(直近20プレイでミスした語を、ミスの多い順に、最大20語まで表示)
+                </li>
+                <li>復習リストから、その語だけで用語確認ができる(結果は保存されない)</li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.4.0

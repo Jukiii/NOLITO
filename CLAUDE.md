@@ -152,3 +152,10 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 用語確認は、プレイ画面を共用する(`data-mode="check"`)。追いかけ専用の部品には `data-chase-only` を付ける(用語確認で隠す)。**view.js・main.js が探す `data-...` の目印は、HTML にあること**(`tests/game-page.test.js` が検査する)。
 - 語の説明は、用語確認では常に表示し、連続タイピングでは設定(既定オフ)。設定は `settings.js`(キー `nolito:escape-boss:settings:v1`。**記録のキーとは別**。壊れた値は既定に戻す)。説明などの語録の内容は、`textContent`(`el()`・`setText`)だけで表示する。
 - ゲームの画面を変えたら、`public/assets/img/products/escape-boss/` の画面(スタート・プレイ中・用語確認・結果)も撮り直す。
+
+### 復習リスト(Phase 12 PR 2)
+
+- 復習リスト = 直近 20 プレイ(連続タイピング。役職は問わない)でミスした語を、ミスの多い順に、最大 20 語(`review.js`。DOM に依存しない純粋な関数)。元データは、各プレイの結果に保存済みの `wordMisses`。**新しく保存するものはなく、記録の版・形は変えない**。決定は `docs/decisions/0020-phase-12-review-list.md`。
+- 語録に見つからない語(id が消えた)・不正なミスの数は、無視する(落ちない)。**語の id を、消さない・つけ替えない**(記録の `wordMisses` が、id で語を指すため)。
+- 成績ページの「復習リスト」は、期間・役職の絞り込みの影響を受けない。「復習リストで用語確認をする」は、`/games/escape-boss/?review=1` で、その場で用語確認が始まる(記録は保存しない)。一覧の 1 件の描画は `review-item.js`(textContent だけ)。
+
