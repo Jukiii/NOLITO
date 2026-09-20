@@ -18,7 +18,10 @@
     "test": "node --test \"tests/**/*.test.js\"",
     "build:articles": "node scripts/build-articles.mjs",
     "build:products": "node scripts/build-products.mjs",
-    "build": "npm run build:articles && npm run build:products"
+    "build": "npm run build:articles && npm run build:products",
+    "backup:d1": "node scripts/backup-d1.mjs",
+    "backup:verify": "node scripts/verify-backup.mjs",
+    "d1:remote": "node scripts/d1-remote.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

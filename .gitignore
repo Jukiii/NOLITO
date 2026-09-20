@@ -11,6 +11,10 @@ node_modules/
 .wrangler/
 .claude/settings.local.json
 
+# D1 のバックアップ(個人情報が入る。保存先は、リポジトリの外にする。うっかり置いたときの、保険)
+nolito-d1-*.sql
+backups/
+
 # Logs / OS
 *.log
 .DS_Store
