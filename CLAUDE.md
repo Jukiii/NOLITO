@@ -160,3 +160,10 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 語録に見つからない語(id が消えた)・不正なミスの数は、無視する(落ちない)。**語の id を、消さない・つけ替えない**(記録の `wordMisses` が、id で語を指すため)。
 - 成績ページの「復習リスト」は、期間・役職の絞り込みの影響を受けない。「復習リストで用語確認をする」は、`/games/escape-boss/?review=1` で、その場で用語確認が始まる(記録は保存しない)。一覧の 1 件の描画は `review-item.js`(textContent だけ)。
 
+
+### 距離の計算(Phase 12 PR 3)
+
+- 正解で増える距離 = `base_gain` + `gain_per_char × 標準の表記の長さ` + **難易度の分**(`difficulty_gain × (難易度 − 1)`)+ **速さの分**(`speed_gain × 0〜1`。1 語の最初の正しい打鍵から最後の打鍵までの打鍵/秒を、`speed_min_cps`〜`speed_max_cps` の間で割合にする)。**加算だけ**で、速さで距離は減らない。最大値で頭打ち。式は `engine.js`(DOM・時計・乱数に触れない)、決定は `docs/decisions/0022-phase-12-distance.md`。
+- 秒は**ゲーム内の経過秒**(`state.elapsed`)。`main.js` が、語ごとに最初の打鍵の時刻を持ち(`wordStartedAt`)、正解のときに `difficulty`・`seconds`・実際の打鍵数(`matcher.typed.length`)を渡す。時間が不正なら、速さの分は 0。用語確認には、距離がない。
+- 新しい項目(`difficulty_gain`・`speed_gain`・`speed_min_cps`・`speed_max_cps`)は、`roles.json` の各 `stage` に必要(`tests/data.test.js`)。**式・`roles.json`・語録を変えたら、`tests/balance.test.js`(実際のデータの決まった乱数のシミュレーション)で、クリア率の階段(0006・0022)を確認する**。ずれたら、シミュレーションで `base_gain` などを探し直す。
+- スコアには「残り距離 × 5」が入っているので、距離の式を変えると、スコアの尺度も動く。式の変更は、決定ログに、その影響を書く。

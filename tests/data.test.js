@@ -52,6 +52,10 @@ describe("jobs.json / roles.json", () => {
         "drain_per_second",
         "base_gain",
         "gain_per_char",
+        "difficulty_gain",
+        "speed_gain",
+        "speed_min_cps",
+        "speed_max_cps",
         "miss_penalty",
         "goal_words",
       ]) {
@@ -59,6 +63,8 @@ describe("jobs.json / roles.json", () => {
         assert.ok(role.stage[key] > 0, `${role.id}.${key} は正の数`);
       }
       assert.ok(role.stage.initial_distance <= role.stage.max_distance);
+      // 速さの加点は、min〜max の範囲で 0 から上限まで(min < max)
+      assert.ok(role.stage.speed_min_cps < role.stage.speed_max_cps, `${role.id} 速さの範囲`);
       assert.ok(Number.isInteger(role.stage.goal_words));
     }
   });

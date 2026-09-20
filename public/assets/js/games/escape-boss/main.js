@@ -313,6 +313,8 @@ async function beginGame({ jobId, roleId }) {
     matcher: createMatcher(words[0].reading),
     state: createGameState(stage),
     keyStats: createKeyStats(),
+    // いまの語の、最初の正しい打鍵の時刻(ゲーム内の経過秒)。距離の「速さの分」に使う
+    wordStartedAt: null,
     lastFrame: performance.now(),
     frameId: 0,
   };
@@ -445,15 +447,24 @@ function handleChar(char) {
   }
   session.keyStats = recordHit(session.keyStats, key);
   session.state = applyHit(session.state);
+  session.wordStartedAt ??= session.state.elapsed;
   if (result === "ok") {
     view.renderWord(session.words[session.index], session.matcher);
     return;
   }
   // 1語打ち終わった
   const charCount = session.matcher.canonicalLength;
-  update(applyCorrect(session.state, session.stage, charCount));
+  const seconds = session.state.elapsed - session.wordStartedAt;
+  update(
+    applyCorrect(session.state, session.stage, charCount, {
+      difficulty: word.difficulty,
+      seconds,
+      keystrokes: session.matcher.typed.length,
+    }),
+  );
   if (session.state.status !== "playing") return;
   session.index += 1;
+  session.wordStartedAt = null;
   session.matcher = createMatcher(session.words[session.index].reading);
   view.renderWord(session.words[session.index], session.matcher);
 }
