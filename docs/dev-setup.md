@@ -101,3 +101,8 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 - 動かして確認するには、`npx wrangler pages dev public`(`wrangler` は devDependency)。環境変数は、`.dev.vars`(Git に入れない)か、`--binding KEY=VALUE` で渡す。ローカルの D1 は、`npx wrangler d1 migrations apply nolito --local`。
 - `functions/` を変えたら、`tests/auth-*.test.js` も更新する。`migrations/` に新しいファイルを足す PR は、本番の D1 にも、マージの**前**に、同じ SQL を適用する(PR の説明に書く)。
 - ライセンスキーの発行: `node scripts/issue-license.mjs <商品ID> --count 3 --note "メモ"`(運営者用。手順は `docs/auth-setup.md` の「ライセンスキーを発行する」)。
+
+## DB のバックアップ(Phase 10)
+
+- 月に 1 回、`npm run backup:d1`(運営者用。手順・復元・練習は `docs/backup.md`)。事前に `npx wrangler login` と、環境変数 `NOLITO_D1_DATABASE_ID`。
+- 書き出したファイルの確認は `npm run backup:verify -- <ファイル>`。本物の D1 への `wrangler d1` は `npm run d1:remote -- <コマンド>`。

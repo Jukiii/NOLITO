@@ -112,3 +112,11 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 登録は、1 つの条件つき `UPDATE`(同時に 2 人でも 1 人だけ)。存在しない・他人が使用済み・無効は、**同じ応答**(`license-invalid`)にして、キーの存在を探れなくする。回数を制限する(1 人 5 回 / 10 分、IP ごと 20 回 / 10 分)。
 - アカウントの削除では、ライセンスの記録を残し、結びつき(`user_id`・`redeemed_at`)だけを外す(`deleteUser`)。
 - **D1 の Console に貼る SQL は、コメント(`--`)を入れず、1 回に 1 文にする**(Console は改行を消すことがある)。`migrations/` に新しいファイルを足したら、`docs/auth-setup.md` の「D1 に貼る SQL」にも、コメントを抜いた同じ内容を載せる(`tests/migrations-doc.test.js` が一致を検査する)。マージの前に、本番の D1 に実行する(PR の説明に書く)。
+
+## バックアップ(Phase 10)
+
+- 本番の D1 には個人情報が入っている。**DB のバックアップ(SQL)を、GitHub・チャット・リポジトリの中に置かない**(公開のリポジトリ)。`npm run backup:d1` は、リポジトリの中への保存を断る。`.gitignore` の `nolito-d1-*.sql`・`backups/` を外さない。
+- 手順・復元は `docs/backup.md`、決定は `docs/decisions/0015-backup.md`。D1 Time Travel(自動・7 日)+ 月に 1 回の手元の書き出し(運営者)。保管は直近 6 か月まで(削除したアカウントの情報を、いつまでも残さない)。
+- 本物の D1 の ID は、コミットしない(`wrangler.toml` はダミーのまま)。環境変数 `NOLITO_D1_DATABASE_ID` か `--id` で渡す。本番の DB を読める秘密のトークンを、GitHub Actions などに置かない(自動化しない理由は、`docs/backup.md`)。
+- スクリプトは、バックアップの中身(メールアドレスなど)を表示しない(テーブル名と件数だけ)。この性質を変えない(テストで検証している)。
+- `tests/fixtures/d1-export-sample.sql` は、本物の `wrangler d1 export` の出力(作り物のデータ)。テーブルを足したら、`migrations/` と合わせて、見本を作り直す。

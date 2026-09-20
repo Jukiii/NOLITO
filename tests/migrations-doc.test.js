@@ -6,7 +6,9 @@ import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-const doc = readFileSync(`${root}docs/auth-setup.md`, "utf8");
+// Windows の作業コピーは、改行が CRLF になる(git の設定による)。LF にそろえて読む
+const read = (path) => readFileSync(path, "utf8").replaceAll("\r\n", "\n");
+const doc = read(`${root}docs/auth-setup.md`);
 const migrationsDir = `${root}migrations/`;
 
 // コメントを除き、空白を 1 つにする(比較のための正規化)
@@ -38,7 +40,7 @@ describe("手順書の SQL と migrations/", () => {
 
   it("手順書の SQL は、ファイルと同じ内容(コメントを除く)", () => {
     for (const name of migrations) {
-      const file = readFileSync(`${migrationsDir}${name}`, "utf8");
+      const file = read(`${migrationsDir}${name}`);
       assert.equal(normalize(blocks.get(name)), normalize(file), name);
     }
   });
