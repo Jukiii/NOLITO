@@ -8,5 +8,11 @@ export const mainNav = [
   { label: "ゲーム", href: "/games/" },
   { label: "ソフト", href: "/software/", available: false },
   { label: "ツール", href: "/tools/", available: false },
-  { label: "記事", href: "/articles/", available: false },
+  { label: "記事", href: "/articles/" },
+];
+
+// フッターのリンク。ページができたものだけを並べる(存在しないページへのリンクは張らない)
+export const footerLinks = [
+  { label: "サイト紹介", href: "/about/" },
+  { label: "プライバシーポリシー", href: "/privacy/" },
 ];

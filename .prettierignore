@@ -5,3 +5,6 @@ docs/
 .vscode/
 CLAUDE.md
 README.md
+content/
+public/articles/
+public/data/articles.json
