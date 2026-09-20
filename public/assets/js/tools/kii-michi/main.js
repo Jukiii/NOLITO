@@ -1,6 +1,7 @@
 // キーみち: 状態(データ・表示中の画面)と、保存(store.js)をつなぐ。画面の描画は view.js。
 // 変更はすべて model.js の関数で行い、成功したら保存して、描き直す。
 import { createToolStore } from "../store.js";
+import { formatChord } from "./keys.js";
 import {
   DATA_VERSION,
   TOOL_ID,
@@ -20,6 +21,15 @@ import {
   updateOperation,
   updateRoute,
 } from "./model.js";
+import {
+  currentStep,
+  markSelfCheck,
+  pressChord,
+  reveal,
+  selfAnswer,
+  skip,
+  startSession,
+} from "./practice.js";
 import { createView } from "./view.js";
 
 // 最初に開いたときの、キーの表記(Mac なら macOS、それ以外は Windows)
@@ -48,6 +58,8 @@ const state = {
   selectedRouteId: loaded.data.routes[0]?.id ?? null,
   sheet: { includeRoutes: true, includeList: true },
   lastAppId: null,
+  // 練習(結果は保存しない。この画面の中だけ)
+  practice: { settings: { routeId: null, method: "press", showKeys: false }, session: null },
 };
 
 const IMPORT_ERRORS = {
@@ -67,6 +79,7 @@ function resetSelection() {
   state.editingRouteId = null;
   state.lastAppId = null;
   state.selectedRouteId = state.data.routes[0]?.id ?? null;
+  state.practice.session = null; // データが入れ替わったので、練習は終える
 }
 
 function persist() {
@@ -103,6 +116,21 @@ const dateStamp = () => {
 };
 
 const lastOf = (list) => list[list.length - 1];
+
+// 練習の、次の手順の案内(読み上げ用)
+function nextMessage(session) {
+  const step = currentStep(session);
+  return step
+    ? `次は「${step.appName}: ${step.name}」です。`
+    : "練習が終わりました。結果を表示します。";
+}
+
+// 練習の状態を入れ替えて、描き直す
+function updatePractice(session, message) {
+  state.practice.session = session;
+  view.render(state);
+  return { ok: true, message };
+}
 
 const actions = {
   setTab(tab) {
@@ -212,6 +240,67 @@ const actions = {
   },
   setOs: (os) =>
     commit(setOs(state.data, os), `キーの表記を${os === "mac" ? "macOS" : "Windows"}にしました。`),
+
+  // 練習
+  setPracticeSettings(partial) {
+    Object.assign(state.practice.settings, partial);
+  },
+  startPractice(values) {
+    const settings = { ...state.practice.settings, ...values };
+    const result = startSession(state.data, settings.routeId, {
+      os: state.data.settings.os,
+      method: settings.method,
+      showKeys: settings.showKeys,
+    });
+    if (!result.ok) return result;
+    state.practice.settings = settings;
+    state.editingAppId = null;
+    state.editingOperationId = null;
+    state.editingRouteId = null;
+    state.tab = "practice";
+    return updatePractice(
+      result.session,
+      `練習を始めます。全${result.session.steps.length}手順です。${nextMessage(result.session)}`,
+    );
+  },
+  // キーを押した。合っている・違うときは、画面を作り直さない(view が、その場で更新する)
+  practicePress(chord) {
+    const { session, outcome } = pressChord(state.practice.session, chord);
+    state.practice.session = session;
+    const pressed = formatChord(chord, session.os);
+    const message = {
+      miss: `違います。押したキーは ${pressed} です。`,
+      partial: `${pressed}。続けて、次のキーを押してください。`,
+      "step-done": `正解です。${nextMessage(session)}`,
+      finished: "正解です。練習が終わりました。結果を表示します。",
+      ignored: "",
+    }[outcome];
+    return { outcome, message };
+  },
+  practiceReveal: () => updatePractice(reveal(state.practice.session), "答えを表示しました。"),
+  practiceMark: () =>
+    updatePractice(
+      markSelfCheck(state.practice.session),
+      "自己確認にしました。「答えを見る」を押すと、答えのキーが出ます。",
+    ),
+  practiceSkip() {
+    const session = skip(state.practice.session);
+    return updatePractice(session, `飛ばしました。${nextMessage(session)}`);
+  },
+  practiceSelfOk() {
+    const session = selfAnswer(state.practice.session, true);
+    return updatePractice(session, `できたにしました。${nextMessage(session)}`);
+  },
+  practiceSelfNg() {
+    const session = selfAnswer(state.practice.session, false);
+    return updatePractice(session, `できなかったにしました。${nextMessage(session)}`);
+  },
+  practiceQuit: () => updatePractice(null, "練習をやめました。"),
+  practiceRestart() {
+    const session = state.practice.session;
+    if (!session) return { ok: false, message: "練習が始まっていません。" };
+    return actions.startPractice({ routeId: session.routeId });
+  },
 
   // バックアップ
   exportData() {

@@ -20,8 +20,9 @@ import {
   resolveRoute,
   stats,
 } from "./model.js";
+import { summarize } from "./practice.js";
 
-export const TABS = ["ops", "routes", "list", "sheet", "settings"];
+export const TABS = ["ops", "routes", "practice", "list", "sheet", "settings"];
 const MODIFIER_KEY_NAMES = ["Control", "Shift", "Alt", "Meta", "AltGraph", "CapsLock", "OS"];
 
 const NOTICES = {
@@ -566,6 +567,13 @@ export function createView(root, actions) {
             el(
               "div",
               { class: "kii-row" },
+              route.steps.length > 0
+                ? button(
+                    "このルートを練習する",
+                    { "data-action": "practice-start-route", "data-id": route.id },
+                    "button button--primary",
+                  )
+                : "",
               button("名前・メモを変更", { "data-action": "edit-route", "data-id": route.id }),
               button("ルートを削除", { "data-action": "remove-route", "data-id": route.id }),
             ),
@@ -937,11 +945,394 @@ export function createView(root, actions) {
     );
   }
 
+  // ---- ⑥練習 ----
+
+  const SELF_REASONS = {
+    method: "答えを見て確認する方法を、選んでいます。",
+    reserved:
+      "このキーは、ブラウザ・OS が先に処理するため、ここでは判定できません。この画面では、押さないでください(タブが閉じるなどします)。",
+    tab: "Tab は、画面の移動に使うため、判定できません。",
+    marked: "「押しても反応しない」ため、自己確認にしました。",
+  };
+  const RESULT_LABELS = {
+    ok: "できた",
+    "self-ok": "自己確認: できた",
+    "self-ng": "自己確認: できなかった",
+    skipped: "スキップ",
+  };
+  const MODE_LABELS = {
+    press: "キーを押して判定",
+    method: "自己確認(方法の選択)",
+    reserved: "自己確認(ブラウザ・OS が先に処理するキー)",
+    tab: "自己確認(Tab は移動に使うため)",
+    marked: "自己確認(押しても反応しなかった)",
+  };
+
+  // 直近の判定の、画面に出す文
+  function describeLast(session) {
+    const { last, os } = session;
+    if (!last) return "";
+    const pressed = last.pressed ? formatChord(last.pressed, os) : "";
+    return (
+      {
+        miss: `✕ 違います(押したキー: ${pressed})。もう一度、押してください。`,
+        partial: `○ ${pressed}。続けて、次のキーを押してください。`,
+        "step-done": "○ 正解でした。次の手順です。",
+        skipped: "前の手順を、飛ばしました。",
+        "self-ok": "前の手順: できた。",
+        "self-ng": "前の手順: できなかった。",
+        revealed: "答えを表示しました。",
+        marked: "この手順を、自己確認にしました。",
+      }[last.type] ?? ""
+    );
+  }
+
+  const promptText = (session, step) =>
+    step.keys.length > 1
+      ? `${session.progress + 1}つ目のキーを押してください(全${step.keys.length}つ)`
+      : "キーを押してください";
+
+  function renderPractice(panel) {
+    const { session } = state.practice;
+    if (!session) renderPracticeSetup(panel);
+    else if (session.status === "finished") renderPracticeResult(panel, session);
+    else renderPracticeStep(panel, session);
+  }
+
+  function renderPracticeSetup(panel) {
+    const { settings } = state.practice;
+    const routes = state.data.routes.filter((route) => route.steps.length > 0);
+    const head = [
+      el("h2", { id: "heading-practice", tabindex: "-1" }, "練習"),
+      el(
+        "p",
+        {},
+        "ルートの手順を、順番どおりに、キーを押して練習します。答えのキーは隠しているので、思い出して押してください。",
+      ),
+      el(
+        "p",
+        { class: "kii-field__hint" },
+        "キーを押して判定する練習は、パソコンのキーボードで使います。スマートフォンなどでは、「答えを見て自己確認する」を選んでください。",
+      ),
+    ];
+    if (routes.length === 0) {
+      panel.replaceChildren(
+        ...head,
+        el(
+          "p",
+          { class: "kii-empty" },
+          "練習できるルートが、まだありません。「ルート」の画面で、手順のあるルートを作ってください。",
+        ),
+      );
+      return;
+    }
+    const selected = routes.some((route) => route.id === settings.routeId)
+      ? settings.routeId
+      : routes[0].id;
+    const radio = (value, label) =>
+      el(
+        "label",
+        {},
+        el("input", {
+          type: "radio",
+          name: "method",
+          value,
+          checked: settings.method === value,
+          "data-practice-setting": "method",
+        }),
+        label,
+      );
+    panel.replaceChildren(
+      ...head,
+      el(
+        "form",
+        {
+          class: "kii-form",
+          novalidate: true,
+          "data-form": "practice-start",
+          "aria-labelledby": "practice-form-title",
+        },
+        el("h3", { id: "practice-form-title" }, "練習を始める"),
+        field(
+          "ルート",
+          el(
+            "select",
+            {
+              class: "kii-input",
+              id: "practice-route",
+              name: "routeId",
+              "data-practice-setting": "routeId",
+            },
+            ...routes.map((route) =>
+              el(
+                "option",
+                { value: route.id, selected: route.id === selected },
+                `${route.name}(${route.steps.length}手順)`,
+              ),
+            ),
+          ),
+        ),
+        el(
+          "fieldset",
+          { class: "kii-field" },
+          el("legend", {}, "練習の方法"),
+          el(
+            "div",
+            { class: "kii-radio" },
+            radio("press", "キーを押して判定する"),
+            radio("self", "答えを見て自己確認する"),
+          ),
+          el(
+            "p",
+            { class: "kii-field__hint" },
+            "「キーを押して判定する」でも、ブラウザ・OS が先に処理するキーや、Tab は、判定できないので、自己確認になります。",
+          ),
+        ),
+        el(
+          "div",
+          { class: "kii-check" },
+          el(
+            "label",
+            {},
+            el("input", {
+              type: "checkbox",
+              name: "showKeys",
+              checked: settings.showKeys,
+              "data-practice-setting": "showKeys",
+            }),
+            "キーを最初から表示する(覚える練習)",
+          ),
+        ),
+        el("p", {
+          class: "kii-error",
+          id: "practice-error",
+          role: "alert",
+          "data-error": true,
+          hidden: true,
+        }),
+        el(
+          "div",
+          { class: "kii-row" },
+          el("button", { class: "button button--primary", type: "submit" }, "はじめる"),
+        ),
+      ),
+    );
+  }
+
+  function renderPracticeStep(panel, session) {
+    const step = session.steps[session.index];
+    const os = session.os;
+    const keysArea = session.revealed
+      ? el(
+          "div",
+          { class: "kii-practice__keys", "data-keys": true },
+          "答え: ",
+          keysView(step.keys, os),
+        )
+      : el(
+          "p",
+          { class: "kii-practice__keys kii-practice__hidden", "data-keys": true },
+          "答えのキーは、隠しています。",
+        );
+    const buttons = [];
+    let body;
+    if (step.mode === "press") {
+      const answer = el(
+        "div",
+        {
+          class: "kii-practice__answer",
+          id: "practice-answer",
+          tabindex: "0",
+          role: "application",
+          "aria-label": `キー入力の受付。「${step.name}」のキーを押してください。`,
+          "aria-describedby": "practice-help",
+          "data-answer": true,
+          "data-active": "false",
+        },
+        el(
+          "span",
+          { class: "kii-practice__state", "data-state": true },
+          "停止中(この枠を選ぶと、受け付けます)",
+        ),
+        el(
+          "span",
+          { class: "kii-practice__prompt", "data-prompt": true },
+          promptText(session, step),
+        ),
+      );
+      answer.addEventListener("keydown", onPracticeKey);
+      answer.addEventListener("focus", () => setAnswerState(answer, true));
+      answer.addEventListener("blur", () => setAnswerState(answer, false));
+      body = [
+        answer,
+        el(
+          "p",
+          { class: "kii-field__hint", id: "practice-help" },
+          "この枠を選んでいるあいだ、押したキーを判定します。Tab・Shift+Tab は、判定せずに、移動に使います(Tab で、ボタンへ移れます)。Ctrl+W など、ブラウザや OS が先に処理するキーは、ここでは押さないでください(タブが閉じるなどします)。押しても反応しないキーは、「押しても反応しない」ボタンで、答えを見て確認できます。",
+        ),
+      ];
+      if (!session.revealed)
+        buttons.push(button("ヒントを見る", { "data-action": "practice-reveal" }));
+      buttons.push(button("スキップ", { "data-action": "practice-skip" }));
+      buttons.push(
+        button("押しても反応しない(自己確認にする)", { "data-action": "practice-mark" }),
+      );
+    } else {
+      body = [el("p", { class: "kii-practice__self" }, SELF_REASONS[step.selfReason])];
+      if (!session.revealed)
+        buttons.push(
+          button(
+            "答えを見る",
+            { "data-action": "practice-reveal", "data-practice-focus": true },
+            "button button--primary",
+          ),
+        );
+      buttons.push(
+        button("できた", {
+          "data-action": "practice-self-ok",
+          ...(session.revealed ? { "data-practice-focus": true } : {}),
+        }),
+      );
+      buttons.push(button("できなかった", { "data-action": "practice-self-ng" }));
+      buttons.push(button("スキップ", { "data-action": "practice-skip" }));
+    }
+    buttons.push(button("やめる", { "data-action": "practice-quit" }));
+    panel.replaceChildren(
+      el("h2", { id: "heading-practice", tabindex: "-1" }, `練習: ${session.routeName}`),
+      el(
+        "p",
+        { class: "kii-practice__progress" },
+        `手順 ${session.index + 1} / ${session.steps.length}`,
+      ),
+      el(
+        "section",
+        { class: "kii-practice__step", "aria-labelledby": "practice-step-title" },
+        el("p", { class: "kii-practice__app" }, step.appName),
+        el("h3", { id: "practice-step-title", class: "kii-practice__title" }, step.name),
+        step.note ? el("p", { class: "kii-item__note" }, step.note) : "",
+        keysArea,
+        ...body,
+        el("p", { class: "kii-practice__feedback", "data-feedback": true }, describeLast(session)),
+        el("div", { class: "kii-row" }, ...buttons),
+      ),
+    );
+  }
+
+  // 答えの枠の状態(受け付けているか)。色だけでなく、文字と枠の線でも示す
+  function setAnswerState(answer, active) {
+    answer.dataset.active = String(active);
+    $("[data-state]", answer).textContent = active
+      ? "受け付けています"
+      : "停止中(この枠を選ぶと、受け付けます)";
+  }
+
+  // 練習の枠の、文・進み具合だけを、その場で更新する(枠を作り直さない。フォーカス・読み上げを乱さないため)
+  function updatePracticeFeedback() {
+    const { session } = state.practice;
+    const step = session.steps[session.index];
+    $("[data-feedback]").textContent = describeLast(session);
+    const prompt = $("[data-prompt]");
+    if (prompt) prompt.textContent = promptText(session, step);
+  }
+
+  const focusPractice = () => ($("#practice-answer") ?? $("[data-practice-focus]"))?.focus();
+
+  // 押したキーの判定。答えの枠にフォーカスがあるときだけ、ここに届く
+  function onPracticeKey(event) {
+    if (event.key === "Tab") return; // 移動に使う(判定しない・止めない)
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.repeat || MODIFIER_KEY_NAMES.includes(event.key)) return;
+    if (isImeEvent(event)) {
+      announce("日本語入力(IME)がオンです。オフにして、もう一度押してください。");
+      return;
+    }
+    const chord = chordFromEvent(event);
+    if (!chord) {
+      announce("このキーは、判定できません。");
+      return;
+    }
+    const result = actions.practicePress(chord);
+    announce(result.message);
+    if (result.outcome === "step-done" || result.outcome === "finished") {
+      renderPractice($('[data-panel="practice"]'));
+      if (result.outcome === "finished") $("#heading-practice")?.focus();
+      else focusPractice();
+    } else if (result.outcome !== "ignored") {
+      updatePracticeFeedback();
+    }
+  }
+
+  function renderPracticeResult(panel, session) {
+    const result = summarize(session);
+    panel.replaceChildren(
+      el("h2", { id: "heading-practice", tabindex: "-1" }, `練習の結果: ${session.routeName}`),
+      el(
+        "ul",
+        { class: "kii-practice__summary" },
+        el(
+          "li",
+          {},
+          `${result.total}手順のうち、${result.ok + result.selfOk}手順ができました(間違い・答えを見ることなく、できたのは ${result.clean}手順)。`,
+        ),
+        el(
+          "li",
+          {},
+          `間違い ${result.misses}回 / 答えを見た手順 ${result.hints} / スキップ ${result.skipped} / 自己確認でできなかった ${result.selfNg}`,
+        ),
+      ),
+      el(
+        "div",
+        { class: "kii-scroll" },
+        el(
+          "table",
+          { class: "kii-table kii-table--result" },
+          el("caption", {}, "手順ごとの結果"),
+          el(
+            "thead",
+            {},
+            el(
+              "tr",
+              {},
+              ...["手順", "キー", "答え方", "結果", "間違い", "答えを見た"].map((label) =>
+                el("th", { scope: "col" }, label),
+              ),
+            ),
+          ),
+          el(
+            "tbody",
+            {},
+            ...result.steps.map((step, index) =>
+              el(
+                "tr",
+                {},
+                el("td", {}, `${index + 1}. ${step.appName}: ${step.name}`),
+                el("td", {}, el("kbd", { class: "kbd" }, step.keysText)),
+                el("td", {}, MODE_LABELS[step.mode === "press" ? "press" : step.selfReason]),
+                el("td", {}, RESULT_LABELS[step.result] ?? "(未実施)"),
+                el("td", {}, `${step.misses}回`),
+                el("td", {}, step.hinted ? "見た" : ""),
+              ),
+            ),
+          ),
+        ),
+      ),
+      el(
+        "div",
+        { class: "kii-row" },
+        button("もう一度", { "data-action": "practice-restart" }, "button button--primary"),
+        button("ルートの画面へ", { "data-action": "practice-to-routes" }),
+        button("練習の設定へ", { "data-action": "practice-quit" }),
+      ),
+    );
+  }
+
   // ---- 全体の描画 ----
 
   const RENDERERS = {
     ops: renderOps,
     routes: renderRoutes,
+    practice: renderPractice,
     list: renderList,
     sheet: renderSheet,
     settings: renderSettings,
@@ -1080,6 +1471,42 @@ export function createView(root, actions) {
           (after ?? $("#step-operation") ?? $("#route-title"))?.focus();
         });
         break;
+      case "practice-start-route": {
+        const result = actions.startPractice({ routeId: id });
+        announce(result.message);
+        if (result.ok) focusPractice();
+        break;
+      }
+      case "practice-reveal":
+      case "practice-skip":
+      case "practice-mark":
+      case "practice-self-ok":
+      case "practice-self-ng":
+      case "practice-restart": {
+        const method = {
+          "practice-reveal": "practiceReveal",
+          "practice-skip": "practiceSkip",
+          "practice-mark": "practiceMark",
+          "practice-self-ok": "practiceSelfOk",
+          "practice-self-ng": "practiceSelfNg",
+          "practice-restart": "practiceRestart",
+        }[action];
+        const result = actions[method]();
+        announce(result.message);
+        const { session } = state.practice;
+        if (!result.ok || !session || session.status === "finished")
+          $("#heading-practice")?.focus();
+        else focusPractice();
+        break;
+      }
+      case "practice-quit":
+        announce(actions.practiceQuit().message);
+        $("#heading-practice")?.focus();
+        break;
+      case "practice-to-routes":
+        actions.setTab("routes");
+        focusHeading();
+        break;
       case "print":
         window.print();
         break;
@@ -1187,6 +1614,17 @@ export function createView(root, actions) {
         $(`[data-action="edit-route"][data-id="${form.dataset.id}"]`)?.focus();
         break;
       }
+      case "practice-start": {
+        const result = actions.startPractice({
+          routeId: value("routeId"),
+          method: value("method") || "press",
+          showKeys: Boolean(form.elements.showKeys?.checked),
+        });
+        if (!result.ok) return fail(result, "routeId");
+        announce(result.message);
+        focusPractice();
+        break;
+      }
       case "add-step": {
         const result = actions.addStep(form.dataset.id, value("operationId"));
         if (!result.ok) return fail(result, "operationId");
@@ -1210,6 +1648,12 @@ export function createView(root, actions) {
 
   async function onChange(event) {
     const target = event.target;
+    if (target.dataset?.practiceSetting) {
+      // 練習の設定は、画面を作り直さずに、覚えるだけ(選んでいる場所を乱さない)
+      const name = target.dataset.practiceSetting;
+      actions.setPracticeSettings({ [name]: name === "showKeys" ? target.checked : target.value });
+      return;
+    }
     if (target.dataset?.option === "os") {
       announce(actions.setOs(target.value).message);
       $('[data-option="os"]:checked')?.focus();
