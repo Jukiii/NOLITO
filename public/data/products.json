@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "products": [
     {
       "id": "escape-boss",
@@ -50,17 +50,15 @@
           "value": "お題のデータを読み込むため、遊ぶあいだはインターネットに接続している必要があります"
         },
         {
-          "label": "保存",
-          "value": "記録は、お使いのブラウザにだけ保存されます。アカウントの登録・ログインは不要です"
-        },
-        {
           "label": "動作確認",
           "value": "Microsoft Edge(Windows)で確認しています。ほかのブラウザやスマートフォンでの確認は、まだ十分ではありません"
         }
       ],
+      "storage": ["browser"],
       "price": {
         "type": "free"
       },
+      "plan": null,
       "status": "beta",
       "url": "/games/escape-boss/",
       "detail_path": "/games/escape-boss/about/",

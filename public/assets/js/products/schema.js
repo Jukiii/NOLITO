@@ -2,12 +2,14 @@
 // 使う場所: 単体テスト(データが正しいか)と、一覧の描画(不正な項目を外して、他は表示する)。
 // 将来、管理画面(Phase 26)などから書かれても安全なように、URL・文字数・値の種類を厳しく確認する。
 
-export const PRODUCT_DATA_VERSION = 3;
+export const PRODUCT_DATA_VERSION = 4;
 export const CATEGORY_DATA_VERSION = 1;
 
 export const STATUSES = ["released", "beta", "coming-soon"];
 export const PLATFORMS = ["web", "windows", "mac", "linux", "ios", "android"];
 export const PRICE_TYPES = ["free", "paid", "undecided"];
+// 利用者のデータの保存方式。none は「保存しない」で、ほかとは併用できない(account は Phase 9・19 で加える)
+export const STORAGE_METHODS = ["none", "browser", "file"];
 
 const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const VERSION_PATTERN = /^\d+\.\d+\.\d+$/;
@@ -18,6 +20,7 @@ const MAX_SCREENSHOTS = 6;
 const MAX_REQUIREMENTS = 20;
 const MAX_FAQ = 20;
 const MAX_IMAGE_SIZE = 10_000;
+const MAX_PLAN_ITEMS = 10;
 
 const isObject = (value) => typeof value === "object" && value !== null && !Array.isArray(value);
 const isText = (value, max) =>
@@ -146,6 +149,35 @@ function checkScreenshots(screenshots, add) {
   });
 }
 
+function checkStorage(storage, add) {
+  const ok =
+    Array.isArray(storage) &&
+    storage.length > 0 &&
+    storage.every((method) => STORAGE_METHODS.includes(method)) &&
+    new Set(storage).size === storage.length;
+  if (!ok) return add(`storage は、重複なしで ${STORAGE_METHODS.join(" / ")} から1つ以上`);
+  if (storage.includes("none") && storage.length > 1) {
+    add("storage の none(保存しない)は、ほかの方式と併用できません");
+  }
+}
+
+// 無料で使える範囲と、将来の有料機能(予定)。null なら、料金の節を出さない
+function checkPlan(plan, add) {
+  if (plan === null) return;
+  if (!isObject(plan)) return add("plan は、{ free, paid } か null にしてください");
+  const list = (items, label, min) => {
+    const ok =
+      Array.isArray(items) &&
+      items.length >= min &&
+      items.length <= MAX_PLAN_ITEMS &&
+      items.every((item) => isText(item, 100));
+    if (!ok)
+      add(`plan.${label} は、100字以内の文字列の配列(${min}〜${MAX_PLAN_ITEMS}件)にしてください`);
+  };
+  list(plan.free, "free", 1); // 無料利用が基本。無料の範囲は、必ず示す
+  list(plan.paid, "paid", 0);
+}
+
 // 詳細ページの場所。カテゴリの一覧ページの下で、一覧そのものではないこと
 function checkDetailPath(detailPath, category, add) {
   if (detailPath === null) return;
@@ -237,6 +269,8 @@ export function validateProduct(product, { categories = [] } = {}) {
   }
   checkChangelog(product.changelog, product, add);
 
+  checkStorage(product.storage, add);
+  checkPlan(product.plan, add);
   checkDetailPath(product.detail_path, category, add);
   checkScreenshots(product.screenshots, add);
   checkPairs(

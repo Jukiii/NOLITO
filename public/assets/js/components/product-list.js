@@ -6,6 +6,7 @@ import {
   formatDate,
   platformLabels,
   priceLabel,
+  storageLabels,
   versionLabel,
 } from "../products/format.js";
 import { usableProducts } from "../products/schema.js";
@@ -79,6 +80,7 @@ export function productCard(product) {
         { class: "product-card__meta" },
         metaRow("対応", platformLabels(product.platforms).join(" / ")),
         metaRow("価格", priceLabel(product.price)),
+        metaRow("保存", storageLabels(product.storage).join(" / ")),
         product.version ? metaRow("バージョン", versionLabel(product.version)) : "",
         metaRow(
           "更新",

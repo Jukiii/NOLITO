@@ -6,11 +6,13 @@ import { fileURLToPath } from "node:url";
 import { PRODUCT_STATUS } from "../public/assets/js/components/product-list.js";
 import {
   PLATFORM_LABELS,
+  STORAGE_INFO,
   downloadNote,
   formatDate,
   platformLabels,
   priceLabel,
   purchaseNote,
+  storageLabels,
   versionLabel,
 } from "../public/assets/js/products/format.js";
 import {
@@ -18,6 +20,7 @@ import {
   PLATFORMS,
   PRODUCT_DATA_VERSION,
   STATUSES,
+  STORAGE_METHODS,
   compareVersions,
   isExternalUrl,
   isGithubReleaseUrl,
@@ -55,6 +58,8 @@ const valid = (overrides = {}) => ({
   requirements: [],
   faq: [],
   purchase: null,
+  storage: ["browser"],
+  plan: null,
   download: null,
   version: "1.0.0",
   released_at: "2026-01-01",
@@ -148,6 +153,8 @@ describe("プロダクトの検証", () => {
       "requirements",
       "faq",
       "purchase",
+      "storage",
+      "plan",
     ]) {
       const product = valid();
       delete product[key];
@@ -467,7 +474,7 @@ describe("詳細ページ・画像・動作環境・FAQ・購入(version 3 で�
   });
 
   describe("一覧全体での、場所の重複", () => {
-    const list = (...products) => validateProducts({ version: 3, products }, categories);
+    const list = (...products) => validateProducts({ version: 4, products }, categories);
 
     it("同じ詳細ページの場所を、2つのプロダクトが使うと落ちる", () => {
       const errors = list(
@@ -632,6 +639,85 @@ describe("詳細ページ・画像・動作環境・FAQ・購入(version 3 で�
   });
 });
 
+describe("storage(保存方式)・plan(無料の範囲と将来の有料機能)(version 4 で加わった項目)", () => {
+  describe("storage", () => {
+    it("none・browser・file から、重複なしで1つ以上。組み合わせてもよい", () => {
+      for (const storage of [
+        ["none"],
+        ["browser"],
+        ["file"],
+        ["browser", "file"],
+        ["file", "browser"],
+      ]) {
+        assert.deepEqual(errorsOf(valid({ storage })), [], JSON.stringify(storage));
+      }
+      assert.deepEqual(STORAGE_METHODS, ["none", "browser", "file"]);
+    });
+
+    it("空・不明な方式・重複・文字列・null は落ちる", () => {
+      for (const storage of [
+        [],
+        ["account"],
+        ["cloud"],
+        ["browser", "browser"],
+        "browser",
+        null,
+        undefined,
+        [5],
+      ]) {
+        assert.ok(has(errorsOf(valid({ storage })), "storage"), JSON.stringify(storage));
+      }
+    });
+
+    it("「保存しない(none)」は、ほかの方式と併用できない", () => {
+      assert.ok(has(errorsOf(valid({ storage: ["none", "browser"] })), "併用"));
+      assert.ok(has(errorsOf(valid({ storage: ["file", "none"] })), "併用"));
+    });
+
+    it("表示用の文字が、すべての方式にある", () => {
+      assert.deepEqual(Object.keys(STORAGE_INFO).sort(), [...STORAGE_METHODS].sort());
+      for (const info of Object.values(STORAGE_INFO)) assert.ok(info.label && info.description);
+      assert.deepEqual(storageLabels(["browser", "file"]), ["ブラウザ", "ファイル"]);
+      assert.deepEqual(storageLabels(["none"]), ["保存なし"]);
+    });
+  });
+
+  describe("plan", () => {
+    it("null(料金の節を出さない)か、無料の範囲(1件以上)と、将来の有料機能(0件以上)", () => {
+      assert.deepEqual(errorsOf(valid({ plan: null })), []);
+      assert.deepEqual(errorsOf(valid({ plan: { free: ["基本の機能"], paid: [] } })), []);
+      assert.deepEqual(
+        errorsOf(valid({ plan: { free: ["基本の機能", "書き出し"], paid: ["チームでの共有"] } })),
+        [],
+      );
+    });
+
+    it("無料の範囲は、必ず示す(無料利用が基本)。空・不正な形は落ちる", () => {
+      for (const plan of [
+        { free: [], paid: [] },
+        { free: ["a"] },
+        { paid: [] },
+        { free: "無料", paid: [] },
+        { free: [""], paid: [] },
+        { free: ["a"], paid: [5] },
+        [],
+        "無料",
+        undefined,
+      ]) {
+        assert.ok(has(errorsOf(valid({ plan })), "plan"), JSON.stringify(plan));
+      }
+    });
+
+    it("項目は100字まで、10件まで", () => {
+      const item = "あ".repeat(100);
+      assert.deepEqual(errorsOf(valid({ plan: { free: [item], paid: Array(10).fill(item) } })), []);
+      assert.ok(has(errorsOf(valid({ plan: { free: ["あ".repeat(101)], paid: [] } })), "free"));
+      assert.ok(has(errorsOf(valid({ plan: { free: ["a"], paid: Array(11).fill("a") } })), "paid"));
+      assert.ok(has(errorsOf(valid({ plan: { free: Array(11).fill("a"), paid: [] } })), "free"));
+    });
+  });
+});
+
 describe("プロダクト一覧全体の検証", () => {
   it("形式(version・products の配列)が違うと落ちる。旧形式(version なし)も落ちる", () => {
     for (const data of [
@@ -641,18 +727,19 @@ describe("プロダクト一覧全体の検証", () => {
       { products: [] },
       { version: 1, products: [] },
       { version: 2, products: [] },
-      { version: 3 },
+      { version: 3, products: [] },
+      { version: 4 },
     ]) {
       assert.ok(validateProducts(data, categories).length > 0, JSON.stringify(data));
     }
-    assert.deepEqual(validateProducts({ version: 3, products: [] }, categories), []);
+    assert.deepEqual(validateProducts({ version: 4, products: [] }, categories), []);
   });
 
   it("id の重複は落ちる。エラーは、どの項目かがわかる", () => {
-    const data = { version: 3, products: [valid(), valid()] };
+    const data = { version: 4, products: [valid(), valid()] };
     assert.ok(has(validateProducts(data, categories), "重複"));
     const broken = {
-      version: 3,
+      version: 4,
       products: [valid({ id: "ok-one" }), valid({ id: "bad-one", status: "x" })],
     };
     const errors = validateProducts(broken, categories);
@@ -664,7 +751,7 @@ describe("プロダクト一覧全体の検証", () => {
 describe("表示用の、不正な項目の除外", () => {
   it("不正な項目・重複した項目だけを外して、残りは表示できる", () => {
     const data = {
-      version: 3,
+      version: 4,
       products: [
         valid({ id: "good-one" }),
         valid({ id: "bad-url", url: "javascript:alert(1)" }),
