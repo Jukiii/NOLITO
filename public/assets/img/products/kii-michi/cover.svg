@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90" fill="none" stroke="#1b2033" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" font-family="Consolas, 'Cascadia Mono', 'Segoe UI', sans-serif" font-weight="700">
+  <path d="M42 58c14 14 30 14 38 4M92 30c10-14 26-12 34 0" stroke-dasharray="1 7" />
+  <path d="M78 66l4-6-8-1M124 32l-1 8-7-4" />
+  <rect x="8" y="26" width="42" height="34" rx="8" fill="#ffd23f" />
+  <rect x="59" y="14" width="34" height="34" rx="8" fill="#4b3fe0" />
+  <rect x="104" y="44" width="34" height="34" rx="8" fill="#fff" />
+  <text x="29" y="49" font-size="15" text-anchor="middle" fill="#1b2033" stroke="none">Ctrl</text>
+  <text x="76" y="38" font-size="20" text-anchor="middle" fill="#fff" stroke="none">K</text>
+  <text x="121" y="68" font-size="20" text-anchor="middle" fill="#1b2033" stroke="none">C</text>
+</svg>

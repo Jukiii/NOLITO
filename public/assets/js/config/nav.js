@@ -7,7 +7,7 @@ export const mainNav = [
   { label: "ホーム", href: "/" },
   { label: "ゲーム", href: "/games/" },
   { label: "ソフト", href: "/software/", available: false },
-  { label: "ツール", href: "/tools/", available: false },
+  { label: "ツール", href: "/tools/" },
   { label: "記事", href: "/articles/" },
 ];
 
