@@ -1,7 +1,7 @@
 {
   "job_id": "sales",
   "job_name": "営業",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-09-20",
   "items": [
     {
@@ -15,7 +15,9 @@
       "explanation": "商品やサービスを購入する相手のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-002",
@@ -28,7 +30,9 @@
       "explanation": "商品やサービスを売って得た金額のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-003",
@@ -41,7 +45,9 @@
       "explanation": "商品やサービスを届ける期限のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-004",
@@ -54,7 +60,9 @@
       "explanation": "当事者どうしの合意によって、約束を取り決めること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-005",
@@ -67,7 +75,9 @@
       "explanation": "費用や金額を前もって計算して示すこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-006",
@@ -80,7 +90,9 @@
       "explanation": "購入や契約について、相手と話し合うこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-007",
@@ -93,7 +105,9 @@
       "explanation": "相手の課題に対して、解決策を示すこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-008",
@@ -106,7 +120,9 @@
       "explanation": "相手のところへ出向くこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-009",
@@ -119,7 +135,9 @@
       "explanation": "会う日時をあらかじめ約束すること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "sales-010",
@@ -132,7 +150,99 @@
       "explanation": "これまで取引のない相手に、新たに取引を働きかけること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-011",
+      "japanese": "見込み客",
+      "reading": "みこみきゃく",
+      "romaji": ["mikomikyaku"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "これから購入してくれる可能性のある相手のこと。",
+      "related_terms": ["顧客"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-012",
+      "japanese": "値引き",
+      "reading": "ねびき",
+      "romaji": ["nebiki"],
+      "category": "営業活動",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の価格を下げること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-013",
+      "japanese": "受注",
+      "reading": "じゅちゅう",
+      "romaji": ["juchuu", "zyutyuu"],
+      "category": "営業活動",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文を受けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-014",
+      "japanese": "請求",
+      "reading": "せいきゅう",
+      "romaji": ["seikyuu"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "代金などの支払いを、相手に求めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-015",
+      "japanese": "競合",
+      "reading": "きょうごう",
+      "romaji": ["kyougou"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ市場で、顧客や売上を争う相手のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-016",
+      "japanese": "目標達成",
+      "reading": "もくひょうたっせい",
+      "romaji": ["mokuhyoutassei"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決めた数値などの目標に届くこと。",
+      "related_terms": ["売上"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
     }
   ]
 }

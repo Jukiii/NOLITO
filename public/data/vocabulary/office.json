@@ -1,7 +1,7 @@
 {
   "job_id": "office",
   "job_name": "事務",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-09-20",
   "items": [
     {
@@ -15,7 +15,9 @@
       "explanation": "事務所などに備え付けて、業務で使う物品のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-002",
@@ -28,7 +30,9 @@
       "explanation": "書類に印鑑を押すこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-003",
@@ -41,7 +45,9 @@
       "explanation": "仕事の状況や結果を、上の人などに伝えること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-004",
@@ -54,7 +60,9 @@
       "explanation": "担当者が案を作り、関係者の承認を順に得る手続きのこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-005",
@@ -67,7 +75,9 @@
       "explanation": "仕事のために、いつもの勤務地以外へ出かけること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-006",
@@ -80,7 +90,9 @@
       "explanation": "会議の内容や決定事項を記録した文書のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-007",
@@ -93,7 +105,9 @@
       "explanation": "代金の支払いを求める書類のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-008",
@@ -106,7 +120,9 @@
       "explanation": "書類を種類や順序に分けて片付けること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-009",
@@ -119,7 +135,9 @@
       "explanation": "立て替えた業務上の費用を、会社に申請して払い戻してもらうこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "office-010",
@@ -132,7 +150,99 @@
       "explanation": "訪れた客を迎え、用件を取り次ぐなどの対応をすること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-011",
+      "japanese": "電話対応",
+      "reading": "でんわたいおう",
+      "romaji": ["denwataiou"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "かかってきた電話を受けて、用件を聞いたり取り次いだりすること。",
+      "related_terms": ["来客対応"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-012",
+      "japanese": "郵送",
+      "reading": "ゆうそう",
+      "romaji": ["yuusou"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "郵便で送ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-013",
+      "japanese": "契約書",
+      "reading": "けいやくしょ",
+      "romaji": ["keiyakusho", "keiyakusyo"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約の内容を書いた文書のこと。",
+      "related_terms": ["押印"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-014",
+      "japanese": "承認",
+      "reading": "しょうにん",
+      "romaji": ["shouninn"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "内容を確認して、認めること。",
+      "related_terms": ["稟議"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-015",
+      "japanese": "納品",
+      "reading": "のうひん",
+      "romaji": ["nouhinn"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文された品物を、相手に届けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-016",
+      "japanese": "会議室",
+      "reading": "かいぎしつ",
+      "romaji": ["kaigishitsu", "kaigisitu"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議をするための部屋のこと。",
+      "related_terms": ["議事録"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
     }
   ]
 }

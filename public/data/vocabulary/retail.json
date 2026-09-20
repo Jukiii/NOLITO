@@ -1,7 +1,7 @@
 {
   "job_id": "retail",
   "job_name": "接客販売",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-09-20",
   "items": [
     {
@@ -15,7 +15,9 @@
       "explanation": "商品の代金を受け取り、精算する場所や機械のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-002",
@@ -28,7 +30,9 @@
       "explanation": "商品に付けて価格を示す札のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-003",
@@ -41,7 +45,9 @@
       "explanation": "定価から金額を引くこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-004",
@@ -54,7 +60,9 @@
       "explanation": "購入した商品を返すこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-005",
@@ -67,7 +75,9 @@
       "explanation": "商品を見やすく並べて見せること。",
       "related_terms": ["品出し"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-006",
@@ -80,7 +90,9 @@
       "explanation": "商品を売り場に並べること。",
       "related_terms": ["陳列"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-007",
@@ -93,7 +105,9 @@
       "explanation": "商品を包んだり箱に入れたりすること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-008",
@@ -106,7 +120,9 @@
       "explanation": "店にある商品の数や在庫を実際に数えて調べること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-009",
@@ -119,7 +135,9 @@
       "explanation": "会員であることを示すカードのこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "retail-010",
@@ -132,7 +150,99 @@
       "explanation": "来店した客を迎えるときのあいさつの言葉。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-011",
+      "japanese": "在庫確認",
+      "reading": "ざいこかくにん",
+      "romaji": ["zaikokakuninn"],
+      "category": "売り場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の在庫がどれだけあるかを調べること。",
+      "related_terms": ["棚卸し"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-012",
+      "japanese": "発注",
+      "reading": "はっちゅう",
+      "romaji": ["hacchuu", "hatchuu"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や材料を、取引先に注文すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-013",
+      "japanese": "特売",
+      "reading": "とくばい",
+      "romaji": ["tokubai"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "期間などを決めて、商品を安く売ること。",
+      "related_terms": ["割引"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-014",
+      "japanese": "ポイント",
+      "reading": "ぽいんと",
+      "romaji": ["pointo"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入金額などに応じて付与され、次の買い物で使える点数のこと。",
+      "related_terms": ["会員カード"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-015",
+      "japanese": "接客マナー",
+      "reading": "せっきゃくまなー",
+      "romaji": ["sekkyakumana-"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客に接するときの、礼儀や心づかいのこと。",
+      "related_terms": ["いらっしゃいませ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-016",
+      "japanese": "開店準備",
+      "reading": "かいてんじゅんび",
+      "romaji": ["kaitenjunbi", "kaitenzyunbi"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店を開ける前に、掃除や商品の補充などを済ませておくこと。",
+      "related_terms": ["品出し"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "job_id": "teaching",
   "job_name": "講師・教育",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-09-20",
   "items": [
     {
@@ -15,7 +15,9 @@
       "explanation": "黒板やホワイトボードに書くこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-002",
@@ -28,7 +30,9 @@
       "explanation": "先生が生徒に教える時間のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-003",
@@ -41,7 +45,9 @@
       "explanation": "家庭などで取り組むように出される課題のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-004",
@@ -54,7 +60,9 @@
       "explanation": "学習の成果や達成度をみて判断すること。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-005",
@@ -67,7 +75,9 @@
       "explanation": "学んだことをもう一度学び直すこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-006",
@@ -80,7 +90,9 @@
       "explanation": "本人や保護者と、直接会って話すこと。",
       "related_terms": ["保護者"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-007",
@@ -93,7 +105,9 @@
       "explanation": "子どもを保護し、養育する立場の人のこと。",
       "related_terms": ["面談"],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-008",
@@ -106,7 +120,9 @@
       "explanation": "授業の目標や進め方をまとめた計画書のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-009",
@@ -119,7 +135,9 @@
       "explanation": "授業などの時間の割り当てを示した表のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
     },
     {
       "id": "teaching-010",
@@ -132,7 +150,99 @@
       "explanation": "出欠を記録する帳簿のこと。",
       "related_terms": [],
       "learning_points": [],
-      "weak_detection": { "enabled": true }
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-011",
+      "japanese": "教科書",
+      "reading": "きょうかしょ",
+      "romaji": ["kyoukasho", "kyoukasyo"],
+      "category": "授業",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業で使う、学習内容がまとめられた本のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-012",
+      "japanese": "小テスト",
+      "reading": "しょうてすと",
+      "romaji": ["shoutesuto", "syoutesuto"],
+      "category": "授業",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "短い時間で行う、簡単なテストのこと。",
+      "related_terms": ["評価"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-013",
+      "japanese": "成績",
+      "reading": "せいせき",
+      "romaji": ["seiseki"],
+      "category": "指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の結果や達成度を表したもののこと。",
+      "related_terms": ["評価"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-014",
+      "japanese": "欠席",
+      "reading": "けっせき",
+      "romaji": ["kesseki"],
+      "category": "指導",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校や授業などを休むこと。",
+      "related_terms": ["出席簿"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-015",
+      "japanese": "進路",
+      "reading": "しんろ",
+      "romaji": ["shinro", "sinro"],
+      "category": "指導",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "卒業後に進む道のこと。",
+      "related_terms": ["面談"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-016",
+      "japanese": "指導",
+      "reading": "しどう",
+      "romaji": ["shidou", "sidou"],
+      "category": "指導",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "目標に向かうように、教え導くこと。",
+      "related_terms": ["指導案"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
     }
   ]
 }
