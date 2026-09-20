@@ -9,6 +9,8 @@ export const EVENTS = Object.freeze({
   profileUpdate: "profile-update",
   accountDelete: "account-delete",
   rateLimited: "rate-limited",
+  licenseRedeem: "license-redeem",
+  licenseRedeemFailed: "license-redeem-failed",
 });
 
 const RETENTION_SECONDS = 180 * 24 * 60 * 60; // 180 日たったログは、消す

@@ -58,6 +58,7 @@
             <li>Google のアカウントの ID(あなたを見分けるためだけに使います)</li>
             <li>メールアドレス</li>
             <li>ニックネーム(最初は「ななしさん」です)</li>
+            <li>登録したライセンス(どの商品か・登録日。キーそのものは保存しません)</li>
           </ul>
           <p>
             Google
@@ -110,6 +111,40 @@
             </div>
           </form>
 
+          <h2 id="license-title">ライセンス</h2>
+          <p>
+            ライセンスキーを持っている方は、ここで登録します。有料の配布は、まだ始まっていません。
+          </p>
+          <form class="account__form" data-license-form>
+            <div class="account__field">
+              <label for="license-key">ライセンスキー</label>
+              <p class="account__hint" id="license-hint">
+                「NLTO-」で始まるキーです。大文字・小文字やハイフンの有無は、気にしなくて大丈夫です。
+              </p>
+              <input
+                class="account__input"
+                id="license-key"
+                name="license-key"
+                type="text"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+                aria-describedby="license-hint"
+                required
+              />
+            </div>
+            <div>
+              <button class="button button--primary" type="submit">登録する</button>
+            </div>
+          </form>
+          <p class="account__hint" data-license-empty hidden>
+            登録したライセンスは、まだありません。
+          </p>
+          <ul class="account__licenses" data-license-list aria-labelledby="license-title"></ul>
+          <p class="account__hint">
+            ライセンスは、あなたのアカウントに結びつけて保存します。アカウントを削除すると、結びつきは外れます(キーは、また登録できます)。
+          </p>
+
           <h2>ログアウト</h2>
           <p>このブラウザのログインを終わらせます。</p>
           <p>
@@ -118,7 +153,7 @@
 
           <h2>アカウントの削除</h2>
           <p>
-            アカウントと、すべてのログインの状態を消します。取り消せません。この端末のブラウザに保存されたゲームの記録は、消えません。
+            アカウントと、すべてのログインの状態を消します。ライセンスの登録は、解除されます。取り消せません。この端末のブラウザに保存されたゲームの記録は、消えません。
           </p>
           <p>
             <button
