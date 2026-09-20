@@ -110,6 +110,10 @@
                   <dd>価格未定</dd>
                 </div>
                 <div class="product-card__meta-row">
+                  <dt>保存</dt>
+                  <dd>ブラウザ / ファイル</dd>
+                </div>
+                <div class="product-card__meta-row">
                   <dt>更新</dt>
                   <dd><time datetime="2026-09-20">2026年9月20日</time></dd>
                 </div>
@@ -134,6 +138,10 @@
                   <dd>¥1,200</dd>
                 </div>
                 <div class="product-card__meta-row">
+                  <dt>保存</dt>
+                  <dd>ブラウザ / ファイル</dd>
+                </div>
+                <div class="product-card__meta-row">
                   <dt>バージョン</dt>
                   <dd>v1.2.0</dd>
                 </div>
@@ -155,7 +163,7 @@
         <h2 id="sg-detail">プロダクト詳細のページの部品</h2>
         <p>
           <code>scripts/build-products.mjs</code>
-          が生成する詳細ページで使います(動作環境・よくある質問・更新履歴・画像)。
+          が生成する詳細ページで使います(動作環境・データの保存・料金・よくある質問・更新履歴・画像)。
         </p>
         <div class="product">
           <dl class="spec">
@@ -191,6 +199,20 @@
               </ul>
             </li>
           </ol>
+          <ul class="storage">
+            <li class="storage__item">
+              <span class="storage__label">ブラウザ</span>
+              お使いのブラウザに保存します。この端末のこのブラウザだけで使えます。
+            </li>
+          </ul>
+          <h3 class="plan__heading">無料で使える範囲</h3>
+          <ul class="plan__list">
+            <li>基本の機能</li>
+          </ul>
+          <h3 class="plan__heading">将来の有料機能(予定)</h3>
+          <ul class="plan__list">
+            <li>機能の名前</li>
+          </ul>
           <p class="product__note">配布ページ(GitHub Releases・外部サイト)へ移動します。</p>
         </div>
       </section>

@@ -207,3 +207,33 @@
   margin: 0;
   padding-left: var(--space-6);
 }
+
+/* データの保存・料金 */
+.storage,
+.plan__list {
+  margin: 0;
+  padding-left: var(--space-6);
+}
+
+.storage__item + .storage__item {
+  margin-top: var(--space-2);
+}
+
+.storage__label {
+  display: inline-block;
+  padding: 0 var(--space-3);
+  background: var(--color-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.plan__heading {
+  margin: var(--space-6) 0 var(--space-2);
+  font-size: var(--font-size-xl);
+}
+
+.plan__heading:first-of-type {
+  margin-top: 0;
+}

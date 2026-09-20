@@ -17,7 +17,7 @@
       "id": "tool",
       "name": "ツール",
       "description": "仕事や作業を少し楽にする、業務効率化ツール。",
-      "path": null
+      "path": "/tools/"
     }
   ]
 }

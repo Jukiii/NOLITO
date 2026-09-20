@@ -48,7 +48,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## プロダクト(Phase 6)
 
-- プロダクトは `public/data/products.json`(version 3)、カテゴリは `categories.json` で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存)、表示用の文字列は `format.js`、カードの描画は `components/product-list.js`。
+- プロダクトは `public/data/products.json`(version 4)、カテゴリは `categories.json` で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存)、表示用の文字列は `format.js`、カードの描画は `components/product-list.js`。
 - 形式を変えるときは、`schema.js` の検証と `tests/products.test.js` を一緒に更新し、`PRODUCT_DATA_VERSION` を上げる。
 - **URL は、`/` 始まりのサイト内パスか `https://` だけ**(`isSafeUrl`)。画像には alt が必須。表示は必ず `textContent`(`el()`)。不正な項目は、テストで失敗させ、実行時は「その項目だけ外して、他は表示」する。この安全側の挙動を緩めない(将来、管理画面からも書かれる)。
 - `public/data/` は誰でも読める。**下書き(未公開)の項目を入れない**。公開前は `coming-soon`。
@@ -63,3 +63,11 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - ソフトの `url` は、詳細ページ(`/software/<id>/`)にする。ゲームは、遊ぶ先(`url`)と詳細ページ(`detail_path`)が別。
 - 画像(`screenshots`)には alt と width・height が要る。ゲームの画面を変えたら、`public/assets/img/products/escape-boss/` の画面も撮り直す。
 - `/software/` の一覧ページはあるが、ナビの「ソフト」は、最初のソフトを公開するまで「準備中」(`config/nav.js` の `available`)。
+
+## ツール(Phase 8)
+
+- ツールの中身(何を作るか)は、まだ決まっていない(Issue #15)。Phase 8 は**基盤だけ**。`/tools/` の一覧ページはあるが、ナビの「ツール」は、最初のツールを公開するまで「準備中」。
+- プロダクトの `storage`(保存方式: `none` / `browser` / `file`。`none` は単独)と `plan`(無料で使える範囲と、将来の有料機能の予定。無料の範囲は必ず示す)は、詳細ページの「データの保存」「料金」の節に出る。**実際の課金・使えるかどうかの制御は、Phase 9(ライセンス)以降**。将来の有料機能は「予定」で、内容や時期が変わることを添える。
+- **ツールの利用者のデータは、`public/assets/js/tools/store.js`(`createToolStore`)で保存する**。キーは `nolito:tool:<ツールID>:<ワークスペース>:v1`(`v1` は変えない。ワークスペースの既定は `personal`。将来のチームは、別のワークスペース)。データの形を変えるときは `version` を上げ、`migrations` に移行の関数を足す。`normalize` で必ず整える(取り込むファイルは、利用者が書き換えられる)。
+- ストアの決まり: 壊れたデータは上書きせず `:corrupt` に退避する。このコードより新しい版のデータは、読み込まず・上書きもしない。保存できない環境ではメモリに残して落ちない。取り込みは、置き換える前のデータを `:before-import` に退避する。JSON の書き出し・読み込みは、形式・ツールID・版・サイズ(1MB)を検査する。この挙動を緩めない。
+- ゲームの `storage.js` は別の実装のまま(統合は Phase 19 で検討)。

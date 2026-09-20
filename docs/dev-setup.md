@@ -77,7 +77,19 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 
 1. `products.json` に、`detail_path`(例: `"/software/sample-app/"`。カテゴリの一覧ページの下)を書く。ソフトは `url` も同じにする。
 2. 詳細ページに出す内容を書く: `details`(説明の段落)、`screenshots`(画像。alt と width・height が必須。最大6枚)、`requirements`(動作環境。項目名と値)、`faq`(質問と答え)、`changelog`(更新履歴)。
+   また、`storage`(利用者のデータの保存方式。`none` 保存しない / `browser` ブラウザ / `file` ファイルの書き出し・読み込み。`none` は単独)は必須。`plan`(`{ free: [無料で使える範囲], paid: [将来の有料機能(予定)] }`)は、料金の節を出すときだけ書く(出さないなら `null`)。無料の範囲は必ず示す。有料機能は、まだ提供していないことが添えられる。
 3. **配布は GitHub Releases**: リリースを作り、`download` に、そのページの URL(例: `https://github.com/<ユーザー>/<リポジトリ>/releases/latest`)を書く。ページを表示するときに GitHub へは通信しない。バージョンや更新履歴の自動反映は、まだない(手で書く)。
 4. **有料の場合**: `price` を `paid` にして、`purchase: { label, url }` に外部の販売サービスの URL を書く。**販売サービスの選定・特定商取引法の表記・利用規約を決めてから**にする(Issue #12)。
 5. `npm run build:products` で詳細ページを生成し、**生成物もコミットする**(`npm run check` が、最新かを検査する)。
 6. 最初のソフトを公開するときは、`config/nav.js` の「ソフト」の `available: false` を外す。
+
+## ツールを作る(Phase 8 の基盤の使い方)
+
+最初のツールは、まだない(Issue #15)。作るときの流れ:
+
+1. ツールのページを `public/tools/<ツールID>/` に置く(`url`)。詳細ページは、`detail_path` を `/tools/<ツールID>/about/` にして、`products.json` の `tool` カテゴリに足す。`storage` と、必要なら `plan` を書く。
+2. 利用者のデータを保存するときは、`public/assets/js/tools/store.js` の `createToolStore` を使う(保存方式が `browser` か `file` のとき)。`toolId` はツールの ID、`version` はデータの形の版、`initial` は最初のデータ、`normalize` は読み込み・保存・取り込みのたびに通す検査と整形(不正なら例外)。形を変えたら、`version` を上げて `migrations` に移行の関数を足す。
+3. 画面には、`load()` の `status`(`unavailable`・`corrupt`・`newer` など)に応じた案内を出す。`save()` の結果(`saved: false` の理由)も、利用者に伝える。
+4. `file` の場合は、`exportJson()` で書き出した文字列をファイルにして保存させ、`importJson(text)` で取り込む。取り込みの前に、利用者に確認する(置き換わる)。
+5. 最初のツールを公開するときは、`config/nav.js` の「ツール」の `available: false` を外す。
+6. 保存するデータの内容を増やす・外部に送るようになるときは、プライバシーポリシーの版を上げる(同意を取り直す)。

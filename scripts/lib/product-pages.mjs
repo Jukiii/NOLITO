@@ -3,6 +3,7 @@
 // 値は必ずエスケープしてから埋め込む。URL は、検証を通った(サイト内のパスか https の)ものだけが入る。
 import {
   PRODUCT_STATUS,
+  STORAGE_INFO,
   downloadNote,
   formatDate,
   platformLabels,
@@ -121,6 +122,40 @@ function sections(product) {
       .join("\n");
     parts.push(
       section("requirements", "動作環境", `          <dl class="spec">\n${rows}\n          </dl>`),
+    );
+  }
+  const storage = product.storage
+    .map(
+      (method) =>
+        `            <li class="storage__item"><span class="storage__label">${escapeHtml(STORAGE_INFO[method].label)}</span> ${escapeHtml(STORAGE_INFO[method].description)}</li>`,
+    )
+    .join("\n");
+  parts.push(
+    section(
+      "storage",
+      "データの保存",
+      `          <ul class="storage">
+${storage}
+          </ul>`,
+    ),
+  );
+  if (product.plan) {
+    const list = (items) =>
+      `<ul class="plan__list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+    const paid =
+      product.plan.paid.length > 0
+        ? `
+          <h3 class="plan__heading">将来の有料機能(予定)</h3>
+          ${list(product.plan.paid)}
+          <p class="product__note">有料機能は、まだ提供していません。内容や時期は、変わることがあります。</p>`
+        : "";
+    parts.push(
+      section(
+        "plan",
+        "料金",
+        `          <h3 class="plan__heading">無料で使える範囲</h3>
+          ${list(product.plan.free)}${paid}`,
+      ),
     );
   }
   if (product.faq.length > 0) {

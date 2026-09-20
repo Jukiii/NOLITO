@@ -48,3 +48,22 @@ export function downloadNote(url) {
 export function purchaseNote(url) {
   return `購入の手続きは、外部の販売サービス(${new URL(url).hostname})のページで行います。`;
 }
+
+// 利用者のデータの保存方式。label はカードの短い表示、description は詳細ページの説明
+export const STORAGE_INFO = {
+  none: { label: "保存なし", description: "入力した内容は保存しません。" },
+  browser: {
+    label: "ブラウザ",
+    description:
+      "お使いのブラウザに保存します。この端末のこのブラウザだけで使え、ブラウザのサイトデータを消すと消えます。",
+  },
+  file: {
+    label: "ファイル",
+    description:
+      "ファイルに書き出して保存し、あとで読み込めます。バックアップや、ほかの端末への移動に使えます。",
+  },
+};
+
+export function storageLabels(storage) {
+  return storage.map((method) => STORAGE_INFO[method]?.label ?? method);
+}

@@ -50,7 +50,9 @@ const software = (overrides = {}) => ({
     { label: "対応OS", value: "Windows 10 以降" },
     { label: "メモリ", value: "4GB 以上" },
   ],
+  storage: ["browser", "file"],
   price: { type: "paid", amount: 1200, currency: "JPY" },
+  plan: { free: ["基本の機能"], paid: ["チームでの共有"] },
   status: "released",
   url: "/software/sample-app/",
   detail_path: "/software/sample-app/",
@@ -83,6 +85,8 @@ const game = (overrides = {}) =>
     url: "/games/sample-game/",
     detail_path: "/games/sample-game/about/",
     price: { type: "free" },
+    plan: null,
+    storage: ["browser"],
     platforms: ["web"],
     download: null,
     purchase: null,
@@ -161,6 +165,10 @@ describe("詳細ページの内容", () => {
         "2:詳しい説明",
         "2:画像",
         "2:動作環境",
+        "2:データの保存",
+        "2:料金",
+        "3:無料で使える範囲",
+        "3:将来の有料機能(予定)",
         "2:よくある質問",
         "2:更新履歴",
         "3:v1.1.0 2026年2月1日",
@@ -171,7 +179,16 @@ describe("詳細ページの内容", () => {
   });
 
   it("各節は、見出しと関連づけられ(aria-labelledby)、アンカーで開ける", () => {
-    for (const id of ["about", "screenshots", "requirements", "faq", "changelog", "support"]) {
+    for (const id of [
+      "about",
+      "screenshots",
+      "requirements",
+      "storage",
+      "plan",
+      "faq",
+      "changelog",
+      "support",
+    ]) {
       assert.ok(
         html.includes(
           `<section class="product__section" id="${id}" aria-labelledby="${id}-title">`,
@@ -238,12 +255,66 @@ describe("詳細ページの内容", () => {
         faq: [],
         changelog: [],
         image: null,
+        plan: null,
       }),
     );
-    for (const id of ["about", "screenshots", "requirements", "faq", "changelog"]) {
+    for (const id of ["about", "screenshots", "requirements", "plan", "faq", "changelog"]) {
       assert.ok(!bare.includes(`id="${id}"`), id);
     }
     assert.ok(!bare.includes("product__hero"));
+    // 保存方式は必須の項目なので、節は、いつも出る
+    assert.ok(bare.includes('id="storage"'));
+  });
+});
+
+describe("データの保存・料金の節", () => {
+  it("保存方式ごとに、ラベルと説明を出す(組み合わせると、並べて出す)", () => {
+    const html = render(software({ storage: ["browser", "file"] }));
+    const storage = between(html, '<ul class="storage">', "</ul>");
+    assert.equal(storage.match(/<li class="storage__item">/g).length, 2);
+    assert.ok(storage.includes('<span class="storage__label">ブラウザ</span>'));
+    assert.ok(storage.includes("ブラウザのサイトデータを消すと消えます"));
+    assert.ok(storage.includes('<span class="storage__label">ファイル</span>'));
+    assert.ok(storage.includes("ファイルに書き出して保存し、あとで読み込めます"));
+  });
+
+  it("保存しない(none)は、その旨を出す", () => {
+    const html = render(software({ storage: ["none"] }));
+    assert.ok(html.includes('<span class="storage__label">保存なし</span>'));
+    assert.ok(html.includes("入力した内容は保存しません。"));
+  });
+
+  it("料金: 無料の範囲と、将来の有料機能(予定)を分けて出し、「まだ提供していません」と添える", () => {
+    const html = render(software());
+    const plan = between(html, 'id="plan"', "</section>");
+    assert.ok(plan.includes('<h3 class="plan__heading">無料で使える範囲</h3>'));
+    assert.ok(plan.includes('<ul class="plan__list"><li>基本の機能</li></ul>'));
+    assert.ok(plan.includes('<h3 class="plan__heading">将来の有料機能(予定)</h3>'));
+    assert.ok(plan.includes('<ul class="plan__list"><li>チームでの共有</li></ul>'));
+    assert.ok(
+      plan.includes("有料機能は、まだ提供していません。内容や時期は、変わることがあります。"),
+    );
+    assert.ok(plan.indexOf("無料で使える範囲") < plan.indexOf("将来の有料機能"));
+  });
+
+  it("将来の有料機能がなければ、その見出しも注意書きも出さない。plan がなければ、節を出さない", () => {
+    const freeOnly = render(software({ plan: { free: ["すべての機能"], paid: [] } }));
+    assert.ok(freeOnly.includes("無料で使える範囲") && freeOnly.includes("すべての機能"));
+    assert.ok(!freeOnly.includes("将来の有料機能"));
+    assert.ok(!freeOnly.includes("まだ提供していません"));
+    assert.ok(!render(software({ plan: null })).includes('id="plan"'));
+  });
+
+  it("料金の項目に含まれる HTML は、文字になる", () => {
+    const html = render(
+      software({
+        plan: { free: ["<script>alert(1)</script>"], paid: ["<b onmouseover=alert(2)>x</b>"] },
+      }),
+    );
+    const body = html.slice(html.indexOf("<main"));
+    assert.ok(!body.includes("<script"));
+    assert.ok(!body.includes("<b onmouseover"));
+    assert.ok(body.includes("&lt;script&gt;alert(1)&lt;/script&gt;"));
   });
 });
 
@@ -304,8 +375,10 @@ describe("ボタンと、移動先の注意書き", () => {
         price: { type: "undecided" },
       }),
     );
-    assert.ok(!html.includes("product__actions"));
-    assert.ok(!html.includes("product__note"));
+    // ヘッダー(ボタンと、移動先の注意書き)の中を調べる。料金の節にも、別の注意書きがある
+    const header = between(html, '<header class="product__header">', "</header>");
+    assert.ok(!header.includes("product__actions"));
+    assert.ok(!header.includes("product__note"));
     assert.ok(html.includes('<span class="badge badge--soon">準備中</span>'));
     assert.ok(html.includes("価格未定"));
     assert.ok(!html.includes("<dt>バージョン</dt>"));
@@ -369,7 +442,7 @@ describe("HTML の安全性", () => {
 });
 
 describe("詳細ページの一括生成", () => {
-  const productData = (...products) => ({ version: 3, products });
+  const productData = (...products) => ({ version: 4, products });
 
   it("detail_path があるものだけ、その場所に作る", () => {
     const files = buildProductPages({
@@ -426,7 +499,7 @@ describe("書き出しと検査", () => {
     writeFileSync(join(dir, path), content);
   };
   const files = () =>
-    buildProductPages({ productData: { version: 3, products: [software()] }, categoryData, site });
+    buildProductPages({ productData: { version: 4, products: [software()] }, categoryData, site });
 
   it("書き出すと、検査で問題がない", () => {
     withTempDir((dir) => {
@@ -453,7 +526,7 @@ describe("書き出しと検査", () => {
       writeProductPages(dir, files());
       const moved = buildProductPages({
         productData: {
-          version: 3,
+          version: 4,
           products: [software({ url: "/software/moved/", detail_path: "/software/moved/" })],
         },
         categoryData,
