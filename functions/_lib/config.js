@@ -9,6 +9,7 @@
 //   AUTH_ENABLED         "true" のときだけ、アカウントの機能を有効にする
 //   SIGNUP_MODE          "open" なら誰でもログインできる。それ以外は「招待制」(許可リストだけ)
 //   ALLOWED_EMAILS       招待制で、ログインを許すメールアドレス(カンマ区切り)
+//   CONTACT_ENABLED      "true" のときだけ、問い合わせフォームを有効にする(DB・SESSION_SECRET・SITE_ORIGIN が要る)
 
 export const MIN_SECRET_LENGTH = 32;
 
@@ -35,6 +36,17 @@ export function authStatus(env) {
     siteOrigin(env),
   );
   return { configured, enabled: configured && env.AUTH_ENABLED === "true" };
+}
+
+/** 問い合わせフォーム: DB・SESSION_SECRET(IP のハッシュに使う)・SITE_ORIGIN がそろい、CONTACT_ENABLED=true のときだけ有効。 */
+export function contactStatus(env) {
+  const configured = Boolean(
+    env.DB &&
+    typeof env.SESSION_SECRET === "string" &&
+    env.SESSION_SECRET.length >= MIN_SECRET_LENGTH &&
+    siteOrigin(env),
+  );
+  return { configured, enabled: configured && env.CONTACT_ENABLED === "true" };
 }
 
 export const signupMode = (env) => (env.SIGNUP_MODE === "open" ? "open" : "invite");

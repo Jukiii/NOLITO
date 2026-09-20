@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="/assets/css/layout.css" />
     <link rel="stylesheet" href="/assets/css/components.css" />
     <link rel="stylesheet" href="/assets/css/articles.css" />
+    <link rel="stylesheet" href="/assets/css/contact.css" />
     <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/contact/main.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">本文へスキップ</a>
@@ -38,8 +40,122 @@
             </li>
           </ul>
 
-          <h2>不具合・ご要望・お問い合わせ</h2>
-          <p>お問い合わせ先は、準備中です。</p>
+          <section id="contact" data-contact aria-labelledby="contact-title">
+            <h2 id="contact-title">不具合・ご要望・お問い合わせ</h2>
+            <p>
+              不具合の報告、ご要望、質問は、次のフォームから送れます。個人で運営しているため、すべてにお答えできない場合があります。
+            </p>
+            <noscript>
+              <p class="contact__notice">お問い合わせフォームの表示には、JavaScript が必要です。</p>
+            </noscript>
+            <p data-contact-loading>読み込み中…</p>
+            <p class="contact__notice" data-contact-unavailable hidden>
+              お問い合わせフォームは、まだ使えません(準備中です)。
+            </p>
+
+            <form class="contact__form" data-contact-form hidden novalidate>
+              <div class="contact__field">
+                <label for="contact-category">種類(必須)</label>
+                <select
+                  class="contact__select"
+                  id="contact-category"
+                  name="category"
+                  required
+                ></select>
+                <p class="contact__error" id="contact-category-error" hidden></p>
+              </div>
+
+              <div class="contact__field">
+                <label for="contact-product">対象のプロダクト</label>
+                <select class="contact__select" id="contact-product" name="product"></select>
+              </div>
+
+              <div class="contact__field">
+                <label for="contact-message">内容(必須)</label>
+                <p class="contact__hint" id="contact-message-hint">
+                  10〜2000文字。氏名・住所・電話番号などの個人情報は、書かないでください。不具合は、何をしたときに、何が起きたかを、書いていただけると助かります。
+                </p>
+                <textarea
+                  class="contact__textarea"
+                  id="contact-message"
+                  name="message"
+                  rows="8"
+                  required
+                  aria-describedby="contact-message-hint contact-count"
+                ></textarea>
+                <p class="contact__count" id="contact-count" data-contact-count></p>
+                <p class="contact__error" id="contact-message-error" hidden></p>
+              </div>
+
+              <div class="contact__field">
+                <label for="contact-email">返信用のメールアドレス(任意)</label>
+                <p class="contact__hint" id="contact-email-hint">
+                  お返事が必要なときだけ、入力してください。入力しないと、お返事はできません。
+                </p>
+                <input
+                  class="contact__input"
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  aria-describedby="contact-email-hint"
+                />
+                <p class="contact__error" id="contact-email-error" hidden></p>
+              </div>
+
+              <div class="contact__field">
+                <div class="contact__check">
+                  <input
+                    type="checkbox"
+                    id="contact-env"
+                    name="includeEnv"
+                    aria-describedby="contact-env-hint"
+                  />
+                  <label for="contact-env"
+                    >ブラウザ・画面の大きさ・バージョンの情報を添付する</label
+                  >
+                </div>
+                <p class="contact__hint" id="contact-env-hint">
+                  不具合の調査に役立ちます。チェックしたときだけ、添付します。
+                </p>
+                <p class="contact__env-preview" data-contact-env-preview hidden></p>
+              </div>
+
+              <!-- ボット用の罠の欄。人には見えない(画面の外)・キーボードで届かない・読み上げない -->
+              <div class="contact__trap" aria-hidden="true">
+                <label>
+                  このままにしてください
+                  <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                </label>
+              </div>
+
+              <p class="contact__privacy">
+                送信した内容(と、メールアドレス)は、お問い合わせへの対応と、サービスの改善のためだけに使います。対応が終わってから、6か月を目安に削除します。詳しくは、<a
+                  href="/privacy/"
+                  >プライバシーポリシー</a
+                >をご覧ください。
+              </p>
+
+              <div>
+                <button class="button button--primary" type="submit" data-contact-submit>
+                  送信する
+                </button>
+              </div>
+              <p class="contact__status" role="status" data-contact-status></p>
+            </form>
+
+            <div class="contact__done" data-contact-done tabindex="-1" hidden>
+              <h3>送信しました</h3>
+              <p>
+                お問い合わせを受け付けました。内容を確認します。返信用のメールアドレスを入力した場合は、必要に応じて、お返事します(個人で運営しているため、すべてにお答えできない場合があります)。
+              </p>
+              <p>
+                <button class="button button--secondary" type="button" data-contact-again>
+                  続けて、別の内容を送る
+                </button>
+              </p>
+            </div>
+          </section>
 
           <h2>サポートについて</h2>
           <p>

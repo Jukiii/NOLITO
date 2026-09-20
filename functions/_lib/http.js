@@ -52,16 +52,15 @@ export const cookie = (name, value, { maxAge }) =>
   `${name}=${value}; ${ATTRIBUTES}; Max-Age=${maxAge}`;
 export const clearCookie = (name) => `${name}=; ${ATTRIBUTES}; Max-Age=0`;
 
-const MAX_BODY_BYTES = 4096;
+const DEFAULT_MAX_BODY_BYTES = 4096;
 
-/** JSON の本文を読む。Content-Type が JSON で、4KB 以内で、オブジェクトのものだけ。 */
-export async function readJson(request) {
+/** JSON の本文を読む。Content-Type が JSON で、maxBytes(既定 4KB)以内で、オブジェクトのものだけ。 */
+export async function readJson(request, { maxBytes = DEFAULT_MAX_BODY_BYTES } = {}) {
   if (!(request.headers.get("content-type") ?? "").toLowerCase().includes("application/json")) {
     return { ok: false, error: "unsupported-media-type" };
   }
   const text = await request.text();
-  if (new TextEncoder().encode(text).length > MAX_BODY_BYTES)
-    return { ok: false, error: "too-large" };
+  if (new TextEncoder().encode(text).length > maxBytes) return { ok: false, error: "too-large" };
   try {
     const value = JSON.parse(text);
     if (typeof value !== "object" || value === null || Array.isArray(value))

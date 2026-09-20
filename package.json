@@ -21,7 +21,8 @@
     "build": "npm run build:articles && npm run build:products",
     "backup:d1": "node scripts/backup-d1.mjs",
     "backup:verify": "node scripts/verify-backup.mjs",
-    "d1:remote": "node scripts/d1-remote.mjs"
+    "d1:remote": "node scripts/d1-remote.mjs",
+    "inquiries": "node scripts/inquiries.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

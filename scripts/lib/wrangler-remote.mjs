@@ -26,3 +26,20 @@ export function runWranglerD1(args, databaseId) {
     rmSync(dir, { recursive: true, force: true });
   }
 }
+
+/** wrangler d1 <args...> を実行して、標準出力を受け取る(問い合わせの読み取りなど)。エラーの表示は、そのまま端末に出す。 */
+export function captureWranglerD1(args, databaseId) {
+  const dir = mkdtempSync(path.join(tmpdir(), "nolito-wrangler-"));
+  try {
+    const config = path.join(dir, "wrangler.toml");
+    writeFileSync(config, wranglerConfig(databaseId));
+    const result = spawnSync(process.execPath, [wranglerJs, "d1", ...args, "--config", config], {
+      stdio: ["inherit", "pipe", "inherit"],
+      encoding: "utf8",
+      maxBuffer: 32 * 1024 * 1024,
+    });
+    return { status: result.status ?? 1, stdout: result.stdout ?? "" };
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}

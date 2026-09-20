@@ -4,8 +4,9 @@ CREATE TABLE IF NOT EXISTS "d1_migrations"(
 		name       TEXT UNIQUE,
 		applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
-INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(1,'0001_init.sql','2026-09-20 08:25:16');
-INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(2,'0002_licenses.sql','2026-09-20 08:25:16');
+INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(1,'0001_init.sql','2026-09-20 11:28:50');
+INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(2,'0002_licenses.sql','2026-09-20 11:28:50');
+INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(3,'0003_inquiries.sql','2026-09-20 11:28:51');
 CREATE TABLE users (
   id TEXT PRIMARY KEY,
   google_sub TEXT NOT NULL UNIQUE,
@@ -50,9 +51,23 @@ CREATE TABLE licenses (
 );
 INSERT INTO "licenses" ("id","key_hash","key_hint","product_id","note","issued_at","user_id","redeemed_at","revoked_at") VALUES('l1','kh1','ABCD','kii-michi','memo',1000,'u1',1500,NULL);
 INSERT INTO "licenses" ("id","key_hash","key_hint","product_id","note","issued_at","user_id","redeemed_at","revoked_at") VALUES('l2','kh2','WXYZ','escape-boss','',1000,NULL,NULL,NULL);
+CREATE TABLE inquiries (
+  id TEXT PRIMARY KEY,
+  created_at INTEGER NOT NULL,
+  category TEXT NOT NULL,
+  product_id TEXT NOT NULL DEFAULT '',
+  message TEXT NOT NULL,
+  email TEXT NOT NULL DEFAULT '',
+  env_info TEXT NOT NULL DEFAULT '',
+  status TEXT NOT NULL DEFAULT 'new',
+  resolved_at INTEGER
+);
+INSERT INTO "inquiries" ("id","created_at","category","product_id","message","email","env_info","status","resolved_at") VALUES('q1',1000,'bug','kii-michi','sample message','reporter@example.com','viewport=375x800; language=ja','new',NULL);
+INSERT INTO "inquiries" ("id","created_at","category","product_id","message","email","env_info","status","resolved_at") VALUES('q2',1001,'question','','done one; with semicolon','','','done',2000);
 DELETE FROM sqlite_sequence;
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',2);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',3);
 INSERT INTO "sqlite_sequence" ("name","seq") VALUES('audit_log',2);
 CREATE INDEX sessions_user ON sessions(user_id);
 CREATE INDEX audit_log_at ON audit_log(at);
 CREATE INDEX licenses_user ON licenses(user_id);
+CREATE INDEX inquiries_status ON inquiries(status, created_at);

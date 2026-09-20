@@ -47,6 +47,13 @@ CREATE TABLE licenses (id TEXT PRIMARY KEY, key_hash TEXT NOT NULL UNIQUE, key_h
 CREATE INDEX licenses_user ON licenses(user_id);
 ```
 
+**0003**(`0003_inquiries.sql`。Phase 10 の PR 3。問い合わせフォーム。手順は `docs/contact-setup.md`)
+
+```sql 0003_inquiries.sql
+CREATE TABLE inquiries (id TEXT PRIMARY KEY, created_at INTEGER NOT NULL, category TEXT NOT NULL, product_id TEXT NOT NULL DEFAULT '', message TEXT NOT NULL, email TEXT NOT NULL DEFAULT '', env_info TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'new', resolved_at INTEGER);
+CREATE INDEX inquiries_status ON inquiries(status, created_at);
+```
+
 ## 2. Pages に D1 をつなぐ(本番だけ)
 
 1. Cloudflare → **Workers & Pages** → プロジェクト `nolito` → **Settings** → **Bindings** → **Add** → **D1 database**。

@@ -142,7 +142,8 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
     assert.deepEqual(problems, []);
     assert.deepEqual(tables, {
       audit_log: 2,
-      d1_migrations: 2,
+      d1_migrations: 3,
+      inquiries: 2,
       licenses: 2,
       rate_limits: 0,
       sessions: 1,
@@ -153,6 +154,7 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
   it("migrations/ のすべてのテーブルが、バックアップにある", () => {
     assert.deepEqual([...required].sort(), [
       "audit_log",
+      "inquiries",
       "licenses",
       "rate_limits",
       "sessions",
@@ -235,7 +237,15 @@ describe("コマンド", () => {
     assert.match(result.stdout, /users: 2 件/);
     assert.match(result.stdout, /licenses: 2 件/);
     assert.match(result.stdout, /復元できます/);
-    for (const secret of ["alice@example.com", "bob@example.com", "kh1", "hash1", "たろう"]) {
+    for (const secret of [
+      "alice@example.com",
+      "bob@example.com",
+      "reporter@example.com",
+      "sample message",
+      "kh1",
+      "hash1",
+      "たろう",
+    ]) {
       assert.ok(!result.stdout.includes(secret), secret);
       assert.ok(!result.stderr.includes(secret), secret);
     }

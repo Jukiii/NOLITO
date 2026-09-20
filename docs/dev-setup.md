@@ -111,3 +111,8 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 
 - プロダクトを更新したら、`products.json` の `version` を上げ、`changelog` の先頭に項目を足して、`npm run build`。詳細ページと `/updates/` に、自動で出る。
 - 1 機能 1 PR・テスト版の表示・戻し方は、`docs/release-process.md`。
+
+## 問い合わせフォーム(Phase 10)
+
+- 設定・運用は `docs/contact-setup.md`(D1 に `0003` の SQL、環境変数 `CONTACT_ENABLED=true`)。問い合わせは、`npm run inquiries`(手元で読む)。環境変数 `NOLITO_D1_DATABASE_ID` と `npx wrangler login` が、要る(`docs/backup.md` の準備と同じ)。
+- ローカルで動かすには、`npx wrangler pages dev public --binding SITE_ORIGIN=http://localhost:8788 SESSION_SECRET=<32文字以上> CONTACT_ENABLED=true --d1 DB=<ID>`(D1 は、`npx wrangler d1 migrations apply nolito --local`)。

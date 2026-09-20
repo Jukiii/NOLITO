@@ -11,6 +11,7 @@ export const EVENTS = Object.freeze({
   rateLimited: "rate-limited",
   licenseRedeem: "license-redeem",
   licenseRedeemFailed: "license-redeem-failed",
+  inquiryReceived: "inquiry-received",
 });
 
 const RETENTION_SECONDS = 180 * 24 * 60 * 60; // 180 日たったログは、消す
