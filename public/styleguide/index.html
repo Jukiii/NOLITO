@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/css/layout.css" />
     <link rel="stylesheet" href="/assets/css/components.css" />
     <link rel="stylesheet" href="/assets/css/products.css" />
+    <link rel="stylesheet" href="/assets/css/updates.css" />
     <link rel="stylesheet" href="/assets/css/styleguide.css" />
     <script type="module" src="/assets/js/main.js"></script>
   </head>
@@ -214,6 +215,39 @@
             <li>機能の名前</li>
           </ul>
           <p class="product__note">配布ページ(GitHub Releases・外部サイト)へ移動します。</p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="sg-updates">
+        <h2 id="sg-updates">更新履歴の一覧(/updates/)</h2>
+        <p>
+          月ごとの見出しと、更新の一覧。種類は、色だけでなく、バッジの文字(プロダクトの更新・記事を公開・記事を更新)でも示します。
+        </p>
+        <div class="updates">
+          <section class="updates__month" aria-labelledby="sg-updates-month">
+            <h3 class="updates__month-title" id="sg-updates-month">2026年9月</h3>
+            <ol class="updates__list">
+              <li class="update">
+                <p class="update__meta">
+                  <span class="badge badge--live">プロダクトの更新</span>
+                  <time datetime="2026-09-20">2026年9月20日</time>
+                </p>
+                <h4 class="update__title"><a href="#sg-updates">プロダクトの名前 v1.2.0</a></h4>
+                <ul class="update__changes">
+                  <li>機能を追加した</li>
+                  <li>不具合を修正した</li>
+                </ul>
+              </li>
+              <li class="update">
+                <p class="update__meta">
+                  <span class="badge badge--soon">記事を公開</span>
+                  <time datetime="2026-09-19">2026年9月19日</time>
+                </p>
+                <h4 class="update__title"><a href="#sg-updates">記事のタイトル</a></h4>
+                <p class="update__text">記事の説明が入ります。</p>
+              </li>
+            </ol>
+          </section>
         </div>
       </section>
 
