@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>キーみち | NOLITO</title>
+    <meta
+      name="description"
+      content="キーボードだけで作業するための、自分の作業手順に合わせた「キー操作ルート」を作るツール。ショートカット一覧とチートシートも作れます。"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/kii-michi.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/tools/kii-michi/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <div class="kii" data-kii>
+        <div class="kii__intro">
+          <h1 id="kii-title" tabindex="-1">キーみち</h1>
+          <p class="kii__lead">
+            キーボードだけで作業するための「キー操作ルート」を、自分の作業手順に合わせて組み立てます。
+          </p>
+          <details class="kii__howto">
+            <summary>使い方</summary>
+            <ol>
+              <li>「操作」で、使うアプリと、よく使うキー操作を登録します。</li>
+              <li>「ルート」で、登録した操作を、自分の作業の順番に並べます。</li>
+              <li>
+                「一覧」で、登録した内容を確認できます。「チートシート」で、印刷や保存ができます。
+              </li>
+              <li>
+                登録した内容は、お使いのブラウザの中にだけ保存されます(送信しません)。「設定」から、ファイルに書き出してバックアップできます。
+              </li>
+            </ol>
+          </details>
+          <p class="kii__notice" role="status" data-notice hidden></p>
+          <p class="visually-hidden" role="status" data-announce></p>
+        </div>
+
+        <noscript>
+          <p class="kii__notice">
+            このツールは、JavaScript が必要です。JavaScript を有効にしてください。
+          </p>
+        </noscript>
+
+        <div class="kii__tabs" role="tablist" aria-label="キーみちの画面" data-tablist hidden>
+          <button
+            class="kii-tab"
+            role="tab"
+            id="tab-ops"
+            aria-controls="panel-ops"
+            type="button"
+            data-tab="ops"
+          >
+            操作
+          </button>
+          <button
+            class="kii-tab"
+            role="tab"
+            id="tab-routes"
+            aria-controls="panel-routes"
+            type="button"
+            data-tab="routes"
+          >
+            ルート
+          </button>
+          <button
+            class="kii-tab"
+            role="tab"
+            id="tab-list"
+            aria-controls="panel-list"
+            type="button"
+            data-tab="list"
+          >
+            一覧
+          </button>
+          <button
+            class="kii-tab"
+            role="tab"
+            id="tab-sheet"
+            aria-controls="panel-sheet"
+            type="button"
+            data-tab="sheet"
+          >
+            チートシート
+          </button>
+          <button
+            class="kii-tab"
+            role="tab"
+            id="tab-settings"
+            aria-controls="panel-settings"
+            type="button"
+            data-tab="settings"
+          >
+            設定
+          </button>
+        </div>
+
+        <section
+          class="kii-panel"
+          role="tabpanel"
+          id="panel-ops"
+          aria-labelledby="tab-ops"
+          data-panel="ops"
+          hidden
+        ></section>
+        <section
+          class="kii-panel"
+          role="tabpanel"
+          id="panel-routes"
+          aria-labelledby="tab-routes"
+          data-panel="routes"
+          hidden
+        ></section>
+        <section
+          class="kii-panel"
+          role="tabpanel"
+          id="panel-list"
+          aria-labelledby="tab-list"
+          data-panel="list"
+          hidden
+        ></section>
+        <section
+          class="kii-panel"
+          role="tabpanel"
+          id="panel-sheet"
+          aria-labelledby="tab-sheet"
+          data-panel="sheet"
+          hidden
+        ></section>
+        <section
+          class="kii-panel"
+          role="tabpanel"
+          id="panel-settings"
+          aria-labelledby="tab-settings"
+          data-panel="settings"
+          hidden
+        ></section>
+
+        <dialog class="modal" data-confirm aria-labelledby="confirm-title">
+          <form method="dialog" class="modal__body">
+            <h2 id="confirm-title" data-confirm-title>確認</h2>
+            <p data-confirm-message></p>
+            <div class="modal__actions">
+              <button
+                class="button button--secondary"
+                type="submit"
+                value="cancel"
+                data-confirm-cancel
+              >
+                キャンセル
+              </button>
+              <button class="button button--primary" type="submit" value="ok" data-confirm-ok>
+                実行
+              </button>
+            </div>
+          </form>
+        </dialog>
+      </div>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

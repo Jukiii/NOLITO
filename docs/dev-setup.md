@@ -85,7 +85,7 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 
 ## ツールを作る(Phase 8 の基盤の使い方)
 
-最初のツールは、まだない(Issue #15)。作るときの流れ:
+最初のツールは「キーみち」(`/tools/kii-michi/`)。次のツールを作るときの流れ(キーみちが実例):
 
 1. ツールのページを `public/tools/<ツールID>/` に置く(`url`)。詳細ページは、`detail_path` を `/tools/<ツールID>/about/` にして、`products.json` の `tool` カテゴリに足す。`storage` と、必要なら `plan` を書く。
 2. 利用者のデータを保存するときは、`public/assets/js/tools/store.js` の `createToolStore` を使う(保存方式が `browser` か `file` のとき)。`toolId` はツールの ID、`version` はデータの形の版、`initial` は最初のデータ、`normalize` は読み込み・保存・取り込みのたびに通す検査と整形(不正なら例外)。形を変えたら、`version` を上げて `migrations` に移行の関数を足す。
