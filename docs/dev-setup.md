@@ -116,3 +116,7 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 
 - 設定・運用は `docs/contact-setup.md`(D1 に `0003` の SQL、環境変数 `CONTACT_ENABLED=true`)。問い合わせは、`npm run inquiries`(手元で読む)。環境変数 `NOLITO_D1_DATABASE_ID` と `npx wrangler login` が、要る(`docs/backup.md` の準備と同じ)。
 - ローカルで動かすには、`npx wrangler pages dev public --binding SITE_ORIGIN=http://localhost:8788 SESSION_SECRET=<32文字以上> CONTACT_ENABLED=true --d1 DB=<ID>`(D1 は、`npx wrangler d1 migrations apply nolito --local`)。
+
+## 語録の確認(Phase 11)
+
+- `npm run vocab:stats`(職種ごとの統計と点検)、`npm run vocab:review`(確認シート `docs/vocabulary-review.md` を作り直す。`-- --check` で、最新かを検査)。語録を変えたら、確認シートも、作り直す。
