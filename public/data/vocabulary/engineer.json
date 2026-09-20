@@ -1,8 +1,8 @@
 {
   "job_id": "engineer",
   "job_name": "エンジニア",
-  "version": "0.2.0",
-  "updated_at": "2026-09-20",
+  "version": "0.3.0",
+  "updated_at": "2026-09-21",
   "items": [
     {
       "id": "engineer-001",
@@ -40,7 +40,7 @@
       "reading": "さーばー",
       "romaji": ["sa-ba-"],
       "category": "インフラ",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "ほかの機器の求めに応じて、データや機能を提供するコンピューターのこと。",
       "related_terms": [],
@@ -85,7 +85,7 @@
       "reading": "れびゅー",
       "romaji": ["rebyu-"],
       "category": "開発",
-      "difficulty": 2,
+      "difficulty": 1,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "書いた成果物を他の人が確認し、問題点や改善点を指摘すること。",
       "related_terms": [],
@@ -239,6 +239,216 @@
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "コンピューターなどをつないで、データをやり取りできるようにした仕組みのこと。",
       "related_terms": ["サーバー"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-017",
+      "japanese": "エラー",
+      "reading": "えらー",
+      "romaji": ["era-"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムが正しく動かないときに出る、問題を知らせる表示や状態のこと。",
+      "related_terms": ["バグ", "デバッグ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-018",
+      "japanese": "ファイル",
+      "reading": "ふぁいる",
+      "romaji": ["fairu"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "名前をつけて保存する、データのまとまりのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-019",
+      "japanese": "メモリ",
+      "reading": "めもり",
+      "romaji": ["memori"],
+      "category": "インフラ",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムが動くときに、データを一時的に置いておく場所。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-020",
+      "japanese": "クラウド",
+      "reading": "くらうど",
+      "romaji": ["kuraudo"],
+      "category": "インフラ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "自分の機器ではなく、インターネット越しに借りて使う、サーバーや保存場所のこと。",
+      "related_terms": ["サーバー"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-021",
+      "japanese": "バックアップ",
+      "reading": "ばっくあっぷ",
+      "romaji": ["bakkuappu"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "故障や誤操作に備えて、データの複製を別の場所に取っておくこと。",
+      "related_terms": ["データベース"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-022",
+      "japanese": "パスワード",
+      "reading": "ぱすわーど",
+      "romaji": ["pasuwa-do"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "本人であることを確かめるための、秘密の文字列。他人に教えない。",
+      "related_terms": ["認証"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-023",
+      "japanese": "暗号化",
+      "reading": "あんごうか",
+      "romaji": ["angouka"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データを、鍵がないと読めない形に変えること。盗み見られても、中身を守れる。",
+      "related_terms": ["パスワード"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-024",
+      "japanese": "認証",
+      "reading": "にんしょう",
+      "romaji": ["ninshou", "ninsyou"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用者が本人かどうかを確かめること。ログインのときに行う。",
+      "related_terms": ["パスワード"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-025",
+      "japanese": "脆弱性",
+      "reading": "ぜいじゃくせい",
+      "romaji": ["zeijakusei", "zeizyakusei"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ソフトウェアの弱点や欠陥のこと。悪用されると被害が出るので、修正が必要。",
+      "related_terms": ["アップデート"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-026",
+      "japanese": "アップデート",
+      "reading": "あっぷでーと",
+      "romaji": ["appude-to"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ソフトウェアを新しい版に更新すること。不具合の修正や、機能の追加を行う。",
+      "related_terms": ["バージョン", "リリース"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-027",
+      "japanese": "仕様書",
+      "reading": "しようしょ",
+      "romaji": ["shiyousho", "siyousyo"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "作るものの機能や動きを、文章で決めた資料。",
+      "related_terms": ["要件定義"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-028",
+      "japanese": "要件定義",
+      "reading": "ようけんていぎ",
+      "romaji": ["youkenteigi"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムに必要な機能や条件を、開発の前に整理して決めること。",
+      "related_terms": ["仕様書"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-029",
+      "japanese": "障害",
+      "reading": "しょうがい",
+      "romaji": ["shougai", "syougai"],
+      "category": "インフラ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムが止まる、正しく動かないなど、サービスに起きる問題のこと。",
+      "related_terms": ["ログ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-030",
+      "japanese": "保守",
+      "reading": "ほしゅ",
+      "romaji": ["hoshu", "hosyu"],
+      "category": "インフラ",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "完成したシステムを使い続けられるように、直したり改善したりすること。",
+      "related_terms": ["障害"],
       "learning_points": [],
       "weak_detection": {
         "enabled": true

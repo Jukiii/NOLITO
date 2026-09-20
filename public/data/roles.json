@@ -8,7 +8,7 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 60,
-      "drain_per_second": 1.25,
+      "drain_per_second": 1.21,
       "base_gain": 5,
       "gain_per_char": 0.6,
       "miss_penalty": 3,
@@ -24,7 +24,7 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 55,
-      "drain_per_second": 1.9,
+      "drain_per_second": 1.84,
       "base_gain": 5,
       "gain_per_char": 0.4,
       "miss_penalty": 3,
@@ -40,7 +40,7 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 50,
-      "drain_per_second": 2.1,
+      "drain_per_second": 2.04,
       "base_gain": 5,
       "gain_per_char": 0.6,
       "miss_penalty": 4,
@@ -56,7 +56,7 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 50,
-      "drain_per_second": 2.2,
+      "drain_per_second": 2.13,
       "base_gain": 5,
       "gain_per_char": 0.6,
       "miss_penalty": 4,
@@ -77,7 +77,7 @@
     "stage": {
       "max_distance": 100,
       "initial_distance": 45,
-      "drain_per_second": 2.3,
+      "drain_per_second": 2.23,
       "base_gain": 4,
       "gain_per_char": 0.4,
       "miss_penalty": 5,
