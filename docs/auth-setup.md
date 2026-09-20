@@ -18,10 +18,34 @@
 
 1. Cloudflare のダッシュボード → **Storage & Databases** → **D1 SQL database** → **Create database**。名前は `nolito`。
 2. 作ったデータベースの **Console** タブを開く。
-3. リポジトリの `migrations/0001_init.sql` の中身を、すべて貼り付けて、実行する(テーブルが4つできます: `users`・`sessions`・`audit_log`・`rate_limits`)。
+3. 下の「D1 に貼る SQL」の **0001** を、すべてコピーして、Console に貼り、実行する(テーブルが4つできます: `users`・`sessions`・`audit_log`・`rate_limits`)。
 4. **Tables** タブに、4つのテーブルが見えれば成功。
 
-> 以降、`migrations/` に新しいファイルが増える PR(Phase 9 の PR 2 など)は、マージの**前**に、同じ手順で、その SQL を実行します(PR の説明に書きます)。
+> 以降、`migrations/` に新しいファイルが増える PR は、マージの**前**に、同じ手順で、その SQL を実行します(PR の説明に書きます)。**すでに実行した番号は、もう一度実行しません**(「already exists」と出ます)。
+>
+> Phase 9 の PR 2 の `0002_licenses.sql` は、`licenses` テーブルを足します(**Tables** に `licenses` が増えれば成功)。
+
+### D1 に貼る SQL
+
+Console は、貼った SQL の**改行を消して、1行にすることがあります**。SQL の `--` から後ろは、コメント(実行されない説明)なので、1行になると、後ろが全部コメントになり、`Requests without any query are not supported` と出ます。**下の SQL は、コメントを抜いてあります。**そのまま貼ってください。(`migrations/` のファイルと同じ内容で、テストが一致を確かめています。)
+
+**0001**(`0001_init.sql`)
+
+```sql 0001_init.sql
+CREATE TABLE users (id TEXT PRIMARY KEY, google_sub TEXT NOT NULL UNIQUE, email TEXT NOT NULL, nickname TEXT NOT NULL, created_at INTEGER NOT NULL, last_login_at INTEGER NOT NULL);
+CREATE TABLE sessions (token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, created_at INTEGER NOT NULL, last_seen_at INTEGER NOT NULL);
+CREATE INDEX sessions_user ON sessions(user_id);
+CREATE TABLE audit_log (id INTEGER PRIMARY KEY AUTOINCREMENT, at INTEGER NOT NULL, user_id TEXT REFERENCES users(id) ON DELETE SET NULL, event TEXT NOT NULL, detail TEXT NOT NULL DEFAULT '');
+CREATE INDEX audit_log_at ON audit_log(at);
+CREATE TABLE rate_limits (key TEXT PRIMARY KEY, window_start INTEGER NOT NULL, count INTEGER NOT NULL);
+```
+
+**0002**(`0002_licenses.sql`。Phase 9 の PR 2)
+
+```sql 0002_licenses.sql
+CREATE TABLE licenses (id TEXT PRIMARY KEY, key_hash TEXT NOT NULL UNIQUE, key_hint TEXT NOT NULL, product_id TEXT NOT NULL, note TEXT NOT NULL DEFAULT '', issued_at INTEGER NOT NULL, user_id TEXT REFERENCES users(id) ON DELETE SET NULL, redeemed_at INTEGER, revoked_at INTEGER);
+CREATE INDEX licenses_user ON licenses(user_id);
+```
 
 ## 2. Pages に D1 をつなぐ(本番だけ)
 
@@ -48,15 +72,17 @@
 
 **Settings** → **Variables and Secrets** → **Production** に、次を追加する。
 
-| 名前 | 種類 | 値 |
+追加の画面の一番上に、**Type(種類)** を選ぶ欄があります。`GOOGLE_CLIENT_SECRET` と `SESSION_SECRET` は **Secret**、それ以外は **Text** にします(JSON は使いません。`AUTH_ENABLED` を JSON にすると、`true` が文字でなくなり、無効のままになります)。
+
+| 名前 | Type | 値 |
 | ---- | ---- | ---- |
-| `GOOGLE_CLIENT_ID` | プレーンテキスト | 手順3のクライアント ID |
-| `GOOGLE_CLIENT_SECRET` | **シークレット** | 手順3のクライアントシークレット |
-| `SESSION_SECRET` | **シークレット** | 32文字以上のランダムな文字列(下のコマンドで作る) |
-| `SITE_ORIGIN` | プレーンテキスト | `https://nolito.pages.dev`(末尾のスラッシュなし) |
-| `SIGNUP_MODE` | プレーンテキスト | `invite`(招待制。省略しても `invite`) |
-| `ALLOWED_EMAILS` | プレーンテキスト | ログインを許すメールアドレス(カンマ区切り。例: `you@gmail.com,friend@gmail.com`) |
-| `AUTH_ENABLED` | プレーンテキスト | `true`(**最後に**入れる。これが `true` になるまで、機能は無効) |
+| `GOOGLE_CLIENT_ID` | Text | 手順3のクライアント ID |
+| `GOOGLE_CLIENT_SECRET` | **Secret** | 手順3のクライアントシークレット |
+| `SESSION_SECRET` | **Secret** | 32文字以上のランダムな文字列(下のコマンドで作る) |
+| `SITE_ORIGIN` | Text | `https://nolito.pages.dev`(末尾のスラッシュなし) |
+| `SIGNUP_MODE` | Text | `invite`(招待制。省略しても `invite`) |
+| `ALLOWED_EMAILS` | Text | ログインを許すメールアドレス(カンマ区切り。例: `you@gmail.com,friend@gmail.com`) |
+| `AUTH_ENABLED` | Text | `true`(**最後に**入れる。これが `true` になるまで、機能は無効) |
 
 `SESSION_SECRET` の作り方(PowerShell か、ターミナルで。出力を、そのまま入力欄に貼る):
 
@@ -99,16 +125,61 @@ node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"
 
 ### データの確認・削除(D1 の Console)
 
+Console は改行を消すことがあるので、SQL は、**1回に1文**ずつ、**コメントなし**で貼ります。
+
+利用者の数:
+
 ```sql
--- 利用者の数
 SELECT COUNT(*) FROM users;
--- 直近の出来事(メールアドレスは入っていません)
+```
+
+直近の出来事(メールアドレス・キーは入っていません):
+
+```sql
 SELECT datetime(at, 'unixepoch') AS at, event, detail FROM audit_log ORDER BY id DESC LIMIT 30;
--- 利用者を、運営者が削除する(セッションも消え、監査ログは匿名になる)
+```
+
+利用者を、運営者が削除する(`someone@example.com` を書き換えて、上から順に、1文ずつ実行。ライセンスは、記録が残り、結びつきだけ外れます):
+
+```sql
+UPDATE licenses SET user_id = NULL, redeemed_at = NULL WHERE user_id = (SELECT id FROM users WHERE email = 'someone@example.com');
+```
+
+```sql
 DELETE FROM users WHERE email = 'someone@example.com';
 ```
 
 監査ログは、180日たったものが、ログイン時に、ときどき削除されます。
+
+### ライセンスキーを発行する(運営者)
+
+キーの発行は、あなたのパソコンで、次のコマンドで行います(サイトには、発行の入り口はありません)。
+
+```
+node scripts/issue-license.mjs <商品ID> --count 3 --note "テスターへ"
+```
+
+- 商品 ID は、`public/data/products.json` の `id` です(いまは `escape-boss`・`kii-michi`)。`--count` は 1〜50、`--note` は 100 文字までの自分用のメモです(利用者には見えません)。
+- 画面に、**キー**(`NLTO-...`)と、**D1 に貼る SQL** が出ます。
+  1. キーは、**この画面にしか出ません**(保存されません)。安全な場所に控えて、渡す人に伝えます。**チャットや GitHub には貼らないでください。**
+  2. `INSERT INTO licenses ...` の行を、**すべてコピーして**、D1 の Console に貼って、実行します。実行するまで、キーは使えません。
+- D1 に入るのは、キーの**ハッシュ**と、末尾 4 文字だけです。
+
+確認・無効化(`ここにID` は、下の一覧で調べた `id`):
+
+```sql
+SELECT id, product_id, key_hint, note, datetime(issued_at, 'unixepoch') AS issued, user_id IS NOT NULL AS used, revoked_at IS NOT NULL AS revoked FROM licenses ORDER BY issued_at DESC;
+```
+
+```sql
+UPDATE licenses SET revoked_at = strftime('%s', 'now') WHERE id = 'ここにID';
+```
+
+無効にしたキーは、登録済みの人の一覧にも、「無効」と出ます(登録し直しはできません)。有効に戻すには、`revoked_at = NULL` にします。
+
+- 登録には、1人あたり **5回 / 10分**、送信元ごとに **20回 / 10分** の回数の制限があります。
+- アカウントを削除すると、ライセンスの記録は残り、結びつきだけが外れます(同じキーを、また登録できます)。
+- **有料機能を使えるかどうかの制御は、まだありません**(有料の配布も始まっていません)。いまのライセンスは、登録と一覧だけです。
 
 ## ローカルでの開発
 

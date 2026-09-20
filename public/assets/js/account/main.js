@@ -1,6 +1,14 @@
 // アカウントのページ(/account/)。DOM に触れるのは、このファイルだけ。
 // 表示する文字列は、必ず textContent で入れる(ニックネームやメールアドレスは、利用者が決めた値)。
-import { deleteAccount, fetchMe, logout, saveNickname } from "./client.js";
+import {
+  deleteAccount,
+  fetchLicenses,
+  fetchMe,
+  fetchProductNames,
+  logout,
+  redeemLicense,
+  saveNickname,
+} from "./client.js";
 import { loginErrorMessage } from "./messages.js";
 
 const root = document.querySelector("[data-account]");
@@ -32,14 +40,57 @@ async function init(root) {
     reauthLink.hidden = true;
   };
 
+  const formatDate = (seconds) => {
+    const date = new Date(seconds * 1000);
+    return Number.isNaN(date.getTime())
+      ? ""
+      : date.toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" });
+  };
+
+  // ライセンスの一覧。文字は、すべて textContent で入れる(商品名は、公開データだが、同じ扱いにする)
+  const licenseList = $("[data-license-list]");
+  const licenseEmpty = $("[data-license-empty]");
+  let productNames = new Map();
+
+  function renderLicenses(licenses) {
+    licenseList.replaceChildren(
+      ...licenses.map((license) => {
+        const revoked = license.status === "revoked";
+        const item = document.createElement("li");
+        item.className = `account-license${revoked ? " account-license--revoked" : ""}`;
+        const name = document.createElement("p");
+        name.className = "account-license__name";
+        name.textContent = productNames.get(license.productId) ?? license.productId;
+        const meta = document.createElement("p");
+        meta.className = "account-license__meta";
+        meta.textContent = [
+          `キー: NLTO-…-${license.hint}`,
+          `登録日: ${formatDate(license.redeemedAt)}`,
+          `状態: ${revoked ? "無効" : "有効"}`,
+        ].join(" / ");
+        item.append(name, meta);
+        return item;
+      }),
+    );
+    licenseEmpty.hidden = licenses.length > 0;
+  }
+
+  // 一覧を取り直す。失敗の知らせは、呼んだ側が出す(登録の成功と、一緒に伝えるため)
+  async function loadLicenses() {
+    const [result, names] = await Promise.all([fetchLicenses(), fetchProductNames()]);
+    productNames = names;
+    if (result.ok) renderLicenses(result.data.licenses);
+    return result;
+  }
+
   function renderUser(user) {
     $("[data-user-email]").textContent = user.email;
-    const created = new Date(user.createdAt * 1000);
-    $("[data-user-created]").textContent = Number.isNaN(created.getTime())
-      ? ""
-      : created.toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" });
+    $("[data-user-created]").textContent = formatDate(user.createdAt);
     nickname.value = user.nickname;
     show("signed-in");
+    loadLicenses().then((result) => {
+      if (!result.ok) say(result.message, "error");
+    });
   }
 
   // ログインの失敗から戻ってきたとき(/account/?error=...)の案内。アドレスからは消す(再読み込みで、また出ないように)
@@ -76,6 +127,29 @@ async function init(root) {
     } else if (!expired(result)) {
       say(result.message, "error");
       nickname.focus();
+    }
+  });
+
+  $("[data-license-form]").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const input = $("#license-key");
+    const button = event.submitter ?? $("[data-license-form] button");
+    button.disabled = true;
+    say("登録しています…");
+    const result = await redeemLicense(input.value);
+    button.disabled = false;
+    if (result.ok) {
+      input.value = "";
+      // 一覧を更新してから知らせる(「登録した」と聞こえたのに、一覧にない、を作らない)
+      const loaded = await loadLicenses();
+      const done = result.data.already
+        ? "このキーは、すでに登録済みです。"
+        : "ライセンスを登録しました。";
+      if (loaded.ok) say(done);
+      else say(`${done}一覧を更新できませんでした。ページを開き直してください。`, "error");
+    } else if (!expired(result)) {
+      say(result.message, "error");
+      input.focus();
     }
   });
 

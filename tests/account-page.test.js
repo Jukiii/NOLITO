@@ -8,8 +8,11 @@ import { CONFIRM_WORD } from "../functions/api/account.js";
 import {
   call,
   deleteAccount,
+  fetchLicenses,
   fetchMe,
+  fetchProductNames,
   logout,
+  redeemLicense,
   saveNickname,
 } from "../public/assets/js/account/client.js";
 import {
@@ -162,6 +165,66 @@ describe("API クライアント", () => {
   });
 });
 
+describe("ライセンスの API クライアント", () => {
+  it("一覧は GET(CSRF ヘッダーなし)、登録は POST で、キーを JSON の本文に入れる", async () => {
+    const listing = recorder(jsonResponse({ licenses: [] }));
+    await fetchLicenses(listing.options);
+    assert.deepEqual(
+      [listing.calls[0].path, listing.calls[0].init.method],
+      ["/api/licenses", "GET"],
+    );
+    assert.equal(listing.calls[0].init.headers["X-NOLITO-CSRF"], undefined);
+
+    const posting = recorder(jsonResponse({ license: {}, already: false }));
+    await redeemLicense("NLTO-AAAAA-AAAAA-AAAAA-AAAAA", posting.options);
+    const { path, init } = posting.calls[0];
+    assert.deepEqual([path, init.method], ["/api/licenses/redeem", "POST"]);
+    assert.equal(init.headers["X-NOLITO-CSRF"], "1");
+    assert.deepEqual(JSON.parse(init.body), { key: "NLTO-AAAAA-AAAAA-AAAAA-AAAAA" });
+  });
+
+  it("登録の失敗は、利用者向けの文で返す(内部の理由を出さない)", async () => {
+    const invalid = recorder(jsonResponse({ error: "license-invalid" }, 400));
+    const result = await redeemLicense("x", invalid.options);
+    assert.equal(result.ok, false);
+    assert.equal(result.message, API_ERRORS["license-invalid"]);
+    assert.ok(result.message.includes("使えません"));
+    const format = await redeemLicense(
+      "x",
+      recorder(jsonResponse({ error: "license-format" }, 400)).options,
+    );
+    assert.equal(format.message, API_ERRORS["license-format"]);
+  });
+
+  it("商品名: products.json の id → title。取れなければ、空の Map(ID のまま表示する)", async () => {
+    const data = {
+      products: [
+        { id: "kii-michi", title: "キーみち" },
+        { id: "escape-boss", title: "上司から逃げろ" },
+      ],
+    };
+    const names = await fetchProductNames(async () => jsonResponse(data));
+    assert.equal(names.get("kii-michi"), "キーみち");
+    assert.equal(names.size, 2);
+    assert.equal(
+      (
+        await fetchProductNames(async () => {
+          throw new Error("offline");
+        })
+      ).size,
+      0,
+    );
+    assert.equal((await fetchProductNames(async () => new Response("<html>"))).size, 0);
+    assert.equal((await fetchProductNames(async () => jsonResponse({}))).size, 0);
+  });
+
+  it("実際の products.json の id は、すべて、商品名を引ける", async () => {
+    const real = JSON.parse(read("public/data/products.json"));
+    const names = await fetchProductNames(async () => jsonResponse(real));
+    for (const product of real.products) assert.ok(names.get(product.id), product.id);
+  });
+});
+
 describe("ページの静的な性質", () => {
   const html = read("public/account/index.html");
   const js = read("public/assets/js/account/main.js");
@@ -202,6 +265,31 @@ describe("ページの静的な性質", () => {
     for (const view of views.filter((name) => name !== "loading")) {
       assert.ok(js.includes(`"${view}"`), view);
     }
+  });
+
+  it("ライセンスの節: 入力・一覧・空の案内が、HTML と main.js の両方にそろっている", () => {
+    for (const hook of ["data-license-form", "data-license-list", "data-license-empty"]) {
+      assert.ok(html.includes(hook), `HTML: ${hook}`);
+      assert.ok(js.includes(hook), `main.js: ${hook}`);
+    }
+    // キーの入力欄: 自動補完・自動大文字化・スペルチェックで、キーが他へ漏れない・崩れない
+    const input = html.slice(
+      html.indexOf('id="license-key"') - 200,
+      html.indexOf('id="license-key"') + 400,
+    );
+    assert.match(input, /autocomplete="off"/);
+    assert.match(input, /spellcheck="false"/);
+    assert.match(input, /required/);
+  });
+
+  it("ライセンスの状態は、色だけでなく、文字(有効・無効)でも示す", () => {
+    assert.match(js, /無効/);
+    assert.match(js, /有効/);
+    assert.match(read("public/assets/css/account.css"), /account-license--revoked[^}]*dashed/);
+  });
+
+  it("画面に出すのは、末尾 4 文字のヒントだけ(キーの全体は、サーバーも持たない)", () => {
+    assert.match(js, /NLTO-…-\$\{license\.hint\}/);
   });
 
   it("CSS は、色をトークンで指定する(ダークテーマに対応できるように)", () => {

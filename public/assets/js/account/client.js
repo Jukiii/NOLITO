@@ -52,3 +52,19 @@ export const logout = (options) => call("/api/logout", { ...options, method: "PO
 
 export const deleteAccount = (options) =>
   call("/api/account", { ...options, method: "DELETE", body: { confirm: "delete" } });
+
+export const fetchLicenses = (options) => call("/api/licenses", options);
+
+export const redeemLicense = (key, options) =>
+  call("/api/licenses/redeem", { ...options, method: "POST", body: { key } });
+
+/** 商品 ID → 商品名(公開の products.json から)。取れなければ空(ID のまま表示する)。 */
+export async function fetchProductNames(fetchImpl = globalThis.fetch) {
+  try {
+    const response = await fetchImpl("/data/products.json");
+    const data = await response.json();
+    return new Map(data.products.map((product) => [product.id, String(product.title)]));
+  } catch {
+    return new Map();
+  }
+}

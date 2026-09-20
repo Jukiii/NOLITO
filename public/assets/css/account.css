@@ -87,3 +87,40 @@
   font: inherit;
   font-size: var(--font-size-base);
 }
+
+/* ライセンスの一覧。状態は、色でなく、文字(有効・無効)と枠の線でも示す */
+.account__licenses {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.account__licenses:empty {
+  display: none;
+}
+
+.account-license {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.account-license--revoked {
+  border-style: dashed;
+  color: var(--color-text-muted);
+}
+
+.account-license__name {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+  overflow-wrap: anywhere;
+}
+
+.account-license__meta {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}

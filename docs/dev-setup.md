@@ -100,3 +100,4 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 - テストは、`npm run test` だけで足りる(偽の Google と、SQLite で、外部には通信しない)。
 - 動かして確認するには、`npx wrangler pages dev public`(`wrangler` は devDependency)。環境変数は、`.dev.vars`(Git に入れない)か、`--binding KEY=VALUE` で渡す。ローカルの D1 は、`npx wrangler d1 migrations apply nolito --local`。
 - `functions/` を変えたら、`tests/auth-*.test.js` も更新する。`migrations/` に新しいファイルを足す PR は、本番の D1 にも、マージの**前**に、同じ SQL を適用する(PR の説明に書く)。
+- ライセンスキーの発行: `node scripts/issue-license.mjs <商品ID> --count 3 --note "メモ"`(運営者用。手順は `docs/auth-setup.md` の「ライセンスキーを発行する」)。

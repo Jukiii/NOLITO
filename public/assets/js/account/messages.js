@@ -23,6 +23,10 @@ export const API_ERRORS = {
   "nickname-required": "ニックネームを入力してください。",
   "nickname-too-long": "ニックネームは、12文字までです。",
   "nickname-invalid": "ニックネームに、使えない文字が入っています。",
+  "license-format":
+    "ライセンスキーの形が違います。「NLTO-」で始まる、英数字のキーを入力してください。",
+  "license-invalid":
+    "このキーは、使えません。入力を確認してください(すでに使われているか、無効になっている場合もあります)。",
   "confirm-required": "確認できませんでした。もう一度お試しください。",
   "reauth-required": "安全のため、もう一度、Google でログインしてください。",
   "unsupported-media-type": "送信できませんでした。ページを開き直して、もう一度お試しください。",
