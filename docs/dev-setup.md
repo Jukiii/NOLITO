@@ -106,3 +106,8 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 
 - 月に 1 回、`npm run backup:d1`(運営者用。手順・復元・練習は `docs/backup.md`)。事前に `npx wrangler login` と、環境変数 `NOLITO_D1_DATABASE_ID`。
 - 書き出したファイルの確認は `npm run backup:verify -- <ファイル>`。本物の D1 への `wrangler d1` は `npm run d1:remote -- <コマンド>`。
+
+## 更新履歴・リリースの進め方(Phase 10)
+
+- プロダクトを更新したら、`products.json` の `version` を上げ、`changelog` の先頭に項目を足して、`npm run build`。詳細ページと `/updates/` に、自動で出る。
+- 1 機能 1 PR・テスト版の表示・戻し方は、`docs/release-process.md`。

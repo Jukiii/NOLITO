@@ -120,3 +120,10 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 本物の D1 の ID は、コミットしない(`wrangler.toml` はダミーのまま)。環境変数 `NOLITO_D1_DATABASE_ID` か `--id` で渡す。本番の DB を読める秘密のトークンを、GitHub Actions などに置かない(自動化しない理由は、`docs/backup.md`)。
 - スクリプトは、バックアップの中身(メールアドレスなど)を表示しない(テーブル名と件数だけ)。この性質を変えない(テストで検証している)。
 - `tests/fixtures/d1-export-sample.sql` は、本物の `wrangler d1 export` の出力(作り物のデータ)。テーブルを足したら、`migrations/` と合わせて、見本を作り直す。
+
+## 更新履歴(Phase 10)
+
+- `/updates/` は、**新しいデータの形を持たない**。`products.json` の `changelog` と `articles.json` から、ブラウザで組み立てる(`public/assets/js/updates/updates.js`。DOM に依存しない。表示は `main.js` で、`el()` だけ)。プロダクトを更新したら、`version` を上げて、`changelog` の先頭に足す(`npm run build` を実行)。それだけで、詳細ページと `/updates/` に出る。
+- 不正なプロダクト・記事は、その項目だけ外して、ほかは表示する(警告を出す)。記事の URL は、サイト内のページ(`/` 始まり)だけ。この安全側の挙動を緩めない。種類は、色だけでなく文字(バッジ)でも示す。
+- 進め方(小機能単位のテスト公開・戻し方)は `docs/release-process.md`、決定は `docs/decisions/0016-updates.md`。
+- フッターのリンクは、ページができたものだけ(`config/nav.js`)。部品を足したら、`/styleguide/` の見本も更新する。
