@@ -187,12 +187,18 @@ describe("実際の語録", () => {
     assert.deepEqual(findIssues(vocabularies).errors, []);
   });
 
-  it("警告は、増やさない(語録の拡充の PR で、0 にする)", () => {
+  it("警告がない(難易度が決めどおり・職種ごとに 30 語・難易度ごとに 4 語以上・カテゴリ 3 種類以上)", () => {
     const { warnings } = findIssues(vocabularies);
-    const mismatches = warnings.filter((w) => w.includes("決めと違います"));
-    // 現在: 難易度のずれ 17 件 + 語数(6)+ 難易度ごとの語数(6)+ カテゴリ(4)= 31 件。増えたら、失敗する
-    assert.ok(mismatches.length <= 17, `難易度のずれが増えました: ${mismatches.length}`);
-    assert.ok(warnings.length <= 31, `警告が増えました: ${warnings.length}`);
+    assert.deepEqual(warnings, [], warnings.join(" / "));
+  });
+
+  it("職種ごとに 30 語。id は連番で、欠けがない(語の id は、消さない・つけ替えない)", () => {
+    for (const data of vocabularies) {
+      assert.equal(data.items.length, 30, data.job_id);
+      data.items.forEach((item, index) => {
+        assert.equal(item.id, `${data.job_id}-${String(index + 1).padStart(3, "0")}`);
+      });
+    }
   });
 
   it("すべての語の対象の役職が、実在する役職 id で、空でない", () => {
@@ -308,11 +314,11 @@ describe("コマンド", () => {
   const run = (script, args = []) =>
     spawnSync(process.execPath, [`${root}scripts/${script}`, ...args], { encoding: "utf8" });
 
-  it("vocab:stats: 統計と警告を表示して、エラーがなければ、終了コード 0", () => {
+  it("vocab:stats: 統計を表示して、エラーがなければ、終了コード 0(警告がなければ、その旨)", () => {
     const result = run("vocab-stats.mjs");
     assert.equal(result.status, 0, result.stderr);
     assert.match(result.stdout, /エンジニア/);
-    assert.match(result.stdout, /警告\(直したほうがよい点\)/);
+    assert.match(result.stdout, /警告も、ありません/);
     assert.match(result.stdout, /エラーは、ありません/);
   });
 

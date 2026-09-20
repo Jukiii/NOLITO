@@ -1,8 +1,8 @@
 {
   "job_id": "sales",
   "job_name": "営業",
-  "version": "0.2.0",
-  "updated_at": "2026-09-20",
+  "version": "0.3.0",
+  "updated_at": "2026-09-21",
   "items": [
     {
       "id": "sales-001",
@@ -25,7 +25,7 @@
       "reading": "うりあげ",
       "romaji": ["uriage"],
       "category": "営業活動",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "商品やサービスを売って得た金額のこと。",
       "related_terms": [],
@@ -55,7 +55,7 @@
       "reading": "けいやく",
       "romaji": ["keiyaku"],
       "category": "営業活動",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "当事者どうしの合意によって、約束を取り決めること。",
       "related_terms": [],
@@ -130,7 +130,7 @@
       "reading": "あぽいんと",
       "romaji": ["apointo"],
       "category": "営業活動",
-      "difficulty": 3,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "会う日時をあらかじめ約束すること。",
       "related_terms": [],
@@ -239,6 +239,216 @@
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "決めた数値などの目標に届くこと。",
       "related_terms": ["売上"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-017",
+      "japanese": "単価",
+      "reading": "たんか",
+      "romaji": ["tanka"],
+      "category": "営業管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービス 1 つあたりの値段のこと。",
+      "related_terms": ["見積もり"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-018",
+      "japanese": "粗利",
+      "reading": "あらり",
+      "romaji": ["arari"],
+      "category": "営業管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上から、仕入れなどにかかった原価を引いた、利益のこと。",
+      "related_terms": ["売上"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-019",
+      "japanese": "原価",
+      "reading": "げんか",
+      "romaji": ["genka"],
+      "category": "営業管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を作ったり仕入れたりするのに、かかったお金のこと。",
+      "related_terms": ["粗利"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-020",
+      "japanese": "苦情",
+      "reading": "くじょう",
+      "romaji": ["kujou", "kuzyou"],
+      "category": "顧客対応",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスへの不満を、客が伝えること。",
+      "related_terms": ["顧客"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-021",
+      "japanese": "成約",
+      "reading": "せいやく",
+      "romaji": ["seiyaku"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談がまとまり、契約が結ばれること。",
+      "related_terms": ["契約"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-022",
+      "japanese": "要望",
+      "reading": "ようぼう",
+      "romaji": ["youbou"],
+      "category": "顧客対応",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が望んでいることや、してほしいという希望。",
+      "related_terms": ["顧客"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-023",
+      "japanese": "問い合わせ",
+      "reading": "といあわせ",
+      "romaji": ["toiawase"],
+      "category": "顧客対応",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が、商品やサービスについて、質問や確認をすること。",
+      "related_terms": ["顧客"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-024",
+      "japanese": "進捗",
+      "reading": "しんちょく",
+      "romaji": ["shinchoku", "sintyoku"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "物事が進んでいる度合い。営業では、案件の進み具合のこと。",
+      "related_terms": ["目標達成"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-025",
+      "japanese": "実績",
+      "reading": "じっせき",
+      "romaji": ["jisseki", "zisseki"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "これまでに実際に上げた、成果や数字のこと。",
+      "related_terms": ["売上"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-026",
+      "japanese": "顧客満足",
+      "reading": "こきゃくまんぞく",
+      "romaji": ["kokyakumanzoku"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスを使った客が、どれだけ満足しているかということ。",
+      "related_terms": ["顧客"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-027",
+      "japanese": "クロージング",
+      "reading": "くろーじんぐ",
+      "romaji": ["kuro-jingu", "kuro-zingu"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談の最後に、相手に契約や購入の決断を促すこと。",
+      "related_terms": ["商談"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-028",
+      "japanese": "フォローアップ",
+      "reading": "ふぉろーあっぷ",
+      "romaji": ["foro-appu"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談や契約のあとも連絡を取り、相手の状況を確かめて支えること。",
+      "related_terms": ["顧客"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-029",
+      "japanese": "営業日報",
+      "reading": "えいぎょうにっぽう",
+      "romaji": ["eigyounippou"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "その日の営業の活動や成果を、記録して報告する書類。",
+      "related_terms": ["訪問"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-030",
+      "japanese": "契約更新",
+      "reading": "けいやくこうしん",
+      "romaji": ["keiyakukoushinn", "keiyakukousinn"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "期間が決まっている契約を続けるために、改めて結ぶこと。",
+      "related_terms": ["契約"],
       "learning_points": [],
       "weak_detection": {
         "enabled": true

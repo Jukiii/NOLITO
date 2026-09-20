@@ -1,8 +1,8 @@
 {
   "job_id": "teaching",
   "job_name": "講師・教育",
-  "version": "0.2.0",
-  "updated_at": "2026-09-20",
+  "version": "0.3.0",
+  "updated_at": "2026-09-21",
   "items": [
     {
       "id": "teaching-001",
@@ -40,7 +40,7 @@
       "reading": "しゅくだい",
       "romaji": ["shukudai"],
       "category": "授業",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "家庭などで取り組むように出される課題のこと。",
       "related_terms": [],
@@ -100,7 +100,7 @@
       "reading": "ほごしゃ",
       "romaji": ["hogosha", "hogosya"],
       "category": "指導",
-      "difficulty": 2,
+      "difficulty": 1,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "子どもを保護し、養育する立場の人のこと。",
       "related_terms": ["面談"],
@@ -130,7 +130,7 @@
       "reading": "じかんわり",
       "romaji": ["jikanwari", "zikanwari"],
       "category": "授業",
-      "difficulty": 3,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "授業などの時間の割り当てを示した表のこと。",
       "related_terms": [],
@@ -145,7 +145,7 @@
       "reading": "しゅっせきぼ",
       "romaji": ["shussekibo"],
       "category": "指導",
-      "difficulty": 3,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "出欠を記録する帳簿のこと。",
       "related_terms": [],
@@ -205,7 +205,7 @@
       "reading": "けっせき",
       "romaji": ["kesseki"],
       "category": "指導",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "学校や授業などを休むこと。",
       "related_terms": ["出席簿"],
@@ -239,6 +239,216 @@
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "目標に向かうように、教え導くこと。",
       "related_terms": ["指導案"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-017",
+      "japanese": "児童",
+      "reading": "じどう",
+      "romaji": ["jidou", "zidou"],
+      "category": "指導",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "小学校で学ぶ子どものこと。",
+      "related_terms": ["学級"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-018",
+      "japanese": "補習",
+      "reading": "ほしゅう",
+      "romaji": ["hoshuu", "hosyuu"],
+      "category": "授業",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業でわからなかったところなどを、追加で教えること。",
+      "related_terms": ["復習"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-019",
+      "japanese": "担任",
+      "reading": "たんにん",
+      "romaji": ["tanninn"],
+      "category": "指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級や学年を受け持つ、教員のこと。",
+      "related_terms": ["保護者"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-020",
+      "japanese": "教室",
+      "reading": "きょうしつ",
+      "romaji": ["kyoushitsu", "kyousitu"],
+      "category": "授業",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業を行う、部屋のこと。",
+      "related_terms": ["授業"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-021",
+      "japanese": "校則",
+      "reading": "こうそく",
+      "romaji": ["kousoku"],
+      "category": "指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校が、児童生徒に守らせるために決めた決まり。",
+      "related_terms": ["指導"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-022",
+      "japanese": "学級",
+      "reading": "がっきゅう",
+      "romaji": ["gakkyuu"],
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業や生活の単位として、児童生徒を分けた集まり。",
+      "related_terms": ["担任"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-023",
+      "japanese": "学年",
+      "reading": "がくねん",
+      "romaji": ["gakunenn"],
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "年齢や学習の進み具合によって分けた、学校での 1 年ごとの区分。",
+      "related_terms": ["学級"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-024",
+      "japanese": "始業式",
+      "reading": "しぎょうしき",
+      "romaji": ["shigyoushiki", "sigyousiki"],
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "新しい学期や学年のはじめに行う、式のこと。",
+      "related_terms": ["時間割"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-025",
+      "japanese": "授業参観",
+      "reading": "じゅぎょうさんかん",
+      "romaji": ["jugyousankann", "zyugyousankann"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保護者などが、授業の様子を見に来ること。",
+      "related_terms": ["保護者"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-026",
+      "japanese": "家庭訪問",
+      "reading": "かていほうもん",
+      "romaji": ["kateihoumonn"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教員が児童生徒の家を訪ねて、様子や環境を知るために話をすること。",
+      "related_terms": ["保護者", "面談"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-027",
+      "japanese": "三者面談",
+      "reading": "さんしゃめんだん",
+      "romaji": ["sanshamendann", "sansyamendann"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教員・保護者・児童生徒の三者で行う面談。進路などを話し合う。",
+      "related_terms": ["面談", "進路"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-028",
+      "japanese": "提出物",
+      "reading": "ていしゅつぶつ",
+      "romaji": ["teishutsubutsu", "teisyutubutu"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "宿題やレポートなど、児童生徒が先生に出すもの。",
+      "related_terms": ["宿題"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-029",
+      "japanese": "学習計画",
+      "reading": "がくしゅうけいかく",
+      "romaji": ["gakushuukeikaku", "gakusyuukeikaku"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "いつ何をどのように学ぶかを、あらかじめ決めた計画。",
+      "related_terms": ["指導案"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-030",
+      "japanese": "成績処理",
+      "reading": "せいせきしょり",
+      "romaji": ["seisekishori", "seisekisyori"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "テストなどの結果を集計し、成績としてまとめる事務作業。",
+      "related_terms": ["成績"],
       "learning_points": [],
       "weak_detection": {
         "enabled": true

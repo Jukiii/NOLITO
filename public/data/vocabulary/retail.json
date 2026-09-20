@@ -1,8 +1,8 @@
 {
   "job_id": "retail",
   "job_name": "接客販売",
-  "version": "0.2.0",
-  "updated_at": "2026-09-20",
+  "version": "0.3.0",
+  "updated_at": "2026-09-21",
   "items": [
     {
       "id": "retail-001",
@@ -40,7 +40,7 @@
       "reading": "わりびき",
       "romaji": ["waribiki"],
       "category": "店頭業務",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "定価から金額を引くこと。",
       "related_terms": [],
@@ -55,7 +55,7 @@
       "reading": "へんぴん",
       "romaji": ["henpinn"],
       "category": "店頭業務",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "購入した商品を返すこと。",
       "related_terms": [],
@@ -175,7 +175,7 @@
       "reading": "はっちゅう",
       "romaji": ["hacchuu", "hatchuu"],
       "category": "売り場づくり",
-      "difficulty": 1,
+      "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "商品や材料を、取引先に注文すること。",
       "related_terms": [],
@@ -239,6 +239,216 @@
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "店を開ける前に、掃除や商品の補充などを済ませておくこと。",
       "related_terms": ["品出し"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-017",
+      "japanese": "試着",
+      "reading": "しちゃく",
+      "romaji": ["shichaku", "sityaku"],
+      "category": "接客",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "買う前に、服などを実際に着てみること。",
+      "related_terms": ["接客マナー"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-018",
+      "japanese": "袋",
+      "reading": "ふくろ",
+      "romaji": ["fukuro", "hukuro"],
+      "category": "店頭業務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "買った商品を入れて、持ち帰れるようにするもの。",
+      "related_terms": ["包装"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-019",
+      "japanese": "棚",
+      "reading": "たな",
+      "romaji": ["tana"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を並べて置くための、板をわたした台。",
+      "related_terms": ["陳列"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-020",
+      "japanese": "見本",
+      "reading": "みほん",
+      "romaji": ["mihonn"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の内容や品質を、実物で示すために見せる品。",
+      "related_terms": ["陳列"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-021",
+      "japanese": "釣り銭",
+      "reading": "つりせん",
+      "romaji": ["tsurisenn", "turisenn"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が払った金額が代金より多いときに、返すお金。",
+      "related_terms": ["レジ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-022",
+      "japanese": "欠品",
+      "reading": "けっぴん",
+      "romaji": ["keppinn"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "そろえておくはずの商品が、在庫がなくて売り場にない状態のこと。",
+      "related_terms": ["在庫確認"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-023",
+      "japanese": "レシート",
+      "reading": "れしーと",
+      "romaji": ["reshi-to", "resi-to"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "買い物の代金や内容を記して、店が客に渡す紙。",
+      "related_terms": ["レジ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-024",
+      "japanese": "お客様",
+      "reading": "おきゃくさま",
+      "romaji": ["okyakusama"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店を訪れて、商品やサービスを利用する人を、敬って呼ぶ言い方。",
+      "related_terms": ["いらっしゃいませ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-025",
+      "japanese": "声かけ",
+      "reading": "こえかけ",
+      "romaji": ["koekake"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客に近づいて、話しかけること。",
+      "related_terms": ["いらっしゃいませ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-026",
+      "japanese": "案内",
+      "reading": "あんない",
+      "romaji": ["annai"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客の求めに応じて、商品の場所などを教えたり、連れて行ったりすること。",
+      "related_terms": ["接客マナー"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-027",
+      "japanese": "目玉商品",
+      "reading": "めだましょうひん",
+      "romaji": ["medamashouhinn", "medamasyouhinn"],
+      "category": "売り場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客を引きつけるために、特に目立たせて売る商品。",
+      "related_terms": ["特売"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-028",
+      "japanese": "クレジットカード",
+      "reading": "くれじっとかーど",
+      "romaji": ["kurejittoka-do", "kurezittoka-do"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "代金を後でまとめて支払う約束で、買い物に使えるカード。",
+      "related_terms": ["レジ"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-029",
+      "japanese": "商品知識",
+      "reading": "しょうひんちしき",
+      "romaji": ["shouhinchishiki", "syouhintisiki"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "扱う商品の特徴や使い方などの知識。客に説明するために必要。",
+      "related_terms": ["接客マナー"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-030",
+      "japanese": "商品券",
+      "reading": "しょうひんけん",
+      "romaji": ["shouhinkenn", "syouhinkenn"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスの代金の代わりに使える、券のこと。",
+      "related_terms": ["ポイント"],
       "learning_points": [],
       "weak_detection": {
         "enabled": true
