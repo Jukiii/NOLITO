@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.3.0</dd>
+              <dd>v0.4.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -81,6 +81,9 @@
             職種を選ぶと、その職種で使う言葉が出てきます。ローマ字で入力して正解すると、上司との距離が広がります。ミスをしたり、時間がたったりすると、距離が縮まります。
           </p>
           <p>
+            「用語確認」を選ぶと、追ってくる人も時間制限もない練習ができます。日本語・読み・説明を見ながら、10語を確認します。ミスしても罰はありません。結果は保存されません。
+          </p>
+          <p>
             追ってくるのは、先輩・係長・部長・社長の4人です。この4人から逃げ切ると、裏ボスの会長に挑戦できます。
           </p>
           <p>
@@ -93,7 +96,7 @@
             <li class="shots__item">
               <img
                 src="/assets/img/products/escape-boss/dashboard.webp"
-                alt="上司から逃げろのスタート画面。職種と、追ってくる役職を選ぶ"
+                alt="上司から逃げろのスタート画面。モード(連続タイピング・用語確認)と、職種、追ってくる役職を選ぶ"
                 width="1000"
                 height="700"
                 loading="lazy"
@@ -110,8 +113,17 @@
             </li>
             <li class="shots__item">
               <img
+                src="/assets/img/products/escape-boss/check.webp"
+                alt="用語確認の画面。追ってくる人も時間制限もなく、日本語・読み・説明を見ながら、読みを入力する"
+                width="1000"
+                height="700"
+                loading="lazy"
+              />
+            </li>
+            <li class="shots__item">
+              <img
                 src="/assets/img/products/escape-boss/result.webp"
-                alt="ゲームが終わったあとの結果画面。スコア・正確さ・ミスの分析が出る"
+                alt="ゲームが終わったあとの結果画面。スコア・正確さ・ミスの分析・ミスした語が出る"
                 width="1000"
                 height="700"
                 loading="lazy"
@@ -161,7 +173,7 @@
               <summary class="faq__question">記録は、どこに保存されますか?</summary>
               <div class="faq__answer">
                 <p>
-                  お使いのブラウザの中(LocalStorage)にだけ保存されます。サーバーには送りません。ほかの端末やブラウザには引き継がれず、ブラウザのサイトデータを消すと、記録も消えます。
+                  お使いのブラウザの中(LocalStorage)にだけ保存されます。サーバーには送りません。ほかの端末やブラウザには引き継がれず、ブラウザのサイトデータを消すと、記録も消えます。「用語の説明を表示する」の設定も、同じブラウザの中に保存されます。用語確認の結果は、保存されません。
                 </p>
               </div>
             </details>
@@ -197,11 +209,36 @@
                 </p>
               </div>
             </details>
+            <details class="faq__item">
+              <summary class="faq__question">「用語確認」では、何ができますか?</summary>
+              <div class="faq__answer">
+                <p>
+                  追ってくる人も時間制限もない練習です。職種を選ぶと、その職種の言葉が10語出ます。日本語・読み・説明を見ながら、読みを入力します。終わると、ミスした語と、今回の用語の説明を読み返せます。結果は保存されず、ランキングや成績には入りません。
+                </p>
+              </div>
+            </details>
           </div>
         </section>
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.4.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-20">2026年9月20日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  用語確認モードを追加(追ってくる人も時間制限もない練習。日本語・読み・説明を見ながら、10語を確認できる。結果は保存されない)
+                </li>
+                <li>
+                  プレイ中に、用語の説明も表示する設定を追加(既定はオフ。用語確認では、いつも表示する)
+                </li>
+                <li>結果の画面に「今回ミスした語」を、説明つきで表示</li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.3.0
