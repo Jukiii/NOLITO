@@ -88,21 +88,63 @@
 
       <section class="section" aria-labelledby="sg-product">
         <h2 id="sg-product">ProductCard</h2>
+        <p>
+          <code>products.json</code>
+          から描かれます。状態・対応OS・価格は、色だけでなく文字でも示します。
+        </p>
         <div class="grid">
           <article class="product-card">
             <div class="product-card__media" aria-hidden="true"></div>
             <div class="product-card__body">
               <span class="badge badge--soon">準備中</span>
               <h3 class="product-card__title">プロダクト名</h3>
-              <p class="product-card__text">プロダクトの短い説明が入ります。</p>
+              <p class="product-card__text">画像がないときは、色の面が出ます。</p>
+              <dl class="product-card__meta">
+                <div class="product-card__meta-row">
+                  <dt>対応</dt>
+                  <dd>Windows / macOS</dd>
+                </div>
+                <div class="product-card__meta-row">
+                  <dt>価格</dt>
+                  <dd>価格未定</dd>
+                </div>
+                <div class="product-card__meta-row">
+                  <dt>更新</dt>
+                  <dd><time datetime="2026-09-20">2026年9月20日</time></dd>
+                </div>
+              </dl>
             </div>
           </article>
           <article class="product-card">
-            <div class="product-card__media" aria-hidden="true"></div>
+            <div class="product-card__media">
+              <img src="/assets/img/escape-boss/player.svg" alt="走って逃げる、主人公のイラスト" />
+            </div>
             <div class="product-card__body">
               <span class="badge badge--live">公開中</span>
               <h3 class="product-card__title">プロダクト名</h3>
-              <p class="product-card__text">状態は色だけでなく文字でも示します。</p>
+              <p class="product-card__text">遊ぶボタンと、ダウンロードのボタンが並びます。</p>
+              <dl class="product-card__meta">
+                <div class="product-card__meta-row">
+                  <dt>対応</dt>
+                  <dd>Web / Windows</dd>
+                </div>
+                <div class="product-card__meta-row">
+                  <dt>価格</dt>
+                  <dd>¥1,200</dd>
+                </div>
+                <div class="product-card__meta-row">
+                  <dt>バージョン</dt>
+                  <dd>v1.2.0</dd>
+                </div>
+                <div class="product-card__meta-row">
+                  <dt>更新</dt>
+                  <dd><time datetime="2026-09-20">2026年9月20日</time></dd>
+                </div>
+              </dl>
+              <div class="product-card__actions">
+                <a class="button button--primary" href="/games/">見る</a>
+                <a class="button button--secondary" href="/games/">Windows版をダウンロード</a>
+              </div>
             </div>
           </article>
         </div>

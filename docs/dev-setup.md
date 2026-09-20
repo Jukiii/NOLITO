@@ -61,3 +61,14 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 2. GA4 の管理画面で、**Google シグナル**と、広告向けのデータ共有を**オフ**にする(プライバシーポリシーの記載と合わせる)。
 3. 測定 ID を `measurementId` に入れる。本番のホスト(`hosts`)でだけ、同意した人のページビューが計測される(プレビュー・ローカルは対象外)。
 4. ポリシーの内容を変えたら、`public/privacy/index.html` の `data-policy-version` と `policyVersion` の版を上げる(同意を取り直す)。
+
+## プロダクト・カテゴリの追加(公開の流れ)
+
+管理画面(Phase 26)ができるまでは、`public/data/` の JSON を編集する PR が、公開の流れになる(PR のレビューが「公開前の人間の確認」)。
+
+- カテゴリの追加: `categories.json` の `categories` に `{ id, name, description, path }` を足す。一覧のページがまだなければ `path` は `null`。
+- プロダクトの追加: `products.json` の `products` に足す。項目の意味と制約は `public/assets/js/products/schema.js`(検証の実装)が定義で、`tests/products.test.js` が守っている。
+  - 公開前のものは `status: "coming-soon"`(準備中)にする。**`public/data/` の JSON は誰でも読める**ので、まだ見せたくないものは、JSON に入れず、ブランチの中だけに置く。
+  - 画像は `image: { src, alt }`(alt は必須)。ダウンロードは `download: { label, url }`(https かサイト内のパスだけ)。
+  - `changelog` は新しい順。先頭の `version` は、プロダクトの `version` と同じにする。
+- `npm run check` が、形式・URL・日付・並び順を検査する。間違いがあると、ここで失敗する。

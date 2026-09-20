@@ -4,12 +4,10 @@ import { join, relative } from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import { AD_PLACEMENTS, initAdSlots } from "../public/assets/js/components/ad-slot.js";
-import { PRODUCT_STATUS } from "../public/assets/js/components/product-list.js";
 import { adsConfig } from "../public/assets/js/config/ads.js";
 import { analyticsConfig } from "../public/assets/js/config/analytics.js";
 import { footerLinks, mainNav } from "../public/assets/js/config/nav.js";
 import { MEASUREMENT_ID_PATTERN } from "../public/assets/js/components/consent-core.js";
-import { isValidDate } from "../scripts/lib/frontmatter.mjs";
 
 const publicDir = fileURLToPath(new URL("../public/", import.meta.url));
 const read = (path) => readFileSync(join(publicDir, path), "utf8");
@@ -92,32 +90,6 @@ describe("すべてのページのサイト内リンク", () => {
       }
     }
     assert.deepEqual(broken, []);
-  });
-});
-
-describe("プロダクトのデータ(products.json)", () => {
-  const { products } = readJson("data/products.json");
-
-  it("id が重複せず、必須の項目と、許される値がそろっている", () => {
-    assert.ok(products.length >= 1);
-    assert.equal(new Set(products.map((p) => p.id)).size, products.length);
-    for (const product of products) {
-      assert.match(product.id, /^[a-z0-9]+(-[a-z0-9]+)*$/, product.id);
-      assert.ok(["game", "software", "tool"].includes(product.category), product.id);
-      assert.ok(product.title && product.description, product.id);
-      assert.ok(product.status in PRODUCT_STATUS, `${product.id}: ${product.status}`);
-      assert.ok(isValidDate(product.updated_at), product.id);
-    }
-  });
-
-  it("公開しているものの URL は、実在するページを指す", () => {
-    for (const product of products.filter((p) => p.status !== "coming-soon")) {
-      assert.ok(product.url.startsWith("/") && pageExists(product.url), product.url);
-    }
-  });
-
-  it("状態は、色だけでなく文字のラベルを持つ", () => {
-    for (const status of Object.values(PRODUCT_STATUS)) assert.ok(status.label.length > 0);
   });
 });
 
