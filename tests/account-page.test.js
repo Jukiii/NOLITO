@@ -23,6 +23,7 @@ import {
   apiErrorMessage,
   loginErrorMessage,
 } from "../public/assets/js/account/messages.js";
+import { CONTACT_ERRORS } from "../public/assets/js/contact/messages.js";
 import { footerLinks, mainNav } from "../public/assets/js/config/nav.js";
 
 const root = new URL("../", import.meta.url);
@@ -58,8 +59,13 @@ describe("メッセージ", () => {
     for (const match of serverSource.matchAll(/error\(\s*\d+,\s*"([a-z-]+)"/g)) codes.add(match[1]);
     for (const match of serverSource.matchAll(/error:\s*"([a-z-]+)"/g)) codes.add(match[1]);
     assert.ok(codes.size >= 10, `エラーの種類を、ソースから拾えていない(${codes.size})`);
-    for (const code of codes)
-      assert.ok(Object.hasOwn(API_ERRORS, code), `API_ERRORS に ${code} がない`);
+    // アカウントの画面(account/messages.js)か、問い合わせの画面(contact/messages.js)の、どちらかに文がある
+    for (const code of codes) {
+      assert.ok(
+        Object.hasOwn(API_ERRORS, code) || Object.hasOwn(CONTACT_ERRORS, code),
+        `API_ERRORS にも CONTACT_ERRORS にも ${code} がない`,
+      );
+    }
   });
 
   it("ログインの失敗(/account/?error=)の、すべての種類に、文がある", () => {
