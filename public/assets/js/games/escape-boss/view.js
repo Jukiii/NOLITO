@@ -15,12 +15,35 @@ const STORAGE_NOTICES = {
   failed: "記録を保存できませんでした。ブラウザの保存容量や設定を確認してください。",
 };
 
+// モード。連続タイピング(追ってくる人から逃げる)と、用語確認(追いかけなし・時間制限なしの練習)
+const MODES = [
+  { value: "chase", label: "連続タイピング", sub: "追ってくる人から逃げる" },
+  { value: "check", label: "用語確認", sub: "説明を見ながら練習" },
+];
+
+// 用語の一覧の 1 件(語・読み・説明。ミスした回数があれば、それも)
+function reviewItem({ word, misses }) {
+  return el(
+    "li",
+    { class: "review-item" },
+    el(
+      "p",
+      { class: "review-item__term" },
+      el("span", { class: "review-item__japanese", lang: "ja" }, word.japanese),
+      el("span", { class: "review-item__reading", lang: "ja" }, `(${word.reading})`),
+      misses ? el("span", { class: "badge badge--soon" }, `ミス ${misses}回`) : "",
+    ),
+    el("p", { class: "review-item__text", lang: "ja" }, word.explanation),
+  );
+}
+
 export function createView(root) {
   const $ = (selector) => root.querySelector(selector);
   const views = {
     dashboard: $('[data-view="dashboard"]'),
     play: $('[data-view="play"]'),
     result: $('[data-view="result"]'),
+    checkResult: $('[data-view="check-result"]'),
   };
   const input = $("[data-input]");
   const inputBox = $("[data-input-box]");
@@ -49,6 +72,15 @@ export function createView(root) {
   }
 
   const checkedValue = (name) => root.querySelector(`input[name="${name}"]:checked`)?.value;
+  const currentMode = () => (checkedValue("mode") === "check" ? "check" : "chase");
+
+  // 用語確認では、追ってくる人の選択・説明の設定(いつも表示する)を隠し、開始のボタンの文言を変える
+  function applyMode() {
+    const check = currentMode() === "check";
+    $("[data-role-fieldset]").hidden = check;
+    $("[data-explanation-option]").hidden = check;
+    $("[data-start]").textContent = check ? "用語確認を始める" : "スタート";
+  }
 
   function option(name, { value, label, sub, checked, disabled, badge }) {
     return el(
@@ -79,6 +111,10 @@ export function createView(root) {
     const selectableRole = roles.find((role) => role.id === roleId && isUnlocked(role));
     roleId = selectableRole ? roleId : roles.find((role) => isUnlocked(role)).id;
 
+    const mode = currentMode();
+    $("[data-mode-list]").replaceChildren(
+      ...MODES.map((item) => option("mode", { ...item, checked: item.value === mode })),
+    );
     $("[data-job-list]").replaceChildren(
       ...jobs.map((job) =>
         option("job", { value: job.id, label: job.name, checked: job.id === selectedJob }),
@@ -102,6 +138,7 @@ export function createView(root) {
     hint.textContent = locked.map((role) => `${role.name}: ${role.unlock.hint}`).join(" / ");
     hint.hidden = locked.length === 0;
     $("[data-start]").disabled = false;
+    applyMode();
   }
 
   function renderProfile({ profile, titles }) {
@@ -193,6 +230,10 @@ export function createView(root) {
     );
   }
 
+  const renderReviewList = (selector, entries) => {
+    $(selector).replaceChildren(...entries.map(reviewItem));
+  };
+
   function renderAchievements({ definitions, unlocked }) {
     const done = definitions.filter((definition) => definition.id in unlocked).length;
     setText("[data-achievement-summary]", `解放済み ${done} / ${definitions.length}`);
@@ -206,13 +247,29 @@ export function createView(root) {
     $,
 
     // イベントの登録(1回だけ呼ぶ)
-    bind({ onStart, onProfileChange, onRankingRoleChange, onRetry, onBack, onQuit }) {
+    bind({
+      onStart,
+      onExplanationChange,
+      onProfileChange,
+      onRankingRoleChange,
+      onRetry,
+      onBack,
+      onQuit,
+      onCheckRetry,
+    }) {
       $("[data-setup]").addEventListener("submit", (event) => {
         event.preventDefault();
+        const mode = currentMode();
         const jobId = checkedValue("job");
         const roleId = checkedValue("role");
-        if (jobId && roleId) onStart({ jobId, roleId });
+        if (jobId && (mode === "check" || roleId)) onStart({ mode, jobId, roleId });
       });
+      $("[data-mode-list]").addEventListener("change", applyMode);
+      $("[data-show-explanation]").addEventListener("change", (event) =>
+        onExplanationChange(event.target.checked),
+      );
+      $("[data-check-retry]").addEventListener("click", onCheckRetry);
+      $("[data-check-back]").addEventListener("click", onBack);
       const profileChanged = () =>
         onProfileChange({
           nickname: $("[data-nickname]").value,
@@ -270,6 +327,11 @@ export function createView(root) {
 
     renderRanking,
 
+    // 「プレイ中に、用語の説明も表示する」のチェック(保存されていた設定を反映する)
+    setExplanationSetting(checked) {
+      $("[data-show-explanation]").checked = checked;
+    },
+
     setNickname(nickname) {
       $("[data-nickname]").value = nickname;
     },
@@ -280,12 +342,22 @@ export function createView(root) {
       $("[data-title]").focus();
     },
 
-    showPlay({ jobName, role, goal }) {
+    // mode: "chase"(連続タイピング)か "check"(用語確認)。用語確認では、説明を、いつも表示する
+    showPlay({ mode = "chase", jobName, role, goal, showExplanation = false }) {
+      const check = mode === "check";
       showView("play");
+      views.play.dataset.mode = mode;
+      views.play.setAttribute("aria-label", check ? "用語確認中" : "プレイ中");
+      for (const node of root.querySelectorAll("[data-chase-only]")) node.hidden = check;
+      $("[data-check-note]").hidden = !check;
+      $("[data-word-explanation]").hidden = !(check || showExplanation);
+      setText('[data-stat-label="correct"]', check ? "確認済み" : "正解");
       setText('[data-stat="job"]', jobName);
-      setText('[data-stat="role"]', role.name);
       setText('[data-stat="goal"]', goal);
-      $("[data-chaser]").setAttribute("src", role.image);
+      if (!check) {
+        setText('[data-stat="role"]', role.name);
+        $("[data-chaser]").setAttribute("src", role.image);
+      }
       $("[data-ime-hint]").hidden = true;
       $("[data-focus-hint]").hidden = true;
       input.value = "";
@@ -295,6 +367,7 @@ export function createView(root) {
     renderWord(word, matcher) {
       setText("[data-word-japanese]", word.japanese);
       setText("[data-word-reading]", word.reading);
+      setText("[data-word-explanation]", word.explanation ?? "");
       setText("[data-word-typed]", matcher.typed);
       setText("[data-word-rest]", matcher.remaining);
     },
@@ -317,6 +390,12 @@ export function createView(root) {
       setText('[data-stat="miss"]', state.miss);
     },
 
+    // 用語確認の進み具合(確認済みの語数・ミス)
+    renderCheckProgress(state) {
+      setText('[data-stat="correct"]', state.index);
+      setText('[data-stat="miss"]', state.miss);
+    },
+
     // ミスは色だけでなく、文字と枠線の変化でも示す
     flashMiss() {
       inputBox.classList.add("is-miss");
@@ -332,6 +411,30 @@ export function createView(root) {
       $("[data-ime-hint]").hidden = !visible;
     },
 
+    // 用語確認の結果(保存しない)。ミスした語と、今回の用語(説明つき)を出す
+    showCheckResult({ jobName, summary, words, elapsed }) {
+      showView("checkResult");
+      const perfect = summary.miss === 0;
+      setText(
+        "[data-check-message]",
+        perfect
+          ? `${summary.total}語を、ミスなく確認できました。`
+          : `${summary.total}語を確認しました。ミスした語は、下で説明を読み返せます。`,
+      );
+      setText('[data-check-stat="job"]', jobName);
+      setText('[data-check-stat="total"]', `${summary.total}語`);
+      setText('[data-check-stat="miss"]', `${summary.miss}回`);
+      setText('[data-check-stat="accuracy"]', `${Math.round(summary.accuracy * 100)}%`);
+      setText('[data-check-stat="time"]', `${elapsed.toFixed(1)}秒`);
+      $("[data-check-missed]").hidden = summary.missed.length === 0;
+      renderReviewList("[data-check-missed-list]", summary.missed);
+      renderReviewList(
+        "[data-check-words-list]",
+        words.map((word) => ({ word, misses: 0 })),
+      );
+      $("[data-check-title]").focus();
+    },
+
     showResult({
       state,
       stage,
@@ -344,9 +447,12 @@ export function createView(root) {
       kaichoUnlocked,
       notice,
       analysis,
+      missed = [],
     }) {
       showView("result");
       renderAnalysis(analysis);
+      $("[data-result-missed]").hidden = missed.length === 0;
+      renderReviewList("[data-result-missed-list]", missed);
       const cleared = state.status === "cleared";
       setText("[data-result-title]", cleared ? "逃げ切った!" : "つかまった…");
       setText(

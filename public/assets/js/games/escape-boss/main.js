@@ -1,4 +1,13 @@
 import { availableTitles, evaluateAchievements, titleName as titleNameOf } from "./achievements.js";
+import {
+  checkHit,
+  checkMiss,
+  checkNext,
+  createCheckState,
+  missedWords,
+  pickCheckWords,
+  summarizeCheck,
+} from "./check.js";
 import { applyCorrect, applyHit, applyMiss, createGameState, tick } from "./engine.js";
 import { attachInput } from "./input.js";
 import {
@@ -17,6 +26,7 @@ import {
 } from "./records.js";
 import { createMatcher } from "./romaji.js";
 import { summarize } from "./score.js";
+import { loadSettings, saveSettings } from "./settings.js";
 import { createStore, getBackend } from "./storage.js";
 import { loadJobs, loadRoles, loadVocabulary, pickWords } from "./vocabulary.js";
 import { createView } from "./view.js";
@@ -26,7 +36,10 @@ const MAX_FRAME_SECONDS = 0.1;
 const DEFAULT_ROLE_ID = "senpai";
 
 const view = createView(document.querySelector("[data-game]"));
-const store = createStore(getBackend());
+const backend = getBackend();
+const store = createStore(backend);
+// ゲームの設定(いまは、プレイ中の説明の表示だけ)。記録とは、別のキーに保存する
+let settings = loadSettings(backend);
 
 let jobs = [];
 let roles = [];
@@ -86,8 +99,15 @@ async function init() {
   }
   const { status } = store.load();
   storageNotice = noticeFor(status);
+  view.setExplanationSetting(settings.showExplanation);
   view.bind({
-    onStart: startGame,
+    onStart: ({ mode, jobId, roleId }) =>
+      mode === "check" ? startCheck({ jobId }) : startGame({ jobId, roleId }),
+    onExplanationChange: (checked) => {
+      settings = { ...settings, showExplanation: checked };
+      saveSettings(backend, settings);
+    },
+    onCheckRetry: () => session?.kind === "check" && startCheck({ jobId: session.job.id }),
     onProfileChange: handleProfileChange,
     onRankingRoleChange: (roleId) => {
       rankingRoleId = roleId;
@@ -115,13 +135,103 @@ let starting = false;
 // 開始の処理。語録の読み込みを待つ間に、もう一度押されても(2度押し・連打)、2本目を始めない。
 // 2本目を許すと、アニメーションの処理が2本並行して走り続けてしまう。
 async function startGame(options) {
+  await guardedStart(() => beginGame(options));
+}
+
+async function startCheck(options) {
+  await guardedStart(() => beginCheck(options));
+}
+
+async function guardedStart(begin) {
   if (starting || session?.state.status === "playing") return;
   starting = true;
   try {
-    await beginGame(options);
+    await begin();
   } finally {
     starting = false;
   }
+}
+
+// 用語確認を始める。追ってくる人も時間制限もない。結果は、保存しない。
+async function beginCheck({ jobId }) {
+  const job = jobs.find((j) => j.id === jobId);
+  if (!job) return;
+  let vocabulary;
+  try {
+    vocabulary = await loadVocabulary(jobId);
+  } catch {
+    view.showError("語録を読み込めませんでした。時間をおいてもう一度お試しください。");
+    return;
+  }
+  view.showError("");
+
+  const words = pickCheckWords(vocabulary.items);
+  if (session) cancelAnimationFrame(session.frameId);
+  session = {
+    kind: "check",
+    job,
+    words,
+    matcher: createMatcher(words[0].reading),
+    state: createCheckState(words.length),
+    startedAt: performance.now(),
+  };
+  view.showPlay({ mode: "check", jobName: job.name, goal: words.length });
+  view.renderWord(words[0], session.matcher);
+  view.renderCheckProgress(session.state);
+  announceWord(`用語確認を始めます。職種は${job.name}。${words.length}語です。`);
+}
+
+// 用語確認では、語が変わるたびに、語・読み・説明を読み上げる
+function announceWord(prefix = "") {
+  const word = session.words[session.state.index];
+  view.announce(
+    `${prefix}${session.state.index + 1}語目。${word.japanese}。読みは${word.reading}。${word.explanation}`,
+  );
+}
+
+function handleCheckChar(char) {
+  const { state } = session;
+  if (state.status !== "playing") return;
+  const word = session.words[state.index];
+  const result = session.matcher.input(char);
+  if (result === "miss") {
+    session.state = checkMiss(state, word.id); // 罰はない。数えるだけ
+    view.flashMiss();
+    view.renderCheckProgress(session.state);
+    return;
+  }
+  session.state = checkHit(state);
+  if (result === "ok") {
+    view.renderWord(word, session.matcher);
+    return;
+  }
+  // 1語打ち終わった
+  session.state = checkNext(session.state);
+  if (session.state.status === "done") {
+    finishCheck();
+    return;
+  }
+  session.matcher = createMatcher(session.words[session.state.index].reading);
+  view.renderWord(session.words[session.state.index], session.matcher);
+  view.renderCheckProgress(session.state);
+  announceWord();
+}
+
+// 用語確認の結果を出す(保存しない)
+function finishCheck() {
+  const { state, words, job } = session;
+  const summary = summarizeCheck(state, words);
+  view.showCheckResult({
+    jobName: job.name,
+    summary,
+    words,
+    elapsed: (performance.now() - session.startedAt) / 1000,
+  });
+  view.announce(
+    summary.miss === 0
+      ? `用語確認が終わりました。${summary.total}語をミスなく確認できました。`
+      : `用語確認が終わりました。ミスは${summary.miss}回でした。`,
+  );
 }
 
 async function beginGame({ jobId, roleId }) {
@@ -146,6 +256,7 @@ async function beginGame({ jobId, roleId }) {
   // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
   if (session) cancelAnimationFrame(session.frameId);
   session = {
+    kind: "chase",
     job,
     role,
     stage,
@@ -158,7 +269,13 @@ async function beginGame({ jobId, roleId }) {
     lastFrame: performance.now(),
     frameId: 0,
   };
-  view.showPlay({ jobName: job.name, role, goal: stage.goal_words });
+  view.showPlay({
+    mode: "chase",
+    jobName: job.name,
+    role,
+    goal: stage.goal_words,
+    showExplanation: settings.showExplanation,
+  });
   view.announce(`ゲーム開始。職種は${job.name}。${role.name}が追ってきます。`);
   view.renderWord(words[0], session.matcher);
   view.renderStats(session.state, stage);
@@ -247,6 +364,7 @@ function finish() {
       keys: mostMissedKeys(session.keyStats, 3),
       confusions: topConfusions(session.keyStats, 3),
     },
+    missed: missedWords(session.words, session.keyStats.wordMisses),
   });
   const cleared = state.status === "cleared";
   const extras = [
@@ -262,6 +380,10 @@ function finish() {
 }
 
 function handleChar(char) {
+  if (session?.kind === "check") {
+    handleCheckChar(char);
+    return;
+  }
   if (!session || session.state.status !== "playing") return;
   // 打鍵の集計は、結果を確定する(finish が呼ばれる)前に済ませる。最後の1打も記録に入れるため。
   const key = char.toLowerCase();
@@ -298,7 +420,7 @@ function quit() {
 
 // タブが見えない間は進めない(戻ったときに距離が減り切っているのを防ぐ)
 document.addEventListener("visibilitychange", () => {
-  if (!session || session.state.status !== "playing") return;
+  if (!session || session.kind !== "chase" || session.state.status !== "playing") return;
   if (document.hidden) {
     cancelAnimationFrame(session.frameId);
   } else {

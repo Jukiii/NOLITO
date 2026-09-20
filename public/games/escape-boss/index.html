@@ -44,19 +44,30 @@
               <li>言葉を打ち終えると距離が増える。決められた語数を打てば逃げ切り。</li>
               <li>追ってくる人が上の役職ほど、速く、厳しくなる。</li>
               <li>日本語入力(IME)はオフにして、半角英数で入力する。</li>
+              <li>
+                「用語確認」は、追ってくる人も時間制限もない練習。日本語・読み・説明を見ながら、10語を確認できる(結果は保存されない)。
+              </li>
             </ul>
           </div>
 
           <form class="game-setup" data-setup>
             <fieldset class="job-select">
+              <legend>モードを選ぶ</legend>
+              <div class="job-select__list" data-mode-list></div>
+            </fieldset>
+            <fieldset class="job-select">
               <legend>職種を選ぶ</legend>
               <div class="job-select__list" data-job-list></div>
             </fieldset>
-            <fieldset class="job-select">
+            <fieldset class="job-select" data-role-fieldset>
               <legend>追ってくる人を選ぶ</legend>
               <div class="job-select__list job-select__list--roles" data-role-list></div>
               <p class="game-setup__hint" data-role-hint hidden></p>
             </fieldset>
+            <div class="game-setup__option" data-explanation-option>
+              <input type="checkbox" id="show-explanation" data-show-explanation />
+              <label for="show-explanation">プレイ中に、用語の説明も表示する</label>
+            </div>
             <button class="button button--primary" type="submit" data-start disabled>
               スタート
             </button>
@@ -121,10 +132,10 @@
           </section>
         </section>
 
-        <section data-view="play" aria-label="プレイ中" hidden>
+        <section data-view="play" data-mode="chase" aria-label="プレイ中" hidden data-play>
           <div class="game-play">
             <div class="game-play__main">
-              <div class="scene" aria-hidden="true" data-scene>
+              <div class="scene" aria-hidden="true" data-scene data-chase-only>
                 <div class="scene__road"></div>
                 <img
                   class="scene__chaser"
@@ -143,7 +154,7 @@
                 />
               </div>
 
-              <div class="gauge-block">
+              <div class="gauge-block" data-chase-only>
                 <!-- [html-validate-disable-next prefer-native-element -- 縞模様と幅アニメーションを独自に描画するため] -->
                 <div
                   class="gauge"
@@ -165,11 +176,16 @@
               <div class="game-word">
                 <p class="game-word__japanese" lang="ja" data-word-japanese></p>
                 <p class="game-word__reading" lang="ja" data-word-reading></p>
+                <p class="game-word__explanation" lang="ja" data-word-explanation hidden></p>
                 <p class="game-word__romaji" aria-hidden="true">
                   <span class="game-word__typed" data-word-typed></span
                   ><span class="game-word__rest" data-word-rest></span>
                 </p>
               </div>
+
+              <p class="game-play__note" data-check-note hidden>
+                追ってくる人も、時間制限もありません。ミスしても大丈夫です。
+              </p>
 
               <div class="game-input" data-input-box>
                 <label class="game-input__label" for="game-input">
@@ -202,12 +218,12 @@
                   <dt>職種</dt>
                   <dd data-stat="job"></dd>
                 </div>
-                <div>
+                <div data-chase-only>
                   <dt>追ってくる人</dt>
                   <dd data-stat="role"></dd>
                 </div>
                 <div>
-                  <dt>正解</dt>
+                  <dt data-stat-label="correct">正解</dt>
                   <dd><span data-stat="correct">0</span> / <span data-stat="goal">0</span>語</dd>
                 </div>
                 <div>
@@ -241,6 +257,15 @@
               <h3>よくある打ち間違い</h3>
               <ul class="key-list" data-analysis-confusions></ul>
             </div>
+          </section>
+          <section
+            class="dash-section"
+            aria-labelledby="result-missed-title"
+            data-result-missed
+            hidden
+          >
+            <h2 id="result-missed-title">今回ミスした語</h2>
+            <ul class="review-list" data-result-missed-list></ul>
           </section>
           <div class="card">
             <dl class="game-status game-status--result">
@@ -286,6 +311,59 @@
             <a class="button button--secondary" href="/games/escape-boss/stats/">成績を見る</a>
           </div>
           <aside class="ad-slot" data-ad-slot="game-result" aria-label="広告" hidden></aside>
+        </section>
+
+        <section data-view="check-result" aria-labelledby="check-result-title" hidden>
+          <h1 id="check-result-title" tabindex="-1" data-check-title>用語確認、おつかれさま!</h1>
+          <p data-check-message></p>
+          <div class="card">
+            <dl class="game-status game-status--result">
+              <div>
+                <dt>職種</dt>
+                <dd data-check-stat="job"></dd>
+              </div>
+              <div>
+                <dt>確認した語</dt>
+                <dd data-check-stat="total"></dd>
+              </div>
+              <div>
+                <dt>ミス</dt>
+                <dd data-check-stat="miss"></dd>
+              </div>
+              <div>
+                <dt>正確率</dt>
+                <dd data-check-stat="accuracy"></dd>
+              </div>
+              <div>
+                <dt>時間</dt>
+                <dd data-check-stat="time"></dd>
+              </div>
+            </dl>
+          </div>
+          <section
+            class="dash-section"
+            aria-labelledby="check-missed-title"
+            data-check-missed
+            hidden
+          >
+            <h2 id="check-missed-title">ミスした語</h2>
+            <ul class="review-list" data-check-missed-list></ul>
+          </section>
+          <section class="dash-section" aria-labelledby="check-words-title">
+            <h2 id="check-words-title">今回の用語</h2>
+            <ul class="review-list" data-check-words-list></ul>
+          </section>
+          <p class="dash-section__note">
+            用語確認の結果は、保存されません(ランキング・成績には入りません)。
+          </p>
+          <div class="game-actions">
+            <button class="button button--primary" type="button" data-check-retry>
+              もう一度、用語確認
+            </button>
+            <button class="button button--secondary" type="button" data-check-back>
+              ダッシュボードへ戻る
+            </button>
+          </div>
         </section>
 
         <p class="visually-hidden" role="status" aria-live="polite" data-announce></p>

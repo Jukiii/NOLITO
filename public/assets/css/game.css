@@ -568,3 +568,85 @@
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-black);
 }
+
+/* 用語の説明(プレイ中・用語確認)。色だけに頼らず、文字の大きさで、日本語・読みより控えめにする */
+.game-word__explanation {
+  max-width: 34rem;
+  margin: 0 auto var(--space-4);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  overflow-wrap: anywhere;
+}
+
+/* 用語確認: 追ってくる人・時間の部品は隠し、注意書きを出す */
+.game-play__note {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-soft);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+/* モードの選択・説明の設定 */
+.game-setup__option {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  margin: 0 0 var(--space-6);
+}
+
+.game-setup__option input {
+  flex: none;
+  width: var(--tap-size);
+  height: var(--tap-size);
+  margin: 0;
+}
+
+/* 用語の一覧(今回ミスした語・用語確認の結果)。語・読み・説明を、並べて見せる */
+.review-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.review-item {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.review-item__term {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  margin: 0 0 var(--space-2);
+}
+
+.review-item__japanese {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.review-item__reading {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.review-item__text {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* hidden 属性を、クラスの display より優先する(用語確認で隠す部品・出し入れする設定) */
+[data-chase-only][hidden],
+.game-setup__option[hidden],
+.job-select[hidden],
+.review-list[hidden] {
+  display: none;
+}
