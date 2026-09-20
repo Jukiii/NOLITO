@@ -110,7 +110,21 @@ function handleProfileChange({ nickname, titleId }) {
   view.announce(out.saved ? "保存しました。" : "この端末では保存できません。");
 }
 
-async function startGame({ jobId, roleId }) {
+let starting = false;
+
+// 開始の処理。語録の読み込みを待つ間に、もう一度押されても(2度押し・連打)、2本目を始めない。
+// 2本目を許すと、アニメーションの処理が2本並行して走り続けてしまう。
+async function startGame(options) {
+  if (starting || session?.state.status === "playing") return;
+  starting = true;
+  try {
+    await beginGame(options);
+  } finally {
+    starting = false;
+  }
+}
+
+async function beginGame({ jobId, roleId }) {
   const job = jobs.find((j) => j.id === jobId);
   const role = roles.find((r) => r.id === roleId);
   if (!job || !role) return;
@@ -129,6 +143,8 @@ async function startGame({ jobId, roleId }) {
 
   const stage = role.stage;
   const words = pickWords(vocabulary.items, role.id, stage.goal_words);
+  // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
+  if (session) cancelAnimationFrame(session.frameId);
   session = {
     job,
     role,
