@@ -10,6 +10,7 @@ import { footerLinks, mainNav } from "../public/assets/js/config/nav.js";
 import { MEASUREMENT_ID_PATTERN } from "../public/assets/js/components/consent-core.js";
 
 const publicDir = fileURLToPath(new URL("../public/", import.meta.url));
+const functionsDir = fileURLToPath(new URL("../functions/", import.meta.url));
 const read = (path) => readFileSync(join(publicDir, path), "utf8");
 const readJson = (path) => JSON.parse(read(path));
 
@@ -67,6 +68,12 @@ describe("サイトの設定の整合", () => {
   });
 });
 
+// Cloudflare Pages Functions のルート: "/auth/google/login" → functions/auth/google/login.js
+const functionRouteExists = (href) => {
+  const path = href.split("#")[0].split("?")[0];
+  return !path.endsWith("/") && existsSync(join(functionsDir, `${path.slice(1)}.js`));
+};
+
 describe("ナビ・フッターのリンク", () => {
   it("有効なナビ項目とフッターのリンクは、実在するページを指す(404 を作らない)", () => {
     for (const item of mainNav.filter((i) => i.available !== false))
@@ -86,7 +93,8 @@ describe("すべてのページのサイト内リンク", () => {
       const html = readFileSync(file, "utf8");
       for (const [, href] of html.matchAll(/\b(?:href|src)="(\/[^"]*)"/g)) {
         if (href.startsWith("//")) continue;
-        if (!pageExists(href)) broken.push(`${relative(publicDir, file)} → ${href}`);
+        if (!pageExists(href) && !functionRouteExists(href))
+          broken.push(`${relative(publicDir, file)} → ${href}`);
       }
     }
     assert.deepEqual(broken, []);

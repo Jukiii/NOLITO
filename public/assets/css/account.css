@@ -1,0 +1,89 @@
+/* アカウント(/account/)。色・余白は、トークンで指定する */
+.account {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.account h2 {
+  margin-top: var(--space-8);
+}
+
+/* 通知。色だけでなく、太い文字と、失敗のときは「エラー:」の語と太い実線の枠でも示す */
+.account__status {
+  margin: 0 0 var(--space-4);
+  font-weight: var(--font-weight-bold);
+}
+
+/* 空のときも、読み上げの領域として残す(高さと余白だけ、なくす) */
+.account__status:empty {
+  margin: 0;
+}
+
+.account__status--error {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.modal .account__status {
+  margin: var(--space-4) 0 0;
+}
+
+.account__notice {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-soft);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.account__facts {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-6);
+}
+
+.account__facts dt {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.account__facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-weight: var(--font-weight-bold);
+}
+
+.account__form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.account__field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.account__field > label {
+  font-weight: var(--font-weight-bold);
+}
+
+.account__hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* 16px 以上にして、iOS の入力時の自動ズームを防ぐ */
+.account__input {
+  width: 100%;
+  min-height: var(--tap-size);
+  padding: 0 var(--space-3);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-base);
+}
