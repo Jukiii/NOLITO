@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "game",
+      "name": "ゲーム",
+      "description": "遊んで楽しい、ブラウザで動くゲーム。",
+      "path": "/games/"
+    },
+    {
+      "id": "software",
+      "name": "ソフト",
+      "description": "パソコンやスマートフォンで使うソフトウェア。",
+      "path": null
+    },
+    {
+      "id": "tool",
+      "name": "ツール",
+      "description": "仕事や作業を少し楽にする、業務効率化ツール。",
+      "path": null
+    }
+  ]
+}
