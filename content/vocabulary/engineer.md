@@ -11,7 +11,7 @@
 ```yaml
 job_id: engineer
 job_name: エンジニア
-version: 0.3.0
+version: 0.4.0
 updated_at: 2026-09-21
 items:
   - id: engineer-001
@@ -140,11 +140,13 @@ items:
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 動作を変えずに、コードの構造を整理して読みやすくすること。
+    detail: プログラムの外から見た動きは変えずに、中身の作りを整えることです。名前をわかりやすくする、同じ処理をまとめる、長い処理を分ける、といった小さな整理を重ねます。あとから機能を足したり、不具合を直したりしやすくなります。
     related_terms: [コード]
-    learning_points: []
+    learning_points: [動きが変わっていないことを、テストで確かめながら進める, 一度に大きく変えず、小さな整理を重ねる, 機能の追加や不具合の修正とは、分けて行う]
     weak_detection:
       enabled: true
     review: pending
+    note: 詳細説明(detail)と学習ポイントを、新しく足しました(AI の下書き)。一般的な意味に合っているか、確認してください。
   - id: engineer-011
     japanese: テスト
     reading: てすと

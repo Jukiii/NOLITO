@@ -43,7 +43,11 @@ describe("実際の原稿 → 公開の JSON", () => {
       const text = read(`public/data/vocabulary/${job.id}.json`);
       assert.ok(!/"(review|draft|note)"/.test(text), job.id);
       const data = JSON.parse(text);
-      for (const item of data.items) assert.deepEqual(Object.keys(item), PUBLISHED_KEYS, item.id);
+      // detail(詳細説明)は、ある語だけ、explanation の直後に入る
+      for (const item of data.items) {
+        const expected = PUBLISHED_KEYS.filter((key) => key !== "detail" || "detail" in item);
+        assert.deepEqual(Object.keys(item), expected, item.id);
+      }
     }
   });
 
@@ -63,10 +67,32 @@ describe("実際の原稿 → 公開の JSON", () => {
     assert.equal(total, 180);
   });
 
-  it("原稿の確認メモ(note)は、35 件あり、すべて実在する語についている", async () => {
+  it("詳細説明(detail)のある語は 6 語(職種ごとに 1 語。難易度 3)。学習ポイントを持ち、確認メモがついている", async () => {
+    const { files } = await buildOutputs(loadSources(root), context);
+    const detailed = files.flatMap(({ data }) => data.items.filter((item) => item.detail));
+    assert.deepEqual(
+      detailed.map((item) => item.id),
+      ["engineer-010", "food-service-029", "office-008", "retail-011", "sales-010", "teaching-029"],
+    );
+    for (const item of detailed) {
+      assert.equal(item.difficulty, 3, item.id);
+      assert.ok(item.learning_points.length >= 2, item.id);
+      assert.ok(item.note.includes("AI の下書き"), item.id);
+      assert.equal(item.review, "pending", item.id);
+    }
+    // 公開の JSON にも、同じ 6 語だけが、detail を持つ
+    let published = 0;
+    for (const job of context.jobs) {
+      const data = JSON.parse(read(`public/data/vocabulary/${job.id}.json`));
+      published += data.items.filter((item) => "detail" in item).length;
+    }
+    assert.equal(published, 6);
+  });
+
+  it("原稿の確認メモ(note)は、41 件(以前の 35 件 + 詳細説明の見本 6 件)。すべて実在する語についている", async () => {
     const { files } = await buildOutputs(loadSources(root), context);
     const noted = files.flatMap(({ data }) => data.items.filter((item) => item.note));
-    assert.equal(noted.length, 35);
+    assert.equal(noted.length, 41);
     for (const item of noted) assert.ok(Array.from(item.note).length <= 200, item.id);
   });
 
@@ -291,7 +317,7 @@ describe("コマンド", () => {
     assert.equal(result.status, 0, result.stderr);
     assert.match(result.stdout, /公開 180 語\(確認済み 0 語・未確認 180 語\)/);
     assert.match(result.stdout, /形式の検証.*通りました/);
-    assert.match(result.stdout, /人間に見てほしい点\(note\): 35 件/);
+    assert.match(result.stdout, /人間に見てほしい点\(note\): 41 件/);
     assert.match(result.stdout, /engineer-009\(プルリクエスト\)/);
   });
 

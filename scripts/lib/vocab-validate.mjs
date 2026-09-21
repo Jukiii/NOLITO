@@ -3,7 +3,8 @@
 // 問題は、見つけたものを、すべて集めて返す(1 つ目で止めない)。
 import { createMatcher } from "../../public/assets/js/games/escape-boss/romaji.js";
 
-// 項目の名前。公開の JSON に入るものと、原稿だけのもの(review・draft・note)
+// 項目の名前。公開の JSON に入るものと、原稿だけのもの(review・draft・note)。
+// detail(難語の詳細説明)は、あるときだけ公開の JSON に入る(ない語には、項目を作らない)
 export const PUBLISHED_KEYS = [
   "id",
   "japanese",
@@ -13,6 +14,7 @@ export const PUBLISHED_KEYS = [
   "difficulty",
   "roles",
   "explanation",
+  "detail",
   "related_terms",
   "learning_points",
   "weak_detection",
@@ -37,6 +39,7 @@ export const LIMITS = {
   reading: 40,
   category: 20,
   explanation: 80,
+  detail: 300,
   romajiCandidates: 8,
   romajiLength: 60,
   relatedTerms: 10,
@@ -277,6 +280,15 @@ export function validateVocabulary(raw, context) {
       if (explanation.includes("\n")) problem(where, "explanation は、1 行にしてください");
     }
 
+    // 詳細説明(難語のための、少し長い説明。省略できる。ある語だけ、項目を持つ)
+    let detail;
+    if ("detail" in item) {
+      detail = text("detail", LIMITS.detail);
+      if (detail !== undefined && !detail.endsWith("。")) {
+        problem(where, "detail は、「。」で終わる文章にしてください");
+      }
+    }
+
     // 関連用語・学習ポイント(省略すると、空)
     const strings = (key, { max, itemMax }) => {
       if (!(key in item)) return [];
@@ -353,6 +365,7 @@ export function validateVocabulary(raw, context) {
       difficulty: item.difficulty,
       roles: item.roles,
       explanation,
+      ...(detail === undefined ? {} : { detail }),
       related_terms: related,
       learning_points: learning,
       weak_detection: weak,
@@ -425,6 +438,12 @@ export function toPublished(data) {
     updated_at: data.updated_at,
     items: data.items
       .filter((item) => !item.draft)
-      .map((item) => Object.fromEntries(PUBLISHED_KEYS.map((key) => [key, item[key]]))),
+      .map((item) =>
+        Object.fromEntries(
+          PUBLISHED_KEYS.filter((key) => key !== "detail" || item.detail !== undefined).map(
+            (key) => [key, item[key]],
+          ),
+        ),
+      ),
   };
 }

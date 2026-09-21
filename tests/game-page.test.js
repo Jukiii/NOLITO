@@ -429,3 +429,57 @@ describe("成績: 連続ノーミス・難易度・速度・残り距離(Phase 1
     assert.ok(!/streak|wordsByDifficulty/.test(records));
   });
 });
+
+describe("「くわしく」(難語の詳細説明・学習ポイント・関連する語。Phase 14 PR 2)", () => {
+  const item = read("public/assets/js/games/escape-boss/review-item.js");
+  const statsPage = read("public/assets/js/games/escape-boss/stats-page.js");
+  const tokens = read("public/assets/css/tokens.css");
+  const stats = read("public/assets/css/stats.css");
+
+  it("結果の画面・用語確認の結果・成績ページの復習リストは、すべて共通の部品(review-item.js)で描く", () => {
+    assert.match(view, /import \{ reviewItem \} from "\.\/review-item\.js"/);
+    assert.match(statsPage, /import \{ reviewItem \} from "\.\/review-item\.js"/);
+    assert.match(view, /entries\.map\(reviewItem\)/);
+    for (const selector of [
+      "data-result-missed-list",
+      "data-check-missed-list",
+      "data-check-words-list",
+    ]) {
+      assert.ok(view.includes(selector), selector);
+    }
+  });
+
+  it("開閉できる部品(details・summary)を使い、見出しの文字は「くわしく」。入力中の画面(プレイ画面)には、置かない", () => {
+    assert.match(item, /"details",\s*\{ class: "review-item__more" \}/);
+    assert.match(item, /el\("summary", \{\}, "くわしく"\)/);
+    // プレイ中は、入力欄からフォーカスが外れないように、開閉できる部品を、置かない
+    const play = html.slice(html.indexOf('data-view="play"'), html.indexOf('data-view="result"'));
+    assert.ok(!play.includes("<details"));
+    assert.ok(!view.includes("review-item__more"));
+  });
+
+  it("game.css で使う色・余白・文字の大きさのトークンは、すべて定義されている(未定義の var を使わない)", () => {
+    const defined = new Set([...tokens.matchAll(/(--[a-z0-9-]+):/g)].map((match) => match[1]));
+    for (const [name, text] of [
+      ["game.css", css],
+      ["stats.css", stats],
+    ]) {
+      const local = new Set([...text.matchAll(/(--[a-z0-9-]+):/g)].map((match) => match[1]));
+      for (const match of text.matchAll(/var\((--[a-z0-9-]+)\s*[,)]/g)) {
+        assert.ok(
+          defined.has(match[1]) || local.has(match[1]),
+          `${name}: ${match[1]} が、未定義です`,
+        );
+      }
+    }
+  });
+
+  it("開閉の見出しは、タップしやすい大きさ(トークン --tap-size)。色はトークン", () => {
+    const rule = css.slice(
+      css.indexOf(".review-item__more summary"),
+      css.indexOf("}", css.indexOf(".review-item__more summary")),
+    );
+    assert.ok(rule.includes("min-height: var(--tap-size)"));
+    assert.ok(rule.includes("var(--color-primary)"));
+  });
+});

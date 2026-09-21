@@ -11,7 +11,7 @@
 ```yaml
 job_id: office
 job_name: 事務
-version: 0.3.0
+version: 0.4.0
 updated_at: 2026-09-21
 items:
   - id: office-001
@@ -115,11 +115,13 @@ items:
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 書類を種類や順序に分けて片付けること。
+    detail: 書類を、使うもの・保管するもの・捨てるものに分けて、あとから探しやすい形に並べることです。種類・日付・取引先などの決まった基準でまとめ、ファイル名や見出しを付けておくと、必要なときにすぐ取り出せます。保管する期間は、書類の種類や会社の決まりによって違います。
     related_terms: []
-    learning_points: []
+    learning_points: [まず、使う書類と保管する書類を分ける, 種類・日付など、決まった基準で並べる, 保管する期間は、会社の決まりを確認する]
     weak_detection:
       enabled: true
     review: pending
+    note: 詳細説明(detail)と学習ポイントを、新しく足しました(AI の下書き)。一般的な意味に合っているか、確認してください。
   - id: office-009
     japanese: 経費精算
     reading: けいひせいさん

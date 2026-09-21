@@ -1,7 +1,7 @@
 {
   "job_id": "teaching",
   "job_name": "講師・教育",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "updated_at": "2026-09-21",
   "items": [
     {
@@ -433,8 +433,13 @@
       "difficulty": 3,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "いつ何をどのように学ぶかを、あらかじめ決めた計画。",
+      "detail": "学ぶ内容を、いつまでに、どの順番で、どのくらいの時間をかけて進めるかを決めた計画です。目標(何ができるようになりたいか)を決め、そこから逆算して、日や週ごとにやることを分けます。計画どおりに進まないときは、無理をせず、見直して作り直します。",
       "related_terms": ["指導案"],
-      "learning_points": [],
+      "learning_points": [
+        "先に、目標と期限を決める",
+        "やることを、日や週ごとに小さく分ける",
+        "進み具合を確かめて、必要なら見直す"
+      ],
       "weak_detection": {
         "enabled": true
       }
