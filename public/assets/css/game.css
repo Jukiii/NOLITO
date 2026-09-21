@@ -400,6 +400,16 @@
   animation: scene-bob 0.35s ease-in-out -0.15s infinite alternate;
 }
 
+/* 危ないとき(.is-danger)は、あなたの表情が、焦った顔(player-panic.svg)に替わる。2 枚とも、最初から読み込んでおく */
+.scene__player--panic,
+.scene.is-danger .scene__player--calm {
+  display: none;
+}
+
+.scene.is-danger .scene__player--panic {
+  display: block;
+}
+
 /* 役職ごとの動き(roles.json の scene.motion) */
 
 /* run: 走る(徒歩)。速い上下と、前かがみの揺れ */

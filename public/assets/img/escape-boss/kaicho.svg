@@ -1,16 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" fill="none" stroke="#1b2033" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M8 34l-5 1M10 44l-8 0M8 54l-5-1" stroke-width="2.5" />
-  <path d="M14 12h92" stroke-width="4" />
-  <path d="M60 12v14" stroke-width="4" />
-  <path d="M84 40h26l4-8" stroke-width="4" />
-  <path d="M106 26l8 12" />
-  <ellipse cx="58" cy="44" rx="30" ry="18" fill="#ffd23f" />
-  <path d="M68 32q14 2 18 12-8 6-20 4z" fill="#fff1b8" stroke-width="2.5" />
-  <circle cx="76" cy="41" r="7" fill="#ffd9b3" stroke-width="2" />
-  <path d="M70 46q6 9 14 0-4 2-7 2t-7-2z" fill="#ffffff" stroke-width="2" />
-  <path d="M70 39h12" stroke-width="2.5" />
-  <path d="M74 33q3-3 7 0" stroke="#ffffff" stroke-width="3" />
-  <path d="M34 66h50" stroke-width="4" />
-  <path d="M44 60l-2 6M74 60l2 6" />
-  <circle cx="30" cy="42" r="4" fill="#4b3fe0" />
+  <path d="M12 10H108" stroke-width="4" />
+  <path d="M12 10H24M96 10H108" stroke="#ffd23f" stroke-width="4" />
+  <path d="M60 10V24" stroke-width="5" />
+  <path d="M34 44L10 38" stroke-width="10" />
+  <path d="M34 44L10 38" stroke="#4b3fe0" stroke-width="5" />
+  <path d="M6 40L4 26H14L14 40z" fill="#ffd23f" />
+  <ellipse cx="58" cy="46" rx="30" ry="20" fill="#4b3fe0" />
+  <path d="M32 54Q58 64 86 56" stroke="#ffd23f" stroke-width="3" />
+  <ellipse cx="76" cy="40" rx="22" ry="18" fill="#d9f0ff" />
+  <circle cx="64" cy="34" r="5" fill="#ffffff" stroke-width="2" />
+  <circle cx="88" cy="34" r="5" fill="#ffffff" stroke-width="2" />
+  <circle cx="76" cy="40" r="13" fill="#ffd9b3" />
+  <path d="M65 31Q76 22 87 31Q76 28 65 31z" fill="#ffffff" stroke-width="2" />
+  <path d="M67 35H73M79 35H85" stroke-width="2.5" />
+  <circle cx="70" cy="40" r="2.2" fill="#1b2033" stroke="none" />
+  <circle cx="82" cy="40" r="2.2" fill="#1b2033" stroke="none" />
+  <circle cx="82" cy="40" r="5.5" stroke="#ffd23f" stroke-width="2" />
+  <path d="M66 47Q76 39 86 47Q76 53 66 47z" fill="#ffffff" stroke-width="2" />
+  <path d="M60 32Q64 27 70 26" stroke="#ffffff" stroke-width="2.5" />
+  <path d="M34 68H84" stroke-width="5" />
+  <path d="M44 62l-2 6M76 62l2 6" />
+  <path d="M106 22l3 5 5 3-5 3-3 5-3-5-5-3 5-3z" fill="#ffd23f" stroke-width="2" />
+  <path d="M20 58l1.5 3 3 1.5-3 1.5-1.5 3-1.5-3-3-1.5 3-1.5z" fill="#ffd23f" stroke-width="2" />
 </svg>
