@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.6.0</dd>
+              <dd>v0.7.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -78,7 +78,7 @@
         <section class="product__section" id="about" aria-labelledby="about-title">
           <h2 id="about-title">詳しい説明</h2>
           <p>
-            職種を選ぶと、その職種で使う言葉が出てきます。ローマ字で入力して正解すると、上司との距離が広がります。ミスをしたり、時間がたったりすると、距離が縮まります。
+            職種を選ぶと、その職種で使う言葉が出てきます。ローマ字で入力して正解すると、上司との距離が広がります。長い言葉・難しい言葉・速く打てた言葉ほど、たくさん広がります。ミスをしたり、時間がたったりすると、距離が縮まります。
           </p>
           <p>
             「用語確認」を選ぶと、追ってくる人も時間制限もない練習ができます。日本語・読み・説明を見ながら、10語を確認します。ミスしても罰はありません。結果は保存されません。
@@ -210,6 +210,14 @@
               </div>
             </details>
             <details class="faq__item">
+              <summary class="faq__question">正解したとき、距離はどれだけ広がりますか?</summary>
+              <div class="faq__answer">
+                <p>
+                  言葉の長さ・難しさ・打った速さで決まります。長い言葉ほど、難しい言葉(読みが長い言葉)ほど、多く広がります。さらに、1語を速く打てるほど、少し多く広がります(速さで、距離が減ることはありません)。ミスの分と、時間で縮まる分は、これまでどおりです。用語確認には、距離がありません。
+                </p>
+              </div>
+            </details>
+            <details class="faq__item">
               <summary class="faq__question">「用語確認」では、何ができますか?</summary>
               <div class="faq__answer">
                 <p>
@@ -230,6 +238,22 @@
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.7.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-21">2026年9月21日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  正解したときに広がる距離に、言葉の難しさと、打った速さを加えた(長い言葉・難しい言葉・速く打てた言葉ほど、多く広がる。速さで距離が減ることはない)
+                </li>
+                <li>
+                  それに合わせて、追ってくる人ごとの難しさを調整した(先輩は、遅めの人でも8割ほどクリアでき、会長は、速い人だけがクリアできる。この段階は、これまでどおり)
+                </li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.6.0

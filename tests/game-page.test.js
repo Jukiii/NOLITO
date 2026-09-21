@@ -228,3 +228,34 @@ describe("復習リスト(成績ページ)", () => {
     assert.match(html, /成績・成長グラフ・苦手文字・復習リストを見る/);
   });
 });
+
+describe("距離の計算(難易度・速さ。Phase 12 PR 3)", () => {
+  const engine = read("public/assets/js/games/escape-boss/engine.js");
+  const chasePart = main.slice(main.indexOf("function handleChar"), main.indexOf("function quit"));
+
+  it("正解のとき、語の難易度・打った秒数・実際の打鍵数を、エンジンに渡す", () => {
+    assert.match(chasePart, /applyCorrect\(session\.state, session\.stage, charCount, \{/);
+    assert.match(chasePart, /difficulty: word\.difficulty/);
+    assert.match(chasePart, /keystrokes: session\.matcher\.typed\.length/);
+    assert.match(chasePart, /seconds/);
+  });
+
+  it("秒数は、語の最初の正しい打鍵から測る(ゲーム内の経過秒)。次の語で、測り直す", () => {
+    assert.match(chasePart, /session\.wordStartedAt \?\?= session\.state\.elapsed/);
+    assert.match(chasePart, /session\.state\.elapsed - session\.wordStartedAt/);
+    assert.match(chasePart, /session\.wordStartedAt = null/);
+    assert.match(main, /wordStartedAt: null/);
+    // 時計は performance.now ではなく、ゲーム内の経過秒(タブが見えない間は進まない)
+    assert.ok(!/performance\.now\(\) - session\.wordStartedAt/.test(main));
+  });
+
+  it("用語確認(追いかけなし)は、距離の計算を使わない", () => {
+    const check = read("public/assets/js/games/escape-boss/check.js");
+    assert.ok(!/applyCorrect|wordGain|speedGain/.test(check));
+  });
+
+  it("エンジンは、DOM・時計・保存・乱数に触れない(純粋な計算のまま)", () => {
+    const code = engine.replace(/\/\/.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, "");
+    assert.ok(!/document|window|performance|Date\.now|localStorage|Math\.random/.test(code));
+  });
+});

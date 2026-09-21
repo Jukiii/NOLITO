@@ -1,6 +1,7 @@
 // 距離・クリア判定のゲームロジック。DOM に依存せず、状態は不変(毎回新しいオブジェクトを返す)。
 // stage は roles.json の stage(max_distance / initial_distance / drain_per_second /
-// base_gain / gain_per_char / miss_penalty / goal_words)。
+// base_gain / gain_per_char / miss_penalty / goal_words / difficulty_gain / speed_gain /
+// speed_min_cps / speed_max_cps)。難易度・速さの項目がない stage は、その分を 0 として扱う。
 
 export function createGameState(stage) {
   return {
@@ -33,14 +34,62 @@ export function tick(state, stage, seconds) {
   );
 }
 
-// 1語の正解で増える距離。長い語ほど多く増える。
-export function wordGain(stage, charCount) {
-  return stage.base_gain + stage.gain_per_char * charCount;
+// 語の難易度の範囲(語録の決め。0006)。範囲の外の値は、範囲に収める
+const DIFFICULTY_MIN = 1;
+const DIFFICULTY_MAX = 5;
+
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+/**
+ * 1 語を打った速さ(打鍵/秒)。最初の正しい打鍵から最後の打鍵までの間隔(打鍵数 - 1)を、
+ * かかった秒数で割る。秒数が 0 以下・数でない、打鍵数が 2 未満のときは 0(速さの加点なし)。
+ */
+export function typingSpeed(keystrokes, seconds) {
+  if (!Number.isFinite(keystrokes) || !Number.isFinite(seconds)) return 0;
+  if (keystrokes < 2 || seconds <= 0) return 0;
+  return (keystrokes - 1) / seconds;
 }
 
-export function applyCorrect(state, stage, charCount) {
+/** 難易度による増分: difficulty_gain × (難易度 - 1)。難易度 1・不明なら 0。 */
+export function difficultyGain(stage, difficulty) {
+  const gain = stage.difficulty_gain ?? 0;
+  if (!(gain > 0) || !Number.isFinite(difficulty)) return 0;
+  return gain * (clamp(difficulty, DIFFICULTY_MIN, DIFFICULTY_MAX) - DIFFICULTY_MIN);
+}
+
+/**
+ * 速さによる増分: speed_gain × (min〜max の間で 0〜1 に収めた速さの割合)。
+ * min 以下は 0、max 以上は speed_gain(上限)。加算だけで、遅くても減らない。
+ */
+export function speedGain(stage, keystrokes, seconds) {
+  const gain = stage.speed_gain ?? 0;
+  const range = (stage.speed_max_cps ?? 0) - (stage.speed_min_cps ?? 0);
+  if (!(gain > 0) || !(range > 0)) return 0;
+  const ratio = (typingSpeed(keystrokes, seconds) - stage.speed_min_cps) / range;
+  return gain * clamp(ratio, 0, 1);
+}
+
+/**
+ * 1語の正解で増える距離 = 基本 + 文字数の分 + 難易度の分 + 速さの分。
+ * options(難易度 difficulty・打った秒数 seconds・実際に打った打鍵数 keystrokes。
+ * 打鍵数がなければ charCount)がなければ、文字数の分までを返す。
+ * 文字数の分は表示用の標準の表記の長さ、速さは、実際に打った打鍵数で数える(si と shi など、書き方の違いに左右されない)。
+ */
+export function wordGain(stage, charCount, options = {}) {
+  return (
+    stage.base_gain +
+    stage.gain_per_char * charCount +
+    difficultyGain(stage, options.difficulty) +
+    speedGain(stage, options.keystrokes ?? charCount, options.seconds)
+  );
+}
+
+export function applyCorrect(state, stage, charCount, options = {}) {
   if (state.status !== "playing") return state;
-  const distance = Math.min(stage.max_distance, state.distance + wordGain(stage, charCount));
+  const distance = Math.min(
+    stage.max_distance,
+    state.distance + wordGain(stage, charCount, options),
+  );
   return settle({ ...state, distance, correct: state.correct + 1 }, stage);
 }
 

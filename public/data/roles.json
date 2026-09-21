@@ -9,8 +9,12 @@
       "max_distance": 100,
       "initial_distance": 60,
       "drain_per_second": 1.21,
-      "base_gain": 5,
+      "base_gain": 3.9,
       "gain_per_char": 0.6,
+      "difficulty_gain": 1,
+      "speed_gain": 3,
+      "speed_min_cps": 2,
+      "speed_max_cps": 6,
       "miss_penalty": 3,
       "goal_words": 14
     }
@@ -25,8 +29,12 @@
       "max_distance": 100,
       "initial_distance": 55,
       "drain_per_second": 1.84,
-      "base_gain": 5,
+      "base_gain": 3.8,
       "gain_per_char": 0.4,
+      "difficulty_gain": 1,
+      "speed_gain": 3,
+      "speed_min_cps": 2,
+      "speed_max_cps": 6,
       "miss_penalty": 3,
       "goal_words": 14
     }
@@ -41,8 +49,12 @@
       "max_distance": 100,
       "initial_distance": 50,
       "drain_per_second": 2.04,
-      "base_gain": 5,
+      "base_gain": 3.7,
       "gain_per_char": 0.6,
+      "difficulty_gain": 1,
+      "speed_gain": 3,
+      "speed_min_cps": 2,
+      "speed_max_cps": 6,
       "miss_penalty": 4,
       "goal_words": 15
     }
@@ -57,8 +69,12 @@
       "max_distance": 100,
       "initial_distance": 50,
       "drain_per_second": 2.13,
-      "base_gain": 5,
+      "base_gain": 3.6,
       "gain_per_char": 0.6,
+      "difficulty_gain": 1,
+      "speed_gain": 3,
+      "speed_min_cps": 2,
+      "speed_max_cps": 6,
       "miss_penalty": 4,
       "goal_words": 15
     }
@@ -78,8 +94,12 @@
       "max_distance": 100,
       "initial_distance": 45,
       "drain_per_second": 2.23,
-      "base_gain": 4,
+      "base_gain": 1.7,
       "gain_per_char": 0.4,
+      "difficulty_gain": 1,
+      "speed_gain": 3,
+      "speed_min_cps": 2,
+      "speed_max_cps": 6,
       "miss_penalty": 5,
       "goal_words": 16
     }
