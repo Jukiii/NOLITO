@@ -259,3 +259,45 @@ describe("距離の計算(難易度・速さ。Phase 12 PR 3)", () => {
     assert.ok(!/document|window|performance|Date\.now|localStorage|Math\.random/.test(code));
   });
 });
+
+describe("苦手な語の出やすさ(Phase 13 PR 1)", () => {
+  const weak = read("public/assets/js/games/escape-boss/weak.js");
+
+  it("設定の欄: ラベルと結びついた選択肢で、段階(off・normal・high)が、コードと同じ", () => {
+    assert.match(html, /<label for="weak-boost">苦手な語の出やすさ<\/label>/);
+    assert.match(html, /id="weak-boost"[^>]*data-weak-boost/);
+    assert.match(html, /aria-describedby="weak-boost-hint"/);
+    assert.match(html, /id="weak-boost-hint"/);
+    const values = [...html.matchAll(/<option value="([a-z]+)">/g)].map((match) => match[1]);
+    assert.deepEqual(values, ["off", "normal", "high"]);
+    assert.match(weak, /off: Object\.freeze/);
+    assert.match(weak, /normal: Object\.freeze/);
+    assert.match(weak, /high: Object\.freeze/);
+  });
+
+  it("用語確認では、この設定の欄を隠す(追いかけの設定なので)", () => {
+    assert.match(view, /\$\("\[data-weak-option\]"\)\.hidden = check/);
+  });
+
+  it("連続タイピングの開始で、直近の記録から重みを作り、出題に渡す。用語確認は、重みを使わない", () => {
+    const chasePart = main.slice(
+      main.indexOf("async function beginGame"),
+      main.indexOf("function update"),
+    );
+    assert.match(chasePart, /weakWeights\(store\.load\(\)\.data\.results, vocabulary\.items/);
+    assert.match(
+      chasePart,
+      /pickWords\(vocabulary\.items, role\.id, stage\.goal_words, Math\.random, \{/,
+    );
+    assert.match(chasePart, /level: settings\.weakBoost/);
+    const check = read("public/assets/js/games/escape-boss/check.js");
+    assert.ok(!/weakWeights|weights/.test(check));
+  });
+
+  it("設定の保存は、記録に触れない(saveSettings だけ)。新しく保存するものは、ない", () => {
+    const handler = main.slice(main.indexOf("onWeakBoostChange"), main.indexOf("onCheckRetry"));
+    assert.match(handler, /saveSettings\(backend, settings\)/);
+    assert.ok(!/store\.(update|save)|recordResult/.test(handler));
+    assert.ok(!/localStorage|document|window/.test(weak.replace(/\/\/.*$/gm, "")));
+  });
+});

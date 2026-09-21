@@ -64,6 +64,7 @@ export function createView(root) {
     const check = currentMode() === "check";
     $("[data-role-fieldset]").hidden = check;
     $("[data-explanation-option]").hidden = check;
+    $("[data-weak-option]").hidden = check;
     $("[data-start]").textContent = check ? "用語確認を始める" : "スタート";
   }
 
@@ -235,6 +236,7 @@ export function createView(root) {
     bind({
       onStart,
       onExplanationChange,
+      onWeakBoostChange,
       onProfileChange,
       onRankingRoleChange,
       onRetry,
@@ -252,6 +254,9 @@ export function createView(root) {
       $("[data-mode-list]").addEventListener("change", applyMode);
       $("[data-show-explanation]").addEventListener("change", (event) =>
         onExplanationChange(event.target.checked),
+      );
+      $("[data-weak-boost]").addEventListener("change", (event) =>
+        onWeakBoostChange(event.target.value),
       );
       $("[data-check-retry]").addEventListener("click", onCheckRetry);
       $("[data-check-back]").addEventListener("click", onBack);
@@ -315,6 +320,11 @@ export function createView(root) {
     // 「プレイ中に、用語の説明も表示する」のチェック(保存されていた設定を反映する)
     setExplanationSetting(checked) {
       $("[data-show-explanation]").checked = checked;
+    },
+
+    // 「苦手な語の出やすさ」の選択(保存されていた設定を反映する)
+    setWeakBoostSetting(level) {
+      $("[data-weak-boost]").value = level;
     },
 
     setNickname(nickname) {

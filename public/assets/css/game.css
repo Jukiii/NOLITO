@@ -597,6 +597,17 @@
   margin: 0 0 var(--space-6);
 }
 
+/* 選択肢(select)の設定。ラベル・選択・補足を、縦に並べる */
+.game-setup__option--field {
+  display: grid;
+  gap: var(--space-2);
+  align-items: start;
+}
+
+.game-setup__option--field .game-setup__hint {
+  margin: 0;
+}
+
 .game-setup__option input {
   flex: none;
   width: var(--tap-size);

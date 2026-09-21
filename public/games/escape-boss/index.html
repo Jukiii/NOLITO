@@ -72,6 +72,22 @@
               <input type="checkbox" id="show-explanation" data-show-explanation />
               <label for="show-explanation">プレイ中に、用語の説明も表示する</label>
             </div>
+            <div class="game-setup__option game-setup__option--field" data-weak-option>
+              <label for="weak-boost">苦手な語の出やすさ</label>
+              <select
+                class="game-input__field"
+                id="weak-boost"
+                aria-describedby="weak-boost-hint"
+                data-weak-boost
+              >
+                <option value="off">なし(完全にランダム)</option>
+                <option value="normal">ふつう</option>
+                <option value="high">多め</option>
+              </select>
+              <p class="game-setup__hint" id="weak-boost-hint">
+                直近20プレイでミスした語が、出やすくなります。同じゲームの中で、同じ語は出ません。
+              </p>
+            </div>
             <button class="button button--primary" type="submit" data-start disabled>
               スタート
             </button>
