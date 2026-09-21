@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.15.0</dd>
+              <dd>v0.16.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -173,7 +173,7 @@
               <summary class="faq__question">記録は、どこに保存されますか?</summary>
               <div class="faq__answer">
                 <p>
-                  お使いのブラウザの中(LocalStorage)にだけ保存されます。サーバーには送りません。ほかの端末やブラウザには引き継がれず、ブラウザのサイトデータを消すと、記録も消えます。「用語の説明を表示する」の設定も、同じブラウザの中に保存されます。用語確認の結果は、保存されません。
+                  お使いのブラウザの中(LocalStorage)にだけ保存されます。サーバーには送りません。ほかの端末やブラウザには引き継がれず、ブラウザのサイトデータを消すと、記録も消えます。「用語の説明を表示する」「音」などの設定も、同じブラウザの中に保存されます。用語確認の結果は、保存されません。
                 </p>
               </div>
             </details>
@@ -259,6 +259,17 @@
               </div>
             </details>
             <details class="faq__item">
+              <summary class="faq__question">音は出ますか? 消せますか?</summary>
+              <div class="faq__answer">
+                <p>
+                  効果音とBGMがあります。初期設定は「なし」(音は出ません)で、スタートの前の設定の「音」で、「効果音だけ」「効果音
+                  +
+                  BGM」を選べます。音量(0〜100)を選んで「音を試す」で確かめてから、遊んでください。プレイ中も、画面の「音」ボタンで、すぐに「なし」にできます。もう一度押すと、前の設定に戻ります。音は、お使いのブラウザの中で作るので、通信しません。ほかのタブを見ている間は、BGM
+                  が止まります。
+                </p>
+              </div>
+            </details>
+            <details class="faq__item">
               <summary class="faq__question">開始や終わりの演出を、飛ばせますか?</summary>
               <div class="faq__answer">
                 <p>
@@ -288,6 +299,29 @@
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.16.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-21">2026年9月21日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  効果音とBGMを追加(初期設定は「なし」。スタートの前の設定で、「効果音だけ」「効果音
+                  + BGM」と、音量(0〜100)を選べる。「音を試す」ボタンで確かめられる)
+                </li>
+                <li>
+                  効果音は、開始・1 語ごと・ミス・危ないとき・クリア・ゲームオーバーの 6
+                  種類。用語確認でも、効果音が鳴る(BGM はなし)
+                </li>
+                <li>
+                  プレイ中に「音」ボタンを追加(押すと、すぐ「なし」になり、もう一度押すと戻る)。別のタブを見ている間は、BGM
+                  が止まる
+                </li>
+                <li>音は、ブラウザの中で作る(音のファイルも、通信も、ない)</li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.15.0
