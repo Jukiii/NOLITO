@@ -77,6 +77,7 @@ export function createView(root) {
     banner.hidden = true;
     renderCues([]);
     scene.dataset.stage = "";
+    scene.dataset.outro = "";
     clearTimeout(bubbleTimer);
     bubble.hidden = true;
   }
@@ -496,11 +497,13 @@ export function createView(root) {
     },
 
     // 開始・終わりの演出を出す(kind: intro / clear / over)。文字は、いつも textContent で入れる
-    showStaging(kind, text) {
+    showStaging(kind, text, outroStyle = null) {
       // 一瞬の演出(ミス・正解)が残っていれば消す(終わりの演出を、最初から動かすため)
       clearTimeout(sceneTimer);
       scene.dataset.event = "";
       scene.dataset.stage = kind;
+      // 終わりの演出(clear・over)の、役職ごとの見せ方(なければ、全役職共通の演出)
+      scene.dataset.outro = (kind === "clear" || kind === "over") && outroStyle ? outroStyle : "";
       $("[data-banner-text]").textContent = text;
       banner.hidden = false;
     },

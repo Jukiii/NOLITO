@@ -196,10 +196,10 @@ describe("main.js のつなぎ(音)", () => {
       /if \(session\.state\.status !== "playing"\) return;\s*sound\.play\("correct"\);/,
     );
     assert.match(body("update"), /say\("near"\);\s*sound\.play\("near"\);/);
-    assert.match(
-      body("beginOutro"),
-      /sound\.play\(session\.state\.status === "cleared" \? "clear" : "over"\);/,
-    );
+    // クリアかゲームオーバーかは kind(clear / over)に決め、セリフ・音・役職別の見せ方に、同じ値を使う
+    const outro = body("beginOutro");
+    assert.match(outro, /const kind = session\.state\.status === "cleared" \? "clear" : "over";/);
+    assert.match(outro, /sound\.play\(kind\);/);
   });
 
   it("終わりの演出の前に、BGM を止める(finish の先頭)。クリアの音は、演出と同時に鳴る", () => {

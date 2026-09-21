@@ -28,7 +28,7 @@ import {
 import { createLines, BUBBLE_MS } from "./lines.js";
 import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
-import { isDanger } from "./scene.js";
+import { isDanger, outroStyleOf } from "./scene.js";
 import { summarize } from "./score.js";
 import { toggledMode } from "./sound.js";
 import { createTimeline, introSteps, outroSteps } from "./staging.js";
@@ -574,15 +574,14 @@ function finish() {
 function beginOutro(resultView, message) {
   const current = session;
   const steps = outroSteps(session.state.status, reducedMotion());
-  const line = session.lines.pick(
-    session.role,
-    session.state.status === "cleared" ? "clear" : "over",
-    performance.now(),
-  );
+  const kind = session.state.status === "cleared" ? "clear" : "over";
+  const line = session.lines.pick(session.role, kind, performance.now());
+  // 役職ごとの、終わりの演出の見せ方(roles.json の scene.outro。なければ、全役職共通)
+  const outroStyle = outroStyleOf(session.role, kind);
   if (line) view.showBubble(session.role.name, line, steps[0].ms);
-  sound.play(session.state.status === "cleared" ? "clear" : "over");
+  sound.play(kind);
   timeline = createTimeline(steps, {
-    onStep: (step) => view.showStaging(step.id, step.text),
+    onStep: (step) => view.showStaging(step.id, step.text, outroStyle),
     onDone: () => {
       timeline = null;
       if (session !== current) return;

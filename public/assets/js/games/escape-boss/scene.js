@@ -24,6 +24,22 @@ export const DEFAULT_MOTION = "run";
 export const motionOf = (role) =>
   SCENE_MOTIONS.includes(role?.scene?.motion) ? role.scene.motion : DEFAULT_MOTION;
 
+// 終わりの演出の、役職ごとの見せ方(roles.json の scene.outro。クリアとゲームオーバーで、別々)。
+// CSS の .scene[data-stage="clear"|"over"][data-outro="…"] と対応する。知らない値・ない場合は、null(全役職共通の演出になる)
+//   clear: collapse … へたり込む / tumble … 転ぶ / stall … 止まる / depart … ゆっくり去る / ascend … 上昇して去る
+//   over:  grab … 飛びつく / pass … 追い越す / skid … 急ブレーキ / shine … 輝く / engulf … オーラで包む
+export const OUTRO_STYLES = Object.freeze({
+  clear: Object.freeze(["collapse", "tumble", "stall", "depart", "ascend"]),
+  over: Object.freeze(["grab", "pass", "skid", "shine", "engulf"]),
+});
+
+/** 役職の、終わりの演出の見せ方。kind は "clear" か "over"。使えない値は null */
+export function outroStyleOf(role, kind) {
+  if (!Object.hasOwn(OUTRO_STYLES, kind)) return null;
+  const style = role?.scene?.outro?.[kind];
+  return typeof style === "string" && OUTRO_STYLES[kind].includes(style) ? style : null;
+}
+
 // 職種の背景の絵(jobs.json の background)。サイト内の決まった場所の SVG だけを受け付ける。
 // CSS の url() に入れるので、引用符・かっこ・空白を含む値、ほかの場所・形式は、使わない(null)
 const BACKGROUND_PATH = /^\/assets\/img\/escape-boss\/bg\/[a-z0-9]+(?:-[a-z0-9]+)*\.svg$/;

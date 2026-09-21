@@ -934,6 +934,224 @@
   scale: 1.12;
 }
 
+/* 役職別の、終わりの演出(roles.json の scene.outro。.scene の data-outro に入る)。
+   全役職共通の演出(上)を、役職ごとに、上書きする。時間は、共通と同じ(1.2 秒以内)。動くのは、位置・大きさ・傾きと、
+   ゆっくり(0.8 秒以上)の不透明度だけ(ちらつかない)。最後の状態で止まる(動きを減らす設定では、最初から、この状態) */
+
+/* 追ってくる人の外側の枠(位置)と、中の絵(動き・傾き)の、両方を使う。共通の動きは、この演出の間、置き換える */
+
+/* クリア: 先輩 = へたり込む */
+.scene[data-stage="clear"][data-outro="collapse"] .scene__chaser {
+  animation: none;
+}
+
+.scene[data-stage="clear"][data-outro="collapse"] .scene__chaser-img {
+  animation: scene-collapse 1s ease-out forwards;
+}
+
+/* クリア: 係長 = 自転車が転ぶ */
+.scene[data-stage="clear"][data-outro="tumble"] .scene__chaser {
+  animation: none;
+}
+
+.scene[data-stage="clear"][data-outro="tumble"] .scene__chaser-img {
+  animation: scene-tumble 0.9s ease-in forwards;
+}
+
+/* クリア: 部長 = 車が止まる(少し戻り、揺れて止まる) */
+.scene[data-stage="clear"][data-outro="stall"] .scene__chaser {
+  animation: scene-stall-slow 1.1s ease-out forwards;
+}
+
+.scene[data-stage="clear"][data-outro="stall"] .scene__chaser-img {
+  animation: scene-stall-shake 0.8s ease-out forwards;
+}
+
+/* クリア: 社長 = ゆっくり去る。金の紙吹雪 */
+.scene[data-stage="clear"][data-outro="depart"] .scene__chaser {
+  animation: scene-depart 1.1s ease-in-out forwards;
+}
+
+.scene[data-stage="clear"][data-outro="depart"] .scene__confetti {
+  background-image:
+    radial-gradient(circle at 8% 25%, var(--color-accent) 0 0.35rem, transparent 0.37rem),
+    radial-gradient(circle at 20% 62%, var(--color-accent) 0 0.28rem, transparent 0.3rem),
+    radial-gradient(circle at 35% 30%, var(--color-accent) 0 0.35rem, transparent 0.37rem),
+    radial-gradient(circle at 50% 66%, var(--color-accent) 0 0.28rem, transparent 0.3rem),
+    radial-gradient(circle at 64% 24%, var(--color-accent) 0 0.35rem, transparent 0.37rem),
+    radial-gradient(circle at 78% 58%, var(--color-accent) 0 0.28rem, transparent 0.3rem),
+    radial-gradient(circle at 92% 30%, var(--color-accent) 0 0.35rem, transparent 0.37rem);
+}
+
+/* クリア: 会長 = ヘリコプターが上昇して去る */
+.scene[data-stage="clear"][data-outro="ascend"] .scene__chaser {
+  animation: none;
+}
+
+.scene[data-stage="clear"][data-outro="ascend"] .scene__chaser-img {
+  animation: scene-ascend 1.1s ease-in forwards;
+}
+
+/* ゲームオーバー: 先輩 = 飛びつく(共通の「追いつく」に、跳ねを足す) */
+.scene[data-stage="over"][data-outro="grab"] .scene__chaser-img {
+  animation: scene-grab 0.5s ease-out forwards;
+}
+
+/* ゲームオーバー: 係長 = ベルを鳴らして、追い越していく */
+.scene[data-stage="over"][data-outro="pass"] .scene__chaser {
+  animation: scene-pass 0.7s ease-in forwards;
+}
+
+/* ゲームオーバー: 部長 = 急ブレーキで、あなたの前に止まる */
+.scene[data-stage="over"][data-outro="skid"] .scene__chaser {
+  animation: scene-skid 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+
+.scene[data-stage="over"][data-outro="skid"] .scene__chaser-img {
+  animation: scene-skid-tilt 0.6s ease-out forwards;
+}
+
+/* ゲームオーバー: 社長 = 目の前で止まり、あなたが輝きに包まれる / 会長 = 頭上に浮かび、オーラが包む */
+.scene__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at 88% 65%,
+    var(--glow, var(--color-accent)) 0,
+    transparent 55%
+  );
+}
+
+.scene[data-stage="over"][data-outro="shine"] .scene__chaser {
+  animation: scene-shine-in 0.8s ease-out forwards;
+}
+
+.scene[data-stage="over"][data-outro="engulf"] .scene__chaser {
+  animation: scene-engulf 0.9s ease-out forwards;
+}
+
+.scene[data-stage="over"][data-outro="shine"] .scene__glow,
+.scene[data-stage="over"][data-outro="engulf"] .scene__glow {
+  display: block;
+  animation: scene-glow 1.1s ease-out forwards;
+}
+
+.scene[data-stage="over"][data-outro="engulf"] .scene__glow {
+  --glow: var(--color-primary);
+}
+
+@keyframes scene-collapse {
+  40% {
+    transform: rotate(-6deg) translateY(0.1rem);
+  }
+
+  100% {
+    transform: rotate(-16deg) translateY(0.6rem) scaleY(0.88);
+  }
+}
+
+@keyframes scene-tumble {
+  50% {
+    transform: rotate(-40deg) translate(0.4rem, -0.5rem);
+  }
+
+  100% {
+    transform: rotate(-100deg) translate(1.2rem, 0.4rem);
+  }
+}
+
+@keyframes scene-stall-slow {
+  to {
+    transform: translateX(-2rem);
+  }
+}
+
+@keyframes scene-stall-shake {
+  25% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(2deg);
+  }
+
+  75% {
+    transform: rotate(-1deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes scene-depart {
+  to {
+    opacity: 0.3;
+    transform: translateX(-6rem);
+  }
+}
+
+@keyframes scene-ascend {
+  to {
+    opacity: 0.3;
+    transform: translateY(-5.5rem);
+  }
+}
+
+@keyframes scene-grab {
+  40% {
+    transform: translateY(-0.6rem) rotate(6deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(4deg);
+  }
+}
+
+@keyframes scene-pass {
+  to {
+    transform: translateX(11rem);
+  }
+}
+
+@keyframes scene-skid {
+  to {
+    transform: translateX(3rem);
+  }
+}
+
+@keyframes scene-skid-tilt {
+  30% {
+    transform: rotate(-5deg) translateY(0.1rem);
+  }
+
+  100% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes scene-shine-in {
+  to {
+    transform: translateX(2rem);
+  }
+}
+
+@keyframes scene-engulf {
+  to {
+    transform: translate(2.2rem, -0.6rem);
+  }
+}
+
+@keyframes scene-glow {
+  to {
+    opacity: 0.65;
+  }
+}
+
 /* 動きを減らす設定: 動く飾り(煙・オーラの脈動)は、静止すると不自然なので、消す。位置と、危ないときの縁は、残る */
 @media (prefers-reduced-motion: reduce) {
   .scene[data-motion="drive"] .scene__chaser::after {

@@ -5,7 +5,11 @@
     "vehicle": "徒歩",
     "image": "/assets/img/escape-boss/senpai.svg",
     "scene": {
-      "motion": "run"
+      "motion": "run",
+      "outro": {
+        "clear": "collapse",
+        "over": "grab"
+      }
     },
     "lines": {
       "start": ["おーい、待てよー!", "ちょっと聞いてくれー!", "逃げるなって!"],
@@ -46,7 +50,11 @@
     "vehicle": "自転車",
     "image": "/assets/img/escape-boss/kakaricho.svg",
     "scene": {
-      "motion": "pedal"
+      "motion": "pedal",
+      "outro": {
+        "clear": "tumble",
+        "over": "pass"
+      }
     },
     "lines": {
       "start": ["ちょっと、いいですか?", "報告書の件ですが…", "待ってくださーい!"],
@@ -90,7 +98,11 @@
     "vehicle": "セダン",
     "image": "/assets/img/escape-boss/buchou.svg",
     "scene": {
-      "motion": "drive"
+      "motion": "drive",
+      "outro": {
+        "clear": "stall",
+        "over": "skid"
+      }
     },
     "lines": {
       "start": ["ちょっと来たまえ!", "エンジン全開だ!", "私から逃げる気か!"],
@@ -132,7 +144,11 @@
     "vehicle": "リムジン",
     "image": "/assets/img/escape-boss/shachou.svg",
     "scene": {
-      "motion": "glide"
+      "motion": "glide",
+      "outro": {
+        "clear": "depart",
+        "over": "shine"
+      }
     },
     "lines": {
       "start": ["ふふ、私が来たよ。", "運転手、出したまえ!", "逃げても無駄だよ。"],
@@ -174,7 +190,11 @@
     "vehicle": "ヘリコプター",
     "image": "/assets/img/escape-boss/kaicho.svg",
     "scene": {
-      "motion": "aura"
+      "motion": "aura",
+      "outro": {
+        "clear": "ascend",
+        "over": "engulf"
+      }
     },
     "lines": {
       "start": ["ほっほっほ、来たぞ。", "わしから逃げるか。", "空から見ておるぞ。"],
