@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.16.0</dd>
+              <dd>v0.17.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -259,6 +259,18 @@
               </div>
             </details>
             <details class="faq__item">
+              <summary class="faq__question">役職の「特殊ルール」とは、何ですか?</summary>
+              <div class="faq__answer">
+                <p>
+                  先輩以外の役職には、追ってくる人が一時的に速くなるルールがあります。係長は「ダッシュ」(15
+                  秒ごとに 3 秒間。始まる前に予告)、部長は「ミスで加速」(ミスの直後の 2
+                  秒間)、社長は「追い詰め」(逃走距離が半分を切ると、少なくなるほど速くなる)、会長は、この
+                  3
+                  つがすべて(弱め)です。どれも、時間で距離が縮む速さが、一時的に、何倍かになるだけです。役職を選ぶと、その役職のルールの説明が、画面に出ます。先輩には、特殊ルールがありません。
+                </p>
+              </div>
+            </details>
+            <details class="faq__item">
               <summary class="faq__question">音は出ますか? 消せますか?</summary>
               <div class="faq__answer">
                 <p>
@@ -299,6 +311,26 @@
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.17.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-21">2026年9月21日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  役職ごとに、出る言葉の長さを変えた(先輩は短い言葉が出やすく、会長は長い言葉が出やすい。言葉そのものは、どの役職でも、すべて出る)
+                </li>
+                <li>
+                  役職ごとの特殊ルールを追加(係長 = ダッシュ / 部長 = ミスで加速 / 社長 = 追い詰め /
+                  会長 = 3 つとも。先輩は、ルールなし)。役職を選ぶと、ルールの説明が出る
+                </li>
+                <li>
+                  ルールと言葉の長さに合わせて、役職ごとの正解で増える距離を、調整した(逃げ切りやすさの階段は、これまでどおり)
+                </li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.16.0

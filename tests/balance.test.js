@@ -1,6 +1,7 @@
-// バランス(クリア率)の確認テスト(Phase 12 PR 3)。実際の語録・役職・エンジンで、打鍵のモデルを、
-// 決まった乱数で何回も遊ばせ、決定ログ 0006・0022 の表から大きくずれていないことを確かめる。
-// 語録・roles.json・距離の式を変えて、このテストが失敗したら、シミュレーションでバランスを見直す(0022)。
+// バランス(クリア率)の確認テスト(Phase 12 PR 3・Phase 17)。実際の語録・役職(文字数の重み・特殊ルールを含む)・エンジンで、
+// 打鍵のモデルを、決まった乱数で何回も遊ばせ、決定ログ 0006・0022 の表から大きくずれていないことを確かめる。
+// 語録・roles.json・距離の式・ルールを変えて、このテストが失敗したら、シミュレーションでバランスを見直す(0022・0033)。
+// 打鍵ごとに時間を進める(ミスの時刻で、ルールの加速の間が決まるため)。
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
@@ -12,6 +13,10 @@ import {
 } from "../public/assets/js/games/escape-boss/engine.js";
 import { createMatcher } from "../public/assets/js/games/escape-boss/romaji.js";
 import { pickWords } from "../public/assets/js/games/escape-boss/vocabulary.js";
+import {
+  mergeWeights,
+  roleWordWeights,
+} from "../public/assets/js/games/escape-boss/word-weights.js";
 
 const readJson = (path) =>
   JSON.parse(readFileSync(new URL(`../public/data/${path}`, import.meta.url), "utf8"));
@@ -41,35 +46,43 @@ function seeded(seed) {
   return () => (value = (value * 1664525 + 1013904223) % 4294967296) / 4294967296;
 }
 
-// 1 回のプレイ。語ごとに、打ち始めから打ち終わりまでの時間を、速さの加点に渡す(main.js と同じ考え方)
+// 1 回のプレイ。打鍵ごとに時間を進め、ミスのあとは 0.4 秒の立て直し。語ごとに、打ち始めから打ち終わりまでの時間を、
+// 速さの加点に渡す(main.js と同じ考え方)。出題は、役職の語の重み(stage.word_weights)を使う
 function play(role, typist, random) {
   const stage = role.stage;
   const job = jobs[Math.floor(random() * jobs.length)].id;
-  const words = pickWords(vocabularies[job], role.id, stage.goal_words, random);
+  const items = vocabularies[job];
+  const weights = mergeWeights(roleWordWeights(items, stage));
+  const words = pickWords(items, role.id, stage.goal_words, random, { weights });
   let state = createGameState(stage);
+  const alive = () => state.status === "playing";
+  // 出題された全語の、平均の難易度(ゲームが途中で終わっても、同じ)
+  const meanDifficulty = words.reduce((sum, word) => sum + word.difficulty, 0) / words.length;
   for (const word of words) {
     const length = canonicalLength.get(word.id);
-    let seconds = typist.reaction;
+    state = tick(state, stage, typist.reaction);
+    if (!alive()) break;
     let typing = 0;
-    for (let i = 0; i < length; i++) {
-      seconds += 1 / typist.cps;
+    for (let i = 0; i < length && alive(); i++) {
+      state = tick(state, stage, 1 / typist.cps);
       if (i > 0) typing += 1 / typist.cps;
+      if (!alive()) break;
       if (random() < typist.missRate) {
-        seconds += 0.4;
-        if (i > 0) typing += 0.4;
         state = applyMiss(state, stage);
+        if (!alive()) break;
+        state = tick(state, stage, 0.4);
+        if (i > 0) typing += 0.4;
       }
     }
-    state = tick(state, stage, seconds);
-    if (state.status !== "playing") break;
+    if (!alive()) break;
     state = applyCorrect(state, stage, length, {
       difficulty: word.difficulty,
       seconds: typing,
       keystrokes: length,
     });
-    if (state.status !== "playing") break;
+    if (!alive()) break;
   }
-  return state;
+  return { state, meanDifficulty };
 }
 
 const results = {};
@@ -79,14 +92,20 @@ for (const role of roles) {
     const random = seeded(21);
     let cleared = 0;
     let time = 0;
+    let difficulty = 0;
     for (let i = 0; i < TRIALS; i++) {
-      const state = play(role, typist, random);
+      const { state, meanDifficulty } = play(role, typist, random);
+      difficulty += meanDifficulty;
       if (state.status === "cleared") {
         cleared += 1;
         time += state.elapsed;
       }
     }
-    results[role.id][name] = { rate: (cleared / TRIALS) * 100, time: cleared ? time / cleared : 0 };
+    results[role.id][name] = {
+      rate: (cleared / TRIALS) * 100,
+      time: cleared ? time / cleared : 0,
+      difficulty: difficulty / TRIALS,
+    };
   }
 }
 const rate = (roleId, typist) => results[roleId][typist].rate;
@@ -134,5 +153,28 @@ describe("バランス(0006・0022 の表。各 1000 回のシミュレーショ
     assert.ok(results.senpai.slow.time <= 180, results.senpai.slow.time);
     assert.ok(results.senpai.normal.time >= 40 && results.senpai.normal.time <= 100);
     for (const role of roles) assert.ok(results[role.id].master.time <= 60, role.id);
+  });
+
+  it("役職が進むほど、出る語が、長く(難しく)なる(役職ごとの語の重み。0033)", () => {
+    const order = ["senpai", "kakaricho", "buchou", "shachou", "kaicho"];
+    for (let i = 1; i < order.length; i++) {
+      const before = results[order[i - 1]].normal.difficulty;
+      const after = results[order[i]].normal.difficulty;
+      assert.ok(after >= before + 0.08, `${order[i]}: ${before.toFixed(2)} → ${after.toFixed(2)}`);
+    }
+  });
+
+  it("特殊ルールは、クリア率を下げる(ルールを外すと、同じ役職のクリア率が上がる)。先輩には、ルールがない", () => {
+    assert.deepEqual(roles.find((role) => role.id === "senpai").stage.rules, []);
+    for (const id of ["kakaricho", "buchou", "shachou"]) {
+      const role = roles.find((item) => item.id === id);
+      const withoutRules = { ...role, stage: { ...role.stage, rules: [] } };
+      const random = seeded(21);
+      let cleared = 0;
+      for (let i = 0; i < TRIALS; i++) {
+        if (play(withoutRules, TYPISTS.normal, random).state.status === "cleared") cleared += 1;
+      }
+      assert.ok((cleared / TRIALS) * 100 > rate(id, "normal") + 5, id);
+    }
   });
 });

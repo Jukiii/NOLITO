@@ -319,6 +319,26 @@
   font-size: var(--font-size-xs);
 }
 
+/* 選んだ役職の、特殊ルールの説明(役職の選択の下) */
+.game-setup__rules {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-xs);
+  background: var(--color-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.game-setup__rules-title {
+  margin: 0 0 var(--space-1);
+  font-weight: var(--font-weight-bold);
+}
+
+.game-setup__rules-list {
+  margin: 0;
+  padding-left: var(--space-6);
+}
+
 /* 追跡シーン: 追ってくる人が、距離が減るほど右のあなたに近づく。
    位置(--closeness)は、動きの軽減設定でも、距離に応じて変わる。動き(役職ごとの [data-motion])は、装飾 */
 .scene {

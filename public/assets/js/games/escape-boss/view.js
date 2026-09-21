@@ -1,5 +1,6 @@
 import { el } from "../../components/dom.js";
 import { reviewItem } from "./review-item.js";
+import { describeRules } from "./rules.js";
 import { isSkipKey } from "./staging.js";
 import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
 
@@ -106,7 +107,24 @@ export function createView(root) {
     );
   }
 
+  // 選んだ役職の、特殊ルールの説明(ルールがなければ、その旨)。役職を選び直すたびに、更新する
+  let setupRoles = [];
+  function updateRoleRules() {
+    const role = setupRoles.find((item) => item.id === checkedValue("role"));
+    const box = $("[data-role-rules]");
+    box.hidden = !role;
+    if (!role) return;
+    const rules = describeRules(role.stage);
+    setText("[data-role-rules-name]", role.name);
+    $("[data-role-rules-list]").replaceChildren(
+      ...(rules.length > 0 ? rules : ["特殊ルールはありません。基本の追いかけっこです。"]).map(
+        (text) => el("li", {}, text),
+      ),
+    );
+  }
+
   function renderSetup({ jobs, roles, isUnlocked }) {
+    setupRoles = roles;
     const jobId = checkedValue("job");
     let roleId = checkedValue("role");
     const selectedJob = jobs.some((job) => job.id === jobId) ? jobId : jobs[0].id;
@@ -139,6 +157,7 @@ export function createView(root) {
     const hint = $("[data-role-hint]");
     hint.textContent = locked.map((role) => `${role.name}: ${role.unlock.hint}`).join(" / ");
     hint.hidden = locked.length === 0;
+    updateRoleRules();
     $("[data-start]").disabled = false;
     applyMode();
   }
@@ -274,6 +293,7 @@ export function createView(root) {
         if (jobId && (mode === "check" || roleId)) onStart({ mode, jobId, roleId });
       });
       $("[data-mode-list]").addEventListener("change", applyMode);
+      $("[data-role-list]").addEventListener("change", updateRoleRules);
       $("[data-show-explanation]").addEventListener("change", (event) =>
         onExplanationChange(event.target.checked),
       );

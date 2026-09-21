@@ -36,6 +36,7 @@ import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
 import { matcherOptionsFor } from "./input-style.js";
 import { weakWeights } from "./weak.js";
+import { mergeWeights, roleWordWeights } from "./word-weights.js";
 import { createStore, getBackend } from "./storage.js";
 import { loadJobs, loadRoles, loadVocabulary, pickWords, shuffle } from "./vocabulary.js";
 import { createView } from "./view.js";
@@ -377,10 +378,12 @@ async function beginGame({ jobId, roleId }) {
   view.showError("");
 
   const stage = role.stage;
-  // 苦手な語(直近のプレイでミスした語)は、設定に応じて、出やすくする。同じゲームの中で、同じ語は出ない
-  const weights = weakWeights(store.load().data.results, vocabulary.items, {
-    level: settings.weakBoost,
-  });
+  // 苦手な語(直近のプレイでミスした語)は、設定に応じて、出やすくする。役職ごとの、語の長さの出やすさ
+  // (stage.word_weights)も、かけ合わせる。同じゲームの中で、同じ語は出ない
+  const weights = mergeWeights(
+    weakWeights(store.load().data.results, vocabulary.items, { level: settings.weakBoost }),
+    roleWordWeights(vocabulary.items, stage),
+  );
   const words = pickWords(vocabulary.items, role.id, stage.goal_words, Math.random, { weights });
   // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
   stopTimeline();
