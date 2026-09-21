@@ -640,6 +640,181 @@
   }
 }
 
+/* 追ってくる人の吹き出し(セリフ。飾り)。場面の上に、短い間だけ出る。話している人の名前つき */
+.scene__bubble {
+  position: absolute;
+  top: var(--space-1);
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  width: max-content;
+  max-width: calc(100% - var(--space-4));
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  line-height: 1.2;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-pop-sm);
+  transform: translateX(-50%);
+}
+
+.scene__bubble[hidden] {
+  display: none;
+}
+
+.scene__bubble-name {
+  color: var(--color-primary-strong);
+  white-space: nowrap;
+}
+
+/* 開始・終わりの演出の文字(バナー)。場面の真ん中に出る。文字は、色だけでなく、大きさでも目立たせる */
+.scene__banner {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  gap: var(--space-1);
+  align-content: center;
+  justify-items: center;
+  cursor: pointer;
+}
+
+.scene__banner[hidden] {
+  display: none;
+}
+
+.scene__banner-text {
+  margin: 0;
+  padding: var(--space-1) var(--space-6);
+  color: var(--color-on-accent);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  line-height: 1.2;
+  background: var(--color-accent);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-pop);
+  animation: scene-banner-pop 0.35s ease-out;
+}
+
+.scene__banner-hint {
+  margin: 0;
+  padding: 0 var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  background: var(--color-surface);
+  border-radius: var(--radius-pill);
+}
+
+/* 終わりの演出では、上の吹き出し(セリフ)と重ならないよう、文字を少し小さくし、飛ばし方の案内は出さない */
+.scene[data-stage="clear"] .scene__banner-hint,
+.scene[data-stage="over"] .scene__banner-hint {
+  display: none;
+}
+
+.scene[data-stage="clear"] .scene__banner-text,
+.scene[data-stage="over"] .scene__banner-text {
+  font-size: var(--font-size-xl);
+}
+
+@keyframes scene-banner-pop {
+  from {
+    transform: scale(0.6);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* 終わりの演出。クリア: 追ってくる人が遠ざかり、あなたが跳ねて、紙吹雪が降る /
+   ゲームオーバー: 追いつかれて、あなたがふらつく。最後の状態で止まる(動きを減らす設定では、最初から、この状態) */
+.scene__confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 8% 25%, var(--color-accent) 0 0.3rem, transparent 0.32rem),
+    radial-gradient(circle at 22% 60%, var(--color-primary) 0 0.25rem, transparent 0.27rem),
+    radial-gradient(circle at 37% 30%, var(--color-border) 0 0.2rem, transparent 0.22rem),
+    radial-gradient(circle at 52% 65%, var(--color-accent) 0 0.3rem, transparent 0.32rem),
+    radial-gradient(circle at 66% 22%, var(--color-primary) 0 0.25rem, transparent 0.27rem),
+    radial-gradient(circle at 80% 55%, var(--color-accent) 0 0.3rem, transparent 0.32rem),
+    radial-gradient(circle at 93% 30%, var(--color-border) 0 0.2rem, transparent 0.22rem);
+  background-repeat: no-repeat;
+}
+
+.scene[data-stage="clear"] .scene__confetti {
+  display: block;
+  animation: scene-confetti 1.1s ease-in forwards;
+}
+
+.scene[data-stage="clear"] .scene__chaser {
+  animation: scene-outro-back 1.1s ease-in forwards;
+}
+
+.scene[data-stage="clear"] .scene__player {
+  animation: scene-hop 0.45s ease-out 2;
+}
+
+.scene[data-stage="over"] .scene__chaser {
+  animation: scene-outro-catch 0.5s ease-in forwards;
+}
+
+.scene[data-stage="over"] .scene__player {
+  animation: scene-dizzy 0.9s ease-in-out forwards;
+}
+
+@keyframes scene-confetti {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes scene-outro-back {
+  to {
+    opacity: 0.3;
+    transform: translateX(-3rem);
+  }
+}
+
+@keyframes scene-hop {
+  50% {
+    transform: translateY(-0.7rem);
+  }
+}
+
+@keyframes scene-outro-catch {
+  to {
+    transform: translateX(2.5rem);
+  }
+}
+
+@keyframes scene-dizzy {
+  30% {
+    transform: rotate(-12deg) translateY(0.2rem);
+  }
+
+  60% {
+    transform: rotate(10deg) translateY(0.2rem);
+  }
+
+  100% {
+    transform: rotate(-4deg) translateY(0.3rem);
+  }
+}
+
 /* 動きを減らす設定: 動く飾り(煙・オーラの脈動)は、静止すると不自然なので、消す。位置と、危ないときの縁は、残る */
 @media (prefers-reduced-motion: reduce) {
   .scene[data-motion="drive"] .scene__chaser::after {
@@ -825,6 +1000,14 @@
 }
 
 /* 結果 */
+
+/* 結果の画面: 追ってくる人の、最後のセリフ */
+.result__quote {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
 .result-score {
   margin-bottom: var(--space-4);
   font-size: var(--font-size-lg);

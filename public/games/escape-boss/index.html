@@ -195,6 +195,7 @@
 
               <div class="scene" aria-hidden="true" data-scene data-motion="run" data-chase-only>
                 <div class="scene__road"></div>
+                <div class="scene__confetti" data-confetti></div>
                 <div class="scene__chaser">
                   <img
                     class="scene__chaser-img"
@@ -219,6 +220,14 @@
                   height="80"
                   src="/assets/img/escape-boss/player-panic.svg"
                 />
+                <p class="scene__bubble" data-bubble hidden>
+                  <strong class="scene__bubble-name" data-bubble-name></strong>
+                  <span data-bubble-text></span>
+                </p>
+                <div class="scene__banner" data-banner hidden>
+                  <p class="scene__banner-text" data-banner-text></p>
+                  <p class="scene__banner-hint">Enter・スペース・クリックで、飛ばせます</p>
+                </div>
               </div>
 
               <div class="game-word">
@@ -287,6 +296,7 @@
         <section data-view="result" aria-labelledby="result-title" hidden>
           <h1 id="result-title" tabindex="-1" data-result-title>結果</h1>
           <p data-result-message></p>
+          <p class="result__quote" lang="ja" data-result-quote hidden></p>
           <p class="result-score">
             スコア <strong data-result-score></strong>
             <span class="badge badge--live" data-result-rank hidden></span>

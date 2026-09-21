@@ -24,9 +24,12 @@ import {
   unlockAchievements,
   updateProfile,
 } from "./records.js";
+import { createLines, BUBBLE_MS } from "./lines.js";
 import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
+import { isDanger } from "./scene.js";
 import { summarize } from "./score.js";
+import { createTimeline, introSteps, outroSteps } from "./staging.js";
 import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
 import { matcherOptionsFor } from "./input-style.js";
@@ -53,6 +56,14 @@ let config = { default_title: { id: "newbie", name: "新入社員" }, achievemen
 let rankingRoleId = DEFAULT_ROLE_ID;
 let storageNotice = "";
 let session = null;
+// 開始・終わりの演出の進行(進んでいる間だけ、ある)
+let timeline = null;
+
+const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const stopTimeline = () => {
+  timeline?.cancel();
+  timeline = null;
+};
 
 const jobsById = () => Object.fromEntries(jobs.map((job) => [job.id, job.name]));
 
@@ -139,6 +150,8 @@ async function init() {
     onBack: quit,
     onQuit: quit,
   });
+  // 開始・終わりの演出は、飛ばせる(Enter・スペース・Esc・場面のクリック)
+  view.bindSkip(() => timeline?.skip());
   refreshDashboard();
 
   // 成績ページの「復習リストで用語確認をする」から来たとき(?review=1)。アドレスからは消す
@@ -230,6 +243,7 @@ const newMatcher = (reading) => createMatcher(reading, matcherOptionsFor(setting
 
 // 用語確認の進行を始める(職種の 10 語でも、復習リストでも共通)
 function startCheckSession({ job, words, review = false }) {
+  stopTimeline();
   if (session) cancelAnimationFrame(session.frameId);
   session = {
     kind: "check",
@@ -323,9 +337,14 @@ async function beginGame({ jobId, roleId }) {
   });
   const words = pickWords(vocabulary.items, role.id, stage.goal_words, Math.random, { weights });
   // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
+  stopTimeline();
   if (session) cancelAnimationFrame(session.frameId);
   session = {
     kind: "chase",
+    // intro(開始の演出。時間も入力も止まっている)→ play → outro(終わりの演出。結果は保存済み)
+    phase: "intro",
+    lines: createLines(),
+    wasDanger: false,
     job,
     role,
     stage,
@@ -348,9 +367,39 @@ async function beginGame({ jobId, roleId }) {
     goal: stage.goal_words,
     showExplanation: settings.showExplanation,
   });
-  view.announce(`ゲーム開始。職種は${job.name}。${role.name}が追ってきます。`);
+  view.announce(`ゲーム開始。職種は${job.name}。${role.name}が追ってきます。よーい…`);
   view.renderWord(words[0], session.matcher);
   view.renderStats(session.state, stage);
+  beginIntro();
+}
+
+// 開始の演出。この間は、時間が進まず、入力も受け付けない(飛ばせる)。終わったら、ゲームを始める
+function beginIntro() {
+  const current = session;
+  timeline = createTimeline(introSteps(reducedMotion()), {
+    onStep: (step) => view.showStaging("intro", step.text),
+    onDone: () => {
+      timeline = null;
+      if (session === current) startPlaying();
+    },
+  });
+  timeline.start();
+}
+
+// 追ってくる人のセリフ(飾りの吹き出し)。言わないとき(間隔・セリフなし)は、null
+function say(event) {
+  const line = session.lines.pick(session.role, event, performance.now());
+  if (line) view.showBubble(session.role.name, line, BUBBLE_MS);
+  return line;
+}
+
+// 時間の進みは、ここから始まる(開始の演出の時間は、ゲームの経過時間に入らない)
+function startPlaying() {
+  view.clearStaging();
+  session.phase = "play";
+  session.lastFrame = performance.now();
+  view.announce("スタート!");
+  say("start");
   session.frameId = requestAnimationFrame(frame);
 }
 
@@ -365,12 +414,20 @@ function frame(now) {
 function update(state) {
   session.state = state;
   view.renderStats(state, session.stage);
-  if (state.status !== "playing") finish();
+  if (state.status !== "playing") {
+    finish();
+    return;
+  }
+  // 危ない状態に入った瞬間だけ、セリフ(出たり入ったりしても、間隔は空く)
+  const danger = isDanger(state.distance, session.stage.max_distance);
+  if (danger && !session.wasDanger) say("near");
+  session.wasDanger = danger;
 }
 
 // 結果を記録し、ランキング・実績を更新して、結果画面を出す
 function finish() {
   cancelAnimationFrame(session.frameId);
+  session.phase = "outro";
   const { state, stage, job, role } = session;
   const { accuracy, cps, score } = summarize(state, role.score_multiplier);
   const result = {
@@ -423,7 +480,7 @@ function finish() {
   storageNotice = noticeFor(store.status, out.saved);
   rankingRoleId = role.id;
 
-  view.showResult({
+  const resultView = {
     state,
     stage,
     jobName: job.name,
@@ -442,7 +499,7 @@ function finish() {
       confusions: topConfusions(session.keyStats, 3),
     },
     missed: missedWords(session.words, session.keyStats.wordMisses),
-  });
+  };
   const cleared = state.status === "cleared";
   const extras = [
     cleared ? "ステージクリア。逃げ切りました。" : "ゲームオーバー。",
@@ -453,7 +510,30 @@ function finish() {
       : "",
     kaichoUnlocked ? "会長に挑戦できるようになりました。" : "",
   ];
-  view.announce(extras.filter(Boolean).join(""));
+  // 記録は保存済み。終わりの演出(飛ばせる)のあと、結果の画面を出して、結果を読み上げる
+  beginOutro(resultView, extras.filter(Boolean).join(""));
+}
+
+// 終わりの演出(クリア・ゲームオーバー共通の型)。追ってくる人の最後のセリフは、結果の画面にも残す
+function beginOutro(resultView, message) {
+  const current = session;
+  const steps = outroSteps(session.state.status, reducedMotion());
+  const line = session.lines.pick(
+    session.role,
+    session.state.status === "cleared" ? "clear" : "over",
+    performance.now(),
+  );
+  if (line) view.showBubble(session.role.name, line, steps[0].ms);
+  timeline = createTimeline(steps, {
+    onStep: (step) => view.showStaging(step.id, step.text),
+    onDone: () => {
+      timeline = null;
+      if (session !== current) return;
+      view.showResult({ ...resultView, quote: line ?? "" });
+      view.announce(message);
+    },
+  });
+  timeline.start();
 }
 
 function handleChar(char) {
@@ -461,7 +541,8 @@ function handleChar(char) {
     handleCheckChar(char);
     return;
   }
-  if (!session || session.state.status !== "playing") return;
+  // 開始・終わりの演出の間は、入力を受け付けない(間違いにも数えない)
+  if (!session || session.state.status !== "playing" || session.phase !== "play") return;
   // 打鍵の集計は、結果を確定する(finish が呼ばれる)前に済ませる。最後の1打も記録に入れるため。
   const key = char.toLowerCase();
   const expected = session.matcher.remaining.charAt(0);
@@ -472,6 +553,7 @@ function handleChar(char) {
     view.flashMiss();
     view.pulseScene("miss");
     update(applyMiss(session.state, session.stage));
+    if (session.state.status === "playing") say("miss");
     return;
   }
   session.keyStats = recordHit(session.keyStats, key);
@@ -501,6 +583,7 @@ function handleChar(char) {
 }
 
 function quit() {
+  stopTimeline();
   if (session) cancelAnimationFrame(session.frameId);
   session = null;
   refreshDashboard();
@@ -510,6 +593,7 @@ function quit() {
 // タブが見えない間は進めない(戻ったときに距離が減り切っているのを防ぐ)
 document.addEventListener("visibilitychange", () => {
   if (!session || session.kind !== "chase" || session.state.status !== "playing") return;
+  if (session.phase !== "play") return; // 演出の間は、ゲームの時間を動かさない
   if (document.hidden) {
     cancelAnimationFrame(session.frameId);
   } else {
