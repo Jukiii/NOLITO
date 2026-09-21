@@ -231,7 +231,7 @@ describe("main.js のセリフのつなぎ", () => {
 
   it("開始・危ない(入った瞬間だけ)・ミス(ゲームオーバーにならなかったとき)・クリア・ゲームオーバーで、言う", () => {
     assert.match(main, /say\("start"\);/);
-    assert.match(main, /if \(danger && !session\.wasDanger\) say\("near"\);/);
+    assert.match(main, /if \(danger && !session\.wasDanger\) \{\s*say\("near"\);/);
     assert.match(main, /if \(session\.state\.status === "playing"\) say\("miss"\);/);
     assert.match(main, /session\.state\.status === "cleared" \? "clear" : "over"/);
   });

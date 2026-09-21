@@ -9,6 +9,7 @@ import {
   summarizeCheck,
 } from "./check.js";
 import { applyCorrect, applyHit, applyMiss, createGameState, tick } from "./engine.js";
+import { createSound } from "./audio.js";
 import { attachInput } from "./input.js";
 import {
   createKeyStats,
@@ -29,6 +30,7 @@ import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
 import { isDanger } from "./scene.js";
 import { summarize } from "./score.js";
+import { toggledMode } from "./sound.js";
 import { createTimeline, introSteps, outroSteps } from "./staging.js";
 import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
@@ -58,6 +60,15 @@ let storageNotice = "";
 let session = null;
 // 開始・終わりの演出の進行(進んでいる間だけ、ある)
 let timeline = null;
+
+// 音(効果音・BGM)。設定は settings(既定は、なし)。音の準備は、設定が「なし」の間は、作らない
+const sound = createSound();
+// 「音」ボタンで「なし」にしたとき、次に押したら戻す先
+let soundRestore = "all";
+const applySound = () => {
+  sound.configure({ mode: settings.soundMode, volume: settings.volume });
+  view.setSoundSettings(settings);
+};
 
 const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const stopTimeline = () => {
@@ -119,9 +130,33 @@ async function init() {
   view.setExplanationSetting(settings.showExplanation);
   view.setWeakBoostSetting(settings.weakBoost);
   view.setInputStyleSetting(settings.inputStyle);
+  applySound();
   view.bind({
-    onStart: ({ mode, jobId, roleId }) =>
-      mode === "check" ? startCheck({ jobId }) : startGame({ jobId, roleId }),
+    onStart: ({ mode, jobId, roleId }) => {
+      sound.unlock(); // ブラウザは、操作のあとにしか、音を許さない。開始のクリックの中で、準備する
+      return mode === "check" ? startCheck({ jobId }) : startGame({ jobId, roleId });
+    },
+    onSoundModeChange: (mode) => changeSound({ soundMode: mode }),
+    onSoundVolumeInput: (value) => {
+      // 動かしている間は、音量と表示だけ(保存は、離したとき)
+      settings = normalizeSettings({ ...settings, volume: value });
+      applySound();
+    },
+    onSoundVolumeChange: (value) => changeSound({ volume: value }),
+    onSoundTest: () => {
+      sound.unlock();
+      if (!sound.play("correct")) {
+        view.announce(
+          settings.soundMode === "off"
+            ? "音の設定が「なし」です。「効果音だけ」などを選んでください。"
+            : "音を出せませんでした。音量と、ブラウザの音の設定を確認してください。",
+        );
+      }
+    },
+    onSoundToggle: () => {
+      if (settings.soundMode !== "off") soundRestore = settings.soundMode;
+      changeSound({ soundMode: toggledMode(settings.soundMode, soundRestore) });
+    },
     onExplanationChange: (checked) => {
       settings = { ...settings, showExplanation: checked };
       saveSettings(backend, settings);
@@ -160,6 +195,14 @@ async function init() {
     history.replaceState(null, "", location.pathname);
     startReview();
   }
+}
+
+// 音の設定を変えて、保存し、すぐ反映する(BGM は、遊んでいる間なら、その場で始まる・止まる)
+function changeSound(change) {
+  settings = normalizeSettings({ ...settings, ...change });
+  saveSettings(backend, settings);
+  applySound();
+  sound.unlock(); // 設定を変える操作の中で、準備する(設定を反映したあとに。「なし」の間は、作らない)
 }
 
 function handleProfileChange({ nickname, titleId }) {
@@ -244,6 +287,7 @@ const newMatcher = (reading) => createMatcher(reading, matcherOptionsFor(setting
 // 用語確認の進行を始める(職種の 10 語でも、復習リストでも共通)
 function startCheckSession({ job, words, review = false }) {
   stopTimeline();
+  sound.stopBgm();
   if (session) cancelAnimationFrame(session.frameId);
   session = {
     kind: "check",
@@ -276,6 +320,7 @@ function handleCheckChar(char) {
   if (result === "miss") {
     session.state = checkMiss(state, word.id); // 罰はない。数えるだけ
     view.flashMiss();
+    sound.play("miss");
     view.renderCheckProgress(session.state);
     return;
   }
@@ -286,6 +331,7 @@ function handleCheckChar(char) {
   }
   // 1語打ち終わった
   session.state = checkNext(session.state);
+  sound.play(session.state.status === "done" ? "clear" : "correct");
   if (session.state.status === "done") {
     finishCheck();
     return;
@@ -338,6 +384,7 @@ async function beginGame({ jobId, roleId }) {
   const words = pickWords(vocabulary.items, role.id, stage.goal_words, Math.random, { weights });
   // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
   stopTimeline();
+  sound.stopBgm();
   if (session) cancelAnimationFrame(session.frameId);
   session = {
     kind: "chase",
@@ -400,6 +447,8 @@ function startPlaying() {
   session.lastFrame = performance.now();
   view.announce("スタート!");
   say("start");
+  sound.play("start");
+  sound.startBgm({ delaySec: 0.6 }); // 設定が「効果音 + BGM」のときだけ、鳴る
   session.frameId = requestAnimationFrame(frame);
 }
 
@@ -420,13 +469,17 @@ function update(state) {
   }
   // 危ない状態に入った瞬間だけ、セリフ(出たり入ったりしても、間隔は空く)
   const danger = isDanger(state.distance, session.stage.max_distance);
-  if (danger && !session.wasDanger) say("near");
+  if (danger && !session.wasDanger) {
+    say("near");
+    sound.play("near");
+  }
   session.wasDanger = danger;
 }
 
 // 結果を記録し、ランキング・実績を更新して、結果画面を出す
 function finish() {
   cancelAnimationFrame(session.frameId);
+  sound.stopBgm();
   session.phase = "outro";
   const { state, stage, job, role } = session;
   const { accuracy, cps, score } = summarize(state, role.score_multiplier);
@@ -524,6 +577,7 @@ function beginOutro(resultView, message) {
     performance.now(),
   );
   if (line) view.showBubble(session.role.name, line, steps[0].ms);
+  sound.play(session.state.status === "cleared" ? "clear" : "over");
   timeline = createTimeline(steps, {
     onStep: (step) => view.showStaging(step.id, step.text),
     onDone: () => {
@@ -552,6 +606,7 @@ function handleChar(char) {
     session.keyStats = recordMiss(session.keyStats, expected, key, word.id);
     view.flashMiss();
     view.pulseScene("miss");
+    sound.play("miss");
     update(applyMiss(session.state, session.stage));
     if (session.state.status === "playing") say("miss");
     return;
@@ -576,6 +631,7 @@ function handleChar(char) {
   );
   view.pulseScene("gain");
   if (session.state.status !== "playing") return;
+  sound.play("correct");
   session.index += 1;
   session.wordStartedAt = null;
   session.matcher = newMatcher(session.words[session.index].reading);
@@ -584,11 +640,15 @@ function handleChar(char) {
 
 function quit() {
   stopTimeline();
+  sound.stopBgm();
   if (session) cancelAnimationFrame(session.frameId);
   session = null;
   refreshDashboard();
   view.showDashboard();
 }
+
+// タブが見えない間は、音も止める(BGM を止め、戻ったら続ける)
+document.addEventListener("visibilitychange", () => sound.setHidden(document.hidden));
 
 // タブが見えない間は進めない(戻ったときに距離が減り切っているのを防ぐ)
 document.addEventListener("visibilitychange", () => {

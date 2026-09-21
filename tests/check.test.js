@@ -207,11 +207,15 @@ describe("ゲームの設定", () => {
       showExplanation: false,
       weakBoost: "normal",
       inputStyle: "standard",
+      soundMode: "off",
+      volume: 50,
     });
     assert.deepEqual(loadSettings(fakeBackend()), {
       showExplanation: false,
       weakBoost: "normal",
       inputStyle: "standard",
+      soundMode: "off",
+      volume: 50,
     });
   });
 
@@ -222,6 +226,8 @@ describe("ゲームの設定", () => {
       showExplanation: true,
       weakBoost: "normal",
       inputStyle: "standard",
+      soundMode: "off",
+      volume: 50,
     });
     assert.notEqual(SETTINGS_KEY, STORAGE_KEY);
     assert.deepEqual([...backend.map.keys()], [SETTINGS_KEY]);
@@ -241,7 +247,13 @@ describe("ゲームの設定", () => {
     ]) {
       assert.deepEqual(
         loadSettings(fakeBackend({ [SETTINGS_KEY]: raw })),
-        { showExplanation: false, weakBoost: "normal", inputStyle: "standard" },
+        {
+          showExplanation: false,
+          weakBoost: "normal",
+          inputStyle: "standard",
+          soundMode: "off",
+          volume: 50,
+        },
         raw,
       );
     }
@@ -249,6 +261,8 @@ describe("ゲームの設定", () => {
       showExplanation: true,
       weakBoost: "normal",
       inputStyle: "standard",
+      soundMode: "off",
+      volume: 50,
     });
   });
 
@@ -257,6 +271,8 @@ describe("ゲームの設定", () => {
       showExplanation: false,
       weakBoost: "normal",
       inputStyle: "standard",
+      soundMode: "off",
+      volume: 50,
     });
     assert.equal(saveSettings(null, { showExplanation: true }), false);
     const throwing = {
@@ -271,6 +287,8 @@ describe("ゲームの設定", () => {
       showExplanation: false,
       weakBoost: "normal",
       inputStyle: "standard",
+      soundMode: "off",
+      volume: 50,
     });
     assert.equal(saveSettings(throwing, { showExplanation: true }), false);
   });
@@ -279,13 +297,21 @@ describe("ゲームの設定", () => {
     for (const level of ["off", "normal", "high"]) {
       const backend = fakeBackend();
       assert.equal(
-        saveSettings(backend, { showExplanation: true, weakBoost: level, inputStyle: "standard" }),
+        saveSettings(backend, {
+          showExplanation: true,
+          weakBoost: level,
+          inputStyle: "standard",
+          soundMode: "off",
+          volume: 50,
+        }),
         true,
       );
       assert.deepEqual(loadSettings(backend), {
         showExplanation: true,
         weakBoost: level,
         inputStyle: "standard",
+        soundMode: "off",
+        volume: 50,
       });
     }
     for (const bad of ["", "OFF", "low", "__proto__", "constructor", 1, null, true, [], {}]) {
@@ -296,6 +322,8 @@ describe("ゲームの設定", () => {
       showExplanation: true,
       weakBoost: "normal",
       inputStyle: "standard",
+      soundMode: "off",
+      volume: 50,
     });
   });
 
@@ -310,6 +338,8 @@ describe("ゲームの設定", () => {
         showExplanation: true,
         weakBoost: "high",
         inputStyle: name,
+        soundMode: "off",
+        volume: 50,
       });
     }
     for (const bad of [
@@ -329,7 +359,13 @@ describe("ゲームの設定", () => {
     // 以前に保存された設定(inputStyle がない)は、ほかの設定を保ったまま、既定を補う
     assert.deepEqual(
       loadSettings(fakeBackend({ [SETTINGS_KEY]: '{"showExplanation":true,"weakBoost":"off"}' })),
-      { showExplanation: true, weakBoost: "off", inputStyle: "standard" },
+      {
+        showExplanation: true,
+        weakBoost: "off",
+        inputStyle: "standard",
+        soundMode: "off",
+        volume: 50,
+      },
     );
   });
 

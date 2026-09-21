@@ -254,6 +254,11 @@ export function createView(root) {
       onExplanationChange,
       onWeakBoostChange,
       onInputStyleChange,
+      onSoundModeChange,
+      onSoundVolumeInput,
+      onSoundVolumeChange,
+      onSoundTest,
+      onSoundToggle,
       onProfileChange,
       onRankingRoleChange,
       onRetry,
@@ -278,6 +283,22 @@ export function createView(root) {
       $("[data-input-style]").addEventListener("change", (event) =>
         onInputStyleChange(event.target.value),
       );
+      $("[data-sound-mode]").addEventListener("change", (event) =>
+        onSoundModeChange(event.target.value),
+      );
+      // スライダーは、動かしている間(input)は、音量と表示だけ変え、離したとき(change)に保存する
+      $("[data-sound-volume]").addEventListener("input", (event) =>
+        onSoundVolumeInput(Number(event.target.value)),
+      );
+      $("[data-sound-volume]").addEventListener("change", (event) =>
+        onSoundVolumeChange(Number(event.target.value)),
+      );
+      $("[data-sound-test]").addEventListener("click", onSoundTest);
+      // プレイ中の「音」ボタン。押したあとも、入力欄で、続けて打てるように、フォーカスを戻す
+      $("[data-sound-toggle]").addEventListener("click", () => {
+        onSoundToggle();
+        input.focus();
+      });
       $("[data-check-retry]").addEventListener("click", onCheckRetry);
       $("[data-check-back]").addEventListener("click", onBack);
       const profileChanged = () =>
@@ -350,6 +371,17 @@ export function createView(root) {
     // 「ローマ字の書き方」の選択(保存されていた設定を反映する)
     setInputStyleSetting(name) {
       $("[data-input-style]").value = name;
+    },
+
+    // 音の設定(選択・音量・プレイ中の「音」ボタンの状態)を反映する
+    setSoundSettings({ soundMode, volume }) {
+      $("[data-sound-mode]").value = soundMode;
+      $("[data-sound-volume]").value = String(volume);
+      setText("[data-sound-volume-value]", volume);
+      const on = soundMode !== "off";
+      const toggle = $("[data-sound-toggle]");
+      toggle.setAttribute("aria-pressed", String(on));
+      setText("[data-sound-state]", on ? "あり" : "なし");
     },
 
     setNickname(nickname) {

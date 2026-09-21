@@ -1057,6 +1057,25 @@
   margin: 0;
 }
 
+/* 音量の見出しと、いまの値 */
+.game-setup__volume {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.game-setup__volume output {
+  font-weight: var(--font-weight-bold);
+}
+
+/* 音量のスライダー(チェックボックス用の大きさの指定より、優先する) */
+.game-setup__option .game-setup__range {
+  width: 100%;
+  max-width: 24rem;
+  height: var(--tap-size);
+  accent-color: var(--color-primary);
+}
+
 .game-setup__option input {
   flex: none;
   width: var(--tap-size);
