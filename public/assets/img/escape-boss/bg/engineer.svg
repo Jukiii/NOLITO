@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 112" width="360" height="112" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <g id="rack" fill="#dfe9f5" stroke="#b4c4da">
+      <rect x="0" y="0" width="44" height="68" rx="4" />
+      <rect x="6" y="8" width="32" height="10" rx="2" fill="#eef4fb" />
+      <rect x="6" y="24" width="32" height="10" rx="2" fill="#eef4fb" />
+      <rect x="6" y="40" width="32" height="10" rx="2" fill="#eef4fb" />
+      <circle cx="12" cy="13" r="2" fill="#cfe3d6" stroke="none" />
+      <circle cx="12" cy="29" r="2" fill="#f1d9c9" stroke="none" />
+      <circle cx="12" cy="45" r="2" fill="#cfe3d6" stroke="none" />
+      <path d="M8 58h28" />
+    </g>
+  </defs>
+  <use href="#rack" x="20" y="28" />
+  <use href="#rack" x="300" y="28" />
+  <g fill="#dfe9f5" stroke="#b4c4da">
+    <rect x="108" y="30" width="72" height="46" rx="4" />
+    <rect x="114" y="36" width="60" height="34" rx="2" fill="#eef4fb" />
+    <path d="M144 76v10M130 86h28" />
+    <rect x="212" y="40" width="56" height="36" rx="4" />
+    <rect x="217" y="45" width="46" height="26" rx="2" fill="#eef4fb" />
+    <path d="M240 76v8M228 84h24" />
+  </g>
+  <g stroke="#b4c4da">
+    <path d="M120 44h24M120 52h36M126 60h20M224 52h22M224 60h30" />
+  </g>
+  <path d="M68 92c20 6 30-6 48 0s38 6 60 0 40 4 60 0 30 4 44 0" stroke="#b4c4da" />
+</svg>

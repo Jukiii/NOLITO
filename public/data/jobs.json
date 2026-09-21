@@ -1,8 +1,32 @@
 [
-  { "id": "engineer", "name": "エンジニア" },
-  { "id": "sales", "name": "営業" },
-  { "id": "office", "name": "事務" },
-  { "id": "food-service", "name": "飲食" },
-  { "id": "teaching", "name": "講師・教育" },
-  { "id": "retail", "name": "接客販売" }
+  {
+    "id": "engineer",
+    "name": "エンジニア",
+    "background": "/assets/img/escape-boss/bg/engineer.svg"
+  },
+  {
+    "id": "sales",
+    "name": "営業",
+    "background": "/assets/img/escape-boss/bg/sales.svg"
+  },
+  {
+    "id": "office",
+    "name": "事務",
+    "background": "/assets/img/escape-boss/bg/office.svg"
+  },
+  {
+    "id": "food-service",
+    "name": "飲食",
+    "background": "/assets/img/escape-boss/bg/food-service.svg"
+  },
+  {
+    "id": "teaching",
+    "name": "講師・教育",
+    "background": "/assets/img/escape-boss/bg/teaching.svg"
+  },
+  {
+    "id": "retail",
+    "name": "接客販売",
+    "background": "/assets/img/escape-boss/bg/retail.svg"
+  }
 ]

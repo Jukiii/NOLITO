@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 112" width="360" height="112" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <g id="desk" fill="#e8dcc4" stroke="#c9b79a">
+      <rect x="0" y="0" width="34" height="8" rx="2" />
+      <path d="M4 8v22M30 8v22" />
+      <rect x="6" y="34" width="22" height="6" rx="2" />
+    </g>
+  </defs>
+  <g fill="#e0ecdf" stroke="#c9b79a">
+    <rect x="16" y="20" width="124" height="58" rx="3" />
+    <rect x="22" y="26" width="112" height="46" rx="2" stroke="#c7d8c4" />
+  </g>
+  <path d="M34 40h40M34 52h64M84 40h30M34 62h24" stroke="#c7d8c4" />
+  <path d="M20 84h116" stroke="#c9b79a" />
+  <use href="#desk" x="170" y="56" />
+  <use href="#desk" x="214" y="56" />
+  <g fill="#f3efe2" stroke="#c9b79a">
+    <circle cx="320" cy="36" r="18" />
+    <path d="M320 36v-10M320 36l8 5" />
+  </g>
+</svg>
