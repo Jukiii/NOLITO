@@ -203,14 +203,26 @@ describe("ゲームの設定", () => {
   };
 
   it("既定: 説明は、オフ。苦手な語の出やすさは、ふつう", () => {
-    assert.deepEqual(DEFAULT_SETTINGS, { showExplanation: false, weakBoost: "normal" });
-    assert.deepEqual(loadSettings(fakeBackend()), { showExplanation: false, weakBoost: "normal" });
+    assert.deepEqual(DEFAULT_SETTINGS, {
+      showExplanation: false,
+      weakBoost: "normal",
+      inputStyle: "standard",
+    });
+    assert.deepEqual(loadSettings(fakeBackend()), {
+      showExplanation: false,
+      weakBoost: "normal",
+      inputStyle: "standard",
+    });
   });
 
   it("保存して、読める。記録のキーとは、別のキー", () => {
     const backend = fakeBackend();
     assert.equal(saveSettings(backend, { showExplanation: true }), true);
-    assert.deepEqual(loadSettings(backend), { showExplanation: true, weakBoost: "normal" });
+    assert.deepEqual(loadSettings(backend), {
+      showExplanation: true,
+      weakBoost: "normal",
+      inputStyle: "standard",
+    });
     assert.notEqual(SETTINGS_KEY, STORAGE_KEY);
     assert.deepEqual([...backend.map.keys()], [SETTINGS_KEY]);
   });
@@ -229,18 +241,23 @@ describe("ゲームの設定", () => {
     ]) {
       assert.deepEqual(
         loadSettings(fakeBackend({ [SETTINGS_KEY]: raw })),
-        { showExplanation: false, weakBoost: "normal" },
+        { showExplanation: false, weakBoost: "normal", inputStyle: "standard" },
         raw,
       );
     }
     assert.deepEqual(normalizeSettings({ showExplanation: true, evil: "<script>" }), {
       showExplanation: true,
       weakBoost: "normal",
+      inputStyle: "standard",
     });
   });
 
   it("保存できない環境(backend なし・読み書きで例外)でも、落ちない", () => {
-    assert.deepEqual(loadSettings(null), { showExplanation: false, weakBoost: "normal" });
+    assert.deepEqual(loadSettings(null), {
+      showExplanation: false,
+      weakBoost: "normal",
+      inputStyle: "standard",
+    });
     assert.equal(saveSettings(null, { showExplanation: true }), false);
     const throwing = {
       getItem() {
@@ -250,15 +267,26 @@ describe("ゲームの設定", () => {
         throw new Error("quota");
       },
     };
-    assert.deepEqual(loadSettings(throwing), { showExplanation: false, weakBoost: "normal" });
+    assert.deepEqual(loadSettings(throwing), {
+      showExplanation: false,
+      weakBoost: "normal",
+      inputStyle: "standard",
+    });
     assert.equal(saveSettings(throwing, { showExplanation: true }), false);
   });
 
   it("苦手な語の出やすさ: off・normal・high だけ。ほかは、既定(ふつう)に戻す。説明の設定と、独立", () => {
     for (const level of ["off", "normal", "high"]) {
       const backend = fakeBackend();
-      assert.equal(saveSettings(backend, { showExplanation: true, weakBoost: level }), true);
-      assert.deepEqual(loadSettings(backend), { showExplanation: true, weakBoost: level });
+      assert.equal(
+        saveSettings(backend, { showExplanation: true, weakBoost: level, inputStyle: "standard" }),
+        true,
+      );
+      assert.deepEqual(loadSettings(backend), {
+        showExplanation: true,
+        weakBoost: level,
+        inputStyle: "standard",
+      });
     }
     for (const bad of ["", "OFF", "low", "__proto__", "constructor", 1, null, true, [], {}]) {
       assert.equal(normalizeSettings({ weakBoost: bad }).weakBoost, "normal", String(bad));
@@ -267,7 +295,42 @@ describe("ゲームの設定", () => {
     assert.deepEqual(loadSettings(fakeBackend({ [SETTINGS_KEY]: '{"showExplanation":true}' })), {
       showExplanation: true,
       weakBoost: "normal",
+      inputStyle: "standard",
     });
+  });
+
+  it("ローマ字の書き方: standard・kunrei・strict だけ。ほかは、既定(標準)に戻す。ほかの設定と、独立", () => {
+    for (const name of ["standard", "kunrei", "strict"]) {
+      const backend = fakeBackend();
+      assert.equal(
+        saveSettings(backend, { showExplanation: true, weakBoost: "high", inputStyle: name }),
+        true,
+      );
+      assert.deepEqual(loadSettings(backend), {
+        showExplanation: true,
+        weakBoost: "high",
+        inputStyle: name,
+      });
+    }
+    for (const bad of [
+      "",
+      "STRICT",
+      "hepburn",
+      "__proto__",
+      "constructor",
+      1,
+      null,
+      true,
+      [],
+      {},
+    ]) {
+      assert.equal(normalizeSettings({ inputStyle: bad }).inputStyle, "standard", String(bad));
+    }
+    // 以前に保存された設定(inputStyle がない)は、ほかの設定を保ったまま、既定を補う
+    assert.deepEqual(
+      loadSettings(fakeBackend({ [SETTINGS_KEY]: '{"showExplanation":true,"weakBoost":"off"}' })),
+      { showExplanation: true, weakBoost: "off", inputStyle: "standard" },
+    );
   });
 
   it("記録(nolito:escape-boss:v1)には、触れない", () => {

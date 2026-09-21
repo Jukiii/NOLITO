@@ -268,7 +268,11 @@ describe("苦手な語の出やすさ(Phase 13 PR 1)", () => {
     assert.match(html, /id="weak-boost"[^>]*data-weak-boost/);
     assert.match(html, /aria-describedby="weak-boost-hint"/);
     assert.match(html, /id="weak-boost-hint"/);
-    const values = [...html.matchAll(/<option value="([a-z]+)">/g)].map((match) => match[1]);
+    const select = html.slice(
+      html.indexOf("data-weak-boost"),
+      html.indexOf("</select>", html.indexOf("data-weak-boost")),
+    );
+    const values = [...select.matchAll(/<option value="([a-z]+)">/g)].map((match) => match[1]);
     assert.deepEqual(values, ["off", "normal", "high"]);
     assert.match(weak, /off: Object\.freeze/);
     assert.match(weak, /normal: Object\.freeze/);
@@ -299,5 +303,66 @@ describe("苦手な語の出やすさ(Phase 13 PR 1)", () => {
     assert.match(handler, /saveSettings\(backend, settings\)/);
     assert.ok(!/store\.(update|save)|recordResult/.test(handler));
     assert.ok(!/localStorage|document|window/.test(weak.replace(/\/\/.*$/gm, "")));
+  });
+});
+
+describe("入力方式(ローマ字の書き方。Phase 13 PR 2)", () => {
+  const inputStyle = read("public/assets/js/games/escape-boss/input-style.js");
+
+  it("設定の欄: ラベルと結びついた選択肢で、方式(standard・kunrei・strict)が、コードと同じ", () => {
+    assert.match(html, /<label for="input-style">ローマ字の書き方<\/label>/);
+    assert.match(html, /id="input-style"[^>]*data-input-style/);
+    assert.match(html, /aria-describedby="input-style-hint"/);
+    assert.match(html, /id="input-style-hint"/);
+    const start = html.indexOf("data-input-style\n");
+    const select = html.slice(start, html.indexOf("</select>", start));
+    const values = [...select.matchAll(/<option value="([a-z]+)">/g)].map((match) => match[1]);
+    assert.deepEqual(values, ["standard", "kunrei", "strict"]);
+    for (const name of values) assert.match(inputStyle, new RegExp(`${name}: Object\\.freeze`));
+  });
+
+  it("説明文に、3 つの方式の違いが書いてある", () => {
+    const hint = html.slice(
+      html.indexOf('id="input-style-hint"'),
+      html.indexOf("</p>", html.indexOf('id="input-style-hint"')),
+    );
+    for (const text of ["標準", "訓令式", "表示どおりだけ", "ミス"])
+      assert.ok(hint.includes(text), text);
+  });
+
+  it("欄は、連続タイピングでも用語確認でも、出す(隠さない)", () => {
+    const applyMode = view.slice(
+      view.indexOf("function applyMode"),
+      view.indexOf("function option"),
+    );
+    assert.ok(!applyMode.includes("data-input-style-option"));
+    assert.ok(html.includes("data-input-style-option"));
+  });
+
+  it("マッチャーは、設定の方式で作る(連続タイピング・用語確認・復習リストの共通の newMatcher)", () => {
+    assert.match(
+      main,
+      /const newMatcher = \(reading\) =>\s*createMatcher\(reading, matcherOptionsFor\(settings\.inputStyle\)\)/,
+    );
+    // 語ごとのマッチャー作成は、すべて newMatcher(標準の長さを数える 1 か所だけが、createMatcher)
+    const direct = [...main.matchAll(/createMatcher\(/g)].length;
+    assert.equal(
+      direct,
+      2,
+      "createMatcher の直接の呼び出しは、newMatcher の中と、標準の長さの 1 か所だけ",
+    );
+    assert.equal([...main.matchAll(/newMatcher\(/g)].length, 4);
+  });
+
+  it("距離の「文字数の分」は、書き方に関係なく、標準の書き方の長さで数える", () => {
+    assert.match(main, /const charCount = createMatcher\(word\.reading\)\.canonicalLength;/);
+    assert.ok(!/session\.matcher\.canonicalLength/.test(main));
+  });
+
+  it("設定の保存は、settings.js の saveSettings だけ(記録には触れない)", () => {
+    const handler = main.slice(main.indexOf("onInputStyleChange"), main.indexOf("onCheckRetry"));
+    assert.match(handler, /saveSettings\(backend, settings\)/);
+    assert.ok(!/store\.(update|save)|recordResult/.test(handler));
+    assert.ok(!/localStorage|document|window/.test(inputStyle.replace(/\/\/.*$/gm, "")));
   });
 });

@@ -174,3 +174,9 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - **苦手な語の出やすさ**(`weak.js`。DOM・保存に依存しない純粋な関数): 直近 20 プレイ(復習リストと同じ範囲・同じ数え方 `totalWordMisses`)の `wordMisses` から、ミスした語の重み(`1 + 強さ × min(ミス数, 上限)`)を作り、`pickWords` の `weights` に渡す。**新しく保存するものはない**。段階は なし / ふつう(最大 2 倍)/ 多め(最大 3 倍)で、既定は ふつう。設定は `settings.js`(`weakBoost`。記録とは別のキー)。連続タイピングだけで、用語確認には使わない。
 - 語録の `weak_detection.enabled` が `false` の語は、重みを付けない。**強さを上げるとクリア率が下がる**(苦手な語が多い人ほど)。強さ・上限を変えるときは、シミュレーションで影響を見て、決定ログに書く(0023)。
 - テストで、重みなしのとき、従来と同じ出題(同じ乱数で同じ結果)であることを検査している。バランスのテスト(`tests/balance.test.js`)は、重みなしの出題で、階段を確認する。
+
+### 入力方式(Phase 13 PR 2)
+
+- 設定「ローマ字の書き方」(`input-style.js`。`settings.js` の `inputStyle`): **標準**(ヘボン式で表示。ほかの書き方も受け付ける。既定)/ **訓令式で表示** / **表示どおりだけ**(ほかの書き方は、ミス)。決定は `docs/decisions/0024-phase-13-input-style.md`。連続タイピングにも用語確認にも効く。
+- 受け付ける書き方は `createMatcher(読み, { style, strict })`(`romaji.js`)。**表示する(先頭の)書き方と、受け付ける範囲は別**。標準・訓令式は、si/shi・n/nn・xtu・小さい文字を分けて打つ書き方(kixya など)も受け付ける。語録の `romaji` の全候補が、標準・訓令式で入力できることを、テストが検査する。
+- **距離の「文字数の分」は、設定に関係なく、標準の長さ**(`main.js` の `createMatcher(word.reading).canonicalLength`)。`session.matcher.canonicalLength` を使わない(訓令式・表示どおりで、距離が変わるため)。マッチャーは、必ず `newMatcher`(設定の方式)で作る(`tests/game-page.test.js` が検査)。

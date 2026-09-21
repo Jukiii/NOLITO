@@ -88,6 +88,25 @@
                 直近20プレイでミスした語が、出やすくなります。同じゲームの中で、同じ語は出ません。
               </p>
             </div>
+            <div class="game-setup__option game-setup__option--field" data-input-style-option>
+              <label for="input-style">ローマ字の書き方</label>
+              <select
+                class="game-input__field"
+                id="input-style"
+                aria-describedby="input-style-hint"
+                data-input-style
+              >
+                <option value="standard">標準(ヘボン式で表示)</option>
+                <option value="kunrei">訓令式で表示</option>
+                <option value="strict">表示どおりだけ</option>
+              </select>
+              <p class="game-setup__hint" id="input-style-hint">
+                標準: shi・chi・tsu などで表示します。si・ti・tu
+                など、ほかの書き方でも入力できます。 訓令式: si・ti・tu
+                などで表示します。ほかの書き方でも入力できます。 表示どおりだけ:
+                表示された書き方以外は、ミスになります。
+              </p>
+            </div>
             <button class="button button--primary" type="submit" data-start disabled>
               スタート
             </button>

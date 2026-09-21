@@ -38,6 +38,15 @@ const COMBO_ROWS = `
 てぃ=thi でぃ=dhi うぃ=wi うぇ=we
 `;
 
+// 訓令式で表示するときに、先頭(画面に出す表記)にする書き方。ほかの書き方も、受け付ける
+const KUNREI_BASIC = { し: "si", ち: "ti", つ: "tu", ふ: "hu", じ: "zi" };
+const KUNREI_YOON = { し: "sy", じ: "zy", ち: "ty" };
+const KUNREI_COMBO = { しぇ: "sye", じぇ: "zye", ちぇ: "tye" };
+
+// alts のうち first を先頭に動かす(なければ、そのまま)。元の配列は、変えない
+const prefer = (alts, first) =>
+  first && alts.includes(first) ? [first, ...alts.filter((alt) => alt !== first)] : alts;
+
 function parseRows(rows) {
   const table = new Map();
   for (const entry of rows.split(/\s+/).filter(Boolean)) {
@@ -54,8 +63,17 @@ const COMBO = parseRows(COMBO_ROWS);
 const toHiragana = (text) =>
   text.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
 
+// 「かな + 小さいかな」を、かなと小さいかなに分けて打つ書き方(kixya・fuxa など)。小さい文字を単独で打つ表記(x・l)を使う
+function splitAlts(baseAlts, small) {
+  const smallAlts = BASIC.get(small) ?? [];
+  return baseAlts.flatMap((base) => smallAlts.map((alt) => base + alt));
+}
+
 // 読みを「かな単位」に分ける。っ・ん は後段で前後の文字を見て解決する。
-function tokenize(reading) {
+// style が "kunrei" なら、し・ち・つ・ふ・じ・拗音を、訓令式(si・ti・tu・hu・zi・sya…)で先頭に表示する。
+function tokenize(reading, style = "hepburn") {
+  const kunrei = style === "kunrei";
+  const basic = (ch) => prefer(BASIC.get(ch), kunrei ? KUNREI_BASIC[ch] : undefined);
   const chars = [...toHiragana(reading).replace(/\s+/g, "")];
   const tokens = [];
   for (let i = 0; i < chars.length; i++) {
@@ -66,14 +84,22 @@ function tokenize(reading) {
     } else if (ch === "ん") {
       tokens.push({ type: "n" });
     } else if (COMBO.has(pair)) {
-      tokens.push({ type: "kana", alts: COMBO.get(pair) });
+      const direct = prefer(COMBO.get(pair), kunrei ? KUNREI_COMBO[pair] : undefined);
+      tokens.push({ type: "kana", alts: [...direct, ...splitAlts(basic(ch), chars[i + 1])] });
       i++;
     } else if (YOON.has(ch) && chars[i + 1] in SMALL_Y) {
       const vowel = SMALL_Y[chars[i + 1]];
-      tokens.push({ type: "kana", alts: YOON.get(ch).map((consonant) => consonant + vowel) });
+      const consonants = prefer(YOON.get(ch), kunrei ? KUNREI_YOON[ch] : undefined);
+      tokens.push({
+        type: "kana",
+        alts: [
+          ...consonants.map((consonant) => consonant + vowel),
+          ...splitAlts(basic(ch), chars[i + 1]),
+        ],
+      });
       i++;
     } else if (BASIC.has(ch)) {
-      tokens.push({ type: "kana", alts: BASIC.get(ch) });
+      tokens.push({ type: "kana", alts: basic(ch) });
     } else {
       throw new Error(`ローマ字に変換できない文字です: "${ch}" (読み: ${reading})`);
     }
@@ -123,10 +149,16 @@ function resolve(tokens) {
 /**
  * 読みからマッチャーを作る。
  * input(char) は "ok"(途中まで正しい) / "miss"(不一致。状態は変わらない) / "done"(打ち終わり) を返す。
+ * options:
+ *   style  … 画面に表示する書き方。"hepburn"(既定。shi・chi・tsu・sha…)か "kunrei"(si・ti・tu・sya…)。知らない値は hepburn
+ *   strict … true なら、表示した書き方だけを受け付ける(ほかの書き方は、miss)。false なら、ほかの書き方も受け付ける
  */
-export function createMatcher(reading) {
-  const units = resolve(tokenize(reading));
-  if (units.length === 0) throw new Error("読みが空です");
+export function createMatcher(reading, { style = "hepburn", strict = false } = {}) {
+  const resolved = resolve(tokenize(reading, style === "kunrei" ? "kunrei" : "hepburn"));
+  if (resolved.length === 0) throw new Error("読みが空です");
+  // 表示のとおりだけを受け付けるときは、各単位の先頭(標準の)表記だけにする
+  const units =
+    strict === true ? resolved.map((unit) => ({ ...unit, alts: [unit.alts[0]] })) : resolved;
 
   const canonical = units.map((unit) => unit.alts[0]).join("");
   // 状態は「何番目の単位で、その単位を何文字まで打ったか」の集合(複数の表記が同時に生きているため)
