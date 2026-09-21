@@ -169,6 +169,32 @@
   font-weight: var(--font-weight-bold);
 }
 
+/* 特殊ルールの合図(ダッシュ注意・ダッシュ中・ミスで加速中・追い詰め中)。文字と枠で伝える(色だけに頼らない) */
+.gauge__cues {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-left: var(--space-2);
+  vertical-align: middle;
+}
+
+.gauge__cue {
+  padding: 0 var(--space-3);
+  background: var(--color-soft);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+/* 実際に速くなっている間(ダッシュ中・ミスで加速中・追い詰め中)は、実線の枠。予告(ダッシュ注意)は、破線 */
+.gauge__cue[data-cue="surge"],
+.gauge__cue[data-cue="shock"],
+.gauge__cue[data-cue="closing"] {
+  border-style: solid;
+}
+
 .game-word {
   padding: var(--space-8) var(--space-4);
   background: var(--color-surface);
@@ -833,6 +859,79 @@
   100% {
     transform: rotate(-4deg) translateY(0.3rem);
   }
+}
+
+/* 特殊ルールの見せ場(場面の飾り。data-cues に、合図が入る)。
+   ダッシュ注意 = 追ってくる人の頭に「!」/ ダッシュ中・ミスで加速中 = 速さの線が流れ、追ってくる人が大きくなる /
+   追い詰め中 = 追ってくる人が、少し大きくなる。文字での合図は、ゲージの横(.gauge__cue) */
+.scene__speed {
+  position: absolute;
+  inset: 0 0 1.2rem;
+  display: none;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, transparent, var(--color-text-muted)),
+    linear-gradient(90deg, transparent, var(--color-text-muted)),
+    linear-gradient(90deg, transparent, var(--color-text-muted));
+  background-repeat: repeat-x;
+  background-size: 5rem 0.125rem;
+  background-position:
+    0 30%,
+    2rem 52%,
+    1rem 74%;
+}
+
+.scene[data-cues~="surge"] .scene__speed,
+.scene[data-cues~="shock"] .scene__speed {
+  display: block;
+  animation: scene-speed 0.3s linear infinite;
+}
+
+@keyframes scene-speed {
+  to {
+    background-position:
+      -5rem 30%,
+      -3rem 52%,
+      -4rem 74%;
+  }
+}
+
+.scene__alert {
+  position: absolute;
+  top: -0.25rem;
+  right: 0;
+  display: none;
+  min-width: 1.5rem;
+  padding: 0 var(--space-2);
+  background: var(--color-accent);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-on-accent);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.scene[data-cues~="surge-warn"] .scene__alert {
+  display: block;
+  animation: scene-alert 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes scene-alert {
+  to {
+    transform: scale(1.25);
+  }
+}
+
+/* 追ってくる人の大きさは、動き(transform のアニメーション)と、重ねられるよう、scale で変える */
+.scene[data-cues~="closing"] .scene__chaser-img {
+  scale: 1.06;
+}
+
+.scene[data-cues~="surge"] .scene__chaser-img,
+.scene[data-cues~="shock"] .scene__chaser-img {
+  scale: 1.12;
 }
 
 /* 動きを減らす設定: 動く飾り(煙・オーラの脈動)は、静止すると不自然なので、消す。位置と、危ないときの縁は、残る */
