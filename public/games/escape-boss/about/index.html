@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.14.0</dd>
+              <dd>v0.15.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -254,7 +254,16 @@
               <summary class="faq__question">画面の動きが、苦手です。動きを止められますか?</summary>
               <div class="faq__answer">
                 <p>
-                  お使いのパソコンやスマートフォンの「アニメーションを減らす」(Windows)・「視差効果を減らす」(iPhone・Mac)などの設定を、オンにしてください。追ってくる人の動き・煙・演出が止まります。追ってくる人の位置は、距離に応じて、これまでどおり変わるので、距離は、絵の位置と、上の距離ゲージで、わかります。
+                  お使いのパソコンやスマートフォンの「アニメーションを減らす」(Windows)・「視差効果を減らす」(iPhone・Mac)などの設定を、オンにしてください。追ってくる人の動き・煙・演出が止まります。開始と終わりの演出も、動かさず、文字だけを、短く出します。追ってくる人の位置は、距離に応じて、これまでどおり変わるので、距離は、絵の位置と、上の距離ゲージで、わかります。
+                </p>
+              </div>
+            </details>
+            <details class="faq__item">
+              <summary class="faq__question">開始や終わりの演出を、飛ばせますか?</summary>
+              <div class="faq__answer">
+                <p>
+                  演出が出ている間に、Enter・スペース・Esc
+                  のどれか、または、場面(追ってくる人の絵のところ)をクリック(タップ)すると、飛ばせます。文字のキーでは、飛ばしません。演出の間は、入力を受け付けず、時間も進みません。結果は、終わりの演出の前に、保存されます。
                 </p>
               </div>
             </details>
@@ -279,6 +288,30 @@
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.15.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-21">2026年9月21日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  開始の演出を追加(「よーい…」→「スタート!」。約 1.5
+                  秒)。演出の間は、時間が進まず、入力も受け付けない
+                </li>
+                <li>
+                  クリア・ゲームオーバーの演出を追加(「逃げ切った!」は、追ってくる人が遠ざかって紙吹雪、「つかまった…」は、追いつかれる。約
+                  1.2 秒)。結果は、演出の前に保存される
+                </li>
+                <li>
+                  開始・終わりの演出は、Enter・スペース・Esc・場面のクリックで飛ばせる。動きを減らす設定では、動かさず、文字だけを短く出す
+                </li>
+                <li>
+                  追ってくる人が、役職ごとのセリフを言うようにした(開始・危ないとき・ミス・クリア・ゲームオーバー)。結果の画面にも、最後のセリフが残る
+                </li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.14.0

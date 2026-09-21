@@ -1,5 +1,6 @@
 import { el } from "../../components/dom.js";
 import { reviewItem } from "./review-item.js";
+import { isSkipKey } from "./staging.js";
 import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
@@ -45,6 +46,19 @@ export function createView(root) {
 
   let missTimer = 0;
   let sceneTimer = 0;
+  let bubbleTimer = 0;
+  const banner = $("[data-banner]");
+  const bubble = $("[data-bubble]");
+
+  // 開始・終わりの演出(バナー)を、出している間か
+  const staging = () => !banner.hidden;
+  // 演出を消す(場面の演出・バナー・吹き出し)。画面が替わるたびに呼ぶ
+  function clearStaging() {
+    banner.hidden = true;
+    scene.dataset.stage = "";
+    clearTimeout(bubbleTimer);
+    bubble.hidden = true;
+  }
 
   input.addEventListener("focus", () => {
     $("[data-focus-hint]").hidden = true;
@@ -54,6 +68,7 @@ export function createView(root) {
   });
 
   function showView(name) {
+    clearStaging();
     for (const [key, section] of Object.entries(views)) section.hidden = key !== name;
   }
 
@@ -404,6 +419,43 @@ export function createView(root) {
       setText('[data-stat="miss"]', state.miss);
     },
 
+    // 開始・終わりの演出を出す(kind: intro / clear / over)。文字は、いつも textContent で入れる
+    showStaging(kind, text) {
+      // 一瞬の演出(ミス・正解)が残っていれば消す(終わりの演出を、最初から動かすため)
+      clearTimeout(sceneTimer);
+      scene.dataset.event = "";
+      scene.dataset.stage = kind;
+      $("[data-banner-text]").textContent = text;
+      banner.hidden = false;
+    },
+
+    clearStaging,
+
+    // 演出を飛ばす操作(場面のクリック・入力欄にフォーカスがあるときの Enter・スペース・Esc)。
+    // 演出を出している間だけ効く。文字のキーでは飛ばさない。ボタン・リンク・選択欄のキーは、奪わない
+    bindSkip(onSkip) {
+      scene.addEventListener("click", () => {
+        if (staging()) onSkip();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (!staging() || !isSkipKey(event.key)) return;
+        if (event.target !== input && event.target !== document.body) return;
+        event.preventDefault();
+        onSkip();
+      });
+    },
+
+    // 追ってくる人の吹き出し(飾り。場面の中なので、読み上げない)。ms たつと消える
+    showBubble(name, text, ms) {
+      $("[data-bubble-name]").textContent = name;
+      $("[data-bubble-text]").textContent = text;
+      bubble.hidden = false;
+      clearTimeout(bubbleTimer);
+      bubbleTimer = setTimeout(() => {
+        bubble.hidden = true;
+      }, ms);
+    },
+
     // 場面の一瞬の演出(miss = 追ってくる人が飛び出す / gain = 引き離す)。一定時間で、元に戻る
     pulseScene(kind) {
       if (!SCENE_EVENTS.includes(kind)) return;
@@ -477,6 +529,7 @@ export function createView(root) {
       notice,
       analysis,
       missed = [],
+      quote = "",
     }) {
       showView("result");
       renderAnalysis(analysis);
@@ -490,6 +543,10 @@ export function createView(root) {
           ? `${roleName}から逃げ切りました。ステージクリア!`
           : `${roleName}に追いつかれました。もう一度挑戦しよう。`,
       );
+      // 追ってくる人の最後のセリフ(演出で言ったもの)
+      const quoteNode = $("[data-result-quote]");
+      quoteNode.textContent = quote ? `${roleName}「${quote}」` : "";
+      quoteNode.hidden = !quote;
       setText("[data-result-score]", formatNumber(score));
       const rankBadge = $("[data-result-rank]");
       if (cleared) {
