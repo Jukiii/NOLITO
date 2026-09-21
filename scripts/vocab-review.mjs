@@ -1,13 +1,19 @@
 // 語録の確認シート(docs/vocabulary-review.md)を作る(運営者用)。
 //   npm run vocab:review            … 書き出す
 //   npm run vocab:review -- --check … 書き出さず、いまの語録と一致しているか検査する
-// 私の確認メモは、docs/vocabulary-review-notes.json。語録を変えたら、作り直す。
+// 元は、語録の原稿(content/vocabulary/*.md)。確認メモ(note)・確認の状況(review)・下書き(draft)も、原稿に書く。語録を変えたら、作り直す。
 import { writeFileSync } from "node:fs";
 import { reviewSheet } from "./lib/vocab-stats.mjs";
-import { loadNotes, loadVocabularies, paths, readSheet } from "./lib/vocab-io.mjs";
+import { loadSourceVocabularies, paths, readSheet } from "./lib/vocab-io.mjs";
 
 try {
-  const sheet = reviewSheet(loadVocabularies(), loadNotes());
+  const vocabularies = loadSourceVocabularies();
+  const notes = Object.fromEntries(
+    vocabularies.flatMap((data) =>
+      data.items.filter((item) => item.note).map((item) => [item.id, item.note]),
+    ),
+  );
+  const sheet = reviewSheet(vocabularies, notes);
   if (process.argv.includes("--check")) {
     if (readSheet() !== sheet) {
       console.error(

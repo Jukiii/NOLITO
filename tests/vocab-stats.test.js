@@ -13,10 +13,16 @@ import {
   readingUnits,
   reviewSheet,
 } from "../scripts/lib/vocab-stats.mjs";
-import { loadNotes, loadVocabularies, readSheet } from "../scripts/lib/vocab-io.mjs";
+import {
+  loadNotes,
+  loadSourceVocabularies,
+  loadVocabularies,
+  readSheet,
+} from "../scripts/lib/vocab-io.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const vocabularies = loadVocabularies();
+const source = loadSourceVocabularies();
 const notes = loadNotes();
 const roles = JSON.parse(readFileSync(`${root}public/data/roles.json`, "utf8"));
 const roleIds = (Array.isArray(roles) ? roles : roles.roles).map((role) => role.id);
@@ -256,11 +262,12 @@ describe("実際の語録", () => {
 });
 
 describe("確認シート", () => {
-  const sheet = reviewSheet(vocabularies, notes);
-  const total = vocabularies.reduce((sum, data) => sum + data.items.length, 0);
+  // 確認シートは、語録の原稿(下書き・確認の状況を含む)から作る
+  const sheet = reviewSheet(source, notes);
+  const total = source.reduce((sum, data) => sum + data.items.length, 0);
 
   it("すべての語が、1 回ずつ、載っている", () => {
-    for (const data of vocabularies) {
+    for (const data of source) {
       for (const word of data.items) {
         const rows = sheet.split("\n").filter((line) => line.startsWith(`| ${word.id} |`));
         assert.equal(rows.length, 1, word.id);
@@ -271,7 +278,7 @@ describe("確認シート", () => {
   });
 
   it("職種ごとの見出し・確認の観点・返信のしかたが、ある", () => {
-    for (const data of vocabularies)
+    for (const data of source)
       assert.ok(sheet.includes(`## ${data.job_name}(${data.job_id}`), data.job_id);
     for (const word of ["正確性", "表記", "難易度", "適切さ", "返信のしかた", "下書き"])
       assert.ok(sheet.includes(word), word);
@@ -292,8 +299,8 @@ describe("確認シート", () => {
     );
     const row = tricky.split("\n").find((line) => line.startsWith("| x-1 |"));
     assert.ok(row.includes("a\\|b。") && row.includes("縦\\|線") && row.includes("メモ\\|あり"));
-    // 行の区切りとして数えられる、打ち消していない | は、列の数(9 列 = 10 個)と一致する
-    assert.equal(row.replace(/\\\|/g, "").split("|").length - 1, 10);
+    // 行の区切りとして数えられる、打ち消していない | は、列の数(10 列 = 11 個)と一致する
+    assert.equal(row.replace(/\\\|/g, "").split("|").length - 1, 11);
   });
 
   it("docs/vocabulary-review.md は、いまの語録と一致している(語録を変えたら、npm run vocab:review)", () => {
@@ -301,7 +308,7 @@ describe("確認シート", () => {
   });
 
   it("確認メモの id は、実在する語で、空でなく、200 字以内", () => {
-    const ids = new Set(vocabularies.flatMap((data) => data.items.map((word) => word.id)));
+    const ids = new Set(source.flatMap((data) => data.items.map((word) => word.id)));
     assert.ok(Object.keys(notes).length >= 5);
     for (const [id, note] of Object.entries(notes)) {
       assert.ok(ids.has(id), `${id} は、語録にありません`);

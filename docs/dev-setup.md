@@ -117,6 +117,9 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 - 設定・運用は `docs/contact-setup.md`(D1 に `0003` の SQL、環境変数 `CONTACT_ENABLED=true`)。問い合わせは、`npm run inquiries`(手元で読む)。環境変数 `NOLITO_D1_DATABASE_ID` と `npx wrangler login` が、要る(`docs/backup.md` の準備と同じ)。
 - ローカルで動かすには、`npx wrangler pages dev public --binding SITE_ORIGIN=http://localhost:8788 SESSION_SECRET=<32文字以上> CONTACT_ENABLED=true --d1 DB=<ID>`(D1 は、`npx wrangler d1 migrations apply nolito --local`)。
 
-## 語録の確認(Phase 11)
+## 語録の追加・確認(Phase 11・14)
 
-- `npm run vocab:stats`(職種ごとの統計と点検)、`npm run vocab:review`(確認シート `docs/vocabulary-review.md` を作り直す。`-- --check` で、最新かを検査)。語録を変えたら、確認シートも、作り直す。
+- **語録の管理元は、`content/vocabulary/<職種ID>.md`**(Markdown の中の、```yaml で囲んだ YAML)。公開する `public/data/vocabulary/*.json` は、`npm run build:vocabulary` が生成する(**手で書き換えない**。生成物もコミットする。`npm run check` が、最新かを検査する)。形式は `docs/04_templates/vocabulary-template.md`。
+- 流れ: 語を足す(**`draft: true`**。下書きは公開されない)→ `npm run vocab:check`(形式・重複・ローマ字・難易度)→ AI チェック(`npm run vocab:check -- --for-ai` の出力を、AI に渡す。結果は参考)→ **人間の最終確認**(`npm run vocab:review` の確認シート)→ `draft` の行を消して、`review: confirmed` にする → `npm run build` と `npm run vocab:review`。
+- `npm run vocab:stats`(職種ごとの統計・点検・確認の状況)、`npm run vocab:review`(確認シート `docs/vocabulary-review.md` を作り直す。`-- --check` で、最新かを検査)。語録を変えたら、確認シートも、作り直す。
+- AI が書いた語は、必ず `draft: true` から始める(`docs/06_ai/vocabulary-generation-prompt.md`)。意味に自信がない点は、`note` に書く。
