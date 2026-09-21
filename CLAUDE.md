@@ -202,3 +202,11 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - **プレイ中の画面(入力欄のある画面)には、開閉の部品を置かない**(押すと入力欄のフォーカスが外れる)。語録の文字列は、`el()`(textContent 相当)だけで入れる。`detail` は、書いた語だけ、公開の JSON に入る(ない語には、項目を作らない)。
 - **CSS で使うトークン(`var(--…)`)は、`tokens.css` に定義されているものだけ**(`tests/game-page.test.js` が、未定義を検出する)。
 - 詳細説明のある語は、いまは 6 語(AI の下書きで、運営者の確認待ち)。増やすときは、0026 の流れ(下書き → 検証 → 人間の確認)を守る。
+
+## ゲーム画面の場面(Phase 15)
+
+- プレイ画面の並びは、上から **距離ゲージ → 場面(追ってくる人)→ 単語 → 入力欄**、サイドステータスは横(狭い画面では下)。決定は `docs/decisions/0028-phase-15-scene.md`。場面は飾り(`aria-hidden`)。距離は、ゲージ(`role="progressbar"`)が伝える。
+- **役職ごとの動き**は `roles.json` の `scene.motion`(`run`・`pedal`・`drive`・`glide`・`aura`。`scene.js` の `SCENE_MOTIONS`)。CSS は `.scene[data-motion="…"]`。**動きを足す・変えるときは、`scene.js`・CSS・テスト(`tests/scene.test.js`)をそろえる**。絵は、そのまま(描き直しは Phase 16)。
+- 追ってくる人は、外側の枠 `.scene__chaser`(位置 = `--closeness` から計算した `left`)と、中の絵 `.scene__chaser-img`(動き)に分ける。**位置は、動きを減らす設定でも、距離に応じて変わる**(この性質を変えない)。
+- 危ない(距離が 25% 以下)の判断は、`isDanger`(ゲージと場面で共通)。場面の一瞬の演出は、`view.pulseScene("miss" | "gain")` が `[data-event]` を 350ms だけ付ける。**色・明るさ・影を変えるアニメーションは、1 周 0.8 秒以上**(光の点滅を避ける。テストが検査する)。CSS の `@keyframes` は、名前が定義され、使われていること(テストが検査する)。
+- **ヘッドレスの Edge は、この環境では、既定で「動きを減らす」設定**。動きのブラウザ確認では、`page.emulateMediaFeatures` で `prefers-reduced-motion` を、明示する。

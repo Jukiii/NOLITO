@@ -112,15 +112,20 @@
   gap: var(--space-6);
 }
 
+/* 狭い画面では、余白を詰めて、単語と入力欄が、画面に収まりやすいようにする */
 .game-play__main {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
 @media (width >= 48rem) {
   .game-play {
     grid-template-columns: minmax(0, 1fr) 14rem;
     align-items: start;
+  }
+
+  .game-play__main {
+    gap: var(--space-6);
   }
 }
 
@@ -314,7 +319,8 @@
   font-size: var(--font-size-xs);
 }
 
-/* 追跡シーン: 追ってくる人が、距離が減るほど右のあなたに近づく */
+/* 追跡シーン: 追ってくる人が、距離が減るほど右のあなたに近づく。
+   位置(--closeness)は、動きの軽減設定でも、距離に応じて変わる。動き(役職ごとの [data-motion])は、装飾 */
 .scene {
   --closeness: 0;
 
@@ -324,8 +330,26 @@
   background: linear-gradient(var(--color-soft), var(--color-surface));
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
+  isolation: isolate;
 }
 
+/* 危ないとき(距離が 25% 以下)は、場面の縁を、ゲージと同じ黄色で、ゆっくり脈打たせる(動きを減らす設定では、脈打たず、縁だけが残る) */
+.scene.is-danger {
+  box-shadow: inset 0 0 0 0.25rem var(--color-accent);
+  animation: scene-danger 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes scene-danger {
+  from {
+    box-shadow: inset 0 0 0 0.15rem var(--color-accent);
+  }
+
+  to {
+    box-shadow: inset 0 0 0 0.4rem var(--color-accent);
+  }
+}
+
+/* 道の流れる速さは、近づくほど、速くなる */
 .scene__road {
   position: absolute;
   right: 0;
@@ -337,28 +361,118 @@
     var(--color-border) 0 1.5rem,
     transparent 1.5rem 3rem
   );
-  animation: scene-road 0.6s linear infinite;
+  animation: scene-road calc(0.9s - 0.5s * var(--closeness)) linear infinite;
 }
 
-.scene__chaser,
-.scene__player {
+/* 追ってくる人: 外側の枠(.scene__chaser)が位置を、中の絵(.scene__chaser-img)が動きを、受け持つ */
+.scene__chaser {
   position: absolute;
   bottom: 1.2rem;
-  animation: scene-bob 0.35s ease-in-out infinite alternate;
-}
-
-.scene__chaser {
   left: calc((100% - 6rem - 3.2rem - 1rem) * var(--closeness));
   width: 6rem;
-  height: auto;
   transition: left 0.1s linear;
 }
 
+.scene__chaser-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 100%;
+  animation: scene-bob 0.35s ease-in-out infinite alternate;
+}
+
 .scene__player {
+  position: absolute;
   right: 1rem;
+  bottom: 1.2rem;
   width: 3.2rem;
   height: auto;
-  animation-delay: -0.15s;
+  animation: scene-bob 0.35s ease-in-out -0.15s infinite alternate;
+}
+
+/* 役職ごとの動き(roles.json の scene.motion) */
+
+/* run: 走る(徒歩)。速い上下と、前かがみの揺れ */
+.scene[data-motion="run"] .scene__chaser-img {
+  animation: scene-run 0.28s ease-in-out infinite alternate;
+}
+
+/* pedal: こぐ(自転車)。左右に傾く */
+.scene[data-motion="pedal"] .scene__chaser-img {
+  animation: scene-pedal 0.55s ease-in-out infinite alternate;
+}
+
+/* drive: エンジンの細かい振動と、後ろに流れる煙(車) */
+.scene[data-motion="drive"] .scene__chaser-img {
+  animation: scene-drive 0.09s linear infinite alternate;
+}
+
+.scene[data-motion="drive"] .scene__chaser::after {
+  position: absolute;
+  bottom: 0.3rem;
+  left: -0.5rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: color-mix(in srgb, var(--color-text) 30%, transparent);
+  border-radius: 50%;
+  content: "";
+  animation: scene-smoke 0.8s ease-out infinite;
+}
+
+/* glide: ゆったり滑らかに進み、つやが光る(リムジン) */
+.scene[data-motion="glide"] .scene__chaser-img {
+  animation:
+    scene-glide 1.1s ease-in-out infinite alternate,
+    scene-gloss 2.4s ease-in-out infinite;
+}
+
+/* aura: 浮かんで、オーラをまとう(裏ボス) */
+.scene[data-motion="aura"] .scene__chaser-img {
+  animation: scene-hover 1.6s ease-in-out infinite alternate;
+}
+
+.scene[data-motion="aura"] .scene__chaser::before {
+  position: absolute;
+  z-index: -1;
+  inset: -35% -25% -15%;
+  background: radial-gradient(
+    circle at 50% 55%,
+    color-mix(in srgb, var(--color-primary) 55%, transparent),
+    transparent 70%
+  );
+  content: "";
+  animation: scene-aura 1.4s ease-in-out infinite alternate;
+}
+
+.scene[data-motion="aura"] .scene__chaser::after {
+  position: absolute;
+  right: 12%;
+  bottom: -0.55rem;
+  left: 12%;
+  height: 0.5rem;
+  background: color-mix(in srgb, var(--color-text) 30%, transparent);
+  border-radius: 50%;
+  content: "";
+  animation: scene-shadow 1.6s ease-in-out infinite alternate;
+}
+
+/* 一瞬の演出(main.js が [data-event] を、350ms だけ付ける)。
+   miss: 追ってくる人が、ぐっと飛び出し、あなたがのけぞる / gain: すっと引き離し、道が速く流れる */
+.scene[data-event="miss"] .scene__chaser {
+  animation: scene-lunge 0.32s ease-out;
+}
+
+.scene[data-event="miss"] .scene__player {
+  animation: scene-flinch 0.32s ease-out;
+}
+
+.scene[data-event="gain"] .scene__chaser {
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+}
+
+.scene[data-event="gain"] .scene__road {
+  animation-duration: 0.25s;
 }
 
 @keyframes scene-bob {
@@ -378,6 +492,138 @@
 
   to {
     background-position: -3rem 0;
+  }
+}
+
+@keyframes scene-run {
+  from {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+
+  to {
+    transform: translateY(-0.5rem) rotate(2deg);
+  }
+}
+
+@keyframes scene-pedal {
+  from {
+    transform: translateY(0) rotate(-4deg);
+  }
+
+  to {
+    transform: translateY(-0.2rem) rotate(4deg);
+  }
+}
+
+@keyframes scene-drive {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-0.1rem) rotate(0.3deg);
+  }
+}
+
+@keyframes scene-smoke {
+  from {
+    opacity: 0.7;
+    transform: translateX(0) scale(0.6);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-1.6rem) scale(1.4);
+  }
+}
+
+@keyframes scene-glide {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-0.25rem);
+  }
+}
+
+@keyframes scene-gloss {
+  0%,
+  70%,
+  100% {
+    filter: brightness(1);
+  }
+
+  85% {
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes scene-hover {
+  from {
+    transform: translateY(-0.9rem);
+  }
+
+  to {
+    transform: translateY(-0.5rem);
+  }
+}
+
+@keyframes scene-aura {
+  from {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes scene-shadow {
+  from {
+    transform: scaleX(0.8);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes scene-lunge {
+  0% {
+    transform: translateX(0);
+  }
+
+  35% {
+    transform: translateX(1rem);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scene-flinch {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(0.4rem);
+  }
+
+  55% {
+    transform: translateX(-0.25rem);
+  }
+}
+
+/* 動きを減らす設定: 動く飾り(煙・オーラの脈動)は、静止すると不自然なので、消す。位置と、危ないときの縁は、残る */
+@media (prefers-reduced-motion: reduce) {
+  .scene[data-motion="drive"] .scene__chaser::after {
+    display: none;
   }
 }
 
