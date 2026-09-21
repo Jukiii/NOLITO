@@ -35,6 +35,7 @@ describe("ゲームロジック", () => {
       streak: 0,
       bestStreak: 0,
       byDifficulty: {},
+      shockUntil: 0,
     });
   });
 

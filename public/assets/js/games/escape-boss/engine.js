@@ -2,6 +2,9 @@
 // stage は roles.json の stage(max_distance / initial_distance / drain_per_second /
 // base_gain / gain_per_char / miss_penalty / goal_words / difficulty_gain / speed_gain /
 // speed_min_cps / speed_max_cps)。難易度・速さの項目がない stage は、その分を 0 として扱う。
+// stage.rules(特殊ルール。rules.js)があれば、時間による距離の減り方に、倍率をかける。なければ、従来どおり。
+
+import { drainMultiplier, rulesOf, shockDuration } from "./rules.js";
 
 export function createGameState(stage) {
   return {
@@ -18,6 +21,8 @@ export function createGameState(stage) {
     bestStreak: 0,
     // 打ち終えた語の、難易度ごとの数({ "1": 3, "2": 5 } のように。打った語だけが入る)
     byDifficulty: {},
+    // 「ミスで加速」が終わるゲーム内の経過秒(0 = 働いていない)
+    shockUntil: 0,
   };
 }
 
@@ -28,17 +33,30 @@ function settle(state, stage) {
   return state;
 }
 
-// 時間経過。追跡者が近づくため距離が減る。
+// ルールで、減る速さが途中で変わるときの、時間の刻み(秒)。画面は 0.1 秒以下ずつ進めるので、それより細かく
+const SUBSTEP_SECONDS = 0.05;
+
+// 時間経過。追跡者が近づくため距離が減る。ルールがあれば、減る速さは、その間の倍率で変わる(刻みごとに計算)。
 export function tick(state, stage, seconds) {
   if (state.status !== "playing") return state;
-  return settle(
-    {
-      ...state,
-      distance: state.distance - stage.drain_per_second * seconds,
-      elapsed: state.elapsed + seconds,
-    },
-    stage,
-  );
+  if (!Number.isFinite(seconds) || seconds < 0) return state;
+  const rules = rulesOf(stage);
+  let distance = state.distance;
+  if (rules.length === 0) {
+    distance -= stage.drain_per_second * seconds;
+  } else {
+    const steps = Math.max(1, Math.ceil(seconds / SUBSTEP_SECONDS));
+    const dt = seconds / steps;
+    for (let i = 0; i < steps && distance > 0; i += 1) {
+      const multiplier = drainMultiplier(
+        rules,
+        { elapsed: state.elapsed + (i + 0.5) * dt, distance, shockUntil: state.shockUntil },
+        stage.max_distance,
+      );
+      distance -= stage.drain_per_second * multiplier * dt;
+    }
+  }
+  return settle({ ...state, distance, elapsed: state.elapsed + seconds }, stage);
 }
 
 // 語の難易度の範囲(語録の決め。0006)。範囲の外の値は、範囲に収める
@@ -131,6 +149,8 @@ export function applyHit(state) {
 export function applyMiss(state, stage) {
   if (state.status !== "playing") return state;
   // ミスした時点で、連続は途切れる(その語を打ち終えても、連続には数えない)
+  // 「ミスで加速」があれば、ミスした瞬間から、その時間の間、加速する(続けてミスすると、そのたびに延びる)
+  const shock = shockDuration(rulesOf(stage));
   return settle(
     {
       ...state,
@@ -138,6 +158,7 @@ export function applyMiss(state, stage) {
       miss: state.miss + 1,
       wordMissed: true,
       streak: 0,
+      shockUntil: shock > 0 ? Math.max(state.shockUntil, state.elapsed + shock) : state.shockUntil,
     },
     stage,
   );
