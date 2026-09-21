@@ -1,12 +1,19 @@
 // 語録の統計と点検を表示する(運営者用)。
 //   npm run vocab:stats            … 職種ごとの統計と、点検の結果(警告)
 // 直さないといけないもの(エラー)があると、終了コード 1。警告だけなら、0。
-import { findIssues, formatStats } from "./lib/vocab-stats.mjs";
-import { loadVocabularies } from "./lib/vocab-io.mjs";
+import { findIssues, formatStats, publishedOf, reviewCounts } from "./lib/vocab-stats.mjs";
+import { loadSourceVocabularies } from "./lib/vocab-io.mjs";
 
 try {
-  const vocabularies = loadVocabularies();
+  // 統計・点検は、公開する語で行う(下書きは、除く)。確認の状況は、原稿から数える
+  const source = loadSourceVocabularies();
+  const vocabularies = publishedOf(source);
   console.log(formatStats(vocabularies));
+  const counts = reviewCounts(source);
+  console.log(
+    `
+人間の確認: 確認済み ${counts.confirmed} 語 / 未確認 ${counts.pending} 語(公開 ${counts.published} 語)。下書き ${counts.draft} 語(公開しません)`,
+  );
   const { errors, warnings } = findIssues(vocabularies);
   if (warnings.length > 0) {
     console.log(`\n警告(直したほうがよい点): ${warnings.length} 件`);

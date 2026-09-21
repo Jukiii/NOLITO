@@ -29,7 +29,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 記録(結果・ランキング・実績・プロフィール)は LocalStorage の `nolito:escape-boss:v1` に保存する(`storage.js` `records.js`)。保存形式を変えるときは `DATA_VERSION` を上げて、`normalizeData` で**古いバージョンを読める**ようにする(既存の記録を消さない。移行前の元データは退避し、移行のテストを書く)。キー名の `v1` は変えない。
 - 打鍵の集計(`keystats.js`)・成績の集計(`stats.js`)・グラフ(`chart.js`)は DOM に依存しない純粋な計算と描画を分ける。グラフを作る・変えるときは `dataviz` スキルの指針に従う(単位の違う指標は重ねない、値の表を併記、色だけに頼らない、ホバー領域は24px以上)。成績ページは `stats-page.js`。表示する文字列は必ず `textContent`(ニックネームなどは利用者が書き換えられる)。
 - 役職(`roles.json`)・実績(`achievements.json`)はデータで定義する。役職は進むほど難しくなること(初期距離は減り、減少速度・倍率は上がる)をテストで検証している。
-- ゲームのデータは `public/data/`(`jobs.json` `roles.json` `vocabulary/<職種ID>.json`)。バランス値は `roles.json` の `stage`。語録を追加・変更したら `npm run test` で形式と入力可否が検証される。語録はAIの下書きを人間が確認してから公開する。
+- ゲームのデータは `public/data/`(`jobs.json` `roles.json` `vocabulary/<職種ID>.json`)。バランス値は `roles.json` の `stage`。**語録の JSON は、原稿 `content/vocabulary/<職種ID>.md` から `npm run build:vocabulary` が生成する(手で書き換えない。生成物もコミットする。下の「語録の原稿(Phase 14)」)**。語録を追加・変更したら `npm run check` で形式と入力可否が検証される。語録はAIの下書きを人間が確認してから公開する。
 - 語録は職種ごと30語(計180語。決定ログ 0021)。**語の id は、消さない・つけ替えない**(記録・復習リストが id で語を引く)。難易度は**読みの長さの決め**(単位数 ≤3 → 1、4〜5 → 2、≥6 → 3。小さい ゃゅょぁぃぅぇぉ は前の字と合わせて 1)で、`npm run vocab:stats` の警告が 0 であることを、テストが検査する。語を足す・変えたら `npm run vocab:review` で確認シートを作り直し、語の長さが変わって、クリア率が動きそうなときは、シミュレーションで `roles.json` を見直す(0006・0021)。
 - `/styleguide/` は共通コンポーネントの確認用(noindex)。コンポーネントを追加・変更したらここも更新する。
 
@@ -141,7 +141,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## 語録の確認(Phase 11)
 
-- 語録(`public/data/vocabulary/*.json`)は、AI の下書き。**人間の確認を受けてから、増やす・直す**。確認は `docs/vocabulary-review.md`(`npm run vocab:review` で**生成**する。手で書き換えない。語録を変えたら、作り直す。最新かはテストが検査する)。私の確認メモは `docs/vocabulary-review-notes.json`。
+- 語録は、AI の下書き。**人間の確認を受けてから、増やす・直す**。確認は `docs/vocabulary-review.md`(`npm run vocab:review` で、**原稿から生成**する。手で書き換えない。語録を変えたら、作り直す。最新かはテストが検査する)。私の確認メモは、原稿の各語の `note`(Phase 14 から。以前の `docs/vocabulary-review-notes.json` は、原稿に移した)。
 - `npm run vocab:stats` で、職種ごとの語数・難易度・カテゴリと、点検(警告)を見る。エラー(重複)は直す。警告は、増やさない(テストが検査する)。難易度は、読みの単位数の決め(0006・0018)に合わせる。
 - 説明は、一般に確立した意味だけ。会社・地域・ツールで違うもの、法律上の定義と厳密には違うものは、確認メモに書いて、運営者に見てもらう。意味を推測で作らない。
 - 語録のデータを変えたら、`roles.json` のバランス(クリア率)を、シミュレーションで再確認する(0006 の方法)。語録の版(`version`)と、ゲームの更新履歴(`products.json` の `changelog`)も更新する。決定は `docs/decisions/0018-vocabulary-review.md`。
@@ -186,3 +186,12 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 記録の版は **3**(`DATA_VERSION`。版 1・2 も読める)。各結果に `streak`(ミスなしで打ち終えた語の連続の最高)・`wordsByDifficulty`(難易度ごとの打ち終えた語数)がある。**以前のプレイは `null`(記録なし)で、0 とは区別する**。集計(`stats.js` の `summarizeDetails`・`difficultyBreakdown`)は、`null` を対象から除き、表示は「-」。0 として平均しない。決定は `docs/decisions/0025-phase-13-stats.md`。
 - 連続・難易度の集計は `engine.js`(`streak`・`bestStreak`・`byDifficulty`。**ミスした時点で連続は 0 に戻る**)。**スコアの式・ランキング・実績には入れない**(成績だけ)。
 - 版を上げたので、`storage.js` の移行(版 2 → 3 は `:backup-v2` に一度だけ退避。読み込んだだけでは書き換えない)を保つ。**次に記録の形を変えるときは、`DATA_VERSION` を 4 にして、`normalizeData` で版 1〜3 を読めるようにし、移行のテストを書く**。更新前のタブを開きっぱなしにしている利用者が、記録を「壊れている」と扱う既知のリスクがある(0005・0025)。
+
+## 語録の原稿(Phase 14)
+
+- **語録の管理元は Markdown**: `content/vocabulary/<職種ID>.md`(職種ごとに 1 ファイル。```yaml で囲んだ YAML を、ちょうど 1 つ持つ。形式は `docs/04_templates/vocabulary-template.md`)。公開の `public/data/vocabulary/*.json` は、**`npm run build:vocabulary` が生成する(手で書き換えない。生成物もコミットする。`npm run check` が最新かを検査する)**。`npm run build` は、記事・詳細ページ・語録の 3 つを作る。決定は `docs/decisions/0026-vocabulary-markdown.md`。
+- 読み取りは `scripts/lib/vocab-md.mjs`(記事と同じ `yaml` パッケージを、厳しい設定で使う。別名・型の指定・同じキーの重複は、エラー)、検証・正規化は `scripts/lib/vocab-validate.mjs`(DOM・ファイルに触れない。**将来の管理画面(Phase 26)も、同じ検証を使う**)、生成は `scripts/lib/vocab-build.mjs`。エラー(必須の欠け・型・長さ・重複・ローマ字が入力できない・説明が「。」で終わらない・関連用語が同じ職種にない・見えない文字)は、ビルドを失敗させる。この厳しさを、緩めない。
+- **下書き(`draft: true`)は、公開の JSON に入れない**。AI が書いた語は、必ず `draft: true` から始める。人間が確認したら、`draft` の行を消す。`review`(`pending` = 確認はまだ・`confirmed` = 済み)と `note`(確認してほしい点)は、原稿だけの項目で、公開の JSON には入れない。**人間の確認を、AI・私の判断で、済みにしない**(運営者が「OK」と言った語だけを、`confirmed` にする)。
+- `romaji` は、省略すると、読みから作る(標準の表記 + 訓令式の表記)。書くときは、先頭が画面に表示する書き方で、すべて入力できること。`id` は、消さない・つけ替えない。
+- `npm run vocab:check`(検証・確認の状況・確認メモ)・`npm run vocab:check -- --for-ai`(AI チェックに渡す文: 指示 + 機械の確認結果 + 下書きの語)・`npm run vocab:stats`・`npm run vocab:review`。AI の結果は、最終判断にしない(`docs/06_ai/`)。管理画面・AI の API との連携は、作らない(Phase 26・有料の AI に依存しない方針)。
+- **ソースに、見えない文字(BOM・向きを変える文字など)を、直接書かない**(文字コードから作る。`\p{Cc}` などの Unicode プロパティは、使ってよい)。

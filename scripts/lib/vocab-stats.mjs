@@ -100,6 +100,33 @@ export function findIssues(vocabularies) {
   return { errors, warnings };
 }
 
+/** 公開している語だけ(下書きを除いた語録)。原稿を渡すと、公開する語録になる。 */
+export const publishedOf = (vocabularies) =>
+  vocabularies.map((data) => ({
+    ...data,
+    items: data.items.filter((item) => item.draft !== true),
+  }));
+
+/**
+ * 人間の確認の状況。原稿の項目(review・draft を持つ)から数える。
+ *   published … 公開する語 / confirmed … 確認済み(公開する語のうち) / pending … 未確認(公開する語のうち)
+ *   draft … 下書き(公開しない語)
+ * review を持たない項目(公開の JSON の形)は、未確認に数える。
+ */
+export function reviewCounts(vocabularies) {
+  const counts = { published: 0, confirmed: 0, pending: 0, draft: 0 };
+  for (const data of vocabularies) {
+    for (const item of data.items) {
+      if (item.draft === true) counts.draft += 1;
+      else {
+        counts.published += 1;
+        counts[item.review === "confirmed" ? "confirmed" : "pending"] += 1;
+      }
+    }
+  }
+  return counts;
+}
+
 const pad = (text, width) => String(text).padEnd(width, " ");
 
 /** 端末に出す、統計の表。 */
@@ -121,17 +148,26 @@ const cell = (value) =>
     .replaceAll("|", "\\|")
     .replaceAll("\n", " ");
 
+// 確認の状況の表示(項目に review・draft がなければ、空欄)
+const statusOf = (item) => {
+  if (item.draft === true) return "下書き";
+  if (item.review === "confirmed") return "確認済み";
+  return item.review === "pending" ? "未確認" : "";
+};
+
 /**
  * 確認シート(Markdown)。人間が、語を1つずつ読んで確認するための表。
- * notes は { 語の id: 「確認してほしい点」 }(私の一次チェックのメモ)。
+ * vocabularies は、語録の原稿(下書き・review を含む)か、公開の語録。notes は { 語の id: 「確認してほしい点」 }。
  */
 export function reviewSheet(vocabularies, notes = {}) {
   const total = vocabularies.reduce((sum, data) => sum + data.items.length, 0);
-  const { warnings } = findIssues(vocabularies);
+  const published = publishedOf(vocabularies);
+  const { warnings } = findIssues(published);
+  const counts = reviewCounts(vocabularies);
   const lines = [
     "# 語録の確認シート",
     "",
-    "> このファイルは、`npm run vocab:review` が、語録(`public/data/vocabulary/*.json`)から作ります。**手で書き換えません**。確認のメモの元は、`docs/vocabulary-review-notes.json` です。",
+    "> このファイルは、`npm run vocab:review` が、語録の原稿(`content/vocabulary/*.md`)から作ります。**手で書き換えません**。確認の状況(`review`)・確認のメモ(`note`)・下書き(`draft`)は、原稿に書きます。",
     "",
     `語録は、AI(私)が書いた**下書き**です。公開する前に、人間の確認が要ります(\`docs/05_checklists/vocabulary-validation.md\`)。**全 ${total} 語**を、次の観点で確認してください。`,
     "",
@@ -146,24 +182,25 @@ export function reviewSheet(vocabularies, notes = {}) {
     "",
     "## 全体の点検",
     "",
-    `- 職種: ${vocabularies.length} 種類 / 語: ${total} 語`,
+    `- 職種: ${vocabularies.length} 種類 / 語: ${total} 語(公開 ${counts.published} 語・下書き ${counts.draft} 語)`,
+    `- 人間の確認: 確認済み ${counts.confirmed} 語 / 未確認 ${counts.pending} 語(公開している語のうち)`,
     `- 警告: ${warnings.length} 件${warnings.length === 0 ? "" : "(下の一覧。直したほうがよい点)"}`,
     "",
   ];
   if (warnings.length > 0) lines.push(...warnings.map((warning) => `  - ${warning}`), "");
 
-  lines.push("## 職種ごとの統計", "", "```", formatStats(vocabularies), "```", "");
+  lines.push("## 職種ごとの統計", "", "```", formatStats(published), "```", "");
 
   for (const data of vocabularies) {
     lines.push(
       `## ${data.job_name}(${data.job_id}。版 ${data.version}。${data.items.length} 語)`,
       "",
-      "| ID | 日本語 | 読み | ローマ字 | カテゴリ | 難易度 | 説明 | 関連する語 | 私の確認メモ |",
-      "| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |",
+      "| ID | 日本語 | 読み | ローマ字 | カテゴリ | 難易度 | 説明 | 関連する語 | 確認 | 私の確認メモ |",
+      "| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |",
     );
     for (const item of data.items) {
       lines.push(
-        `| ${cell(item.id)} | ${cell(item.japanese)} | ${cell(item.reading)} | ${cell(item.romaji.join(" / "))} | ${cell(item.category)} | ${item.difficulty} | ${cell(item.explanation)} | ${cell(item.related_terms.join("、"))} | ${cell(notes[item.id])} |`,
+        `| ${cell(item.id)} | ${cell(item.japanese)} | ${cell(item.reading)} | ${cell(item.romaji.join(" / "))} | ${cell(item.category)} | ${item.difficulty} | ${cell(item.explanation)} | ${cell(item.related_terms.join("、"))} | ${statusOf(item)} | ${cell(notes[item.id])} |`,
       );
     }
     lines.push("");
