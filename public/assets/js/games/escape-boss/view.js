@@ -237,6 +237,7 @@ export function createView(root) {
       onStart,
       onExplanationChange,
       onWeakBoostChange,
+      onInputStyleChange,
       onProfileChange,
       onRankingRoleChange,
       onRetry,
@@ -257,6 +258,9 @@ export function createView(root) {
       );
       $("[data-weak-boost]").addEventListener("change", (event) =>
         onWeakBoostChange(event.target.value),
+      );
+      $("[data-input-style]").addEventListener("change", (event) =>
+        onInputStyleChange(event.target.value),
       );
       $("[data-check-retry]").addEventListener("click", onCheckRetry);
       $("[data-check-back]").addEventListener("click", onBack);
@@ -325,6 +329,11 @@ export function createView(root) {
     // 「苦手な語の出やすさ」の選択(保存されていた設定を反映する)
     setWeakBoostSetting(level) {
       $("[data-weak-boost]").value = level;
+    },
+
+    // 「ローマ字の書き方」の選択(保存されていた設定を反映する)
+    setInputStyleSetting(name) {
+      $("[data-input-style]").value = name;
     },
 
     setNickname(nickname) {
