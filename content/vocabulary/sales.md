@@ -11,7 +11,7 @@
 ```yaml
 job_id: sales
 job_name: 営業
-version: 0.3.0
+version: 0.4.0
 updated_at: 2026-09-21
 items:
   - id: sales-001
@@ -141,11 +141,13 @@ items:
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: これまで取引のない相手に、新たに取引を働きかけること。
+    detail: これまで取引のなかった相手に、自社の商品やサービスを紹介して、新しい取引先を見つけることです。電話・訪問・紹介・問い合わせなど、方法はいろいろあります。相手のことを調べてから連絡すると、話を聞いてもらいやすくなります。
     related_terms: []
-    learning_points: []
+    learning_points: [連絡の前に、相手のことを調べる, 一度で決めようとせず、まず関係をつくる, 断られた理由を記録して、次に生かす]
     weak_detection:
       enabled: true
     review: pending
+    note: 詳細説明(detail)と学習ポイントを、新しく足しました(AI の下書き)。一般的な意味に合っているか、確認してください。
   - id: sales-011
     japanese: 見込み客
     reading: みこみきゃく

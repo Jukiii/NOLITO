@@ -654,6 +654,61 @@
   overflow-wrap: anywhere;
 }
 
+/* 関連する語・くわしく(難語の詳細説明・学習ポイント) */
+.review-item__related {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  overflow-wrap: anywhere;
+}
+
+.review-item__more {
+  margin-top: var(--space-2);
+}
+
+.review-item__more summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-size);
+  padding: 0 var(--space-1);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+/* 開閉の目印(▶ 閉じている・▼ 開いている)。文字の意味は、見出しの「くわしく」で伝わる(装飾) */
+.review-item__more summary::before {
+  margin-right: var(--space-2);
+  font-size: var(--font-size-xs);
+  content: "▶";
+}
+
+.review-item__more[open] summary::before {
+  content: "▼";
+}
+
+.review-item__detail {
+  margin: var(--space-2) 0 0;
+  overflow-wrap: anywhere;
+}
+
+.review-item__points {
+  margin-top: var(--space-3);
+}
+
+.review-item__points-title {
+  margin: 0 0 var(--space-1);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.review-item__points ul {
+  margin: 0;
+  padding-left: var(--space-6);
+  overflow-wrap: anywhere;
+}
+
 /* hidden 属性を、クラスの display より優先する(用語確認で隠す部品・出し入れする設定) */
 [data-chase-only][hidden],
 .game-setup__option[hidden],

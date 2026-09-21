@@ -299,8 +299,8 @@ describe("確認シート", () => {
     );
     const row = tricky.split("\n").find((line) => line.startsWith("| x-1 |"));
     assert.ok(row.includes("a\\|b。") && row.includes("縦\\|線") && row.includes("メモ\\|あり"));
-    // 行の区切りとして数えられる、打ち消していない | は、列の数(10 列 = 11 個)と一致する
-    assert.equal(row.replace(/\\\|/g, "").split("|").length - 1, 11);
+    // 行の区切りとして数えられる、打ち消していない | は、列の数(12 列 = 13 個)と一致する
+    assert.equal(row.replace(/\\\|/g, "").split("|").length - 1, 13);
   });
 
   it("docs/vocabulary-review.md は、いまの語録と一致している(語録を変えたら、npm run vocab:review)", () => {

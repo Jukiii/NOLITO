@@ -293,7 +293,7 @@ describe("そのほかの項目", () => {
   });
 
   it("未知の項目・必須の欠け・項目でない語は、エラー", () => {
-    assert.ok(has(errorsOf(file([item(1, { detail: "詳細" })])), '未知の項目 "detail"'));
+    assert.ok(has(errorsOf(file([item(1, { extra_field: "詳細" })])), '未知の項目 "extra_field"'));
     const missing = item(1);
     delete missing.explanation;
     assert.ok(has(errorsOf(file([missing])), "explanation は必須"));
@@ -415,7 +415,12 @@ describe("公開の形(toPublished)", () => {
     );
     const published = toPublished(data);
     assert.equal(published.items.length, 2);
-    for (const word of published.items) assert.deepEqual(Object.keys(word), PUBLISHED_KEYS);
+    for (const word of published.items) {
+      assert.deepEqual(
+        Object.keys(word),
+        PUBLISHED_KEYS.filter((key) => key !== "detail"),
+      );
+    }
     assert.deepEqual(Object.keys(published), [
       "job_id",
       "job_name",
@@ -424,5 +429,59 @@ describe("公開の形(toPublished)", () => {
       "items",
     ]);
     assert.ok(!JSON.stringify(published).includes("メモ"));
+  });
+});
+
+describe("詳細説明(detail。難語のための、少し長い説明)", () => {
+  const longEnough = `${"あ".repeat(LIMITS.detail - 1)}。`;
+
+  it("省略できる。書けば、正規化した項目に入る。書かない語には、項目を作らない", () => {
+    const { errors, data } = check(
+      file([item(1, { detail: "詳しい説明です。短文では足りない語のためのものです。" }), item(2)]),
+    );
+    assert.deepEqual(errors, []);
+    assert.equal(data.items[0].detail, "詳しい説明です。短文では足りない語のためのものです。");
+    assert.ok(!("detail" in data.items[1]));
+  });
+
+  it("300 字まで。「。」で終わる。空・文字列でない・改行・見えない文字は、エラー", () => {
+    assert.equal(LIMITS.detail, 300);
+    assert.deepEqual(errorsOf(file([item(1, { detail: longEnough })])), []);
+    assert.ok(has(errorsOf(file([item(1, { detail: `${longEnough}あ。` })])), "文字までです"));
+    assert.ok(has(errorsOf(file([item(1, { detail: "句点がない" })])), "「。」で終わる"));
+    assert.ok(has(errorsOf(file([item(1, { detail: "" })])), "detail"));
+    assert.ok(has(errorsOf(file([item(1, { detail: 123 })])), "detail は、文字列"));
+    assert.ok(has(errorsOf(file([item(1, { detail: null })])), "detail"));
+    assert.ok(has(errorsOf(file([item(1, { detail: "改行\nあり。" })])), "見えない文字"));
+    assert.ok(
+      has(
+        errorsOf(file([item(1, { detail: `向き${String.fromCodePoint(0x202e)}変え。` })])),
+        "見えない文字",
+      ),
+    );
+  });
+
+  it("公開の形には、あるときだけ入る。explanation の直後に置く", () => {
+    const { data } = check(file([item(1, { detail: "詳しい説明です。" }), item(2)]));
+    const published = toPublished(data);
+    const keys = (word) => Object.keys(word);
+    assert.deepEqual(keys(published.items[0]), PUBLISHED_KEYS);
+    assert.deepEqual(
+      keys(published.items[1]),
+      PUBLISHED_KEYS.filter((key) => key !== "detail"),
+    );
+    const order = keys(published.items[0]);
+    assert.equal(order.indexOf("detail"), order.indexOf("explanation") + 1);
+  });
+
+  it("下書きの語の詳細説明も、検証する。公開の JSON には入らない", () => {
+    const { errors, data } = check(
+      file([item(1), item(2, { draft: true, detail: "詳しい説明です。" })]),
+    );
+    assert.deepEqual(errors, []);
+    assert.equal(toPublished(data).items.length, 1);
+    assert.ok(
+      has(errorsOf(file([item(1, { draft: true, detail: "句点なし" })])), "「。」で終わる"),
+    );
   });
 });

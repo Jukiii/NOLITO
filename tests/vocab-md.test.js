@@ -230,3 +230,20 @@ describe("実際の原稿(content/vocabulary/*.md)", () => {
     }
   });
 });
+
+describe("詳細説明(detail)の書き出し", () => {
+  it("explanation の直後に書く。ない語には、行を作らない。読み取ると、同じ値に戻る", () => {
+    const data = sample();
+    data.items[1].detail = '詳しい説明: 引用符 " と # と [かっこ] を含む。';
+    const yaml = stringifyVocabularyYaml(data);
+    assert.equal(yaml.match(/detail: /g).length, 1);
+    const lines = yaml.split("\n");
+    const at = lines.findIndex((line) => line.startsWith("    detail: "));
+    assert.ok(lines[at - 1].startsWith("    explanation: "));
+    assert.ok(lines[at + 1].startsWith("    related_terms: "));
+    assert.equal(
+      parseVocabularyMarkdown(stringifyVocabularyMarkdown(data)).items[1].detail,
+      data.items[1].detail,
+    );
+  });
+});

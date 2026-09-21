@@ -115,6 +115,30 @@ for (const job of jobs) {
       assert.equal(new Set(words).size, words.length);
     });
 
+    it("詳細説明(detail)は、ある語だけ。「。」で終わる 300 字以内の 1 行で、短い説明(explanation)とは別", () => {
+      for (const item of vocabulary.items) {
+        if (!("detail" in item)) continue;
+        assert.equal(typeof item.detail, "string", item.id);
+        assert.ok(item.detail.trim() === item.detail && item.detail.endsWith("。"), item.id);
+        assert.ok(Array.from(item.detail).length <= 300 && !item.detail.includes("\n"), item.id);
+        assert.notEqual(item.detail, item.explanation, item.id);
+        // 短い説明は、80 字以内のまま(基本は短文)
+        assert.ok(Array.from(item.explanation).length <= 80, item.id);
+      }
+    });
+
+    it("学習ポイントは、文字列の一覧(5 個まで、各 60 字以内)", () => {
+      for (const item of vocabulary.items) {
+        assert.ok(Array.isArray(item.learning_points) && item.learning_points.length <= 5, item.id);
+        for (const point of item.learning_points) {
+          assert.ok(
+            typeof point === "string" && point.trim() && Array.from(point).length <= 60,
+            item.id,
+          );
+        }
+      }
+    });
+
     it("読みがローマ字入力エンジンで入力でき、宣言したローマ字候補がすべて受理される", () => {
       for (const item of vocabulary.items) {
         assert.doesNotThrow(() => createMatcher(item.reading), item.id);

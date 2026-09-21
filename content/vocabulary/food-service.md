@@ -11,7 +11,7 @@
 ```yaml
 job_id: food-service
 job_name: 飲食
-version: 0.3.0
+version: 0.4.0
 updated_at: 2026-09-21
 items:
   - id: food-service-001
@@ -392,11 +392,13 @@ items:
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 先に仕入れた物から先に使う、在庫の管理の方法。
+    detail: 先に入れた(仕入れた)物を、先に出して使う決まりです。新しく届いた物は奥や下に置き、古い物を手前に置きます。使い忘れて期限が切れてしまう無駄や、古い物が残り続けることを防げます。
     related_terms: [在庫, 仕入れ]
-    learning_points: []
+    learning_points: [新しく届いた物は、奥や下に置く, 入荷した日や期限を、見てわかるようにしておく, 食材だけでなく、包材や消耗品にも使える考え方]
     weak_detection:
       enabled: true
     review: pending
+    note: 詳細説明(detail)と学習ポイントを、新しく足しました(AI の下書き)。一般的な意味に合っているか、確認してください。
   - id: food-service-030
     japanese: 食品衛生
     reading: しょくひんえいせい

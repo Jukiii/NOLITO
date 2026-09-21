@@ -11,7 +11,7 @@
 ```yaml
 job_id: retail
 job_name: 接客販売
-version: 0.3.0
+version: 0.4.0
 updated_at: 2026-09-21
 items:
   - id: retail-001
@@ -152,11 +152,13 @@ items:
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 商品の在庫がどれだけあるかを調べること。
+    detail: 売り場やバックヤードにある商品の数を、実際に数えて確かめることです。記録上の数(システムや帳簿の数)と、実際の数が合っているかも見ます。ずれがあれば、数え間違い・記録の漏れ・破損や紛失などの原因を調べます。
     related_terms: [棚卸し]
-    learning_points: []
+    learning_points: [売り場と、バックヤードの両方を確認する, 記録の数と、実際の数を、見比べる, ずれがあれば、原因を調べて、記録を直す]
     weak_detection:
       enabled: true
     review: pending
+    note: 詳細説明(detail)と学習ポイントを、新しく足しました(AI の下書き)。一般的な意味に合っているか、確認してください。
   - id: retail-012
     japanese: 発注
     reading: はっちゅう

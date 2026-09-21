@@ -184,6 +184,7 @@ export function reviewSheet(vocabularies, notes = {}) {
     "",
     `- 職種: ${vocabularies.length} 種類 / 語: ${total} 語(公開 ${counts.published} 語・下書き ${counts.draft} 語)`,
     `- 人間の確認: 確認済み ${counts.confirmed} 語 / 未確認 ${counts.pending} 語(公開している語のうち)`,
+    `- 詳細説明のある語: ${vocabularies.reduce((sum, data) => sum + data.items.filter((item) => item.detail).length, 0)} 語(難語のための、少し長い説明。学習ポイント・関連する語と一緒に、ゲームの「くわしく」に出ます)`,
     `- 警告: ${warnings.length} 件${warnings.length === 0 ? "" : "(下の一覧。直したほうがよい点)"}`,
     "",
   ];
@@ -195,12 +196,12 @@ export function reviewSheet(vocabularies, notes = {}) {
     lines.push(
       `## ${data.job_name}(${data.job_id}。版 ${data.version}。${data.items.length} 語)`,
       "",
-      "| ID | 日本語 | 読み | ローマ字 | カテゴリ | 難易度 | 説明 | 関連する語 | 確認 | 私の確認メモ |",
-      "| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |",
+      "| ID | 日本語 | 読み | ローマ字 | カテゴリ | 難易度 | 説明 | 詳細説明 | 学習ポイント | 関連する語 | 確認 | 私の確認メモ |",
+      "| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |",
     );
     for (const item of data.items) {
       lines.push(
-        `| ${cell(item.id)} | ${cell(item.japanese)} | ${cell(item.reading)} | ${cell(item.romaji.join(" / "))} | ${cell(item.category)} | ${item.difficulty} | ${cell(item.explanation)} | ${cell(item.related_terms.join("、"))} | ${statusOf(item)} | ${cell(notes[item.id])} |`,
+        `| ${cell(item.id)} | ${cell(item.japanese)} | ${cell(item.reading)} | ${cell(item.romaji.join(" / "))} | ${cell(item.category)} | ${item.difficulty} | ${cell(item.explanation)} | ${cell(item.detail)} | ${cell((item.learning_points ?? []).join(" / "))} | ${cell(item.related_terms.join("、"))} | ${statusOf(item)} | ${cell(notes[item.id])} |`,
       );
     }
     lines.push("");
