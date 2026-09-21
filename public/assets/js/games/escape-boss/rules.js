@@ -81,7 +81,7 @@ export function surgePhase(rule, elapsed) {
 
 /** ミスで加速が、いま働いているか(shockUntil = 加速が終わる経過秒) */
 export const isShockActive = (elapsed, shockUntil) =>
-  Number.isFinite(elapsed) && Number.isFinite(shockUntil) && elapsed < shockUntil;
+  Number.isFinite(elapsed) && Number.isFinite(shockUntil) && shockUntil > 0 && elapsed < shockUntil;
 
 /** 追い詰めの倍率。距離の割合(distance ÷ 最大距離)が from 以上なら 1、0 で max。その間は、直線で増える */
 export function closingMultiplier(rule, ratio) {
@@ -112,6 +112,43 @@ export function drainMultiplier(rules, { elapsed, distance, shockUntil = 0 }, ma
 
 /** ミスで加速の長さ(秒)。ルールがなければ 0 */
 export const shockDuration = (rules) => rules.find((rule) => rule.type === "shock")?.duration ?? 0;
+
+// ---- プレイ中の表示(Phase 17 PR 2) ----
+// いま働いているルールを、画面に伝えるための「合図」。倍率の計算(drainMultiplier)と、同じ判断を使う。
+//   surge-warn … ダッシュの予告 / surge … ダッシュ中 / shock … ミスで加速中 / closing … 追い詰め中(距離が from を切っている間)
+
+export const CUE_ORDER = Object.freeze(["surge-warn", "surge", "shock", "closing"]);
+
+// 合図の文字(色・動きだけに頼らず、文字でも伝える)
+export const CUE_LABELS = Object.freeze({
+  "surge-warn": "ダッシュ注意!",
+  surge: "ダッシュ中!",
+  shock: "ミスで加速中!",
+  closing: "追い詰め中!",
+});
+
+/** 合図の文字。知らない合図は、空の文字(Object のもとからある名前も、通さない) */
+export const cueLabel = (token) => (Object.hasOwn(CUE_LABELS, token) ? CUE_LABELS[token] : "");
+
+/**
+ * いま働いている(または、これから働く)ルールの合図の一覧(CUE_ORDER の順。なければ空)。
+ * state は { elapsed, distance, shockUntil }、maxDistance は最大距離。
+ */
+export function activeCues(rules, { elapsed, distance, shockUntil = 0 }, maxDistance) {
+  const found = new Set();
+  for (const rule of rules ?? []) {
+    if (rule.type === "surge") {
+      const phase = surgePhase(rule, elapsed);
+      if (phase === "warn") found.add("surge-warn");
+      else if (phase === "active") found.add("surge");
+    } else if (rule.type === "shock") {
+      if (isShockActive(elapsed, shockUntil)) found.add("shock");
+    } else if (rule.type === "closing" && maxDistance > 0) {
+      if (closingMultiplier(rule, distance / maxDistance) > 1) found.add("closing");
+    }
+  }
+  return CUE_ORDER.filter((token) => found.has(token));
+}
 
 // 表示用の数(小数の 0 を、落とす)
 const num = (value) => String(Math.round(value * 100) / 100);

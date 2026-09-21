@@ -237,11 +237,13 @@
                 <p class="gauge__label">
                   逃走距離 <strong><span data-stat="distance">0</span>m</strong>
                   <span class="gauge__danger" data-danger hidden>あぶない!</span>
+                  <span class="gauge__cues" role="status" data-rule-cues></span>
                 </p>
               </div>
 
               <div class="scene" aria-hidden="true" data-scene data-motion="run" data-chase-only>
                 <div class="scene__road"></div>
+                <div class="scene__speed" data-speed></div>
                 <div class="scene__confetti" data-confetti></div>
                 <div class="scene__chaser">
                   <img
@@ -252,6 +254,7 @@
                     src="/assets/img/escape-boss/senpai.svg"
                     data-chaser
                   />
+                  <span class="scene__alert" data-alert>!</span>
                 </div>
                 <img
                   class="scene__player scene__player--calm"

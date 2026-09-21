@@ -146,7 +146,7 @@
       "max_distance": 100,
       "initial_distance": 50,
       "drain_per_second": 2.13,
-      "base_gain": 5.2,
+      "base_gain": 4.8,
       "gain_per_char": 0.6,
       "difficulty_gain": 1,
       "speed_gain": 3,
@@ -162,7 +162,7 @@
       "rules": [
         {
           "type": "closing",
-          "from": 0.5,
+          "from": 0.4,
           "max": 1.3
         }
       ]

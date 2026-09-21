@@ -353,7 +353,7 @@ describe("画面・main.js のつなぎ", () => {
   });
 
   it("view.js: 役職を選ぶたびに、説明を更新する。文字は el()(textContent)だけ。ルールがなければ、その旨", () => {
-    assert.match(view, /import \{ describeRules \} from "\.\/rules\.js";/);
+    assert.match(view, /import \{[^}]*describeRules[^}]*\} from "\.\/rules\.js";/);
     assert.match(
       view,
       /\$\("\[data-role-list\]"\)\.addEventListener\("change", updateRoleRules\);/,

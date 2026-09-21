@@ -1,6 +1,6 @@
 import { el } from "../../components/dom.js";
 import { reviewItem } from "./review-item.js";
-import { describeRules } from "./rules.js";
+import { activeCues, cueLabel, describeRules, rulesOf } from "./rules.js";
 import { isSkipKey } from "./staging.js";
 import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
 
@@ -48,6 +48,25 @@ export function createView(root) {
   let missTimer = 0;
   let sceneTimer = 0;
   let bubbleTimer = 0;
+  // ルールの合図(ダッシュ注意・ダッシュ中・ミスで加速中・追い詰め中)を、いま出している一覧
+  let cues = [];
+  const cueBox = $("[data-rule-cues]");
+  // 合図を、文字(ゲージの横。読み上げ対象)と、場面の見た目(data-cues。CSS)で出す。
+  // 変わらない合図の文字は、作り直さない(読み上げが、くり返されないように)
+  function renderCues(tokens) {
+    if (tokens.length === cues.length && tokens.every((token, i) => token === cues[i])) return;
+    cues = tokens;
+    scene.dataset.cues = tokens.join(" ");
+    const shown = new Map([...cueBox.children].map((node) => [node.dataset.cue, node]));
+    for (const [token, node] of shown) if (!tokens.includes(token)) node.remove();
+    // 順番(CUE_ORDER)どおりに置く。すでにあって、正しい位置にある文字は、動かさない
+    tokens.forEach((token, index) => {
+      const node =
+        shown.get(token) ?? el("span", { class: "gauge__cue", "data-cue": token }, cueLabel(token));
+      if (cueBox.children[index] !== node)
+        cueBox.insertBefore(node, cueBox.children[index] ?? null);
+    });
+  }
   const banner = $("[data-banner]");
   const bubble = $("[data-bubble]");
 
@@ -56,6 +75,7 @@ export function createView(root) {
   // 演出を消す(場面の演出・バナー・吹き出し)。画面が替わるたびに呼ぶ
   function clearStaging() {
     banner.hidden = true;
+    renderCues([]);
     scene.dataset.stage = "";
     clearTimeout(bubbleTimer);
     bubble.hidden = true;
@@ -469,6 +489,10 @@ export function createView(root) {
       setText('[data-stat="distance"]', distance);
       setText('[data-stat="correct"]', state.correct);
       setText('[data-stat="miss"]', state.miss);
+      // 特殊ルールの合図(遊んでいる間だけ。終わったら消す)
+      renderCues(
+        state.status === "playing" ? activeCues(rulesOf(stage), state, stage.max_distance) : [],
+      );
     },
 
     // 開始・終わりの演出を出す(kind: intro / clear / over)。文字は、いつも textContent で入れる
