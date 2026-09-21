@@ -5,19 +5,26 @@
 //   1: Phase 3。プロフィール・結果・ランキング・実績・進行状況
 //   2: Phase 4。各結果に、キーごとの集計(keys)・打ち間違いの組(confusions)・語ごとのミス数(wordMisses)を追加
 //      バージョン 1 のデータは、読み込み時に自動で 2 として扱う(追加項目は空)。移行前の元データは一度だけ退避する。
+//   3: Phase 13。各結果に、最大の連続ノーミス(streak)・難易度ごとの打ち終えた語数(wordsByDifficulty)を追加
+//      バージョン 1・2 のデータは、読み込み時に自動で 3 として扱う。追加項目は「記録なし」(null)で、
+//      連続・難易度の集計から除く(0 とは区別する)。移行前の元データ(バージョン 2)は、一度だけ退避する。
 //
 // 保存先のキー名の "v1" は、キーの名前。データの中の version とは別で、変えない(変えると既存の記録が読めなくなる)。
 import { CONFUSION_PATTERN, KEY_PATTERN } from "./keystats.js";
 
 export const STORAGE_KEY = "nolito:escape-boss:v1";
 const BACKUP_V1_KEY = `${STORAGE_KEY}:backup-v1`;
-export const DATA_VERSION = 2;
-const READABLE_VERSIONS = [1, 2];
+const BACKUP_V2_KEY = `${STORAGE_KEY}:backup-v2`;
+export const DATA_VERSION = 3;
+const READABLE_VERSIONS = [1, 2, 3];
 // 改ざんされたデータで、保存内容が膨らみすぎないようにする上限
 // (キーは a-z・0-9・- の1文字だけなので、種類は最大37で、上限は不要)
 const MAX_CONFUSION_ENTRIES = 100;
 const MAX_WORD_ENTRIES = 60;
 const WORD_ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+// 難易度のキー(語録の範囲 1〜5)と、1 プレイでの語数の上限(改ざんで、値が膨らみすぎないように)
+const DIFFICULTY_KEY_PATTERN = /^[1-5]$/;
+const MAX_WORDS_PER_RESULT = 1000;
 export const MAX_RESULTS = 200;
 export const MAX_RANKING = 10;
 export const NICKNAME_MAX = 12;
@@ -77,6 +84,18 @@ function normalizeCounts(raw, pattern, max) {
   );
 }
 
+// 難易度ごとの語数。形が違えば null(以前のプレイ = 記録なし)。範囲外のキー・0・不正な値は、捨てる
+function normalizeDifficultyCounts(raw) {
+  if (!isObject(raw)) return null;
+  const counts = {};
+  for (const [key, value] of Object.entries(raw)) {
+    if (!DIFFICULTY_KEY_PATTERN.test(key)) continue;
+    const words = Math.min(count(value), MAX_WORDS_PER_RESULT);
+    if (words > 0) counts[key] = words;
+  }
+  return counts;
+}
+
 function normalizeResult(raw) {
   if (!isObject(raw)) return null;
   const numbers = ["playedAt", "score", "correct", "miss", "hits", "elapsed", "distance"];
@@ -101,6 +120,12 @@ function normalizeResult(raw) {
     keys: normalizeKeys(raw.keys),
     confusions: normalizeCounts(raw.confusions, CONFUSION_PATTERN, MAX_CONFUSION_ENTRIES),
     wordMisses: normalizeCounts(raw.wordMisses, WORD_ID_PATTERN, MAX_WORD_ENTRIES),
+    // バージョン 1・2 の結果には無い(null = 記録なし。0 とは区別する)。連続は、正解した語数を超えない
+    streak:
+      isFiniteNumber(raw.streak) && raw.streak >= 0
+        ? Math.min(Math.floor(raw.streak), count(raw.correct))
+        : null,
+    wordsByDifficulty: normalizeDifficultyCounts(raw.wordsByDifficulty),
   };
 }
 
@@ -214,8 +239,9 @@ export function createStore(backend) {
       data = null;
     }
     if (data) {
-      // バージョン 1 から移行する場合は、移行前の元データを一度だけ退避する(移行の不具合に備える)
+      // バージョン 1・2 から移行する場合は、移行前の元データを一度だけ退避する(移行の不具合に備える)
       if (parsed.version === 1) backUpOnce(BACKUP_V1_KEY, text);
+      if (parsed.version === 2) backUpOnce(BACKUP_V2_KEY, text);
       status = "ok";
       return { data, status };
     }

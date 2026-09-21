@@ -110,6 +110,27 @@
             </table>
           </section>
 
+          <section class="dash-section" aria-labelledby="difficulty-title">
+            <h2 id="difficulty-title">難易度別のミス</h2>
+            <p class="dash-section__note" data-difficulty-note></p>
+            <div class="table-scroll" data-difficulty-table>
+              <table class="data-table">
+                <caption class="visually-hidden">
+                  語の難易度ごとの、打った語数・ミスの回数・1語あたりのミス
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">語の難しさ</th>
+                    <th scope="col">打った語数</th>
+                    <th scope="col">ミス</th>
+                    <th scope="col">1語あたりのミス</th>
+                  </tr>
+                </thead>
+                <tbody data-difficulty-body></tbody>
+              </table>
+            </div>
+          </section>
+
           <section class="dash-section" aria-labelledby="weak-title">
             <h2 id="weak-title">苦手なキー</h2>
             <p class="dash-section__note" data-weak-note></p>
@@ -136,6 +157,8 @@
                     <th scope="col">スコア</th>
                     <th scope="col">入力速度</th>
                     <th scope="col">正確率</th>
+                    <th scope="col">連続ノーミス</th>
+                    <th scope="col">残り距離</th>
                   </tr>
                 </thead>
                 <tbody data-recent-body></tbody>

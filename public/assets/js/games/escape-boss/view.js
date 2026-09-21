@@ -446,6 +446,8 @@ export function createView(root) {
       roleName,
       score,
       accuracy,
+      cps = 0,
+      averageDifficulty = null,
       rank,
       newAchievements,
       kaichoUnlocked,
@@ -476,6 +478,12 @@ export function createView(root) {
       setText('[data-result-stat="correct"]', `${state.correct} / ${stage.goal_words}語`);
       setText('[data-result-stat="miss"]', `${state.miss}回`);
       setText('[data-result-stat="accuracy"]', `${Math.round(accuracy * 100)}%`);
+      setText('[data-result-stat="speed"]', `${Math.round(cps * 60)}打/分`);
+      setText('[data-result-stat="streak"]', `${state.bestStreak ?? 0}語`);
+      setText(
+        '[data-result-stat="difficulty"]',
+        averageDifficulty === null ? "-" : averageDifficulty.toFixed(1),
+      );
       setText('[data-result-stat="distance"]', `${Math.max(0, Math.ceil(state.distance))}m`);
       setText('[data-result-stat="time"]', `${state.elapsed.toFixed(1)}秒`);
       showNotice("[data-result-notice]", notice);

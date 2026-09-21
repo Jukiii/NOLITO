@@ -11,6 +11,13 @@ export function createGameState(stage) {
     miss: 0,
     hits: 0,
     elapsed: 0,
+    // いまの語で、ミスをしたか(次の語に進むと false に戻る)。連続ノーミスの判定に使う
+    wordMissed: false,
+    // ミスなしで打ち終えた語の、いまの連続数と、このプレイでの最高
+    streak: 0,
+    bestStreak: 0,
+    // 打ち終えた語の、難易度ごとの数({ "1": 3, "2": 5 } のように。打った語だけが入る)
+    byDifficulty: {},
   };
 }
 
@@ -84,13 +91,35 @@ export function wordGain(stage, charCount, options = {}) {
   );
 }
 
+// 難易度ごとの語数に、1 語を加える。語録の範囲(1〜5)の整数だけを数える
+function tallyDifficulty(byDifficulty, difficulty) {
+  if (!Number.isInteger(difficulty) || difficulty < DIFFICULTY_MIN || difficulty > DIFFICULTY_MAX) {
+    return byDifficulty;
+  }
+  const key = String(difficulty);
+  return { ...byDifficulty, [key]: (byDifficulty[key] ?? 0) + 1 };
+}
+
 export function applyCorrect(state, stage, charCount, options = {}) {
   if (state.status !== "playing") return state;
   const distance = Math.min(
     stage.max_distance,
     state.distance + wordGain(stage, charCount, options),
   );
-  return settle({ ...state, distance, correct: state.correct + 1 }, stage);
+  // ミスなしで打ち終えた語だけが、連続に数えられる。ミスのあった語は、連続を 0 に戻す
+  const streak = state.wordMissed ? 0 : state.streak + 1;
+  return settle(
+    {
+      ...state,
+      distance,
+      correct: state.correct + 1,
+      wordMissed: false,
+      streak,
+      bestStreak: Math.max(state.bestStreak, streak),
+      byDifficulty: tallyDifficulty(state.byDifficulty, options.difficulty),
+    },
+    stage,
+  );
 }
 
 // 正しい打鍵1回。正確率・打鍵速度の計算に使う。
@@ -101,8 +130,15 @@ export function applyHit(state) {
 
 export function applyMiss(state, stage) {
   if (state.status !== "playing") return state;
+  // ミスした時点で、連続は途切れる(その語を打ち終えても、連続には数えない)
   return settle(
-    { ...state, distance: state.distance - stage.miss_penalty, miss: state.miss + 1 },
+    {
+      ...state,
+      distance: state.distance - stage.miss_penalty,
+      miss: state.miss + 1,
+      wordMissed: true,
+      streak: 0,
+    },
     stage,
   );
 }

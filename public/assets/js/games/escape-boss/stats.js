@@ -96,3 +96,103 @@ export function formatDuration(seconds) {
 // キー別の記録があるプレイの数(バージョン 1 のプレイには無い)
 export const countWithKeyData = (results) =>
   results.filter((r) => Object.keys(r.keys ?? {}).length > 0).length;
+
+// ---- 連続ノーミス・難易度・残り距離(Phase 13 PR 3) ----
+// 連続ノーミス(streak)と難易度ごとの語数(wordsByDifficulty)は、バージョン 3 から記録される。
+// 以前のプレイは null(記録なし)で、0 とは区別し、これらの集計から除く。
+
+// 難易度の呼び名(語録は 1〜3 を使う。範囲外は「難易度 n」)
+export const DIFFICULTY_LABELS = Object.freeze({ 1: "やさしい", 2: "ふつう", 3: "むずかしい" });
+export const difficultyLabel = (difficulty) =>
+  DIFFICULTY_LABELS[difficulty] ?? `難易度 ${difficulty}`;
+
+const hasStreak = (result) => Number.isInteger(result?.streak) && result.streak >= 0;
+
+// 難易度ごとの語数({ "1": 3, "2": 5 })。形が違う・空なら null(記録なし)
+const wordsOf = (result) => {
+  const counts = result?.wordsByDifficulty;
+  if (counts === null || typeof counts !== "object" || Array.isArray(counts)) return null;
+  return counts;
+};
+const totalWords = (counts) => Object.values(counts).reduce((total, value) => total + value, 0);
+
+/** 語の難しさの平均(難易度ごとの語数から。語の数で重みをつける)。語がなければ null。 */
+export function averageDifficulty(byDifficulty) {
+  if (byDifficulty === null || typeof byDifficulty !== "object" || Array.isArray(byDifficulty)) {
+    return null;
+  }
+  const words = totalWords(byDifficulty);
+  if (words <= 0) return null;
+  const weighted = Object.entries(byDifficulty).reduce(
+    (total, [difficulty, value]) => total + Number(difficulty) * value,
+    0,
+  );
+  return weighted / words;
+}
+
+/**
+ * 成績のまとめの、追加の項目。記録のないプレイは、それぞれの項目の対象から除く。
+ *   bestStreak     … 最大の連続ノーミス(語)。記録のあるプレイがなければ null
+ *   avgRemaining   … クリアしたプレイの、平均の残り距離。クリアがなければ null
+ *   avgDifficulty  … 打ち終えた語の、難しさの平均(語の数で重みをつける)。記録がなければ null
+ *   streakPlays / difficultyPlays … それぞれの記録のあるプレイの数
+ */
+export function summarizeDetails(results) {
+  const withStreak = results.filter(hasStreak);
+  const cleared = results.filter((r) => r.status === "cleared");
+  const merged = {};
+  let difficultyPlays = 0;
+  for (const result of results) {
+    const counts = wordsOf(result);
+    if (counts === null || totalWords(counts) <= 0) continue;
+    difficultyPlays += 1;
+    for (const [difficulty, value] of Object.entries(counts)) {
+      merged[difficulty] = (merged[difficulty] ?? 0) + value;
+    }
+  }
+  return {
+    bestStreak: withStreak.length === 0 ? null : Math.max(...withStreak.map((r) => r.streak)),
+    streakPlays: withStreak.length,
+    avgRemaining: cleared.length === 0 ? null : average(cleared, (r) => r.distance),
+    clears: cleared.length,
+    avgDifficulty: averageDifficulty(merged),
+    difficultyPlays,
+  };
+}
+
+/**
+ * 難易度別の、打った語数・ミスの数・1 語あたりのミス。
+ * 難易度ごとの語数の記録があるプレイだけを対象にする(以前のプレイは、除く)。
+ * ミスの数は、そのプレイの語ごとのミス数(wordMisses)を、語の難易度(difficultyOf(id))で振り分ける。
+ * 語録にない語・難易度がわからない語のミスは、数えない。
+ * 戻り値: { rows: [{ difficulty, label, words, misses, perWord }], plays(対象のプレイ数) }
+ */
+export function difficultyBreakdown(results, difficultyOf) {
+  const words = {};
+  const misses = {};
+  let plays = 0;
+  for (const result of results) {
+    const counts = wordsOf(result);
+    if (counts === null) continue;
+    plays += 1;
+    for (const [difficulty, value] of Object.entries(counts)) {
+      words[difficulty] = (words[difficulty] ?? 0) + value;
+    }
+    for (const [id, value] of Object.entries(result.wordMisses ?? {})) {
+      const difficulty = difficultyOf(id);
+      if (!Number.isInteger(difficulty) || !(value > 0)) continue;
+      misses[difficulty] = (misses[difficulty] ?? 0) + value;
+    }
+  }
+  const levels = [...new Set([...Object.keys(words), ...Object.keys(misses)])]
+    .map(Number)
+    .sort((a, b) => a - b);
+  const rows = levels.map((difficulty) => ({
+    difficulty,
+    label: difficultyLabel(difficulty),
+    words: words[difficulty] ?? 0,
+    misses: misses[difficulty] ?? 0,
+    perWord: (words[difficulty] ?? 0) > 0 ? (misses[difficulty] ?? 0) / words[difficulty] : null,
+  }));
+  return { rows, plays };
+}

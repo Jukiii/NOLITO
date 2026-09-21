@@ -180,3 +180,9 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 設定「ローマ字の書き方」(`input-style.js`。`settings.js` の `inputStyle`): **標準**(ヘボン式で表示。ほかの書き方も受け付ける。既定)/ **訓令式で表示** / **表示どおりだけ**(ほかの書き方は、ミス)。決定は `docs/decisions/0024-phase-13-input-style.md`。連続タイピングにも用語確認にも効く。
 - 受け付ける書き方は `createMatcher(読み, { style, strict })`(`romaji.js`)。**表示する(先頭の)書き方と、受け付ける範囲は別**。標準・訓令式は、si/shi・n/nn・xtu・小さい文字を分けて打つ書き方(kixya など)も受け付ける。語録の `romaji` の全候補が、標準・訓令式で入力できることを、テストが検査する。
 - **距離の「文字数の分」は、設定に関係なく、標準の長さ**(`main.js` の `createMatcher(word.reading).canonicalLength`)。`session.matcher.canonicalLength` を使わない(訓令式・表示どおりで、距離が変わるため)。マッチャーは、必ず `newMatcher`(設定の方式)で作る(`tests/game-page.test.js` が検査)。
+
+### 成績の項目と記録の版 3(Phase 13 PR 3)
+
+- 記録の版は **3**(`DATA_VERSION`。版 1・2 も読める)。各結果に `streak`(ミスなしで打ち終えた語の連続の最高)・`wordsByDifficulty`(難易度ごとの打ち終えた語数)がある。**以前のプレイは `null`(記録なし)で、0 とは区別する**。集計(`stats.js` の `summarizeDetails`・`difficultyBreakdown`)は、`null` を対象から除き、表示は「-」。0 として平均しない。決定は `docs/decisions/0025-phase-13-stats.md`。
+- 連続・難易度の集計は `engine.js`(`streak`・`bestStreak`・`byDifficulty`。**ミスした時点で連続は 0 に戻る**)。**スコアの式・ランキング・実績には入れない**(成績だけ)。
+- 版を上げたので、`storage.js` の移行(版 2 → 3 は `:backup-v2` に一度だけ退避。読み込んだだけでは書き換えない)を保つ。**次に記録の形を変えるときは、`DATA_VERSION` を 4 にして、`normalizeData` で版 1〜3 を読めるようにし、移行のテストを書く**。更新前のタブを開きっぱなしにしている利用者が、記録を「壊れている」と扱う既知のリスクがある(0005・0025)。

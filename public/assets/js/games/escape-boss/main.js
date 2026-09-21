@@ -27,6 +27,7 @@ import {
 import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
 import { summarize } from "./score.js";
+import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
 import { matcherOptionsFor } from "./input-style.js";
 import { weakWeights } from "./weak.js";
@@ -389,6 +390,9 @@ function finish() {
     keys: session.keyStats.keys,
     confusions: session.keyStats.confusions,
     wordMisses: session.keyStats.wordMisses,
+    // 成績の元データ(最大の連続ノーミス・難易度ごとの打ち終えた語数)
+    streak: state.bestStreak,
+    wordsByDifficulty: state.byDifficulty,
   };
 
   const before = store.load().data;
@@ -425,6 +429,8 @@ function finish() {
     roleName: role.name,
     score,
     accuracy,
+    cps,
+    averageDifficulty: averageDifficulty(state.byDifficulty),
     rank: out.rank,
     newAchievements,
     kaichoUnlocked,
