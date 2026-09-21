@@ -135,9 +135,9 @@ describe("CSS", () => {
 });
 
 describe("保存(記録は変えない)", () => {
-  it("記録の版・キーは、そのまま(2・nolito:escape-boss:v1)。設定は、別のキー", () => {
+  it("記録の版は 3(Phase 13 PR 3)・キーは nolito:escape-boss:v1 のまま。設定は、別のキー", () => {
     const storage = read("public/assets/js/games/escape-boss/storage.js");
-    assert.match(storage, /export const DATA_VERSION = 2;/);
+    assert.match(storage, /export const DATA_VERSION = 3;/);
     assert.match(storage, /export const STORAGE_KEY = "nolito:escape-boss:v1";/);
     const settings = read("public/assets/js/games/escape-boss/settings.js");
     assert.match(settings, /"nolito:escape-boss:settings:v1"/);
@@ -364,5 +364,68 @@ describe("入力方式(ローマ字の書き方。Phase 13 PR 2)", () => {
     assert.match(handler, /saveSettings\(backend, settings\)/);
     assert.ok(!/store\.(update|save)|recordResult/.test(handler));
     assert.ok(!/localStorage|document|window/.test(inputStyle.replace(/\/\/.*$/gm, "")));
+  });
+});
+
+describe("成績: 連続ノーミス・難易度・速度・残り距離(Phase 13 PR 3)", () => {
+  const stats = read("public/games/escape-boss/stats/index.html");
+  const statsPage = read("public/assets/js/games/escape-boss/stats-page.js");
+  const statsLogic = read("public/assets/js/games/escape-boss/stats.js");
+
+  it("結果の画面に、入力速度・最大連続ノーミス・語の難しさ(平均)・残り距離の欄がある", () => {
+    for (const name of ["speed", "streak", "difficulty", "distance", "accuracy", "correct"]) {
+      assert.match(html, new RegExp(`data-result-stat="${name}"`), name);
+      assert.ok(view.includes(`[data-result-stat="${name}"]`), name);
+    }
+    for (const label of ["入力速度", "最大連続ノーミス", "語の難しさ(平均)", "残り距離"]) {
+      assert.ok(html.includes(`<dt>${label}</dt>`), label);
+    }
+  });
+
+  it("プレイの結果を保存するとき、最大の連続ノーミスと、難易度ごとの語数を含める", () => {
+    const finish = main.slice(
+      main.indexOf("function finish()"),
+      main.indexOf("function handleChar"),
+    );
+    assert.match(finish, /streak: state\.bestStreak/);
+    assert.match(finish, /wordsByDifficulty: state\.byDifficulty/);
+    assert.match(finish, /averageDifficulty: averageDifficulty\(state\.byDifficulty\)/);
+    assert.match(finish, /\bcps,/);
+  });
+
+  it("成績ページ: 難易度別の節と、最近のプレイの列(連続ノーミス・残り距離)がある", () => {
+    assert.match(stats, /<h2 id="difficulty-title">難易度別のミス<\/h2>/);
+    assert.match(stats, /aria-labelledby="difficulty-title"/);
+    for (const hook of ["data-difficulty-note", "data-difficulty-table", "data-difficulty-body"]) {
+      assert.ok(stats.includes(hook), hook);
+    }
+    for (const column of ["連続ノーミス", "残り距離", "入力速度", "正確率"]) {
+      assert.ok(stats.includes(`<th scope="col">${column}</th>`), column);
+    }
+    // 難易度別の節は、期間・役職の絞り込みの内側(絞り込みに従う)
+    assert.ok(stats.indexOf("data-scoped") < stats.indexOf('id="difficulty-title"'));
+  });
+
+  it("成績ページは、語録の難易度で、ミスを振り分ける。表示は、textContent だけ", () => {
+    assert.match(statsPage, /difficultyBreakdown\(scope, \(id\) => difficultyById\.get\(id\)\)/);
+    assert.match(statsPage, /item\.difficulty/);
+    assert.ok(!/innerHTML|outerHTML|insertAdjacentHTML/.test(statsPage));
+  });
+
+  it("集計(stats.js)は、DOM・保存に触れない純粋な計算のまま", () => {
+    const code = statsLogic.replace(/\/\/.*$/gm, "");
+    assert.ok(!/document|window|localStorage|fetch\(|store\b/.test(code));
+  });
+
+  it("以前のプレイ(記録なし = null)は、「-」で表示する(0 と区別する)", () => {
+    assert.match(statsPage, /result\.streak === null \? "-"/);
+    assert.match(statsPage, /details\.bestStreak === null \? "-"/);
+  });
+
+  it("スコアの式・ランキング・実績は、変えない(連続・難易度は、成績だけ)", () => {
+    const score = read("public/assets/js/games/escape-boss/score.js");
+    assert.ok(!/streak|byDifficulty|difficulty/.test(score));
+    const records = read("public/assets/js/games/escape-boss/records.js");
+    assert.ok(!/streak|wordsByDifficulty/.test(records));
   });
 });

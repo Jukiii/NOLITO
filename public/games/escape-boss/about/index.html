@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.9.0</dd>
+              <dd>v0.10.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -233,6 +233,16 @@
               </div>
             </details>
             <details class="faq__item">
+              <summary class="faq__question">
+                成績ページの「最大の連続ノーミス」「難易度別のミス」は、何ですか?
+              </summary>
+              <div class="faq__answer">
+                <p>
+                  「連続ノーミス」は、ミスをせずに打ち終えた言葉が、何語続いたかです(1プレイの中の最高)。1回でもミスをすると、その言葉は数えず、連続は0からやり直しです。「難易度別のミス」は、言葉の難しさ(読みの長さで決まります)ごとに、打った語数とミスの回数を分けたものです。どの難しさで、ミスしやすいかがわかります。結果の画面には、入力速度・最大連続ノーミス・言葉の難しさの平均・残り距離も出ます。この2つの記録は、0.10.0から取り始めたので、それ以前のプレイには、ありません(成績ページでは「-」と出ます)。連続ノーミス・難易度は、スコアには入りません。
+                </p>
+              </div>
+            </details>
+            <details class="faq__item">
               <summary class="faq__question">「用語確認」では、何ができますか?</summary>
               <div class="faq__answer">
                 <p>
@@ -253,6 +263,25 @@
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.10.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-21">2026年9月21日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  結果の画面に、入力速度・最大連続ノーミス・言葉の難しさ(平均)を追加(正解数・正確率・残り距離は、これまでどおり)
+                </li>
+                <li>
+                  成績ページに、最大の連続ノーミス・平均の残り距離・言葉の難しさの平均・「難易度別のミス」の表を追加。最近のプレイの表にも、連続ノーミスと残り距離を追加
+                </li>
+                <li>
+                  記録の形を、バージョン3にした(以前の記録は、そのまま読める。連続・難易度は、このバージョンから記録する)
+                </li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.9.0

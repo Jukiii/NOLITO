@@ -1,13 +1,18 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  averageDifficulty,
   bestScoresByRole,
   buildSeries,
   compareRecent,
   countWithKeyData,
+  DIFFICULTY_LABELS,
+  difficultyBreakdown,
+  difficultyLabel,
   formatDuration,
   hasTyping,
   METRICS,
+  summarizeDetails,
   summarizeResults,
 } from "../public/assets/js/games/escape-boss/stats.js";
 
@@ -232,5 +237,185 @@ describe("表示用", () => {
       result({ keys: { b: { hits: 2, misses: 1 } } }),
     ];
     assert.equal(countWithKeyData(list), 2);
+  });
+});
+
+// ---- 連続ノーミス・難易度・残り距離(Phase 13 PR 3) ----
+const withDetails = (overrides = {}) =>
+  result({ streak: 5, wordsByDifficulty: { 1: 2, 2: 4, 3: 2 }, wordMisses: {}, ...overrides });
+// 以前のプレイ(バージョン 1・2)。記録は null
+const oldPlay = (overrides = {}) =>
+  result({ streak: null, wordsByDifficulty: null, wordMisses: {}, ...overrides });
+
+describe("語の難しさの平均(averageDifficulty)", () => {
+  it("難易度ごとの語数から、語の数で重みをつけて平均する", () => {
+    assert.equal(averageDifficulty({ 1: 2, 2: 4, 3: 2 }), 2);
+    assert.equal(averageDifficulty({ 3: 4 }), 3);
+    assert.ok(Math.abs(averageDifficulty({ 1: 3, 3: 1 }) - 1.5) < 1e-9);
+  });
+
+  it("語がない・形が違うときは null(0 とは区別する)", () => {
+    for (const value of [null, undefined, {}, { 1: 0 }, [], "x", 5]) {
+      assert.equal(averageDifficulty(value), null, String(value));
+    }
+  });
+});
+
+describe("成績のまとめの追加項目(summarizeDetails)", () => {
+  it("最大の連続ノーミスは、記録のあるプレイの最大", () => {
+    const details = summarizeDetails([
+      withDetails({ streak: 3 }),
+      withDetails({ streak: 9 }),
+      withDetails({ streak: 0 }),
+    ]);
+    assert.equal(details.bestStreak, 9);
+    assert.equal(details.streakPlays, 3);
+  });
+
+  it("連続の記録が 0 のプレイも、記録あり(0 は 0)。以前のプレイ(null)は、対象から除く", () => {
+    assert.equal(summarizeDetails([withDetails({ streak: 0 })]).bestStreak, 0);
+    const mixed = summarizeDetails([oldPlay(), withDetails({ streak: 4 }), oldPlay()]);
+    assert.equal(mixed.bestStreak, 4);
+    assert.equal(mixed.streakPlays, 1);
+  });
+
+  it("記録のあるプレイがなければ、null(以前のプレイだけ・プレイなし)", () => {
+    for (const list of [[], [oldPlay(), oldPlay()]]) {
+      const details = summarizeDetails(list);
+      assert.equal(details.bestStreak, null);
+      assert.equal(details.avgDifficulty, null);
+      assert.equal(details.streakPlays, 0);
+      assert.equal(details.difficultyPlays, 0);
+    }
+  });
+
+  it("平均の残り距離は、クリアしたプレイだけ(ゲームオーバーは、除く)", () => {
+    const details = summarizeDetails([
+      result({ status: "cleared", distance: 40 }),
+      result({ status: "cleared", distance: 60 }),
+      result({ status: "gameover", distance: 0 }),
+    ]);
+    assert.equal(details.avgRemaining, 50);
+    assert.equal(details.clears, 2);
+  });
+
+  it("クリアがなければ、平均の残り距離は null", () => {
+    assert.equal(
+      summarizeDetails([result({ status: "gameover", distance: 0 })]).avgRemaining,
+      null,
+    );
+    assert.equal(summarizeDetails([]).avgRemaining, null);
+  });
+
+  it("平均の難しさは、プレイをまたいで、語の数で重みをつける。以前のプレイは、除く", () => {
+    const details = summarizeDetails([
+      withDetails({ wordsByDifficulty: { 1: 6 } }),
+      withDetails({ wordsByDifficulty: { 3: 2 } }),
+      oldPlay(),
+    ]);
+    assert.equal(details.avgDifficulty, (6 * 1 + 2 * 3) / 8);
+    assert.equal(details.difficultyPlays, 2);
+  });
+
+  it("難易度ごとの語数が空({})のプレイは、対象から除く(語を 1 つも打っていない)", () => {
+    const details = summarizeDetails([withDetails({ wordsByDifficulty: {} })]);
+    assert.equal(details.avgDifficulty, null);
+    assert.equal(details.difficultyPlays, 0);
+  });
+
+  it("入力を書き換えない", () => {
+    const list = [withDetails(), oldPlay()];
+    const before = JSON.stringify(list);
+    summarizeDetails(list);
+    assert.equal(JSON.stringify(list), before);
+  });
+});
+
+describe("難易度別のミス(difficultyBreakdown)", () => {
+  const difficultyOf = (id) => ({ "a-1": 1, "a-2": 2, "a-3": 3, "a-4": 3 })[id];
+
+  it("難易度ごとの、打った語数・ミスの数・1 語あたりのミスを出す", () => {
+    const { rows, plays } = difficultyBreakdown(
+      [
+        withDetails({
+          wordsByDifficulty: { 1: 2, 2: 4, 3: 2 },
+          wordMisses: { "a-1": 1, "a-3": 2 },
+        }),
+        withDetails({
+          wordsByDifficulty: { 1: 2, 3: 2 },
+          wordMisses: { "a-3": 1, "a-4": 1, "a-2": 2 },
+        }),
+      ],
+      difficultyOf,
+    );
+    assert.equal(plays, 2);
+    assert.deepEqual(
+      rows.map((row) => [row.difficulty, row.label, row.words, row.misses, row.perWord]),
+      [
+        [1, "やさしい", 4, 1, 0.25],
+        [2, "ふつう", 4, 2, 0.5],
+        [3, "むずかしい", 4, 4, 1],
+      ],
+    );
+  });
+
+  it("難易度ごとの語数の記録がないプレイ(以前のプレイ)は、ミスも含めて、除く(割合の分母をそろえる)", () => {
+    const { rows, plays } = difficultyBreakdown(
+      [
+        withDetails({ wordsByDifficulty: { 1: 4 }, wordMisses: { "a-1": 1 } }),
+        oldPlay({ wordMisses: { "a-1": 9 } }),
+      ],
+      difficultyOf,
+    );
+    assert.equal(plays, 1);
+    assert.deepEqual(
+      rows.map((row) => [row.words, row.misses]),
+      [[4, 1]],
+    );
+  });
+
+  it("語録にない語・難易度がわからない語・不正なミスの数は、数えない", () => {
+    const { rows } = difficultyBreakdown(
+      [
+        withDetails({
+          wordsByDifficulty: { 1: 3 },
+          wordMisses: { gone: 5, "a-1": 0, "a-2": -1, "a-3": "x", "a-4": NaN },
+        }),
+      ],
+      difficultyOf,
+    );
+    assert.deepEqual(
+      rows.map((row) => [row.difficulty, row.words, row.misses]),
+      [[1, 3, 0]],
+    );
+  });
+
+  it("語は打ったが、ミスがなければ、1 語あたりのミスは 0。ミスだけで語数のない難易度は、null", () => {
+    const { rows } = difficultyBreakdown(
+      [withDetails({ wordsByDifficulty: { 1: 2 }, wordMisses: { "a-3": 1 } })],
+      difficultyOf,
+    );
+    assert.deepEqual(
+      rows.map((row) => [row.difficulty, row.perWord]),
+      [
+        [1, 0],
+        [3, null],
+      ],
+    );
+  });
+
+  it("対象のプレイがなければ、行はない。範囲外の難易度にも、名前がつく", () => {
+    assert.deepEqual(difficultyBreakdown([], difficultyOf), { rows: [], plays: 0 });
+    assert.deepEqual(difficultyBreakdown([oldPlay()], difficultyOf), { rows: [], plays: 0 });
+    assert.equal(difficultyLabel(2), "ふつう");
+    assert.equal(difficultyLabel(5), "難易度 5");
+    assert.deepEqual(Object.keys(DIFFICULTY_LABELS), ["1", "2", "3"]);
+  });
+
+  it("入力を書き換えない", () => {
+    const list = [withDetails({ wordMisses: { "a-1": 1 } })];
+    const before = JSON.stringify(list);
+    difficultyBreakdown(list, difficultyOf);
+    assert.equal(JSON.stringify(list), before);
   });
 });

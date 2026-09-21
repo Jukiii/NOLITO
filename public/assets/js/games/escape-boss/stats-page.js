@@ -9,7 +9,9 @@ import {
   buildSeries,
   compareRecent,
   countWithKeyData,
+  difficultyBreakdown,
   formatDuration,
+  summarizeDetails,
   summarizeResults,
 } from "./stats.js";
 import { REVIEW_LIMIT, REVIEW_PLAYS, buildReviewList, indexWords } from "./review.js";
@@ -51,6 +53,8 @@ let roles = [];
 let jobsById = {};
 let rolesById = {};
 let allResults = [];
+// 語の id → 難易度(語録から作る。読み込めるまでは、空)
+let difficultyById = new Map();
 const filter = { range: 30, roleId: "" };
 
 async function loadJson(url) {
@@ -73,6 +77,27 @@ function resultLabel(result) {
   return result.status === "cleared" ? "クリア" : "ゲームオーバー";
 }
 
+// 連続ノーミス・残り距離・語の難しさ。記録のないもの(以前のプレイだけ・クリアなし)は、「-」で示す
+function detailTiles(scope) {
+  const details = summarizeDetails(scope);
+  return [
+    statTile(
+      "最大の連続ノーミス",
+      details.bestStreak === null ? "-" : String(details.bestStreak),
+      details.bestStreak === null ? "" : "語",
+    ),
+    statTile(
+      "平均の残り距離(クリア)",
+      details.avgRemaining === null ? "-" : details.avgRemaining.toFixed(1),
+      details.avgRemaining === null ? "" : "m",
+    ),
+    statTile(
+      "語の難しさの平均",
+      details.avgDifficulty === null ? "-" : details.avgDifficulty.toFixed(1),
+    ),
+  ];
+}
+
 function renderSummary(scope) {
   const summary = summarizeResults(scope);
   $("[data-summary]").replaceChildren(
@@ -82,6 +107,7 @@ function renderSummary(scope) {
     statTile("プレイ時間", formatDuration(summary.totalSeconds)),
     statTile("最高の入力速度", round(summary.bestCpm), "打/分"),
     statTile("最高の正確率", round(summary.bestAccuracy), "%"),
+    ...detailTiles(scope),
   );
 
   const { recent, previous } = compareRecent(scope);
@@ -198,6 +224,42 @@ function renderWeakKeys(scope) {
   );
 }
 
+// 難易度別のミス: 難易度ごとの語数の記録があるプレイだけを使う(以前のプレイには、記録がない)
+function renderDifficulty(scope) {
+  const { rows, plays } = difficultyBreakdown(scope, (id) => difficultyById.get(id));
+  const note = $("[data-difficulty-note]");
+  const table = $("[data-difficulty-table]");
+  table.hidden = rows.length === 0;
+  if (difficultyById.size === 0) {
+    note.textContent = "語録を読み込んでいます。";
+    table.hidden = true;
+    return;
+  }
+  if (plays === 0) {
+    note.textContent =
+      "難易度別の記録がまだありません。遊ぶと、難易度ごとのミスが表示されます。(以前のプレイには、この記録がありません)";
+    return;
+  }
+  const missing = scope.length - plays;
+  note.textContent = `難易度別の記録: ${plays}回分${missing > 0 ? "。以前のプレイには記録がありません" : ""}。ミスは、語ごとのミスの回数を、語の難易度で分けています(1語で何回ミスしても、その回数だけ数えます)。`;
+  $("[data-difficulty-body]").replaceChildren(
+    ...rows.map((row) =>
+      el(
+        "tr",
+        {},
+        el("th", { scope: "row" }, `${row.label}(難易度${row.difficulty})`),
+        el("td", { class: "data-table__number" }, `${row.words}語`),
+        el("td", { class: "data-table__number" }, `${row.misses}回`),
+        el(
+          "td",
+          { class: "data-table__number" },
+          row.perWord === null ? "-" : `${row.perWord.toFixed(2)}回`,
+        ),
+      ),
+    ),
+  );
+}
+
 function renderRecent(scope) {
   $("[data-recent-body]").replaceChildren(
     ...scope
@@ -219,6 +281,16 @@ function renderRecent(scope) {
             "td",
             { class: "data-table__number" },
             result.hits + result.miss > 0 ? `${round(result.accuracy * 100)}%` : "-",
+          ),
+          el(
+            "td",
+            { class: "data-table__number" },
+            result.streak === null ? "-" : `${result.streak}語`,
+          ),
+          el(
+            "td",
+            { class: "data-table__number" },
+            result.status === "cleared" ? `${Math.round(result.distance * 10) / 10}m` : "-",
           ),
         ),
       ),
@@ -257,6 +329,7 @@ function render() {
   renderSummary(scope);
   renderCharts(scope);
   renderBest(scope);
+  renderDifficulty(scope);
   renderWeakKeys(scope);
   renderRecent(scope);
 }
@@ -309,12 +382,20 @@ async function init() {
     const vocabularies = await Promise.all(
       Object.keys(jobsById).map((jobId) => loadJson(`/data/vocabulary/${jobId}.json`)),
     );
+    difficultyById = new Map(
+      vocabularies.flatMap((vocabulary) =>
+        (vocabulary.items ?? []).map((item) => [item.id, item.difficulty]),
+      ),
+    );
+    render();
     renderReview(vocabularies);
   } catch {
     $("[data-review-note]").textContent =
       "復習リストを読み込めませんでした。ページを再読み込みしてください。";
     $("[data-review-list]").hidden = true;
     $("[data-review-action]").hidden = true;
+    $("[data-difficulty-note]").textContent =
+      "語録を読み込めませんでした。ページを再読み込みしてください。";
   }
 }
 

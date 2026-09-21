@@ -45,6 +45,8 @@ const result = (overrides = {}) => ({
   keys: {},
   confusions: {},
   wordMisses: {},
+  streak: 5,
+  wordsByDifficulty: { 1: 2, 2: 3, 3: 3 },
   ...overrides,
 });
 
@@ -101,7 +103,7 @@ describe("保存データの読み込み", () => {
       assert.equal(normalizeData(raw), null);
     }
     const backend = fakeBackend();
-    backend.map.set(STORAGE_KEY, JSON.stringify({ version: 3, profile: {} }));
+    backend.map.set(STORAGE_KEY, JSON.stringify({ version: 4, profile: {} }));
     assert.equal(createStore(backend).load().status, "corrupt");
   });
 
@@ -453,5 +455,240 @@ describe("キーごとの集計の検証(バージョン 2)", () => {
     ];
     store.save(data);
     assert.deepEqual(createStore(backend).load().data, data);
+  });
+});
+
+// ---- バージョン 3(Phase 13 PR 3): 連続ノーミス・難易度ごとの語数 ----
+const v2Data = () => ({
+  version: 2,
+  profile: { nickname: "はなこ", titleId: "newbie" },
+  results: [
+    {
+      playedAt: 3000,
+      jobId: "sales",
+      roleId: "kakaricho",
+      status: "cleared",
+      score: 2400,
+      correct: 14,
+      miss: 3,
+      hits: 150,
+      elapsed: 61,
+      distance: 12.5,
+      accuracy: 0.98,
+      cps: 2.4,
+      vocabularyVersion: "0.3.0",
+      keys: { s: { hits: 4, misses: 1 } },
+      confusions: { "s>d": 1 },
+      wordMisses: { "sales-001": 2 },
+    },
+    {
+      playedAt: 2000,
+      jobId: "engineer",
+      roleId: "senpai",
+      status: "gameover",
+      score: 300,
+      correct: 4,
+      miss: 9,
+      hits: 40,
+      elapsed: 20,
+      distance: 0,
+      accuracy: 0.8,
+      cps: 2,
+      vocabularyVersion: "0.3.0",
+      keys: {},
+      confusions: {},
+      wordMisses: {},
+    },
+  ],
+  rankings: {
+    kakaricho: [
+      {
+        score: 2400,
+        playedAt: 3000,
+        jobId: "sales",
+        roleId: "kakaricho",
+        nickname: "はなこ",
+        title: "",
+      },
+    ],
+  },
+  achievements: { "first-clear": 3000 },
+  progress: {
+    totalClears: 1,
+    totalWords: 18,
+    clears: { kakaricho: 1 },
+    clearedJobs: { sales: true },
+  },
+});
+
+const normalizedResult = (overrides) =>
+  normalizeData({ ...createEmptyData(), results: [result(overrides)] }).results[0];
+
+describe("バージョン 3", () => {
+  it("現在の版は 3。空のデータも、3", () => {
+    assert.equal(DATA_VERSION, 3);
+    assert.equal(createEmptyData().version, 3);
+  });
+
+  it("連続ノーミスと難易度ごとの語数が、保存して読み込んでも、変わらない", () => {
+    const backend = fakeBackend();
+    const data = createEmptyData();
+    data.results = [
+      result({ streak: 7, wordsByDifficulty: { 1: 4, 3: 10 }, correct: 14 }),
+      result({ streak: 0, wordsByDifficulty: {}, correct: 0, playedAt: 900 }),
+    ];
+    createStore(backend).save(data);
+    assert.deepEqual(createStore(backend).load().data, data);
+  });
+
+  it("連続は、0 以上の整数だけ。正解した語数を超えない。不正な値は、null(記録なし)", () => {
+    const streak = (value, correct = 8) => normalizedResult({ streak: value, correct }).streak;
+    assert.equal(streak(0), 0);
+    assert.equal(streak(5), 5);
+    assert.equal(streak(5.9), 5);
+    assert.equal(streak(99), 8);
+    assert.equal(streak(3, 3), 3);
+    for (const bad of [-1, NaN, Infinity, "5", null, undefined, {}, [], true]) {
+      assert.equal(streak(bad), null, String(bad));
+    }
+  });
+
+  it("難易度ごとの語数: 1〜5 のキーの、正の整数だけを残す。ほかは、捨てる", () => {
+    const counts = (value) => normalizedResult({ wordsByDifficulty: value }).wordsByDifficulty;
+    assert.deepEqual(counts({ 1: 2, 2: 3, 3: 4, 4: 1, 5: 1 }), { 1: 2, 2: 3, 3: 4, 4: 1, 5: 1 });
+    assert.deepEqual(counts({ 0: 5, 6: 5, x: 5, "1 ": 5, "": 5, "01": 5 }), {});
+    assert.deepEqual(counts(JSON.parse('{"__proto__": 5, "constructor": 5}')), {});
+    assert.deepEqual(counts({ 1: 0, 2: -3, 3: NaN, 4: "x", 5: null }), {});
+    assert.deepEqual(counts({ 1: 2.9, 2: "3" }), { 1: 2 });
+    assert.deepEqual(counts({ 1: 1e9 }), { 1: 1000 });
+    assert.deepEqual(counts({}), {});
+  });
+
+  it("難易度ごとの語数が、オブジェクトでなければ、null(記録なし)", () => {
+    const counts = (value) => normalizedResult({ wordsByDifficulty: value }).wordsByDifficulty;
+    for (const bad of [undefined, null, "1", 5, [], [1, 2], true]) {
+      assert.equal(counts(bad), null, String(bad));
+    }
+  });
+
+  it("バージョン 4 以上は、読まず、元の文字列を :corrupt に退避する(上書きしない)", () => {
+    const backend = fakeBackend();
+    const future = JSON.stringify({ version: 4, results: [] });
+    backend.map.set(STORAGE_KEY, future);
+    const loaded = createStore(backend).load();
+    assert.equal(loaded.status, "corrupt");
+    assert.equal(backend.map.get(`${STORAGE_KEY}:corrupt`), future);
+  });
+});
+
+describe("バージョン 2 からの移行", () => {
+  it("記録・ランキング・実績・プロフィール・進行状況・キーごとの集計が、そのまま引き継がれる", () => {
+    const backend = fakeBackend();
+    const v2 = v2Data();
+    backend.map.set(STORAGE_KEY, JSON.stringify(v2));
+    const { data, status } = createStore(backend).load();
+    assert.equal(status, "ok");
+    assert.equal(data.version, 3);
+    assert.deepEqual(data.profile, v2.profile);
+    assert.deepEqual(data.rankings, v2.rankings);
+    assert.deepEqual(data.achievements, v2.achievements);
+    assert.deepEqual(data.progress, v2.progress);
+    assert.equal(data.results.length, 2);
+    for (const [index, original] of v2.results.entries()) {
+      const migrated = data.results[index];
+      for (const key of Object.keys(original)) assert.deepEqual(migrated[key], original[key], key);
+    }
+  });
+
+  it("移行した結果の、連続・難易度ごとの語数は、null(記録なし)。0 や空ではない", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, JSON.stringify(v2Data()));
+    const { data } = createStore(backend).load();
+    for (const item of data.results) {
+      assert.equal(item.streak, null);
+      assert.equal(item.wordsByDifficulty, null);
+    }
+  });
+
+  it("移行前の元データを、一度だけ別のキー(:backup-v2)に退避する。上書きしない", () => {
+    const backend = fakeBackend();
+    const original = JSON.stringify(v2Data());
+    backend.map.set(STORAGE_KEY, original);
+    const store = createStore(backend);
+    store.load();
+    assert.equal(backend.map.get(`${STORAGE_KEY}:backup-v2`), original);
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v1`), false);
+
+    // 保存(バージョン 3 になる)した後に読み込んでも、退避は上書きされない
+    store.update((data) => ({
+      data: { ...data, profile: { ...data.profile, nickname: "変更後" } },
+    }));
+    assert.equal(JSON.parse(backend.map.get(STORAGE_KEY)).version, 3);
+    createStore(backend).load();
+    assert.equal(backend.map.get(`${STORAGE_KEY}:backup-v2`), original);
+  });
+
+  it("読み込んだだけでは、保存されているデータを書き換えない", () => {
+    const backend = fakeBackend();
+    const original = JSON.stringify(v2Data());
+    backend.map.set(STORAGE_KEY, original);
+    createStore(backend).load();
+    assert.equal(backend.map.get(STORAGE_KEY), original);
+  });
+
+  it("バージョン 3 のデータは、退避を作らない", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, JSON.stringify({ ...createEmptyData(), results: [result()] }));
+    createStore(backend).load();
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v2`), false);
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v1`), false);
+  });
+
+  it("移行の後に新しいプレイを記録しても、以前の記録が残る(新しい記録だけが、連続・難易度を持つ)", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, JSON.stringify(v2Data()));
+    const store = createStore(backend);
+    store.update((data) => ({
+      data: { ...data, results: [result({ playedAt: 9000 }), ...data.results] },
+    }));
+    const loaded = createStore(backend).load().data;
+    assert.equal(loaded.version, 3);
+    assert.deepEqual(
+      loaded.results.map((item) => [item.playedAt, item.streak === null]),
+      [
+        [9000, false],
+        [3000, true],
+        [2000, true],
+      ],
+    );
+  });
+
+  it("退避に失敗しても、移行は続けられる", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, JSON.stringify(v2Data()));
+    const failing = {
+      getItem: (key) => backend.getItem(key),
+      setItem(key) {
+        if (key.endsWith("backup-v2")) throw new Error("quota");
+      },
+    };
+    const { data, status } = createStore(failing).load();
+    assert.equal(status, "ok");
+    assert.equal(data.results.length, 2);
+  });
+});
+
+describe("バージョン 1 から、いきなりバージョン 3", () => {
+  it("バージョン 1 の結果も、連続・難易度ごとの語数は null。退避は backup-v1 だけ", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, JSON.stringify(v1Data()));
+    const { data } = createStore(backend).load();
+    assert.equal(data.version, 3);
+    for (const item of data.results) {
+      assert.equal(item.streak, null);
+      assert.equal(item.wordsByDifficulty, null);
+    }
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v1`), true);
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v2`), false);
   });
 });

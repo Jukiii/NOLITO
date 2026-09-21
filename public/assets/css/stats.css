@@ -87,6 +87,11 @@
   display: none;
 }
 
+/* 狭い画面では、文字を 1 字ずつ折り返さず、横にスクロールする */
+.table-scroll .data-table {
+  min-width: 36rem;
+}
+
 .data-table__number {
   font-variant-numeric: tabular-nums;
   text-align: right;

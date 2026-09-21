@@ -31,6 +31,10 @@ describe("ゲームロジック", () => {
       miss: 0,
       hits: 0,
       elapsed: 0,
+      wordMissed: false,
+      streak: 0,
+      bestStreak: 0,
+      byDifficulty: {},
     });
   });
 
@@ -234,5 +238,123 @@ describe("1語の増分(wordGain)= 基本 + 文字数 + 難易度 + 速さ", () 
   it("ミス・時間の減り方は、加点の項目に影響されない(長さで減る新しいルールはない)", () => {
     assert.equal(applyMiss(createGameState(bonusStage), bonusStage).distance, 57);
     assert.equal(tick(createGameState(bonusStage), bonusStage, 2).distance, 57);
+  });
+});
+
+// 連続ノーミス・難易度ごとの語数(Phase 13 PR 3)
+describe("連続ノーミス(streak・bestStreak)", () => {
+  const big = { ...stage, goal_words: 50 };
+  const correct = (state, options) => applyCorrect(state, big, 5, options);
+
+  it("ミスなしで打ち終えた語ごとに、連続が 1 ずつ増え、最高も更新される", () => {
+    let state = createGameState(big);
+    for (let i = 1; i <= 4; i++) {
+      state = correct(state);
+      assert.equal(state.streak, i);
+      assert.equal(state.bestStreak, i);
+    }
+  });
+
+  it("ミスした時点で、連続は 0 に戻る(最高は残る)", () => {
+    let state = correct(correct(correct(createGameState(big))));
+    state = applyMiss(state, big);
+    assert.equal(state.streak, 0);
+    assert.equal(state.bestStreak, 3);
+  });
+
+  it("ミスのあった語を打ち終えても、連続には数えない。次の語から、また数える", () => {
+    let state = correct(correct(createGameState(big)));
+    state = applyMiss(state, big);
+    state = correct(state); // ミスのあった語
+    assert.equal(state.streak, 0);
+    assert.equal(state.correct, 3);
+    state = correct(state);
+    assert.equal(state.streak, 1);
+    state = correct(state);
+    assert.equal(state.streak, 2);
+    assert.equal(state.bestStreak, 2);
+  });
+
+  it("1 つの語で何回ミスしても、連続が途切れるのは、その語だけ", () => {
+    let state = createGameState(big);
+    for (let i = 0; i < 3; i++) state = applyMiss(state, big);
+    state = correct(state);
+    assert.equal(state.streak, 0);
+    state = correct(state);
+    assert.equal(state.streak, 1);
+  });
+
+  it("最高は、途中の連続が途切れたあとの、短い連続では下がらない", () => {
+    let state = createGameState(big);
+    for (let i = 0; i < 5; i++) state = correct(state);
+    state = applyMiss(state, big);
+    state = correct(state);
+    for (let i = 0; i < 2; i++) state = correct(state);
+    assert.equal(state.bestStreak, 5);
+    assert.equal(state.streak, 2);
+  });
+
+  it("ミスのないプレイは、打ち終えた語数が、そのまま最高になる(クリアまで)", () => {
+    let state = createGameState(stage);
+    for (let i = 0; i < stage.goal_words; i++) state = applyCorrect(state, stage, 5);
+    assert.equal(state.status, "cleared");
+    assert.equal(state.bestStreak, stage.goal_words);
+  });
+
+  it("つかまった(ゲームオーバー)プレイでも、それまでの最高が残る", () => {
+    let state = createGameState(big);
+    state = correct(correct(state));
+    state = tick(state, big, 1000);
+    assert.equal(state.status, "gameover");
+    assert.equal(state.bestStreak, 2);
+  });
+
+  it("終了後は変わらない。元の状態を書き換えない", () => {
+    const state = correct(createGameState(big));
+    const before = JSON.stringify(state);
+    correct(state);
+    applyMiss(state, big);
+    assert.equal(JSON.stringify(state), before);
+    const over = { ...state, status: "gameover" };
+    assert.equal(correct(over), over);
+  });
+});
+
+describe("難易度ごとの語数(byDifficulty)", () => {
+  const big = { ...stage, goal_words: 50 };
+
+  it("打ち終えた語を、難易度ごとに数える(キーは文字列)", () => {
+    let state = createGameState(big);
+    for (const difficulty of [1, 2, 2, 3, 3, 3]) {
+      state = applyCorrect(state, big, 5, { difficulty });
+    }
+    assert.deepEqual(state.byDifficulty, { 1: 1, 2: 2, 3: 3 });
+    assert.equal(
+      Object.values(state.byDifficulty).reduce((a, b) => a + b, 0),
+      state.correct,
+    );
+  });
+
+  it("難易度を渡さない・範囲外・整数でない値は、数えない(落ちない)", () => {
+    let state = createGameState(big);
+    for (const difficulty of [undefined, null, 0, 6, -1, 1.5, NaN, "2", Infinity]) {
+      state = applyCorrect(state, big, 5, { difficulty });
+    }
+    state = applyCorrect(state, big, 5);
+    assert.deepEqual(state.byDifficulty, {});
+    assert.equal(state.correct, 10);
+  });
+
+  it("ミスした語も、打ち終えれば、数える(ミスは、別に数える)", () => {
+    let state = applyMiss(createGameState(big), big);
+    state = applyCorrect(state, big, 5, { difficulty: 2 });
+    assert.deepEqual(state.byDifficulty, { 2: 1 });
+  });
+
+  it("元の状態を書き換えない", () => {
+    const state = applyCorrect(createGameState(big), big, 5, { difficulty: 1 });
+    const before = JSON.stringify(state);
+    applyCorrect(state, big, 5, { difficulty: 1 });
+    assert.equal(JSON.stringify(state), before);
   });
 });
