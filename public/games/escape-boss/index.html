@@ -174,25 +174,6 @@
         <section data-view="play" data-mode="chase" aria-label="プレイ中" hidden data-play>
           <div class="game-play">
             <div class="game-play__main">
-              <div class="scene" aria-hidden="true" data-scene data-chase-only>
-                <div class="scene__road"></div>
-                <img
-                  class="scene__chaser"
-                  alt=""
-                  width="120"
-                  height="80"
-                  src="/assets/img/escape-boss/senpai.svg"
-                  data-chaser
-                />
-                <img
-                  class="scene__player"
-                  alt=""
-                  width="64"
-                  height="80"
-                  src="/assets/img/escape-boss/player.svg"
-                />
-              </div>
-
               <div class="gauge-block" data-chase-only>
                 <!-- [html-validate-disable-next prefer-native-element -- 縞模様と幅アニメーションを独自に描画するため] -->
                 <div
@@ -210,6 +191,27 @@
                   逃走距離 <strong><span data-stat="distance">0</span>m</strong>
                   <span class="gauge__danger" data-danger hidden>あぶない!</span>
                 </p>
+              </div>
+
+              <div class="scene" aria-hidden="true" data-scene data-motion="run" data-chase-only>
+                <div class="scene__road"></div>
+                <div class="scene__chaser">
+                  <img
+                    class="scene__chaser-img"
+                    alt=""
+                    width="120"
+                    height="80"
+                    src="/assets/img/escape-boss/senpai.svg"
+                    data-chaser
+                  />
+                </div>
+                <img
+                  class="scene__player"
+                  alt=""
+                  width="64"
+                  height="80"
+                  src="/assets/img/escape-boss/player.svg"
+                />
               </div>
 
               <div class="game-word">

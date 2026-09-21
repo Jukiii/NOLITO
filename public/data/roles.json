@@ -4,6 +4,9 @@
     "name": "先輩",
     "vehicle": "徒歩",
     "image": "/assets/img/escape-boss/senpai.svg",
+    "scene": {
+      "motion": "run"
+    },
     "score_multiplier": 1,
     "stage": {
       "max_distance": 100,
@@ -24,6 +27,9 @@
     "name": "係長",
     "vehicle": "自転車",
     "image": "/assets/img/escape-boss/kakaricho.svg",
+    "scene": {
+      "motion": "pedal"
+    },
     "score_multiplier": 1.2,
     "stage": {
       "max_distance": 100,
@@ -44,6 +50,9 @@
     "name": "部長",
     "vehicle": "セダン",
     "image": "/assets/img/escape-boss/buchou.svg",
+    "scene": {
+      "motion": "drive"
+    },
     "score_multiplier": 1.5,
     "stage": {
       "max_distance": 100,
@@ -64,6 +73,9 @@
     "name": "社長",
     "vehicle": "リムジン",
     "image": "/assets/img/escape-boss/shachou.svg",
+    "scene": {
+      "motion": "glide"
+    },
     "score_multiplier": 2,
     "stage": {
       "max_distance": 100,
@@ -84,6 +96,9 @@
     "name": "会長",
     "vehicle": "ヘリコプター",
     "image": "/assets/img/escape-boss/kaicho.svg",
+    "scene": {
+      "motion": "aura"
+    },
     "score_multiplier": 3,
     "unlock": {
       "type": "clear_roles",

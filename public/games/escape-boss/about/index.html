@@ -57,7 +57,7 @@
             </div>
             <div class="product__meta-row">
               <dt>バージョン</dt>
-              <dd>v0.11.0</dd>
+              <dd>v0.12.0</dd>
             </div>
             <div class="product__meta-row">
               <dt>公開</dt>
@@ -251,6 +251,14 @@
               </div>
             </details>
             <details class="faq__item">
+              <summary class="faq__question">画面の動きが、苦手です。動きを止められますか?</summary>
+              <div class="faq__answer">
+                <p>
+                  お使いのパソコンやスマートフォンの「アニメーションを減らす」(Windows)・「視差効果を減らす」(iPhone・Mac)などの設定を、オンにしてください。追ってくる人の動き・煙・演出が止まります。追ってくる人の位置は、距離に応じて、これまでどおり変わるので、距離は、絵の位置と、上の距離ゲージで、わかります。
+                </p>
+              </div>
+            </details>
+            <details class="faq__item">
               <summary class="faq__question">「用語確認」では、何ができますか?</summary>
               <div class="faq__answer">
                 <p>
@@ -271,6 +279,29 @@
         <section class="product__section" id="changelog" aria-labelledby="changelog-title">
           <h2 id="changelog-title">更新履歴</h2>
           <ol class="changelog">
+            <li class="changelog__item">
+              <h3 class="changelog__version">
+                v0.12.0
+                <span class="changelog__date"
+                  ><time datetime="2026-09-21">2026年9月21日</time></span
+                >
+              </h3>
+              <ul>
+                <li>
+                  遊ぶ画面の並びを、上から「距離ゲージ → 追ってくる人の場面 → 言葉 →
+                  入力欄」にそろえた(狭い画面でも、言葉と入力欄が、画面に収まりやすい)
+                </li>
+                <li>
+                  追ってくる人の動きを、役職ごとに変えた(先輩は走る・係長はこぐ・部長は振動と煙・社長はなめらかにつやが光る・会長は浮かんでオーラをまとう)
+                </li>
+                <li>
+                  ミスすると追ってくる人がぐっと飛び出し、正解するとすっと引き離す演出を追加。近づくほど道が速く流れ、危ないときは場面の縁が黄色く光る
+                </li>
+                <li>
+                  動きを減らす設定では、動きは止まり、追ってくる人の位置と、危ないときの縁は、そのまま残る
+                </li>
+              </ul>
+            </li>
             <li class="changelog__item">
               <h3 class="changelog__version">
                 v0.11.0

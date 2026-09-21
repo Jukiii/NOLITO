@@ -1,6 +1,6 @@
 import { el } from "../../components/dom.js";
 import { reviewItem } from "./review-item.js";
-import { closenessOf } from "./scene.js";
+import { EVENT_MS, SCENE_EVENTS, closenessOf, isDanger, motionOf } from "./scene.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
 // 文字列(語録・ニックネームなど)は textContent で入れる。HTML として解釈しない。
@@ -44,6 +44,7 @@ export function createView(root) {
   };
 
   let missTimer = 0;
+  let sceneTimer = 0;
 
   input.addEventListener("focus", () => {
     $("[data-focus-hint]").hidden = true;
@@ -361,6 +362,10 @@ export function createView(root) {
       if (!check) {
         setText('[data-stat="role"]', role.name);
         $("[data-chaser]").setAttribute("src", role.image);
+        // 追ってくる人の動きは、役職ごとに決まっている(roles.json の scene.motion)
+        scene.dataset.motion = motionOf(role);
+        scene.classList.remove("is-danger");
+        scene.dataset.event = "";
       }
       $("[data-ime-hint]").hidden = true;
       $("[data-focus-hint]").hidden = true;
@@ -382,8 +387,9 @@ export function createView(root) {
       $("[data-gauge-fill]").style.width = `${(ratio * 100).toFixed(1)}%`;
       gauge.setAttribute("aria-valuenow", String(distance));
       gauge.setAttribute("aria-valuetext", `残り距離 ${distance}メートル`);
-      const danger = ratio <= 0.25;
+      const danger = isDanger(state.distance, stage.max_distance);
       gauge.classList.toggle("is-danger", danger);
+      scene.classList.toggle("is-danger", danger);
       $("[data-danger]").hidden = !danger;
       scene.style.setProperty(
         "--closeness",
@@ -392,6 +398,19 @@ export function createView(root) {
       setText('[data-stat="distance"]', distance);
       setText('[data-stat="correct"]', state.correct);
       setText('[data-stat="miss"]', state.miss);
+    },
+
+    // 場面の一瞬の演出(miss = 追ってくる人が飛び出す / gain = 引き離す)。一定時間で、元に戻る
+    pulseScene(kind) {
+      if (!SCENE_EVENTS.includes(kind)) return;
+      clearTimeout(sceneTimer);
+      // 同じ演出が続けて起きても、最初から動かし直す
+      scene.dataset.event = "";
+      void scene.offsetWidth;
+      scene.dataset.event = kind;
+      sceneTimer = setTimeout(() => {
+        scene.dataset.event = "";
+      }, EVENT_MS);
     },
 
     // 用語確認の進み具合(確認済みの語数・ミス)

@@ -469,6 +469,7 @@ function handleChar(char) {
   if (result === "miss") {
     session.keyStats = recordMiss(session.keyStats, expected, key, word.id);
     view.flashMiss();
+    view.pulseScene("miss");
     update(applyMiss(session.state, session.stage));
     return;
   }
@@ -490,6 +491,7 @@ function handleChar(char) {
       keystrokes: session.matcher.typed.length,
     }),
   );
+  view.pulseScene("gain");
   if (session.state.status !== "playing") return;
   session.index += 1;
   session.wordStartedAt = null;
