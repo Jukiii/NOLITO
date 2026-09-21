@@ -465,7 +465,8 @@ describe("「くわしく」(難語の詳細説明・学習ポイント・関連
       ["stats.css", stats],
     ]) {
       const local = new Set([...text.matchAll(/(--[a-z0-9-]+):/g)].map((match) => match[1]));
-      for (const match of text.matchAll(/var\((--[a-z0-9-]+)\s*[,)]/g)) {
+      // 代わりの値(var(--x, 代わり))がある変数は、実行時に JavaScript が入れるもの(--scene-bg など)なので、対象外
+      for (const match of text.matchAll(/var\((--[a-z0-9-]+)\s*\)/g)) {
         assert.ok(
           defined.has(match[1]) || local.has(match[1]),
           `${name}: ${match[1]} が、未定義です`,

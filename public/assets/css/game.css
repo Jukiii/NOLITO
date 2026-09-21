@@ -327,7 +327,17 @@
   position: relative;
   height: 7rem;
   overflow: hidden;
-  background: linear-gradient(var(--color-soft), var(--color-surface));
+  background-color: var(--color-surface);
+
+  /* 職種の背景(--scene-bg。view.js が、決まった場所の SVG だけを入れる)を、淡いグラデーションの上に、横に並べる */
+  background-image: var(--scene-bg, none), linear-gradient(var(--color-soft), var(--color-surface));
+  background-repeat: repeat-x, no-repeat;
+  background-position:
+    left bottom,
+    0 0;
+  background-size:
+    auto 100%,
+    100% 100%;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
   isolation: isolate;

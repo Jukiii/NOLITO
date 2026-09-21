@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 112" width="360" height="112" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <pattern id="win" width="12" height="14" patternUnits="userSpaceOnUse">
+      <rect x="3" y="3" width="6" height="7" rx="1" fill="#fbf3ec" stroke="none" />
+    </pattern>
+  </defs>
+  <g fill="#f0dfd2" stroke="#d6bfae">
+    <rect x="8" y="30" width="52" height="66" />
+    <rect x="68" y="52" width="38" height="44" />
+    <rect x="114" y="18" width="60" height="78" />
+    <rect x="184" y="44" width="46" height="52" />
+    <rect x="238" y="28" width="56" height="68" />
+    <rect x="302" y="56" width="42" height="40" />
+  </g>
+  <g fill="url(#win)" stroke="none">
+    <rect x="8" y="30" width="52" height="66" />
+    <rect x="68" y="52" width="38" height="44" />
+    <rect x="114" y="18" width="60" height="78" />
+    <rect x="184" y="44" width="46" height="52" />
+    <rect x="238" y="28" width="56" height="68" />
+    <rect x="302" y="56" width="42" height="40" />
+  </g>
+  <path d="M132 18V8M136 8h-8M262 28V16M256 16h12" stroke="#d6bfae" />
+</svg>

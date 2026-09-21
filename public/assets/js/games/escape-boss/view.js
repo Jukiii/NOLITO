@@ -1,6 +1,6 @@
 import { el } from "../../components/dom.js";
 import { reviewItem } from "./review-item.js";
-import { EVENT_MS, SCENE_EVENTS, closenessOf, isDanger, motionOf } from "./scene.js";
+import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
 // 文字列(語録・ニックネームなど)は textContent で入れる。HTML として解釈しない。
@@ -348,7 +348,7 @@ export function createView(root) {
     },
 
     // mode: "chase"(連続タイピング)か "check"(用語確認)。用語確認では、説明を、いつも表示する
-    showPlay({ mode = "chase", jobName, role, goal, showExplanation = false }) {
+    showPlay({ mode = "chase", job, jobName, role, goal, showExplanation = false }) {
       const check = mode === "check";
       showView("play");
       views.play.dataset.mode = mode;
@@ -364,6 +364,10 @@ export function createView(root) {
         $("[data-chaser]").setAttribute("src", role.image);
         // 追ってくる人の動きは、役職ごとに決まっている(roles.json の scene.motion)
         scene.dataset.motion = motionOf(role);
+        // 職種の背景は、その職種の絵だけを読み込む(決まった場所の SVG でなければ、背景なし)
+        const background = backgroundOf(job);
+        if (background) scene.style.setProperty("--scene-bg", `url("${background}")`);
+        else scene.style.removeProperty("--scene-bg");
         scene.classList.remove("is-danger");
         scene.dataset.event = "";
       }

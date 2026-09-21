@@ -24,6 +24,14 @@ export const DEFAULT_MOTION = "run";
 export const motionOf = (role) =>
   SCENE_MOTIONS.includes(role?.scene?.motion) ? role.scene.motion : DEFAULT_MOTION;
 
+// 職種の背景の絵(jobs.json の background)。サイト内の決まった場所の SVG だけを受け付ける。
+// CSS の url() に入れるので、引用符・かっこ・空白を含む値、ほかの場所・形式は、使わない(null)
+const BACKGROUND_PATH = /^\/assets\/img\/escape-boss\/bg\/[a-z0-9]+(?:-[a-z0-9]+)*\.svg$/;
+export const backgroundOf = (job) =>
+  typeof job?.background === "string" && BACKGROUND_PATH.test(job.background)
+    ? job.background
+    : null;
+
 // 場面の一瞬の演出(miss = ミスで追ってくる人が飛び出す / gain = 正解で引き離す)。CSS の [data-event="…"] と対応する
 export const SCENE_EVENTS = Object.freeze(["miss", "gain"]);
 export const EVENT_MS = 350;

@@ -342,6 +342,7 @@ async function beginGame({ jobId, roleId }) {
   };
   view.showPlay({
     mode: "chase",
+    job,
     jobName: job.name,
     role,
     goal: stage.goal_words,
