@@ -27,7 +27,8 @@ import {
 import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
 import { summarize } from "./score.js";
-import { loadSettings, saveSettings } from "./settings.js";
+import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
+import { weakWeights } from "./weak.js";
 import { createStore, getBackend } from "./storage.js";
 import { loadJobs, loadRoles, loadVocabulary, pickWords, shuffle } from "./vocabulary.js";
 import { createView } from "./view.js";
@@ -103,12 +104,18 @@ async function init() {
   const { status } = store.load();
   storageNotice = noticeFor(status);
   view.setExplanationSetting(settings.showExplanation);
+  view.setWeakBoostSetting(settings.weakBoost);
   view.bind({
     onStart: ({ mode, jobId, roleId }) =>
       mode === "check" ? startCheck({ jobId }) : startGame({ jobId, roleId }),
     onExplanationChange: (checked) => {
       settings = { ...settings, showExplanation: checked };
       saveSettings(backend, settings);
+    },
+    onWeakBoostChange: (level) => {
+      settings = normalizeSettings({ ...settings, weakBoost: level });
+      saveSettings(backend, settings);
+      view.setWeakBoostSetting(settings.weakBoost);
     },
     onCheckRetry: () => {
       if (session?.kind !== "check") return;
@@ -299,7 +306,11 @@ async function beginGame({ jobId, roleId }) {
   view.showError("");
 
   const stage = role.stage;
-  const words = pickWords(vocabulary.items, role.id, stage.goal_words);
+  // 苦手な語(直近のプレイでミスした語)は、設定に応じて、出やすくする。同じゲームの中で、同じ語は出ない
+  const weights = weakWeights(store.load().data.results, vocabulary.items, {
+    level: settings.weakBoost,
+  });
+  const words = pickWords(vocabulary.items, role.id, stage.goal_words, Math.random, { weights });
   // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
   if (session) cancelAnimationFrame(session.frameId);
   session = {

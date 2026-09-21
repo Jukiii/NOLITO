@@ -20,6 +20,27 @@ export function indexWords(vocabularies) {
 }
 
 /**
+ * 直近 plays プレイの、語ごとのミスの合計。results: 新しい順のプレイ結果。
+ * accepts(id) が false の語(語録にない語など)は、数えない。ミスの数が、正の整数でないものも、数えない。
+ * 戻り値: Map(id → { misses, lastMissedAt })。復習リストと、苦手な語の出題(weak.js)が、同じ数え方を使う。
+ */
+export function totalWordMisses(results, { plays = REVIEW_PLAYS, accepts = () => true } = {}) {
+  const totals = new Map();
+  for (const result of (results ?? []).slice(0, plays)) {
+    for (const [id, value] of Object.entries(result?.wordMisses ?? {})) {
+      const misses = Number(value);
+      if (!Number.isInteger(misses) || misses <= 0 || !accepts(id)) continue;
+      const current = totals.get(id) ?? { misses: 0, lastMissedAt: -Infinity };
+      totals.set(id, {
+        misses: current.misses + misses,
+        lastMissedAt: Math.max(current.lastMissedAt, Number(result.playedAt) || 0),
+      });
+    }
+  }
+  return totals;
+}
+
+/**
  * 復習リスト。results: 新しい順のプレイ結果、index: indexWords の結果。
  * 戻り値: [{ word, jobId, misses(直近のプレイでのミスの合計), lastMissedAt(最後にミスしたプレイの時刻) }]
  * 並び順: ミスの多い順 → 最近ミスした順 → id 順(毎回、同じ結果になる)。
@@ -29,18 +50,7 @@ export function buildReviewList(
   index,
   { plays = REVIEW_PLAYS, limit = REVIEW_LIMIT } = {},
 ) {
-  const totals = new Map();
-  for (const result of (results ?? []).slice(0, plays)) {
-    for (const [id, value] of Object.entries(result?.wordMisses ?? {})) {
-      const misses = Number(value);
-      if (!Number.isInteger(misses) || misses <= 0 || !index.has(id)) continue;
-      const current = totals.get(id) ?? { misses: 0, lastMissedAt: -Infinity };
-      totals.set(id, {
-        misses: current.misses + misses,
-        lastMissedAt: Math.max(current.lastMissedAt, Number(result.playedAt) || 0),
-      });
-    }
-  }
+  const totals = totalWordMisses(results, { plays, accepts: (id) => index.has(id) });
   return [...totals.entries()]
     .map(([id, { misses, lastMissedAt }]) => ({ id, misses, lastMissedAt, ...index.get(id) }))
     .sort(
