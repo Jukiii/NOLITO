@@ -60,6 +60,39 @@
           <ul class="mastery-list" data-mastery-list></ul>
         </section>
 
+        <section class="dash-section" aria-labelledby="best-title" data-best>
+          <h2 id="best-title">ハイスコア</h2>
+          <p class="dash-section__note" data-best-empty hidden>クリアした記録がありません。</p>
+          <div class="table-scroll">
+            <table class="data-table" data-best-table>
+              <caption class="visually-hidden">
+                追ってくる人・難易度ごとの、自己ベスト(期間・役職の絞り込みの影響は受けません)
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">追ってくる人</th>
+                  <th scope="col">難易度</th>
+                  <th scope="col">スコア</th>
+                  <th scope="col">職種</th>
+                  <th scope="col">日付</th>
+                </tr>
+              </thead>
+              <tbody data-best-body></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="dash-section" aria-labelledby="best-history-title" data-best-history>
+          <h2 id="best-history-title">改善記録</h2>
+          <p class="dash-section__note">
+            自己ベストを更新した瞬間を、新しい順に最大10件、表示します(期間・役職の絞り込みの影響は受けません)。
+          </p>
+          <p class="dash-section__note" data-best-history-empty hidden>
+            まだ自己ベストの記録がありません。クリアすると、ここに記録されます。
+          </p>
+          <ul class="best-history-list" data-best-history-list></ul>
+        </section>
+
         <fieldset class="filter-row">
           <legend class="visually-hidden">表示する記録の絞り込み</legend>
           <div class="filter-row__field">
@@ -97,25 +130,6 @@
               <div data-chart="accuracy"></div>
               <div data-chart="score"></div>
             </div>
-          </section>
-
-          <section class="dash-section" aria-labelledby="best-title">
-            <h2 id="best-title">ベストスコア</h2>
-            <p class="dash-section__note" data-best-empty hidden>クリアした記録がありません。</p>
-            <table class="data-table" data-best-table>
-              <caption class="visually-hidden">
-                追ってくる人ごとの、クリアした記録のベストスコア
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">追ってくる人</th>
-                  <th scope="col">スコア</th>
-                  <th scope="col">職種</th>
-                  <th scope="col">日付</th>
-                </tr>
-              </thead>
-              <tbody data-best-body></tbody>
-            </table>
           </section>
 
           <section class="dash-section" aria-labelledby="difficulty-title">
