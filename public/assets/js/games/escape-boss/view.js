@@ -3,6 +3,7 @@ import { reviewItem } from "./review-item.js";
 import { activeCues, cueLabel, describeRules, rulesOf } from "./rules.js";
 import { isSkipKey } from "./staging.js";
 import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
+import { DEFAULT_DIFFICULTY } from "./difficulty.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
 // 文字列(語録・ニックネームなど)は textContent で入れる。HTML として解釈しない。
@@ -101,6 +102,7 @@ export function createView(root) {
   function applyMode() {
     const check = currentMode() === "check";
     $("[data-role-fieldset]").hidden = check;
+    $("[data-difficulty-fieldset]").hidden = check;
     $("[data-explanation-option]").hidden = check;
     $("[data-weak-option]").hidden = check;
     $("[data-start]").textContent = check ? "用語確認を始める" : "スタート";
@@ -144,8 +146,71 @@ export function createView(root) {
     );
   }
 
-  function renderSetup({ jobs, roles, isUnlocked, masteries = [] }) {
+  // 難易度の選択(役職ごとに、挑戦できるかが変わる。役職を選び直すたびに、作り直す)
+  let setupDifficulties = [];
+  let difficultyUnlockOf = () => true;
+  let bestOfJob = () => null;
+
+  function renderDifficultyList() {
+    const roleId = checkedValue("role");
+    const previous = checkedValue("difficulty");
+    const unlocked = (difficulty) => difficultyUnlockOf(difficulty, roleId);
+    const selectable = setupDifficulties.find((item) => item.id === previous && unlocked(item));
+    const selectedId = selectable ? previous : DEFAULT_DIFFICULTY;
+    $("[data-difficulty-list]").replaceChildren(
+      ...setupDifficulties.map((difficulty) =>
+        option("difficulty", {
+          value: difficulty.id,
+          label: difficulty.name,
+          checked: unlocked(difficulty) && difficulty.id === selectedId,
+          disabled: !unlocked(difficulty),
+          badge: unlocked(difficulty) ? "" : "ロック中",
+        }),
+      ),
+    );
+    const locked = setupDifficulties.filter((item) => !unlocked(item));
+    const hint = $("[data-difficulty-hint]");
+    hint.textContent = locked.map((item) => `${item.name}: ${item.description}`).join(" / ");
+    hint.hidden = locked.length === 0;
+    updateDifficultyInfo();
+  }
+
+  // 選んだ難易度の説明・経験値の倍率・自己ベスト(職種・役職・難易度がそろったとき)
+  function updateDifficultyInfo() {
+    const difficulty = setupDifficulties.find((item) => item.id === checkedValue("difficulty"));
+    const box = $("[data-difficulty-info]");
+    box.hidden = !difficulty;
+    if (!difficulty) return;
+    setText(
+      "[data-difficulty-info-text]",
+      `${difficulty.description}(経験値 ×${difficulty.exp_multiplier})`,
+    );
+    const jobId = checkedValue("job");
+    const roleId = checkedValue("role");
+    const best = jobId && roleId ? bestOfJob(jobId, roleId, difficulty.id) : null;
+    const bestNode = $("[data-difficulty-best]");
+    bestNode.hidden = !best;
+    if (best) {
+      setText(
+        "[data-difficulty-best]",
+        `自己ベスト: ${formatNumber(best.score)}点(${formatDate(best.playedAt)})`,
+      );
+    }
+  }
+
+  function renderSetup({
+    jobs,
+    roles,
+    isUnlocked,
+    difficulties,
+    isDifficultyUnlocked,
+    bestOf,
+    masteries = [],
+  }) {
     setupRoles = roles;
+    setupDifficulties = difficulties;
+    difficultyUnlockOf = isDifficultyUnlocked;
+    bestOfJob = bestOf;
     const jobId = checkedValue("job");
     let roleId = checkedValue("role");
     const selectedJob = jobs.some((job) => job.id === jobId) ? jobId : jobs[0].id;
@@ -185,6 +250,7 @@ export function createView(root) {
     hint.textContent = locked.map((role) => `${role.name}: ${role.unlock.hint}`).join(" / ");
     hint.hidden = locked.length === 0;
     updateRoleRules();
+    renderDifficultyList();
     $("[data-start]").disabled = false;
     applyMode();
   }
@@ -322,6 +388,7 @@ export function createView(root) {
       onSoundToggle,
       onProfileChange,
       onRankingRoleChange,
+      onRankingDifficultyChange,
       onRetry,
       onBack,
       onQuit,
@@ -332,10 +399,16 @@ export function createView(root) {
         const mode = currentMode();
         const jobId = checkedValue("job");
         const roleId = checkedValue("role");
-        if (jobId && (mode === "check" || roleId)) onStart({ mode, jobId, roleId });
+        const difficulty = checkedValue("difficulty") ?? DEFAULT_DIFFICULTY;
+        if (jobId && (mode === "check" || roleId)) onStart({ mode, jobId, roleId, difficulty });
       });
       $("[data-mode-list]").addEventListener("change", applyMode);
-      $("[data-role-list]").addEventListener("change", updateRoleRules);
+      $("[data-job-list]").addEventListener("change", updateDifficultyInfo);
+      $("[data-role-list]").addEventListener("change", () => {
+        updateRoleRules();
+        renderDifficultyList();
+      });
+      $("[data-difficulty-list]").addEventListener("change", updateDifficultyInfo);
       $("[data-show-explanation]").addEventListener("change", (event) =>
         onExplanationChange(event.target.checked),
       );
@@ -377,6 +450,9 @@ export function createView(root) {
       $("[data-ranking-role]").addEventListener("change", (event) =>
         onRankingRoleChange(event.target.value),
       );
+      $("[data-ranking-difficulty]").addEventListener("change", (event) =>
+        onRankingDifficultyChange(event.target.value),
+      );
       $("[data-retry]").addEventListener("click", onRetry);
       $("[data-back]").addEventListener("click", onBack);
       $("[data-quit]").addEventListener("click", onQuit);
@@ -392,14 +468,18 @@ export function createView(root) {
       error.hidden = !message;
     },
 
-    // ダッシュボード全体を描画する。選択中の職種・役職は、可能なら保持する。
+    // ダッシュボード全体を描画する。選択中の職種・役職・難易度は、可能なら保持する。
     renderDashboard({
       jobs,
       roles,
       isUnlocked,
+      difficulties,
+      isDifficultyUnlocked,
+      bestOf,
       profile,
       titles,
       rankingRoleId,
+      rankingDifficultyId,
       ranking,
       jobsById,
       achievements,
@@ -408,13 +488,32 @@ export function createView(root) {
       level,
       masteries,
     }) {
-      renderSetup({ jobs, roles, isUnlocked, masteries });
+      renderSetup({
+        jobs,
+        roles,
+        isUnlocked,
+        difficulties,
+        isDifficultyUnlocked,
+        bestOf,
+        masteries,
+      });
       renderProfile({ profile, titles });
       renderLevel(level);
       $("[data-ranking-role]").replaceChildren(
         ...roles.map((role) =>
           el("option", { value: role.id, selected: role.id === rankingRoleId }, role.name),
         ),
+      );
+      $("[data-ranking-difficulty]").replaceChildren(
+        ...difficulties
+          .filter((difficulty) => difficulty.rankable)
+          .map((difficulty) =>
+            el(
+              "option",
+              { value: difficulty.id, selected: difficulty.id === rankingDifficultyId },
+              difficulty.name,
+            ),
+          ),
       );
       renderRanking({ entries: ranking, jobsById });
       renderAchievements({ definitions: achievements, unlocked });
@@ -627,6 +726,7 @@ export function createView(root) {
       cps = 0,
       averageDifficulty = null,
       rank,
+      rankable = true,
       newAchievements,
       kaichoUnlocked,
       expGained = 0,
@@ -660,7 +760,11 @@ export function createView(root) {
       setText("[data-result-score]", formatNumber(score));
       const rankBadge = $("[data-result-rank]");
       if (cleared) {
-        rankBadge.textContent = rank ? `ランキング ${rank}位` : "ランキング圏外";
+        rankBadge.textContent = !rankable
+          ? "ランキング対象外(やさしい)"
+          : rank
+            ? `ランキング ${rank}位`
+            : "ランキング圏外";
       }
       rankBadge.hidden = !cleared;
       setText('[data-result-stat="job"]', jobName);

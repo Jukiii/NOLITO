@@ -1,0 +1,41 @@
+[
+  {
+    "id": "easy",
+    "name": "やさしい",
+    "description": "追ってくる人が遅く、正解で増える距離も多め。練習向け。ランキング・役職の解放(会長を含む)・「◯◯を振り切った」実績には、数えません。",
+    "rankable": false,
+    "unlock": null,
+    "exp_multiplier": 0.5,
+    "modifiers": {
+      "drain": 0.75,
+      "gain": 1.25,
+      "initial": 1.15
+    }
+  },
+  {
+    "id": "normal",
+    "name": "ふつう",
+    "description": "これまでどおりの、標準の難しさです。",
+    "rankable": true,
+    "unlock": null,
+    "exp_multiplier": 1,
+    "modifiers": {
+      "drain": 1,
+      "gain": 1,
+      "initial": 1
+    }
+  },
+  {
+    "id": "hard",
+    "name": "むずかしい",
+    "description": "追ってくる人が速く、正解で増える距離も少なめ。経験値は多めです。この役職を「ふつう」でクリアすると、挑戦できます。",
+    "rankable": true,
+    "unlock": "role_clear_normal",
+    "exp_multiplier": 1.6,
+    "modifiers": {
+      "drain": 1.06,
+      "gain": 0.945,
+      "initial": 1
+    }
+  }
+]

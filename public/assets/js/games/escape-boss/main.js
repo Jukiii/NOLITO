@@ -34,15 +34,26 @@ import { buildReviewList, indexWords } from "./review.js";
 import { isDanger, outroStyleOf } from "./scene.js";
 import { summarize } from "./score.js";
 import { toggledMode } from "./sound.js";
-import { DEFAULT_DIFFICULTY } from "./difficulty.js";
+import {
+  applyDifficulty,
+  DEFAULT_DIFFICULTY,
+  isDifficultyUnlocked as checkDifficultyUnlocked,
+} from "./difficulty.js";
 import { createTimeline, introSteps, outroSteps } from "./staging.js";
 import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
 import { matcherOptionsFor } from "./input-style.js";
 import { weakWeights } from "./weak.js";
 import { mergeWeights, roleWordWeights } from "./word-weights.js";
-import { createStore, getBackend } from "./storage.js";
-import { loadJobs, loadRoles, loadVocabulary, pickWords, shuffle } from "./vocabulary.js";
+import { bestKey, clearKey, createStore, getBackend } from "./storage.js";
+import {
+  loadDifficulties,
+  loadJobs,
+  loadRoles,
+  loadVocabulary,
+  pickWords,
+  shuffle,
+} from "./vocabulary.js";
 import { createView } from "./view.js";
 
 // 1フレームで進める時間の上限(重い処理や一時停止からの復帰で距離が一気に減らないようにする)
@@ -59,8 +70,10 @@ let settings = loadSettings(backend);
 
 let jobs = [];
 let roles = [];
+let difficulties = [];
 let config = { default_title: { id: "newbie", name: "新入社員" }, achievements: [] };
 let rankingRoleId = DEFAULT_ROLE_ID;
+let rankingDifficultyId = DEFAULT_DIFFICULTY;
 let storageNotice = "";
 let session = null;
 // 開始・終わりの演出の進行(進んでいる間だけ、ある)
@@ -83,6 +96,18 @@ const stopTimeline = () => {
 
 const jobsById = () => Object.fromEntries(jobs.map((job) => [job.id, job.name]));
 
+// 難易度に、いま挑戦できるか(role_clear_normal は、その役職を「ふつう」で 1 回以上クリアしていること)
+const isDifficultyUnlockedFor = (difficulty, roleId) =>
+  checkDifficultyUnlocked(difficulty, {
+    difficultyClears: store.load().data.progress.difficultyClears,
+    roleId,
+    clearKey,
+  });
+
+// 自己ベスト(職種 × 役職 × 難易度)。ないときは null
+const bestOfJob = (jobId, roleId, difficultyId) =>
+  store.load().data.progress.bests[bestKey(jobId, roleId, difficultyId)] ?? null;
+
 async function loadJson(url) {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`${url} (${response.status})`);
@@ -103,6 +128,9 @@ function refreshDashboard() {
     jobs,
     roles,
     isUnlocked: (role) => isRoleUnlocked(data, role),
+    difficulties,
+    isDifficultyUnlocked: isDifficultyUnlockedFor,
+    bestOf: bestOfJob,
     profile: {
       nickname: data.profile.nickname,
       titleId: titles.some((title) => title.id === data.profile.titleId)
@@ -111,7 +139,8 @@ function refreshDashboard() {
     },
     titles,
     rankingRoleId,
-    ranking: getRanking(data, rankingRoleId),
+    rankingDifficultyId,
+    ranking: getRanking(data, rankingRoleId, rankingDifficultyId),
     jobsById: jobsById(),
     achievements: config.achievements,
     unlocked: data.achievements,
@@ -126,10 +155,11 @@ function refreshDashboard() {
 
 async function init() {
   try {
-    [jobs, roles, config] = await Promise.all([
+    [jobs, roles, config, difficulties] = await Promise.all([
       loadJobs(),
       loadRoles(),
       loadJson("/data/achievements.json"),
+      loadDifficulties(),
     ]);
   } catch {
     view.showError("データを読み込めませんでした。ページを再読み込みしてください。");
@@ -142,9 +172,9 @@ async function init() {
   view.setInputStyleSetting(settings.inputStyle);
   applySound();
   view.bind({
-    onStart: ({ mode, jobId, roleId }) => {
+    onStart: ({ mode, jobId, roleId, difficulty }) => {
       sound.unlock(); // ブラウザは、操作のあとにしか、音を許さない。開始のクリックの中で、準備する
-      return mode === "check" ? startCheck({ jobId }) : startGame({ jobId, roleId });
+      return mode === "check" ? startCheck({ jobId }) : startGame({ jobId, roleId, difficulty });
     },
     onSoundModeChange: (mode) => changeSound({ soundMode: mode }),
     onSoundVolumeInput: (value) => {
@@ -189,9 +219,21 @@ async function init() {
     onProfileChange: handleProfileChange,
     onRankingRoleChange: (roleId) => {
       rankingRoleId = roleId;
-      view.renderRanking({ entries: getRanking(store.load().data, roleId), jobsById: jobsById() });
+      view.renderRanking({
+        entries: getRanking(store.load().data, roleId, rankingDifficultyId),
+        jobsById: jobsById(),
+      });
     },
-    onRetry: () => session && startGame({ jobId: session.job.id, roleId: session.role.id }),
+    onRankingDifficultyChange: (difficultyId) => {
+      rankingDifficultyId = difficultyId;
+      view.renderRanking({
+        entries: getRanking(store.load().data, rankingRoleId, difficultyId),
+        jobsById: jobsById(),
+      });
+    },
+    onRetry: () =>
+      session &&
+      startGame({ jobId: session.job.id, roleId: session.role.id, difficulty: session.difficulty }),
     onBack: quit,
     onQuit: quit,
   });
@@ -369,12 +411,19 @@ function finishCheck() {
   );
 }
 
-async function beginGame({ jobId, roleId }) {
+async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
   const job = jobs.find((j) => j.id === jobId);
   const role = roles.find((r) => r.id === roleId);
-  if (!job || !role) return;
+  const difficulty =
+    difficulties.find((d) => d.id === difficultyId) ??
+    difficulties.find((d) => d.id === DEFAULT_DIFFICULTY);
+  if (!job || !role || !difficulty) return;
   if (!isRoleUnlocked(store.load().data, role)) {
     view.showError("この役職には、まだ挑戦できません。");
+    return;
+  }
+  if (!isDifficultyUnlockedFor(difficulty, role.id)) {
+    view.showError("この難易度には、まだ挑戦できません。");
     return;
   }
   let vocabulary;
@@ -386,7 +435,8 @@ async function beginGame({ jobId, roleId }) {
   }
   view.showError("");
 
-  const stage = role.stage;
+  // 難易度の倍率をかけた stage(正解で増える距離・時間で縮む速さ・初期距離だけが変わる)
+  const stage = applyDifficulty(role.stage, difficulty);
   // 苦手な語(直近のプレイでミスした語)は、設定に応じて、出やすくする。役職ごとの、語の長さの出やすさ
   // (stage.word_weights)も、かけ合わせる。同じゲームの中で、同じ語は出ない
   const weights = mergeWeights(
@@ -406,6 +456,7 @@ async function beginGame({ jobId, roleId }) {
     wasDanger: false,
     job,
     role,
+    difficulty: difficulty.id,
     stage,
     vocabularyVersion: vocabulary.version,
     words,
@@ -494,6 +545,9 @@ function finish() {
   sound.stopBgm();
   session.phase = "outro";
   const { state, stage, job, role } = session;
+  const difficulty =
+    difficulties.find((d) => d.id === session.difficulty) ??
+    difficulties.find((d) => d.id === DEFAULT_DIFFICULTY);
   const { accuracy, cps, score } = summarize(state, role.score_multiplier);
   const result = {
     playedAt: Date.now(),
@@ -509,8 +563,7 @@ function finish() {
     accuracy,
     cps,
     vocabularyVersion: session.vocabularyVersion,
-    // 難易度の選択は Phase 18 PR 2 まで「ふつう」(既定)だけ
-    difficulty: DEFAULT_DIFFICULTY,
+    difficulty: session.difficulty,
     // ミス分析・苦手文字の元データ(キーごとの集計・打ち間違いの組・語ごとのミス数)
     keys: session.keyStats.keys,
     confusions: session.keyStats.confusions,
@@ -538,6 +591,7 @@ function finish() {
     });
     const { progress, gained, levelUp } = grantExp(recorded.progress, result, {
       newAchievements: ids.length,
+      multiplier: difficulty.exp_multiplier,
     });
     return {
       data: unlockAchievements({ ...recorded, progress }, ids, result.playedAt),
@@ -556,6 +610,7 @@ function finish() {
   );
   storageNotice = noticeFor(store.status, out.saved);
   rankingRoleId = role.id;
+  rankingDifficultyId = difficulty.id;
 
   const resultView = {
     state,
@@ -567,6 +622,7 @@ function finish() {
     cps,
     averageDifficulty: averageDifficulty(state.byDifficulty),
     rank: out.rank,
+    rankable: difficulty.rankable,
     newAchievements,
     kaichoUnlocked,
     expGained,

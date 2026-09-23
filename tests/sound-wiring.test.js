@@ -145,7 +145,10 @@ describe("main.js のつなぎ(音)", () => {
   });
 
   it("開始のクリアの中で、音の準備をする(ブラウザは、操作のあとにしか、音を許さない)", () => {
-    assert.match(main, /onStart: \(\{ mode, jobId, roleId \}\) => \{\s*sound\.unlock\(\);/);
+    assert.match(
+      main,
+      /onStart: \(\{ mode, jobId, roleId, difficulty \}\) => \{\s*sound\.unlock\(\);/,
+    );
   });
 
   it("起動時に、保存された設定を反映する(applySound)", () => {

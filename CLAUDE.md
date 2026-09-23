@@ -266,7 +266,17 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## 経験値・レベル・職種別熟練度(Phase 18 PR 1)
 
-- 決定は `docs/decisions/0036-phase-18-levels.md`(Phase 18 は、経験値・レベル・熟練度 → 難易度の選択 → 隠し実績 → 改善記録の 4 PR)。**記録は版 4**(`DATA_VERSION`。版 1〜3 も読める。移行前の元データは `:backup-v3` に退避)。各結果に `difficulty`(PR 1 の間は「ふつう」だけ)、進行状況に `exp`(累計の経験値)・`jobs`(職種ごとの `plays`・`clears`・`words`・`hits`・`miss`)・`difficultyClears`(名前 `役職:難易度`。`storage.js` の `clearKey`)・`bests`(自己ベスト。名前 `職種:役職:難易度`。`bestKey`)を追加した。**次に記録の形を変えるときは、`DATA_VERSION` を 5 にして、版 1〜4 を読める移行と、移行のテストを書く**。
+- 決定は `docs/decisions/0036-phase-18-levels.md`(Phase 18 は、経験値・レベル・熟練度 → 難易度の選択 → 隠し実績 → 改善記録の 4 PR)。**記録は版 4**(`DATA_VERSION`。版 1〜3 も読める。移行前の元データは `:backup-v3` に退避)。各結果に `difficulty`(PR 1 の間は「ふつう」だけ。PR 2 で選択できるようにした)、進行状況に `exp`(累計の経験値)・`jobs`(職種ごとの `plays`・`clears`・`words`・`hits`・`miss`)・`difficultyClears`(名前 `役職:難易度`。`storage.js` の `clearKey`)・`bests`(自己ベスト。名前 `職種:役職:難易度`。`bestKey`)を追加した。記録の形は、PR 2 で版 5 に進んだ(下)。
 - 経験値・レベルは `levels.js`(DOM・保存・時計に触れない純粋な計算)。1 プレイの経験値は `expForResult`(正解語数 × 10 + クリア 100 + 新しく解放した実績 × 50。難易度の倍率は PR 2 から)。レベルは 1〜50、`expForLevel` の曲線(なだらかに増える)。`records.js` の `grantExp` が、**`recordResult` → 実績の判定(`evaluateAchievements`)のあとに**、進行状況へ加える(`main.js` の `finish()`)。この順序を変えない(新しい実績の数を、経験値の計算に使うため)。
 - 職種別の熟練度は `mastery.js`(純粋)。6 段階(見習い〜マスター)は、**語数とクリア数の、両方**が条件を満たして上がる。職種の選択欄(`sub`)・成績ページの「職種別の熟練度」(`stats-page.js` の `renderMastery`。**期間・役職の絞り込みの影響を受けない**。復習リストと同じ考え)に出す。
 - 結果画面の獲得経験値・レベルアップの表示は、**保存の警告(`.game__notice`)とは別のクラス(`.result-exp`)**を使う(前向きな知らせに、警告の見た目を使わない)。
+
+### 難易度の選択と、開始前の確認欄(Phase 18 PR 2)
+
+- 決定は `docs/decisions/0037-phase-18-difficulty.md`。難易度は 3 つ: **やさしい**(練習。ランキング・役職クリアの実績・会長の解放には数えない。経験値は少なめ)・**ふつう**(既定。これまでどおり)・**むずかしい**(役職をふつうでクリアすると挑戦できる。経験値は多め)。中身は `public/data/difficulties.json`(`id`・`name`・`description`・`rankable`・`unlock`・`exp_multiplier`・`modifiers`。`roles.json` と同じ、データで決める形)。
+- **記録は版 5**(`DATA_VERSION`。版 1〜4 も読める。移行前の元データは `:backup-v4` に退避)。`rankings` のキーを、役職 ID だけ(`"senpai"`)から `役職:難易度`(`storage.js` の `clearKey`。例 `"senpai:normal"`)に変えた。版 1〜4 のランキングは、読み込み時に、すべて「役職:normal」として扱う。**次に記録の形を変えるときは、`DATA_VERSION` を 6 にして、版 1〜5 を読める移行と、移行のテストを書く**。
+- 難易度の倍率は `difficulty.js` の `applyDifficulty(stage, difficulty)`(純粋関数)が、役職の `stage` から**新しい stage**を作ってかける。変わるのは **`base_gain`・`gain_per_char`・`drain_per_second`・`initial_distance`(最大距離を超えない)だけ**。`engine.js` は変えない(`main.js` の `beginGame` で、選んだ難易度を stage に反映してから、ゲームを始める)。**ふつうの倍率は 1(変化なし)**。むずかしいの倍率は、シミュレーションで調整した(`tests/balance.test.js`。決定ログに、最初の見積もりが厳しすぎた経緯を記載)。
+- `records.js` の `recordResult`: **やさしいは**、累計クリア数・総語数・職種ごとの合計には数えるが、**役職のクリア数(`progress.clears`)・クリア済み職種(`clearedJobs`。実績・会長の解放に使う)には数えない**。ランキングにも載らない。**難易度ごとのクリア数(`difficultyClears`)・自己ベスト(`bests`)は、どの難易度でも記録する**(むずかしいの解放判定・確認欄の自己ベストに使うため)。`PRACTICE_DIFFICULTY`(`difficulty.js` の `"easy"`)で判定する。
+- 難易度の解放は `isDifficultyUnlocked(difficulty, { difficultyClears, roleId, clearKey })`(純粋関数。**役職ごとに判定**。`clearKey` は呼び出し側が渡す依存注入。`difficulty.js` を `storage.js` に依存させないため)。
+- 画面: 役職の選択の下に、難易度のフィールドセット(役職と同じラジオボタン・ロック中バッジ)。**役職を選び直すたびに、ロック状態を作り直す**(`view.js` の `renderDifficultyList`)。選んだ難易度の説明・経験値の倍率・自己ベスト(あれば)を確認欄に表示(`updateDifficultyInfo`。職種・役職・難易度がそろったとき)。ランキングは、役職の選択欄の下に、難易度の選択欄を追加(やさしいは選択肢に出さない。`rankable` で絞る)。
+- Phase 18(経験値・レベル・熟練度 → 難易度の選択)は、ここまで。隠し実績・実績の種類の追加は PR 3。成績ページの改善記録・ハイスコア表は PR 4。

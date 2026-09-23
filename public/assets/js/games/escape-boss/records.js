@@ -1,5 +1,5 @@
 // 記録(プレイ結果・ランキング・進行状況・プロフィール)の更新。保存内容 data を受け取り、新しい data を返す純粋な関数。
-import { DEFAULT_DIFFICULTY } from "./difficulty.js";
+import { DEFAULT_DIFFICULTY, PRACTICE_DIFFICULTY } from "./difficulty.js";
 import { addExp, expForResult, levelUp as levelUpOf } from "./levels.js";
 import {
   MAX_RANKING,
@@ -48,6 +48,9 @@ function sortRanking(a, b) {
 export function recordResult(data, result, { titleName = "" } = {}) {
   const cleared = result.status === "cleared";
   const difficulty = result.difficulty ?? DEFAULT_DIFFICULTY;
+  // やさしい(練習)は、活動量(総クリア数・総語数・職種ごとの合計)には数えるが、
+  // 役職クリアの扱い(実績・会長の解放)には数えない。
+  const countsForRoleClear = cleared && difficulty !== PRACTICE_DIFFICULTY;
   const progress = {
     ...data.progress,
     totalWords: data.progress.totalWords + result.correct,
@@ -55,18 +58,22 @@ export function recordResult(data, result, { titleName = "" } = {}) {
   };
   if (cleared) {
     progress.totalClears += 1;
-    progress.clears = bump(progress.clears, result.roleId);
-    progress.clearedJobs = { ...progress.clearedJobs, [result.jobId]: true };
     progress.difficultyClears = bump(
       progress.difficultyClears,
       clearKey(result.roleId, difficulty),
     );
     progress.bests = recordBest(progress.bests, result, difficulty);
   }
+  if (countsForRoleClear) {
+    progress.clears = bump(progress.clears, result.roleId);
+    progress.clearedJobs = { ...progress.clearedJobs, [result.jobId]: true };
+  }
 
+  // ランキングも、やさしい(練習)は載らない(rankable でない)。役職ごと・難易度ごとに分ける。
   let rankings = data.rankings;
   let rank = null;
-  if (cleared) {
+  if (cleared && difficulty !== PRACTICE_DIFFICULTY) {
+    const key = clearKey(result.roleId, difficulty);
     const entry = {
       score: result.score,
       playedAt: result.playedAt,
@@ -75,10 +82,10 @@ export function recordResult(data, result, { titleName = "" } = {}) {
       nickname: data.profile.nickname,
       title: titleName,
     };
-    const sorted = [...(rankings[result.roleId] ?? []), entry].sort(sortRanking);
+    const sorted = [...(rankings[key] ?? []), entry].sort(sortRanking);
     const position = sorted.indexOf(entry) + 1;
     rank = position <= MAX_RANKING ? position : null;
-    rankings = { ...rankings, [result.roleId]: sorted.slice(0, MAX_RANKING) };
+    rankings = { ...rankings, [key]: sorted.slice(0, MAX_RANKING) };
   }
 
   return {
@@ -113,8 +120,8 @@ export function isRoleUnlocked(data, role) {
   return false;
 }
 
-export function getRanking(data, roleId) {
-  return data.rankings[roleId] ?? [];
+export function getRanking(data, roleId, difficulty = DEFAULT_DIFFICULTY) {
+  return data.rankings[clearKey(roleId, difficulty)] ?? [];
 }
 
 // 新しく解放された実績を記録する(すでに解放済みのものは日時を変えない)

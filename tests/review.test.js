@@ -193,9 +193,9 @@ describe("保存された記録から(実際の形)", () => {
       for (const item of vocab.items) assert.ok(index.has(item.id), item.id);
   });
 
-  it("保存の形(normalizeData を通したもの)から、作れる。記録の版は、4(以前の版の結果も、読める)", () => {
+  it("保存の形(normalizeData を通したもの)から、作れる。記録の版は、5(以前の版の結果も、読める)", () => {
     const data = createEmptyData();
-    assert.equal(data.version, 4);
+    assert.equal(data.version, 5);
     const raw = {
       ...data,
       results: [
