@@ -216,6 +216,51 @@
             </p>
           </section>
 
+          <section class="dash-section" aria-labelledby="backup-title" data-backup>
+            <h2 id="backup-title">記録の書き出し・読み込み</h2>
+            <p class="dash-section__note">
+              結果・ランキング・実績・プロフィールを、JSONファイルに書き出せます。機種変更やバックアップに使えます。
+            </p>
+            <p>
+              <button class="button button--secondary" type="button" data-backup-export>
+                JSONファイルに書き出す
+              </button>
+            </p>
+            <div class="profile-form__field">
+              <label for="backup-import-file">JSONファイルから読み込む</label>
+              <p class="dash-section__note" id="backup-import-hint">
+                いまのこの端末の記録を、ファイルの内容に置き換えます(合わせません)。
+              </p>
+              <input
+                class="game-input__field"
+                id="backup-import-file"
+                type="file"
+                accept="application/json"
+                aria-describedby="backup-import-hint"
+                data-backup-import
+              />
+            </div>
+            <p class="game__notice" role="status" data-backup-status hidden></p>
+          </section>
+
+          <dialog class="modal" id="backup-import-dialog" aria-labelledby="backup-import-title">
+            <div class="modal__body">
+              <h2 id="backup-import-title">記録を置き換えますか?</h2>
+              <p>
+                いまのこの端末の記録を、選んだファイルの内容に置き換えます。<strong>取り消せません</strong>(直前の記録は、この端末の中に、一度だけ退避されます)。
+              </p>
+              <p class="game__notice" role="alert" data-backup-import-message hidden></p>
+              <div class="modal__actions">
+                <button class="button button--secondary" type="button" data-modal-close>
+                  キャンセル
+                </button>
+                <button class="button button--primary" type="button" data-backup-import-confirm>
+                  置き換える
+                </button>
+              </div>
+            </div>
+          </dialog>
+
           <section class="dash-section" aria-labelledby="ranking-title">
             <h2 id="ranking-title">ランキング</h2>
             <div class="profile-form__field">

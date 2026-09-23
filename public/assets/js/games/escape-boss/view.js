@@ -4,6 +4,7 @@ import { activeCues, cueLabel, describeRules, rulesOf } from "./rules.js";
 import { isSkipKey } from "./staging.js";
 import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
 import { DEFAULT_DIFFICULTY } from "./difficulty.js";
+import { MAX_IMPORT_BYTES } from "./storage.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
 // 文字列(語録・ニックネームなど)は textContent で入れる。HTML として解釈しない。
@@ -44,6 +45,12 @@ export function createView(root) {
     const notice = $(selector);
     notice.textContent = STORAGE_NOTICES[kind] ?? "";
     notice.hidden = !STORAGE_NOTICES[kind];
+  };
+  // 記録の書き出し・読み込みの結果(成功・失敗、どちらも同じ場所に出す)
+  const showBackupStatus = (message) => {
+    const notice = $("[data-backup-status]");
+    notice.textContent = message;
+    notice.hidden = !message;
   };
 
   let missTimer = 0;
@@ -395,6 +402,8 @@ export function createView(root) {
       onProfileChange,
       onRankingRoleChange,
       onRankingDifficultyChange,
+      onBackupExport,
+      onBackupImport,
       onRetry,
       onBack,
       onQuit,
@@ -459,6 +468,37 @@ export function createView(root) {
       $("[data-ranking-difficulty]").addEventListener("change", (event) =>
         onRankingDifficultyChange(event.target.value),
       );
+      $("[data-backup-export]").addEventListener("click", () => {
+        showBackupStatus(onBackupExport().message);
+      });
+      let pendingImportText = null;
+      $("[data-backup-import]").addEventListener("change", async (event) => {
+        const [file] = event.target.files;
+        event.target.value = "";
+        if (!file) return;
+        if (file.size > MAX_IMPORT_BYTES) {
+          showBackupStatus("ファイルが大きすぎます(1MBまでです)。");
+          return;
+        }
+        pendingImportText = await file.text();
+        const message = $("[data-backup-import-message]");
+        message.textContent = "";
+        message.hidden = true;
+        $("#backup-import-dialog").showModal();
+      });
+      $("[data-backup-import-confirm]").addEventListener("click", () => {
+        if (pendingImportText === null) return;
+        const result = onBackupImport(pendingImportText);
+        pendingImportText = null;
+        if (result.ok) {
+          $("#backup-import-dialog").close();
+          showBackupStatus(result.message);
+          return;
+        }
+        const message = $("[data-backup-import-message]");
+        message.textContent = result.message;
+        message.hidden = false;
+      });
       $("[data-retry]").addEventListener("click", onRetry);
       $("[data-back]").addEventListener("click", onBack);
       $("[data-quit]").addEventListener("click", onQuit);
