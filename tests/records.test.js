@@ -2,16 +2,19 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   getRanking,
+  grantExp,
   isRoleUnlocked,
   recordResult,
   unlockAchievements,
   updateProfile,
 } from "../public/assets/js/games/escape-boss/records.js";
+import { bestKey, clearKey } from "../public/assets/js/games/escape-boss/storage.js";
 import {
   createEmptyData,
   MAX_RANKING,
   MAX_RESULTS,
 } from "../public/assets/js/games/escape-boss/storage.js";
+import { expForLevel } from "../public/assets/js/games/escape-boss/levels.js";
 
 const result = (overrides = {}) => ({
   playedAt: 1000,
@@ -124,6 +127,104 @@ describe("プレイ結果の記録", () => {
     const start = createEmptyData();
     recordResult(start, result());
     assert.deepEqual(start, createEmptyData());
+  });
+});
+
+describe("職種ごとの合計・自己ベスト・難易度ごとのクリア数(Phase 18)", () => {
+  it("職種ごとの合計(plays・clears・words・hits・miss)が、クリア・ゲームオーバーの両方で積み上がる", () => {
+    let data = createEmptyData();
+    data = recordResult(
+      data,
+      result({ jobId: "engineer", status: "cleared", correct: 8, hits: 60, miss: 1 }),
+    ).data;
+    data = recordResult(
+      data,
+      result({ jobId: "engineer", status: "gameover", correct: 3, hits: 20, miss: 5 }),
+    ).data;
+    assert.deepEqual(data.progress.jobs.engineer, {
+      plays: 2,
+      clears: 1,
+      words: 11,
+      hits: 80,
+      miss: 6,
+    });
+  });
+
+  it("職種が違えば、別々に積み上がる", () => {
+    let data = createEmptyData();
+    data = recordResult(data, result({ jobId: "engineer" })).data;
+    data = recordResult(data, result({ jobId: "sales", correct: 5, hits: 40, miss: 2 })).data;
+    assert.equal(data.progress.jobs.engineer.plays, 1);
+    assert.equal(data.progress.jobs.sales.plays, 1);
+    assert.equal(data.progress.jobs.sales.words, 5);
+  });
+
+  it("難易度ごとのクリア数(役職:難易度)は、クリアしたときだけ増える。既定は「ふつう」", () => {
+    let data = createEmptyData();
+    data = recordResult(data, result({ roleId: "senpai", status: "cleared" })).data;
+    data = recordResult(data, result({ roleId: "senpai", status: "gameover" })).data;
+    assert.equal(data.progress.difficultyClears[clearKey("senpai", "normal")], 1);
+  });
+
+  it("自己ベスト(職種 × 役職 × 難易度)は、スコアが上回ったときだけ更新される", () => {
+    let data = createEmptyData();
+    data = recordResult(data, result({ score: 1000, playedAt: 1 })).data;
+    const key = bestKey("engineer", "senpai", "normal");
+    assert.deepEqual(data.progress.bests[key], { score: 1000, playedAt: 1 });
+    data = recordResult(data, result({ score: 800, playedAt: 2 })).data;
+    assert.equal(data.progress.bests[key].score, 1000, "低いスコアでは、更新しない");
+    data = recordResult(data, result({ score: 1500, playedAt: 3 })).data;
+    assert.deepEqual(data.progress.bests[key], { score: 1500, playedAt: 3 });
+  });
+
+  it("ゲームオーバーでは、自己ベスト・難易度ごとのクリア数は増えない", () => {
+    const data = recordResult(createEmptyData(), result({ status: "gameover" })).data;
+    assert.deepEqual(data.progress.bests, {});
+    assert.deepEqual(data.progress.difficultyClears, {});
+  });
+
+  it("元のデータを書き換えない(進行状況の新しい項目も含めて)", () => {
+    const start = createEmptyData();
+    recordResult(start, result());
+    assert.deepEqual(start, createEmptyData());
+  });
+});
+
+describe("grantExp(経験値の付与)", () => {
+  it("結果から経験値を計算し、進行状況の exp に足す", () => {
+    const progress = { ...createEmptyData().progress, exp: 100 };
+    const out = grantExp(progress, result({ status: "cleared", correct: 8 }));
+    assert.equal(out.gained, 8 * 10 + 100);
+    assert.equal(out.progress.exp, 100 + out.gained);
+  });
+
+  it("新しく解放した実績の数・難易度の倍率を、そのまま expForResult に渡す", () => {
+    const progress = { ...createEmptyData().progress, exp: 0 };
+    const out = grantExp(progress, result({ status: "cleared", correct: 5 }), {
+      newAchievements: 2,
+      multiplier: 2,
+    });
+    assert.equal(out.gained, (5 * 10 + 100 + 2 * 50) * 2);
+  });
+
+  it("レベルが上がったときだけ、levelUp に { from, to } が入る", () => {
+    const justBelow = { ...createEmptyData().progress, exp: expForLevel(3) - 5 };
+    const up = grantExp(justBelow, result({ status: "cleared", correct: 1 }));
+    assert.ok(up.levelUp === null || up.levelUp.to > up.levelUp.from);
+    const noChange = grantExp(
+      { ...createEmptyData().progress, exp: 0 },
+      result({ status: "gameover", correct: 0 }),
+    );
+    assert.equal(noChange.levelUp, null);
+  });
+
+  it("進行状況の、exp 以外の項目は変わらない", () => {
+    const progress = {
+      ...createEmptyData().progress,
+      jobs: { engineer: { plays: 1, clears: 1, words: 8, hits: 60, miss: 1 } },
+    };
+    const out = grantExp(progress, result());
+    assert.deepEqual(out.progress.jobs, progress.jobs);
   });
 });
 

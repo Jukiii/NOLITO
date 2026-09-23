@@ -15,6 +15,7 @@ import {
   summarizeResults,
 } from "./stats.js";
 import { REVIEW_LIMIT, REVIEW_PLAYS, buildReviewList, indexWords } from "./review.js";
+import { jobMasteries } from "./mastery.js";
 import { reviewItem } from "./review-item.js";
 import { createStore, getBackend } from "./storage.js";
 
@@ -50,6 +51,7 @@ const CHARTS = {
 };
 
 let roles = [];
+let jobIds = [];
 let jobsById = {};
 let rolesById = {};
 let allResults = [];
@@ -297,6 +299,38 @@ function renderRecent(scope) {
   );
 }
 
+// 職種別の熟練度: 打ち終えた語数とクリア数(進行状況。すべてのプレイから)。期間・役職の絞り込みには、影響されない
+function renderMastery(progressJobs) {
+  const masteries = jobMasteries(progressJobs, jobIds);
+  $("[data-mastery-list]").replaceChildren(
+    ...masteries.map((mastery) => {
+      const percent = Math.round(mastery.ratio * 100);
+      const fill = el("span", { class: "key-bar__fill" });
+      fill.style.width = `${Math.max(2, percent)}%`;
+      const nextText = mastery.next
+        ? `次は${mastery.next.name}(語数あと${mastery.next.wordsLeft}・クリアあと${mastery.next.clearsLeft})`
+        : "最高段階です";
+      return el(
+        "li",
+        { class: "key-bar" },
+        el(
+          "span",
+          { class: "mastery-list__job" },
+          jobsById[mastery.id] ?? mastery.id,
+          " ",
+          el("span", { class: "badge badge--live" }, mastery.name),
+        ),
+        el("span", { class: "key-bar__track", "aria-hidden": "true" }, fill),
+        el(
+          "span",
+          { class: "key-bar__text" },
+          `${mastery.words}語・${mastery.clears}回クリア。${nextText}`,
+        ),
+      );
+    }),
+  );
+}
+
 // 復習リスト: 直近のプレイでミスした語。期間・役職の絞り込みには、影響されない
 function renderReview(vocabularies) {
   const list = buildReviewList(allResults, indexWords(vocabularies));
@@ -352,8 +386,10 @@ async function init() {
       loadJson("/data/roles.json"),
     ]);
     roles = loadedRoles;
+    jobIds = jobs.map((job) => job.id);
     jobsById = Object.fromEntries(jobs.map((job) => [job.id, job.name]));
     rolesById = Object.fromEntries(roles.map((role) => [role.id, role]));
+    renderMastery(data.progress.jobs);
   } catch {
     const error = $("[data-error]");
     error.textContent = "データを読み込めませんでした。ページを再読み込みしてください。";

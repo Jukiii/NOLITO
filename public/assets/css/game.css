@@ -1159,6 +1159,28 @@
   }
 }
 
+/* プレイヤーのレベル。ゲージと同じ考え(縞模様は付けず、色はトークンから) */
+.player-level {
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: var(--font-size-lg);
+}
+
+.player-level__bar {
+  height: 0.75rem;
+  overflow: hidden;
+  background: var(--color-chart-grid);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.player-level__fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  transition: width 0.2s ease-out;
+}
+
 /* ダッシュボードのセクション */
 .dash-section {
   margin-top: var(--space-12);
@@ -1343,6 +1365,23 @@
   margin: 0 0 var(--space-4);
   color: var(--color-text-muted);
   font-weight: 700;
+}
+
+/* 獲得経験値・レベルアップの知らせ(保存の警告と違い、前向きな見た目。実線・アクセントの色) */
+.result-exp {
+  display: inline-block;
+  margin: 0 var(--space-2) var(--space-4) 0;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.result-exp--levelup {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 .result-score {

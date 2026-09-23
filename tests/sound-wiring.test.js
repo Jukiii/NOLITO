@@ -231,9 +231,9 @@ describe("音は、端末の中だけで作る(外部の音・通信は、なし
     }
   });
 
-  it("音の設定は、ゲームの設定のキー(記録とは別)に保存され、記録の版(3)は、変わらない", () => {
+  it("音の設定は、ゲームの設定のキー(記録とは別)に保存される", () => {
     const storage = read("public/assets/js/games/escape-boss/storage.js");
-    assert.match(storage, /DATA_VERSION = 3/);
+    assert.match(storage, /DATA_VERSION = \d+/);
     const settings = read("public/assets/js/games/escape-boss/settings.js");
     assert.match(settings, /nolito:escape-boss:settings:v1/);
   });

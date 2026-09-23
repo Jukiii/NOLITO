@@ -144,13 +144,14 @@ export function createView(root) {
     );
   }
 
-  function renderSetup({ jobs, roles, isUnlocked }) {
+  function renderSetup({ jobs, roles, isUnlocked, masteries = [] }) {
     setupRoles = roles;
     const jobId = checkedValue("job");
     let roleId = checkedValue("role");
     const selectedJob = jobs.some((job) => job.id === jobId) ? jobId : jobs[0].id;
     const selectableRole = roles.find((role) => role.id === roleId && isUnlocked(role));
     roleId = selectableRole ? roleId : roles.find((role) => isUnlocked(role)).id;
+    const masteryById = new Map(masteries.map((mastery) => [mastery.id, mastery]));
 
     const mode = currentMode();
     $("[data-mode-list]").replaceChildren(
@@ -158,7 +159,12 @@ export function createView(root) {
     );
     $("[data-job-list]").replaceChildren(
       ...jobs.map((job) =>
-        option("job", { value: job.id, label: job.name, checked: job.id === selectedJob }),
+        option("job", {
+          value: job.id,
+          label: job.name,
+          sub: masteryById.get(job.id)?.name,
+          checked: job.id === selectedJob,
+        }),
       ),
     );
     $("[data-role-list]").replaceChildren(
@@ -181,6 +187,21 @@ export function createView(root) {
     updateRoleRules();
     $("[data-start]").disabled = false;
     applyMode();
+  }
+
+  // レベル・累計の経験値のバー(プレイヤー欄から呼ぶ)
+  function renderLevel(level) {
+    setText("[data-level]", level.level);
+    const max = level.nextAt === null;
+    $("[data-level-max]").hidden = !max;
+    $("[data-level-bar]").setAttribute("aria-valuenow", String(Math.round(level.ratio * 100)));
+    $("[data-level-fill]").style.width = `${(level.ratio * 100).toFixed(1)}%`;
+    setText(
+      "[data-level-text]",
+      max
+        ? `累計の経験値 ${level.exp}`
+        : `経験値 ${level.into} / ${level.needed}(次のレベルまで、あと${level.remaining})`,
+    );
   }
 
   function renderProfile({ profile, titles }) {
@@ -384,9 +405,12 @@ export function createView(root) {
       achievements,
       unlocked,
       storageNotice,
+      level,
+      masteries,
     }) {
-      renderSetup({ jobs, roles, isUnlocked });
+      renderSetup({ jobs, roles, isUnlocked, masteries });
       renderProfile({ profile, titles });
+      renderLevel(level);
       $("[data-ranking-role]").replaceChildren(
         ...roles.map((role) =>
           el("option", { value: role.id, selected: role.id === rankingRoleId }, role.name),
@@ -605,12 +629,19 @@ export function createView(root) {
       rank,
       newAchievements,
       kaichoUnlocked,
+      expGained = 0,
+      levelUp = null,
       notice,
       analysis,
       missed = [],
       quote = "",
     }) {
       showView("result");
+      setText("[data-result-exp]", `経験値 +${expGained}`);
+      const levelupNode = $("[data-result-levelup]");
+      levelupNode.hidden = !levelUp;
+      if (levelUp)
+        setText("[data-result-levelup]", `レベルアップ! レベル${levelUp.to}になりました。`);
       renderAnalysis(analysis);
       $("[data-result-missed]").hidden = missed.length === 0;
       renderReviewList("[data-result-missed-list]", missed);

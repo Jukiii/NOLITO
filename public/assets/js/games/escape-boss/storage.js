@@ -8,15 +8,24 @@
 //   3: Phase 13。各結果に、最大の連続ノーミス(streak)・難易度ごとの打ち終えた語数(wordsByDifficulty)を追加
 //      バージョン 1・2 のデータは、読み込み時に自動で 3 として扱う。追加項目は「記録なし」(null)で、
 //      連続・難易度の集計から除く(0 とは区別する)。移行前の元データ(バージョン 2)は、一度だけ退避する。
+//   4: Phase 18。各結果に難易度(difficulty)、進行状況に、累計の経験値(exp)・職種ごとの合計(jobs)・難易度ごとの
+//      クリア数(difficultyClears)・自己ベスト(bests。職種 × 役職 × 難易度)を追加
+//      バージョン 1〜3 のデータは、読み込み時に自動で 4 として扱う(以前の結果は「ふつう」。経験値は、これまでの累計の
+//      正解語数・クリア数・実績から作る。職種ごとの合計・自己ベストは、残っている結果(最大 200)から作る。
+//      難易度ごとのクリア数は、これまでの役職ごとのクリア数を「ふつう」として数える)。移行前の元データ(バージョン 3)は、
+//      一度だけ退避する。読み込んだだけでは、書き換えない(次に保存するときに、版 4 で保存される)。
 //
 // 保存先のキー名の "v1" は、キーの名前。データの中の version とは別で、変えない(変えると既存の記録が読めなくなる)。
+import { DEFAULT_DIFFICULTY, isDifficulty } from "./difficulty.js";
 import { CONFUSION_PATTERN, KEY_PATTERN } from "./keystats.js";
+import { MAX_EXP, initialExp } from "./levels.js";
 
 export const STORAGE_KEY = "nolito:escape-boss:v1";
 const BACKUP_V1_KEY = `${STORAGE_KEY}:backup-v1`;
 const BACKUP_V2_KEY = `${STORAGE_KEY}:backup-v2`;
-export const DATA_VERSION = 3;
-const READABLE_VERSIONS = [1, 2, 3];
+const BACKUP_V3_KEY = `${STORAGE_KEY}:backup-v3`;
+export const DATA_VERSION = 4;
+const READABLE_VERSIONS = [1, 2, 3, 4];
 // 改ざんされたデータで、保存内容が膨らみすぎないようにする上限
 // (キーは a-z・0-9・- の1文字だけなので、種類は最大37で、上限は不要)
 const MAX_CONFUSION_ENTRIES = 100;
@@ -25,6 +34,12 @@ const WORD_ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 // 難易度のキー(語録の範囲 1〜5)と、1 プレイでの語数の上限(改ざんで、値が膨らみすぎないように)
 const DIFFICULTY_KEY_PATTERN = /^[1-5]$/;
 const MAX_WORDS_PER_RESULT = 1000;
+// 職種・役職の ID(小文字・数字・ハイフンだけ)と、職種ごとの合計・難易度ごとのクリア数・自己ベストの、数の上限(改ざん対策)
+const ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const MAX_JOB_ENTRIES = 50;
+const MAX_CLEAR_ENTRIES = 300;
+const MAX_BEST_ENTRIES = 600;
+const MAX_TOTAL = 1_000_000_000;
 export const MAX_RESULTS = 200;
 export const MAX_RANKING = 10;
 export const NICKNAME_MAX = 12;
@@ -38,9 +53,23 @@ export function createEmptyData() {
     results: [],
     rankings: {},
     achievements: {},
-    progress: { totalClears: 0, totalWords: 0, clears: {}, clearedJobs: {} },
+    progress: {
+      totalClears: 0,
+      totalWords: 0,
+      clears: {},
+      clearedJobs: {},
+      // 版 4(Phase 18): 累計の経験値・職種ごとの合計・難易度ごとのクリア数・自己ベスト
+      exp: 0,
+      jobs: {},
+      difficultyClears: {},
+      bests: {},
+    },
   };
 }
+
+// 難易度ごとのクリア数の名前(役職:難易度)と、自己ベストの名前(職種:役職:難易度)
+export const clearKey = (roleId, difficulty) => `${roleId}:${difficulty}`;
+export const bestKey = (jobId, roleId, difficulty) => `${jobId}:${roleId}:${difficulty}`;
 
 // 表示に使う名前を安全な文字列にする(制御文字を除き、12文字まで。空なら既定名)
 export function sanitizeNickname(value) {
@@ -59,6 +88,8 @@ const isObject = (value) => value !== null && typeof value === "object" && !Arra
 const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
 const isString = (value) => typeof value === "string" && value.length > 0 && value.length <= 100;
 const count = (value) => (isFiniteNumber(value) && value >= 0 ? Math.floor(value) : 0);
+const total = (value) => Math.min(count(value), MAX_TOTAL);
+const isId = (value) => typeof value === "string" && value.length <= 40 && ID_PATTERN.test(value);
 
 // キーごとの集計。キー名は a-z・0-9・- の1文字だけ。
 function normalizeKeys(raw) {
@@ -126,7 +157,86 @@ function normalizeResult(raw) {
         ? Math.min(Math.floor(raw.streak), count(raw.correct))
         : null,
     wordsByDifficulty: normalizeDifficultyCounts(raw.wordsByDifficulty),
+    // バージョン 1〜3 の結果には無い(「ふつう」として扱う)
+    difficulty: isDifficulty(raw.difficulty) ? raw.difficulty : DEFAULT_DIFFICULTY,
   };
+}
+
+// 職種ごとの合計(progress.jobs)。職種 ID がおかしいもの・数でない値は捨てる(数は上限まで)
+function normalizeJobs(raw) {
+  const jobs = {};
+  if (!isObject(raw)) return jobs;
+  for (const [id, value] of Object.entries(raw).slice(0, MAX_JOB_ENTRIES * 2)) {
+    if (Object.keys(jobs).length >= MAX_JOB_ENTRIES) break;
+    if (!isId(id) || !isObject(value)) continue;
+    jobs[id] = {
+      plays: total(value.plays),
+      clears: total(value.clears),
+      words: total(value.words),
+      hits: total(value.hits),
+      miss: total(value.miss),
+    };
+  }
+  return jobs;
+}
+
+// 難易度ごとのクリア数(名前 = 役職:難易度)
+function normalizeDifficultyClears(raw) {
+  const clears = {};
+  if (!isObject(raw)) return clears;
+  for (const [key, value] of Object.entries(raw).slice(0, MAX_CLEAR_ENTRIES * 2)) {
+    if (Object.keys(clears).length >= MAX_CLEAR_ENTRIES) break;
+    const [roleId, difficulty, ...rest] = key.split(":");
+    if (rest.length > 0 || !isId(roleId) || !isDifficulty(difficulty)) continue;
+    const n = total(value);
+    if (n > 0) clears[key] = n;
+  }
+  return clears;
+}
+
+// 自己ベスト(名前 = 職種:役職:難易度。値 = { score, playedAt })
+function normalizeBests(raw) {
+  const bests = {};
+  if (!isObject(raw)) return bests;
+  for (const [key, value] of Object.entries(raw).slice(0, MAX_BEST_ENTRIES * 2)) {
+    if (Object.keys(bests).length >= MAX_BEST_ENTRIES) break;
+    const [jobId, roleId, difficulty, ...rest] = key.split(":");
+    if (rest.length > 0 || !isId(jobId) || !isId(roleId) || !isDifficulty(difficulty)) continue;
+    if (!isObject(value) || !isFiniteNumber(value.score) || !isFiniteNumber(value.playedAt))
+      continue;
+    if (value.score < 0 || value.score > MAX_TOTAL) continue;
+    bests[key] = { score: value.score, playedAt: value.playedAt };
+  }
+  return bests;
+}
+
+// 版 1〜3 からの移行: 残っている結果から、職種ごとの合計を作る
+function jobsFromResults(results) {
+  const jobs = {};
+  for (const result of results) {
+    if (!isId(result.jobId)) continue;
+    const job = (jobs[result.jobId] ??= { plays: 0, clears: 0, words: 0, hits: 0, miss: 0 });
+    job.plays += 1;
+    if (result.status === "cleared") job.clears += 1;
+    job.words += count(result.correct);
+    job.hits += count(result.hits);
+    job.miss += count(result.miss);
+  }
+  return normalizeJobs(jobs);
+}
+
+// 版 1〜3 からの移行: 残っている結果(クリアだけ)から、自己ベスト(「ふつう」)を作る
+function bestsFromResults(results) {
+  const bests = {};
+  for (const result of results) {
+    if (result.status !== "cleared" || !isId(result.jobId) || !isId(result.roleId)) continue;
+    const key = bestKey(result.jobId, result.roleId, DEFAULT_DIFFICULTY);
+    const current = bests[key];
+    if (!current || result.score > current.score) {
+      bests[key] = { score: result.score, playedAt: result.playedAt };
+    }
+  }
+  return normalizeBests(bests);
 }
 
 function normalizeRankingEntry(raw) {
@@ -185,6 +295,26 @@ export function normalizeData(raw) {
       }
     }
   }
+  if (raw.version >= 4) {
+    // 版 4: 保存されていた値を、検証して読む
+    const progress = isObject(raw.progress) ? raw.progress : {};
+    data.progress.exp = Math.min(count(progress.exp), MAX_EXP);
+    data.progress.jobs = normalizeJobs(progress.jobs);
+    data.progress.difficultyClears = normalizeDifficultyClears(progress.difficultyClears);
+    data.progress.bests = normalizeBests(progress.bests);
+  } else {
+    // 版 1〜3 からの移行: これまでの記録から、新しい項目を作る(元のデータは、消さない)
+    data.progress.exp = initialExp(data.progress, Object.keys(data.achievements).length);
+    data.progress.jobs = jobsFromResults(data.results);
+    data.progress.difficultyClears = normalizeDifficultyClears(
+      Object.fromEntries(
+        Object.entries(data.progress.clears)
+          .filter(([, n]) => n > 0)
+          .map(([roleId, n]) => [clearKey(roleId, DEFAULT_DIFFICULTY), n]),
+      ),
+    );
+    data.progress.bests = bestsFromResults(data.results);
+  }
   return data;
 }
 
@@ -239,9 +369,10 @@ export function createStore(backend) {
       data = null;
     }
     if (data) {
-      // バージョン 1・2 から移行する場合は、移行前の元データを一度だけ退避する(移行の不具合に備える)
+      // バージョン 1〜3 から移行する場合は、移行前の元データを一度だけ退避する(移行の不具合に備える)
       if (parsed.version === 1) backUpOnce(BACKUP_V1_KEY, text);
       if (parsed.version === 2) backUpOnce(BACKUP_V2_KEY, text);
+      if (parsed.version === 3) backUpOnce(BACKUP_V3_KEY, text);
       status = "ok";
       return { data, status };
     }

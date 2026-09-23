@@ -20,17 +20,21 @@ import {
 } from "./keystats.js";
 import {
   getRanking,
+  grantExp,
   isRoleUnlocked,
   recordResult,
   unlockAchievements,
   updateProfile,
 } from "./records.js";
+import { levelOf } from "./levels.js";
+import { jobMasteries } from "./mastery.js";
 import { createLines, BUBBLE_MS } from "./lines.js";
 import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
 import { isDanger, outroStyleOf } from "./scene.js";
 import { summarize } from "./score.js";
 import { toggledMode } from "./sound.js";
+import { DEFAULT_DIFFICULTY } from "./difficulty.js";
 import { createTimeline, introSteps, outroSteps } from "./staging.js";
 import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
@@ -112,6 +116,11 @@ function refreshDashboard() {
     achievements: config.achievements,
     unlocked: data.achievements,
     storageNotice,
+    level: levelOf(data.progress.exp),
+    masteries: jobMasteries(
+      data.progress.jobs,
+      jobs.map((job) => job.id),
+    ),
   });
 }
 
@@ -500,6 +509,8 @@ function finish() {
     accuracy,
     cps,
     vocabularyVersion: session.vocabularyVersion,
+    // 難易度の選択は Phase 18 PR 2 まで「ふつう」(既定)だけ
+    difficulty: DEFAULT_DIFFICULTY,
     // ミス分析・苦手文字の元データ(キーごとの集計・打ち間違いの組・語ごとのミス数)
     keys: session.keyStats.keys,
     confusions: session.keyStats.confusions,
@@ -525,10 +536,20 @@ function finish() {
       result,
       jobIds: jobs.map((j) => j.id),
     });
-    return { data: unlockAchievements(recorded, ids, result.playedAt), rank, ids };
+    const { progress, gained, levelUp } = grantExp(recorded.progress, result, {
+      newAchievements: ids.length,
+    });
+    return {
+      data: unlockAchievements({ ...recorded, progress }, ids, result.playedAt),
+      rank,
+      ids,
+      gained,
+      levelUp,
+    };
   });
 
   const newAchievements = out.ids.map((id) => config.achievements.find((a) => a.id === id));
+  const { gained: expGained, levelUp } = out;
   const kaicho = roles.find((r) => r.unlock);
   const kaichoUnlocked = Boolean(
     kaicho && !isRoleUnlocked(before, kaicho) && isRoleUnlocked(out.data, kaicho),
@@ -548,6 +569,8 @@ function finish() {
     rank: out.rank,
     newAchievements,
     kaichoUnlocked,
+    expGained,
+    levelUp,
     notice: storageNotice,
     analysis: {
       misses: state.miss,
@@ -565,6 +588,7 @@ function finish() {
       ? `新しい実績: ${newAchievements.map((a) => a.name).join("、")}。`
       : "",
     kaichoUnlocked ? "会長に挑戦できるようになりました。" : "",
+    levelUp ? `レベル${levelUp.to}になりました。` : "",
   ];
   // 記録は保存済み。終わりの演出(飛ばせる)のあと、結果の画面を出して、結果を読み上げる
   beginOutro(resultView, extras.filter(Boolean).join(""));
