@@ -736,7 +736,9 @@ describe("アカウントの削除", () => {
 
   it("ちょうど 10 分は許し、再ログイン(reauth)をすれば、また削除できる", async () => {
     const { cookies } = await loggedIn();
-    await env.DB.prepare("UPDATE sessions SET created_at = created_at - 600").run();
+    // 599 秒(境界のすぐ内側)にする。ちょうど 600 秒だと、DB の更新とリクエストの間に実時間の秒が
+    // 進んだだけで(now が秒単位のため)、まれに 601 秒扱いになり、この後の 200 が flaky になる
+    await env.DB.prepare("UPDATE sessions SET created_at = created_at - 599").run();
     assert.equal((await remove(cookies)).status, 200);
 
     const again = await loggedIn();
