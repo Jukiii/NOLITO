@@ -56,6 +56,9 @@
               <li>
                 「用語確認」は、追ってくる人も時間制限もない練習。日本語・読み・説明を見ながら、10語を確認できる(結果は保存されない)。
               </li>
+              <li>
+                プレイヤーには、レベルと経験値がある。職種ごとに、打った語数とクリア数で「熟練度」が上がる(成績ページで見られる)。
+              </li>
             </ul>
           </div>
 
@@ -162,6 +165,23 @@
 
           <section class="dash-section" aria-labelledby="profile-title">
             <h2 id="profile-title">プレイヤー</h2>
+            <p class="player-level">
+              レベル <strong data-level>1</strong>
+              <span data-level-max hidden>(最高レベル)</span>
+            </p>
+            <!-- [html-validate-disable-next prefer-native-element -- 幅アニメーションを独自に描画するため] -->
+            <div
+              class="player-level__bar"
+              role="progressbar"
+              aria-labelledby="profile-title"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              data-level-bar
+            >
+              <div class="player-level__fill" data-level-fill></div>
+            </div>
+            <p class="dash-section__note" data-level-text></p>
             <form class="profile-form" data-profile>
               <div class="profile-form__field">
                 <label for="nickname">ニックネーム(12文字まで)</label>
@@ -360,6 +380,8 @@
             スコア <strong data-result-score></strong>
             <span class="badge badge--live" data-result-rank hidden></span>
           </p>
+          <p class="result-exp" role="status" data-result-exp></p>
+          <p class="result-exp result-exp--levelup" role="status" data-result-levelup hidden></p>
           <p class="game__notice" role="status" data-result-notice hidden></p>
           <section
             class="dash-section"
