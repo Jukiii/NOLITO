@@ -131,13 +131,14 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## 問い合わせ(Phase 10)
 
-- フォームは `/support/` の `#contact`。`POST /api/contact` が、内容を D1 の `inquiries` に保存する(**メールは送らない**。運営者が `npm run inquiries` で読む)。手順は `docs/contact-setup.md`、決定は `docs/decisions/0017-contact.md`。`CONTACT_ENABLED=true` と DB などがそろうまで、何もしない(プレビューが壊れないこの性質を変えない)。
+- フォームは `/support/` の `#contact`。`POST /api/contact` が、内容を D1 の `inquiries` に保存する(**メールは送らない**。運営者が `npm run inquiries` で読む)。手順は `docs/contact-setup.md`、決定は `docs/decisions/0017-contact.md`。`CONTACT_ENABLED=true` と DB などがそろうまで、何もしない(プレビューが壊れないこの性質を変えない)。**本番は、2026-09-24 に有効化した**(`docs/decisions/0041-terms-and-contact-enabled.md`)。
 - **問い合わせの内容(本文・メールアドレス)を、応答・ログ・監査ログに出さない**。ファイルに書き出さない・外へ送らない(運営者用のコマンドも)。表示は `el()`(textContent)だけ。端末に表示するときは、制御文字を無害化する(`safeText`)。
 - 画面(`public/assets/js/contact/rules.js`)とサーバー(`functions/_lib/contact.js`)の規則は、同じ値・同じ判断にする(`tests/contact-page.test.js` が検査する)。サーバーの検査を、緩めない。サーバーに新しいエラーの種類を足したら、`contact/messages.js` にも文を足す。
 - ボット対策(罠の欄・最短 3 秒・回数制限)は、ボットには成功に見せて保存しない。罠の欄は、`display: none` にしない。Turnstile などの外部のスクリプトは、入れない(入れるときは、ポリシーの版を上げる)。
 - `inquiries` に `user_id` を足さない(ログインと結びつけない)。保存は、対応済みから約 180 日で削除(`--purge`)。バックアップも直近 6 か月まで。この約束を変えるときは、ポリシーの版を上げる。
 - **ソースに、制御文字・双方向制御文字を、直接書かない**(文字コードから作る。`tests/contact-page.test.js` が、ソース全体を検査する)。
-- **プライバシーポリシーは、版 2**(`analytics.js` の `policyVersion`・ページの `data-policy-version`・本文の版は、そろえる)。個人情報の取り扱いを変えたら、版を上げて、改定の履歴(§8)に足す。
+- **プライバシーポリシーは、版 2**(`analytics.js` の `policyVersion`・ページの `data-policy-version`・本文の版は、そろえる)。個人情報の取り扱いを変えたら、版を上げて、改定の履歴(§8)に足す。アカウントを一般公開するタイミングで、版3に上げる予定(Issue #19・決定ログ0040)。
+- **利用規約は `/terms/`**(2026-09-24 新設。決定は `docs/decisions/0041-terms-and-contact-enabled.md`)。フッターのリンクにある(`config/nav.js`)。プライバシーポリシーのような「版」の管理はしていない(内容を大きく変えたら、ページ上でお知らせする)。
 
 ## 語録の確認(Phase 11)
 
