@@ -17,4 +17,5 @@ export const footerLinks = [
   { label: "更新履歴", href: "/updates/" },
   { label: "サポート", href: "/support/" },
   { label: "プライバシーポリシー", href: "/privacy/" },
+  { label: "利用規約", href: "/terms/" },
 ];
