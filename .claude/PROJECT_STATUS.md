@@ -35,39 +35,39 @@
 
 # 3. 全体進捗
 
-| Phase    | 内容                                                                     | Status          | PR                                               | Issue                                          | 備考                                                           |
-| -------- | ------------------------------------------------------------------------ | --------------- | ------------------------------------------------ | ---------------------------------------------- | -------------------------------------------------------------- |
-| Phase 00 | プロジェクト基盤(Static/Vanilla JS/Cloudflare Pages)                     | COMPLETED       | #1                                               | -                                              |                                                                |
-| Phase 01 | 共通UI(ヘッダー・フッター・テーマ)・favicon・ライセンス表記              | COMPLETED       | #2, #3                                           | -                                              |                                                                |
-| Phase 02 | ゲーム MVP(上司から逃げろ。ダッシュボード・タイピング)                   | COMPLETED       | #4                                               | -                                              |                                                                |
-| Phase 03 | 役職(先輩〜会長)・キャラ・ランキング・称号・実績                         | COMPLETED       | #5                                               | -                                              |                                                                |
-| Phase 04 | 成績・入力分析・語録の初期形                                             | COMPLETED       | #6, #7                                           | -                                              |                                                                |
-| Phase 05 | 記事・Google Analytics(同意ベース)                                       | COMPLETED       | #8, #9, #10                                      | -                                              |                                                                |
-| Phase 06 | プロダクト一覧(products.json/categories.json)                            | COMPLETED       | #11                                              | -                                              |                                                                |
-| Phase 07 | プロダクト詳細ページ(静的生成)                                           | COMPLETED       | #14                                              | #12(公開前提。未着手・WAITING_HUMAN)           | 有料ソフト公開前に、販売サービス選定・特定商取引法の表記が必要 |
-| Phase 08 | ツール基盤 + 最初のツール「キーみち」                                    | COMPLETED       | #16, #17, #18                                    | #15(解決済み・クローズ)                        |                                                                |
-| Phase 09 | アカウント(Google ログイン)・ライセンス                                  | COMPLETED       | #20, #21                                         | #19(一般公開の前提。未着手・WAITING_HUMAN)     | いまは招待制(SIGNUP_MODE=invite)                               |
-| Phase 10 | バックアップ・更新履歴・問い合わせ                                       | COMPLETED       | #22, #23, #24                                    | #13(問い合わせ先の決定。未着手・WAITING_HUMAN) | CONTACT_ENABLED はまだ未設定の可能性                           |
-| Phase 11 | 語録の確認フロー・語録拡充                                               | COMPLETED       | #25, #28                                         | -                                              |                                                                |
-| Phase 12 | 用語確認モード・復習リスト・距離の計算式                                 | COMPLETED       | #26, #27, #29                                    | -                                              |                                                                |
-| Phase 13 | 出題(苦手語の重み)・入力方式・成績項目(版3)                              | COMPLETED       | #30, #31, #32                                    | -                                              |                                                                |
-| Phase 14 | 語録の原稿管理(Markdown)・詳細説明表示                                   | COMPLETED       | #33, #34                                         | -                                              |                                                                |
-| Phase 15 | ゲーム画面の場面・職種別背景                                             | COMPLETED       | #35, #36                                         | -                                              |                                                                |
-| Phase 16 | キャラクターの絵・演出とセリフ・音                                       | COMPLETED       | #37, #38, #39                                    | -                                              |                                                                |
-| Phase 17 | 役職ごとの文字数・特殊ルール・ルール演出・役職別演出                     | COMPLETED       | #40, #41, #42                                    | -                                              |                                                                |
-| Phase 18 | 難易度個別選択・開始前の確認欄・経験値/レベル/熟練度・隠し実績・改善記録 | **IN_PROGRESS** | PR1=#43(済), PR2=#44(済), PR3=未着手, PR4=未着手 | -                                              | 4 PR構成(0036決定ログ)。次はPR3(隠し実績)                      |
-| Phase 19 | 未登録プレイ+アカウント移行・公開範囲設定・オンラインランキング          | NOT_STARTED     | -                                                | -                                              | Phase 9 の一般公開前提(#19)と関係する可能性                    |
-| Phase 20 | ナビ拡張・トップページ・検索                                             | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 22 | キーボード/タッチ操作・端末最適化                                        | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 24 | 語録の拡張ファイル・追加フロー                                           | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 25 | AI活用(生成・チェック・提案)                                             | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 26 | 管理画面・RBAC                                                           | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 27 | セキュリティ強化・監査ログ・MFA                                          | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 28 | パフォーマンス・監視・CI/CD強化                                          | NOT_STARTED     | -                                                | -                                              |                                                                |
-| Phase 29 | 広告・アフィリエイト・収益化                                             | NOT_STARTED     | -                                                | -                                              | Phase 29 まで広告事業者スクリプトを入れない方針(CLAUDE.md)     |
-| Phase 30 | 全体仕様の統合ドキュメント                                               | NOT_STARTED     | -                                                | -                                              |                                                                |
+| Phase    | 内容                                                                     | Status          | PR                                                | Issue                                          | 備考                                                                |
+| -------- | ------------------------------------------------------------------------ | --------------- | ------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------- |
+| Phase 00 | プロジェクト基盤(Static/Vanilla JS/Cloudflare Pages)                     | COMPLETED       | #1                                                | -                                              |                                                                     |
+| Phase 01 | 共通UI(ヘッダー・フッター・テーマ)・favicon・ライセンス表記              | COMPLETED       | #2, #3                                            | -                                              |                                                                     |
+| Phase 02 | ゲーム MVP(上司から逃げろ。ダッシュボード・タイピング)                   | COMPLETED       | #4                                                | -                                              |                                                                     |
+| Phase 03 | 役職(先輩〜会長)・キャラ・ランキング・称号・実績                         | COMPLETED       | #5                                                | -                                              |                                                                     |
+| Phase 04 | 成績・入力分析・語録の初期形                                             | COMPLETED       | #6, #7                                            | -                                              |                                                                     |
+| Phase 05 | 記事・Google Analytics(同意ベース)                                       | COMPLETED       | #8, #9, #10                                       | -                                              |                                                                     |
+| Phase 06 | プロダクト一覧(products.json/categories.json)                            | COMPLETED       | #11                                               | -                                              |                                                                     |
+| Phase 07 | プロダクト詳細ページ(静的生成)                                           | COMPLETED       | #14                                               | #12(公開前提。未着手・WAITING_HUMAN)           | 有料ソフト公開前に、販売サービス選定・特定商取引法の表記が必要      |
+| Phase 08 | ツール基盤 + 最初のツール「キーみち」                                    | COMPLETED       | #16, #17, #18                                     | #15(解決済み・クローズ)                        |                                                                     |
+| Phase 09 | アカウント(Google ログイン)・ライセンス                                  | COMPLETED       | #20, #21                                          | #19(一般公開の前提。未着手・WAITING_HUMAN)     | いまは招待制(SIGNUP_MODE=invite)                                    |
+| Phase 10 | バックアップ・更新履歴・問い合わせ                                       | COMPLETED       | #22, #23, #24                                     | #13(問い合わせ先の決定。未着手・WAITING_HUMAN) | CONTACT_ENABLED はまだ未設定の可能性                                |
+| Phase 11 | 語録の確認フロー・語録拡充                                               | COMPLETED       | #25, #28                                          | -                                              |                                                                     |
+| Phase 12 | 用語確認モード・復習リスト・距離の計算式                                 | COMPLETED       | #26, #27, #29                                     | -                                              |                                                                     |
+| Phase 13 | 出題(苦手語の重み)・入力方式・成績項目(版3)                              | COMPLETED       | #30, #31, #32                                     | -                                              |                                                                     |
+| Phase 14 | 語録の原稿管理(Markdown)・詳細説明表示                                   | COMPLETED       | #33, #34                                          | -                                              |                                                                     |
+| Phase 15 | ゲーム画面の場面・職種別背景                                             | COMPLETED       | #35, #36                                          | -                                              |                                                                     |
+| Phase 16 | キャラクターの絵・演出とセリフ・音                                       | COMPLETED       | #37, #38, #39                                     | -                                              |                                                                     |
+| Phase 17 | 役職ごとの文字数・特殊ルール・ルール演出・役職別演出                     | COMPLETED       | #40, #41, #42                                     | -                                              |                                                                     |
+| Phase 18 | 難易度個別選択・開始前の確認欄・経験値/レベル/熟練度・隠し実績・改善記録 | **IN_PROGRESS** | PR1=#43(済), PR2=#44(済), PR3=#47(済), PR4=未着手 | -                                              | 4 PR構成(0036決定ログ)。次はPR4(成績ページの改善記録・ハイスコア表) |
+| Phase 19 | 未登録プレイ+アカウント移行・公開範囲設定・オンラインランキング          | NOT_STARTED     | -                                                 | -                                              | Phase 9 の一般公開前提(#19)と関係する可能性                         |
+| Phase 20 | ナビ拡張・トップページ・検索                                             | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 22 | キーボード/タッチ操作・端末最適化                                        | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 24 | 語録の拡張ファイル・追加フロー                                           | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 25 | AI活用(生成・チェック・提案)                                             | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 26 | 管理画面・RBAC                                                           | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 27 | セキュリティ強化・監査ログ・MFA                                          | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 28 | パフォーマンス・監視・CI/CD強化                                          | NOT_STARTED     | -                                                 | -                                              |                                                                     |
+| Phase 29 | 広告・アフィリエイト・収益化                                             | NOT_STARTED     | -                                                 | -                                              | Phase 29 まで広告事業者スクリプトを入れない方針(CLAUDE.md)          |
+| Phase 30 | 全体仕様の統合ドキュメント                                               | NOT_STARTED     | -                                                 | -                                              |                                                                     |
 
 ---
 
@@ -76,7 +76,7 @@
 ## Current Phase
 
 ```text
-Phase 18(PR 3: 隠し実績・実績の種類の追加)
+Phase 18(PR 4: 成績ページの改善記録・ハイスコア表)
 ```
 
 ## Current Status
@@ -88,13 +88,13 @@ IN_PROGRESS
 ## Current Branch
 
 ```text
-main(PR 2 マージ済み。PR 3 用のブランチは、まだ作成していない)
+main(PR 3 マージ済み。PR 4 用のブランチは、まだ作成していない)
 ```
 
 ## Current Task
 
 ```text
-Phase 18 PR 3(隠し実績・実績の種類の追加)の仕様確認・実装計画
+Phase 18 PR 4(成績ページの改善記録・ハイスコア表)の仕様確認・実装計画
 ```
 
 ## Current Step
@@ -115,18 +115,19 @@ Phase 18 PR 3(隠し実績・実績の種類の追加)の仕様確認・実装�
 docs/01_phases/phase-18.md
 docs/decisions/0036-phase-18-levels.md(PR1)
 docs/decisions/0037-phase-18-difficulty.md(PR2)
+docs/decisions/0038-phase-18-achievements.md(PR3)
 ```
 
 ### フェーズ状態
 
 ```text
-IN_PROGRESS(PR1・PR2 完了。PR3・PR4 未着手)
+IN_PROGRESS(PR1・PR2・PR3 完了。PR4 未着手)
 ```
 
-### 作業チェックリスト(PR2 = 完了分)
+### 作業チェックリスト(PR3 = 完了分)
 
 - [x] 仕様書を確認
-- [x] 前フェーズ(PR1)の状態を確認
+- [x] 前PR(PR2)の状態を確認
 - [x] Gitの状態を確認
 - [x] GitHub Issueを確認
 - [x] GitHub PRを確認
@@ -134,21 +135,21 @@ IN_PROGRESS(PR1・PR2 完了。PR3・PR4 未着手)
 - [x] 実装計画を作成
 - [x] 実装開始
 - [x] 実装完了
-- [x] テスト実施(単体1652件・実ブラウザ20/20)
+- [x] テスト実施(単体1663件・実ブラウザ9/9)
 - [x] Build確認
-- [x] 問題修正
+- [x] 問題修正(あわせて、既知の flaky テストを別PR #46 で修正)
 - [x] 最終確認
 - [x] コミット
 - [x] Push
-- [x] Pull Request作成(#44)
-- [x] PR内容確認(CI green・プレビュー確認)
-- [x] フェーズ完了(PR2はマージ・本番確認まで完了)
-- [x] 次フェーズ(PR3)へ移行の準備
+- [x] Pull Request作成(#47)
+- [x] PR内容確認(CI green)
+- [x] フェーズ完了(PR3はマージ・本番0.22.0で確認済み)
+- [x] 次フェーズ(PR4)へ移行の準備
 
-### 作業チェックリスト(PR3 = これから)
+### 作業チェックリスト(PR4 = これから)
 
-- [ ] 仕様書を確認(phase-18.md の「隠し要素」)
-- [ ] 前PR(PR2)の状態を確認
+- [ ] 仕様書を確認(phase-18.md の「改善記録」「ハイスコア」)
+- [ ] 前PR(PR3)の状態を確認
 - [ ] 実装計画を作成
 - [ ] 実装開始 〜 Pull Request作成 〜 マージ
 
@@ -159,22 +160,25 @@ IN_PROGRESS(PR1・PR2 完了。PR3・PR4 未着手)
 ### 今何をしているか
 
 ```text
-Phase 18 PR 2(難易度の選択と、開始前の確認欄)を実装・テスト・マージ・本番確認まで完了した。
-続けて Phase 18 PR 3(隠し実績・実績の種類の追加)に着手する。
+Phase 18 PR 3(隠し実績・実績の種類の追加)を実装・テスト・マージ・本番確認まで完了した。
+あわせて、既知の flaky テスト(license-issue.test.js)を、別PR(#46)で修正した。
+続けて Phase 18 PR 4(成績ページの改善記録・ハイスコア表)に着手する。
 ```
 
 ### 次に行う作業
 
 ```text
-1. docs/01_phases/phase-18.md・docs/decisions/0036・0037・achievements.json・achievements.js を確認
-2. 隠し実績の仕様(公開条件を隠す実績の設計)を計画
-3. phase-18-achievements ブランチ(main から)を作成して実装
+1. docs/01_phases/phase-18.md・docs/decisions/0036〜0038・stats-page.js・stats.js を確認
+2. 「改善記録」(成長の推移)・「ハイスコア表」の実装計画を作成
+3. phase-18-stats ブランチ(main から)を作成して実装
 ```
 
 ### 最後に完了した作業
 
 ```text
-Phase 18 PR 2: 難易度の選択と、開始前の確認欄(PR #44、マージ済み、本番 0.21.0 で確認済み)
+Phase 18 PR 3: 隠し実績・実績の種類の追加(PR #47、マージ済み、本番 0.22.0 で確認済み)
+fix: license-issue.mjs の SQL 生成の flaky テスト修正(PR #46、マージ済み)
+chore: PROJECT_STATUS.md の整備(PR #45、マージ済み)
 ```
 
 ### 最後に変更したファイル
@@ -186,7 +190,7 @@ Phase 18 PR 2: 難易度の選択と、開始前の確認欄(PR #44、マージ�
 ### 最後のコミット
 
 ```text
-7e301ed Merge pull request #44 from Jukiii/phase-18-difficulty
+(PR #47 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ---
@@ -244,13 +248,14 @@ main
 ## Last Commit
 
 ```text
-7e301ed Merge pull request #44 from Jukiii/phase-18-difficulty
+0f90331 Merge pull request #47 from Jukiii/phase-18-achievements
 ```
 
 ## Pull Request
 
 ```text
-直近マージ: #44(Phase 18 PR 2)、#43(Phase 18 PR 1)
+直近マージ: #47(Phase 18 PR 3)、#46(fix: license-issue.mjs)、#45(chore: PROJECT_STATUS.md)、
+#44(Phase 18 PR 2)、#43(Phase 18 PR 1)
 オープン中: なし
 ```
 
@@ -263,7 +268,7 @@ main
 ## Uncommitted Changes
 
 ```text
-.claude/(このファイルを含む一式)・.vscode/(意図的に未コミット)
+.claude/PROJECT_STATUS.md(このファイル。次のコミットで反映)・.vscode/(意図的に未コミット)
 ```
 
 ---
@@ -292,6 +297,9 @@ main
 | Phase 17     | 2026-09-21〜22 | #40, #41, #42 | 文字数・特殊ルール・演出              |
 | Phase 18 PR1 | 2026-09-23     | #43           | 経験値・レベル・職種別熟練度(記録版4) |
 | Phase 18 PR2 | 2026-09-24     | #44           | 難易度の選択・開始前の確認欄(記録版5) |
+| (chore)      | 2026-09-24     | #45           | 進捗管理ファイル(.claude/)の整備      |
+| (fix)        | 2026-09-24     | #46           | license-issue.mjs の flaky テスト修正 |
+| Phase 18 PR3 | 2026-09-24     | #47           | 隠し実績・実績の種類の追加            |
 
 ---
 
@@ -429,23 +437,24 @@ Claude Codeは、
 ==================================================
 
 Phase:
-Phase 18(PR 3: 隠し実績・実績の種類の追加)
+Phase 18(PR 4: 成績ページの改善記録・ハイスコア表)
 
 Status:
 IN_PROGRESS
 
 Branch:
-main(PR3 用ブランチは、まだ未作成)
+main(PR4 用ブランチは、まだ未作成)
 
 Task:
-Phase 18 PR 3 の仕様確認・実装計画の作成
+Phase 18 PR 4 の仕様確認・実装計画の作成
 
 Last Completed:
-Phase 18 PR 2(難易度の選択と、開始前の確認欄)。PR #44 マージ・本番 0.21.0 で確認済み
+Phase 18 PR 3(隠し実績・実績の種類の追加)。PR #47 マージ・本番 0.22.0 で確認済み
+(あわせて #45 進捗管理ファイル整備・#46 flaky テスト修正も完了)
 
 Next Action:
-docs/01_phases/phase-18.md・docs/decisions/0036・0037・既存の achievements.json/achievements.js を確認し、
-隠し実績の実装計画を立てて、phase-18-achievements ブランチで実装を開始する。
+docs/01_phases/phase-18.md・docs/decisions/0036〜0038・既存の stats-page.js/stats.js/records.js を確認し、
+改善記録・ハイスコア表の実装計画を立てて、phase-18-stats ブランチで実装を開始する。
 
 Human Task:
 なし(Issue #12・#13・#19 は WAITING_HUMAN だが、いまの作業のブロッカーではない)
