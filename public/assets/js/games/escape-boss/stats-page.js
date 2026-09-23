@@ -5,7 +5,8 @@ import { el } from "../../components/dom.js";
 import { renderLineChart } from "./chart.js";
 import { mergeKeyStats, topConfusions, weakKeys } from "./keystats.js";
 import {
-  bestScoresByRole,
+  bestScoreHistory,
+  bestScoreTable,
   buildSeries,
   compareRecent,
   countWithKeyData,
@@ -17,7 +18,8 @@ import {
 import { REVIEW_LIMIT, REVIEW_PLAYS, buildReviewList, indexWords } from "./review.js";
 import { jobMasteries } from "./mastery.js";
 import { reviewItem } from "./review-item.js";
-import { createStore, getBackend } from "./storage.js";
+import { bestKey, createStore, getBackend } from "./storage.js";
+import { loadDifficulties } from "./vocabulary.js";
 
 const $ = (selector) => document.querySelector(selector);
 const MIN_ATTEMPTS = 10;
@@ -54,6 +56,8 @@ let roles = [];
 let jobIds = [];
 let jobsById = {};
 let rolesById = {};
+let difficulties = [];
+let difficultiesById = {};
 let allResults = [];
 // 語の id → 難易度(語録から作る。読み込めるまでは、空)
 let difficultyById = new Map();
@@ -162,22 +166,56 @@ function renderCharts(scope) {
   }
 }
 
-function renderBest(scope) {
-  const best = bestScoresByRole(scope);
-  const rows = roles.filter((role) => best[role.id]);
+// ハイスコア表(職種 × 役職 × 難易度の自己ベスト)。期間・役職の絞り込みには、影響されない
+// (職種別の熟練度・復習リストと同じ考え。progress.bests は、保存されている結果の件数に関わらず残るため)。
+function renderBest(bests) {
+  const rows = bestScoreTable(bests, {
+    jobIds,
+    roleIds: roles.map((role) => role.id),
+    difficultyIds: difficulties.map((d) => d.id),
+    bestKey,
+  });
   $("[data-best-empty]").hidden = rows.length > 0;
   $("[data-best-table]").hidden = rows.length === 0;
   $("[data-best-body]").replaceChildren(
-    ...rows.map((role) =>
+    ...rows.map((row) =>
       el(
         "tr",
         {},
-        el("th", { scope: "row" }, role.name),
-        el("td", { class: "data-table__number" }, withCommas(best[role.id].score)),
-        el("td", {}, jobsById[best[role.id].jobId] ?? best[role.id].jobId),
-        el("td", {}, formatDate(best[role.id].playedAt)),
+        el("th", { scope: "row" }, rolesById[row.roleId]?.name ?? row.roleId),
+        el("td", {}, difficultiesById[row.difficulty]?.name ?? row.difficulty),
+        el("td", { class: "data-table__number" }, withCommas(row.score)),
+        el("td", {}, jobsById[row.jobId] ?? row.jobId),
+        el("td", {}, formatDate(row.playedAt)),
       ),
     ),
+  );
+}
+
+// 改善記録(自己ベストの更新履歴)。ハイスコア表と同じく、期間・役職の絞り込みには、影響されない
+function renderBestHistory() {
+  const milestones = bestScoreHistory(allResults, bestKey);
+  $("[data-best-history-empty]").hidden = milestones.length > 0;
+  $("[data-best-history-list]").hidden = milestones.length === 0;
+  $("[data-best-history-list]").replaceChildren(
+    ...milestones.map((m) => {
+      const label = `${jobsById[m.jobId] ?? m.jobId}・${rolesById[m.roleId]?.name ?? m.roleId}・${difficultiesById[m.difficulty]?.name ?? m.difficulty}`;
+      const change =
+        m.previousScore === null
+          ? "はじめての記録"
+          : `自己ベストを更新(前回 ${withCommas(m.previousScore)}点 → ${signed(m.score - m.previousScore)}点)`;
+      return el(
+        "li",
+        { class: "best-history-item" },
+        el("p", { class: "best-history-item__head" }, formatDate(m.playedAt), " ", label),
+        el(
+          "p",
+          { class: "best-history-item__score" },
+          `${withCommas(m.score)}点`,
+          el("span", { class: "best-history-item__change" }, `(${change})`),
+        ),
+      );
+    }),
   );
 }
 
@@ -362,7 +400,6 @@ function render() {
   }
   renderSummary(scope);
   renderCharts(scope);
-  renderBest(scope);
   renderDifficulty(scope);
   renderWeakKeys(scope);
   renderRecent(scope);
@@ -381,15 +418,20 @@ async function init() {
     return;
   }
   try {
-    const [jobs, loadedRoles] = await Promise.all([
+    const [jobs, loadedRoles, loadedDifficulties] = await Promise.all([
       loadJson("/data/jobs.json"),
       loadJson("/data/roles.json"),
+      loadDifficulties(),
     ]);
     roles = loadedRoles;
+    difficulties = loadedDifficulties;
     jobIds = jobs.map((job) => job.id);
     jobsById = Object.fromEntries(jobs.map((job) => [job.id, job.name]));
     rolesById = Object.fromEntries(roles.map((role) => [role.id, role]));
+    difficultiesById = Object.fromEntries(difficulties.map((d) => [d.id, d]));
     renderMastery(data.progress.jobs);
+    renderBest(data.progress.bests);
+    renderBestHistory();
   } catch {
     const error = $("[data-error]");
     error.textContent = "データを読み込めませんでした。ページを再読み込みしてください。";

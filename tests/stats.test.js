@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   averageDifficulty,
-  bestScoresByRole,
+  bestScoreHistory,
+  bestScoreTable,
   buildSeries,
   compareRecent,
   countWithKeyData,
@@ -15,6 +16,7 @@ import {
   summarizeDetails,
   summarizeResults,
 } from "../public/assets/js/games/escape-boss/stats.js";
+import { bestKey } from "../public/assets/js/games/escape-boss/storage.js";
 
 // 新しいものが先頭(playedAt が大きい順)
 function result(overrides = {}) {
@@ -34,6 +36,7 @@ function result(overrides = {}) {
     keys: {},
     confusions: {},
     wordMisses: {},
+    difficulty: "normal",
     ...overrides,
   };
 }
@@ -92,23 +95,94 @@ describe("累計の成績", () => {
   });
 });
 
-describe("役職ごとのベストスコア", () => {
-  it("クリアした記録の最高スコアを、役職ごとに返す", () => {
-    const best = bestScoresByRole([
-      result({ roleId: "senpai", score: 900, playedAt: 5 }),
-      result({ roleId: "senpai", score: 1500, playedAt: 4, jobId: "sales" }),
-      result({ roleId: "senpai", score: 9999, status: "gameover", playedAt: 3 }),
-      result({ roleId: "buchou", score: 2000, playedAt: 2 }),
-    ]);
-    assert.deepEqual(best, {
-      senpai: { score: 1500, playedAt: 4, jobId: "sales" },
-      buchou: { score: 2000, playedAt: 2, jobId: "engineer" },
-    });
+describe("ハイスコア表(bestScoreTable。Phase 18 PR 4)", () => {
+  const scope = {
+    jobIds: ["engineer", "sales"],
+    roleIds: ["senpai", "buchou"],
+    difficultyIds: ["easy", "normal", "hard"],
+    bestKey,
+  };
+
+  it("役職 × 難易度ごとに、最高スコアの職種を1行にする(役職・難易度の並び順)", () => {
+    const bests = {
+      [bestKey("engineer", "senpai", "normal")]: { score: 1500, playedAt: 4 },
+      [bestKey("sales", "senpai", "normal")]: { score: 1800, playedAt: 5 },
+      [bestKey("engineer", "senpai", "hard")]: { score: 900, playedAt: 6 },
+      [bestKey("engineer", "buchou", "easy")]: { score: 2000, playedAt: 2 },
+    };
+    const rows = bestScoreTable(bests, scope);
+    assert.deepEqual(
+      rows.map((r) => [r.roleId, r.difficulty, r.jobId, r.score]),
+      [
+        ["senpai", "normal", "sales", 1800],
+        ["senpai", "hard", "engineer", 900],
+        ["buchou", "easy", "engineer", 2000],
+      ],
+    );
   });
 
-  it("クリアがなければ空", () => {
-    assert.deepEqual(bestScoresByRole([result({ status: "gameover" })]), {});
-    assert.deepEqual(bestScoresByRole([]), {});
+  it("記録がなければ、空の一覧", () => {
+    assert.deepEqual(bestScoreTable({}, scope), []);
+    assert.deepEqual(bestScoreTable(null, scope), []);
+  });
+});
+
+describe("自己ベストの更新履歴(bestScoreHistory。Phase 18 PR 4)", () => {
+  it("職種 × 役職 × 難易度ごとに、最高スコアが更新された瞬間だけを、更新順(新しい順)で返す", () => {
+    // playedAt が大きいほど新しい。渡す配列は、新しい順(保存の形)
+    const list = [
+      result({ playedAt: 4, score: 1500, roleId: "senpai" }), // 3番目の更新
+      result({ playedAt: 3, score: 800, roleId: "senpai", status: "gameover" }), // クリアでないので無視
+      result({ playedAt: 2, score: 1200, roleId: "senpai" }), // 2番目の更新
+      result({ playedAt: 1, score: 900, roleId: "senpai" }), // 最初の記録
+    ];
+    const history = bestScoreHistory(list, bestKey);
+    assert.deepEqual(
+      history.map((m) => [m.playedAt, m.score, m.previousScore]),
+      [
+        [4, 1500, 1200],
+        [2, 1200, 900],
+        [1, 900, null],
+      ],
+    );
+  });
+
+  it("スコアが自己ベストを更新しないプレイは、記録しない", () => {
+    const list = [
+      result({ playedAt: 3, score: 500, roleId: "senpai" }),
+      result({ playedAt: 2, score: 1500, roleId: "senpai" }),
+      result({ playedAt: 1, score: 900, roleId: "senpai" }),
+    ];
+    const history = bestScoreHistory(list, bestKey);
+    assert.deepEqual(
+      history.map((m) => m.playedAt),
+      [2, 1],
+    );
+  });
+
+  it("職種・役職・難易度が違えば、別の組として、それぞれ更新を数える", () => {
+    const list = [
+      result({ playedAt: 2, score: 100, roleId: "buchou" }),
+      result({ playedAt: 1, score: 100, roleId: "senpai" }),
+    ];
+    const history = bestScoreHistory(list, bestKey);
+    assert.equal(history.length, 2);
+  });
+
+  it("最大 limit 件(既定10件)、新しい順", () => {
+    // 新しい順(保存の形)。playedAt が大きいほど新しく、スコアも右肩上がりに更新され続ける想定
+    const list = Array.from({ length: 15 }, (_, i) =>
+      result({ playedAt: 15 - i, score: 15 - i, roleId: "senpai" }),
+    );
+    const history = bestScoreHistory(list, bestKey);
+    assert.equal(history.length, 10);
+    assert.equal(history[0].playedAt, 15);
+    assert.equal(history[9].playedAt, 6);
+    assert.equal(bestScoreHistory(list, bestKey, { limit: 3 }).length, 3);
+  });
+
+  it("記録がなければ、空", () => {
+    assert.deepEqual(bestScoreHistory([], bestKey), []);
   });
 });
 

@@ -338,3 +338,36 @@
     grid-column: auto;
   }
 }
+
+/* 改善記録(自己ベストの更新履歴)。復習リスト(.review-item)と同じ、カード形式の一覧 */
+.best-history-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.best-history-item {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.best-history-item__head {
+  margin: 0 0 var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.best-history-item__score {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.best-history-item__change {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-xs);
+}

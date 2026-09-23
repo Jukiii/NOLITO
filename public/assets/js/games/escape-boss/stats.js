@@ -30,16 +30,62 @@ export function summarizeResults(results) {
   };
 }
 
-// 役職ごとのベストスコア(クリアした記録の中で)。{ 役職id: { score, playedAt, jobId } }
-export function bestScoresByRole(results) {
-  const best = {};
-  for (const r of results) {
-    if (r.status !== "cleared") continue;
-    if (!best[r.roleId] || r.score > best[r.roleId].score) {
-      best[r.roleId] = { score: r.score, playedAt: r.playedAt, jobId: r.jobId };
+// ---- ハイスコア表・改善記録(Phase 18 PR 4) ----
+// どちらも、progress.bests(職種 × 役職 × 難易度の自己ベスト。version 4 から)や、保存されている
+// results(直近 200 件)から作る、純粋な計算。bestKey は storage.js のものを、呼び出し側が渡す
+// (stats.js を storage.js に依存させないため。difficulty.js の isDifficultyUnlocked と同じ考え)。
+
+/**
+ * ハイスコア表。役職 × 難易度ごとに、最高スコアの職種を 1 行にする(役職の並び × 難易度の並びの順)。
+ * bests は progress.bests({ "職種:役職:難易度": { score, playedAt } })。記録がない組は、行を作らない。
+ */
+export function bestScoreTable(bests, { jobIds, roleIds, difficultyIds, bestKey }) {
+  const rows = [];
+  for (const roleId of roleIds) {
+    for (const difficulty of difficultyIds) {
+      let top = null;
+      for (const jobId of jobIds) {
+        const entry = bests?.[bestKey(jobId, roleId, difficulty)];
+        if (entry && (!top || entry.score > top.score)) top = { jobId, ...entry };
+      }
+      if (top)
+        rows.push({
+          roleId,
+          difficulty,
+          jobId: top.jobId,
+          score: top.score,
+          playedAt: top.playedAt,
+        });
     }
   }
-  return best;
+  return rows;
+}
+
+/**
+ * 自己ベストの更新履歴。保存されている results(新しい順)を古い順にたどり、職種 × 役職 × 難易度の
+ * 組ごとに、最高スコアが更新された瞬間(クリアした記録だけ)を、更新された順に返す(最大 limit 件、新しい順)。
+ * previousScore は、その回より前の自己ベスト(初めての記録なら null)。
+ */
+export function bestScoreHistory(results, bestKey, { limit = 10 } = {}) {
+  const seen = new Map();
+  const milestones = [];
+  for (const r of [...results].reverse()) {
+    if (r.status !== "cleared") continue;
+    const key = bestKey(r.jobId, r.roleId, r.difficulty);
+    const previousScore = seen.get(key) ?? null;
+    if (previousScore === null || r.score > previousScore) {
+      milestones.push({
+        jobId: r.jobId,
+        roleId: r.roleId,
+        difficulty: r.difficulty,
+        score: r.score,
+        playedAt: r.playedAt,
+        previousScore,
+      });
+      seen.set(key, r.score);
+    }
+  }
+  return milestones.reverse().slice(0, limit);
 }
 
 /**
