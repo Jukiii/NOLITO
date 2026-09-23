@@ -6,8 +6,19 @@ import { newLicense } from "../../functions/_lib/licenses.js";
 export const MAX_COUNT = 50;
 export const MAX_NOTE_LENGTH = 100;
 
-/** SQL の文字列リテラル。単一引用符は、2 つにして、打ち消す。 */
-export const sqlString = (value) => `'${String(value).replaceAll("'", "''")}'`;
+// id・キーのハッシュは、ハイフンを含みうる文字(base64url)から作るため、まれに "--" ができる。
+// 値は変えずに、隣り合う2つ目以降の "-" の前で文字列連結(||)に分け、出力の文字列に "--" を残さない
+// (D1 の Console に貼る SQL は、コメント(--)を入れない。CLAUDE.md)。
+function guardDashes(text) {
+  let out = "";
+  for (const char of text) {
+    out += char === "-" && out.endsWith("-") ? `' || '${char}` : char;
+  }
+  return out;
+}
+
+/** SQL の文字列リテラル。単一引用符は、2 つにして、打ち消す。"--" は、連結に分けて残さない。 */
+export const sqlString = (value) => `'${guardDashes(String(value).replaceAll("'", "''"))}'`;
 
 /** 入力の検査。不正なら、理由つきで例外。 */
 export function validateIssueOptions({ productId, count, note }, productIds) {

@@ -100,6 +100,20 @@ describe("発行", () => {
     assert.equal(sqlString("a'b"), "'a''b'");
     assert.equal(sqlString("''"), "''''''");
   });
+
+  it("sqlString は、出力の文字列に「--」を残さない(id・ハッシュは base64url でハイフンを含みうる)", () => {
+    for (const value of ["a--b", "a---b", "a----b", "--start", "end--", "a-b-c--d--e", "a-b"]) {
+      assert.ok(!sqlString(value).includes("--"), value);
+    }
+  });
+
+  it("「--」を含む値でも、SQL として評価すると、元の値のまま戻る(連結(||)で分けても、値は変わらない)", async () => {
+    const db = createDb();
+    for (const value of ["a--b", "a---b", "----", "a-b--c-d", "id-with--dashes--like-a-token"]) {
+      const row = await db.prepare(`SELECT ${sqlString(value)} AS v`).first();
+      assert.equal(row.v, value, value);
+    }
+  });
 });
 
 describe("入力の検査", () => {
