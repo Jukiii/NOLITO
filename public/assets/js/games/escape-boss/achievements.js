@@ -1,5 +1,7 @@
 // 実績・称号の判定。定義は public/data/achievements.json(名前・説明・条件の種類とパラメータ)。
 // 判定は純粋な関数で、何度呼んでも同じ結果になる(解放済みのものは返さない)。
+import { clearKey } from "./storage.js";
+import { masteryOf } from "./mastery.js";
 
 // 条件の種類ごとの判定。progress は記録後の進行状況、result は直前のプレイ結果。
 const CHECKS = {
@@ -14,6 +16,17 @@ const CHECKS = {
     jobIds.every((job) => progress.clearedJobs[job] === true),
   total_clears: (params, { progress }) => progress.totalClears >= params.count,
   total_words: (params, { progress }) => progress.totalWords >= params.count,
+  // Phase 18 PR 3(隠し実績・実績の種類の追加)。いずれも、既存の result・progress の項目だけで判定する
+  // (新しい保存項目は増やさない)。
+  difficulty_clear: (params, { result }) =>
+    result?.status === "cleared" && result.difficulty === params.difficulty,
+  all_roles_clear_difficulty: (params, { progress }) =>
+    params.roles.every(
+      (role) => (progress.difficultyClears?.[clearKey(role, params.difficulty)] ?? 0) > 0,
+    ),
+  best_streak: (params, { result }) => (result?.streak ?? 0) >= params.count,
+  job_mastery: (params, { progress, jobIds }) =>
+    jobIds.some((id) => masteryOf(progress.jobs?.[id]).rank >= params.rank),
 };
 
 export const ACHIEVEMENT_KINDS = Object.keys(CHECKS);

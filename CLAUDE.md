@@ -279,4 +279,10 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - `records.js` の `recordResult`: **やさしいは**、累計クリア数・総語数・職種ごとの合計には数えるが、**役職のクリア数(`progress.clears`)・クリア済み職種(`clearedJobs`。実績・会長の解放に使う)には数えない**。ランキングにも載らない。**難易度ごとのクリア数(`difficultyClears`)・自己ベスト(`bests`)は、どの難易度でも記録する**(むずかしいの解放判定・確認欄の自己ベストに使うため)。`PRACTICE_DIFFICULTY`(`difficulty.js` の `"easy"`)で判定する。
 - 難易度の解放は `isDifficultyUnlocked(difficulty, { difficultyClears, roleId, clearKey })`(純粋関数。**役職ごとに判定**。`clearKey` は呼び出し側が渡す依存注入。`difficulty.js` を `storage.js` に依存させないため)。
 - 画面: 役職の選択の下に、難易度のフィールドセット(役職と同じラジオボタン・ロック中バッジ)。**役職を選び直すたびに、ロック状態を作り直す**(`view.js` の `renderDifficultyList`)。選んだ難易度の説明・経験値の倍率・自己ベスト(あれば)を確認欄に表示(`updateDifficultyInfo`。職種・役職・難易度がそろったとき)。ランキングは、役職の選択欄の下に、難易度の選択欄を追加(やさしいは選択肢に出さない。`rankable` で絞る)。
-- Phase 18(経験値・レベル・熟練度 → 難易度の選択)は、ここまで。隠し実績・実績の種類の追加は PR 3。成績ページの改善記録・ハイスコア表は PR 4。
+- Phase 18(経験値・レベル・熟練度 → 難易度の選択)は、ここまで。隠し実績・実績の種類の追加は PR 3(下)。成績ページの改善記録・ハイスコア表は PR 4。
+
+### 隠し実績・実績の種類の追加(Phase 18 PR 3)
+
+- 決定は `docs/decisions/0038-phase-18-achievements.md`。`achievements.json` の各項目に、任意の `hidden: true` を持たせられる。未解放の間、`view.js` の `achievementItem` は、名前・説明・称号を隠す(「??? (隠し実績)」)。**解放した瞬間(結果画面の「新しい実績」)は、hidden の有無に関係なく、必ず全部見える**。解放済み/合計の数には、隠し実績も含める(内容だけを隠す)。
+- 実績の判定(`achievements.js`)に、4つの種類を足した: `difficulty_clear`(指定の難易度でクリア)・`all_roles_clear_difficulty`(先輩〜社長を、すべて指定の難易度でクリア。`storage.js` の `clearKey` を使う)・`best_streak`(1プレイの連続正解が、しきい値以上。`result.streak`)・`job_mastery`(いずれかの職種が、指定の熟練度に到達。`mastery.js` の `masteryOf`)。**いずれも、既存の `result`・`progress` の項目だけで判定し、新しい保存項目は増やさない**。`achievements.js` は、`clearKey`・`masteryOf`(どちらも純粋関数)を import してよいが、DOM・保存・時計には触れない性質を保つ。
+- 新しい種類の実績を足すときは、`CHECKS`(`achievements.js`)・`ACHIEVEMENT_KINDS`(自動で増える)・`tests/achievements.test.js`・`tests/roles-data.test.js`(パラメータの検証)をそろえる。

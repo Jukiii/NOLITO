@@ -132,6 +132,49 @@ describe("実績の判定", () => {
     }
   });
 
+  it("むずかしいでのクリア(隠し実績)", () => {
+    assert.ok(play(createEmptyData(), { difficulty: "hard" }).ids.includes("hard-clear"));
+    assert.ok(!play(createEmptyData(), { difficulty: "normal" }).ids.includes("hard-clear"));
+    assert.ok(
+      !play(createEmptyData(), { difficulty: "hard", status: "gameover" }).ids.includes(
+        "hard-clear",
+      ),
+    );
+  });
+
+  it("先輩・係長・部長・社長を、すべてむずかしいでクリア(隠し実績)", () => {
+    let data = createEmptyData();
+    const all = [];
+    for (const roleId of ["senpai", "kakaricho", "buchou"]) {
+      const out = play(data, { roleId, difficulty: "hard" });
+      data = out.data;
+      all.push(...out.ids);
+    }
+    assert.ok(!all.includes("hard-master"));
+    // ふつうでのクリアでは進まない
+    const normal = play(data, { roleId: "shachou", difficulty: "normal" });
+    assert.ok(!normal.ids.includes("hard-master"));
+    const last = play(normal.data, { roleId: "shachou", difficulty: "hard" });
+    assert.ok(last.ids.includes("hard-master"));
+  });
+
+  it("1プレイで10語以上ミスなく連続(隠し実績)", () => {
+    assert.ok(play(createEmptyData(), { streak: 10 }).ids.includes("streak-10"));
+    assert.ok(!play(createEmptyData(), { streak: 9 }).ids.includes("streak-10"));
+    assert.ok(!play(createEmptyData(), { streak: undefined }).ids.includes("streak-10"));
+  });
+
+  it("いずれかの職種で熟練度マスターに到達(隠し実績)", () => {
+    let data = createEmptyData();
+    data.progress.jobs.engineer = { plays: 20, clears: 14, words: 1499, hits: 100, miss: 0 };
+    let out = play(data, { jobId: "engineer", correct: 0, status: "gameover" });
+    assert.ok(!out.ids.includes("job-master"));
+    data = { ...out.data };
+    data.progress.jobs.engineer = { plays: 20, clears: 15, words: 1500, hits: 100, miss: 0 };
+    out = play(data, { jobId: "engineer", correct: 0, status: "gameover" });
+    assert.ok(out.ids.includes("job-master"));
+  });
+
   it("未知の種類の実績は解放されない", () => {
     const ids = evaluateAchievements({
       definitions: [{ id: "x", kind: "unknown", params: {} }],
@@ -162,5 +205,22 @@ describe("称号", () => {
     assert.equal(titleName(config, "newbie"), "新入社員");
     assert.equal(titleName(config, "close-call"), "新入社員");
     assert.equal(titleName(config, "nonexistent"), "新入社員");
+  });
+});
+
+describe("隠し実績(hidden。Phase 18 PR 3)", () => {
+  it("実際のデータ(achievements.json): hidden な実績は、称号(title)を持つか、なくてもよい", () => {
+    const hidden = config.achievements.filter((a) => a.hidden === true);
+    assert.ok(hidden.length >= 4, "隠し実績が、いくつか定義されていること");
+  });
+
+  it("achievements.js は、DOM・保存・時計に触れない(clearKey・masteryOf は、純粋な関数だけを使う)", () => {
+    const source = readFileSync(
+      new URL("../public/assets/js/games/escape-boss/achievements.js", import.meta.url),
+      "utf8",
+    );
+    assert.ok(
+      !/\b(document|window|localStorage|sessionStorage|Date|performance|fetch)\b/.test(source),
+    );
   });
 });
