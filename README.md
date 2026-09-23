@@ -29,3 +29,5 @@
 Copyright (c) 2026 NOLITO (Jukiii). All rights reserved.
 
 本リポジトリのソースコード・語録・画像・文書は公開されていますが、明示的な許諾なく複製・改変・再配布・商用利用することはできません。ライセンスは収益化方針の確定後に見直します(`docs/decisions/0001-phase-00-foundation.md` 参照)。
+
+[仕様書](.claude/PROJECT_STATUS.md)
