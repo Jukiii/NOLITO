@@ -225,7 +225,7 @@ describe("CSS", () => {
   it("追ってくる人の大きさは、scale(動きの transform と重なる)で変える。動きの animation を、上書きしない", () => {
     const rules = scene.slice(
       scene.indexOf('.scene[data-cues~="closing"]'),
-      scene.indexOf("/* 動きを減らす設定"),
+      scene.indexOf("/* 役職別の、終わりの演出"),
     );
     assert.ok(!/\banimation\b/.test(rules.slice(rules.indexOf('.scene[data-cues~="closing"]'))));
   });
