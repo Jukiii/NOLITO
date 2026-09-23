@@ -74,9 +74,10 @@ describe("役職データ", () => {
 describe("実績データ", () => {
   const { achievements } = config;
 
-  it("既定の称号と、12個の実績がある", () => {
+  it("既定の称号と、16個の実績がある(うち4個は、Phase 18 PR 3 の隠し実績)", () => {
     assert.deepEqual(config.default_title, { id: "newbie", name: "新入社員" });
-    assert.equal(achievements.length, 12);
+    assert.equal(achievements.length, 16);
+    assert.equal(achievements.filter((a) => a.hidden === true).length, 4);
   });
 
   it("id・名前・称号名が重複せず、必須の項目がある", () => {
@@ -91,6 +92,7 @@ describe("実績データ", () => {
       assert.match(a.id, /^[a-z0-9]+(-[a-z0-9]+)*$/, a.id);
       assert.ok(a.name && a.description && a.kind, a.id);
       assert.equal(typeof a.params, "object", a.id);
+      if (a.hidden !== undefined) assert.equal(typeof a.hidden, "boolean", a.id);
     }
   });
 
@@ -109,6 +111,25 @@ describe("実績データ", () => {
       }
       if (a.kind === "close_call") assert.ok(a.params.max_distance > 0, a.id);
       if (a.kind === "fast_clear") assert.ok(a.params.min_cps > 0, a.id);
+      if (a.kind === "difficulty_clear") {
+        assert.ok(["easy", "normal", "hard"].includes(a.params.difficulty), a.id);
+      }
+      if (a.kind === "all_roles_clear_difficulty") {
+        assert.ok(
+          a.params.roles.every((id) => roleIds.includes(id)),
+          a.id,
+        );
+        assert.ok(["easy", "normal", "hard"].includes(a.params.difficulty), a.id);
+      }
+      if (a.kind === "best_streak") {
+        assert.ok(Number.isInteger(a.params.count) && a.params.count > 0, a.id);
+      }
+      if (a.kind === "job_mastery") {
+        assert.ok(
+          Number.isInteger(a.params.rank) && a.params.rank >= 0 && a.params.rank <= 5,
+          a.id,
+        );
+      }
     }
   });
 

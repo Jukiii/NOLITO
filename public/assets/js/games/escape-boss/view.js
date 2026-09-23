@@ -310,28 +310,34 @@ export function createView(root) {
     );
   }
 
+  // 隠し実績(definition.hidden)は、解放するまで、名前・説明・称号を明かさない(条件のネタバレを防ぐ)
+  const HIDDEN_NAME = "??? (隠し実績)";
+  const HIDDEN_TEXT = "まだ見つかっていません。条件を満たすと、内容が明らかになります。";
+
   function achievementItem(definition, unlockedAt) {
     const unlocked = unlockedAt !== undefined;
+    const masked = Boolean(definition.hidden) && !unlocked;
+    const showMeta = unlocked || (Boolean(definition.title) && !masked);
     return el(
       "li",
       { class: `achievement ${unlocked ? "is-unlocked" : "is-locked"}` },
       el(
         "p",
         { class: "achievement__name" },
-        definition.name,
+        masked ? HIDDEN_NAME : definition.name,
         el(
           "span",
           { class: `badge ${unlocked ? "badge--live" : "badge--soon"}` },
           unlocked ? "解放済み" : "未解放",
         ),
       ),
-      el("p", { class: "achievement__text" }, definition.description),
-      definition.title || unlocked
+      el("p", { class: "achievement__text" }, masked ? HIDDEN_TEXT : definition.description),
+      showMeta
         ? el(
             "p",
             { class: "achievement__meta" },
             [
-              definition.title ? `称号「${definition.title}」` : "",
+              !masked && definition.title ? `称号「${definition.title}」` : "",
               unlocked ? formatDate(unlockedAt) : "",
             ]
               .filter(Boolean)

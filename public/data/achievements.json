@@ -93,6 +93,41 @@
       "description": "累計100語を正解する",
       "kind": "total_words",
       "params": { "count": 100 }
+    },
+    {
+      "id": "hard-clear",
+      "name": "修羅場をくぐり抜けた",
+      "description": "「むずかしい」で、いずれかの役職から逃げ切る",
+      "kind": "difficulty_clear",
+      "params": { "difficulty": "hard" },
+      "title": "修羅場の生還者",
+      "hidden": true
+    },
+    {
+      "id": "hard-master",
+      "name": "むずかしいの制覇者",
+      "description": "先輩・係長・部長・社長を、すべて「むずかしい」でクリアする",
+      "kind": "all_roles_clear_difficulty",
+      "params": { "roles": ["senpai", "kakaricho", "buchou", "shachou"], "difficulty": "hard" },
+      "title": "むずかしいの覇者",
+      "hidden": true
+    },
+    {
+      "id": "streak-10",
+      "name": "よどみない指運び",
+      "description": "1プレイで、10語以上ミスなく連続で打ち終える",
+      "kind": "best_streak",
+      "params": { "count": 10 },
+      "hidden": true
+    },
+    {
+      "id": "job-master",
+      "name": "極めし者",
+      "description": "いずれかの職種で、熟練度「マスター」に到達する",
+      "kind": "job_mastery",
+      "params": { "rank": 5 },
+      "title": "極めし者",
+      "hidden": true
     }
   ]
 }
