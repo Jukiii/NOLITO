@@ -135,10 +135,10 @@ describe("保存データの読み込み", () => {
     assert.equal(data.profile.nickname.length, 12);
     assert.equal(data.profile.titleId, "newbie");
     assert.equal(data.results.length, 1);
-    assert.equal(data.rankings.senpai.length, 1);
-    assert.equal(data.rankings.senpai[0].nickname, DEFAULT_NICKNAME);
-    assert.equal(data.rankings.senpai[0].title, "");
-    assert.equal(data.rankings.kakaricho, undefined);
+    assert.equal(data.rankings[clearKey("senpai", "normal")].length, 1);
+    assert.equal(data.rankings[clearKey("senpai", "normal")][0].nickname, DEFAULT_NICKNAME);
+    assert.equal(data.rankings[clearKey("senpai", "normal")][0].title, "");
+    assert.equal(data.rankings[clearKey("kakaricho", "normal")], undefined);
     assert.deepEqual(data.achievements, { good: 5 });
     assert.equal(data.progress.totalClears, 0);
     assert.equal(data.progress.totalWords, 0);
@@ -151,7 +151,7 @@ describe("保存データの読み込み", () => {
       ...createEmptyData(),
       results: Array.from({ length: MAX_RESULTS + 50 }, (_, i) => result({ playedAt: i })),
       rankings: {
-        senpai: Array.from({ length: 30 }, (_, i) => ({
+        [clearKey("senpai", "normal")]: Array.from({ length: 30 }, (_, i) => ({
           score: i,
           playedAt: i,
           jobId: "a",
@@ -163,8 +163,8 @@ describe("保存データの読み込み", () => {
     };
     const data = normalizeData(raw);
     assert.equal(data.results.length, MAX_RESULTS);
-    assert.equal(data.rankings.senpai.length, MAX_RANKING);
-    assert.equal(data.rankings.senpai[0].score, 29);
+    assert.equal(data.rankings[clearKey("senpai", "normal")].length, MAX_RANKING);
+    assert.equal(data.rankings[clearKey("senpai", "normal")][0].score, 29);
   });
 });
 
@@ -286,7 +286,7 @@ describe("バージョン 1 からの移行", () => {
     assert.equal(status, "ok");
     assert.equal(data.version, DATA_VERSION);
     assert.deepEqual(data.profile, v1.profile);
-    assert.deepEqual(data.rankings, v1.rankings);
+    assert.deepEqual(data.rankings, { [clearKey("senpai", "normal")]: v1.rankings.senpai });
     assert.deepEqual(data.achievements, v1.achievements);
     assert.equal(data.progress.totalClears, v1.progress.totalClears);
     assert.equal(data.progress.totalWords, v1.progress.totalWords);
@@ -357,7 +357,7 @@ describe("バージョン 1 からの移行", () => {
     assert.equal(data.results.length, 3);
     assert.deepEqual(data.results[0].keys, { a: { hits: 5, misses: 1 } });
     assert.equal(data.results[2].playedAt, 1000);
-    assert.equal(data.rankings.senpai.length, 1);
+    assert.equal(data.rankings[clearKey("senpai", "normal")].length, 1);
   });
 
   it("退避に失敗しても、移行は続けられる", () => {
@@ -560,9 +560,9 @@ const normalizedResult = (overrides) =>
   normalizeData({ ...createEmptyData(), results: [result(overrides)] }).results[0];
 
 describe("バージョン 3 の項目(連続ノーミス・難易度ごとの語数)", () => {
-  it("いまの版は 4。空のデータも、4", () => {
-    assert.equal(DATA_VERSION, 4);
-    assert.equal(createEmptyData().version, 4);
+  it("いまの版は 5。空のデータも、5", () => {
+    assert.equal(DATA_VERSION, 5);
+    assert.equal(createEmptyData().version, 5);
   });
 
   it("連続ノーミスと難易度ごとの語数が、保存して読み込んでも、変わらない", () => {
@@ -625,7 +625,7 @@ describe("バージョン 2 からの移行", () => {
     assert.equal(status, "ok");
     assert.equal(data.version, DATA_VERSION);
     assert.deepEqual(data.profile, v2.profile);
-    assert.deepEqual(data.rankings, v2.rankings);
+    assert.deepEqual(data.rankings, { [clearKey("kakaricho", "normal")]: v2.rankings.kakaricho });
     assert.deepEqual(data.achievements, v2.achievements);
     assert.equal(data.progress.totalClears, v2.progress.totalClears);
     assert.equal(data.progress.totalWords, v2.progress.totalWords);
@@ -798,7 +798,7 @@ describe("バージョン 3 からの移行", () => {
     assert.equal(status, "ok");
     assert.equal(data.version, DATA_VERSION);
     assert.deepEqual(data.profile, v3.profile);
-    assert.deepEqual(data.rankings, v3.rankings);
+    assert.deepEqual(data.rankings, { [clearKey("buchou", "normal")]: v3.rankings.buchou });
     assert.deepEqual(data.achievements, v3.achievements);
     assert.equal(data.progress.totalClears, v3.progress.totalClears);
     assert.equal(data.progress.totalWords, v3.progress.totalWords);
@@ -906,6 +906,117 @@ describe("バージョン 3 からの移行", () => {
     const { data, status } = createStore(failing).load();
     assert.equal(status, "ok");
     assert.equal(data.results.length, 2);
+  });
+});
+
+// ---- バージョン 5(Phase 18 PR 2): ランキングの鍵を、役職 ID だけから「役職:難易度」に変える ----
+const v4Data = () => ({
+  version: 4,
+  profile: { nickname: "ごろう", titleId: "clear-buchou" },
+  results: [
+    {
+      playedAt: 6000,
+      jobId: "office",
+      roleId: "shachou",
+      status: "cleared",
+      score: 4000,
+      correct: 18,
+      miss: 1,
+      hits: 200,
+      elapsed: 70,
+      distance: 30,
+      accuracy: 0.99,
+      cps: 2.9,
+      vocabularyVersion: "0.5.0",
+      keys: {},
+      confusions: {},
+      wordMisses: {},
+      streak: 18,
+      wordsByDifficulty: { 1: 6, 2: 6, 3: 6 },
+      difficulty: "normal",
+    },
+  ],
+  rankings: {
+    shachou: [
+      {
+        score: 4000,
+        playedAt: 6000,
+        jobId: "office",
+        roleId: "shachou",
+        nickname: "ごろう",
+        title: "",
+      },
+    ],
+  },
+  achievements: { "clear-shachou": 6000 },
+  progress: {
+    totalClears: 3,
+    totalWords: 47,
+    clears: { senpai: 1, buchou: 1, shachou: 1 },
+    clearedJobs: { engineer: true, office: true },
+    exp: 900,
+    jobs: { office: { plays: 2, clears: 2, words: 33, hits: 380, miss: 3 } },
+    difficultyClears: { [clearKey("senpai", "normal")]: 1, [clearKey("buchou", "normal")]: 1 },
+    bests: { [bestKey("office", "buchou", "normal")]: { score: 3200, playedAt: 5000 } },
+  },
+});
+
+describe("バージョン 4 からの移行(ランキングの鍵を、役職:難易度に直す)", () => {
+  it("役職名だけのランキングは「役職:normal」の鍵になる。ほかの項目(経験値など)は、そのまま", () => {
+    const backend = fakeBackend();
+    const v4 = v4Data();
+    backend.map.set(STORAGE_KEY, JSON.stringify(v4));
+    const { data, status } = createStore(backend).load();
+    assert.equal(status, "ok");
+    assert.equal(data.version, DATA_VERSION);
+    assert.deepEqual(data.profile, v4.profile);
+    assert.deepEqual(data.rankings, { [clearKey("shachou", "normal")]: v4.rankings.shachou });
+    assert.deepEqual(data.achievements, v4.achievements);
+    assert.equal(data.progress.exp, v4.progress.exp);
+    assert.deepEqual(data.progress.jobs, v4.progress.jobs);
+    assert.deepEqual(data.progress.difficultyClears, v4.progress.difficultyClears);
+    assert.deepEqual(data.progress.bests, v4.progress.bests);
+    assert.equal(data.results.length, 1);
+  });
+
+  it("移行前の元データを、一度だけ別のキー(:backup-v4)に退避する。上書きしない", () => {
+    const backend = fakeBackend();
+    const original = JSON.stringify(v4Data());
+    backend.map.set(STORAGE_KEY, original);
+    const store = createStore(backend);
+    store.load();
+    assert.equal(backend.map.get(`${STORAGE_KEY}:backup-v4`), original);
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v3`), false);
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v1`), false);
+
+    // 保存(いまの版になる)した後に読み込んでも、退避は上書きされない
+    store.update((data) => ({
+      data: { ...data, profile: { ...data.profile, nickname: "変更後" } },
+    }));
+    assert.equal(JSON.parse(backend.map.get(STORAGE_KEY)).version, DATA_VERSION);
+    createStore(backend).load();
+    assert.equal(backend.map.get(`${STORAGE_KEY}:backup-v4`), original);
+  });
+
+  it("いまの版のデータは、退避(:backup-v4)を作らない", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, JSON.stringify({ ...createEmptyData(), results: [result()] }));
+    createStore(backend).load();
+    assert.equal(backend.map.has(`${STORAGE_KEY}:backup-v4`), false);
+  });
+
+  it("退避に失敗しても、移行は続けられる", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, JSON.stringify(v4Data()));
+    const failing = {
+      getItem: (key) => backend.getItem(key),
+      setItem(key) {
+        if (key.endsWith("backup-v4")) throw new Error("quota");
+      },
+    };
+    const { data, status } = createStore(failing).load();
+    assert.equal(status, "ok");
+    assert.equal(data.results.length, 1);
   });
 });
 

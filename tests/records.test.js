@@ -190,6 +190,55 @@ describe("職種ごとの合計・自己ベスト・難易度ごとのクリア�
   });
 });
 
+describe("やさしい(練習)は、役職クリア・ランキングに数えない(Phase 18 PR 2)", () => {
+  it("累計クリア数・総語数・職種ごとの合計には数える。役職のクリア数・クリア済み職種には数えない", () => {
+    const data = recordResult(
+      createEmptyData(),
+      result({ status: "cleared", difficulty: "easy", correct: 8 }),
+    ).data;
+    assert.equal(data.progress.totalClears, 1);
+    assert.equal(data.progress.totalWords, 8);
+    assert.equal(data.progress.jobs.engineer.plays, 1);
+    assert.deepEqual(data.progress.clears, {});
+    assert.deepEqual(data.progress.clearedJobs, {});
+  });
+
+  it("難易度ごとのクリア数・自己ベストには数える(会長の解放の判定に使うため)", () => {
+    const data = recordResult(
+      createEmptyData(),
+      result({ status: "cleared", difficulty: "easy", score: 500 }),
+    ).data;
+    assert.equal(data.progress.difficultyClears[clearKey("senpai", "easy")], 1);
+    assert.deepEqual(data.progress.bests[bestKey("engineer", "senpai", "easy")], {
+      score: 500,
+      playedAt: 1000,
+    });
+  });
+
+  it("ランキングには載らない(rank は null、getRanking も空のまま)", () => {
+    const { data, rank } = recordResult(
+      createEmptyData(),
+      result({ status: "cleared", difficulty: "easy" }),
+    );
+    assert.equal(rank, null);
+    assert.deepEqual(getRanking(data, "senpai", "easy"), []);
+    assert.deepEqual(getRanking(data, "senpai", "normal"), []);
+  });
+
+  it("ふつう・むずかしいは、これまでどおり役職のクリア数・クリア済み職種に数える", () => {
+    const data = recordResult(
+      createEmptyData(),
+      result({ status: "cleared", difficulty: "hard" }),
+    ).data;
+    assert.equal(data.progress.clears.senpai, 1);
+    assert.equal(data.progress.clearedJobs.engineer, true);
+    assert.deepEqual(
+      getRanking(data, "senpai", "hard").map((e) => e.score),
+      [1800],
+    );
+  });
+});
+
 describe("grantExp(経験値の付与)", () => {
   it("結果から経験値を計算し、進行状況の exp に足す", () => {
     const progress = { ...createEmptyData().progress, exp: 100 };

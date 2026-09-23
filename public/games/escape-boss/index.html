@@ -82,6 +82,15 @@
               </div>
               <p class="game-setup__hint" data-role-hint hidden></p>
             </fieldset>
+            <fieldset class="job-select" data-difficulty-fieldset>
+              <legend>難易度を選ぶ</legend>
+              <div class="job-select__list" data-difficulty-list></div>
+              <p class="game-setup__hint" data-difficulty-hint hidden></p>
+              <div class="game-setup__rules" aria-live="polite" data-difficulty-info hidden>
+                <p class="game-setup__rules-title" data-difficulty-info-text></p>
+                <p class="game-setup__hint" data-difficulty-best hidden></p>
+              </div>
+            </fieldset>
             <div class="game-setup__option" data-explanation-option>
               <input type="checkbox" id="show-explanation" data-show-explanation />
               <label for="show-explanation">プレイ中に、用語の説明も表示する</label>
@@ -212,6 +221,14 @@
             <div class="profile-form__field">
               <label for="ranking-role">追ってくる人</label>
               <select class="game-input__field" id="ranking-role" data-ranking-role></select>
+            </div>
+            <div class="profile-form__field">
+              <label for="ranking-difficulty">難易度</label>
+              <select
+                class="game-input__field"
+                id="ranking-difficulty"
+                data-ranking-difficulty
+              ></select>
             </div>
             <p class="dash-section__note" data-ranking-empty hidden>
               まだ記録がありません。クリアするとここに載ります。

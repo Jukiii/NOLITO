@@ -135,9 +135,9 @@ describe("CSS", () => {
 });
 
 describe("保存(記録は変えない)", () => {
-  it("記録の版は 4(Phase 18)・キーは nolito:escape-boss:v1 のまま。設定は、別のキー", () => {
+  it("記録の版は 5(Phase 18)・キーは nolito:escape-boss:v1 のまま。設定は、別のキー", () => {
     const storage = read("public/assets/js/games/escape-boss/storage.js");
-    assert.match(storage, /export const DATA_VERSION = 4;/);
+    assert.match(storage, /export const DATA_VERSION = 5;/);
     assert.match(storage, /export const STORAGE_KEY = "nolito:escape-boss:v1";/);
     const settings = read("public/assets/js/games/escape-boss/settings.js");
     assert.match(settings, /"nolito:escape-boss:settings:v1"/);

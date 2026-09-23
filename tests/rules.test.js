@@ -356,7 +356,7 @@ describe("画面・main.js のつなぎ", () => {
     assert.match(view, /import \{[^}]*describeRules[^}]*\} from "\.\/rules\.js";/);
     assert.match(
       view,
-      /\$\("\[data-role-list\]"\)\.addEventListener\("change", updateRoleRules\);/,
+      /\$\("\[data-role-list\]"\)\.addEventListener\("change", \(\) => \{\s*updateRoleRules\(\);/,
     );
     assert.match(view, /特殊ルールはありません/);
     assert.ok(!/innerHTML/.test(view));

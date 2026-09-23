@@ -80,7 +80,10 @@ describe("view.js のつなぎ", () => {
   it("renderDashboard は、level・masteries を受け取り、renderSetup・renderLevel に渡す", () => {
     const fn = view.slice(view.indexOf("renderDashboard({"), view.indexOf("renderRanking,"));
     assert.match(fn, /level,\s*masteries,/);
-    assert.match(fn, /renderSetup\(\{ jobs, roles, isUnlocked, masteries \}\);/);
+    assert.match(
+      fn,
+      /renderSetup\(\{\s*jobs,\s*roles,\s*isUnlocked,\s*difficulties,\s*isDifficultyUnlocked,\s*bestOf,\s*masteries,?\s*\}\);/,
+    );
     assert.match(fn, /renderLevel\(level\);/);
   });
 
@@ -111,13 +114,13 @@ describe("main.js のつなぎ", () => {
     assert.match(fn, /masteries: jobMasteries\(/);
   });
 
-  it("結果(result)は、難易度(difficulty)を持つ。Phase 18 PR 1 の間は「ふつう」だけ", () => {
-    assert.match(main, /import \{ DEFAULT_DIFFICULTY \} from "\.\/difficulty\.js";/);
+  it("結果(result)の難易度(difficulty)は、選んだ難易度(session.difficulty)を使う。Phase 18 PR 2", () => {
+    assert.match(main, /applyDifficulty,\s*DEFAULT_DIFFICULTY,/);
     const finish = main.slice(
       main.indexOf("function finish()"),
       main.indexOf("function beginOutro"),
     );
-    assert.match(finish, /difficulty: DEFAULT_DIFFICULTY,/);
+    assert.match(finish, /difficulty: session\.difficulty,/);
   });
 
   it("finish は、recordResult の進行状況で実績を判定してから、grantExp で経験値を加える(新しい実績の数を渡す)", () => {

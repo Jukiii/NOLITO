@@ -17,6 +17,10 @@ import {
   mergeWeights,
   roleWordWeights,
 } from "../public/assets/js/games/escape-boss/word-weights.js";
+import {
+  applyDifficulty,
+  normalizeDifficulties,
+} from "../public/assets/js/games/escape-boss/difficulty.js";
 
 const readJson = (path) =>
   JSON.parse(readFileSync(new URL(`../public/data/${path}`, import.meta.url), "utf8"));
@@ -176,5 +180,87 @@ describe("バランス(0006・0022 の表。各 1000 回のシミュレーショ
       }
       assert.ok((cleared / TRIALS) * 100 > rate(id, "normal") + 5, id);
     }
+  });
+});
+
+// ---- 難易度(Phase 18 PR 2): やさしい・むずかしいの倍率(difficulties.json)も、同じ方法で確認する ----
+const difficulties = normalizeDifficulties(readJson("difficulties.json"));
+const diffResults = {};
+for (const role of roles) {
+  diffResults[role.id] = {};
+  for (const difficulty of difficulties) {
+    const stage = applyDifficulty(role.stage, difficulty);
+    const withDifficulty = { id: role.id, stage };
+    diffResults[role.id][difficulty.id] = {};
+    for (const [name, typist] of Object.entries(TYPISTS)) {
+      const random = seeded(21);
+      let cleared = 0;
+      for (let i = 0; i < TRIALS; i++) {
+        if (play(withDifficulty, typist, random).state.status === "cleared") cleared += 1;
+      }
+      diffResults[role.id][difficulty.id][name] = (cleared / TRIALS) * 100;
+    }
+  }
+}
+const diffRate = (roleId, difficultyId, typist) => diffResults[roleId][difficultyId][typist];
+
+describe("難易度の倍率(0037。各 1000 回のシミュレーション)", () => {
+  it("ふつう(倍率 1)は、難易度なしと、まったく同じクリア率になる(バランスを変えない)", () => {
+    for (const role of roles) {
+      for (const name of Object.keys(TYPISTS)) {
+        assert.equal(diffRate(role.id, "normal", name), rate(role.id, name), `${role.id} ${name}`);
+      }
+    }
+  });
+
+  it("やさしい: ふつうの人なら、どの役職もほぼクリアできる(練習向け)", () => {
+    for (const role of roles) {
+      assert.ok(diffRate(role.id, "easy", "normal") >= 35, role.id);
+    }
+    for (const id of ["senpai", "kakaricho", "buchou", "shachou"]) {
+      assert.ok(diffRate(id, "easy", "normal") >= 95, id);
+    }
+  });
+
+  it("やさしいは、同じ役職・同じ人でも、ふつうより、クリア率が下がらない", () => {
+    for (const role of roles) {
+      for (const name of Object.keys(TYPISTS)) {
+        assert.ok(
+          diffRate(role.id, "easy", name) >= diffRate(role.id, "normal", name),
+          `${role.id} ${name}`,
+        );
+      }
+    }
+  });
+
+  it("むずかしい: ふつうの人でも、段階的にクリアできる(係長・部長・社長)。0 割にはならない", () => {
+    const [a, b, c] = ["kakaricho", "buchou", "shachou"].map((id) =>
+      diffRate(id, "hard", "normal"),
+    );
+    assert.ok(a >= 45 && a <= 80, a);
+    assert.ok(b >= 20 && b <= 55, b);
+    assert.ok(c >= 5 && c <= 30, c);
+    assert.ok(a > b && b > c);
+  });
+
+  it("むずかしいの会長は、速い人で 4〜6 割ほど", () => {
+    assert.ok(diffRate("kaicho", "hard", "normal") <= 5);
+    const fast = diffRate("kaicho", "hard", "fast");
+    assert.ok(fast >= 30 && fast <= 70, fast);
+  });
+
+  it("むずかしいは、同じ役職・同じ人でも、ふつうより、クリア率が上がらない", () => {
+    for (const role of roles) {
+      for (const name of Object.keys(TYPISTS)) {
+        assert.ok(
+          diffRate(role.id, "hard", name) <= diffRate(role.id, "normal", name),
+          `${role.id} ${name}`,
+        );
+      }
+    }
+  });
+
+  it("達人は、むずかしいでも、すべての役職でクリアできる", () => {
+    for (const role of roles) assert.ok(diffRate(role.id, "hard", "master") >= 90, role.id);
   });
 });

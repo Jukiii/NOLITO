@@ -14,6 +14,11 @@
 //      正解語数・クリア数・実績から作る。職種ごとの合計・自己ベストは、残っている結果(最大 200)から作る。
 //      難易度ごとのクリア数は、これまでの役職ごとのクリア数を「ふつう」として数える)。移行前の元データ(バージョン 3)は、
 //      一度だけ退避する。読み込んだだけでは、書き換えない(次に保存するときに、版 4 で保存される)。
+//   5: Phase 18 PR 2。ランキングの鍵(rankings のキー)を、役職 ID だけ(例: "senpai")から、役職:難易度
+//      (例: "senpai:normal"。clearKey と同じ形)に変える。難易度は、やさしい・ふつう・むずかしいで別々に持つ
+//      (やさしいはランキングに載らないので、鍵は作られない)。バージョン 1〜4 のランキングは、読み込み時に、
+//      すべて「役職:normal」として扱う(それまでのプレイは、すべて「ふつう」だったため)。移行前の元データ
+//      (バージョン 4)は、一度だけ退避する。
 //
 // 保存先のキー名の "v1" は、キーの名前。データの中の version とは別で、変えない(変えると既存の記録が読めなくなる)。
 import { DEFAULT_DIFFICULTY, isDifficulty } from "./difficulty.js";
@@ -24,8 +29,9 @@ export const STORAGE_KEY = "nolito:escape-boss:v1";
 const BACKUP_V1_KEY = `${STORAGE_KEY}:backup-v1`;
 const BACKUP_V2_KEY = `${STORAGE_KEY}:backup-v2`;
 const BACKUP_V3_KEY = `${STORAGE_KEY}:backup-v3`;
-export const DATA_VERSION = 4;
-const READABLE_VERSIONS = [1, 2, 3, 4];
+const BACKUP_V4_KEY = `${STORAGE_KEY}:backup-v4`;
+export const DATA_VERSION = 5;
+const READABLE_VERSIONS = [1, 2, 3, 4, 5];
 // 改ざんされたデータで、保存内容が膨らみすぎないようにする上限
 // (キーは a-z・0-9・- の1文字だけなので、種類は最大37で、上限は不要)
 const MAX_CONFUSION_ENTRIES = 100;
@@ -239,6 +245,20 @@ function bestsFromResults(results) {
   return normalizeBests(bests);
 }
 
+// ランキングの鍵(役職:難易度)。役職 ID・難易度の形が正しいときだけ、文字列を返す(それ以外は null)
+function rankingKeyOf(roleId, difficulty) {
+  return isId(roleId) && isDifficulty(difficulty) ? clearKey(roleId, difficulty) : null;
+}
+
+// 版 5 未満の鍵(役職 ID だけ。例: "senpai")を、いまの鍵の形(役職:難易度)に直す。版 5 以上は、そのままの形を検証する
+function migrateRankingKey(rawKey, version) {
+  if (version >= 5) {
+    const [roleId, difficulty] = rawKey.split(":");
+    return rankingKeyOf(roleId, difficulty);
+  }
+  return rankingKeyOf(rawKey, DEFAULT_DIFFICULTY);
+}
+
 function normalizeRankingEntry(raw) {
   if (!isObject(raw)) return null;
   if (!isFiniteNumber(raw.score) || !isFiniteNumber(raw.playedAt)) return null;
@@ -271,9 +291,11 @@ export function normalizeData(raw) {
     data.results = raw.results.map(normalizeResult).filter(Boolean).slice(0, MAX_RESULTS);
   }
   if (isObject(raw.rankings)) {
-    for (const [roleId, list] of Object.entries(raw.rankings)) {
+    for (const [rawKey, list] of Object.entries(raw.rankings)) {
       if (!Array.isArray(list)) continue;
-      data.rankings[roleId] = list
+      const key = migrateRankingKey(rawKey, raw.version);
+      if (!key) continue;
+      data.rankings[key] = list
         .map(normalizeRankingEntry)
         .filter(Boolean)
         .sort(sortRanking)
@@ -373,6 +395,7 @@ export function createStore(backend) {
       if (parsed.version === 1) backUpOnce(BACKUP_V1_KEY, text);
       if (parsed.version === 2) backUpOnce(BACKUP_V2_KEY, text);
       if (parsed.version === 3) backUpOnce(BACKUP_V3_KEY, text);
+      if (parsed.version === 4) backUpOnce(BACKUP_V4_KEY, text);
       status = "ok";
       return { data, status };
     }

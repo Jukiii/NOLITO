@@ -8,6 +8,7 @@ async function loadJson(url) {
 
 export const loadJobs = () => loadJson("/data/jobs.json");
 export const loadRoles = () => loadJson("/data/roles.json");
+export const loadDifficulties = () => loadJson("/data/difficulties.json");
 export const loadVocabulary = (jobId) => loadJson(`/data/vocabulary/${jobId}.json`);
 
 // Fisher-Yates。random は 0以上1未満を返す関数(テストで差し替える)
