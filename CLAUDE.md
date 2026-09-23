@@ -294,3 +294,14 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - ハイスコア表は `stats.js` の `bestScoreTable(bests, { jobIds, roleIds, difficultyIds, bestKey })`(純粋関数)。`progress.bests`(職種 × 役職 × 難易度の自己ベスト)から、**役職 × 難易度ごとに 1 行**(職種をまたいだ最高。役職の並び × 難易度の並びの順)にする。改善記録は `bestScoreHistory(results, bestKey, { limit = 10 })`(純粋関数)。保存されている `results` を古い順にたどり、**組ごとに自己ベストが更新された瞬間**(クリアだけ)を、新しい順に最大 `limit` 件返す。どちらも、`bestKey` は `storage.js` のものを、呼び出し側(`stats-page.js`)が渡す(`stats.js` を `storage.js` に依存させないため)。
 - **ハイスコア表・改善記録は、期間・役職の絞り込みの影響を受けない**(職種別の熟練度・復習リストと同じ考え)。`stats-page.js` の `init()` から 1 回だけ呼ぶ(`render()` からは呼ばない)。表示の位置も、「職種別の熟練度」の直後・絞り込みの前(`data-scoped` の外)。
 - 旧来の役職だけの「ベストスコア」表・`bestScoresByRole`(期間・役職の絞り込みの対象だった)は、削除した(新しいハイスコア表に置き換え)。
+
+## 未登録プレイ・オンラインランキング(Phase 19)
+
+Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19-plan.md`)。PR2・PR3(アカウント移行・オンラインランキング)は、ゲームの記録を初めて運営者のサーバーに送る、privacy-sensitive な変更のため、着手前にプライバシーポリシーの改定内容を、運営者に確認する。
+
+### 記録の書き出し・読み込み(Phase 19 PR 1)
+
+- `storage.js` の `createStore(backend, { now })` が返す `exportJson()`/`parseImport(text)`/`importJson(text)`(キーみちの `tools/store.js` と同じ考え方)。**移行のしくみを重複させず、既存の `normalizeData`(版1〜5の移行)を、取り込みの検証にそのまま使う**。`EXPORT_FORMAT`・`MAX_IMPORT_BYTES` は `storage.js` からエクスポートする(画面側の事前チェックと、値を共有するため)。
+- **取り込みは、いまの記録を、まるごと置き換える**(合わせない)。置き換える前のデータは、`:before-import` に退避する。壊れている記録は、書き出せない(`exportJson()` が `null`)。
+- 画面は、ダッシュボード(`/games/escape-boss/`)の「記録の書き出し・読み込み」の節。読み込みは、ファイルを選ぶと、確認のダイアログ(`#backup-import-dialog`。共通の `components/modal.js` を使う)を経由し、**押すまでは置き換えない**。ファイル名は `escape-boss-<日付>.json`。
+

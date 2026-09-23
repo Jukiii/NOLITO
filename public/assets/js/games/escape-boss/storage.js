@@ -48,6 +48,9 @@ const MAX_BEST_ENTRIES = 600;
 const MAX_TOTAL = 1_000_000_000;
 export const MAX_RESULTS = 200;
 export const MAX_RANKING = 10;
+// JSON の書き出し・読み込み(Phase 19 PR 1。バックアップ・機種変更用)。キーみちの store.js と同じ考え方
+export const EXPORT_FORMAT = "nolito-escape-boss-export";
+export const MAX_IMPORT_BYTES = 1_000_000;
 export const NICKNAME_MAX = 12;
 export const DEFAULT_NICKNAME = "ななしさん";
 export const DEFAULT_TITLE_ID = "newbie";
@@ -357,7 +360,7 @@ export function getBackend() {
  * 保存先(getItem / setItem を持つもの)を包む。null なら、このページを開いている間だけ記録を保持する。
  * update() は毎回読み直してから書き込む(複数のタブで開いていても、他のタブの記録を上書きしにくい)。
  */
-export function createStore(backend) {
+export function createStore(backend, { now = Date.now } = {}) {
   let memory = null;
   let status = backend ? "empty" : "unavailable";
 
@@ -428,10 +431,70 @@ export function createStore(backend) {
     return { data, saved, ...extra };
   }
 
+  /**
+   * 書き出す JSON の文字列(ファイルに保存して使う)。保存されているデータが壊れているときは null
+   * (空のデータを、本物の記録のように書き出さないため)。
+   */
+  function exportJson() {
+    const { data, status: loadStatus } = load();
+    if (loadStatus === "corrupt") return null;
+    return JSON.stringify({ format: EXPORT_FORMAT, exportedAt: now(), data }, null, 2);
+  }
+
+  /**
+   * 書き出した JSON を検査するだけ(保存はしない)。{ ok: true, data } か { ok: false, error }。
+   * error は too-large / invalid-json / invalid-format / newer-version / invalid-data。
+   */
+  function parseImport(text) {
+    if (typeof text !== "string") return { ok: false, error: "invalid-json" };
+    if (new TextEncoder().encode(text).length > MAX_IMPORT_BYTES) {
+      return { ok: false, error: "too-large" };
+    }
+    let file;
+    try {
+      file = JSON.parse(text);
+    } catch {
+      return { ok: false, error: "invalid-json" };
+    }
+    if (!isObject(file) || file.format !== EXPORT_FORMAT || !isObject(file.data)) {
+      return { ok: false, error: "invalid-format" };
+    }
+    if (!READABLE_VERSIONS.includes(file.data.version)) {
+      const tooNew = isFiniteNumber(file.data.version) && file.data.version > DATA_VERSION;
+      return { ok: false, error: tooNew ? "newer-version" : "invalid-format" };
+    }
+    const data = normalizeData(file.data);
+    if (!data) return { ok: false, error: "invalid-data" };
+    return { ok: true, data };
+  }
+
+  /**
+   * 書き出した JSON を取り込んで、保存する(いまのデータを、まるごと置き換える。合わせない)。
+   * 置き換える前のデータは :before-import に退避する(1回ごとに、直前のものへ上書きする)。
+   * 取り込めたら { ok: true, data, saved }。取り込めなかったら { ok: false, error }(parseImport と同じ)。
+   */
+  function importJson(text) {
+    const parsed = parseImport(text);
+    if (!parsed.ok) return parsed;
+    if (backend) {
+      try {
+        const current = backend.getItem(STORAGE_KEY);
+        if (current !== null) backend.setItem(`${STORAGE_KEY}:before-import`, current);
+      } catch {
+        // 退避できなくても、取り込みは続ける
+      }
+    }
+    const saved = save(parsed.data);
+    return { ok: true, data: parsed.data, saved };
+  }
+
   return {
     load,
     save,
     update,
+    exportJson,
+    parseImport,
+    importJson,
     get status() {
       return status;
     },

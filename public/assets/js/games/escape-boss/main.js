@@ -231,6 +231,8 @@ async function init() {
         jobsById: jobsById(),
       });
     },
+    onBackupExport: exportBackup,
+    onBackupImport: importBackup,
     onRetry: () =>
       session &&
       startGame({ jobId: session.job.id, roleId: session.role.id, difficulty: session.difficulty }),
@@ -255,6 +257,60 @@ function changeSound(change) {
   saveSettings(backend, settings);
   applySound();
   sound.unlock(); // 設定を変える操作の中で、準備する(設定を反映したあとに。「なし」の間は、作らない)
+}
+
+// 記録の書き出し・読み込み(Phase 19 PR 1。バックアップ・機種変更用。キーみちと同じ考え方)
+function download(filename, text, mime) {
+  const url = URL.createObjectURL(new Blob([text], { type: mime }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+const dateStamp = () => {
+  const now = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
+};
+
+const BACKUP_IMPORT_ERRORS = {
+  "invalid-json": "JSONとして読み取れません。この画面で書き出したファイルを選んでください。",
+  "invalid-format": "この画面で書き出したファイルではありません。",
+  "newer-version":
+    "新しい版の書き出しファイルです。ページを再読み込みして、もう一度お試しください。",
+  "invalid-data": "ファイルの中身が正しくありません(壊れているか、書き換えられています)。",
+  "too-large": "ファイルが大きすぎます(1MBまでです)。",
+};
+
+function exportBackup() {
+  const json = store.exportJson();
+  if (json === null) {
+    return {
+      ok: false,
+      message: "書き出せる記録がありません(保存されているデータが読めない状態です)。",
+    };
+  }
+  download(`escape-boss-${dateStamp()}.json`, json, "application/json;charset=utf-8");
+  return { ok: true, message: "JSONファイルに書き出しました。" };
+}
+
+function importBackup(text) {
+  const result = store.importJson(text);
+  if (!result.ok) {
+    return { ok: false, message: BACKUP_IMPORT_ERRORS[result.error] ?? "読み込めませんでした。" };
+  }
+  storageNotice = noticeFor(store.status, result.saved);
+  refreshDashboard();
+  return {
+    ok: true,
+    message: result.saved
+      ? "記録を置き換えました。"
+      : "記録を置き換えました(ただし、この環境では保存できません)。",
+  };
 }
 
 function handleProfileChange({ nickname, titleId }) {

@@ -7,6 +7,7 @@ import {
   createStore,
   DATA_VERSION,
   DEFAULT_NICKNAME,
+  EXPORT_FORMAT,
   MAX_RANKING,
   MAX_RESULTS,
   normalizeData,
@@ -1089,5 +1090,165 @@ describe("バージョン 4 の項目(難易度・経験値・職種ごとの合
   it("clearKey・bestKey は、役職・難易度、職種・役職・難易度を、決まった形の名前にする", () => {
     assert.equal(clearKey("senpai", "hard"), "senpai:hard");
     assert.equal(bestKey("engineer", "senpai", "normal"), "engineer:senpai:normal");
+  });
+});
+
+describe("JSON の書き出し・読み込み(Phase 19 PR 1)", () => {
+  it("書き出しは、format・書き出した日時・データを持つ", () => {
+    const backend = fakeBackend();
+    const store = createStore(backend, { now: () => 12345 });
+    const data = createEmptyData();
+    data.profile.nickname = "たろう";
+    data.results = [result()];
+    store.save(data);
+    const json = JSON.parse(store.exportJson());
+    assert.deepEqual(json, { format: EXPORT_FORMAT, exportedAt: 12345, data });
+  });
+
+  it("保存されているデータが壊れているときは、書き出せない(null)", () => {
+    const backend = fakeBackend();
+    backend.map.set(STORAGE_KEY, "{not json");
+    const store = createStore(backend);
+    assert.equal(store.exportJson(), null);
+  });
+
+  it("保存先がなくても(メモリだけでも)、書き出せる", () => {
+    const store = createStore(null);
+    const data = createEmptyData();
+    data.profile.nickname = "たろう";
+    store.save(data);
+    const json = JSON.parse(store.exportJson());
+    assert.equal(json.data.profile.nickname, "たろう");
+  });
+
+  it("書き出したものを、そのまま取り込める(往復)", () => {
+    const backend = fakeBackend();
+    const store = createStore(backend);
+    const data = createEmptyData();
+    data.profile.nickname = "はなこ";
+    data.results = [result({ score: 2000 })];
+    store.save(data);
+    const json = store.exportJson();
+
+    const other = createStore(fakeBackend());
+    const imported = other.importJson(json);
+    assert.equal(imported.ok, true);
+    assert.equal(imported.saved, true);
+    assert.deepEqual(imported.data, data);
+    assert.deepEqual(other.load().data, data);
+  });
+
+  it("取り込みは、いまのデータを、まるごと置き換える(合わせない)", () => {
+    const backend = fakeBackend();
+    const store = createStore(backend);
+    store.save({ ...createEmptyData(), results: [result({ playedAt: 1 })] });
+    const importedFrom = createStore(fakeBackend());
+    importedFrom.save({ ...createEmptyData(), results: [result({ playedAt: 2 })] });
+    const json = importedFrom.exportJson();
+
+    const out = store.importJson(json);
+    assert.equal(out.data.results.length, 1);
+    assert.equal(out.data.results[0].playedAt, 2);
+  });
+
+  it("取り込み前のデータを、:before-import に退避する", () => {
+    const backend = fakeBackend();
+    const store = createStore(backend);
+    const before = createEmptyData();
+    before.profile.nickname = "まえ";
+    store.save(before);
+
+    const source = createStore(fakeBackend());
+    source.save({
+      ...createEmptyData(),
+      profile: { ...createEmptyData().profile, nickname: "あと" },
+    });
+    store.importJson(source.exportJson());
+
+    const snapshot = JSON.parse(backend.map.get(`${STORAGE_KEY}:before-import`));
+    assert.equal(snapshot.profile.nickname, "まえ");
+    assert.equal(store.load().data.profile.nickname, "あと");
+  });
+
+  it("正しくないものは、理由つきで断る(保存しない)", () => {
+    const store = createStore(fakeBackend());
+    assert.deepEqual(store.parseImport(123), { ok: false, error: "invalid-json" });
+    assert.deepEqual(store.parseImport("{not json"), { ok: false, error: "invalid-json" });
+    assert.deepEqual(store.parseImport("a".repeat(1_000_001)), {
+      ok: false,
+      error: "too-large",
+    });
+    assert.deepEqual(store.parseImport(JSON.stringify({ format: "other", data: {} })), {
+      ok: false,
+      error: "invalid-format",
+    });
+    assert.deepEqual(
+      store.parseImport(JSON.stringify({ format: EXPORT_FORMAT, data: "not-object" })),
+      { ok: false, error: "invalid-format" },
+    );
+    assert.deepEqual(
+      store.parseImport(
+        JSON.stringify({ format: EXPORT_FORMAT, data: { ...createEmptyData(), version: 999 } }),
+      ),
+      { ok: false, error: "newer-version" },
+    );
+    assert.deepEqual(
+      store.parseImport(JSON.stringify({ format: EXPORT_FORMAT, data: { version: "x" } })),
+      { ok: false, error: "invalid-format" },
+    );
+  });
+
+  it("違う版(1〜4)を書き出したものでも、いまの版に移行して取り込める", () => {
+    const store = createStore(fakeBackend());
+    const v1 = {
+      version: 1,
+      profile: { nickname: "むかし", titleId: "newbie" },
+      results: [],
+      rankings: {},
+      achievements: {},
+      progress: { totalClears: 0, totalWords: 0, clears: {}, clearedJobs: {} },
+    };
+    const out = store.importJson(JSON.stringify({ format: EXPORT_FORMAT, data: v1 }));
+    assert.equal(out.ok, true);
+    assert.equal(out.data.version, DATA_VERSION);
+    assert.equal(out.data.profile.nickname, "むかし");
+  });
+
+  it("保存できない環境でも、取り込んだデータは、メモリに残る", () => {
+    const store = createStore(null);
+    const source = createStore(fakeBackend());
+    source.save({
+      ...createEmptyData(),
+      profile: { ...createEmptyData().profile, nickname: "あと" },
+    });
+    const out = store.importJson(source.exportJson());
+    assert.equal(out.ok, true);
+    assert.equal(out.saved, false);
+    assert.equal(store.load().data.profile.nickname, "あと");
+  });
+
+  it("退避に失敗しても、取り込みは続けられる", () => {
+    const backend = fakeBackend();
+    const store = createStore(backend);
+    store.save({
+      ...createEmptyData(),
+      profile: { ...createEmptyData().profile, nickname: "まえ" },
+    });
+    const failing = {
+      getItem: (key) => backend.getItem(key),
+      setItem(key, value) {
+        if (key.endsWith(":before-import")) throw new Error("quota");
+        backend.setItem(key, value);
+      },
+    };
+    const failingStore = createStore(failing);
+    const source = createStore(fakeBackend());
+    source.save({
+      ...createEmptyData(),
+      profile: { ...createEmptyData().profile, nickname: "あと" },
+    });
+    const out = failingStore.importJson(source.exportJson());
+    assert.equal(out.ok, true);
+    assert.equal(out.data.profile.nickname, "あと");
   });
 });
