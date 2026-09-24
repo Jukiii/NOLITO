@@ -26,6 +26,7 @@ export const mainNav = [
     ],
   },
   { label: "記事", href: "/articles/" },
+  { label: "検索", href: "/search/" },
 ];
 
 // モバイルの下部固定バー(重要機能)。href は、mainNav の中から選ぶ(available: false は出さない)

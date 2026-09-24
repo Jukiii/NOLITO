@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/css/products.css" />
     <link rel="stylesheet" href="/assets/css/updates.css" />
     <link rel="stylesheet" href="/assets/css/home.css" />
+    <link rel="stylesheet" href="/assets/css/search.css" />
     <link rel="stylesheet" href="/assets/css/styleguide.css" />
     <script type="module" src="/assets/js/main.js"></script>
   </head>
@@ -260,6 +261,26 @@
             </ol>
           </section>
         </div>
+      </section>
+
+      <section class="section" aria-labelledby="sg-search">
+        <h2 id="sg-search">検索の結果(/search/)</h2>
+        <p>種類は、色だけでなく、バッジの文字(プロダクト・記事・用語)でも示します。</p>
+        <ul class="search__results">
+          <li class="search-result">
+            <p class="search-result__meta"><span class="badge badge--live">プロダクト</span></p>
+            <h2 class="search-result__title"><a href="#sg-search">プロダクト名</a></h2>
+            <p class="search-result__text">プロダクトの説明が入ります。</p>
+          </li>
+          <li class="search-result">
+            <p class="search-result__meta">
+              <span class="badge badge--soon">用語(上司から逃げろ)</span>
+            </p>
+            <h2 class="search-result__title"><a href="#sg-search">バグ</a></h2>
+            <p class="search-result__text">プログラムの不具合や誤りのこと。</p>
+            <p class="search-result__extra">職種: エンジニア</p>
+          </li>
+        </ul>
       </section>
 
       <section class="section" aria-labelledby="sg-modal">
