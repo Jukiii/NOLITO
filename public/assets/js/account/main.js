@@ -6,11 +6,13 @@ import {
   fetchLicenses,
   fetchMe,
   fetchProductNames,
+  fetchSettingsSync,
   logout,
   redeemLicense,
   saveGameSync,
   saveNickname,
   saveRankingOptIn,
+  saveSettingsSync,
 } from "./client.js";
 // ゲームの記録(要約)の検証・取り込みは、ゲーム側のロジックをそのまま使う(重複させない)
 import {
@@ -19,6 +21,10 @@ import {
   getBackend,
   syncProgressOf,
 } from "../games/escape-boss/storage.js";
+// 表示設定(テーマ・文字サイズ・アニメーション)の保存・反映も、それぞれの部品の関数をそのまま使う(重複させない)
+import { applyFontSize, loadFontSize, saveFontSize } from "../components/font-size.js";
+import { applyMotion, loadMotion, saveMotion } from "../components/motion.js";
+import { applyTheme, loadTheme, saveTheme } from "../components/theme.js";
 import { loginErrorMessage } from "./messages.js";
 
 const root = document.querySelector("[data-account]");
@@ -42,6 +48,10 @@ async function init(root) {
   const rankingOptInStatus = $("[data-ranking-opt-in-status]");
   const rankingOptInMessage = $("[data-ranking-opt-in-message]");
   const rankingOptInCheckbox = $("[data-ranking-opt-in]");
+  const settingsSyncStatus = $("[data-settings-sync-status]");
+  const settingsSyncMessage = $("[data-settings-sync-message]");
+  const settingsSyncDialog = $("[data-settings-sync-dialog]");
+  const settingsSyncDialogMessage = $("[data-settings-sync-dialog-message]");
 
   const show = (name) => {
     for (const view of views) view.hidden = view.dataset.view !== name;
@@ -120,6 +130,28 @@ async function init(root) {
     return result;
   }
 
+  // 通知(表示設定)。全体の状態(say)とは別の場所に出す
+  const saySettingsSync = (text, kind = "ok") => {
+    settingsSyncMessage.textContent = text ? `${kind === "error" ? "エラー: " : ""}${text}` : "";
+    settingsSyncMessage.classList.toggle(
+      "account__status--error",
+      kind === "error" && Boolean(text),
+    );
+  };
+
+  // アカウントに保存されている表示設定の状態を、取り直して表示する
+  async function loadSettingsSyncStatus() {
+    const result = await fetchSettingsSync();
+    if (!result.ok) {
+      settingsSyncStatus.textContent = "確認できませんでした。ページを開き直してください。";
+      return result;
+    }
+    settingsSyncStatus.textContent = result.data.settings
+      ? `最後に保存したのは ${formatDate(result.data.settings.updatedAt)} です。`
+      : "まだ、アカウントに保存されていません。";
+    return result;
+  }
+
   // 通知(オンラインランキング)。全体の状態(say)とは別の場所に出す
   const sayRankingOptIn = (text, kind = "ok") => {
     rankingOptInMessage.textContent = text ? `${kind === "error" ? "エラー: " : ""}${text}` : "";
@@ -146,6 +178,7 @@ async function init(root) {
       if (!result.ok) say(result.message, "error");
     });
     loadGameSyncStatus();
+    loadSettingsSyncStatus();
   }
 
   // ログインの失敗から戻ってきたとき(/account/?error=...)の案内。アドレスからは消す(再読み込みで、また出ないように)
@@ -258,6 +291,67 @@ async function init(root) {
   syncDialog.addEventListener("close", () => {
     syncDialogMessage.textContent = "";
     syncDialogMessage.hidden = true;
+  });
+
+  $("[data-settings-sync-upload]").addEventListener("click", async (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
+    saySettingsSync("保存しています…");
+    const result = await saveSettingsSync({
+      theme: loadTheme(),
+      fontSize: loadFontSize(),
+      reducedMotion: loadMotion(),
+    });
+    button.disabled = false;
+    if (result.ok) {
+      settingsSyncStatus.textContent = `最後に保存したのは ${formatDate(result.data.settings.updatedAt)} です。`;
+      saySettingsSync("この端末の設定を、アカウントに保存しました。");
+    } else if (!expired(result)) {
+      saySettingsSync(result.message, "error");
+    }
+  });
+
+  $("[data-settings-sync-download]").addEventListener("click", async (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
+    settingsSyncDialogMessage.hidden = true;
+    const result = await fetchSettingsSync();
+    if (!result.ok) {
+      button.disabled = false;
+      if (expired(result)) return;
+      settingsSyncDialogMessage.textContent = result.message;
+      settingsSyncDialogMessage.hidden = false;
+      return;
+    }
+    if (!result.data.settings) {
+      button.disabled = false;
+      settingsSyncDialogMessage.textContent = "まだ、アカウントに保存された設定がありません。";
+      settingsSyncDialogMessage.hidden = false;
+      return;
+    }
+    const { theme, fontSize, reducedMotion } = result.data.settings;
+    applyTheme(theme);
+    applyFontSize(fontSize);
+    applyMotion(reducedMotion);
+    saveTheme(theme);
+    saveFontSize(fontSize);
+    saveMotion(reducedMotion);
+    // フッターの select も、いま見えている値に合わせる(このページにも、フッターがある)
+    const themeSelect = document.querySelector("[data-theme-select]");
+    const fontSizeSelect = document.querySelector("[data-font-size-select]");
+    const motionSelect = document.querySelector("[data-motion-select]");
+    if (themeSelect) themeSelect.value = theme;
+    if (fontSizeSelect) fontSizeSelect.value = fontSize;
+    if (motionSelect) motionSelect.value = reducedMotion;
+    button.disabled = false;
+    settingsSyncDialog.close();
+    saySettingsSync("アカウントの設定を、この端末に読み込みました。");
+  });
+
+  // ダイアログを開くたびに、前回のメッセージを消す
+  settingsSyncDialog.addEventListener("close", () => {
+    settingsSyncDialogMessage.textContent = "";
+    settingsSyncDialogMessage.hidden = true;
   });
 
   rankingOptInCheckbox.addEventListener("change", async (event) => {

@@ -65,6 +65,13 @@ export const fetchGameSync = (options) => call("/api/games/escape-boss/sync", op
 export const saveGameSync = (progress, options) =>
   call("/api/games/escape-boss/sync", { ...options, method: "POST", body: progress });
 
+/** アカウントに保存された、表示設定(テーマ・文字サイズ・アニメーション)。{ settings: null | {...} }。 */
+export const fetchSettingsSync = (options) => call("/api/settings/sync", options);
+
+/** この端末の表示設定を、アカウントに保存する(まるごと置き換える)。 */
+export const saveSettingsSync = (settings, options) =>
+  call("/api/settings/sync", { ...options, method: "POST", body: settings });
+
 /** オンラインランキングへの参加を、切り替える。参加をやめると、公開されている記録も消える。 */
 export const saveRankingOptIn = (enabled, options) =>
   call("/api/ranking-opt-in", { ...options, method: "POST", body: { enabled } });

@@ -9,6 +9,7 @@ INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(2,'0002_licenses.s
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(3,'0003_inquiries.sql','2026-09-20 11:28:51');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(4,'0004_game_sync.sql','2026-09-24 09:00:00');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(5,'0005_ranking.sql','2026-09-24 10:00:00');
+INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(6,'0006_site_settings.sql','2026-09-24 11:00:00');
 CREATE TABLE users (
   id TEXT PRIMARY KEY,
   google_sub TEXT NOT NULL UNIQUE,
@@ -95,8 +96,16 @@ CREATE TABLE ranking_entries (
   PRIMARY KEY (user_id, role_id, difficulty_id)
 );
 INSERT INTO "ranking_entries" ("user_id","role_id","difficulty_id","job_id","nickname","title","score","achieved_at") VALUES('u1','senpai','normal','engineer','たろう''s','先輩超え',1500,2000);
+CREATE TABLE site_settings (
+  user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  theme TEXT NOT NULL,
+  font_size TEXT NOT NULL,
+  reduced_motion TEXT NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+INSERT INTO "site_settings" ("user_id","theme","font_size","reduced_motion","updated_at") VALUES('u1','dark','large','system',2000);
 DELETE FROM sqlite_sequence;
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',5);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',6);
 INSERT INTO "sqlite_sequence" ("name","seq") VALUES('audit_log',2);
 CREATE INDEX sessions_user ON sessions(user_id);
 CREATE INDEX audit_log_at ON audit_log(at);
