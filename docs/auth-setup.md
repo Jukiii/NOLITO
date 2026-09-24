@@ -54,6 +54,12 @@ CREATE TABLE inquiries (id TEXT PRIMARY KEY, created_at INTEGER NOT NULL, catego
 CREATE INDEX inquiries_status ON inquiries(status, created_at);
 ```
 
+**0004**(`0004_game_sync.sql`。Phase 19 の PR 2。ゲームの記録の、アカウントへの同期(任意))
+
+```sql 0004_game_sync.sql
+CREATE TABLE game_progress (user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE, nickname TEXT NOT NULL, title_id TEXT NOT NULL DEFAULT 'newbie', total_clears INTEGER NOT NULL DEFAULT 0, total_words INTEGER NOT NULL DEFAULT 0, clears TEXT NOT NULL DEFAULT '{}', cleared_jobs TEXT NOT NULL DEFAULT '{}', exp INTEGER NOT NULL DEFAULT 0, jobs TEXT NOT NULL DEFAULT '{}', difficulty_clears TEXT NOT NULL DEFAULT '{}', bests TEXT NOT NULL DEFAULT '{}', achievements TEXT NOT NULL DEFAULT '{}', updated_at INTEGER NOT NULL);
+```
+
 ## 2. Pages に D1 をつなぐ(本番だけ)
 
 1. Cloudflare → **Workers & Pages** → プロジェクト `nolito` → **Settings** → **Bindings** → **Add** → **D1 database**。

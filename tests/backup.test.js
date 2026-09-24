@@ -142,7 +142,8 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
     assert.deepEqual(problems, []);
     assert.deepEqual(tables, {
       audit_log: 2,
-      d1_migrations: 3,
+      d1_migrations: 4,
+      game_progress: 1,
       inquiries: 2,
       licenses: 2,
       rate_limits: 0,
@@ -154,6 +155,7 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
   it("migrations/ のすべてのテーブルが、バックアップにある", () => {
     assert.deepEqual([...required].sort(), [
       "audit_log",
+      "game_progress",
       "inquiries",
       "licenses",
       "rate_limits",

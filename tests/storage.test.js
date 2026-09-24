@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  applySyncProgress,
   bestKey,
   clearKey,
   createEmptyData,
@@ -11,8 +12,10 @@ import {
   MAX_RANKING,
   MAX_RESULTS,
   normalizeData,
+  normalizeSyncProgress,
   sanitizeNickname,
   STORAGE_KEY,
+  syncProgressOf,
 } from "../public/assets/js/games/escape-boss/storage.js";
 
 // localStorage の代わり。失敗のさせ方を指定できる。
@@ -1250,5 +1253,94 @@ describe("JSON の書き出し・読み込み(Phase 19 PR 1)", () => {
     const out = failingStore.importJson(source.exportJson());
     assert.equal(out.ok, true);
     assert.equal(out.data.profile.nickname, "あと");
+  });
+});
+
+describe("アカウントへの同期の要約(Phase 19 PR 2)", () => {
+  it("いまの記録から、要約を作れる(results は含まない)", () => {
+    const data = createEmptyData();
+    data.profile.nickname = "どうき";
+    data.progress.exp = 500;
+    data.progress.totalClears = 3;
+    data.progress.totalWords = 40;
+    data.progress.clears = { senpai: 2 };
+    data.progress.clearedJobs = { engineer: true };
+    data.progress.jobs = { engineer: { plays: 5, clears: 2, words: 40, hits: 100, miss: 5 } };
+    data.progress.difficultyClears = { [clearKey("senpai", "normal")]: 2 };
+    data.progress.bests = {
+      [bestKey("engineer", "senpai", "normal")]: { score: 1500, playedAt: 1 },
+    };
+    data.achievements = { "clear-senpai": 100 };
+    const sync = syncProgressOf(data);
+    assert.deepEqual(sync, {
+      nickname: "どうき",
+      titleId: "newbie",
+      achievements: { "clear-senpai": 100 },
+      totalClears: 3,
+      totalWords: 40,
+      clears: { senpai: 2 },
+      clearedJobs: { engineer: true },
+      exp: 500,
+      jobs: { engineer: { plays: 5, clears: 2, words: 40, hits: 100, miss: 5 } },
+      difficultyClears: { [clearKey("senpai", "normal")]: 2 },
+      bests: { [bestKey("engineer", "senpai", "normal")]: { score: 1500, playedAt: 1 } },
+    });
+    assert.ok(!("results" in sync));
+  });
+
+  it("検証は、既存の normalizeData を使う(不正な項目は、それぞれ捨てる。全体は断らない)", () => {
+    const sync = normalizeSyncProgress({
+      nickname: "x".repeat(50),
+      titleId: 5,
+      exp: -100,
+      jobs: { "<script>": { plays: 1 } },
+      difficultyClears: { bad: 1 },
+      bests: { bad: { score: -1 } },
+      achievements: { good: 100, bad: "yesterday" },
+      totalClears: "many",
+      clears: { senpai: 2.7 },
+    });
+    assert.equal(sync.nickname.length, 12);
+    assert.equal(sync.titleId, "newbie");
+    assert.equal(sync.exp, 0);
+    assert.deepEqual(sync.jobs, {});
+    assert.deepEqual(sync.difficultyClears, {});
+    assert.deepEqual(sync.bests, {});
+    assert.deepEqual(sync.achievements, { good: 100 });
+    assert.equal(sync.totalClears, 0);
+    assert.deepEqual(sync.clears, { senpai: 2 });
+  });
+
+  it("オブジェクトでないものは、null", () => {
+    for (const bad of [null, undefined, "x", 5, []]) {
+      assert.equal(normalizeSyncProgress(bad), null, String(bad));
+    }
+  });
+
+  it("同期の要約を、いまの記録に取り込める(results・rankings は、そのまま残る)", () => {
+    const data = createEmptyData();
+    data.results = [result()];
+    data.rankings[clearKey("senpai", "normal")] = [
+      { score: 1, playedAt: 1, jobId: "a", roleId: "senpai", nickname: "n", title: "" },
+    ];
+    const sync = normalizeSyncProgress({
+      nickname: "あたらしい",
+      titleId: "newbie",
+      exp: 999,
+      jobs: {},
+      difficultyClears: {},
+      bests: {},
+      achievements: { "clear-senpai": 1 },
+      totalClears: 1,
+      totalWords: 8,
+      clears: { senpai: 1 },
+      clearedJobs: { engineer: true },
+    });
+    const applied = applySyncProgress(data, sync);
+    assert.equal(applied.profile.nickname, "あたらしい");
+    assert.equal(applied.progress.exp, 999);
+    assert.deepEqual(applied.achievements, { "clear-senpai": 1 });
+    assert.deepEqual(applied.results, data.results);
+    assert.deepEqual(applied.rankings, data.rankings);
   });
 });

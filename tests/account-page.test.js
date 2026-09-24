@@ -8,11 +8,13 @@ import { CONFIRM_WORD } from "../functions/api/account.js";
 import {
   call,
   deleteAccount,
+  fetchGameSync,
   fetchLicenses,
   fetchMe,
   fetchProductNames,
   logout,
   redeemLicense,
+  saveGameSync,
   saveNickname,
 } from "../public/assets/js/account/client.js";
 import {
@@ -231,6 +233,34 @@ describe("ライセンスの API クライアント", () => {
   });
 });
 
+describe("ゲームの記録の同期(Phase 19 PR 2)の API クライアント", () => {
+  it("取得は GET(CSRF ヘッダーなし)、保存は POST で、要約を JSON の本文に入れる", async () => {
+    const getting = recorder(jsonResponse({ progress: null }));
+    await fetchGameSync(getting.options);
+    assert.deepEqual(
+      [getting.calls[0].path, getting.calls[0].init.method],
+      ["/api/games/escape-boss/sync", "GET"],
+    );
+    assert.equal(getting.calls[0].init.headers["X-NOLITO-CSRF"], undefined);
+
+    const posting = recorder(jsonResponse({ ok: true, progress: { exp: 10 } }));
+    await saveGameSync({ nickname: "どうき", exp: 10 }, posting.options);
+    const { path, init } = posting.calls[0];
+    assert.deepEqual([path, init.method], ["/api/games/escape-boss/sync", "POST"]);
+    assert.equal(init.headers["X-NOLITO-CSRF"], "1");
+    assert.deepEqual(JSON.parse(init.body), { nickname: "どうき", exp: 10 });
+  });
+
+  it("保存の失敗(invalid-progress)は、利用者向けの文で返す", async () => {
+    const result = await saveGameSync(
+      {},
+      recorder(jsonResponse({ error: "invalid-progress" }, 400)).options,
+    );
+    assert.equal(result.ok, false);
+    assert.equal(result.message, API_ERRORS["invalid-progress"]);
+  });
+});
+
 describe("ページの静的な性質", () => {
   const html = read("public/account/index.html");
   const js = read("public/assets/js/account/main.js");
@@ -296,6 +326,27 @@ describe("ページの静的な性質", () => {
 
   it("画面に出すのは、末尾 4 文字のヒントだけ(キーの全体は、サーバーも持たない)", () => {
     assert.match(js, /NLTO-…-\$\{license\.hint\}/);
+  });
+
+  it("ゲームの記録の節: 保存・読み込み・確認のダイアログが、HTML と main.js の両方にそろっている", () => {
+    for (const hook of [
+      "data-game-sync-upload",
+      "data-game-sync-download",
+      "data-game-sync-status",
+      "data-game-sync-message",
+      "data-game-sync-dialog",
+      "data-game-sync-dialog-message",
+    ]) {
+      assert.ok(html.includes(hook), `HTML: ${hook}`);
+      assert.ok(js.includes(hook), `main.js: ${hook}`);
+    }
+    // 1プレイごとの詳細な記録(results)は、送らない(要約だけ)
+    assert.ok(!/results/.test(js.slice(js.indexOf("game-sync"))));
+  });
+
+  it("ゲームの記録の検証は、ゲーム側の normalizeSyncProgress を再利用する(重複させない)", () => {
+    assert.match(js, /syncProgressOf|applySyncProgress/);
+    assert.match(js, /from ["']\.\.\/games\/escape-boss\/storage\.js["']/);
   });
 
   it("CSS は、色をトークンで指定する(ダークテーマに対応できるように)", () => {

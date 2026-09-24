@@ -1,4 +1,6 @@
 import { availableTitles, evaluateAchievements, titleName as titleNameOf } from "./achievements.js";
+// アカウントの案内(Phase 19 PR 2)。ログイン状態の確認は、アカウントの API クライアントを再利用する(重複させない)
+import { fetchMe } from "../../account/client.js";
 import {
   checkHit,
   checkMiss,
@@ -67,6 +69,8 @@ const backend = getBackend();
 const store = createStore(backend);
 // ゲームの設定(いまは、プレイ中の説明の表示だけ)。記録とは、別のキーに保存する
 let settings = loadSettings(backend);
+// アカウントの案内(初回だけ)を閉じたかどうか。記録(バージョン付き)とは別の、単純な印
+const ACCOUNT_BANNER_KEY = "nolito:escape-boss:account-banner-dismissed:v1";
 
 let jobs = [];
 let roles = [];
@@ -151,6 +155,32 @@ function refreshDashboard() {
       jobs.map((job) => job.id),
     ),
   });
+}
+
+function bannerDismissed() {
+  if (!backend) return false;
+  try {
+    return backend.getItem(ACCOUNT_BANNER_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function dismissAccountBanner() {
+  view.hideAccountBanner();
+  if (!backend) return;
+  try {
+    backend.setItem(ACCOUNT_BANNER_KEY, "1");
+  } catch {
+    // 保存できなくても、この場では閉じたままにする(次に開いたときは、また出ることがある)
+  }
+}
+
+// ログインしておらず、アカウント機能が使える環境でだけ、初回の案内を出す(閉じたら、もう出さない)
+async function initAccountBanner() {
+  if (bannerDismissed()) return;
+  const me = await fetchMe();
+  if (me.enabled && !me.user) view.showAccountBanner();
 }
 
 async function init() {
@@ -238,10 +268,12 @@ async function init() {
       startGame({ jobId: session.job.id, roleId: session.role.id, difficulty: session.difficulty }),
     onBack: quit,
     onQuit: quit,
+    onAccountBannerDismiss: dismissAccountBanner,
   });
   // 開始・終わりの演出は、飛ばせる(Enter・スペース・Esc・場面のクリック)
   view.bindSkip(() => timeline?.skip());
   refreshDashboard();
+  initAccountBanner(); // 失敗しても、ダッシュボードの表示は続ける(案内が出ないだけ)
 
   // 成績ページの「復習リストで用語確認をする」から来たとき(?review=1)。アドレスからは消す
   const params = new URLSearchParams(location.search);

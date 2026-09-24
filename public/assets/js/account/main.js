@@ -2,13 +2,22 @@
 // 表示する文字列は、必ず textContent で入れる(ニックネームやメールアドレスは、利用者が決めた値)。
 import {
   deleteAccount,
+  fetchGameSync,
   fetchLicenses,
   fetchMe,
   fetchProductNames,
   logout,
   redeemLicense,
+  saveGameSync,
   saveNickname,
 } from "./client.js";
+// ゲームの記録(要約)の検証・取り込みは、ゲーム側のロジックをそのまま使う(重複させない)
+import {
+  applySyncProgress,
+  createStore,
+  getBackend,
+  syncProgressOf,
+} from "../games/escape-boss/storage.js";
 import { loginErrorMessage } from "./messages.js";
 
 const root = document.querySelector("[data-account]");
@@ -24,6 +33,11 @@ async function init(root) {
   const confirmButton = $("[data-delete-confirm]");
   const reauthLink = $("[data-reauth]");
   const nickname = $("#nickname");
+  const gameStore = createStore(getBackend());
+  const syncStatus = $("[data-game-sync-status]");
+  const syncMessage = $("[data-game-sync-message]");
+  const syncDialog = $("[data-game-sync-dialog]");
+  const syncDialogMessage = $("[data-game-sync-dialog-message]");
 
   const show = (name) => {
     for (const view of views) view.hidden = view.dataset.view !== name;
@@ -83,6 +97,25 @@ async function init(root) {
     return result;
   }
 
+  // 通知(ゲームの記録)。全体の状態(say)とは別の場所に出す(ニックネーム保存などの通知と混ざらないように)
+  const saySync = (text, kind = "ok") => {
+    syncMessage.textContent = text ? `${kind === "error" ? "エラー: " : ""}${text}` : "";
+    syncMessage.classList.toggle("account__status--error", kind === "error" && Boolean(text));
+  };
+
+  // アカウントに保存されている記録の要約の状態を、取り直して表示する
+  async function loadGameSyncStatus() {
+    const result = await fetchGameSync();
+    if (!result.ok) {
+      syncStatus.textContent = "確認できませんでした。ページを開き直してください。";
+      return result;
+    }
+    syncStatus.textContent = result.data.progress
+      ? `最後に保存したのは ${formatDate(result.data.progress.updatedAt)} です。`
+      : "まだ、アカウントに保存されていません。";
+    return result;
+  }
+
   function renderUser(user) {
     $("[data-user-email]").textContent = user.email;
     $("[data-user-created]").textContent = formatDate(user.createdAt);
@@ -91,6 +124,7 @@ async function init(root) {
     loadLicenses().then((result) => {
       if (!result.ok) say(result.message, "error");
     });
+    loadGameSyncStatus();
   }
 
   // ログインの失敗から戻ってきたとき(/account/?error=...)の案内。アドレスからは消す(再読み込みで、また出ないように)
@@ -151,6 +185,58 @@ async function init(root) {
       say(result.message, "error");
       input.focus();
     }
+  });
+
+  $("[data-game-sync-upload]").addEventListener("click", async (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
+    saySync("保存しています…");
+    const { data } = gameStore.load();
+    const result = await saveGameSync(syncProgressOf(data));
+    button.disabled = false;
+    if (result.ok) {
+      syncStatus.textContent = `最後に保存したのは ${formatDate(result.data.progress.updatedAt)} です。`;
+      saySync("この端末の記録を、アカウントに保存しました。");
+    } else if (!expired(result)) {
+      saySync(result.message, "error");
+    }
+  });
+
+  $("[data-game-sync-download]").addEventListener("click", async (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
+    syncDialogMessage.hidden = true;
+    const result = await fetchGameSync();
+    if (!result.ok) {
+      button.disabled = false;
+      if (expired(result)) return;
+      syncDialogMessage.textContent = result.message;
+      syncDialogMessage.hidden = false;
+      return;
+    }
+    if (!result.data.progress) {
+      button.disabled = false;
+      syncDialogMessage.textContent = "まだ、アカウントに保存された記録がありません。";
+      syncDialogMessage.hidden = false;
+      return;
+    }
+    const applied = gameStore.update((current) => ({
+      data: applySyncProgress(current, result.data.progress),
+    }));
+    button.disabled = false;
+    syncDialog.close();
+    saySync(
+      applied.saved
+        ? "アカウントの記録を、この端末に読み込みました。"
+        : "読み込みましたが、この端末には保存できませんでした(保存できる場所が使えません)。",
+      applied.saved ? "ok" : "error",
+    );
+  });
+
+  // ダイアログを開くたびに、前回のメッセージを消す
+  syncDialog.addEventListener("close", () => {
+    syncDialogMessage.textContent = "";
+    syncDialogMessage.hidden = true;
   });
 
   $("[data-logout]").addEventListener("click", async (event) => {
