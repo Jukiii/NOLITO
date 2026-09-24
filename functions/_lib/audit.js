@@ -13,6 +13,7 @@ export const EVENTS = Object.freeze({
   licenseRedeemFailed: "license-redeem-failed",
   inquiryReceived: "inquiry-received",
   gameSyncSave: "game-sync-save",
+  rankingOptInChange: "ranking-opt-in-change",
 });
 
 const RETENTION_SECONDS = 180 * 24 * 60 * 60; // 180 日たったログは、消す

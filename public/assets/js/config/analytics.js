@@ -8,5 +8,5 @@ export const analyticsConfig = {
   // 独自ドメインにしたら、そのホストに変える(public/data/site.json の url と合わせる)。
   hosts: ["nolito.pages.dev"],
   // プライバシーポリシーの版。ポリシーの内容を変えて版を上げると、同意をもう一度確認する。
-  policyVersion: 3,
+  policyVersion: 4,
 };

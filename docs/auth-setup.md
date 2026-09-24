@@ -60,6 +60,14 @@ CREATE INDEX inquiries_status ON inquiries(status, created_at);
 CREATE TABLE game_progress (user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE, nickname TEXT NOT NULL, title_id TEXT NOT NULL DEFAULT 'newbie', total_clears INTEGER NOT NULL DEFAULT 0, total_words INTEGER NOT NULL DEFAULT 0, clears TEXT NOT NULL DEFAULT '{}', cleared_jobs TEXT NOT NULL DEFAULT '{}', exp INTEGER NOT NULL DEFAULT 0, jobs TEXT NOT NULL DEFAULT '{}', difficulty_clears TEXT NOT NULL DEFAULT '{}', bests TEXT NOT NULL DEFAULT '{}', achievements TEXT NOT NULL DEFAULT '{}', updated_at INTEGER NOT NULL);
 ```
 
+**0005**(`0005_ranking.sql`。Phase 19 の PR 3。オンラインランキング(任意))
+
+```sql 0005_ranking.sql
+ALTER TABLE users ADD COLUMN ranking_opt_in INTEGER NOT NULL DEFAULT 0;
+CREATE TABLE ranking_entries (user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, role_id TEXT NOT NULL, difficulty_id TEXT NOT NULL, job_id TEXT NOT NULL, nickname TEXT NOT NULL, title TEXT NOT NULL DEFAULT '', score INTEGER NOT NULL, achieved_at INTEGER NOT NULL, PRIMARY KEY (user_id, role_id, difficulty_id));
+CREATE INDEX ranking_entries_lookup ON ranking_entries(role_id, difficulty_id, score DESC, achieved_at ASC);
+```
+
 ## 2. Pages に D1 をつなぐ(本番だけ)
 
 1. Cloudflare → **Workers & Pages** → プロジェクト `nolito` → **Settings** → **Bindings** → **Add** → **D1 database**。

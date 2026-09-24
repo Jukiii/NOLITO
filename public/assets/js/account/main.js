@@ -10,6 +10,7 @@ import {
   redeemLicense,
   saveGameSync,
   saveNickname,
+  saveRankingOptIn,
 } from "./client.js";
 // ゲームの記録(要約)の検証・取り込みは、ゲーム側のロジックをそのまま使う(重複させない)
 import {
@@ -38,6 +39,9 @@ async function init(root) {
   const syncMessage = $("[data-game-sync-message]");
   const syncDialog = $("[data-game-sync-dialog]");
   const syncDialogMessage = $("[data-game-sync-dialog-message]");
+  const rankingOptInStatus = $("[data-ranking-opt-in-status]");
+  const rankingOptInMessage = $("[data-ranking-opt-in-message]");
+  const rankingOptInCheckbox = $("[data-ranking-opt-in]");
 
   const show = (name) => {
     for (const view of views) view.hidden = view.dataset.view !== name;
@@ -116,10 +120,27 @@ async function init(root) {
     return result;
   }
 
+  // 通知(オンラインランキング)。全体の状態(say)とは別の場所に出す
+  const sayRankingOptIn = (text, kind = "ok") => {
+    rankingOptInMessage.textContent = text ? `${kind === "error" ? "エラー: " : ""}${text}` : "";
+    rankingOptInMessage.classList.toggle(
+      "account__status--error",
+      kind === "error" && Boolean(text),
+    );
+  };
+
+  function renderRankingOptIn(enabled) {
+    rankingOptInCheckbox.checked = enabled;
+    rankingOptInStatus.textContent = enabled
+      ? "参加しています。ほかの利用者に、記録が見えます。"
+      : "参加していません。";
+  }
+
   function renderUser(user) {
     $("[data-user-email]").textContent = user.email;
     $("[data-user-created]").textContent = formatDate(user.createdAt);
     nickname.value = user.nickname;
+    renderRankingOptIn(user.rankingOptIn);
     show("signed-in");
     loadLicenses().then((result) => {
       if (!result.ok) say(result.message, "error");
@@ -237,6 +258,26 @@ async function init(root) {
   syncDialog.addEventListener("close", () => {
     syncDialogMessage.textContent = "";
     syncDialogMessage.hidden = true;
+  });
+
+  rankingOptInCheckbox.addEventListener("change", async (event) => {
+    const checkbox = event.currentTarget;
+    const enabled = checkbox.checked;
+    checkbox.disabled = true;
+    sayRankingOptIn(enabled ? "参加に切り替えています…" : "不参加に切り替えています…");
+    const result = await saveRankingOptIn(enabled);
+    checkbox.disabled = false;
+    if (result.ok) {
+      renderRankingOptIn(result.data.rankingOptIn);
+      sayRankingOptIn(
+        result.data.rankingOptIn
+          ? "オンラインランキングに参加しました。"
+          : "オンラインランキングの参加をやめました。載っていた記録も消えました。",
+      );
+    } else if (!expired(result)) {
+      checkbox.checked = !enabled; // 失敗したので、表示を元に戻す
+      sayRankingOptIn(result.message, "error");
+    }
   });
 
   $("[data-logout]").addEventListener("click", async (event) => {

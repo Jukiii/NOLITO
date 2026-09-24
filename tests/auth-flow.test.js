@@ -403,11 +403,17 @@ describe("/api/me", () => {
     assert.equal(response.headers.get("Cache-Control"), "no-store");
   });
 
-  it("ログインしていれば、ニックネーム・メール・登録日だけを返す(sub やセッションは返さない)", async () => {
+  it("ログインしていれば、ニックネーム・メール・登録日・ランキング参加の状態だけを返す(sub やセッションは返さない)", async () => {
     const { cookies } = await loggedIn();
     const data = await body(await me({ request: get("/api/me", { cookies }), env }));
-    assert.deepEqual(Object.keys(data.user).sort(), ["createdAt", "email", "nickname"]);
+    assert.deepEqual(Object.keys(data.user).sort(), [
+      "createdAt",
+      "email",
+      "nickname",
+      "rankingOptIn",
+    ]);
     assert.equal(data.user.nickname, "ななしさん");
+    assert.equal(data.user.rankingOptIn, false); // 既定は不参加
   });
 
   it("でたらめなセッションの Cookie は、ログインしていない扱い", async () => {

@@ -65,6 +65,21 @@ export const fetchGameSync = (options) => call("/api/games/escape-boss/sync", op
 export const saveGameSync = (progress, options) =>
   call("/api/games/escape-boss/sync", { ...options, method: "POST", body: progress });
 
+/** オンラインランキングへの参加を、切り替える。参加をやめると、公開されている記録も消える。 */
+export const saveRankingOptIn = (enabled, options) =>
+  call("/api/ranking-opt-in", { ...options, method: "POST", body: { enabled } });
+
+/** オンラインランキングの、役職 × 難易度の上位(ログイン不要。だれでも見られる)。{ entries: [...] }。 */
+export const fetchOnlineRanking = (roleId, difficultyId, options) =>
+  call(
+    `/api/games/escape-boss/ranking?role=${encodeURIComponent(roleId)}&difficulty=${encodeURIComponent(difficultyId)}`,
+    options,
+  );
+
+/** クリアした記録を、オンラインランキングに送る(参加している人だけ、実際に載る)。 */
+export const saveOnlineRanking = (entry, options) =>
+  call("/api/games/escape-boss/ranking", { ...options, method: "POST", body: entry });
+
 /** 商品 ID → 商品名(公開の products.json から)。取れなければ空(ID のまま表示する)。 */
 export async function fetchProductNames(fetchImpl = globalThis.fetch) {
   try {

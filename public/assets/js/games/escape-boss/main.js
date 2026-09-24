@@ -1,6 +1,6 @@
 import { availableTitles, evaluateAchievements, titleName as titleNameOf } from "./achievements.js";
-// アカウントの案内(Phase 19 PR 2)。ログイン状態の確認は、アカウントの API クライアントを再利用する(重複させない)
-import { fetchMe } from "../../account/client.js";
+// アカウントの案内・オンラインランキング(Phase 19 PR 2・3)。アカウントの API クライアントを再利用する(重複させない)
+import { fetchMe, fetchOnlineRanking, saveOnlineRanking } from "../../account/client.js";
 import {
   checkHit,
   checkMiss,
@@ -78,6 +78,9 @@ let difficulties = [];
 let config = { default_title: { id: "newbie", name: "新入社員" }, achievements: [] };
 let rankingRoleId = DEFAULT_ROLE_ID;
 let rankingDifficultyId = DEFAULT_DIFFICULTY;
+// オンラインランキング(Phase 19 PR 3。任意)の、いま見ている役職・難易度(端末内ランキングとは別に選べる)
+let onlineRankingRoleId = DEFAULT_ROLE_ID;
+let onlineRankingDifficultyId = DEFAULT_DIFFICULTY;
 let storageNotice = "";
 let session = null;
 // 開始・終わりの演出の進行(進んでいる間だけ、ある)
@@ -157,6 +160,44 @@ function refreshDashboard() {
   });
 }
 
+// オンラインランキング(Phase 19 PR 3。任意)の、いま選んでいる役職・難易度の上位を取ってきて描く。
+// だれでも見られる(ログイン不要)。取得に失敗しても、ダッシュボードの表示は続ける
+async function loadOnlineRanking() {
+  view.renderOnlineRanking({ state: "loading" });
+  const result = await fetchOnlineRanking(onlineRankingRoleId, onlineRankingDifficultyId);
+  if (!result.ok) {
+    view.renderOnlineRanking({ state: "error" });
+    return;
+  }
+  view.renderOnlineRanking({ state: "ok", entries: result.data.entries, jobsById: jobsById() });
+}
+
+// クリアの記録を、オンラインランキングに送る(参加している人だけ)。押した操作ではないので、
+// 失敗しても、静かに諦める(結果の画面は、この端末の記録だけで、問題なく成立するため)
+function submitOnlineRanking({ cleared, difficulty, role, job, score, data }) {
+  if (!cleared || !difficulty.rankable) return;
+  if (!accountInfo.enabled || !accountInfo.user?.rankingOptIn) return;
+  saveOnlineRanking({
+    roleId: role.id,
+    difficultyId: difficulty.id,
+    jobId: job.id,
+    nickname: data.profile.nickname,
+    title: titleNameOf(config, data.profile.titleId),
+    score,
+  })
+    .then((result) => {
+      // 選んで見ている役職・難易度と同じなら、表を更新する(自分の記録が、すぐ反映されるように)
+      if (
+        result.ok &&
+        role.id === onlineRankingRoleId &&
+        difficulty.id === onlineRankingDifficultyId
+      ) {
+        loadOnlineRanking();
+      }
+    })
+    .catch(() => {});
+}
+
 function bannerDismissed() {
   if (!backend) return false;
   try {
@@ -176,11 +217,14 @@ function dismissAccountBanner() {
   }
 }
 
-// ログインしておらず、アカウント機能が使える環境でだけ、初回の案内を出す(閉じたら、もう出さない)
-async function initAccountBanner() {
-  if (bannerDismissed()) return;
-  const me = await fetchMe();
-  if (me.enabled && !me.user) view.showAccountBanner();
+// ログインの状態(オンラインランキングに送ってよいかの判断にも使う)。取得できるまでは、送らない
+let accountInfo = { enabled: false, user: null };
+
+// アカウントの状態を取っておく。ログインしておらず、アカウント機能が使える環境でだけ、
+// 初回の案内(閉じたら、もう出さない)も出す
+async function initAccount() {
+  accountInfo = await fetchMe();
+  if (accountInfo.enabled && !accountInfo.user && !bannerDismissed()) view.showAccountBanner();
 }
 
 async function init() {
@@ -269,11 +313,20 @@ async function init() {
     onBack: quit,
     onQuit: quit,
     onAccountBannerDismiss: dismissAccountBanner,
+    onOnlineRankingRoleChange: (roleId) => {
+      onlineRankingRoleId = roleId;
+      loadOnlineRanking();
+    },
+    onOnlineRankingDifficultyChange: (difficultyId) => {
+      onlineRankingDifficultyId = difficultyId;
+      loadOnlineRanking();
+    },
   });
   // 開始・終わりの演出は、飛ばせる(Enter・スペース・Esc・場面のクリック)
   view.bindSkip(() => timeline?.skip());
   refreshDashboard();
-  initAccountBanner(); // 失敗しても、ダッシュボードの表示は続ける(案内が出ないだけ)
+  initAccount(); // 失敗しても、ダッシュボードの表示は続ける(案内が出ない・オンラインランキングに送らないだけ)
+  loadOnlineRanking();
 
   // 成績ページの「復習リストで用語確認をする」から来たとき(?review=1)。アドレスからは消す
   const params = new URLSearchParams(location.search);
@@ -688,6 +741,15 @@ function finish() {
       gained,
       levelUp,
     };
+  });
+
+  submitOnlineRanking({
+    cleared: state.status === "cleared",
+    difficulty,
+    role,
+    job,
+    score,
+    data: out.data,
   });
 
   const newAchievements = out.ids.map((id) => config.achievements.find((a) => a.id === id));

@@ -417,13 +417,13 @@ describe("ページの静的な性質(/support/)", () => {
   });
 });
 
-describe("プライバシーポリシー v3 と、案内の文言", () => {
+describe("プライバシーポリシー v4 と、案内の文言", () => {
   const privacy = text("public/privacy/index.html");
 
-  it("版 3。設定の版・ページの版・同意の版が、そろっている", () => {
-    assert.equal(analyticsConfig.policyVersion, 3);
-    assert.match(read("public/privacy/index.html"), /data-policy-version="3"/);
-    assert.match(privacy, /版 3 ・ 制定日/);
+  it("版 4。設定の版・ページの版・同意の版が、そろっている", () => {
+    assert.equal(analyticsConfig.policyVersion, 4);
+    assert.match(read("public/privacy/index.html"), /data-policy-version="4"/);
+    assert.match(privacy, /版 4 ・ 制定日/);
   });
 
   it("問い合わせ・アカウント・バックアップ・第三者(Cloudflare・Google)の取り扱いが書かれている", () => {
@@ -441,9 +441,20 @@ describe("プライバシーポリシー v3 と、案内の文言", () => {
       "開示・訂正・削除",
       "Cloudflare, Inc.",
       "Google LLC",
+      "版 4(2026年9月24日)",
       "版 3(2026年9月24日)",
       "版 2(2026年9月20日)",
       "版 1(2026年9月20日)",
+    ]) {
+      assert.ok(privacy.includes(word), word);
+    }
+  });
+
+  it("オンラインランキング: 参加すると公開される旨・任意・既定は不参加・やめると消える、が書かれている", () => {
+    for (const word of [
+      "だれでも見られる「オンラインランキング」に載ります",
+      "参加は任意で、既定は不参加です",
+      "不参加に切り替えると、載っていた記録は、すぐに消えます",
     ]) {
       assert.ok(privacy.includes(word), word);
     }

@@ -18,3 +18,16 @@ export function validateNickname(value) {
 /** メールアドレスの形(ID トークンに入っている値の、念のための確認)。 */
 export const isEmailLike = (value) =>
   typeof value === "string" && value.length <= 254 && /^[^\s@]+@[^\s@]+$/.test(value);
+
+export const TITLE_MAX = 20; // 称号の名前(achievements.json)より、十分に長い上限
+
+/** 称号の名前(オンラインランキングに載せる分)。空でもよい。制御文字は不可。 */
+export function validateTitle(value) {
+  if (typeof value !== "string") return { ok: false, error: "title-invalid" };
+  const chars = Array.from(value.trim());
+  if (chars.length > TITLE_MAX) return { ok: false, error: "title-invalid" };
+  if (chars.some((char) => char.codePointAt(0) <= 0x1f || char.codePointAt(0) === 0x7f)) {
+    return { ok: false, error: "title-invalid" };
+  }
+  return { ok: true, value: chars.join("") };
+}

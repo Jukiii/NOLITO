@@ -309,6 +309,46 @@
             </table>
           </section>
 
+          <section class="dash-section" aria-labelledby="online-ranking-title">
+            <h2 id="online-ranking-title">オンラインランキング</h2>
+            <p class="dash-section__note">
+              参加を選んだ利用者どうしの、役職・難易度ごとの上位です。参加は任意で、既定は不参加です。<a
+                href="/account/"
+                >アカウントのページ</a
+              >から、参加を切り替えられます。
+            </p>
+            <div class="profile-form__field">
+              <label for="online-ranking-role">追ってくる人</label>
+              <select
+                class="game-input__field"
+                id="online-ranking-role"
+                data-online-ranking-role
+              ></select>
+            </div>
+            <div class="profile-form__field">
+              <label for="online-ranking-difficulty">難易度</label>
+              <select
+                class="game-input__field"
+                id="online-ranking-difficulty"
+                data-online-ranking-difficulty
+              ></select>
+            </div>
+            <p class="dash-section__note" role="status" data-online-ranking-status></p>
+            <table class="ranking" data-online-ranking-table hidden>
+              <caption class="visually-hidden">
+                オンラインランキングの上位10件(スコアの高い順)
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">順位</th>
+                  <th scope="col">プレイヤー</th>
+                  <th scope="col">スコア</th>
+                </tr>
+              </thead>
+              <tbody data-online-ranking-body></tbody>
+            </table>
+          </section>
+
           <section class="dash-section" aria-labelledby="achievements-title">
             <h2 id="achievements-title">称号・実績</h2>
             <p class="dash-section__note" data-achievement-summary></p>
