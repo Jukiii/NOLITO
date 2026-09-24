@@ -82,7 +82,7 @@
             アドレスから作った(元に戻せない)値を、一時的に保存します。
           </p>
           <p>
-            ゲームの記録は、これまでどおり、この端末のブラウザに保存されます。ログインすると、進行状況の要約を、任意で、アカウントに保存できます(このページの「ゲームの記録」)。
+            ゲームの記録は、これまでどおり、この端末のブラウザに保存されます。ログインすると、進行状況の要約を、任意で、アカウントに保存できます(このページの「ゲームの記録」)。テーマ・文字サイズ・アニメーションの表示設定も、同じように、任意で、アカウントに保存できます(このページの「表示設定」)。
           </p>
           <p>
             限定公開の間の取り扱いは、このページに書いたとおりです。一般に公開する前に、<a
@@ -203,6 +203,48 @@
             </div>
           </dialog>
 
+          <h2 id="settings-sync-title">表示設定(テーマ・文字サイズ・アニメーション)</h2>
+          <p>
+            フッターで選んでいる、テーマ(ライト/ダーク/システム)・文字サイズ・アニメーション軽減の設定を、アカウントに保存できます。ほかの端末で、同じ見え方にできます。押すまで送信・置き換えは行いません。
+          </p>
+          <p class="account__hint" data-settings-sync-status aria-live="polite">確認しています…</p>
+          <p>
+            <button class="button button--secondary" type="button" data-settings-sync-upload>
+              この端末の設定を、アカウントに保存する
+            </button>
+            <button
+              class="button button--secondary"
+              type="button"
+              data-modal-open="settings-sync-dialog"
+            >
+              アカウントの設定を、この端末に読み込む…
+            </button>
+          </p>
+          <p class="account__status" role="status" data-settings-sync-message></p>
+
+          <dialog
+            class="modal"
+            id="settings-sync-dialog"
+            aria-labelledby="settings-sync-dialog-title"
+            data-settings-sync-dialog
+          >
+            <div class="modal__body">
+              <h2 id="settings-sync-dialog-title">この端末の設定を、置き換えますか?</h2>
+              <p>
+                アカウントに保存されているテーマ・文字サイズ・アニメーションの設定で、この端末の設定を置き換えます。
+              </p>
+              <p class="account__status" role="alert" data-settings-sync-dialog-message hidden></p>
+              <div class="modal__actions">
+                <button class="button button--secondary" type="button" data-modal-close>
+                  キャンセル
+                </button>
+                <button class="button button--primary" type="button" data-settings-sync-download>
+                  置き換える
+                </button>
+              </div>
+            </div>
+          </dialog>
+
           <h2 id="ranking-opt-in-title">オンラインランキング</h2>
           <p>
             参加すると、役職・難易度ごとにクリアしたときの記録(ニックネーム・称号・スコア・職種)が、<strong>ほかの利用者にも見える形</strong>で、オンラインランキングに載ります。1プレイごとの詳細な記録は、送りません。既定は、不参加です。参加をやめると、載っていた記録も、すぐに消えます。
@@ -224,7 +266,7 @@
 
           <h2>アカウントの削除</h2>
           <p>
-            アカウントと、すべてのログインの状態を消します。ライセンスの登録は、解除されます。アカウントに保存した、ゲームの記録の要約も消えます。取り消せません。この端末のブラウザに保存されたゲームの記録は、消えません。
+            アカウントと、すべてのログインの状態を消します。ライセンスの登録は、解除されます。アカウントに保存した、ゲームの記録の要約・表示設定も消えます。取り消せません。この端末のブラウザに保存されたゲームの記録・表示設定は、消えません。
           </p>
           <p>
             <button

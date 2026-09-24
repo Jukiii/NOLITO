@@ -371,3 +371,11 @@ Phase 21 は、複数の PR に分ける(計画は `docs/decisions/0046-phase-21
 - FOUC防止のインラインスクリプト(PR1で全ページに追加済み)に、`nolito:font-size:v1`・`nolito:motion:v1` の読み取りも、同じスクリプトの中に追加した(スクリプトを3つ並べない)。**新しいページを作るときは、この拡張済みの内容をコピーすること**(3つの設定を、まとめて1つのスクリプトで読む)。
 - UIは、フッターの「テーマ」の隣に「文字サイズ」「アニメーション」の `<select>`(`data-font-size-select`・`data-motion-select`)。
 - **サイト全体のキーボード操作の点検・コントラスト/色以外の表現の点検**(仕様が求める横断的な確認)を、この PR で実施した(結果は `docs/decisions/0046-phase-21-plan.md` のテスト結果に記載)。**どちらも、既存の実装(スキップリンク・モーダルのEsc・ハンバーガーメニュー・バッジの文字表示等)が、点検の基準を満たしていることを確認しただけで、この点検を理由にしたコードの修正はしていない**。
+
+### テーマ・文字サイズ・アニメーション軽減のアカウント同期(Phase 21 PR 3)
+
+- Phase 19 PR2(`game_progress`)と**同じ形**: 新しいテーブル `site_settings`(`migrations/0006_site_settings.sql`。`user_id` 主キー。1行だけ・まるごと上書き)、`functions/_lib/settings-sync.js`(検証は `components/theme.js`・`font-size.js`・`motion.js` の `isTheme`・`isFontSize`・`isMotion` を、そのまま import。サーバー用の別の検証関数を作らない)、`GET`/`POST /api/settings/sync`(`requireUser`・`checkCsrf`・レート制限30回/10分・`audit.js` の `settingsSyncSave`)。
+- UI は、アカウントページの「ゲームの記録」の節の下の「表示設定」。**アップロードは、押すと即時**。**ダウンロードは、確認ダイアログ経由**で、この端末の3つのキー(`nolito:theme:v1`・`nolito:font-size:v1`・`nolito:motion:v1`)を、まるごと置き換え、`applyTheme`・`applyFontSize`・`applyMotion` で即座に見た目にも反映し、フッターの3つの `select` の表示値も合わせる。
+- **プライバシーポリシーの版は、上げていない**(いまの版4のまま)。テーマ・文字サイズ・アニメーションの好みは、氏名・行動履歴・成績のような、利用者を特徴づける情報ではないと判断した(Phase 19 PR2・PR3 が版を上げたのは、行動・実力を特徴づける情報を初めて送ったため。今回は性質が異なる)。判断の理由は `docs/decisions/0046-phase-21-plan.md` に記載。
+- アカウント削除では、`site_settings` の行も消える(`deleteUser`。端末のブラウザの設定は、消えない)。ゲームの記録の同期(`game_progress`)とは、**完全に別のテーブル・別のAPI**(疎結合。ゲームをしない利用者も、テーマだけ同期できる)。
+- Phase 21(ライト・ダーク・システムテーマ・文字サイズ・アニメーション軽減・キーボード操作点検・コントラスト点検・アカウント同期)は、この PR で完了。

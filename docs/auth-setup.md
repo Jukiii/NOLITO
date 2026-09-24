@@ -68,6 +68,12 @@ CREATE TABLE ranking_entries (user_id TEXT NOT NULL REFERENCES users(id) ON DELE
 CREATE INDEX ranking_entries_lookup ON ranking_entries(role_id, difficulty_id, score DESC, achieved_at ASC);
 ```
 
+**0006**(`0006_site_settings.sql`。Phase 21 の PR 3。表示設定(テーマ・文字サイズ・アニメーション軽減)の、アカウントへの同期(任意))
+
+```sql 0006_site_settings.sql
+CREATE TABLE site_settings (user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE, theme TEXT NOT NULL, font_size TEXT NOT NULL, reduced_motion TEXT NOT NULL, updated_at INTEGER NOT NULL);
+```
+
 ## 2. Pages に D1 をつなぐ(本番だけ)
 
 1. Cloudflare → **Workers & Pages** → プロジェクト `nolito` → **Settings** → **Bindings** → **Add** → **D1 database**。

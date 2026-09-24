@@ -142,13 +142,14 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
     assert.deepEqual(problems, []);
     assert.deepEqual(tables, {
       audit_log: 2,
-      d1_migrations: 5,
+      d1_migrations: 6,
       game_progress: 1,
       inquiries: 2,
       licenses: 2,
       ranking_entries: 1,
       rate_limits: 0,
       sessions: 1,
+      site_settings: 1,
       users: 2,
     });
   });
@@ -162,6 +163,7 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
       "ranking_entries",
       "rate_limits",
       "sessions",
+      "site_settings",
       "users",
     ]);
   });

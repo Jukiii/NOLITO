@@ -58,7 +58,7 @@ export async function setRankingOptIn(db, id, enabled) {
  * 利用者と、そのログインの状態をすべて消す。監査ログは、残るが、user_id が NULL になる(匿名になる)。
  * ライセンスは、記録を残して、結びつきだけを外す(同じキーを、また登録できる)。
  * ゲームの記録の同期(game_progress。Phase 19 PR 2)・オンラインランキングの記録(ranking_entries。
- * Phase 19 PR 3)も消す(端末の記録は、消えない)。
+ * Phase 19 PR 3)・表示設定の同期(site_settings。Phase 21 PR 3)も消す(端末の記録は、消えない)。
  */
 export async function deleteUser(db, id) {
   await db.batch([
@@ -66,6 +66,7 @@ export async function deleteUser(db, id) {
     db.prepare("DELETE FROM sessions WHERE user_id = ?").bind(id),
     db.prepare("DELETE FROM game_progress WHERE user_id = ?").bind(id),
     db.prepare("DELETE FROM ranking_entries WHERE user_id = ?").bind(id),
+    db.prepare("DELETE FROM site_settings WHERE user_id = ?").bind(id),
     db.prepare("DELETE FROM users WHERE id = ?").bind(id),
   ]);
 }
