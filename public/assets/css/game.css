@@ -1170,11 +1170,18 @@
   }
 }
 
-/* 動きを減らす設定: 動く飾り(煙・オーラの脈動)は、静止すると不自然なので、消す。位置と、危ないときの縁は、残る */
+/*
+ * 動きを減らす設定: 動く飾り(煙・オーラの脈動)は、静止すると不自然なので、消す。位置と、危ないときの縁は、残る。
+ * OSの設定(prefers-reduced-motion)・サイト内の切替(html[data-reduced-motion="reduce"])の、どちらでも働く。
+ */
 @media (prefers-reduced-motion: reduce) {
   .scene[data-motion="drive"] .scene__chaser::after {
     display: none;
   }
+}
+
+:root[data-reduced-motion="reduce"] .scene[data-motion="drive"] .scene__chaser::after {
+  display: none;
 }
 
 /* プレイヤーのレベル。ゲージと同じ考え(縞模様は付けず、色はトークンから) */

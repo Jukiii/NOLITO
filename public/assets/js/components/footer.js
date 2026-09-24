@@ -8,6 +8,19 @@ const THEME_OPTIONS = [
   { value: "dark", label: "ダーク" },
 ];
 
+// 文字サイズの選択肢(値は components/font-size.js の FONT_SIZES と同じ)
+const FONT_SIZE_OPTIONS = [
+  { value: "standard", label: "標準" },
+  { value: "large", label: "大きめ" },
+  { value: "xlarge", label: "特大" },
+];
+
+// アニメーションの選択肢(値は components/motion.js の MOTIONS と同じ)
+const MOTION_OPTIONS = [
+  { value: "system", label: "システムの設定に合わせる" },
+  { value: "reduce", label: "アニメーションを減らす" },
+];
+
 export function renderFooter(target) {
   target.replaceChildren(
     el(
@@ -23,6 +36,26 @@ export function renderFooter(target) {
           "select",
           { class: "site-footer__select", id: "theme-select", "data-theme-select": true },
           ...THEME_OPTIONS.map((option) => el("option", { value: option.value }, option.label)),
+        ),
+        el(
+          "label",
+          { class: "site-footer__settings-label", for: "font-size-select" },
+          "文字サイズ",
+        ),
+        el(
+          "select",
+          { class: "site-footer__select", id: "font-size-select", "data-font-size-select": true },
+          ...FONT_SIZE_OPTIONS.map((option) => el("option", { value: option.value }, option.label)),
+        ),
+        el(
+          "label",
+          { class: "site-footer__settings-label", for: "motion-select" },
+          "アニメーション",
+        ),
+        el(
+          "select",
+          { class: "site-footer__select", id: "motion-select", "data-motion-select": true },
+          ...MOTION_OPTIONS.map((option) => el("option", { value: option.value }, option.label)),
         ),
       ),
       el(

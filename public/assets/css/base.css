@@ -93,7 +93,11 @@ video {
   white-space: nowrap;
 }
 
-/* アニメーションの軽減。サイト内の切替設定は Phase 21 で対応する */
+/*
+ * アニメーションの軽減。OSの設定(prefers-reduced-motion)に加えて、サイト内の切替
+ * (<html data-reduced-motion="reduce">。components/motion.js。Phase 21 PR2)でも、同じ抑制をかける。
+ * サイト側の切替は「減らす」方向にだけ上乗せする(OSが減らす指定のとき、動きを強制的に戻す選択肢はない)。
+ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -103,4 +107,13 @@ video {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+:root[data-reduced-motion="reduce"] *,
+:root[data-reduced-motion="reduce"] *::before,
+:root[data-reduced-motion="reduce"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
 }

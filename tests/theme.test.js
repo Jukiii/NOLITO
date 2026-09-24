@@ -181,7 +181,7 @@ describe("配色(コントラスト比。WCAG AA)", () => {
   });
 });
 
-describe("すべてのページに、ちらつき防止(FOUC)のスクリプトがある", () => {
+describe("すべてのページに、ちらつき防止(FOUC)のスクリプトがある(テーマ・文字サイズ・アニメーション)", () => {
   const files = htmlFiles().filter((path) => !path.endsWith("404.html") || true);
 
   it("18ページすべてに、同じ内容のスクリプトがある(CSSより前・head内)", () => {
@@ -189,6 +189,11 @@ describe("すべてのページに、ちらつき防止(FOUC)のスクリプト�
     for (const file of files) {
       const html = readFileSync(file, "utf8");
       assert.match(html, /localStorage\.getItem\("nolito:theme:v1"\)/, file);
+      // Phase 21 PR2: 文字サイズ・アニメーションの読み取りも、同じスクリプトに入っている(スクリプトを分けない)
+      assert.match(html, /localStorage\.getItem\("nolito:font-size:v1"\)/, file);
+      assert.match(html, /localStorage\.getItem\("nolito:motion:v1"\)/, file);
+      assert.match(html, /document\.documentElement\.dataset\.fontSize = f/, file);
+      assert.match(html, /document\.documentElement\.dataset\.reducedMotion = m/, file);
       // <head> の中、スタイルシートより前にある(ちらつきを防ぐため)
       const headEnd = html.indexOf("</head>");
       const scriptAt = html.indexOf("nolito:theme:v1");
@@ -205,7 +210,10 @@ describe("すべてのページに、ちらつき防止(FOUC)のスクリプト�
       "public/games/escape-boss/about/index.html",
       "public/tools/kii-michi/about/index.html",
     ]) {
-      assert.match(read(file), /nolito:theme:v1/, file);
+      const html = read(file);
+      assert.match(html, /nolito:theme:v1/, file);
+      assert.match(html, /nolito:font-size:v1/, file);
+      assert.match(html, /nolito:motion:v1/, file);
     }
   });
 });

@@ -277,8 +277,13 @@ describe("main.js のつなぎ", () => {
     assert.match(main, /前のゲームの処理が残っていれば[\s\S]*?stopTimeline\(\);/);
   });
 
-  it("演出は、動きを減らす設定を見て、短くする。飛ばす操作は、view から受け取る", () => {
-    assert.match(main, /matchMedia\("\(prefers-reduced-motion: reduce\)"\)/);
+  it("演出は、動きを減らす設定(OS・サイト内切替のどちらも)を見て、短くする。飛ばす操作は、view から受け取る", () => {
+    // Phase 21 PR2: OSの設定は components/motion.js の prefersReducedMotion() 経由(サイト内切替と、まとめて判定)
+    assert.match(
+      main,
+      /import \{ prefersReducedMotion \} from "\.\.\/\.\.\/components\/motion\.js";/,
+    );
+    assert.match(main, /const reducedMotion = \(\) => prefersReducedMotion\(\);/);
     assert.match(main, /introSteps\(reducedMotion\(\)\)/);
     assert.match(main, /outroSteps\(session\.state\.status, reducedMotion\(\)\)/);
     assert.match(main, /view\.bindSkip\(\(\) => timeline\?\.skip\(\)\);/);

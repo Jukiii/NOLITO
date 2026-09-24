@@ -3,8 +3,10 @@ import { renderBottomNav } from "./components/bottom-nav.js";
 import { renderCategoryList } from "./components/category-list.js";
 import { initConsent } from "./components/consent.js";
 import { renderFooter } from "./components/footer.js";
+import { initFontSize } from "./components/font-size.js";
 import { renderHeader } from "./components/header.js";
 import { initModals } from "./components/modal.js";
+import { initMotion } from "./components/motion.js";
 import { renderProductList } from "./components/product-list.js";
 import { initTheme } from "./components/theme.js";
 import { adsConfig } from "./config/ads.js";
@@ -19,6 +21,8 @@ const footer = document.querySelector("[data-site-footer]");
 if (footer) {
   renderFooter(footer);
   initTheme(footer.querySelector("[data-theme-select]"));
+  initFontSize(footer.querySelector("[data-font-size-select]"));
+  initMotion(footer.querySelector("[data-motion-select]"));
 }
 
 // フッターの「アクセス解析の設定」ボタンができた後に呼ぶ。測定 ID が未設定・本番以外のホストでは、何もしない
