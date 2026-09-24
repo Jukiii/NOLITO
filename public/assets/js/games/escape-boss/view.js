@@ -317,6 +317,66 @@ export function createView(root) {
     );
   }
 
+  // オンラインランキング(Phase 19 PR 3。任意)。読み込み中・空・失敗を、文字で示す(表は、あるときだけ出す)
+  const ONLINE_RANKING_STATUS = {
+    loading: "読み込んでいます…",
+    empty: "まだ、参加している人がいません。",
+    error: "読み込めませんでした。しばらくして、もう一度お試しください。",
+  };
+
+  function renderOnlineRankingOptions({ roles, difficulties, roleId, difficultyId }) {
+    $("[data-online-ranking-role]").replaceChildren(
+      ...roles.map((role) =>
+        el("option", { value: role.id, selected: role.id === roleId }, role.name),
+      ),
+    );
+    $("[data-online-ranking-difficulty]").replaceChildren(
+      ...difficulties
+        .filter((difficulty) => difficulty.rankable)
+        .map((difficulty) =>
+          el(
+            "option",
+            { value: difficulty.id, selected: difficulty.id === difficultyId },
+            difficulty.name,
+          ),
+        ),
+    );
+  }
+
+  function renderOnlineRanking({ state, entries = [], jobsById = {} }) {
+    const table = $("[data-online-ranking-table]");
+    const status = $("[data-online-ranking-status]");
+    if (state === "ok" && entries.length > 0) {
+      status.textContent = "";
+      table.hidden = false;
+    } else {
+      status.textContent =
+        state === "ok" ? ONLINE_RANKING_STATUS.empty : ONLINE_RANKING_STATUS[state];
+      table.hidden = true;
+    }
+    $("[data-online-ranking-body]").replaceChildren(
+      ...entries.map((entry, index) =>
+        el(
+          "tr",
+          {},
+          el("th", { scope: "row", class: "ranking__rank" }, `${index + 1}位`),
+          el(
+            "td",
+            {},
+            el("span", { class: "ranking__name" }, entry.nickname),
+            entry.title ? el("span", { class: "ranking__title" }, entry.title) : "",
+          ),
+          el(
+            "td",
+            { class: "ranking__score" },
+            el("span", { class: "ranking__points" }, formatNumber(entry.score)),
+            el("span", { class: "ranking__meta" }, jobsById[entry.jobId] ?? entry.jobId),
+          ),
+        ),
+      ),
+    );
+  }
+
   // 隠し実績(definition.hidden)は、解放するまで、名前・説明・称号を明かさない(条件のネタバレを防ぐ)
   const HIDDEN_NAME = "??? (隠し実績)";
   const HIDDEN_TEXT = "まだ見つかっていません。条件を満たすと、内容が明らかになります。";
@@ -402,6 +462,8 @@ export function createView(root) {
       onProfileChange,
       onRankingRoleChange,
       onRankingDifficultyChange,
+      onOnlineRankingRoleChange,
+      onOnlineRankingDifficultyChange,
       onBackupExport,
       onBackupImport,
       onRetry,
@@ -468,6 +530,12 @@ export function createView(root) {
       );
       $("[data-ranking-difficulty]").addEventListener("change", (event) =>
         onRankingDifficultyChange(event.target.value),
+      );
+      $("[data-online-ranking-role]").addEventListener("change", (event) =>
+        onOnlineRankingRoleChange(event.target.value),
+      );
+      $("[data-online-ranking-difficulty]").addEventListener("change", (event) =>
+        onOnlineRankingDifficultyChange(event.target.value),
       );
       $("[data-backup-export]").addEventListener("click", () => {
         showBackupStatus(onBackupExport().message);
@@ -572,11 +640,18 @@ export function createView(root) {
           ),
       );
       renderRanking({ entries: ranking, jobsById });
+      renderOnlineRankingOptions({
+        roles,
+        difficulties,
+        roleId: rankingRoleId,
+        difficultyId: rankingDifficultyId,
+      });
       renderAchievements({ definitions: achievements, unlocked });
       showNotice("[data-storage-notice]", storageNotice);
     },
 
     renderRanking,
+    renderOnlineRanking,
 
     // 「プレイ中に、用語の説明も表示する」のチェック(保存されていた設定を反映する)
     setExplanationSetting(checked) {

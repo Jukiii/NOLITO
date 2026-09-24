@@ -297,7 +297,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## 未登録プレイ・オンラインランキング(Phase 19)
 
-Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19-plan.md`)。PR2・PR3(アカウント移行・オンラインランキング)は、ゲームの記録を初めて運営者のサーバーに送る、privacy-sensitive な変更のため、慎重に進める(PR2 の決定は `docs/decisions/0043-phase-19-account-sync.md`)。
+Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19-plan.md`)。PR2・PR3(アカウント移行・オンラインランキング)は、ゲームの記録を初めて運営者のサーバーに送る、privacy-sensitive な変更のため、慎重に進めた(PR2 の決定は `docs/decisions/0043-phase-19-account-sync.md`、PR3 は `docs/decisions/0044-phase-19-online-ranking.md`)。
 
 ### 記録の書き出し・読み込み(Phase 19 PR 1)
 
@@ -312,4 +312,12 @@ Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19
 - **アップロード(端末→アカウント)は、押すと、その場で送る**。**ダウンロード(アカウント→端末)は、確認ダイアログを経由し、この端末の記録を、まるごと置き換える**(PR1 の取り込みと同じ考え方。結果の履歴・ランキングは、要約に含まれないので、そのまま残る)。アカウントの削除では、`game_progress` の行も消える(端末のブラウザの記録は、消えない)。
 - ダッシュボード(`/games/escape-boss/`)に、未ログインの人だけへの、控えめな案内(`data-account-banner`)を追加。「閉じる」で、以後は出さない(`nolito:escape-boss:account-banner-dismissed:v1`。記録の版付きデータとは別の、単純な印)。ログイン状態の確認は、アカウントの API クライアント(`account/client.js` の `fetchMe`)を再利用する。
 - **ゲームの記録をサーバーに送る、新しい種類の個人情報の取得のため、プライバシーポリシーは版 3**(6-2-1)。`analyticsConfig.policyVersion` も 3(既存の同意は無効になり、同意のバナーが、もう一度出る)。
+
+### プロフィール公開範囲の設定・オンラインランキング(Phase 19 PR 3)
+
+- 決定は `docs/decisions/0044-phase-19-online-ranking.md`。アカウントのページの「オンラインランキング」から、**任意で**(既定は不参加)参加を切り替えられる(`users.ranking_opt_in`)。参加すると、役職・難易度ごとにクリアしたときの記録(ニックネーム・称号・スコア・職種)が、**ログインしていない人を含む、だれでも見られる**形で公開される。1プレイごとの詳細な記録は、送らない。
+- データは `ranking_entries`(`migrations/0005_ranking.sql`)。**1 利用者 × 役職 × 難易度で 1 行**(職種をまたいだ自己ベスト。成績ページの「ハイスコア」= Phase 18 PR4 と同じ考え方)。自己ベストを上回ってクリアしたときだけ、自動で送る(main.js の `submitOnlineRanking`。押すボタンはない)。
+- **サーバー側の検証(0004決定ログの約束)**: `functions/_lib/ranking-limits.js` の `isPlausibleScore` が、送られてきたスコアが、その役職の理論上の最大値(目標語数・最大距離・正確率100%・あり得ないほど速い打鍵から計算)を超えていないかを検査する。**スコアの式は、公開の `score.js` の `SCORE_RULES` を、そのまま使う**(重複させない)。役職の構造(目標語数・最大距離・倍率)だけ小さく複製し、`tests/ranking-limits.test.js` で、実際の `roles.json` と値がそろっているかを検査する。
+- API は `GET`(ログイン不要。だれでも見られる。IPごとにレート制限)/`POST`(ログイン必須) `/api/games/escape-boss/ranking`、参加の切り替えは `POST /api/ranking-opt-in`。応答に、個人を特定する情報(メールアドレス・アカウントID)は含めない。不参加への切り替え・アカウント削除は、どちらも `ranking_entries` を即座に消す。
+- ダッシュボードに、端末内の「ランキング」とは別の「オンラインランキング」の節(役職・難易度を、自分で選べる)。**ゲームの記録をほかの利用者にも公開する、新しい性質の変更のため、プライバシーポリシーは版 4**(6-2-2。「だれでも見られる」ことを明記)。`analyticsConfig.policyVersion` も 4。
 

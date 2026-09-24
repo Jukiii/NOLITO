@@ -190,6 +190,19 @@
             </div>
           </dialog>
 
+          <h2 id="ranking-opt-in-title">オンラインランキング</h2>
+          <p>
+            参加すると、役職・難易度ごとにクリアしたときの記録(ニックネーム・称号・スコア・職種)が、<strong>ほかの利用者にも見える形</strong>で、オンラインランキングに載ります。1プレイごとの詳細な記録は、送りません。既定は、不参加です。参加をやめると、載っていた記録も、すぐに消えます。
+          </p>
+          <p class="account__hint" data-ranking-opt-in-status aria-live="polite">確認しています…</p>
+          <p class="account__checkbox">
+            <input type="checkbox" id="ranking-opt-in" data-ranking-opt-in />
+            <label for="ranking-opt-in"
+              >オンラインランキングに参加する(ニックネーム・称号・スコアが、ほかの利用者に見えます)</label
+            >
+          </p>
+          <p class="account__status" role="status" data-ranking-opt-in-message></p>
+
           <h2>ログアウト</h2>
           <p>このブラウザのログインを終わらせます。</p>
           <p>

@@ -11,11 +11,14 @@ import {
   fetchGameSync,
   fetchLicenses,
   fetchMe,
+  fetchOnlineRanking,
   fetchProductNames,
   logout,
   redeemLicense,
   saveGameSync,
   saveNickname,
+  saveOnlineRanking,
+  saveRankingOptIn,
 } from "../public/assets/js/account/client.js";
 import {
   API_ERRORS,
@@ -261,6 +264,45 @@ describe("ゲームの記録の同期(Phase 19 PR 2)の API クライアント",
   });
 });
 
+describe("オンラインランキング(Phase 19 PR 3)の API クライアント", () => {
+  it("参加の切り替えは、POST で { enabled } を送る", async () => {
+    const posting = recorder(jsonResponse({ ok: true, rankingOptIn: true }));
+    await saveRankingOptIn(true, posting.options);
+    const { path, init } = posting.calls[0];
+    assert.deepEqual([path, init.method], ["/api/ranking-opt-in", "POST"]);
+    assert.equal(init.headers["X-NOLITO-CSRF"], "1");
+    assert.deepEqual(JSON.parse(init.body), { enabled: true });
+  });
+
+  it("一覧の取得は GET(CSRF ヘッダーなし)。役職・難易度を、URL に付ける", async () => {
+    const getting = recorder(jsonResponse({ entries: [] }));
+    await fetchOnlineRanking("senpai", "normal", getting.options);
+    assert.deepEqual(
+      [getting.calls[0].path, getting.calls[0].init.method],
+      ["/api/games/escape-boss/ranking?role=senpai&difficulty=normal", "GET"],
+    );
+    assert.equal(getting.calls[0].init.headers["X-NOLITO-CSRF"], undefined);
+  });
+
+  it("記録の送信は、POST で本文を JSON にする", async () => {
+    const posting = recorder(jsonResponse({ ok: true }));
+    const entry = { roleId: "senpai", difficultyId: "normal", jobId: "engineer", score: 1000 };
+    await saveOnlineRanking(entry, posting.options);
+    const { path, init } = posting.calls[0];
+    assert.deepEqual([path, init.method], ["/api/games/escape-boss/ranking", "POST"]);
+    assert.deepEqual(JSON.parse(init.body), entry);
+  });
+
+  it("参加していないときの送信の失敗(ranking-opt-out)は、利用者向けの文で返す", async () => {
+    const result = await saveOnlineRanking(
+      {},
+      recorder(jsonResponse({ error: "ranking-opt-out" }, 403)).options,
+    );
+    assert.equal(result.ok, false);
+    assert.equal(result.message, API_ERRORS["ranking-opt-out"]);
+  });
+});
+
 describe("ページの静的な性質", () => {
   const html = read("public/account/index.html");
   const js = read("public/assets/js/account/main.js");
@@ -347,6 +389,21 @@ describe("ページの静的な性質", () => {
   it("ゲームの記録の検証は、ゲーム側の normalizeSyncProgress を再利用する(重複させない)", () => {
     assert.match(js, /syncProgressOf|applySyncProgress/);
     assert.match(js, /from ["']\.\.\/games\/escape-boss\/storage\.js["']/);
+  });
+
+  it("オンラインランキングの節: 参加のチェックボックス・状態・通知が、HTML と main.js の両方にそろっている", () => {
+    for (const hook of [
+      "data-ranking-opt-in",
+      "data-ranking-opt-in-status",
+      "data-ranking-opt-in-message",
+    ]) {
+      assert.ok(html.includes(hook), `HTML: ${hook}`);
+      assert.ok(js.includes(hook), `main.js: ${hook}`);
+    }
+  });
+
+  it("オンラインランキングは、参加すると公開される旨を、チェックボックスのラベルにも書いている", () => {
+    assert.match(html, /ほかの利用者に見えます/);
   });
 
   it("CSS は、色をトークンで指定する(ダークテーマに対応できるように)", () => {

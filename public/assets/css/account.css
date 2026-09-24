@@ -124,3 +124,16 @@
   color: var(--color-text-muted);
   font-size: var(--font-size-xs);
 }
+
+/* チェックボックスの行(オンラインランキングの参加、など)。タップしやすい大きさを確保する */
+.account__checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+}
+
+.account__checkbox input {
+  width: var(--tap-size);
+  height: var(--tap-size);
+}
