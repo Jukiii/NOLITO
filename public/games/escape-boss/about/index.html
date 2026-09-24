@@ -4,12 +4,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- テーマの、ちらつき防止(FOUC)。CSS が読み込まれる前に、保存済みの選択を反映する -->
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
     <script>
       (function () {
         try {
           var t = localStorage.getItem("nolito:theme:v1");
           if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
         } catch (e) {}
       })();
     </script>

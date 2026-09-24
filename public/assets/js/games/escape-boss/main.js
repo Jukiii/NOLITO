@@ -42,6 +42,7 @@ import {
   isDifficultyUnlocked as checkDifficultyUnlocked,
 } from "./difficulty.js";
 import { createTimeline, introSteps, outroSteps } from "./staging.js";
+import { prefersReducedMotion } from "../../components/motion.js";
 import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
 import { matcherOptionsFor } from "./input-style.js";
@@ -95,7 +96,7 @@ const applySound = () => {
   view.setSoundSettings(settings);
 };
 
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reducedMotion = () => prefersReducedMotion();
 const stopTimeline = () => {
   timeline?.cancel();
   timeline = null;

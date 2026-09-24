@@ -111,3 +111,16 @@
   --color-chart-grid: #2c2820;
   --color-chart-axis: #8a8270;
 }
+
+/*
+ * サイト内文字サイズ(Phase 21 PR2)。--font-size-* は、すべて rem(ルートからの相対値)なので、
+ * ルートの font-size を変えるだけで、サイト全体が連動して拡大する(個別のトークンは増やさない)。
+ * 切り替えは <html data-font-size="large|xlarge">(components/font-size.js)。標準は属性なし。
+ */
+:root[data-font-size="large"] {
+  font-size: 118.75%;
+}
+
+:root[data-font-size="xlarge"] {
+  font-size: 137.5%;
+}

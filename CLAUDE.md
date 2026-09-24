@@ -362,3 +362,12 @@ Phase 21 は、複数の PR に分ける(計画は `docs/decisions/0046-phase-21
 - **ちらつき防止(FOUC)**: `<head>` の、スタイルシートの `<link>` より前に、小さい同期実行のインラインスクリプト(`type="module"` ではない)を置き、`localStorage` の `nolito:theme:v1` を読んで、CSS 読み込み前に `data-theme` を設定する(読めなくても、落ちない・既定=システムのまま)。**新しいページ(手書き HTML)を作るときは、このスクリプトを、既存のページと同じ内容・同じ位置(viewport の meta の直後)にコピーすること**。生成ページ(記事・プロダクト詳細)は、共通テンプレート `scripts/lib/render.mjs` の `renderDocument()` に、すでに入っている(個別に足す必要はない)。
 - 切り替えの UI は、フッターの「テーマ」`<select>`(`data-theme-select`。`components/footer.js` が描画、`main.js` の `initTheme()` が初期化・変更を監視)。**モーダルの背景幕**(`.modal::backdrop`)は、唯一トークン化されていなかった色を `--color-backdrop`(ライト・ダーク共通の暗い半透明)に切り出した。
 - **既知の制限(この PR では対応しない)**: ゲームの場面の背景 SVG(Phase 15 PR2)・キャラクターの絵(Phase 16)は、ライトテーマ向けの配色のまま作り直していない(`aria-hidden` の装飾要素で、操作には影響しない)。問題が見つかれば、別 Issue で検討する。
+
+### サイト内文字サイズ・アニメーション軽減の切替(Phase 21 PR 2)
+
+- **文字サイズ**は「標準」「大きめ」「特大」の3つ(既定=標準)。保存は `components/font-size.js`(theme.js と同じ形)が `localStorage` の `nolito:font-size:v1` に行う。反映は `<html data-font-size="large|xlarge">`(標準は属性なし)。`tokens.css` の `:root[data-font-size="large"|"xlarge"] { font-size: ...% }` で、**ルートのフォントサイズだけ**を変える。`--font-size-*` トークンはすべて `rem` のままなので、個別のトークンを増やさず、サイト全体が連動して拡大する(ブラウザの拡大表示と同じ仕組みに乗る)。
+- **アニメーション軽減**は「システムの設定に合わせる(既定)」「アニメーションを減らす」の**2つだけ**(**「常に動かす」は選べない**。OSが「動きを減らす」を指定している利用者に、サイト側が動きを強制的に戻す選択肢は作らない。前庭障害等への配慮)。保存は `components/motion.js` が `localStorage` の `nolito:motion:v1` に行う。反映は `<html data-reduced-motion="reduce">`(既定=属性なし)。`base.css` の既存の `@media (prefers-reduced-motion: reduce)` ブロックに加え、`:root[data-reduced-motion="reduce"]` でも同じ抑制ルール(`animation-duration: 0.01ms !important` 等)を適用する(OSの設定に、サイト内切替を上乗せする形。CSSのルール自体は複製しない)。
+- **JSで動きの軽減を判定したいとき**(ゲームの開始・終わりの演出の長さなど)は、`components/motion.js` の `prefersReducedMotion()` を使う(サイト設定 or OSの `matchMedia` の、どちらかが `reduce` なら `true`)。**直接 `matchMedia("(prefers-reduced-motion: reduce)")` を呼ばない**(ゲームの `games/escape-boss/main.js` は、この関数経由に変更済み)。
+- FOUC防止のインラインスクリプト(PR1で全ページに追加済み)に、`nolito:font-size:v1`・`nolito:motion:v1` の読み取りも、同じスクリプトの中に追加した(スクリプトを3つ並べない)。**新しいページを作るときは、この拡張済みの内容をコピーすること**(3つの設定を、まとめて1つのスクリプトで読む)。
+- UIは、フッターの「テーマ」の隣に「文字サイズ」「アニメーション」の `<select>`(`data-font-size-select`・`data-motion-select`)。
+- **サイト全体のキーボード操作の点検・コントラスト/色以外の表現の点検**(仕様が求める横断的な確認)を、この PR で実施した(結果は `docs/decisions/0046-phase-21-plan.md` のテスト結果に記載)。**どちらも、既存の実装(スキップリンク・モーダルのEsc・ハンバーガーメニュー・バッジの文字表示等)が、点検の基準を満たしていることを確認しただけで、この点検を理由にしたコードの修正はしていない**。
