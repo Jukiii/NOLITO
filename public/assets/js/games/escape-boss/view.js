@@ -408,6 +408,7 @@ export function createView(root) {
       onBack,
       onQuit,
       onCheckRetry,
+      onAccountBannerDismiss,
     }) {
       $("[data-setup]").addEventListener("submit", (event) => {
         event.preventDefault();
@@ -502,6 +503,15 @@ export function createView(root) {
       $("[data-retry]").addEventListener("click", onRetry);
       $("[data-back]").addEventListener("click", onBack);
       $("[data-quit]").addEventListener("click", onQuit);
+      $("[data-account-banner-dismiss]").addEventListener("click", onAccountBannerDismiss);
+    },
+
+    // アカウントの案内(未ログインの初回だけ、main.js が判断して出す。閉じるボタンで隠す)
+    showAccountBanner() {
+      $("[data-account-banner]").hidden = false;
+    },
+    hideAccountBanner() {
+      $("[data-account-banner]").hidden = true;
     },
 
     announce(message) {

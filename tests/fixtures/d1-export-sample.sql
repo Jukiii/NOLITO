@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS "d1_migrations"(
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(1,'0001_init.sql','2026-09-20 11:28:50');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(2,'0002_licenses.sql','2026-09-20 11:28:50');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(3,'0003_inquiries.sql','2026-09-20 11:28:51');
+INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(4,'0004_game_sync.sql','2026-09-24 09:00:00');
 CREATE TABLE users (
   id TEXT PRIMARY KEY,
   google_sub TEXT NOT NULL UNIQUE,
@@ -64,8 +65,24 @@ CREATE TABLE inquiries (
 );
 INSERT INTO "inquiries" ("id","created_at","category","product_id","message","email","env_info","status","resolved_at") VALUES('q1',1000,'bug','kii-michi','sample message','reporter@example.com','viewport=375x800; language=ja','new',NULL);
 INSERT INTO "inquiries" ("id","created_at","category","product_id","message","email","env_info","status","resolved_at") VALUES('q2',1001,'question','','done one; with semicolon','','','done',2000);
+CREATE TABLE game_progress (
+  user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  nickname TEXT NOT NULL,
+  title_id TEXT NOT NULL DEFAULT 'newbie',
+  total_clears INTEGER NOT NULL DEFAULT 0,
+  total_words INTEGER NOT NULL DEFAULT 0,
+  clears TEXT NOT NULL DEFAULT '{}',
+  cleared_jobs TEXT NOT NULL DEFAULT '{}',
+  exp INTEGER NOT NULL DEFAULT 0,
+  jobs TEXT NOT NULL DEFAULT '{}',
+  difficulty_clears TEXT NOT NULL DEFAULT '{}',
+  bests TEXT NOT NULL DEFAULT '{}',
+  achievements TEXT NOT NULL DEFAULT '{}',
+  updated_at INTEGER NOT NULL
+);
+INSERT INTO "game_progress" ("user_id","nickname","title_id","total_clears","total_words","clears","cleared_jobs","exp","jobs","difficulty_clears","bests","achievements","updated_at") VALUES('u1','たろう''s','newbie',3,40,'{"senpai":2}','{"engineer":true}',500,'{"engineer":{"plays":5,"clears":2,"words":40,"hits":100,"miss":5}}','{"senpai:normal":2}','{"engineer:senpai:normal":{"score":1500,"playedAt":1}}','{"clear-senpai":100}',2000);
 DELETE FROM sqlite_sequence;
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',3);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',4);
 INSERT INTO "sqlite_sequence" ("name","seq") VALUES('audit_log',2);
 CREATE INDEX sessions_user ON sessions(user_id);
 CREATE INDEX audit_log_at ON audit_log(at);

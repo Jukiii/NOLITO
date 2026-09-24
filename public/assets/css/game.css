@@ -321,6 +321,24 @@
   font-weight: var(--font-weight-bold);
 }
 
+/* アカウントの案内(未ログインの初回、ダッシュボードにだけ出す。閉じられる) */
+.game-account-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.game-account-banner p {
+  margin: 0;
+}
+
 /* 役職の選択(乗り物の名前・ロック表示) */
 .job-option__sub {
   color: var(--color-text-muted);

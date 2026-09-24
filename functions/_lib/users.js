@@ -43,11 +43,13 @@ export async function setNickname(db, id, nickname) {
 /**
  * 利用者と、そのログインの状態をすべて消す。監査ログは、残るが、user_id が NULL になる(匿名になる)。
  * ライセンスは、記録を残して、結びつきだけを外す(同じキーを、また登録できる)。
+ * ゲームの記録の同期(game_progress。Phase 19 PR 2)も消す(端末の記録は、消えない)。
  */
 export async function deleteUser(db, id) {
   await db.batch([
     db.prepare("UPDATE licenses SET user_id = NULL, redeemed_at = NULL WHERE user_id = ?").bind(id),
     db.prepare("DELETE FROM sessions WHERE user_id = ?").bind(id),
+    db.prepare("DELETE FROM game_progress WHERE user_id = ?").bind(id),
     db.prepare("DELETE FROM users WHERE id = ?").bind(id),
   ]);
 }

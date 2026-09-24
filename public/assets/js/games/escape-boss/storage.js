@@ -203,6 +203,20 @@ function normalizeDifficultyClears(raw) {
   return clears;
 }
 
+const MAX_ACHIEVEMENT_ENTRIES = 100;
+
+// 実績(id → 解放した日時)。id の形が正しく、日時が数のものだけ。多すぎる分は捨てる(改ざん対策)
+function normalizeAchievementMap(raw) {
+  const achievements = {};
+  if (!isObject(raw)) return achievements;
+  for (const [id, at] of Object.entries(raw).slice(0, MAX_ACHIEVEMENT_ENTRIES * 2)) {
+    if (Object.keys(achievements).length >= MAX_ACHIEVEMENT_ENTRIES) break;
+    if (!isId(id) || !isFiniteNumber(at)) continue;
+    achievements[id] = at;
+  }
+  return achievements;
+}
+
 // 自己ベスト(名前 = 職種:役職:難易度。値 = { score, playedAt })
 function normalizeBests(raw) {
   const bests = {};
@@ -305,11 +319,7 @@ export function normalizeData(raw) {
         .slice(0, MAX_RANKING);
     }
   }
-  if (isObject(raw.achievements)) {
-    for (const [id, at] of Object.entries(raw.achievements)) {
-      if (isFiniteNumber(at)) data.achievements[id] = at;
-    }
-  }
+  data.achievements = normalizeAchievementMap(raw.achievements);
   if (isObject(raw.progress)) {
     data.progress.totalClears = count(raw.progress.totalClears);
     data.progress.totalWords = count(raw.progress.totalWords);
@@ -341,6 +351,66 @@ export function normalizeData(raw) {
     data.progress.bests = bestsFromResults(data.results);
   }
   return data;
+}
+
+// 同期の要約が持つ、進行状況の項目(1プレイごとの詳細な記録 results は、対象に含まない)
+const SYNC_PROGRESS_KEYS = [
+  "totalClears",
+  "totalWords",
+  "clears",
+  "clearedJobs",
+  "exp",
+  "jobs",
+  "difficultyClears",
+  "bests",
+];
+
+/**
+ * アカウントへの同期(Phase 19 PR 2)用の、進行状況の「要約」を検証する。1プレイごとの詳細な記録
+ * (results。キーごとの集計・打ち間違いの組・語ごとのミス数を含む)は、対象に含まない(端末にとどめる)。
+ * **既存の normalizeData を、そのまま使う**(検証・移行のしくみを重複させない)。サーバー側
+ * (functions/_lib/game-sync.js)も、この関数を、そのまま使う。不正な形は null。
+ */
+export function normalizeSyncProgress(raw) {
+  if (!isObject(raw)) return null;
+  const data = normalizeData({
+    version: DATA_VERSION,
+    profile: { nickname: raw.nickname, titleId: raw.titleId },
+    results: [],
+    rankings: {},
+    achievements: raw.achievements,
+    progress: Object.fromEntries(SYNC_PROGRESS_KEYS.map((key) => [key, raw[key]])),
+  });
+  if (!data) return null;
+  return {
+    nickname: data.profile.nickname,
+    titleId: data.profile.titleId,
+    achievements: data.achievements,
+    ...Object.fromEntries(SYNC_PROGRESS_KEYS.map((key) => [key, data.progress[key]])),
+  };
+}
+
+/** いまの記録から、同期に送る要約を作る(results は含めない)。 */
+export function syncProgressOf(data) {
+  return {
+    nickname: data.profile.nickname,
+    titleId: data.profile.titleId,
+    achievements: data.achievements,
+    ...Object.fromEntries(SYNC_PROGRESS_KEYS.map((key) => [key, data.progress[key]])),
+  };
+}
+
+/** 同期の要約(取り込み済み)を、いまの記録に取り込む(results・rankings は、そのまま残す)。 */
+export function applySyncProgress(data, sync) {
+  return {
+    ...data,
+    profile: { nickname: sync.nickname, titleId: sync.titleId },
+    achievements: sync.achievements,
+    progress: {
+      ...data.progress,
+      ...Object.fromEntries(SYNC_PROGRESS_KEYS.map((key) => [key, sync[key]])),
+    },
+  };
 }
 
 // 使える LocalStorage を返す。プライベートブラウズ等で使えない場合は null。

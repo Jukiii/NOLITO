@@ -58,6 +58,13 @@ export const fetchLicenses = (options) => call("/api/licenses", options);
 export const redeemLicense = (key, options) =>
   call("/api/licenses/redeem", { ...options, method: "POST", body: { key } });
 
+/** アカウントに保存された、ゲーム(上司から逃げろ)の記録の要約。{ progress: null | {...} }。 */
+export const fetchGameSync = (options) => call("/api/games/escape-boss/sync", options);
+
+/** この端末の記録の要約を、アカウントに保存する(まるごと置き換える)。 */
+export const saveGameSync = (progress, options) =>
+  call("/api/games/escape-boss/sync", { ...options, method: "POST", body: progress });
+
 /** 商品 ID → 商品名(公開の products.json から)。取れなければ空(ID のまま表示する)。 */
 export async function fetchProductNames(fetchImpl = globalThis.fetch) {
   try {

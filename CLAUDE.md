@@ -297,11 +297,19 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## 未登録プレイ・オンラインランキング(Phase 19)
 
-Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19-plan.md`)。PR2・PR3(アカウント移行・オンラインランキング)は、ゲームの記録を初めて運営者のサーバーに送る、privacy-sensitive な変更のため、着手前にプライバシーポリシーの改定内容を、運営者に確認する。
+Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19-plan.md`)。PR2・PR3(アカウント移行・オンラインランキング)は、ゲームの記録を初めて運営者のサーバーに送る、privacy-sensitive な変更のため、慎重に進める(PR2 の決定は `docs/decisions/0043-phase-19-account-sync.md`)。
 
 ### 記録の書き出し・読み込み(Phase 19 PR 1)
 
 - `storage.js` の `createStore(backend, { now })` が返す `exportJson()`/`parseImport(text)`/`importJson(text)`(キーみちの `tools/store.js` と同じ考え方)。**移行のしくみを重複させず、既存の `normalizeData`(版1〜5の移行)を、取り込みの検証にそのまま使う**。`EXPORT_FORMAT`・`MAX_IMPORT_BYTES` は `storage.js` からエクスポートする(画面側の事前チェックと、値を共有するため)。
 - **取り込みは、いまの記録を、まるごと置き換える**(合わせない)。置き換える前のデータは、`:before-import` に退避する。壊れている記録は、書き出せない(`exportJson()` が `null`)。
 - 画面は、ダッシュボード(`/games/escape-boss/`)の「記録の書き出し・読み込み」の節。読み込みは、ファイルを選ぶと、確認のダイアログ(`#backup-import-dialog`。共通の `components/modal.js` を使う)を経由し、**押すまでは置き換えない**。ファイル名は `escape-boss-<日付>.json`。
+
+### アカウント移行(同期。Phase 19 PR 2)
+
+- 決定は `docs/decisions/0043-phase-19-account-sync.md`。ログインすると、アカウントのページ(`/account/`)の「ゲームの記録」の節から、**任意で**、この端末の記録の要約を、アカウント(D1 の `game_progress`。`migrations/0004_game_sync.sql`)に保存できる。**送るのは要約だけ**(ニックネーム・称号・経験値・職種ごとの合計・難易度ごとのクリア数・自己ベスト・実績の解放状況)。**1プレイごとの詳細な記録(`results`)は、送らない**(端末にとどめる。詳細な履歴の引き継ぎは、PR1 の JSON 書き出し・読み込みを使う)。
+- 検証は、`storage.js` の `normalizeSyncProgress`(既存の `normalizeData` をそのまま使う。検証・移行のしくみを重複させない)。サーバー側の `functions/_lib/game-sync.js` も、同じ関数を import して使う。API は `GET`/`POST /api/games/escape-boss/sync`(`requireUser`・`checkCsrf`・レート制限 30 回/10分・`audit.js` の `gameSyncSave`)。
+- **アップロード(端末→アカウント)は、押すと、その場で送る**。**ダウンロード(アカウント→端末)は、確認ダイアログを経由し、この端末の記録を、まるごと置き換える**(PR1 の取り込みと同じ考え方。結果の履歴・ランキングは、要約に含まれないので、そのまま残る)。アカウントの削除では、`game_progress` の行も消える(端末のブラウザの記録は、消えない)。
+- ダッシュボード(`/games/escape-boss/`)に、未ログインの人だけへの、控えめな案内(`data-account-banner`)を追加。「閉じる」で、以後は出さない(`nolito:escape-boss:account-banner-dismissed:v1`。記録の版付きデータとは別の、単純な印)。ログイン状態の確認は、アカウントの API クライアント(`account/client.js` の `fetchMe`)を再利用する。
+- **ゲームの記録をサーバーに送る、新しい種類の個人情報の取得のため、プライバシーポリシーは版 3**(6-2-1)。`analyticsConfig.policyVersion` も 3(既存の同意は無効になり、同意のバナーが、もう一度出る)。
 
