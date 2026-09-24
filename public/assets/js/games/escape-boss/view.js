@@ -97,9 +97,19 @@ export function createView(root) {
     if (!views.play.hidden) $("[data-focus-hint]").hidden = false;
   });
 
+  // ソフトウェアキーボードが開くと、visualViewport の高さが縮む(物理キーボード・デスクトップでは縮まない)。
+  // 入力欄にフォーカスがある間に縮んだときだけ、入力欄が隠れないよう、見える位置に寄せる。
+  // input.focus() のたびには動かさない(ゲーム開始時の自動フォーカスで、意図せず画面が動かないように)
+  window.visualViewport?.addEventListener("resize", () => {
+    if (document.activeElement === input) inputBox.scrollIntoView({ block: "nearest" });
+  });
+
   function showView(name) {
     clearStaging();
     for (const [key, section] of Object.entries(views)) section.hidden = key !== name;
+    // プレイ中(入力欄がある間)は、モバイルの下部固定バーを隠す(ソフトウェアキーボードと、縦の領域を取り合わないように)
+    if (name === "play") document.body.dataset.hideBottomNav = "true";
+    else delete document.body.dataset.hideBottomNav;
   }
 
   const checkedValue = (name) => root.querySelector(`input[name="${name}"]:checked`)?.value;
@@ -508,9 +518,10 @@ export function createView(root) {
       );
       $("[data-sound-test]").addEventListener("click", onSoundTest);
       // プレイ中の「音」ボタン。押したあとも、入力欄で、続けて打てるように、フォーカスを戻す
+      // (preventScroll: すでに見えている画面が、フォーカスだけで意図せず動かないように)
       $("[data-sound-toggle]").addEventListener("click", () => {
         onSoundToggle();
-        input.focus();
+        input.focus({ preventScroll: true });
       });
       $("[data-check-retry]").addEventListener("click", onCheckRetry);
       $("[data-check-back]").addEventListener("click", onBack);
@@ -716,7 +727,8 @@ export function createView(root) {
       $("[data-ime-hint]").hidden = true;
       $("[data-focus-hint]").hidden = true;
       input.value = "";
-      input.focus();
+      // preventScroll: 開始直後は、場面・単語も含めて、画面全体が見えてほしい(入力欄だけへ、勝手に動かさない)
+      input.focus({ preventScroll: true });
     },
 
     renderWord(word, matcher) {

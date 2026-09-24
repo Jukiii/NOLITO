@@ -82,10 +82,10 @@ describe("プレイ中の「音」ボタン", () => {
     assert.ok(side.indexOf("data-sound-toggle") < side.indexOf("data-quit"));
   });
 
-  it("押したあと、入力欄にフォーカスを戻す(続けて打てる)", () => {
+  it("押したあと、入力欄にフォーカスを戻す(続けて打てる)。preventScroll: 画面が意図せず動かないように", () => {
     assert.match(
       view,
-      /\$\("\[data-sound-toggle\]"\)\.addEventListener\("click", \(\) => \{\s*onSoundToggle\(\);\s*input\.focus\(\);/,
+      /\$\("\[data-sound-toggle\]"\)\.addEventListener\("click", \(\) => \{\s*onSoundToggle\(\);\s*input\.focus\(\{ preventScroll: true \}\);/,
     );
   });
 
