@@ -349,3 +349,16 @@ Phase 20 は、複数の PR に分ける(計画は `docs/decisions/0045-phase-20
 - 絞り込み(カテゴリ・タグ・職種)は、**その性質を持たない種類には、絞り込みで除かれる**(職種で絞ると、用語だけが残る、など)。かけ合わせ(かつ条件)。検索語・絞り込みは `?q=&category=&tag=&job=` に反映する(`history.replaceState`。共有・ブックマークできるように)。
 - ヘッダーのナビ(`config/nav.js`)に「検索」を追加(サブメニューなし)。モバイルの下部固定バーには追加しない。
 - Phase 20(ヘッダーメニュー拡張・トップページ・検索)は、この PR で完了。
+
+## アクセシビリティ強化(Phase 21)
+
+Phase 21 は、複数の PR に分ける(計画は `docs/decisions/0046-phase-21-plan.md`)。
+
+### ライト・ダーク・システムテーマ(Phase 21 PR 1)
+
+- 選べる項目は「ライト」「ダーク」「システム(既定)」の3つ。保存は `public/assets/js/components/theme.js`(DOM に依存しない純粋な関数)が、`localStorage` の**新しいキー** `nolito:theme:v1`(値は `"light"` / `"dark"` / `"system"`)に行う。ゲーム・ツールの記録・設定のキーとは別(サイト全体の見た目の設定のため)。
+- 反映は `<html data-theme="light|dark|system">`。CSS は `tokens.css` の3段階: `:root`(ライトが既定)→ `@media (prefers-color-scheme: dark)` かつ `:not([data-theme="light"])` でダークへ(**システム**選択時、OSの設定に追従)→ `:root[data-theme="dark"]` で、OSの設定に関係なく強制的にダークへ。**「ライト」を明示すると、OSがダークでも、ライトのまま**。**色はすべてトークン(`var(--color-...)`)経由**という既存ルールを守り、ダークの上書きも、同じトークン名の値を変えるだけ(新しいトークンを増やさない)。
+- **アクセント色(`--color-accent`・`--color-on-accent`)は、ライト・ダーク共通**(意図的に上書きしない。暗い背景でも明るい背景でも、はっきり見えるため)。**配色は、すべて WCAG AA(通常文字 4.5:1・UI部品 3:1)以上のコントラスト比になるよう計算して決めた**(`tests/theme.test.js` が、実際の `tokens.css` の値から比率を検査する)。新しいトークンを足す・ダークの値を変えるときは、この検査を通すこと。
+- **ちらつき防止(FOUC)**: `<head>` の、スタイルシートの `<link>` より前に、小さい同期実行のインラインスクリプト(`type="module"` ではない)を置き、`localStorage` の `nolito:theme:v1` を読んで、CSS 読み込み前に `data-theme` を設定する(読めなくても、落ちない・既定=システムのまま)。**新しいページ(手書き HTML)を作るときは、このスクリプトを、既存のページと同じ内容・同じ位置(viewport の meta の直後)にコピーすること**。生成ページ(記事・プロダクト詳細)は、共通テンプレート `scripts/lib/render.mjs` の `renderDocument()` に、すでに入っている(個別に足す必要はない)。
+- 切り替えの UI は、フッターの「テーマ」`<select>`(`data-theme-select`。`components/footer.js` が描画、`main.js` の `initTheme()` が初期化・変更を監視)。**モーダルの背景幕**(`.modal::backdrop`)は、唯一トークン化されていなかった色を `--color-backdrop`(ライト・ダーク共通の暗い半透明)に切り出した。
+- **既知の制限(この PR では対応しない)**: ゲームの場面の背景 SVG(Phase 15 PR2)・キャラクターの絵(Phase 16)は、ライトテーマ向けの配色のまま作り直していない(`aria-hidden` の装飾要素で、操作には影響しない)。問題が見つかれば、別 Issue で検討する。

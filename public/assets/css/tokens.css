@@ -1,12 +1,14 @@
 /*
  * デザイントークン。色はすべて意味のある名前で定義する。
- * Phase 21 のダークテーマは、このファイルの色トークンを上書きして対応する。
+ * ダークテーマ(Phase 21 PR1)は、このファイルの下部で、色トークンを上書きする。
+ * 切り替えは <html data-theme="light|dark|system">(components/theme.js)。
+ * 「システム」は、OSの設定(prefers-color-scheme)に追従する。明示した light/dark は、OSより優先。
  * ブレークポイント: 48rem(768px)以上をPC・タブレット横向きとする。
  */
 :root {
   color-scheme: light;
 
-  /* Color */
+  /* Color(ライト。既定) */
   --color-bg: #fffaf0;
   --color-surface: #fff;
   --color-text: #1b2033;
@@ -19,6 +21,9 @@
   --color-soft: #fff1b8;
   --color-border: #1b2033;
   --color-focus: #1b2033;
+
+  /* モーダルなどの背景幕。暗く沈めるためだけの色なので、テーマが変わっても同じ */
+  --color-backdrop: rgb(27 32 51 / 60%);
 
   /* グラフ(グリッドは背景より一段だけ濃い実線のヘアライン。データより目立たせない) */
   --color-chart-grid: #e6e0d0;
@@ -64,4 +69,45 @@
   --z-bottom-nav: 100;
   --z-skip-link: 200;
   --bottom-nav-height: 3.75rem;
+}
+
+/*
+ * ダーク(Phase 21 PR1)。文字・背景・強調色の組み合わせは、WCAG AA(通常文字 4.5:1・
+ * UI部品 3:1)以上のコントラスト比になるよう、計算のうえ決めた(tests/theme.test.js で検査)。
+ * アクセント(金色)は、ライトと共通(暗い背景でも明るい背景でも、はっきり見えるため)。
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-bg: #181611;
+    --color-surface: #242019;
+    --color-text: #f2ede0;
+    --color-text-muted: #b8ae98;
+    --color-primary: #8f85ff;
+    --color-primary-strong: #a89dff;
+    --color-on-primary: #181611;
+    --color-soft: #3a331f;
+    --color-border: #f2ede0;
+    --color-focus: #ffd23f;
+    --color-chart-grid: #2c2820;
+    --color-chart-axis: #8a8270;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #181611;
+  --color-surface: #242019;
+  --color-text: #f2ede0;
+  --color-text-muted: #b8ae98;
+  --color-primary: #8f85ff;
+  --color-primary-strong: #a89dff;
+  --color-on-primary: #181611;
+  --color-soft: #3a331f;
+  --color-border: #f2ede0;
+  --color-focus: #ffd23f;
+  --color-chart-grid: #2c2820;
+  --color-chart-axis: #8a8270;
 }

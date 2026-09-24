@@ -308,7 +308,13 @@ describe("記事のビルド", () => {
     assert.equal((html.match(/<h1/g) ?? []).length, 1);
     assert.match(html, /<h2>見出し<\/h2>/);
     assert.match(html, /data-ad-slot="article"[^>]*hidden/);
-    assert.doesNotMatch(html, /<script(?![^>]*type="module")/);
+    // テーマの、ちらつき防止スクリプト(すべてのページ共通・固定の内容。Phase 21 PR1)を除いた
+    // 残りに、type="module" 以外の script がないこと(記事の内容からの注入を防ぐ)
+    const withoutThemeScript = html.replace(
+      /<script>[\s\S]*?nolito:theme:v1[\s\S]*?<\/script>/,
+      "",
+    );
+    assert.doesNotMatch(withoutThemeScript, /<script(?![^>]*type="module")/);
   });
 
   it("更新日が公開日と同じなら、更新の表示を出さない", () => {

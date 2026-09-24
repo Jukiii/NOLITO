@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマの、ちらつき防止(FOUC)。CSS が読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
     <title>「上司から逃げろ」の遊び方とローマ字入力のコツ | NOLITO</title>
     <meta name="description" content="仕事の用語をローマ字で打って上司から逃げるタイピングゲーム「上司から逃げろ」の遊び方、役職ごとの違い、入力のコツ、成績の見方をまとめました。" />
     <link rel="canonical" href="https://nolito.pages.dev/articles/escape-boss-guide/" />

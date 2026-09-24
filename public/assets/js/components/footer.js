@@ -1,6 +1,13 @@
 import { footerLinks, siteName, tagline } from "../config/nav.js";
 import { el } from "./dom.js";
 
+// テーマの選択肢(値は components/theme.js の THEMES と同じ)
+const THEME_OPTIONS = [
+  { value: "system", label: "システムの設定に合わせる" },
+  { value: "light", label: "ライト" },
+  { value: "dark", label: "ダーク" },
+];
+
 export function renderFooter(target) {
   target.replaceChildren(
     el(
@@ -8,6 +15,16 @@ export function renderFooter(target) {
       { class: "container" },
       el("p", { class: "site-footer__name" }, siteName),
       el("p", { class: "site-footer__tagline" }, tagline),
+      el(
+        "div",
+        { class: "site-footer__settings" },
+        el("label", { class: "site-footer__settings-label", for: "theme-select" }, "テーマ"),
+        el(
+          "select",
+          { class: "site-footer__select", id: "theme-select", "data-theme-select": true },
+          ...THEME_OPTIONS.map((option) => el("option", { value: option.value }, option.label)),
+        ),
+      ),
       el(
         "nav",
         { class: "site-footer__nav", "aria-label": "フッターメニュー" },
