@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマの、ちらつき防止(FOUC)。CSS が読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
     <title>ツール | NOLITO</title>
     <meta name="description" content="NOLITOの業務効率化ツール一覧。" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

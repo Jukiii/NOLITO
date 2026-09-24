@@ -6,6 +6,7 @@ import { renderFooter } from "./components/footer.js";
 import { renderHeader } from "./components/header.js";
 import { initModals } from "./components/modal.js";
 import { renderProductList } from "./components/product-list.js";
+import { initTheme } from "./components/theme.js";
 import { adsConfig } from "./config/ads.js";
 
 const header = document.querySelector("[data-site-header]");
@@ -15,7 +16,10 @@ if (header) {
 }
 
 const footer = document.querySelector("[data-site-footer]");
-if (footer) renderFooter(footer);
+if (footer) {
+  renderFooter(footer);
+  initTheme(footer.querySelector("[data-theme-select]"));
+}
 
 // フッターの「アクセス解析の設定」ボタンができた後に呼ぶ。測定 ID が未設定・本番以外のホストでは、何もしない
 initConsent();

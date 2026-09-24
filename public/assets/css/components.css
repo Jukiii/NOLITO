@@ -183,7 +183,7 @@
 }
 
 .modal::backdrop {
-  background: rgb(27 32 51 / 60%);
+  background: var(--color-backdrop);
 }
 
 .modal__body {
