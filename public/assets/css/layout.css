@@ -309,6 +309,14 @@ a.site-nav__sublink:hover {
   }
 }
 
+/*
+ * ゲームのプレイ中(入力欄がある間)は、下部固定バーを隠す(Phase 22 PR1)。
+ * document.body の data-hide-bottom-nav は、games/escape-boss/view.js の showView() が付け外しする。
+ */
+body[data-hide-bottom-nav] .bottom-nav {
+  display: none;
+}
+
 /* Footer */
 .site-footer {
   padding-block: var(--space-6);

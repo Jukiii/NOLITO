@@ -1585,3 +1585,71 @@
 .review-list[hidden] {
   display: none;
 }
+
+/*
+ * 横向き(landscape)の低い画面(スマホを横に持ったときなど)では、縦の余白・場面の高さを詰めて、
+ * 入力欄が画面の外に出ないようにする(Phase 22 PR1)。並び順(距離ゲージ→場面→単語→入力欄)は変えない。
+ * ファイルの末尾に置く(上にある、同じ詳細度のルールより、あとに来る必要があるため)。
+ */
+@media (orientation: landscape) and (height <= 32rem) {
+  /*
+   * この高さでは、ヘッダーの余白・.main の余白より、入力欄が見えることを優先する。
+   * --header-height は tokens.css のトークン(ヘッダーの min-height に使われている)を、
+   * この場面だけ上書きする(ロゴ・ハンバーガーボタン自体の大きさは変えない。詰まるのは余白だけ)。
+   */
+  :root {
+    --header-height: var(--tap-size);
+  }
+
+  .main {
+    padding-block: var(--space-1) var(--space-2);
+  }
+
+  .game-play {
+    gap: var(--space-1);
+  }
+
+  .game-play__main {
+    gap: var(--space-1);
+  }
+
+  .gauge {
+    height: 1.5rem;
+  }
+
+  .gauge__label {
+    margin-top: var(--space-1);
+    font-size: var(--font-size-xs);
+  }
+
+  .scene {
+    height: 2rem;
+  }
+
+  .game-word {
+    padding: var(--space-1) var(--space-4);
+  }
+
+  .game-word__japanese {
+    margin-bottom: 0;
+    font-size: clamp(1.125rem, 4vw, 1.75rem);
+    line-height: 1.1;
+  }
+
+  .game-word__reading {
+    margin-bottom: 0;
+    font-size: var(--font-size-xs);
+  }
+
+  .game-word__romaji {
+    font-size: var(--font-size-xs);
+  }
+
+  .game-input {
+    gap: var(--space-1);
+  }
+
+  .game-input__label {
+    font-size: var(--font-size-xs);
+  }
+}
