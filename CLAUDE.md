@@ -49,8 +49,9 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## プロダクト(Phase 6)
 
-- プロダクトは `public/data/products.json`(version 4)、カテゴリは `categories.json` で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存)、表示用の文字列は `format.js`、カードの描画は `components/product-list.js`。
+- プロダクトは `public/data/products.json`(version 5)、カテゴリは `categories.json` で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存)、表示用の文字列は `format.js`、カードの描画は `components/product-list.js`。
 - 形式を変えるときは、`schema.js` の検証と `tests/products.test.js` を一緒に更新し、`PRODUCT_DATA_VERSION` を上げる。
+- `tags`(重複なし・20字以内・10件まで。検索(Phase 20 PR 3)の絞り込みに使う予定)と `featured`(真偽値。トップページの「おすすめ」に出すか)は、Phase 20 PR 2 で追加した(version 5)。
 - **URL は、`/` 始まりのサイト内パスか `https://` だけ**(`isSafeUrl`)。画像には alt が必須。表示は必ず `textContent`(`el()`)。不正な項目は、テストで失敗させ、実行時は「その項目だけ外して、他は表示」する。この安全側の挙動を緩めない(将来、管理画面からも書かれる)。
 - `public/data/` は誰でも読める。**下書き(未公開)の項目を入れない**。公開前は `coming-soon`。
 - カードを変えたら `/styleguide/` の見本も更新する。
@@ -321,3 +322,22 @@ Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19
 - API は `GET`(ログイン不要。だれでも見られる。IPごとにレート制限)/`POST`(ログイン必須) `/api/games/escape-boss/ranking`、参加の切り替えは `POST /api/ranking-opt-in`。応答に、個人を特定する情報(メールアドレス・アカウントID)は含めない。不参加への切り替え・アカウント削除は、どちらも `ranking_entries` を即座に消す。
 - ダッシュボードに、端末内の「ランキング」とは別の「オンラインランキング」の節(役職・難易度を、自分で選べる)。**ゲームの記録をほかの利用者にも公開する、新しい性質の変更のため、プライバシーポリシーは版 4**(6-2-2。「だれでも見られる」ことを明記)。`analyticsConfig.policyVersion` も 4。
 
+
+## ヘッダーメニュー・トップページ(Phase 20)
+
+Phase 20 は、複数の PR に分ける(計画は `docs/decisions/0045-phase-20-plan.md`)。
+
+### ヘッダーメニューの拡張・モバイルの下部固定バー(Phase 20 PR 1)
+
+- `config/nav.js` の `mainNav` の各項目に、任意の `children: [{ label, href }]`(サブメニュー)を持たせられる。「ゲーム」「ツール」に、実在するページへのリンクを付けた。`available: false`(準備中)の項目には、`children` を付けない。
+- **PC**: `children` を持つ項目はボタンになり(`aria-expanded`・`aria-haspopup="true"`・`aria-controls`)、クリックでドロップダウンを開閉する。Esc・外側クリック・別項目を開くと閉じる(`components/nav.js`)。
+- **モバイル**: ハンバーガーのパネルでは、サブメニューを**常に展開した状態**で、親子をそのまま並べる(パネルの中に、もう1段の開閉を作らない)。
+- モバイル専用の下部固定バー(`bottomNav`。ホーム・ゲーム・ツール・記事)を追加(`components/bottom-nav.js`)。幅 48rem 未満だけに表示し、`main` に、バーの高さぶんの余白を付けて、本文が隠れないようにする。
+
+### トップページ(Phase 20 PR 2)
+
+- トップページ(`/`)は、「おすすめ」「カテゴリから探す」「最新情報」の3節。**新しいデータの形は作らない**(既存のしくみを再利用する)。
+- 「おすすめ」: プロダクトの `featured: true` だけを、既存の `components/product-list.js`(`renderProductList`)で描く(`data-featured` 属性。カテゴリ絞り込みの代わり)。
+- 「カテゴリから探す」: `categories.json` の、一覧ページ(`path`)があるカテゴリを、新しい部品 `components/category-list.js` でカードにする。データを足すだけで増える。
+- 「最新情報」: `/updates/` と**同じ組み立て**(`updates.js` の `buildUpdates`)を再利用し、新しい順に最大5件(`home/main.js`。ページ固有の DOM 処理)。
+- プロダクトに `tags`(重複なし・20字以内・10件まで)を追加した(`PRODUCT_DATA_VERSION` を 5 に)。検索(PR3)の絞り込みに使う予定で、この PR では表示にまだ使わない。

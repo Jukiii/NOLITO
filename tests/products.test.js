@@ -17,10 +17,12 @@ import {
 } from "../public/assets/js/products/format.js";
 import {
   CATEGORY_DATA_VERSION,
+  MAX_TAGS,
   PLATFORMS,
   PRODUCT_DATA_VERSION,
   STATUSES,
   STORAGE_METHODS,
+  TAG_MAX,
   compareVersions,
   isExternalUrl,
   isGithubReleaseUrl,
@@ -65,6 +67,8 @@ const valid = (overrides = {}) => ({
   released_at: "2026-01-01",
   updated_at: "2026-02-01",
   changelog: [],
+  tags: [],
+  featured: false,
   ...overrides,
 });
 const errorsOf = (product) => validateProduct(product, { categories });
@@ -474,7 +478,7 @@ describe("詳細ページ・画像・動作環境・FAQ・購入(version 3 で�
   });
 
   describe("一覧全体での、場所の重複", () => {
-    const list = (...products) => validateProducts({ version: 4, products }, categories);
+    const list = (...products) => validateProducts({ version: 5, products }, categories);
 
     it("同じ詳細ページの場所を、2つのプロダクトが使うと落ちる", () => {
       const errors = list(
@@ -718,6 +722,49 @@ describe("storage(保存方式)・plan(無料の範囲と将来の有料機能)(
   });
 });
 
+describe("tags(検索・おすすめの絞り込み)・featured(トップページのおすすめ)(version 5 で加わった項目)", () => {
+  describe("tags", () => {
+    it("空でよい。重複なしの文字列の配列は通る", () => {
+      assert.deepEqual(errorsOf(valid({ tags: [] })), []);
+      assert.deepEqual(errorsOf(valid({ tags: ["ゲーム", "タイピング"] })), []);
+      assert.deepEqual(
+        errorsOf(valid({ tags: Array.from({ length: MAX_TAGS }, (_, i) => `t${i}`) })),
+        [],
+      );
+    });
+
+    it("重複・空文字列・配列でない・上限(10件)超え・21字は落ちる", () => {
+      for (const tags of [
+        ["a", "a"],
+        [""],
+        "ゲーム",
+        null,
+        Array.from({ length: MAX_TAGS + 1 }, (_, i) => `t${i}`),
+        ["あ".repeat(TAG_MAX + 1)],
+      ]) {
+        assert.ok(has(errorsOf(valid({ tags })), "tags"), JSON.stringify(tags));
+      }
+    });
+
+    it("20字ちょうどは通る", () => {
+      assert.deepEqual(errorsOf(valid({ tags: ["あ".repeat(TAG_MAX)] })), []);
+    });
+  });
+
+  describe("featured", () => {
+    it("true・false は通る", () => {
+      assert.deepEqual(errorsOf(valid({ featured: true })), []);
+      assert.deepEqual(errorsOf(valid({ featured: false })), []);
+    });
+
+    it("真偽値でなければ落ちる", () => {
+      for (const featured of ["true", 1, null, undefined]) {
+        assert.ok(has(errorsOf(valid({ featured })), "featured"), JSON.stringify(featured));
+      }
+    });
+  });
+});
+
 describe("プロダクト一覧全体の検証", () => {
   it("形式(version・products の配列)が違うと落ちる。旧形式(version なし)も落ちる", () => {
     for (const data of [
@@ -732,14 +779,14 @@ describe("プロダクト一覧全体の検証", () => {
     ]) {
       assert.ok(validateProducts(data, categories).length > 0, JSON.stringify(data));
     }
-    assert.deepEqual(validateProducts({ version: 4, products: [] }, categories), []);
+    assert.deepEqual(validateProducts({ version: 5, products: [] }, categories), []);
   });
 
   it("id の重複は落ちる。エラーは、どの項目かがわかる", () => {
-    const data = { version: 4, products: [valid(), valid()] };
+    const data = { version: 5, products: [valid(), valid()] };
     assert.ok(has(validateProducts(data, categories), "重複"));
     const broken = {
-      version: 4,
+      version: 5,
       products: [valid({ id: "ok-one" }), valid({ id: "bad-one", status: "x" })],
     };
     const errors = validateProducts(broken, categories);
@@ -751,7 +798,7 @@ describe("プロダクト一覧全体の検証", () => {
 describe("表示用の、不正な項目の除外", () => {
   it("不正な項目・重複した項目だけを外して、残りは表示できる", () => {
     const data = {
-      version: 4,
+      version: 5,
       products: [
         valid({ id: "good-one" }),
         valid({ id: "bad-url", url: "javascript:alert(1)" }),

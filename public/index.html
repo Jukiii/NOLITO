@@ -6,14 +6,18 @@
     <title>NOLITO(ノリト)</title>
     <meta
       name="description"
-      content="ノリよく、楽しく使えるものを作る。NOLITOの個人開発プロダクトポータルサイト。"
+      content="ノリよく、楽しく使えるものを作る。NOLITOの個人開発プロダクトポータルサイト。ゲーム・ソフト・ツール・記事をまとめて紹介します。"
     />
+    <link rel="canonical" href="https://nolito.pages.dev/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/base.css" />
     <link rel="stylesheet" href="/assets/css/layout.css" />
     <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/updates.css" />
+    <link rel="stylesheet" href="/assets/css/home.css" />
     <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/home/main.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">本文へスキップ</a>
@@ -26,8 +30,37 @@
     </header>
     <main class="main container" id="main" tabindex="-1">
       <h1>NOLITO(ノリト)</h1>
-      <p>ノリよく、楽しく使えるものを作る。</p>
-      <p>ただいま準備中です。</p>
+      <p class="home-hero__tagline">ノリよく、楽しく使えるものを作る。</p>
+
+      <section class="section" aria-labelledby="home-featured-title">
+        <h2 id="home-featured-title">おすすめ</h2>
+        <div class="grid" data-product-list data-featured>
+          <noscript>
+            <a href="/games/escape-boss/">上司から逃げろ</a>・<a href="/tools/kii-michi/"
+              >キーみち</a
+            >
+          </noscript>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="home-categories-title">
+        <h2 id="home-categories-title">カテゴリから探す</h2>
+        <div class="grid" data-category-list>
+          <noscript>
+            <a href="/games/">ゲーム</a>・<a href="/software/">ソフト</a>・<a href="/tools/"
+              >ツール</a
+            >
+          </noscript>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="home-updates-title">
+        <h2 id="home-updates-title">最新情報</h2>
+        <ul class="updates__list" data-home-updates></ul>
+        <p><a href="/updates/">更新履歴をすべて見る →</a></p>
+      </section>
+
+      <aside class="ad-slot" data-ad-slot="page" aria-label="広告" hidden></aside>
     </main>
     <footer class="site-footer" data-site-footer>
       <noscript>

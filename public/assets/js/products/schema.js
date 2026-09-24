@@ -2,7 +2,7 @@
 // 使う場所: 単体テスト(データが正しいか)と、一覧の描画(不正な項目を外して、他は表示する)。
 // 将来、管理画面(Phase 26)などから書かれても安全なように、URL・文字数・値の種類を厳しく確認する。
 
-export const PRODUCT_DATA_VERSION = 4;
+export const PRODUCT_DATA_VERSION = 5;
 export const CATEGORY_DATA_VERSION = 1;
 
 export const STATUSES = ["released", "beta", "coming-soon"];
@@ -10,6 +10,9 @@ export const PLATFORMS = ["web", "windows", "mac", "linux", "ios", "android"];
 export const PRICE_TYPES = ["free", "paid", "undecided"];
 // 利用者のデータの保存方式。none は「保存しない」で、ほかとは併用できない(account は Phase 9・19 で加える)
 export const STORAGE_METHODS = ["none", "browser", "file"];
+// 検索(Phase 20 PR 3)・トップページの「おすすめ」(PR 2)の絞り込みに使う
+export const MAX_TAGS = 10;
+export const TAG_MAX = 20;
 
 const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const VERSION_PATTERN = /^\d+\.\d+\.\d+$/;
@@ -161,6 +164,17 @@ function checkStorage(storage, add) {
   }
 }
 
+// タグ(検索・おすすめの絞り込みに使う。articles.json の tags と同じ考え方)。重複なし・空でもよい
+function checkTags(tags, add) {
+  const ok =
+    Array.isArray(tags) &&
+    tags.length <= MAX_TAGS &&
+    tags.every((tag) => isText(tag, TAG_MAX)) &&
+    new Set(tags).size === tags.length;
+  if (!ok)
+    add(`tags は、重複なしで、${TAG_MAX}字以内の文字列の配列にしてください(${MAX_TAGS}件まで)`);
+}
+
 // 無料で使える範囲と、将来の有料機能(予定)。null なら、料金の節を出さない
 function checkPlan(plan, add) {
   if (plan === null) return;
@@ -268,6 +282,9 @@ export function validateProduct(product, { categories = [] } = {}) {
     add("released_at は、updated_at より後にできません");
   }
   checkChangelog(product.changelog, product, add);
+
+  checkTags(product.tags, add);
+  if (typeof product.featured !== "boolean") add("featured は、真偽値にしてください");
 
   checkStorage(product.storage, add);
   checkPlan(product.plan, add);

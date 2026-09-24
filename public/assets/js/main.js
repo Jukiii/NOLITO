@@ -1,5 +1,6 @@
 import { initAdSlots } from "./components/ad-slot.js";
 import { renderBottomNav } from "./components/bottom-nav.js";
+import { renderCategoryList } from "./components/category-list.js";
 import { initConsent } from "./components/consent.js";
 import { renderFooter } from "./components/footer.js";
 import { renderHeader } from "./components/header.js";
@@ -23,6 +24,9 @@ initModals();
 initAdSlots(document, adsConfig);
 for (const container of document.querySelectorAll("[data-product-list]")) {
   renderProductList(container);
+}
+for (const container of document.querySelectorAll("[data-category-list]")) {
+  renderCategoryList(container);
 }
 
 // ES Modules の読み込み確認用

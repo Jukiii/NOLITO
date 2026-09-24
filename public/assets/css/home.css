@@ -1,0 +1,21 @@
+/* トップページ(/)。色・余白は、トークンで指定する */
+.home-hero__tagline {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+}
+
+/* カテゴリのカード。card 全体をリンクにする */
+.category-card {
+  display: block;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.category-card:hover {
+  border-color: var(--color-primary);
+}
+
+/* 最新情報は、更新履歴(updates.css)の見た目を再利用する。見出しの下の余白だけ詰める */
+.update--compact .update__title {
+  margin-bottom: 0;
+}

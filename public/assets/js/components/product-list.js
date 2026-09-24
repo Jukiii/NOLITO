@@ -98,8 +98,9 @@ async function loadJson(url) {
   return response.json();
 }
 
+// data-category="<id>" で、そのカテゴリだけ。data-featured で、おすすめ(featured: true)だけ(トップページ用)
 export async function renderProductList(container) {
-  const { category } = container.dataset;
+  const { category, featured } = container.dataset;
   try {
     const [productData, categoryData] = await Promise.all([
       loadJson("/data/products.json"),
@@ -109,7 +110,10 @@ export async function renderProductList(container) {
     if (skipped.length > 0) {
       console.warn(`表示できないプロダクトがあります(データの誤り): ${skipped.join(", ")}`);
     }
-    const items = products.filter((product) => product.category === category);
+    const items =
+      featured !== undefined
+        ? products.filter((product) => product.featured)
+        : products.filter((product) => product.category === category);
     container.replaceChildren(
       ...(items.length > 0
         ? items.map(productCard)

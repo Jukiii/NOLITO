@@ -73,6 +73,8 @@ const software = (overrides = {}) => ({
     { version: "1.1.0", date: "2026-02-01", changes: ["機能を追加", "不具合を修正"] },
     { version: "1.0.0", date: "2026-01-01", changes: ["公開"] },
   ],
+  tags: [],
+  featured: false,
   ...overrides,
 });
 
@@ -442,7 +444,7 @@ describe("HTML の安全性", () => {
 });
 
 describe("詳細ページの一括生成", () => {
-  const productData = (...products) => ({ version: 4, products });
+  const productData = (...products) => ({ version: 5, products });
 
   it("detail_path があるものだけ、その場所に作る", () => {
     const files = buildProductPages({
@@ -499,7 +501,7 @@ describe("書き出しと検査", () => {
     writeFileSync(join(dir, path), content);
   };
   const files = () =>
-    buildProductPages({ productData: { version: 4, products: [software()] }, categoryData, site });
+    buildProductPages({ productData: { version: 5, products: [software()] }, categoryData, site });
 
   it("書き出すと、検査で問題がない", () => {
     withTempDir((dir) => {
@@ -526,7 +528,7 @@ describe("書き出しと検査", () => {
       writeProductPages(dir, files());
       const moved = buildProductPages({
         productData: {
-          version: 4,
+          version: 5,
           products: [software({ url: "/software/moved/", detail_path: "/software/moved/" })],
         },
         categoryData,
