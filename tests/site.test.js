@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { AD_PLACEMENTS, initAdSlots } from "../public/assets/js/components/ad-slot.js";
 import { adsConfig } from "../public/assets/js/config/ads.js";
 import { analyticsConfig } from "../public/assets/js/config/analytics.js";
-import { footerLinks, mainNav } from "../public/assets/js/config/nav.js";
+import { bottomNav, footerLinks, mainNav } from "../public/assets/js/config/nav.js";
 import { MEASUREMENT_ID_PATTERN } from "../public/assets/js/components/consent-core.js";
 
 const publicDir = fileURLToPath(new URL("../public/", import.meta.url));
@@ -83,6 +83,24 @@ describe("ナビ・フッターのリンク", () => {
 
   it("記事のナビが有効", () => {
     assert.equal(mainNav.find((i) => i.label === "記事")?.available, undefined);
+  });
+
+  it("サブメニュー(children)の項目も、実在するページを指す(Phase 20 PR 1)", () => {
+    for (const item of mainNav) {
+      if (!item.children) continue;
+      for (const child of item.children) assert.ok(pageExists(child.href), child.href);
+    }
+  });
+
+  it("モバイルの下部固定バー(bottomNav)の項目も、実在するページを指す", () => {
+    for (const item of bottomNav) assert.ok(pageExists(item.href), item.href);
+  });
+
+  it("下部固定バーは、準備中(available: false)の項目を出さない", () => {
+    const unavailable = new Set(
+      mainNav.filter((item) => item.available === false).map((item) => item.href),
+    );
+    for (const item of bottomNav) assert.ok(!unavailable.has(item.href), item.href);
   });
 });
 

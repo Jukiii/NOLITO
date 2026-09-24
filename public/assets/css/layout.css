@@ -13,7 +13,9 @@ body {
 
 .main {
   flex: 1;
-  padding-block: var(--space-8);
+
+  /* 下部固定バー(.bottom-nav)の高さぶん、本文の下に余白を付ける(48rem以上では戻す) */
+  padding: var(--space-8) 0 calc(var(--space-8) + var(--bottom-nav-height));
 }
 
 .section + .section {
@@ -149,6 +151,69 @@ a.site-nav__link:hover {
   color: var(--color-text-muted);
 }
 
+/* サブメニュー(ドロップダウン)を持つ項目。決定は docs/decisions/0045-phase-20-plan.md */
+.site-nav__item {
+  position: relative;
+}
+
+.site-nav__toggle {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.site-nav__caret {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: auto;
+  border-right: var(--border-width) solid currentcolor;
+  border-bottom: var(--border-width) solid currentcolor;
+  transform: rotate(45deg);
+}
+
+.site-nav__toggle[aria-expanded="true"] .site-nav__caret {
+  transform: rotate(-135deg);
+}
+
+/* モバイルのパネルでは、常に開いた状態で、親の下に並ぶ(is-open を JS が最初から付ける) */
+.site-nav__submenu {
+  display: none;
+  margin: 0;
+  padding-left: var(--space-4);
+  list-style: none;
+}
+
+.site-nav__item.is-open .site-nav__submenu {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.site-nav__sublink {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-size);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  text-decoration: none;
+}
+
+a.site-nav__sublink:hover {
+  background: var(--color-soft);
+}
+
+.site-nav__sublink[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.3em;
+}
+
 @media (width >= 48rem) {
   .nav-toggle {
     display: none;
@@ -166,6 +231,81 @@ a.site-nav__link:hover {
   .site-nav__list {
     display: flex;
     gap: var(--space-2);
+  }
+
+  .site-nav__toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  /* PC では、ドロップダウンとして、項目の下に浮かせて出す */
+  .site-nav__submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: var(--z-header);
+    min-width: 12rem;
+    padding: var(--space-2);
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-pop-sm);
+  }
+
+  .site-nav__item.is-open .site-nav__submenu {
+    margin-top: var(--space-1);
+  }
+}
+
+/* モバイルの下部固定バー(重要機能)。決定は docs/decisions/0045-phase-20-plan.md */
+.bottom-nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--z-bottom-nav);
+  height: var(--bottom-nav-height);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  background: var(--color-surface);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.bottom-nav__list {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bottom-nav__link {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-size);
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  text-decoration: none;
+}
+
+.bottom-nav__link[aria-current="page"] {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.3em;
+}
+
+@media (width >= 48rem) {
+  .bottom-nav {
+    display: none;
+  }
+
+  .main {
+    padding-bottom: var(--space-8);
   }
 }
 

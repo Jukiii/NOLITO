@@ -61,5 +61,7 @@
   --header-height: 4rem;
   --tap-size: 2.75rem;
   --z-header: 100;
+  --z-bottom-nav: 100;
   --z-skip-link: 200;
+  --bottom-nav-height: 3.75rem;
 }

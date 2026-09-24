@@ -12,25 +12,73 @@ function isCurrent(href, currentPath) {
   return href === "/" ? path === "/" : path.startsWith(href);
 }
 
-function renderNavItem({ label, href, available = true }, currentPath) {
-  if (!available) {
-    // 未作成のページはリンクにせず、文字で「準備中」と示す
-    return el(
-      "li",
-      {},
-      el(
-        "span",
-        { class: "site-nav__link is-soon" },
-        label,
-        el("span", { class: "badge badge--soon" }, "準備中"),
-      ),
-    );
-  }
-  const current = isCurrent(href, currentPath);
+// 準備中(available: false)の項目。リンクにせず、文字で示す
+function soonItem(label) {
   return el(
     "li",
     {},
-    el("a", { class: "site-nav__link", href, "aria-current": current ? "page" : false }, label),
+    el(
+      "span",
+      { class: "site-nav__link is-soon" },
+      label,
+      el("span", { class: "badge badge--soon" }, "準備中"),
+    ),
+  );
+}
+
+// 子(サブメニュー)を持つ項目。PC はボタンで開閉するドロップダウン、モバイルのパネルでは、
+// 常に開いた状態で、親子をそのまま並べる(決定は docs/decisions/0045-phase-20-plan.md)
+function submenuItem({ label, children }, currentPath, index) {
+  const current = children.some((child) => isCurrent(child.href, currentPath));
+  const submenuId = `site-nav-submenu-${index}`;
+  const toggle = el(
+    "button",
+    {
+      class: "site-nav__link site-nav__toggle",
+      type: "button",
+      "aria-expanded": "false",
+      "aria-haspopup": "true",
+      "aria-controls": submenuId,
+      "aria-current": current ? "page" : false,
+    },
+    label,
+    el("span", { class: "site-nav__caret", "aria-hidden": "true" }),
+  );
+  const submenu = el(
+    "ul",
+    { class: "site-nav__submenu", id: submenuId },
+    ...children.map((child) => {
+      const childCurrent = isCurrent(child.href, currentPath);
+      return el(
+        "li",
+        {},
+        el(
+          "a",
+          {
+            class: "site-nav__sublink",
+            href: child.href,
+            "aria-current": childCurrent ? "page" : false,
+          },
+          child.label,
+        ),
+      );
+    }),
+  );
+  return el("li", { class: "site-nav__item" }, toggle, submenu);
+}
+
+function renderNavItem(item, currentPath, index) {
+  if (item.available === false) return soonItem(item.label);
+  if (item.children) return submenuItem(item, currentPath, index);
+  const current = isCurrent(item.href, currentPath);
+  return el(
+    "li",
+    {},
+    el(
+      "a",
+      { class: "site-nav__link", href: item.href, "aria-current": current ? "page" : false },
+      item.label,
+    ),
   );
 }
 
@@ -52,7 +100,7 @@ export function renderHeader(target, currentPath = window.location.pathname) {
     el(
       "ul",
       { class: "site-nav__list" },
-      ...mainNav.map((item) => renderNavItem(item, currentPath)),
+      ...mainNav.map((item, index) => renderNavItem(item, currentPath, index)),
     ),
   );
 

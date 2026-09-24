@@ -1,4 +1,5 @@
 import { initAdSlots } from "./components/ad-slot.js";
+import { renderBottomNav } from "./components/bottom-nav.js";
 import { initConsent } from "./components/consent.js";
 import { renderFooter } from "./components/footer.js";
 import { renderHeader } from "./components/header.js";
@@ -7,7 +8,10 @@ import { renderProductList } from "./components/product-list.js";
 import { adsConfig } from "./config/ads.js";
 
 const header = document.querySelector("[data-site-header]");
-if (header) renderHeader(header);
+if (header) {
+  renderHeader(header);
+  renderBottomNav();
+}
 
 const footer = document.querySelector("[data-site-footer]");
 if (footer) renderFooter(footer);
