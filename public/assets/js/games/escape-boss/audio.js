@@ -15,6 +15,7 @@ import {
   masterGain,
   normalizeVolume,
 } from "./sound.js";
+import { DANGER_TEMPO_BOOST } from "./role-sound.js";
 
 const LOOKAHEAD_SEC = 0.5; // BGM を、これだけ先まで、予約しておく
 const TICK_MS = 100; // BGM の予約を見直す間隔
@@ -43,6 +44,11 @@ export function createSound({
   let bgmBus = null;
   let bgmStep = 0;
   let bgmNextAt = 0;
+  // 役職ごとの音の個性(Phase 23 PR 1)。tempo・pitch は setRoleSound で、危ない状況の倍率は setDanger で設定する
+  let roleTempo = 1;
+  let rolePitch = 1;
+  let dangerBoost = 1;
+  const effectiveTempo = () => roleTempo * dangerBoost;
   const lastPlayed = new Map();
 
   function ensureContext() {
@@ -105,9 +111,10 @@ export function createSound({
     if (!context || bgmTimer === null) return;
     try {
       while (bgmNextAt < context.currentTime + LOOKAHEAD_SEC) {
-        schedule(bgmStepNotes(bgmStep), bgmNextAt, bgmBus);
+        schedule(bgmStepNotes(bgmStep, rolePitch), bgmNextAt, bgmBus);
         bgmStep += 1;
-        bgmNextAt += BGM_STEP_SEC;
+        // 速さ(tempo)は、拍の間隔を詰める・広げることで表す。危ない状況の倍率(dangerBoost)も、ここでかかる
+        bgmNextAt += BGM_STEP_SEC / effectiveTempo();
       }
     } catch {
       haltBgm();
@@ -172,7 +179,7 @@ export function createSound({
     /** 効果音を鳴らす。鳴らしたら true(設定が「なし」・音量 0・知らない名前・連打・音が使えない環境では、false) */
     play(name) {
       if (!isAudible(mode, "se", volume)) return false;
-      const notes = effectNotes(name);
+      const notes = effectNotes(name, rolePitch);
       if (!notes) return false;
       const c = ensureContext();
       if (!c) return false;
@@ -197,6 +204,22 @@ export function createSound({
     stopBgm() {
       bgmWanted = false;
       syncBgm();
+    },
+
+    /**
+     * 役職ごとの音の個性(Phase 23 PR 1)。ゲーム開始のたびに、1 回呼ぶ(危ない状況の倍率は、既定に戻す)。
+     * 不正な値は、既定(1)にする(呼び出し側の role-sound.js の roleSoundOf が、すでに範囲を検査しているが、
+     * ここでも、壊れた値で音が壊れないよう、念のため確認する)。
+     */
+    setRoleSound({ tempo = 1, pitch = 1 } = {}) {
+      roleTempo = Number.isFinite(tempo) && tempo > 0 ? tempo : 1;
+      rolePitch = Number.isFinite(pitch) && pitch > 0 ? pitch : 1;
+      dangerBoost = 1;
+    },
+
+    /** 「危ない」状況(scene.js の isDanger と同じ判断)の間、BGM を、少し速くする */
+    setDanger(active) {
+      dangerBoost = active ? DANGER_TEMPO_BOOST : 1;
     },
 
     /** タブが見えない間は、BGM を止め、音の準備も止める(戻ったら、続ける) */
