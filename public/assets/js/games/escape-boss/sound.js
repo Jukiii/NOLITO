@@ -74,9 +74,17 @@ export const SOUND_EFFECTS = Object.freeze({
 });
 export const EFFECT_NAMES = Object.freeze(Object.keys(SOUND_EFFECTS));
 
-/** 効果音の音符(知らない名前は、null) */
-export const effectNotes = (name) =>
-  Object.hasOwn(SOUND_EFFECTS, name) ? SOUND_EFFECTS[name] : null;
+// 音符の高さ(hz・to)だけを、倍率(役職ごとの個性。Phase 23 PR 1)でずらす。音色・長さ・大きさは変えない
+const scalePitch = (item, pitch) =>
+  pitch === 1
+    ? item
+    : { ...item, hz: item.hz * pitch, ...(item.to ? { to: item.to * pitch } : {}) };
+
+/** 効果音の音符(知らない名前は、null)。pitch(既定 1)で、役職ごとに高さをずらせる */
+export function effectNotes(name, pitch = 1) {
+  if (!Object.hasOwn(SOUND_EFFECTS, name)) return null;
+  return SOUND_EFFECTS[name].map((item) => scalePitch(item, pitch));
+}
 
 // BGM。8 分音符 32 個(4 小節。A マイナー)を、くり返す。低音(三角波)と、メロディー(矩形波。小さく)
 export const BGM_BPM = 140;
@@ -96,12 +104,16 @@ const MELODY = [
 ];
 export const BGM_STEPS = BASS.length;
 
-/** BGM の、ある拍(step。何周目でもよい)で鳴らす音符(at は、その拍の始まりからの秒) */
-export function bgmStepNotes(step) {
+/**
+ * BGM の、ある拍(step。何周目でもよい)で鳴らす音符(at は、その拍の始まりからの秒)。
+ * pitch(既定 1)で、役職ごとに高さをずらせる(Phase 23 PR 1)。速さ(tempo)は、拍の間隔の側
+ * (audio.js が、拍を呼ぶ間隔を調整する)で扱うので、ここでは音の長さ・高さだけを見る
+ */
+export function bgmStepNotes(step, pitch = 1) {
   if (!Number.isInteger(step) || step < 0) return [];
   const index = step % BGM_STEPS;
   const notes = [];
-  if (BASS[index]) notes.push(note(0, BASS[index], BGM_STEP_SEC * 1.6, "triangle", 0.3));
-  if (MELODY[index]) notes.push(note(0, MELODY[index], BGM_STEP_SEC * 0.9, "square", 0.08));
+  if (BASS[index]) notes.push(note(0, BASS[index] * pitch, BGM_STEP_SEC * 1.6, "triangle", 0.3));
+  if (MELODY[index]) notes.push(note(0, MELODY[index] * pitch, BGM_STEP_SEC * 0.9, "square", 0.08));
   return notes;
 }

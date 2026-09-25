@@ -33,6 +33,7 @@ import { jobMasteries } from "./mastery.js";
 import { createLines, BUBBLE_MS } from "./lines.js";
 import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
+import { roleSoundOf } from "./role-sound.js";
 import { isDanger, outroStyleOf } from "./scene.js";
 import { summarize } from "./score.js";
 import { toggledMode } from "./sound.js";
@@ -594,6 +595,8 @@ async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
   // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
   stopTimeline();
   sound.stopBgm();
+  // 役職ごとの音の個性(Phase 23 PR 1)。BGM・効果音の速さ・高さを、この役職のものにする(危ない状況の倍率は、リセットされる)
+  sound.setRoleSound(roleSoundOf(role));
   if (session) cancelAnimationFrame(session.frameId);
   session = {
     kind: "chase",
@@ -684,6 +687,8 @@ function update(state) {
     say("near");
     sound.play("near");
   }
+  // 危ない状況の間、BGM を少し速くする(Phase 23 PR 1)。状態が変わったときだけ伝える
+  if (danger !== session.wasDanger) sound.setDanger(danger);
   session.wasDanger = danger;
 }
 
@@ -880,6 +885,7 @@ function handleChar(char) {
 function quit() {
   stopTimeline();
   sound.stopBgm();
+  sound.setRoleSound(); // ダッシュボードに戻ったら、役職の音の個性を、既定(1・1)に戻す
   if (session) cancelAnimationFrame(session.frameId);
   session = null;
   refreshDashboard();
