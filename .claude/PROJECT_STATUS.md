@@ -8,16 +8,16 @@
 
 # 1. プロジェクト情報
 
-| 項目           | 内容                                                     |
-| -------------- | -------------------------------------------------------- |
-| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)                 |
-| 開発方式       | Claude Codeによる自律開発                                |
-| リポジトリ     | https://github.com/Jukiii/NOLITO(public)                 |
-| 本番           | https://nolito.pages.dev(Cloudflare Pages)               |
-| 開発開始日     | 2026-09-19頃(PR #1)                                      |
-| 最終更新日時   | 2026-09-25                                               |
-| 現在のフェーズ | Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1・PR2完了 |
-| 現在の状態     | IN_PROGRESS                                              |
+| 項目           | 内容                                             |
+| -------------- | ------------------------------------------------ |
+| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)         |
+| 開発方式       | Claude Codeによる自律開発                        |
+| リポジトリ     | https://github.com/Jukiii/NOLITO(public)         |
+| 本番           | https://nolito.pages.dev(Cloudflare Pages)       |
+| 開発開始日     | 2026-09-19頃(PR #1)                              |
+| 最終更新日時   | 2026-09-25                                       |
+| 現在のフェーズ | Phase 24(語録の拡張ファイル・追加フロー)。着手前 |
+| 現在の状態     | IN_PROGRESS                                      |
 
 ---
 
@@ -60,7 +60,7 @@
 | Phase 20 | ナビ拡張・トップページ・検索                                             | **COMPLETED** | PR1=#63, PR2=#64, PR3=#65                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0045決定ログ)。静的サイトのみの変更のため、本番マイグレーションなし |
 | Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | **COMPLETED** | PR1=#67, PR2=#69, PR3=#71(本番マイグレーション適用済み)       | -                                              | 3 PR すべて完了・マージ・本番確認済み(0046決定ログ)                                                       |
 | Phase 22 | キーボード/タッチ操作・端末最適化                                        | **COMPLETED** | PR1=#73, PR2=#75, PR3=#77                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0047決定ログ)                                                       |
-| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | IN_PROGRESS   | PR1=#79, PR2=#81                                              | -                                              | PR1・PR2完了・マージ・本番確認済み(0048決定ログ)。PR3(音量・品質・アニメーション軽減の点検)は未着手       |
+| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | **COMPLETED** | PR1=#79, PR2=#81, PR3=#83                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0048決定ログ)                                                       |
 | Phase 24 | 語録の拡張ファイル・追加フロー                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 25 | AI活用(生成・チェック・提案)                                             | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 26 | 管理画面・RBAC                                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
@@ -76,26 +76,25 @@
 ## Current Phase
 
 ```text
-Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1・PR2完了。次はPR3(音量・品質・アニメーション軽減の点検)
+Phase 23(BGM/効果音の役職別拡張・演出設定)は完了(PR1〜3)。次はPhase 24(語録の拡張ファイル・追加フロー)
 ```
 
 ## Current Status
 
 ```text
-IN_PROGRESS(Phase 23 PR2 完了。次はPR3)
+IN_PROGRESS(Phase 23 完了。Phase 24 は着手前)
 ```
 
 ## Current Branch
 
 ```text
-main(Phase 23 PR2 は #81 でマージ済み。PR3 用のブランチは、まだ作成していない)
+main(Phase 23 PR3 は #83 でマージ済み。Phase 24 用のブランチは、まだ作成していない)
 ```
 
 ## Current Task
 
 ```text
-Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の仕様確認・実装計画。
-0048決定ログのPR分割のとおり。
+Phase 24(語録の拡張ファイル・追加フロー)の仕様確認(docs/01_phases/phase-24.md)・実装計画。
 ```
 
 ## Current Step
@@ -178,38 +177,37 @@ docs/decisions/0042-phase-19-plan.md(全体の計画。PR1〜PR3の内訳)
 ### 今何をしているか
 
 ```text
-Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)を実装・テスト・マージ・
-本番確認まで完了した。次は PR3(音量・品質・アニメーション軽減の点検)。
+Phase 23 PR3(音量・品質・アニメーション軽減の点検。BGMを簡略化する設定)を実装・テスト・マージ・
+本番確認まで完了し、**Phase 23 を完了させた**。次は Phase 24(語録の拡張ファイル・追加フロー)。
 ```
 
 ### 次に行う作業
 
 ```text
-1. Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の詳細を、
-   0048 決定ログに追記
-2. 新しいブランチ(main から)で、PR3 に着手する
+1. docs/01_phases/phase-24.md(語録の拡張ファイル・追加フロー)を確認する
+2. 関連する既存実装(vocab-md.mjs・vocab-validate.mjs・vocab-build.mjs 等。Phase14の語録原稿管理)
+   を確認し、実装方針・PR分割を決める
+3. 新しいブランチ(main から)で、Phase 24 に着手する
 ```
 
 ### 最後に完了した作業
 
 ```text
-Phase 23 PR2: 演出の全スキップ設定・セリフの速さ/表示時間の設定(PR #81、マージ済み、本番確認済み)。
-settings.jsにskipStaging(既定オフ)・lineLevel(既定normal)を追加(既存の設定キーに保存)。
-lines.jsにLINE_LEVELS(few/normal/many。段階ごとのgapMs・bubbleMs)・lineLevelOfを追加。
-main.jsのbeginIntro/beginOutroで、skipStagingがオンのときtimeline.start()の直後にtimeline.skip()
-を呼ぶ(**既存の飛ばす操作=Enter・スペース・Esc・クリックとまったく同じしくみ**を自動で使うだけ。
-新しい進行のしくみは作らない)。lineLevelOf(settings.lineLevel)のgapMs・bubbleMsをcreateLines()・
-showBubble()に渡す(既存の依存注入をそのまま利用)。view.js/index.htmlに選択欄・チェックボックスを
-追加し、用語確認では両方とも隠す(場面・演出・セリフがそもそもないため)。単体テスト1957件
-(新規tests/staging-settings.test.js 15件・lines.test.jsに5件追加。DEFAULT_SETTINGSの形が変わった
-分、check.test.js・sound.test.jsの既存期待値を更新)・実ブラウザE2E8件、すべて成功(設定の表示/
-保存/復元・skipStaging=trueで演出バナーがすぐ隠れる・falseでは約800ms後に隠れる、を確認)。
-「結果は演出の前に保存、onDoneで1回だけ表示」という不変条件(Phase16 PR2)は、timeline.skip()が
-通常の飛ばす操作と同じ関数であるため、そのまま保たれる。決定・テスト結果は
-docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「演出の全スキップ設定・セリフの速さ/表示時間の
-設定(Phase 23 PR 2)」節を追記。
+Phase 23 PR3: 音量・品質・アニメーション軽減の点検。BGMを簡略化する設定(PR #83、マージ済み、
+本番確認済み)。点検の結果、音量(settings.jsのvolume)・アニメーション軽減(Phase21のmotion.js)は、
+コードの変更なし(既存のまま正しく動作)。「品質」=BGMを簡略化する設定(settings.jsのsimpleSound。
+既定オフ。simpleGraphics=Phase22 PR3とは別の設定)を追加。sound.jsのbgmStepNotes(step, pitch,
+simple)に第3引数simple(既定false・後方互換)。trueのとき、BGMはメロディー(square波)を鳴らさず、
+低音(triangle波)だけにする(同時に鳴らすオシレーターの数を減らす。効果音は変えない)。audio.jsの
+configure({ mode, volume, simple })にsimpleを追加。view.js/index.htmlは、既存の音の設定欄の中に
+チェックボックスを追加(用語確認でも隠さない)。main.jsは、既存のchangeSound(保存+反映)を再利用。
+単体テスト1969件(新規tests/sound-quality.test.js 9件、sound.test.js・audio.test.jsに簡略化の
+検証を追加)・実ブラウザE2E5件(偽AudioContextで、実際に鳴らすオシレーターの種類を記録し、
+simpleSound=trueでメロディーが鳴らないことを確認)、すべて成功。決定・テスト結果は
+docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「音量・品質・アニメーション軽減の点検。BGMを
+簡略化する設定(Phase 23 PR 3)」節を追記。
 
-**Phase 23 PR1(#79)は、この前に完了した**。
+**Phase 23(PR1=#79・PR2=#81・PR3=#83)は、この PR ですべて完了した**。
 ```
 
 ### 最後に変更したファイル
@@ -221,7 +219,7 @@ docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「演出の全スキップ�
 ### 最後のコミット
 
 ```text
-(PR #81 のマージコミット。git log --oneline -1 で確認)
+(PR #83 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ---
@@ -285,14 +283,14 @@ main
 ## Last Commit
 
 ```text
-(PR #81 のマージコミット。git log --oneline -1 で確認)
+(PR #83 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ## Pull Request
 
 ```text
-直近マージ: #81(Phase 23 PR 2)、#79(Phase 23 PR 1)、#78(chore)、#77(Phase 22 PR 3。Phase 22 完了)、
-#75(Phase 22 PR 2)、#74(chore)、#73(Phase 22 PR 1)
+直近マージ: #83(Phase 23 PR 3。Phase 23 完了)、#81(Phase 23 PR 2)、#79(Phase 23 PR 1)、
+#78(chore)、#77(Phase 22 PR 3。Phase 22 完了)、#75(Phase 22 PR 2)
 オープン中: なし
 ```
 
@@ -362,6 +360,7 @@ main
 | (chore)      | 2026-09-25     | #78           | 進捗ファイル整備(Phase 22 完了の反映)                                                                   |
 | Phase 23 PR1 | 2026-09-25     | #79           | 役職ごとのBGM・効果音(職種・役職・状況による変化)                                                       |
 | Phase 23 PR2 | 2026-09-25     | #81           | 演出の全スキップ設定・セリフの速さ/表示時間の設定                                                       |
+| Phase 23 PR3 | 2026-09-25     | #83           | 音量・品質・アニメーション軽減の点検。BGMを簡略化する設定(**Phase 23 完了**)                            |
 
 ---
 
@@ -510,43 +509,40 @@ Claude Codeは、
 ==================================================
 
 Phase:
-Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1・PR2完了(**Phase 22 は 3 PR すべて完了**)
+Phase 24(語録の拡張ファイル・追加フロー)。**Phase 23(BGM/効果音の役職別拡張・演出設定)は、
+3 PR すべて完了**
 
 Status:
 IN_PROGRESS
 
 Branch:
-main(Phase 23 PR2 は #81 でマージ済み。PR3 用ブランチは、まだ未作成)
+main(Phase 23 PR3 は #83 でマージ済み。Phase 24 用ブランチは、まだ未作成)
 
 Task:
-Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の仕様確認・実装計画
+Phase 24(語録の拡張ファイル・追加フロー)の仕様確認(`docs/01_phases/phase-24.md`)・実装計画
 
 Last Completed:
-**Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)を、完了した**(PR #81、
-マージ済み)。`settings.js`に`skipStaging`(既定オフ)・`lineLevel`(既定`normal`)を追加(既存の
-`nolito:escape-boss:settings:v1`に保存)。`lines.js`に`LINE_LEVELS`(`few`/`normal`/`many`。段階
-ごとの`gapMs`・`bubbleMs`)・`lineLevelOf`を追加。`main.js`の`beginIntro`・`beginOutro`で、
-`skipStaging`がオンのとき`timeline.start()`の直後に`timeline.skip()`を呼ぶ(**既存の飛ばす操作=
-Enter・スペース・Esc・場面のクリックと、まったく同じしくみ**を自動で使うだけ。新しい進行のしくみは
-作らない)。`lineLevelOf(settings.lineLevel)`の`gapMs`・`bubbleMs`を`createLines()`・`showBubble()`
-に渡す(既存の依存注入をそのまま利用)。`view.js`/`index.html`に選択欄・チェックボックスを追加し、
-用語確認では両方とも隠す(場面・演出・セリフが、そもそもないため)。単体テスト1957件(新規
-`tests/staging-settings.test.js`15件・`lines.test.js`に5件追加。`DEFAULT_SETTINGS`の形が変わった
-分、`check.test.js`・`sound.test.js`の既存期待値を更新)・実ブラウザE2E8件、すべて成功(設定の
-表示/非表示(モードごと)・保存/復元・`skipStaging: true`で演出バナーがすぐ隠れる・`false`(既定)
-では約800ms後に隠れる・スキップ後も「やめる」で進行が壊れない、を確認)。「結果は演出の前に保存、
-`onDone`のときだけ結果画面を表示する」という不変条件(Phase16 PR2)は、`timeline.skip()`が通常の
-飛ばす操作とまったく同じ関数であるため、そのまま保たれる(既存の`tests/staging.test.js`が引き続き
-カバー)。決定・テスト結果は docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「演出の全スキップ
-設定・セリフの速さ/表示時間の設定(Phase 23 PR 2)」節を追記。
+**Phase 23 PR3(音量・品質・アニメーション軽減の点検。BGMを簡略化する設定)を、完了した**(PR #83、
+マージ済み。**これで Phase 23 が完了**)。点検の結果、音量(`settings.js`の`volume`)・アニメーション
+軽減(Phase21の`motion.js`)は、コードの変更なし(既存のまま、正しく動作していることを確認)。
+「品質」=BGMを簡略化する設定(`settings.js`の`simpleSound`。既定オフ。`simpleGraphics`=Phase22
+PR3とは別の設定。視覚と聴覚は別の感覚のため)を追加。`sound.js`の`bgmStepNotes(step, pitch, simple)`
+に第3引数`simple`(既定false・後方互換)。trueのとき、BGMはメロディー(square波)を鳴らさず、低音
+(triangle波)だけにする(同時に鳴らすオシレーターの数を減らす。効果音は変えない)。`audio.js`の
+`configure({ mode, volume, simple })`に`simple`を追加。`view.js`/`index.html`は、既存の音の設定欄
+の中にチェックボックスを追加(用語確認でも隠さない)。`main.js`は、既存の`changeSound`(保存+反映)
+を再利用。単体テスト1969件(新規`tests/sound-quality.test.js`9件、`sound.test.js`・`audio.test.js`
+に簡略化の検証を追加)・実ブラウザE2E5件(偽`AudioContext`で、実際に鳴らすオシレーターの種類を
+記録し、`simpleSound=true`でメロディーが鳴らないことを確認)、すべて成功。決定・テスト結果は
+docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「音量・品質・アニメーション軽減の点検。BGMを
+簡略化する設定(Phase 23 PR 3)」節を追記。
 
-**Phase 23 PR1(#79)は、この前に完了した**。
+**Phase 23(PR1=#79・PR2=#81・PR3=#83)は、この PR ですべて完了した**。
 
 Next Action:
-Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の詳細を、0048
-決定ログに追記してから着手する。音量(`settings.js`の`volume`)・アニメーション軽減(Phase21の
-`motion.js`)は既にあるため、点検が中心になる見込み。「品質」(低性能端末向けの音の簡略化)が、
-新しい要素になる可能性がある。既存の`simpleGraphics`(Phase22 PR3)との役割分担を、着手前に整理する。
+Phase 24(語録の拡張ファイル・追加フロー)に着手する。まず`docs/01_phases/phase-24.md`を読み、
+Phase14(語録の原稿管理。`content/vocabulary/<職種ID>.md` → `npm run build:vocabulary`)・Phase11
+(語録の確認フロー。`docs/vocabulary-review.md`)の既存実装を確認してから、実装方針・PR分割を決める。
 
 Human Task:
 なし。Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
