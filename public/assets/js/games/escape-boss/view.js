@@ -116,7 +116,8 @@ export function createView(root) {
   const currentMode = () => (checkedValue("mode") === "check" ? "check" : "chase");
 
   // 用語確認では、追ってくる人の選択・説明の設定(いつも表示する)を隠し、開始のボタンの文言を変える。
-  // グラフィックを抑える設定(場面の演出を抑える)は、用語確認には場面がそもそもないため、対象外
+  // グラフィックを抑える設定(場面の演出を抑える)・セリフの表示・演出を自動で飛ばす設定は、
+  // 用語確認には場面も演出もセリフもそもそもないため、対象外
   function applyMode() {
     const check = currentMode() === "check";
     $("[data-role-fieldset]").hidden = check;
@@ -124,6 +125,8 @@ export function createView(root) {
     $("[data-explanation-option]").hidden = check;
     $("[data-weak-option]").hidden = check;
     $("[data-graphics-option]").hidden = check;
+    $("[data-line-option]").hidden = check;
+    $("[data-staging-option]").hidden = check;
     $("[data-start]").textContent = check ? "用語確認を始める" : "スタート";
   }
 
@@ -465,6 +468,8 @@ export function createView(root) {
       onStart,
       onExplanationChange,
       onGraphicsChange,
+      onLineLevelChange,
+      onSkipStagingChange,
       onWeakBoostChange,
       onInputStyleChange,
       onSoundModeChange,
@@ -505,6 +510,12 @@ export function createView(root) {
       );
       $("[data-simple-graphics]").addEventListener("change", (event) =>
         onGraphicsChange(event.target.checked),
+      );
+      $("[data-line-level]").addEventListener("change", (event) =>
+        onLineLevelChange(event.target.value),
+      );
+      $("[data-skip-staging]").addEventListener("change", (event) =>
+        onSkipStagingChange(event.target.checked),
       );
       $("[data-weak-boost]").addEventListener("change", (event) =>
         onWeakBoostChange(event.target.value),
@@ -678,6 +689,16 @@ export function createView(root) {
     // 「グラフィックを抑える」のチェック(保存されていた設定を反映する)
     setGraphicsSetting(checked) {
       $("[data-simple-graphics]").checked = checked;
+    },
+
+    // 「セリフの表示」の選択(保存されていた設定を反映する)
+    setLineLevelSetting(level) {
+      $("[data-line-level]").value = level;
+    },
+
+    // 「演出を自動で飛ばす」のチェック(保存されていた設定を反映する)
+    setSkipStagingSetting(checked) {
+      $("[data-skip-staging]").checked = checked;
     },
 
     // 「苦手な語の出やすさ」の選択(保存されていた設定を反映する)
