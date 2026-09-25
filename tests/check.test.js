@@ -210,6 +210,7 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });
@@ -220,6 +221,7 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });
@@ -235,6 +237,7 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });
@@ -263,6 +266,7 @@ describe("ゲームの設定", () => {
           inputStyle: "standard",
           soundMode: "off",
           volume: 50,
+          simpleSound: false,
           lineLevel: "normal",
           skipStaging: false,
         },
@@ -276,6 +280,7 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });
@@ -289,6 +294,7 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });
@@ -308,6 +314,7 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });
@@ -324,6 +331,7 @@ describe("ゲームの設定", () => {
           inputStyle: "standard",
           soundMode: "off",
           volume: 50,
+          simpleSound: false,
           lineLevel: "normal",
           skipStaging: false,
         }),
@@ -336,6 +344,7 @@ describe("ゲームの設定", () => {
         inputStyle: "standard",
         soundMode: "off",
         volume: 50,
+        simpleSound: false,
         lineLevel: "normal",
         skipStaging: false,
       });
@@ -351,6 +360,7 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });
@@ -370,6 +380,7 @@ describe("ゲームの設定", () => {
         inputStyle: name,
         soundMode: "off",
         volume: 50,
+        simpleSound: false,
         lineLevel: "normal",
         skipStaging: false,
       });
@@ -398,6 +409,7 @@ describe("ゲームの設定", () => {
         inputStyle: "standard",
         soundMode: "off",
         volume: 50,
+        simpleSound: false,
         lineLevel: "normal",
         skipStaging: false,
       },
