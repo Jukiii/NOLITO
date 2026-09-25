@@ -427,3 +427,11 @@ Phase 23 は、複数の PR に分ける(計画は `docs/decisions/0048-phase-23
 - **「セリフの表示」**(`settings.js` の `lineLevel`。`few`(少なめ)/`normal`(ふつう。既定)/`many`(多め))。`lines.js` の `LINE_LEVELS` に、段階ごとの `gapMs`(吹き出しの間隔)・`bubbleMs`(表示時間)を持つ。「ふつう」は、これまでの値(`MIN_GAP_MS`=4000ms・`BUBBLE_MS`=2000ms)のまま。少なめは、間隔を広く(×1.5)・表示を短く(×0.75)。多めは、間隔を狭く(×0.625)・表示を長く(×1.25)。`lineLevelOf(level)` が、知らない段階なら「ふつう」を返す(壊れない)。
 - `main.js` は、`createLines({ gapMs: lineLevelOf(settings.lineLevel).gapMs })`(既存の依存注入をそのまま使う)、`say()` で `view.showBubble(..., lineLevelOf(settings.lineLevel).bubbleMs)` を呼ぶ。**新しい保存項目・新しい判定ロジックは増やしていない**(`lines.js`・`main.js` の該当箇所は、もともと値を引数として受け取れる設計だったため)。
 - どちらも `nolito:escape-boss:settings:v1`(既存のキー)に保存する(記録=`nolito:escape-boss:v1` とは別)。ダッシュボードの「グラフィックを抑える」の直後・「苦手な語の出やすさ」の直前に、選択欄(セリフの表示)・チェックボックス(演出を自動で飛ばす)を追加。**用語確認では、両方とも隠す**(場面・演出・セリフが、そもそもないため。`view.js` の `applyMode()`)。
+
+### 音量・品質・アニメーション軽減の点検。BGMを簡略化する設定(Phase 23 PR 3)
+
+- **点検の結果、音量(`settings.js` の `volume`)・アニメーション軽減(Phase21の `motion.js`)は、コードの変更はしていない**: どちらも既存のまま、正しく動作している(Phase 23 PR1・PR2 を追加したあとも、影響なし)。
+- **「品質」= BGMを簡略化する**(`settings.js` の `simpleSound`。既定オフ。**`simpleGraphics`=グラフィックを抑える=Phase22 PR3とは、別の設定**。視覚と聴覚は別の感覚のため)。Web Audio 合成という設計上、ビットレートのような概念はないため、**低性能端末向けに意味があるのは、同時に鳴らすオシレーターの数を減らすこと**と判断した。ONのとき、BGMは低音(BASS)だけを鳴らし、メロディー(MELODY)を鳴らさない(`sound.js` の `bgmStepNotes(step, pitch, simple)` の第3引数。既定false・後方互換)。効果音は変えない(もともと短く、負荷が小さいため)。
+- 実装は `audio.js` の `configure({ mode, volume, simple })`(次に予約するBGMの拍から反映)。`main.js` は、既存の `changeSound`(保存+反映をまとめて行う関数)を再利用し、`onSimpleSoundChange: (checked) => changeSound({ simpleSound: checked })`。UIは、既存の音の設定欄(`data-sound-option`)の中、音量の下に、チェックボックス(`data-simple-sound`)を追加(**用語確認でも隠さない**。音の設定欄自体が、いつも表示されているため)。
+- **役職の個性(tempo・pitch。Phase23 PR1)・テンポは変えない**(低性能端末向け設定で役職の判別がつきにくくならないように)。
+- **Phase 23(役職ごとのBGM・効果音 → 演出の全スキップ設定・セリフ設定 → 音量・品質・アニメーション軽減の点検)は、この PR で完了**。
