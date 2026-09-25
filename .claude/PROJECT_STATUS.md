@@ -8,16 +8,16 @@
 
 # 1. プロジェクト情報
 
-| 項目           | 内容                                               |
-| -------------- | -------------------------------------------------- |
-| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)           |
-| 開発方式       | Claude Codeによる自律開発                          |
-| リポジトリ     | https://github.com/Jukiii/NOLITO(public)           |
-| 本番           | https://nolito.pages.dev(Cloudflare Pages)         |
-| 開発開始日     | 2026-09-19頃(PR #1)                                |
-| 最終更新日時   | 2026-09-25                                         |
-| 現在のフェーズ | Phase 23(BGM/効果音の役職別拡張・演出設定)。未着手 |
-| 現在の状態     | IN_PROGRESS                                        |
+| 項目           | 内容                                                |
+| -------------- | --------------------------------------------------- |
+| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)            |
+| 開発方式       | Claude Codeによる自律開発                           |
+| リポジトリ     | https://github.com/Jukiii/NOLITO(public)            |
+| 本番           | https://nolito.pages.dev(Cloudflare Pages)          |
+| 開発開始日     | 2026-09-19頃(PR #1)                                 |
+| 最終更新日時   | 2026-09-25                                          |
+| 現在のフェーズ | Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1完了 |
+| 現在の状態     | IN_PROGRESS                                         |
 
 ---
 
@@ -60,7 +60,7 @@
 | Phase 20 | ナビ拡張・トップページ・検索                                             | **COMPLETED** | PR1=#63, PR2=#64, PR3=#65                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0045決定ログ)。静的サイトのみの変更のため、本番マイグレーションなし |
 | Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | **COMPLETED** | PR1=#67, PR2=#69, PR3=#71(本番マイグレーション適用済み)       | -                                              | 3 PR すべて完了・マージ・本番確認済み(0046決定ログ)                                                       |
 | Phase 22 | キーボード/タッチ操作・端末最適化                                        | **COMPLETED** | PR1=#73, PR2=#75, PR3=#77                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0047決定ログ)                                                       |
-| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
+| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | IN_PROGRESS   | PR1=#79                                                       | -                                              | PR1(役職ごとのBGM・効果音)完了・マージ・本番確認済み(0048決定ログ)。PR2・PR3は未着手                      |
 | Phase 24 | 語録の拡張ファイル・追加フロー                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 25 | AI活用(生成・チェック・提案)                                             | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 26 | 管理画面・RBAC                                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
@@ -76,31 +76,32 @@
 ## Current Phase
 
 ```text
-Phase 23(BGM/効果音の役職別拡張・演出設定)。未着手(Phase 22 は 3 PR すべて完了)
+Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1完了。次はPR2(演出の全スキップ・セリフ設定)
 ```
 
 ## Current Status
 
 ```text
-IN_PROGRESS(Phase 22 完了。次は Phase 23)
+IN_PROGRESS(Phase 23 PR1 完了。次はPR2)
 ```
 
 ## Current Branch
 
 ```text
-main(Phase 22 の全 PR がマージ済み。Phase 23 用ブランチは、まだ作成していない)
+main(Phase 23 PR1 は #79 でマージ済み。PR2 用のブランチは、まだ作成していない)
 ```
 
 ## Current Task
 
 ```text
-Phase 23(docs/01_phases/phase-23.md)の仕様確認・実装計画
+Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の仕様確認・実装計画。
+0048決定ログのPR分割のとおり。
 ```
 
 ## Current Step
 
 ```text
-Phase 23 の仕様書を読み、前フェーズ(Phase 16 PR3の音の設計)との整合を確認して、実装計画を立てる
+Phase 23 PR2 の詳細を、0048 決定ログに追記してから着手する
 ```
 
 ---
@@ -177,32 +178,32 @@ docs/decisions/0042-phase-19-plan.md(全体の計画。PR1〜PR3の内訳)
 ### 今何をしているか
 
 ```text
-Phase 22(モバイル・ソフトウェアキーボード対応・タッチ操作点検・低性能端末設定)の全 3 PR を、
-実装・テスト・マージ・本番確認まで完了した。次は Phase 23。
+Phase 23 PR1(役職ごとのBGM・効果音)を実装・テスト・マージ・本番確認まで完了した。
+次は PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)。
 ```
 
 ### 次に行う作業
 
 ```text
-1. Phase 23(docs/01_phases/phase-23.md)の仕様確認・実装計画
-2. phase-23-<name>(仮)ブランチ(main から)で、Phase 23 に着手する
+1. Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の詳細を、0048 決定ログに追記
+2. phase-23-staging(仮)ブランチ(main から)で、PR2 に着手する
 ```
 
 ### 最後に完了した作業
 
 ```text
-Phase 22 PR3: 低性能端末向け設定「グラフィックを抑える」・最適化点検(PR #77、マージ済み、
-本番確認済み)。画像・アニメーション・音声は、点検の結果、コードの変更なし(SVG中心・
-lazy loading済み・Phase21で動き対応済み・Web Audio合成のみで最適化不要、をそれぞれ確認)。
-settings.js に simpleGraphics(既定false。動きを減らす設定=Phase21とは別軸)を追加。ONのとき、
-場面の背景SVGを読み込まず、終わりの演出の紙吹雪・輝きをCSSで消す。単体テスト1916件(新規15件を
-含む)・実ブラウザE2E7件、すべて成功。**Phase 22 は、この PR で完了**。決定・テスト結果は
-docs/decisions/0047-phase-22-plan.md。CLAUDE.md に「画像・アニメーション・音声の最適化点検・
-低性能端末向け設定(Phase 22 PR 3)」節を追記。
+Phase 23 PR1: 役職ごとのBGM・効果音(職種・役職・状況による変化。PR #79、マージ済み、本番確認済み)。
+roles.jsonの全役職にsound:{tempo,pitch}(先輩1.0/1.0→会長1.2/1.1。役職が進むほど単調増加、最大1.3
+倍以内)。role-sound.js(新規)にroleSoundOf(壊れた値は既定へ)・DANGER_TEMPO_BOOST。sound.jsの
+bgmStepNotes・effectNotesにpitch引数(既定1・後方互換。音の高さだけずらす)。audio.jsに
+setRoleSound・setDanger(BGMの拍の間隔=BGM_STEP_SEC/(tempo×danger倍率))。main.jsのbeginGame・
+tick・quitを配線。**職種による音の変化は、既知の制限として対応しない**(6職種分の作曲は、データ
+駆動の設計方針を超える大きなコンテンツ制作のため)。単体テスト1938件(新規22件を含む)・実ブラウザ
+E2E(偽AudioContextで鳴らす指示を記録)3件、すべて成功。決定・テスト結果は
+docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「役職ごとのBGM・効果音・演出設定(Phase 23)」
+節を追記。
 
-Phase 22 PR2(タッチ操作の点検。問題なし。PR #75)・PR1(モバイル・ソフトウェアキーボード対応。
-PR #73)も、その前に完了・マージ・本番確認済み。**Phase 21(PR1=#67・PR2=#69・PR3=#71)は、
-すべて完了済み**。
+**Phase 22(PR1=#73・PR2=#75・PR3=#77)は、この前にすべて完了した**。
 ```
 
 ### 最後に変更したファイル
@@ -278,14 +279,14 @@ main
 ## Last Commit
 
 ```text
-(PR #77 のマージコミット。git log --oneline -1 で確認)
+(PR #79 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ## Pull Request
 
 ```text
-直近マージ: #77(Phase 22 PR 3。Phase 22 完了)、#75(Phase 22 PR 2)、#74(chore)、
-#73(Phase 22 PR 1)、#72(chore)、#71(Phase 21 PR 3。Phase 21 完了)
+直近マージ: #79(Phase 23 PR 1)、#78(chore)、#77(Phase 22 PR 3。Phase 22 完了)、
+#75(Phase 22 PR 2)、#74(chore)、#73(Phase 22 PR 1)
 オープン中: なし
 ```
 
@@ -352,6 +353,8 @@ main
 | Phase 22 PR1 | 2026-09-25     | #73           | モバイル・ソフトウェアキーボード対応・縦横自動調整・回転対応                                            |
 | Phase 22 PR2 | 2026-09-25     | #75           | タッチ操作の点検(既存実装が基準を満たすことを確認。コード修正なし)                                      |
 | Phase 22 PR3 | 2026-09-25     | #77           | 低性能端末向け設定「グラフィックを抑える」・最適化点検(**Phase 22 完了**)                               |
+| (chore)      | 2026-09-25     | #78           | 進捗ファイル整備(Phase 22 完了の反映)                                                                   |
+| Phase 23 PR1 | 2026-09-25     | #79           | 役職ごとのBGM・効果音(職種・役職・状況による変化)                                                       |
 
 ---
 
@@ -500,37 +503,40 @@ Claude Codeは、
 ==================================================
 
 Phase:
-Phase 23(BGM/効果音の役職別拡張・演出設定)。未着手(**Phase 22 は 3 PR すべて完了**)
+Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1完了(**Phase 22 は 3 PR すべて完了**)
 
 Status:
 IN_PROGRESS
 
 Branch:
-main(Phase 22 の全 PR がマージ済み。Phase 23 用ブランチは、まだ未作成)
+main(Phase 23 PR1 がマージ済み。PR2 用ブランチは、まだ未作成)
 
 Task:
-Phase 23(docs/01_phases/phase-23.md)の仕様確認・実装計画
+Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の仕様確認・実装計画
 
 Last Completed:
-**Phase 22 PR3(低性能端末向け設定「グラフィックを抑える」・最適化点検)を、完了した**(PR #77、
-マージ済み)。**画像・アニメーション・音声は、点検の結果、コードの変更なし**(画像はSVG中心・
-プロダクトのスクリーンショットは既にlazy loading済み。アニメーションはPhase21で対応済み。音声は
-Web Audio合成のみで、そもそも最適化不要な設計=Phase16)。`settings.js`に`simpleGraphics`(既定
-false。動きを減らす設定=Phase21とは**別軸**。「動きの速さ」ではなく「描画される要素の数」を
-減らす)を追加。ONのとき、場面の背景SVG(`--scene-bg`)を読み込まず、終わりの演出の紙吹雪・輝き
-(`.scene__confetti`・`.scene__glow`)をCSSで消す。**CSSの詳細度の課題**(役職ごとのoutroルールの
-ほうが詳細度が高い)を、輝きは`!important`、紙吹雪は詳細度の低い順に配置、で解決(stylelintの
-no-descending-specificityに対応)。単体テスト1916件(新規15件を含む)・実ブラウザE2E7件、すべて
-成功。**Phase 22 は、この PR で完了**。決定・テスト結果は docs/decisions/0047-phase-22-plan.md。
-CLAUDE.md に「画像・アニメーション・音声の最適化点検・低性能端末向け設定(Phase 22 PR 3)」節を追記。
+**Phase 23 PR1(役職ごとのBGM・効果音。職種・役職・状況による変化)を、完了した**(PR #79、
+マージ済み)。`roles.json`の全役職に`sound: { tempo, pitch }`(先輩1.0/1.0→会長1.2/1.1。役職が
+進むほど単調増加、最大1.3倍以内=不快な速さ・高さにしない)。`role-sound.js`(新規、DOM/音非依存の
+純粋関数)に`roleSoundOf(role)`(壊れた値は、tempo・pitchそれぞれ独立に既定へ)・
+`DANGER_TEMPO_BOOST`。`sound.js`の`bgmStepNotes`・`effectNotes`に`pitch`引数(既定1・後方互換。
+**音の高さだけをずらし、音色・長さ・大きさは変えない**)。`audio.js`に`setRoleSound({tempo,pitch})`・
+`setDanger(active)`(BGMの拍の間隔=`BGM_STEP_SEC / (tempo × danger倍率)`)。`main.js`の`beginGame`
+(ゲーム開始のたびに役職の音を設定)・`tick`(危ない状態が**変わったときだけ**setDanger)・`quit`
+(既定に戻す)を配線。**職種による音の変化は、既知の制限として対応しない**(6職種分の作曲は、この
+プロジェクトのデータ駆動という設計方針を超える、大きなコンテンツ制作のため。職種の個性は、既に
+背景の絵=Phase15で表現)。単体テスト1938件(新規22件を含む)・実ブラウザE2E(偽AudioContextで
+鳴らす指示=周波数・拍の間隔を記録し、実際のゲーム操作を通して確認)3件、すべて成功。決定・テスト
+結果は docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「役職ごとのBGM・効果音・演出設定
+(Phase 23)」節を追記。
 
-Phase 22 PR2(タッチ操作の点検。問題なし。PR #75)・PR1(モバイル・ソフトウェアキーボード対応・
-縦横自動調整・回転対応。PR #73)も、その前に完了・マージ・本番確認済み。**Phase 21(PR1=#67・
-PR2=#69・PR3=#71)は、すべて完了済み**。
+**Phase 22(PR1=#73・PR2=#75・PR3=#77)は、この前にすべて完了した**。
 
 Next Action:
-Phase 23(docs/01_phases/phase-23.md)の仕様書を読み、Phase 16 PR3(音の設計。Web Audio合成の
-み・soundMode/volumeの既存設定)との整合を確認して、実装計画を立てる。
+Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の詳細を、0048 決定ログに追記
+してから着手する。`staging.js`の`timeline.skip()`(既存)を、新しい設定から自動で呼ぶ形と、
+`lines.js`の`createLines({ gapMs })`・`main.js`の`BUBBLE_MS`(どちらも、すでに引数で渡せる設計)
+に、設定値を配線する形を想定。
 
 Human Task:
 なし。Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
