@@ -133,6 +133,31 @@
                 場面の背景の絵・クリア/ゲームオーバー時の紙吹雪や光の演出を、表示しません。「動きを減らす」設定(フッターのサイト全体の設定)とは別です。
               </p>
             </div>
+            <div class="game-setup__option game-setup__option--field" data-line-option>
+              <label for="line-level">セリフの表示</label>
+              <select
+                class="game-input__field"
+                id="line-level"
+                aria-describedby="line-level-hint"
+                data-line-level
+              >
+                <option value="few">少なめ</option>
+                <option value="normal">ふつう</option>
+                <option value="many">多め</option>
+              </select>
+              <p class="game-setup__hint" id="line-level-hint">
+                追ってくる人の吹き出しの、出る間隔と、表示している時間です。
+              </p>
+            </div>
+            <div class="game-setup__option game-setup__option--field" data-staging-option>
+              <div class="game-setup__checkbox-row">
+                <input type="checkbox" id="skip-staging" data-skip-staging />
+                <label for="skip-staging">演出を自動で飛ばす</label>
+              </div>
+              <p class="game-setup__hint" id="skip-staging-hint">
+                開始・終わりの演出(「よーい…スタート!」「逃げ切った!」など)を、押さなくても、すぐに飛ばします。
+              </p>
+            </div>
             <div class="game-setup__option game-setup__option--field" data-weak-option>
               <label for="weak-boost">苦手な語の出やすさ</label>
               <select

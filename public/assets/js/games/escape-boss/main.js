@@ -30,7 +30,7 @@ import {
 } from "./records.js";
 import { levelOf } from "./levels.js";
 import { jobMasteries } from "./mastery.js";
-import { createLines, BUBBLE_MS } from "./lines.js";
+import { createLines, lineLevelOf } from "./lines.js";
 import { createMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
 import { roleSoundOf } from "./role-sound.js";
@@ -245,6 +245,8 @@ async function init() {
   storageNotice = noticeFor(status);
   view.setExplanationSetting(settings.showExplanation);
   view.setGraphicsSetting(settings.simpleGraphics);
+  view.setLineLevelSetting(settings.lineLevel);
+  view.setSkipStagingSetting(settings.skipStaging);
   view.setWeakBoostSetting(settings.weakBoost);
   view.setInputStyleSetting(settings.inputStyle);
   applySound();
@@ -280,6 +282,15 @@ async function init() {
     },
     onGraphicsChange: (checked) => {
       settings = { ...settings, simpleGraphics: checked };
+      saveSettings(backend, settings);
+    },
+    onLineLevelChange: (level) => {
+      settings = normalizeSettings({ ...settings, lineLevel: level });
+      saveSettings(backend, settings);
+      view.setLineLevelSetting(settings.lineLevel);
+    },
+    onSkipStagingChange: (checked) => {
+      settings = { ...settings, skipStaging: checked };
       saveSettings(backend, settings);
     },
     onWeakBoostChange: (level) => {
@@ -602,7 +613,7 @@ async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
     kind: "chase",
     // intro(開始の演出。時間も入力も止まっている)→ play → outro(終わりの演出。結果は保存済み)
     phase: "intro",
-    lines: createLines(),
+    lines: createLines({ gapMs: lineLevelOf(settings.lineLevel).gapMs }),
     wasDanger: false,
     job,
     role,
@@ -645,12 +656,14 @@ function beginIntro() {
     },
   });
   timeline.start();
+  // 「演出を自動で飛ばす」設定(Phase 23 PR2)。既存の「飛ばす」操作(Enter・スペース・Esc・クリック)と、同じしくみ
+  if (settings.skipStaging) timeline.skip();
 }
 
 // 追ってくる人のセリフ(飾りの吹き出し)。言わないとき(間隔・セリフなし)は、null
 function say(event) {
   const line = session.lines.pick(session.role, event, performance.now());
-  if (line) view.showBubble(session.role.name, line, BUBBLE_MS);
+  if (line) view.showBubble(session.role.name, line, lineLevelOf(settings.lineLevel).bubbleMs);
   return line;
 }
 
@@ -832,6 +845,8 @@ function beginOutro(resultView, message) {
     },
   });
   timeline.start();
+  // 「演出を自動で飛ばす」設定(Phase 23 PR2)。既存の「飛ばす」操作と、同じしくみ(飛ばしても onDone は1回だけ)
+  if (settings.skipStaging) timeline.skip();
 }
 
 function handleChar(char) {

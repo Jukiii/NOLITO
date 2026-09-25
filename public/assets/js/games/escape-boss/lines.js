@@ -7,8 +7,24 @@ export const LINE_EVENTS = Object.freeze(["start", "near", "miss", "clear", "ove
 const ALWAYS = new Set(["start", "clear", "over"]);
 
 export const MAX_LINE_LENGTH = 20; // 1 つのセリフの最大の長さ(文字)
-export const BUBBLE_MS = 2000; // プレイ中の吹き出しを出しておく時間
-export const MIN_GAP_MS = 4000; // プレイ中(near・miss)の吹き出しの最小の間隔
+export const BUBBLE_MS = 2000; // プレイ中の吹き出しを出しておく時間(「ふつう」の値)
+export const MIN_GAP_MS = 4000; // プレイ中(near・miss)の吹き出しの最小の間隔(「ふつう」の値)
+
+// セリフの速さ・表示時間の段階(Phase 23 PR2)。「少なめ」は、間隔を広く・短めに表示。
+// 「多め」は、間隔を狭く・長めに表示(にぎやかに)。既定は「ふつう」(これまでの値のまま)
+export const LINE_LEVELS = Object.freeze({
+  few: Object.freeze({ label: "少なめ", gapMs: MIN_GAP_MS * 1.5, bubbleMs: BUBBLE_MS * 0.75 }),
+  normal: Object.freeze({ label: "ふつう", gapMs: MIN_GAP_MS, bubbleMs: BUBBLE_MS }),
+  many: Object.freeze({ label: "多め", gapMs: MIN_GAP_MS * 0.625, bubbleMs: BUBBLE_MS * 1.25 }),
+});
+export const DEFAULT_LINE_LEVEL = "normal";
+
+/** 知っている段階の名前か。 */
+export const isLineLevel = (value) =>
+  typeof value === "string" && Object.hasOwn(LINE_LEVELS, value);
+
+/** 段階から、間隔(gapMs)・表示時間(bubbleMs)を取り出す。知らない段階は「ふつう」 */
+export const lineLevelOf = (level) => LINE_LEVELS[isLineLevel(level) ? level : DEFAULT_LINE_LEVEL];
 
 // 制御文字・向きを変える文字・<>(HTML と間違えられるもの)を含まない、長さが範囲内の文字列だけ
 const UNSAFE = /[\p{Cc}\p{Cf}\p{Zl}\p{Zp}<>]/u;
