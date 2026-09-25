@@ -820,6 +820,11 @@
   animation: scene-confetti 1.1s ease-in forwards;
 }
 
+/* グラフィックを抑える設定(低性能な端末向け。Phase 22 PR3)では、紙吹雪を出さない */
+.scene[data-simple-graphics] .scene__confetti {
+  display: none;
+}
+
 .scene[data-stage="clear"] .scene__chaser {
   animation: scene-outro-back 1.1s ease-in forwards;
 }
@@ -1042,6 +1047,16 @@
     var(--glow, var(--color-accent)) 0,
     transparent 55%
   );
+}
+
+/*
+ * グラフィックを抑える設定(低性能な端末向け。Phase 22 PR3)では、輝きを出さない。
+ * 社長・会長の outro(下)は、詳細度がこのルールより高く display: block を付けるので、
+ * !important で確実に上書きする(Phase 21 の「動きを減らす」設定と、同じ考え方。
+ * base.css の animation-duration の上書きを参照)。
+ */
+.scene[data-simple-graphics] .scene__glow {
+  display: none !important;
 }
 
 .scene[data-stage="over"][data-outro="shine"] .scene__chaser {
@@ -1456,6 +1471,13 @@
 
 .game-setup__option--field .game-setup__hint {
   margin: 0;
+}
+
+/* チェックボックス+ラベルの行(--field の中に、選択肢の代わりに置く。グラフィックを抑える等) */
+.game-setup__checkbox-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
 }
 
 /* 音量の見出しと、いまの値 */

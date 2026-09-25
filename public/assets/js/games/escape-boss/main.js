@@ -243,6 +243,7 @@ async function init() {
   const { status } = store.load();
   storageNotice = noticeFor(status);
   view.setExplanationSetting(settings.showExplanation);
+  view.setGraphicsSetting(settings.simpleGraphics);
   view.setWeakBoostSetting(settings.weakBoost);
   view.setInputStyleSetting(settings.inputStyle);
   applySound();
@@ -274,6 +275,10 @@ async function init() {
     },
     onExplanationChange: (checked) => {
       settings = { ...settings, showExplanation: checked };
+      saveSettings(backend, settings);
+    },
+    onGraphicsChange: (checked) => {
+      settings = { ...settings, simpleGraphics: checked };
       saveSettings(backend, settings);
     },
     onWeakBoostChange: (level) => {
@@ -618,6 +623,7 @@ async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
     role,
     goal: stage.goal_words,
     showExplanation: settings.showExplanation,
+    simpleGraphics: settings.simpleGraphics,
   });
   view.announce(`ゲーム開始。職種は${job.name}。${role.name}が追ってきます。よーい…`);
   view.renderWord(words[0], session.matcher);

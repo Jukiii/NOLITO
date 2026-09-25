@@ -205,6 +205,7 @@ describe("ゲームの設定", () => {
   it("既定: 説明は、オフ。苦手な語の出やすさは、ふつう", () => {
     assert.deepEqual(DEFAULT_SETTINGS, {
       showExplanation: false,
+      simpleGraphics: false,
       weakBoost: "normal",
       inputStyle: "standard",
       soundMode: "off",
@@ -212,6 +213,7 @@ describe("ゲームの設定", () => {
     });
     assert.deepEqual(loadSettings(fakeBackend()), {
       showExplanation: false,
+      simpleGraphics: false,
       weakBoost: "normal",
       inputStyle: "standard",
       soundMode: "off",
@@ -224,6 +226,7 @@ describe("ゲームの設定", () => {
     assert.equal(saveSettings(backend, { showExplanation: true }), true);
     assert.deepEqual(loadSettings(backend), {
       showExplanation: true,
+      simpleGraphics: false,
       weakBoost: "normal",
       inputStyle: "standard",
       soundMode: "off",
@@ -249,6 +252,7 @@ describe("ゲームの設定", () => {
         loadSettings(fakeBackend({ [SETTINGS_KEY]: raw })),
         {
           showExplanation: false,
+          simpleGraphics: false,
           weakBoost: "normal",
           inputStyle: "standard",
           soundMode: "off",
@@ -259,6 +263,7 @@ describe("ゲームの設定", () => {
     }
     assert.deepEqual(normalizeSettings({ showExplanation: true, evil: "<script>" }), {
       showExplanation: true,
+      simpleGraphics: false,
       weakBoost: "normal",
       inputStyle: "standard",
       soundMode: "off",
@@ -269,6 +274,7 @@ describe("ゲームの設定", () => {
   it("保存できない環境(backend なし・読み書きで例外)でも、落ちない", () => {
     assert.deepEqual(loadSettings(null), {
       showExplanation: false,
+      simpleGraphics: false,
       weakBoost: "normal",
       inputStyle: "standard",
       soundMode: "off",
@@ -285,6 +291,7 @@ describe("ゲームの設定", () => {
     };
     assert.deepEqual(loadSettings(throwing), {
       showExplanation: false,
+      simpleGraphics: false,
       weakBoost: "normal",
       inputStyle: "standard",
       soundMode: "off",
@@ -308,6 +315,7 @@ describe("ゲームの設定", () => {
       );
       assert.deepEqual(loadSettings(backend), {
         showExplanation: true,
+        simpleGraphics: false,
         weakBoost: level,
         inputStyle: "standard",
         soundMode: "off",
@@ -320,6 +328,7 @@ describe("ゲームの設定", () => {
     // 以前に保存された設定(weakBoost がない)は、説明の設定を保ったまま、既定を補う
     assert.deepEqual(loadSettings(fakeBackend({ [SETTINGS_KEY]: '{"showExplanation":true}' })), {
       showExplanation: true,
+      simpleGraphics: false,
       weakBoost: "normal",
       inputStyle: "standard",
       soundMode: "off",
@@ -336,6 +345,7 @@ describe("ゲームの設定", () => {
       );
       assert.deepEqual(loadSettings(backend), {
         showExplanation: true,
+        simpleGraphics: false,
         weakBoost: "high",
         inputStyle: name,
         soundMode: "off",
@@ -361,6 +371,7 @@ describe("ゲームの設定", () => {
       loadSettings(fakeBackend({ [SETTINGS_KEY]: '{"showExplanation":true,"weakBoost":"off"}' })),
       {
         showExplanation: true,
+        simpleGraphics: false,
         weakBoost: "off",
         inputStyle: "standard",
         soundMode: "off",
