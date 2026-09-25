@@ -115,13 +115,15 @@ export function createView(root) {
   const checkedValue = (name) => root.querySelector(`input[name="${name}"]:checked`)?.value;
   const currentMode = () => (checkedValue("mode") === "check" ? "check" : "chase");
 
-  // 用語確認では、追ってくる人の選択・説明の設定(いつも表示する)を隠し、開始のボタンの文言を変える
+  // 用語確認では、追ってくる人の選択・説明の設定(いつも表示する)を隠し、開始のボタンの文言を変える。
+  // グラフィックを抑える設定(場面の演出を抑える)は、用語確認には場面がそもそもないため、対象外
   function applyMode() {
     const check = currentMode() === "check";
     $("[data-role-fieldset]").hidden = check;
     $("[data-difficulty-fieldset]").hidden = check;
     $("[data-explanation-option]").hidden = check;
     $("[data-weak-option]").hidden = check;
+    $("[data-graphics-option]").hidden = check;
     $("[data-start]").textContent = check ? "用語確認を始める" : "スタート";
   }
 
@@ -462,6 +464,7 @@ export function createView(root) {
     bind({
       onStart,
       onExplanationChange,
+      onGraphicsChange,
       onWeakBoostChange,
       onInputStyleChange,
       onSoundModeChange,
@@ -499,6 +502,9 @@ export function createView(root) {
       $("[data-difficulty-list]").addEventListener("change", updateDifficultyInfo);
       $("[data-show-explanation]").addEventListener("change", (event) =>
         onExplanationChange(event.target.checked),
+      );
+      $("[data-simple-graphics]").addEventListener("change", (event) =>
+        onGraphicsChange(event.target.checked),
       );
       $("[data-weak-boost]").addEventListener("change", (event) =>
         onWeakBoostChange(event.target.value),
@@ -669,6 +675,11 @@ export function createView(root) {
       $("[data-show-explanation]").checked = checked;
     },
 
+    // 「グラフィックを抑える」のチェック(保存されていた設定を反映する)
+    setGraphicsSetting(checked) {
+      $("[data-simple-graphics]").checked = checked;
+    },
+
     // 「苦手な語の出やすさ」の選択(保存されていた設定を反映する)
     setWeakBoostSetting(level) {
       $("[data-weak-boost]").value = level;
@@ -700,8 +711,18 @@ export function createView(root) {
       $("[data-title]").focus();
     },
 
-    // mode: "chase"(連続タイピング)か "check"(用語確認)。用語確認では、説明を、いつも表示する
-    showPlay({ mode = "chase", job, jobName, role, goal, showExplanation = false }) {
+    // mode: "chase"(連続タイピング)か "check"(用語確認)。用語確認では、説明を、いつも表示する。
+    // simpleGraphics: 「グラフィックを抑える」設定(低性能な端末向け。Phase 22 PR3)。場面の背景の絵を
+    // 読み込まず、終わりの演出の紙吹雪・輝きも、CSS(.scene[data-simple-graphics])で消す
+    showPlay({
+      mode = "chase",
+      job,
+      jobName,
+      role,
+      goal,
+      showExplanation = false,
+      simpleGraphics = false,
+    }) {
       const check = mode === "check";
       showView("play");
       views.play.dataset.mode = mode;
@@ -717,8 +738,10 @@ export function createView(root) {
         $("[data-chaser]").setAttribute("src", role.image);
         // 追ってくる人の動きは、役職ごとに決まっている(roles.json の scene.motion)
         scene.dataset.motion = motionOf(role);
-        // 職種の背景は、その職種の絵だけを読み込む(決まった場所の SVG でなければ、背景なし)
-        const background = backgroundOf(job);
+        scene.dataset.simpleGraphics = simpleGraphics ? "true" : "";
+        // 職種の背景は、その職種の絵だけを読み込む(決まった場所の SVG でなければ、背景なし)。
+        // グラフィックを抑える設定のときは、そもそも読み込まない
+        const background = !simpleGraphics && backgroundOf(job);
         if (background) scene.style.setProperty("--scene-bg", `url("${background}")`);
         else scene.style.removeProperty("--scene-bg");
         scene.classList.remove("is-danger");

@@ -399,3 +399,11 @@ Phase 22 は、複数の PR に分ける(計画は `docs/decisions/0047-phase-22
 - 確認できた設計: 職種・役職の選択(`job-option`)は、透明な `<input>` が、見た目のラベル全体(`inset: 0`)を覆い、ラベルのどこをタップしても選べる。チャート(`chart.js`)は、`pointerdown` でも値を出す(なぞらず、タップだけで値が出るよう、あらかじめ作られていた)。`:hover` は、色の変化だけで、機能をホバーの裏に隠していない(タッチでは `:hover` が働かないため重要)。`--tap-size`(44px)は、チェックボックス・ボタン・ヘッダー等、主要な操作対象で、すでに使われている。
 - **これらの設計は、`tests/touch-operation.test.js`(静的な検査)で、退行しないよう守っている**(実ブラウザのタッチE2Eは、CIに含まれないため)。新しく、タップで操作する部品を作るときは、この点検の観点(全面タップ可能・`--tap-size`・ホバー非依存)を守ること。
 - Puppeteer の `touchscreen.tap(x, y)` は、ビューポート座標を使う(ページ全体の座標ではない)。タッチのE2Eを書くときは、対象を `scrollIntoView` してから、座標を取り直すこと。
+
+### 画像・アニメーション・音声の最適化点検・低性能端末向け設定(Phase 22 PR 3)
+
+- **画像・アニメーション・音声は、点検の結果、コードの変更はしていない**: 画像は SVG 中心・スクリーンショットは既に `loading="lazy"`。アニメーションは Phase 21 で対応済み。音声は Web Audio 合成のみで、そもそも最適化が要らない設計(Phase 16 PR3)。
+- **低性能端末向けの新しい設定「グラフィックを抑える」**(`settings.js` の `simpleGraphics`。既定 false。ゲームの設定=`nolito:escape-boss:settings:v1` に追加。サイト全体の`nolito:motion:v1`=Phase21とは**別軸**)。ONのとき: (a) 場面の背景SVG(`--scene-bg`)を読み込まない(`view.js` の `showPlay`)。(b) 終わりの演出の紙吹雪・輝き(`.scene__confetti`・`.scene__glow`)を、CSS(`.scene[data-simple-graphics]`)で消す。**「動きを減らす」(アニメーションの速さを止める)とは別に、描画される要素の数を減らす**、という役割分担。
+- UI は、ダッシュボードの「プレイ中に、用語の説明も表示する」の直後に、同じ形のチェックボックス(`data-simple-graphics`。`data-graphics-option` で囲み、用語確認では隠す。場面がそもそもないため)。
+- **CSSの詳細度に注意**: 紙吹雪・輝きの通常の表示ルール(役職ごとの `outro`。属性2つ)は、詳細度が高い。輝きは `display: block` を上書きするため、抑える側は `!important` が必要(Phase 21 の「動きを減らす」設定の `animation-duration` 上書きと同じ考え方)。紙吹雪は、`depart` 用のルールが `display` を触らないため、`!important` なしで、詳細度の低いほうを**先に**書くだけで足りる(stylelint の `no-descending-specificity` に従う)。新しく `.scene__confetti`・`.scene__glow` 関連のCSSを足すときは、この順序に注意すること。
+- **Phase 22(ソフトウェアキーボード・外付けキーボード・縦横自動調整・タッチ操作・回転対応・画像/アニメーション/音声最適化・低性能端末設定)は、この PR で完了**。

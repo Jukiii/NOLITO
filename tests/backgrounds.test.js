@@ -261,7 +261,8 @@ describe("CSS・つなぎ", () => {
   });
 
   it("プレイの開始(連続タイピング)で、その職種の背景だけを設定する。決まった場所の SVG でなければ、背景を外す", () => {
-    assert.match(view, /const background = backgroundOf\(job\);/);
+    // グラフィックを抑える設定(Phase 22 PR3)のときは、そもそも背景を読み込まない
+    assert.match(view, /const background = !simpleGraphics && backgroundOf\(job\);/);
     assert.match(view, /scene\.style\.setProperty\("--scene-bg", `url\("\$\{background\}"\)`\);/);
     assert.match(view, /else scene\.style\.removeProperty\("--scene-bg"\);/);
     assert.match(main, /view\.showPlay\(\{\s*mode: "chase",\s*job,/);

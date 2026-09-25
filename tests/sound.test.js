@@ -269,6 +269,7 @@ describe("設定への反映(settings.js)", () => {
     );
     assert.deepEqual(old, {
       showExplanation: true,
+      simpleGraphics: false,
       weakBoost: "off",
       inputStyle: "kunrei",
       soundMode: "off",
