@@ -35,6 +35,7 @@ export function createSound({
 } = {}) {
   let mode = DEFAULT_SOUND_MODE;
   let volume = DEFAULT_VOLUME;
+  let simple = false; // BGMを簡略化する(低性能な端末向け。Phase 23 PR 3)。既定オフ
   let context = null;
   let master = null;
   let unavailable = false; // 音を作れない環境(以後、作ろうとしない)
@@ -111,7 +112,7 @@ export function createSound({
     if (!context || bgmTimer === null) return;
     try {
       while (bgmNextAt < context.currentTime + LOOKAHEAD_SEC) {
-        schedule(bgmStepNotes(bgmStep, rolePitch), bgmNextAt, bgmBus);
+        schedule(bgmStepNotes(bgmStep, rolePitch, simple), bgmNextAt, bgmBus);
         bgmStep += 1;
         // 速さ(tempo)は、拍の間隔を詰める・広げることで表す。危ない状況の倍率(dangerBoost)も、ここでかかる
         bgmNextAt += BGM_STEP_SEC / effectiveTempo();
@@ -162,10 +163,15 @@ export function createSound({
   }
 
   return {
-    /** 設定を反映する(不正な値は、既定)。音量は、すぐ変わる。BGM は、設定に合わせて、始まる・止まる */
-    configure({ mode: nextMode, volume: nextVolume } = {}) {
+    /**
+     * 設定を反映する(不正な値は、既定)。音量は、すぐ変わる。BGM は、設定に合わせて、始まる・止まる。
+     * simple(既定false。低性能な端末向け。Phase 23 PR 3)は、次にBGMの拍を予約するときから反映する
+     * (鳴っている途中で、メロディーだけ急に消えても、違和感がないため。予約し直しはしない)
+     */
+    configure({ mode: nextMode, volume: nextVolume, simple: nextSimple } = {}) {
       mode = isSoundMode(nextMode) ? nextMode : DEFAULT_SOUND_MODE;
       volume = normalizeVolume(nextVolume);
+      simple = nextSimple === true;
       applyVolume();
       syncBgm();
     },
@@ -239,6 +245,7 @@ export function createSound({
       return {
         mode,
         volume,
+        simple,
         ready: context !== null,
         unavailable,
         bgmPlaying: bgmTimer !== null,

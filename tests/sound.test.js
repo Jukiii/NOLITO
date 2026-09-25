@@ -223,6 +223,24 @@ describe("BGM のデータ", () => {
     assert.ok(melody < bass, `メロディー ${melody} / 低音 ${bass}`);
     assert.ok(BGM_GAIN > 0 && BGM_GAIN < 1);
   });
+
+  it("simple(既定false。低性能な端末向け。Phase 23 PR3): true のとき、メロディーを鳴らさず、低音だけにする", () => {
+    for (let step = 0; step < BGM_STEPS; step += 1) {
+      const normal = bgmStepNotes(step);
+      const simple = bgmStepNotes(step, 1, true);
+      assert.ok(!simple.some((item) => item.wave === "square"), `${step}: メロディーが残っている`);
+      // 低音(triangle)の数は、simple でも変わらない
+      assert.deepEqual(
+        simple.filter((item) => item.wave === "triangle"),
+        normal.filter((item) => item.wave === "triangle"),
+        `${step}`,
+      );
+    }
+    // 既定(省略・false)は、これまでと同じ結果
+    for (let step = 0; step < BGM_STEPS; step += 1) {
+      assert.deepEqual(bgmStepNotes(step, 1, false), bgmStepNotes(step), `${step}`);
+    }
+  });
 });
 
 describe("設定への反映(settings.js)", () => {
@@ -274,6 +292,7 @@ describe("設定への反映(settings.js)", () => {
       inputStyle: "kunrei",
       soundMode: "off",
       volume: 50,
+      simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
     });

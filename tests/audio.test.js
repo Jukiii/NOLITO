@@ -275,6 +275,28 @@ describe("BGM", () => {
     assert.ok(Math.abs(starts[1] - starts[0] - 2 * BGM_STEP_SEC) < 1e-9);
   });
 
+  it("simple(既定false。低性能な端末向け。Phase 23 PR3): true のとき、BGMのオシレーターが半分になる(低音だけ)", () => {
+    const normal = setup({ mode: "all" });
+    normal.sound.startBgm();
+    const normalCount = normal.made.oscillators.length;
+
+    const { sound, made, context } = setup({ mode: "all" });
+    sound.configure({ mode: "all", volume: 60, simple: true });
+    assert.equal(sound.state.simple, true);
+    sound.startBgm();
+    // 拍 0(低音のみ)・拍 1(休み)・拍 2(低音のみ)が予約される(メロディーなしで、半分)
+    assert.equal(made.oscillators.length, normalCount / 2);
+    assert.ok(!made.oscillators.some((o) => o.type === "square"), "メロディー(square波)がない");
+    assert.ok(context.currentTime === 0);
+  });
+
+  it("configure の simple は、次に予約する拍から反映する(既定はfalse)", () => {
+    const { sound } = setup({ mode: "all" });
+    assert.equal(sound.state.simple, false);
+    sound.configure({ mode: "all", volume: 60, simple: "yes" }); // 文字列など、true 以外は false 扱い
+    assert.equal(sound.state.simple, false);
+  });
+
   it("BGM は、全体の音量の下に、効果音より小さい大きさで、つながる", () => {
     const { sound, made } = setup({ mode: "all" });
     sound.startBgm();

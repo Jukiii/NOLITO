@@ -155,7 +155,7 @@ describe("main.js のつなぎ(音)", () => {
     assert.match(main, /view\.setInputStyleSetting\(settings\.inputStyle\);\s*applySound\(\);/);
     assert.match(
       main,
-      /sound\.configure\(\{ mode: settings\.soundMode, volume: settings\.volume \}\)/,
+      /sound\.configure\(\{\s*mode: settings\.soundMode,\s*volume: settings\.volume,\s*simple: settings\.simpleSound,\s*\}\)/,
     );
   });
 
