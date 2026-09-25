@@ -220,13 +220,17 @@
                 aria-describedby="sound-hint"
                 data-sound-volume
               />
+              <div class="game-setup__checkbox-row">
+                <input type="checkbox" id="simple-sound" data-simple-sound />
+                <label for="simple-sound">BGMを簡略化する(低性能な端末向け)</label>
+              </div>
               <div>
                 <button class="button button--secondary" type="button" data-sound-test>
                   音を試す
                 </button>
               </div>
               <p class="game-setup__hint" id="sound-hint">
-                初期設定は「なし」です。音は、このブラウザの中で作るので、通信しません。音を出す前に、音量に気をつけてください。プレイ中の「音」ボタンで、いつでも切り替えられます。
+                初期設定は「なし」です。音は、このブラウザの中で作るので、通信しません。音を出す前に、音量に気をつけてください。プレイ中の「音」ボタンで、いつでも切り替えられます。BGMを簡略化すると、メロディーを鳴らさず、低音だけにします。
               </p>
             </div>
             <button class="button button--primary" type="submit" data-start disabled>

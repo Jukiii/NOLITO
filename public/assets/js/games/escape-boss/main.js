@@ -93,7 +93,11 @@ const sound = createSound();
 // 「音」ボタンで「なし」にしたとき、次に押したら戻す先
 let soundRestore = "all";
 const applySound = () => {
-  sound.configure({ mode: settings.soundMode, volume: settings.volume });
+  sound.configure({
+    mode: settings.soundMode,
+    volume: settings.volume,
+    simple: settings.simpleSound,
+  });
   view.setSoundSettings(settings);
 };
 
@@ -262,6 +266,7 @@ async function init() {
       applySound();
     },
     onSoundVolumeChange: (value) => changeSound({ volume: value }),
+    onSimpleSoundChange: (checked) => changeSound({ simpleSound: checked }),
     onSoundTest: () => {
       sound.unlock();
       if (!sound.play("correct")) {

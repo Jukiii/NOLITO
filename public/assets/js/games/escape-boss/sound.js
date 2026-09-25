@@ -107,13 +107,17 @@ export const BGM_STEPS = BASS.length;
 /**
  * BGM の、ある拍(step。何周目でもよい)で鳴らす音符(at は、その拍の始まりからの秒)。
  * pitch(既定 1)で、役職ごとに高さをずらせる(Phase 23 PR 1)。速さ(tempo)は、拍の間隔の側
- * (audio.js が、拍を呼ぶ間隔を調整する)で扱うので、ここでは音の長さ・高さだけを見る
+ * (audio.js が、拍を呼ぶ間隔を調整する)で扱うので、ここでは音の長さ・高さだけを見る。
+ * simple(既定 false。低性能な端末向け。Phase 23 PR 3)が true のときは、メロディーを鳴らさず、
+ * 低音だけにする(同時に鳴らすオシレーターの数を、最大2つから1つへ減らす)
  */
-export function bgmStepNotes(step, pitch = 1) {
+export function bgmStepNotes(step, pitch = 1, simple = false) {
   if (!Number.isInteger(step) || step < 0) return [];
   const index = step % BGM_STEPS;
   const notes = [];
   if (BASS[index]) notes.push(note(0, BASS[index] * pitch, BGM_STEP_SEC * 1.6, "triangle", 0.3));
-  if (MELODY[index]) notes.push(note(0, MELODY[index] * pitch, BGM_STEP_SEC * 0.9, "square", 0.08));
+  if (!simple && MELODY[index]) {
+    notes.push(note(0, MELODY[index] * pitch, BGM_STEP_SEC * 0.9, "square", 0.08));
+  }
   return notes;
 }

@@ -475,6 +475,7 @@ export function createView(root) {
       onSoundModeChange,
       onSoundVolumeInput,
       onSoundVolumeChange,
+      onSimpleSoundChange,
       onSoundTest,
       onSoundToggle,
       onProfileChange,
@@ -532,6 +533,9 @@ export function createView(root) {
       );
       $("[data-sound-volume]").addEventListener("change", (event) =>
         onSoundVolumeChange(Number(event.target.value)),
+      );
+      $("[data-simple-sound]").addEventListener("change", (event) =>
+        onSimpleSoundChange(event.target.checked),
       );
       $("[data-sound-test]").addEventListener("click", onSoundTest);
       // プレイ中の「音」ボタン。押したあとも、入力欄で、続けて打てるように、フォーカスを戻す
@@ -711,11 +715,12 @@ export function createView(root) {
       $("[data-input-style]").value = name;
     },
 
-    // 音の設定(選択・音量・プレイ中の「音」ボタンの状態)を反映する
-    setSoundSettings({ soundMode, volume }) {
+    // 音の設定(選択・音量・簡略化・プレイ中の「音」ボタンの状態)を反映する
+    setSoundSettings({ soundMode, volume, simpleSound }) {
       $("[data-sound-mode]").value = soundMode;
       $("[data-sound-volume]").value = String(volume);
       setText("[data-sound-volume-value]", volume);
+      $("[data-simple-sound]").checked = simpleSound === true;
       const on = soundMode !== "off";
       const toggle = $("[data-sound-toggle]");
       toggle.setAttribute("aria-pressed", String(on));
