@@ -274,6 +274,8 @@ describe("設定への反映(settings.js)", () => {
       inputStyle: "kunrei",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
   });
 

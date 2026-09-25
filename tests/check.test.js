@@ -210,6 +210,8 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
     assert.deepEqual(loadSettings(fakeBackend()), {
       showExplanation: false,
@@ -218,6 +220,8 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
   });
 
@@ -231,6 +235,8 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
     assert.notEqual(SETTINGS_KEY, STORAGE_KEY);
     assert.deepEqual([...backend.map.keys()], [SETTINGS_KEY]);
@@ -257,6 +263,8 @@ describe("ゲームの設定", () => {
           inputStyle: "standard",
           soundMode: "off",
           volume: 50,
+          lineLevel: "normal",
+          skipStaging: false,
         },
         raw,
       );
@@ -268,6 +276,8 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
   });
 
@@ -279,6 +289,8 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
     assert.equal(saveSettings(null, { showExplanation: true }), false);
     const throwing = {
@@ -296,6 +308,8 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
     assert.equal(saveSettings(throwing, { showExplanation: true }), false);
   });
@@ -310,6 +324,8 @@ describe("ゲームの設定", () => {
           inputStyle: "standard",
           soundMode: "off",
           volume: 50,
+          lineLevel: "normal",
+          skipStaging: false,
         }),
         true,
       );
@@ -320,6 +336,8 @@ describe("ゲームの設定", () => {
         inputStyle: "standard",
         soundMode: "off",
         volume: 50,
+        lineLevel: "normal",
+        skipStaging: false,
       });
     }
     for (const bad of ["", "OFF", "low", "__proto__", "constructor", 1, null, true, [], {}]) {
@@ -333,6 +351,8 @@ describe("ゲームの設定", () => {
       inputStyle: "standard",
       soundMode: "off",
       volume: 50,
+      lineLevel: "normal",
+      skipStaging: false,
     });
   });
 
@@ -350,6 +370,8 @@ describe("ゲームの設定", () => {
         inputStyle: name,
         soundMode: "off",
         volume: 50,
+        lineLevel: "normal",
+        skipStaging: false,
       });
     }
     for (const bad of [
@@ -376,6 +398,8 @@ describe("ゲームの設定", () => {
         inputStyle: "standard",
         soundMode: "off",
         volume: 50,
+        lineLevel: "normal",
+        skipStaging: false,
       },
     );
   });

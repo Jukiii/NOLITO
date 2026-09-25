@@ -5,11 +5,15 @@ import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   BUBBLE_MS,
+  DEFAULT_LINE_LEVEL,
   LINE_EVENTS,
+  LINE_LEVELS,
   MAX_LINE_LENGTH,
   MIN_GAP_MS,
   createLines,
+  isLineLevel,
   isValidLine,
+  lineLevelOf,
   linesOf,
 } from "../public/assets/js/games/escape-boss/lines.js";
 
@@ -60,6 +64,44 @@ describe("isValidLine", () => {
       {},
     ]) {
       assert.equal(isValidLine(bad), false, String(bad));
+    }
+  });
+});
+
+describe("LINE_LEVELS / lineLevelOf(セリフの表示。Phase 23 PR 2)", () => {
+  it("既定は「ふつう」で、間隔・表示時間は、これまでの値のまま", () => {
+    assert.equal(DEFAULT_LINE_LEVEL, "normal");
+    assert.equal(LINE_LEVELS.normal.gapMs, MIN_GAP_MS);
+    assert.equal(LINE_LEVELS.normal.bubbleMs, BUBBLE_MS);
+    assert.deepEqual(lineLevelOf("normal"), LINE_LEVELS.normal);
+  });
+
+  it("少なめ: 間隔は広く、表示は短く。多め: 間隔は狭く、表示は長く", () => {
+    assert.ok(LINE_LEVELS.few.gapMs > MIN_GAP_MS);
+    assert.ok(LINE_LEVELS.few.bubbleMs < BUBBLE_MS);
+    assert.ok(LINE_LEVELS.many.gapMs < MIN_GAP_MS);
+    assert.ok(LINE_LEVELS.many.bubbleMs > BUBBLE_MS);
+  });
+
+  it("isLineLevel は、知っている段階の名前だけ true", () => {
+    for (const level of ["few", "normal", "many"]) assert.equal(isLineLevel(level), true);
+    for (const bad of ["", "FEW", "off", null, undefined, 1, [], {}]) {
+      assert.equal(isLineLevel(bad), false, String(bad));
+    }
+  });
+
+  it("lineLevelOf は、知らない段階・壊れた値なら「ふつう」を返す", () => {
+    for (const bad of ["", "FEW", "off", null, undefined, 1, [], {}]) {
+      assert.deepEqual(lineLevelOf(bad), LINE_LEVELS.normal, String(bad));
+    }
+  });
+
+  it("すべての段階に、ラベル・数値の間隔・表示時間がある", () => {
+    for (const level of Object.values(LINE_LEVELS)) {
+      assert.equal(typeof level.label, "string");
+      assert.ok(level.label.length >= 1);
+      assert.ok(Number.isFinite(level.gapMs) && level.gapMs > 0);
+      assert.ok(Number.isFinite(level.bubbleMs) && level.bubbleMs > 0);
     }
   });
 });
@@ -236,8 +278,11 @@ describe("main.js のセリフのつなぎ", () => {
     assert.match(main, /session\.state\.status === "cleared" \? "clear" : "over"/);
   });
 
-  it("新しいゲームごとに、セリフの記憶を作り直す(createLines)", () => {
-    assert.match(main, /lines: createLines\(\)/);
+  it("新しいゲームごとに、セリフの記憶を作り直す(createLines)。間隔は、設定(セリフの表示)から", () => {
+    assert.match(
+      main,
+      /lines: createLines\(\{ ?gapMs: lineLevelOf\(settings\.lineLevel\)\.gapMs ?\}\)/,
+    );
   });
 
   it("吹き出しは飾り(場面の中・aria-hidden)。結果の画面には、セリフの引用を出す", () => {
