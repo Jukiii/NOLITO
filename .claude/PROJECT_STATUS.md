@@ -8,16 +8,16 @@
 
 # 1. プロジェクト情報
 
-| 項目           | 内容                                                |
-| -------------- | --------------------------------------------------- |
-| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)            |
-| 開発方式       | Claude Codeによる自律開発                           |
-| リポジトリ     | https://github.com/Jukiii/NOLITO(public)            |
-| 本番           | https://nolito.pages.dev(Cloudflare Pages)          |
-| 開発開始日     | 2026-09-19頃(PR #1)                                 |
-| 最終更新日時   | 2026-09-25                                          |
-| 現在のフェーズ | Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1完了 |
-| 現在の状態     | IN_PROGRESS                                         |
+| 項目           | 内容                                                     |
+| -------------- | -------------------------------------------------------- |
+| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)                 |
+| 開発方式       | Claude Codeによる自律開発                                |
+| リポジトリ     | https://github.com/Jukiii/NOLITO(public)                 |
+| 本番           | https://nolito.pages.dev(Cloudflare Pages)               |
+| 開発開始日     | 2026-09-19頃(PR #1)                                      |
+| 最終更新日時   | 2026-09-25                                               |
+| 現在のフェーズ | Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1・PR2完了 |
+| 現在の状態     | IN_PROGRESS                                              |
 
 ---
 
@@ -60,7 +60,7 @@
 | Phase 20 | ナビ拡張・トップページ・検索                                             | **COMPLETED** | PR1=#63, PR2=#64, PR3=#65                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0045決定ログ)。静的サイトのみの変更のため、本番マイグレーションなし |
 | Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | **COMPLETED** | PR1=#67, PR2=#69, PR3=#71(本番マイグレーション適用済み)       | -                                              | 3 PR すべて完了・マージ・本番確認済み(0046決定ログ)                                                       |
 | Phase 22 | キーボード/タッチ操作・端末最適化                                        | **COMPLETED** | PR1=#73, PR2=#75, PR3=#77                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0047決定ログ)                                                       |
-| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | IN_PROGRESS   | PR1=#79                                                       | -                                              | PR1(役職ごとのBGM・効果音)完了・マージ・本番確認済み(0048決定ログ)。PR2・PR3は未着手                      |
+| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | IN_PROGRESS   | PR1=#79, PR2=#81                                              | -                                              | PR1・PR2完了・マージ・本番確認済み(0048決定ログ)。PR3(音量・品質・アニメーション軽減の点検)は未着手       |
 | Phase 24 | 語録の拡張ファイル・追加フロー                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 25 | AI活用(生成・チェック・提案)                                             | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 26 | 管理画面・RBAC                                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
@@ -76,25 +76,25 @@
 ## Current Phase
 
 ```text
-Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1完了。次はPR2(演出の全スキップ・セリフ設定)
+Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1・PR2完了。次はPR3(音量・品質・アニメーション軽減の点検)
 ```
 
 ## Current Status
 
 ```text
-IN_PROGRESS(Phase 23 PR1 完了。次はPR2)
+IN_PROGRESS(Phase 23 PR2 完了。次はPR3)
 ```
 
 ## Current Branch
 
 ```text
-main(Phase 23 PR1 は #79 でマージ済み。PR2 用のブランチは、まだ作成していない)
+main(Phase 23 PR2 は #81 でマージ済み。PR3 用のブランチは、まだ作成していない)
 ```
 
 ## Current Task
 
 ```text
-Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の仕様確認・実装計画。
+Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の仕様確認・実装計画。
 0048決定ログのPR分割のとおり。
 ```
 
@@ -178,32 +178,38 @@ docs/decisions/0042-phase-19-plan.md(全体の計画。PR1〜PR3の内訳)
 ### 今何をしているか
 
 ```text
-Phase 23 PR1(役職ごとのBGM・効果音)を実装・テスト・マージ・本番確認まで完了した。
-次は PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)。
+Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)を実装・テスト・マージ・
+本番確認まで完了した。次は PR3(音量・品質・アニメーション軽減の点検)。
 ```
 
 ### 次に行う作業
 
 ```text
-1. Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の詳細を、0048 決定ログに追記
-2. phase-23-staging(仮)ブランチ(main から)で、PR2 に着手する
+1. Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の詳細を、
+   0048 決定ログに追記
+2. 新しいブランチ(main から)で、PR3 に着手する
 ```
 
 ### 最後に完了した作業
 
 ```text
-Phase 23 PR1: 役職ごとのBGM・効果音(職種・役職・状況による変化。PR #79、マージ済み、本番確認済み)。
-roles.jsonの全役職にsound:{tempo,pitch}(先輩1.0/1.0→会長1.2/1.1。役職が進むほど単調増加、最大1.3
-倍以内)。role-sound.js(新規)にroleSoundOf(壊れた値は既定へ)・DANGER_TEMPO_BOOST。sound.jsの
-bgmStepNotes・effectNotesにpitch引数(既定1・後方互換。音の高さだけずらす)。audio.jsに
-setRoleSound・setDanger(BGMの拍の間隔=BGM_STEP_SEC/(tempo×danger倍率))。main.jsのbeginGame・
-tick・quitを配線。**職種による音の変化は、既知の制限として対応しない**(6職種分の作曲は、データ
-駆動の設計方針を超える大きなコンテンツ制作のため)。単体テスト1938件(新規22件を含む)・実ブラウザ
-E2E(偽AudioContextで鳴らす指示を記録)3件、すべて成功。決定・テスト結果は
-docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「役職ごとのBGM・効果音・演出設定(Phase 23)」
-節を追記。
+Phase 23 PR2: 演出の全スキップ設定・セリフの速さ/表示時間の設定(PR #81、マージ済み、本番確認済み)。
+settings.jsにskipStaging(既定オフ)・lineLevel(既定normal)を追加(既存の設定キーに保存)。
+lines.jsにLINE_LEVELS(few/normal/many。段階ごとのgapMs・bubbleMs)・lineLevelOfを追加。
+main.jsのbeginIntro/beginOutroで、skipStagingがオンのときtimeline.start()の直後にtimeline.skip()
+を呼ぶ(**既存の飛ばす操作=Enter・スペース・Esc・クリックとまったく同じしくみ**を自動で使うだけ。
+新しい進行のしくみは作らない)。lineLevelOf(settings.lineLevel)のgapMs・bubbleMsをcreateLines()・
+showBubble()に渡す(既存の依存注入をそのまま利用)。view.js/index.htmlに選択欄・チェックボックスを
+追加し、用語確認では両方とも隠す(場面・演出・セリフがそもそもないため)。単体テスト1957件
+(新規tests/staging-settings.test.js 15件・lines.test.jsに5件追加。DEFAULT_SETTINGSの形が変わった
+分、check.test.js・sound.test.jsの既存期待値を更新)・実ブラウザE2E8件、すべて成功(設定の表示/
+保存/復元・skipStaging=trueで演出バナーがすぐ隠れる・falseでは約800ms後に隠れる、を確認)。
+「結果は演出の前に保存、onDoneで1回だけ表示」という不変条件(Phase16 PR2)は、timeline.skip()が
+通常の飛ばす操作と同じ関数であるため、そのまま保たれる。決定・テスト結果は
+docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「演出の全スキップ設定・セリフの速さ/表示時間の
+設定(Phase 23 PR 2)」節を追記。
 
-**Phase 22(PR1=#73・PR2=#75・PR3=#77)は、この前にすべて完了した**。
+**Phase 23 PR1(#79)は、この前に完了した**。
 ```
 
 ### 最後に変更したファイル
@@ -215,7 +221,7 @@ docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「役職ごとのBGM・効�
 ### 最後のコミット
 
 ```text
-(PR #71 のマージコミット。git log --oneline -1 で確認)
+(PR #81 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ---
@@ -279,13 +285,13 @@ main
 ## Last Commit
 
 ```text
-(PR #79 のマージコミット。git log --oneline -1 で確認)
+(PR #81 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ## Pull Request
 
 ```text
-直近マージ: #79(Phase 23 PR 1)、#78(chore)、#77(Phase 22 PR 3。Phase 22 完了)、
+直近マージ: #81(Phase 23 PR 2)、#79(Phase 23 PR 1)、#78(chore)、#77(Phase 22 PR 3。Phase 22 完了)、
 #75(Phase 22 PR 2)、#74(chore)、#73(Phase 22 PR 1)
 オープン中: なし
 ```
@@ -355,6 +361,7 @@ main
 | Phase 22 PR3 | 2026-09-25     | #77           | 低性能端末向け設定「グラフィックを抑える」・最適化点検(**Phase 22 完了**)                               |
 | (chore)      | 2026-09-25     | #78           | 進捗ファイル整備(Phase 22 完了の反映)                                                                   |
 | Phase 23 PR1 | 2026-09-25     | #79           | 役職ごとのBGM・効果音(職種・役職・状況による変化)                                                       |
+| Phase 23 PR2 | 2026-09-25     | #81           | 演出の全スキップ設定・セリフの速さ/表示時間の設定                                                       |
 
 ---
 
@@ -503,40 +510,43 @@ Claude Codeは、
 ==================================================
 
 Phase:
-Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1完了(**Phase 22 は 3 PR すべて完了**)
+Phase 23(BGM/効果音の役職別拡張・演出設定)。PR1・PR2完了(**Phase 22 は 3 PR すべて完了**)
 
 Status:
 IN_PROGRESS
 
 Branch:
-main(Phase 23 PR1 がマージ済み。PR2 用ブランチは、まだ未作成)
+main(Phase 23 PR2 は #81 でマージ済み。PR3 用ブランチは、まだ未作成)
 
 Task:
-Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の仕様確認・実装計画
+Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の仕様確認・実装計画
 
 Last Completed:
-**Phase 23 PR1(役職ごとのBGM・効果音。職種・役職・状況による変化)を、完了した**(PR #79、
-マージ済み)。`roles.json`の全役職に`sound: { tempo, pitch }`(先輩1.0/1.0→会長1.2/1.1。役職が
-進むほど単調増加、最大1.3倍以内=不快な速さ・高さにしない)。`role-sound.js`(新規、DOM/音非依存の
-純粋関数)に`roleSoundOf(role)`(壊れた値は、tempo・pitchそれぞれ独立に既定へ)・
-`DANGER_TEMPO_BOOST`。`sound.js`の`bgmStepNotes`・`effectNotes`に`pitch`引数(既定1・後方互換。
-**音の高さだけをずらし、音色・長さ・大きさは変えない**)。`audio.js`に`setRoleSound({tempo,pitch})`・
-`setDanger(active)`(BGMの拍の間隔=`BGM_STEP_SEC / (tempo × danger倍率)`)。`main.js`の`beginGame`
-(ゲーム開始のたびに役職の音を設定)・`tick`(危ない状態が**変わったときだけ**setDanger)・`quit`
-(既定に戻す)を配線。**職種による音の変化は、既知の制限として対応しない**(6職種分の作曲は、この
-プロジェクトのデータ駆動という設計方針を超える、大きなコンテンツ制作のため。職種の個性は、既に
-背景の絵=Phase15で表現)。単体テスト1938件(新規22件を含む)・実ブラウザE2E(偽AudioContextで
-鳴らす指示=周波数・拍の間隔を記録し、実際のゲーム操作を通して確認)3件、すべて成功。決定・テスト
-結果は docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「役職ごとのBGM・効果音・演出設定
-(Phase 23)」節を追記。
+**Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)を、完了した**(PR #81、
+マージ済み)。`settings.js`に`skipStaging`(既定オフ)・`lineLevel`(既定`normal`)を追加(既存の
+`nolito:escape-boss:settings:v1`に保存)。`lines.js`に`LINE_LEVELS`(`few`/`normal`/`many`。段階
+ごとの`gapMs`・`bubbleMs`)・`lineLevelOf`を追加。`main.js`の`beginIntro`・`beginOutro`で、
+`skipStaging`がオンのとき`timeline.start()`の直後に`timeline.skip()`を呼ぶ(**既存の飛ばす操作=
+Enter・スペース・Esc・場面のクリックと、まったく同じしくみ**を自動で使うだけ。新しい進行のしくみは
+作らない)。`lineLevelOf(settings.lineLevel)`の`gapMs`・`bubbleMs`を`createLines()`・`showBubble()`
+に渡す(既存の依存注入をそのまま利用)。`view.js`/`index.html`に選択欄・チェックボックスを追加し、
+用語確認では両方とも隠す(場面・演出・セリフが、そもそもないため)。単体テスト1957件(新規
+`tests/staging-settings.test.js`15件・`lines.test.js`に5件追加。`DEFAULT_SETTINGS`の形が変わった
+分、`check.test.js`・`sound.test.js`の既存期待値を更新)・実ブラウザE2E8件、すべて成功(設定の
+表示/非表示(モードごと)・保存/復元・`skipStaging: true`で演出バナーがすぐ隠れる・`false`(既定)
+では約800ms後に隠れる・スキップ後も「やめる」で進行が壊れない、を確認)。「結果は演出の前に保存、
+`onDone`のときだけ結果画面を表示する」という不変条件(Phase16 PR2)は、`timeline.skip()`が通常の
+飛ばす操作とまったく同じ関数であるため、そのまま保たれる(既存の`tests/staging.test.js`が引き続き
+カバー)。決定・テスト結果は docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「演出の全スキップ
+設定・セリフの速さ/表示時間の設定(Phase 23 PR 2)」節を追記。
 
-**Phase 22(PR1=#73・PR2=#75・PR3=#77)は、この前にすべて完了した**。
+**Phase 23 PR1(#79)は、この前に完了した**。
 
 Next Action:
-Phase 23 PR2(演出の全スキップ設定・セリフの速さ/表示時間の設定)の詳細を、0048 決定ログに追記
-してから着手する。`staging.js`の`timeline.skip()`(既存)を、新しい設定から自動で呼ぶ形と、
-`lines.js`の`createLines({ gapMs })`・`main.js`の`BUBBLE_MS`(どちらも、すでに引数で渡せる設計)
-に、設定値を配線する形を想定。
+Phase 23 PR3(音量・品質・アニメーション軽減の点検。低性能端末向けの音の設定)の詳細を、0048
+決定ログに追記してから着手する。音量(`settings.js`の`volume`)・アニメーション軽減(Phase21の
+`motion.js`)は既にあるため、点検が中心になる見込み。「品質」(低性能端末向けの音の簡略化)が、
+新しい要素になる可能性がある。既存の`simpleGraphics`(Phase22 PR3)との役割分担を、着手前に整理する。
 
 Human Task:
 なし。Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
