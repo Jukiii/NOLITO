@@ -8,16 +8,16 @@
 
 # 1. プロジェクト情報
 
-| 項目           | 内容                                             |
-| -------------- | ------------------------------------------------ |
-| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)         |
-| 開発方式       | Claude Codeによる自律開発                        |
-| リポジトリ     | https://github.com/Jukiii/NOLITO(public)         |
-| 本番           | https://nolito.pages.dev(Cloudflare Pages)       |
-| 開発開始日     | 2026-09-19頃(PR #1)                              |
-| 最終更新日時   | 2026-09-25                                       |
-| 現在のフェーズ | Phase 24(語録の拡張ファイル・追加フロー)。着手前 |
-| 現在の状態     | IN_PROGRESS                                      |
+| 項目           | 内容                                                   |
+| -------------- | ------------------------------------------------------ |
+| プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)               |
+| 開発方式       | Claude Codeによる自律開発                              |
+| リポジトリ     | https://github.com/Jukiii/NOLITO(public)               |
+| 本番           | https://nolito.pages.dev(Cloudflare Pages)             |
+| 開発開始日     | 2026-09-19頃(PR #1)                                    |
+| 最終更新日時   | 2026-09-25                                             |
+| 現在のフェーズ | Phase 24(語録の拡張ファイル・追加フロー)。仕様確認待ち |
+| 現在の状態     | WAITING_HUMAN                                          |
 
 ---
 
@@ -61,7 +61,7 @@
 | Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | **COMPLETED** | PR1=#67, PR2=#69, PR3=#71(本番マイグレーション適用済み)       | -                                              | 3 PR すべて完了・マージ・本番確認済み(0046決定ログ)                                                       |
 | Phase 22 | キーボード/タッチ操作・端末最適化                                        | **COMPLETED** | PR1=#73, PR2=#75, PR3=#77                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0047決定ログ)                                                       |
 | Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | **COMPLETED** | PR1=#79, PR2=#81, PR3=#83                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0048決定ログ)                                                       |
-| Phase 24 | 語録の拡張ファイル・追加フロー                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
+| Phase 24 | 語録の拡張ファイル・追加フロー                                           | WAITING_HUMAN | -                                                             | #85(仕様の解釈が複数あり、確認待ち)            | 着手前に、仕様の解釈(候補A〜D)を運営者に確認する必要がある                                                |
 | Phase 25 | AI活用(生成・チェック・提案)                                             | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 26 | 管理画面・RBAC                                                           | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
 | Phase 27 | セキュリティ強化・監査ログ・MFA                                          | NOT_STARTED   | -                                                             | -                                              |                                                                                                           |
@@ -76,13 +76,14 @@
 ## Current Phase
 
 ```text
-Phase 23(BGM/効果音の役職別拡張・演出設定)は完了(PR1〜3)。次はPhase 24(語録の拡張ファイル・追加フロー)
+Phase 23(BGM/効果音の役職別拡張・演出設定)は完了(PR1〜3)。Phase 24(語録の拡張ファイル・追加フロー)
+は、仕様の解釈が複数あるため、Issue #85 で運営者に確認中
 ```
 
 ## Current Status
 
 ```text
-IN_PROGRESS(Phase 23 完了。Phase 24 は着手前)
+WAITING_HUMAN(Phase 24 は、Issue #85 の回答待ち。実装コードの変更は、まだしていない)
 ```
 
 ## Current Branch
@@ -94,7 +95,7 @@ main(Phase 23 PR3 は #83 でマージ済み。Phase 24 用のブランチは、
 ## Current Task
 
 ```text
-Phase 24(語録の拡張ファイル・追加フロー)の仕様確認(docs/01_phases/phase-24.md)・実装計画。
+なし(Issue #85 の回答待ち)。回答が来たら、docs/decisions/0049-phase-24-plan.md に方針をまとめてから着手する。
 ```
 
 ## Current Step
@@ -177,17 +178,18 @@ docs/decisions/0042-phase-19-plan.md(全体の計画。PR1〜PR3の内訳)
 ### 今何をしているか
 
 ```text
-Phase 23 PR3(音量・品質・アニメーション軽減の点検。BGMを簡略化する設定)を実装・テスト・マージ・
-本番確認まで完了し、**Phase 23 を完了させた**。次は Phase 24(語録の拡張ファイル・追加フロー)。
+Phase 23 完了後、Phase 24(語録の拡張ファイル・追加フロー)に着手しようとしたが、仕様書
+(docs/01_phases/phase-24.md)が一行の要約のみで、「拡張ファイル」の解釈が複数成り立ち、既存の
+決定(0021「役職ごとの出し分けはしない」・Phase17「語は削らない: 180語すべてが、どの役職でも
+出うる」)と矛盾しうる解釈(候補B)も含むため、Issue #85 を作成し、運営者の判断を仰いでいる。
 ```
 
 ### 次に行う作業
 
 ```text
-1. docs/01_phases/phase-24.md(語録の拡張ファイル・追加フロー)を確認する
-2. 関連する既存実装(vocab-md.mjs・vocab-validate.mjs・vocab-build.mjs 等。Phase14の語録原稿管理)
-   を確認し、実装方針・PR分割を決める
-3. 新しいブランチ(main から)で、Phase 24 に着手する
+Issue #85 への運営者の回答待ち(WAITING_HUMAN)。回答が来たら:
+1. docs/decisions/0049-phase-24-plan.md に、確認された方針をまとめる
+2. 新しいブランチ(main から)で、Phase 24 に着手する
 ```
 
 ### 最後に完了した作業
@@ -229,7 +231,7 @@ docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「音量・品質・アニ�
 ## 現在のHuman Tasks
 
 ```text
-なし(いま作業をブロックしているものはない)
+Issue #85(Phase 24「語録の拡張ファイル」の仕様の解釈)への回答が必要。回答がないと、Phase 24 に着手できない。
 ```
 
 ## 対応待ちIssue
@@ -239,6 +241,7 @@ docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「音量・品質・アニ�
 | #12   | 外部販売サービスの選定・特定商取引法の表記(有料ソフト公開前)                 | OPEN(WAITING_HUMAN) | 有料ソフトを実際に公開するタイミングで、運営者の判断が必要             |
 | #13   | お問い合わせ先の決定(サイト紹介・プライバシーポリシー・サポート)             | 実質解決(下記）     | お問い合わせフォームを、正式な連絡先として本番で稼働中                 |
 | #19   | アカウントの一般公開の前提(連絡先・ポリシー改定・規約・Google審査・ドメイン) | OPEN(WAITING_HUMAN) | 独自ドメインの判断が変わるか、Google同意画面の公開化の指示があれば再開 |
+| #85   | Phase 24「語録の拡張ファイル」の仕様の解釈(候補A〜D)                         | OPEN(WAITING_HUMAN) | 運営者が、候補(A〜D)のどれを実装するか回答すれば、Phase 24 に着手する  |
 
 **#19 の対応状況(2026-09-24)**:
 
@@ -298,6 +301,7 @@ main
 
 ```text
 #12, #13, #19(上の表のとおり。いずれも WAITING_HUMAN、いまの作業のブロッカーではない)
+#85(Phase 24 の仕様確認。**いまの作業=Phase24のブロッカー**)
 ```
 
 ## Uncommitted Changes
@@ -513,13 +517,13 @@ Phase 24(語録の拡張ファイル・追加フロー)。**Phase 23(BGM/効果�
 3 PR すべて完了**
 
 Status:
-IN_PROGRESS
+WAITING_HUMAN(Issue #85 の回答待ち)
 
 Branch:
 main(Phase 23 PR3 は #83 でマージ済み。Phase 24 用ブランチは、まだ未作成)
 
 Task:
-Phase 24(語録の拡張ファイル・追加フロー)の仕様確認(`docs/01_phases/phase-24.md`)・実装計画
+なし(Issue #85 の回答待ち)。回答が来たら、docs/decisions/0049-phase-24-plan.md に方針をまとめてから着手する
 
 Last Completed:
 **Phase 23 PR3(音量・品質・アニメーション軽減の点検。BGMを簡略化する設定)を、完了した**(PR #83、
@@ -540,12 +544,15 @@ docs/decisions/0048-phase-23-plan.md。CLAUDE.md に「音量・品質・アニ�
 **Phase 23(PR1=#79・PR2=#81・PR3=#83)は、この PR ですべて完了した**。
 
 Next Action:
-Phase 24(語録の拡張ファイル・追加フロー)に着手する。まず`docs/01_phases/phase-24.md`を読み、
-Phase14(語録の原稿管理。`content/vocabulary/<職種ID>.md` → `npm run build:vocabulary`)・Phase11
-(語録の確認フロー。`docs/vocabulary-review.md`)の既存実装を確認してから、実装方針・PR分割を決める。
+**Issue #85 への運営者の回答を待つ**(Phase 24「語録の拡張ファイル」の仕様は一行の要約のみで、
+複数の解釈=候補A〜Dが成り立ち、候補Bは既存の決定=0021「役職ごとの出し分けはしない」・Phase17
+「語は削らない: 180語すべてが、どの役職でも出うる」と矛盾しうるため、Claude Codeの判断だけで
+実装方針を決めなかった)。回答が来たら、方針をdocs/decisions/0049-phase-24-plan.mdにまとめ、
+新しいブランチで実装に着手する。
 
 Human Task:
-なし。Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
+**Issue #85(Phase 24の仕様確認)に回答してください**。候補A〜Dのどれを実装するか(複数可)。
+Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
 Phase 21 PR3のプライバシーポリシーの版を上げない判断について、運営者の確認待ち(PR #71 に記載)
 
 Blocker:
