@@ -241,7 +241,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - **音の準備(`sound.unlock()`)は、操作の中**(スタートのクリック・設定を変える・「音」ボタン・「音を試す」)で呼ぶ(ブラウザの決まり)。**設定を反映(`applySound()`)してから、準備する**(順序をテストが検査)。プレイ中の「音」ボタンは、押したあと、入力欄にフォーカスを戻す。
 - BGM は、連続タイピングの遊んでいる間だけ(スタートの 0.6 秒後から)。`finish`・`quit`・新しいゲーム・用語確認の開始で、`sound.stopBgm()`。タブが見えない間は、止める(`setHidden`)。用語確認は、効果音だけ。音が使えない環境・失敗でも、落ちず、静かなままにする。
 - 動きを減らす設定は、音とは別。プライバシーポリシーは、音の設定(端末内の保存)では、版を上げない(0032)。**実際の音は、自動テストでは聞けない**(偽の `AudioContext` で、鳴らす指示だけを検査する)ので、音色・音量は、人が聞いて確かめる。
-- Phase 16(絵・セリフと演出・音)は、ここまで。役職ごとの BGM・役職別の効果音は、Phase 23 PR1 で対応した(下の節)。演出のスキップ設定は、Phase 23 PR2 で対応する。音声(声)は、将来対応。
+- Phase 16(絵・セリフと演出・音)は、ここまで。役職ごとの BGM・役職別の効果音は、Phase 23 PR1、演出の全自動スキップ・セリフの速さ/表示時間の設定は、Phase 23 PR2 で対応した(下の節)。音声(声)は、将来対応。
 
 ## 役職ごとの文字数と特殊ルール(Phase 17)
 
@@ -420,3 +420,10 @@ Phase 23 は、複数の PR に分ける(計画は `docs/decisions/0048-phase-23
 - 実装は、`sound.js`(`bgmStepNotes(step, pitch)`・`effectNotes(name, pitch)`。**音の高さ(hz・to)だけを倍率でずらす。音色・長さ・大きさは変えない**)と、`audio.js`(`createSound()` が返す `setRoleSound({ tempo, pitch })`・`setDanger(active)`。BGM の拍の間隔=`BGM_STEP_SEC / (tempo × danger倍率)`で、速さを表す)。
 - `main.js` の `beginGame` で、ゲーム開始のたびに `sound.setRoleSound(roleSoundOf(role))` を呼ぶ(危ない状況の倍率もリセットされる)。`tick` で、危ない状態が**変わったときだけ**(毎フレームではない)`sound.setDanger(danger)` を呼ぶ。`quit`(ダッシュボードに戻る)で、`sound.setRoleSound()`(既定)に戻す。
 - **実際の音は、自動テストでは聞けない**ので、`tests/role-sound.test.js` は、偽の `AudioContext`(`tests/audio.test.js` と同じ考え方)で、鳴らす指示(周波数・拍の間隔)を検査する。人による音の確認(音色・不快でない範囲か)も、別途行う。
+
+### 演出の全スキップ設定・セリフの速さ/表示時間の設定(Phase 23 PR 2)
+
+- **「演出を自動で飛ばす」**(`settings.js` の `skipStaging`。既定オフ)。ONのとき、`main.js` の `beginIntro()`・`beginOutro()` で、`timeline.start()` の直後に `timeline.skip()` を呼ぶ(**既存の「飛ばす」操作=Enter・スペース・Esc・場面のクリックと、まったく同じしくみ**を、開始の直後に自動で使うだけ)。新しい進行のしくみは作らない。「結果は演出の前に保存し、`onDone` のときだけ結果画面を表示する」という Phase 16 PR2 の不変条件は、この経路でも保たれる(`timeline.skip()` は、通常の飛ばす操作とまったく同じ関数)。
+- **「セリフの表示」**(`settings.js` の `lineLevel`。`few`(少なめ)/`normal`(ふつう。既定)/`many`(多め))。`lines.js` の `LINE_LEVELS` に、段階ごとの `gapMs`(吹き出しの間隔)・`bubbleMs`(表示時間)を持つ。「ふつう」は、これまでの値(`MIN_GAP_MS`=4000ms・`BUBBLE_MS`=2000ms)のまま。少なめは、間隔を広く(×1.5)・表示を短く(×0.75)。多めは、間隔を狭く(×0.625)・表示を長く(×1.25)。`lineLevelOf(level)` が、知らない段階なら「ふつう」を返す(壊れない)。
+- `main.js` は、`createLines({ gapMs: lineLevelOf(settings.lineLevel).gapMs })`(既存の依存注入をそのまま使う)、`say()` で `view.showBubble(..., lineLevelOf(settings.lineLevel).bubbleMs)` を呼ぶ。**新しい保存項目・新しい判定ロジックは増やしていない**(`lines.js`・`main.js` の該当箇所は、もともと値を引数として受け取れる設計だったため)。
+- どちらも `nolito:escape-boss:settings:v1`(既存のキー)に保存する(記録=`nolito:escape-boss:v1` とは別)。ダッシュボードの「グラフィックを抑える」の直後・「苦手な語の出やすさ」の直前に、選択欄(セリフの表示)・チェックボックス(演出を自動で飛ばす)を追加。**用語確認では、両方とも隠す**(場面・演出・セリフが、そもそもないため。`view.js` の `applyMode()`)。
