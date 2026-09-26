@@ -90,7 +90,7 @@ export const saveOnlineRanking = (entry, options) =>
 /** 商品 ID → 商品名(公開の products.json から)。取れなければ空(ID のまま表示する)。 */
 export async function fetchProductNames(fetchImpl = globalThis.fetch) {
   try {
-    const response = await fetchImpl("/data/products.json");
+    const response = await fetchImpl("/api/products");
     const data = await response.json();
     return new Map(data.products.map((product) => [product.id, String(product.title)]));
   } catch {

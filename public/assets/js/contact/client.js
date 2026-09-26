@@ -51,7 +51,7 @@ export async function sendInquiry(payload, fetchImpl = globalThis.fetch) {
 export async function fetchProductOptions(fetchImpl = globalThis.fetch) {
   try {
     const [productData, categoryData] = await Promise.all(
-      ["/data/products.json", "/data/categories.json"].map(async (url) => {
+      ["/api/products", "/data/categories.json"].map(async (url) => {
         const response = await fetchImpl(url);
         if (!response.ok) throw new Error(url);
         return response.json();

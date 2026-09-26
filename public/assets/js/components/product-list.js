@@ -103,7 +103,7 @@ export async function renderProductList(container) {
   const { category, featured } = container.dataset;
   try {
     const [productData, categoryData] = await Promise.all([
-      loadJson("/data/products.json"),
+      loadJson("/api/products"),
       loadJson("/data/categories.json"),
     ]);
     const { products, skipped } = usableProducts(productData, categoryData.categories);

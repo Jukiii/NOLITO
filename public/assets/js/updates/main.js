@@ -42,7 +42,7 @@ function renderGroups(groups) {
 async function renderUpdates(container) {
   try {
     const [productData, categoryData, articleData] = await Promise.all([
-      loadJson("/data/products.json"),
+      loadJson("/api/products"),
       loadJson("/data/categories.json"),
       loadJson("/data/articles.json"),
     ]);
