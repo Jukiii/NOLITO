@@ -16,6 +16,7 @@ import {
   readingUnits,
   reviewCounts,
 } from "./lib/vocab-stats.mjs";
+import { similarPairs } from "./lib/vocab-similarity.mjs";
 
 const args = new Set(process.argv.slice(2));
 
@@ -35,7 +36,13 @@ try {
           `${data.job_id}: ${item.id}(${item.japanese}): 難易度 ${item.difficulty} は、読みの長さの決めでは ${expectedDifficulty(readingUnits(item.reading))} です(下書き)`,
       ),
   );
-  const allWarnings = [...warnings, ...draftWarnings];
+  // 説明の文章が近い語(表記は違うが、意味が近いかもしれない組。完全一致は、上の findIssues が見ている)。
+  // しきい値以上でも、必ず重複とは限らない(目安。人間・AIが、最終確認する)
+  const similarWarnings = similarPairs(source.flatMap((data) => data.items)).map(
+    ({ aId, aJapanese, bId, bJapanese, score }) =>
+      `${aId}(${aJapanese}) と ${bId}(${bJapanese}): 説明の文章が似ています(目安 ${score.toFixed(2)}。同じ意味か、確認してください)`,
+  );
+  const allWarnings = [...warnings, ...draftWarnings, ...similarWarnings];
 
   const notes = source.flatMap((data) =>
     data.items
