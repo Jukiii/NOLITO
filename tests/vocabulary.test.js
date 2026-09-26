@@ -37,6 +37,50 @@ describe("出題", () => {
     }
   });
 
+  it("難易度専用の語(difficulties)は、指定した難易度でなければ選ばない。省略した語は、常に対象(Phase 24)", () => {
+    const mixed = [...items, { id: "hard-only", roles: ["senpai"], difficulties: ["hard"] }];
+    for (let seed = 1; seed <= 30; seed++) {
+      const withoutDifficulty = pickWords(mixed, "senpai", 10, seeded(seed));
+      assert.ok(
+        withoutDifficulty.every((w) => w.id !== "hard-only"),
+        "難易度を渡さない場合",
+      );
+      const asNormal = pickWords(mixed, "senpai", 10, seeded(seed), { difficultyId: "normal" });
+      assert.ok(
+        asNormal.every((w) => w.id !== "hard-only"),
+        "ふつうの場合",
+      );
+    }
+    const asHard = pickWords(mixed, "senpai", 11, seeded(1), { difficultyId: "hard" });
+    assert.ok(
+      asHard.some((w) => w.id === "hard-only"),
+      "むずかしいの場合は、選ばれうる",
+    );
+  });
+
+  it("役職・難易度は、両方を同時に満たす必要がある", () => {
+    const mixed = [
+      ...items,
+      { id: "kaicho-only", roles: ["kaicho"] },
+      { id: "boss-hard-only", roles: ["kaicho"], difficulties: ["hard"] },
+    ];
+    const asSenpaiHard = pickWords(mixed, "senpai", 10, seeded(1), { difficultyId: "hard" });
+    assert.ok(
+      asSenpaiHard.every((w) => w.id !== "boss-hard-only"),
+      "役職が違う",
+    );
+    const asKaichoNormal = pickWords(mixed, "kaicho", 1, seeded(1), { difficultyId: "normal" });
+    assert.ok(
+      asKaichoNormal.every((w) => w.id !== "boss-hard-only"),
+      "役職は合うが、難易度が違う",
+    );
+    const asKaichoHard = pickWords(mixed, "kaicho", 2, seeded(1), { difficultyId: "hard" });
+    assert.ok(
+      asKaichoHard.some((w) => w.id === "boss-hard-only"),
+      "役職・難易度が、両方一致",
+    );
+  });
+
   it("語が足りないときだけ再利用する(直前と同じ語は続けない)", () => {
     for (let seed = 1; seed <= 50; seed++) {
       const words = pickWords(items.slice(0, 3), "senpai", 9, seeded(seed));

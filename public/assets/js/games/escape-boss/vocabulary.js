@@ -41,10 +41,23 @@ function orderedBag(pool, random, weights) {
 /**
  * 役職の対象語から count 語を選ぶ。同一ゲーム内は重複させない。
  * weights(id → 重み。weak.js の weakWeights)を渡すと、重みの大きい語(苦手な語)が、出やすくなる。
+ * difficultyId(既定 null)を渡すと、`difficulties`(難易度専用。省略した語は、すべての難易度で対象)を
+ * 持つ語のうち、その難易度を含まないものを、候補から外す(Phase 24。役職・難易度ごとの専用語)。
  * 語が足りない場合だけ、全語を出し切った後にもう一度並べ直して使う(直前と同じ語は避ける)。
  */
-export function pickWords(items, roleId, count, random = Math.random, { weights = null } = {}) {
-  const pool = items.filter((item) => item.roles.includes(roleId));
+export function pickWords(
+  items,
+  roleId,
+  count,
+  random = Math.random,
+  { weights = null, difficultyId = null } = {},
+) {
+  const pool = items.filter(
+    (item) =>
+      item.roles.includes(roleId) &&
+      (!Array.isArray(item.difficulties) ||
+        (difficultyId !== null && item.difficulties.includes(difficultyId))),
+  );
   if (pool.length === 0) throw new Error(`役職 ${roleId} の対象語がありません`);
 
   const picked = [];

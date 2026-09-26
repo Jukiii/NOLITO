@@ -294,6 +294,8 @@ describe("苦手な語の出やすさ(Phase 13 PR 1)", () => {
       /pickWords\(vocabulary\.items, role\.id, stage\.goal_words, Math\.random, \{/,
     );
     assert.match(chasePart, /level: settings\.weakBoost/);
+    // 難易度専用の語(Phase 24)。解決した(既定に落とし込んだあとの)difficulty.id を渡す
+    assert.match(chasePart, /difficultyId: difficulty\.id,/);
     const check = read("public/assets/js/games/escape-boss/check.js");
     assert.ok(!/weakWeights|weights/.test(check));
   });
