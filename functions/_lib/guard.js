@@ -1,5 +1,5 @@
-// エンドポイントの入り口の確認(有効か・CSRF・ログイン済みか・招待されているか)。
-import { authStatus, isInvited, siteOrigin } from "./config.js";
+// エンドポイントの入り口の確認(有効か・CSRF・ログイン済みか・招待されているか・管理者か)。
+import { authStatus, isAdmin, isInvited, siteOrigin } from "./config.js";
 import { error, nowSeconds } from "./http.js";
 import { findSession } from "./session.js";
 import { getUser } from "./users.js";
@@ -43,4 +43,16 @@ export async function requireUser({ request, env }, { write = false } = {}) {
   if (!user) return { response: error(401, "not-logged-in") };
   if (!isInvited(env, user.email)) return { response: error(403, "not-invited") };
   return { user, session, now };
+}
+
+/**
+ * ログイン済み・招待済みに加えて、管理者(Phase 26。`ADMIN_EMAILS`)であることを確かめる。
+ * 成功: { user, session, now }。失敗: { response }(招待されていなければ 403 not-invited、
+ * 管理者でなければ 403 not-admin)。将来の管理画面のAPIは、requireUser の代わりに、これを使う。
+ */
+export async function requireAdmin(context, options = {}) {
+  const result = await requireUser(context, options);
+  if (result.response) return result;
+  if (!isAdmin(context.env, result.user.email)) return { response: error(403, "not-admin") };
+  return result;
 }

@@ -9,6 +9,7 @@
 //   AUTH_ENABLED         "true" のときだけ、アカウントの機能を有効にする
 //   SIGNUP_MODE          "open" なら誰でもログインできる。それ以外は「招待制」(許可リストだけ)
 //   ALLOWED_EMAILS       招待制で、ログインを許すメールアドレス(カンマ区切り)
+//   ADMIN_EMAILS         管理者とするメールアドレス(カンマ区切り。Phase 26。省略すると、管理者はいない)
 //   CONTACT_ENABLED      "true" のときだけ、問い合わせフォームを有効にする(DB・SESSION_SECRET・SITE_ORIGIN が要る)
 
 export const MIN_SECRET_LENGTH = 32;
@@ -66,6 +67,19 @@ export const normalizeEmail = (email) => String(email).trim().toLowerCase();
 /** 招待制のとき、このメールアドレスは、ログインを許されているか。招待制でなければ、常に許す。 */
 export const isInvited = (env, email) =>
   signupMode(env) === "open" || allowedEmails(env).has(normalizeEmail(email));
+
+/** 管理者とするメールアドレス(小文字。Phase 26)。 */
+export function adminEmails(env) {
+  return new Set(
+    String(env.ADMIN_EMAILS ?? "")
+      .split(",")
+      .map((email) => email.trim().toLowerCase())
+      .filter(Boolean),
+  );
+}
+
+/** このメールアドレスは、管理者か(Phase 26。単一の「管理者」フラグだけ。役職ごとの権限分けは、まだない)。 */
+export const isAdmin = (env, email) => adminEmails(env).has(normalizeEmail(email));
 
 const GOOGLE = {
   authUrl: "https://accounts.google.com/o/oauth2/v2/auth",

@@ -74,6 +74,14 @@ CREATE INDEX ranking_entries_lookup ON ranking_entries(role_id, difficulty_id, s
 CREATE TABLE site_settings (user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE, theme TEXT NOT NULL, font_size TEXT NOT NULL, reduced_motion TEXT NOT NULL, updated_at INTEGER NOT NULL);
 ```
 
+**0007**(`0007_admin_audit.sql`。Phase 26 の PR 1。管理画面の監査ログの基盤)
+
+```sql 0007_admin_audit.sql
+CREATE TABLE admin_audit_log (id INTEGER PRIMARY KEY AUTOINCREMENT, at INTEGER NOT NULL, user_id TEXT REFERENCES users(id) ON DELETE SET NULL, resource_type TEXT NOT NULL, resource_id TEXT, action TEXT NOT NULL, before_json TEXT, after_json TEXT);
+CREATE INDEX admin_audit_log_at ON admin_audit_log(at);
+CREATE INDEX admin_audit_log_resource ON admin_audit_log(resource_type, resource_id);
+```
+
 ## 2. Pages に D1 をつなぐ(本番だけ)
 
 1. Cloudflare → **Workers & Pages** → プロジェクト `nolito` → **Settings** → **Bindings** → **Add** → **D1 database**。
@@ -109,6 +117,7 @@ CREATE TABLE site_settings (user_id TEXT PRIMARY KEY REFERENCES users(id) ON DEL
 | `SITE_ORIGIN` | Text | `https://nolito.pages.dev`(末尾のスラッシュなし) |
 | `SIGNUP_MODE` | Text | `invite`(招待制。省略しても `invite`) |
 | `ALLOWED_EMAILS` | Text | ログインを許すメールアドレス(カンマ区切り。例: `you@gmail.com,friend@gmail.com`) |
+| `ADMIN_EMAILS` | Text | **管理者**とするメールアドレス(カンマ区切り。Phase 26。省略すると、管理者はいない=すべて無効) |
 | `AUTH_ENABLED` | Text | `true`(**最後に**入れる。これが `true` になるまで、機能は無効) |
 
 `SESSION_SECRET` の作り方(PowerShell か、ターミナルで。出力を、そのまま入力欄に貼る):
