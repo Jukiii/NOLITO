@@ -123,3 +123,4 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 - 流れ: 語を足す(**`draft: true`**。下書きは公開されない)→ `npm run vocab:check`(形式・重複・ローマ字・難易度)→ AI チェック(`npm run vocab:check -- --for-ai` の出力を、AI に渡す。結果は参考)→ **人間の最終確認**(`npm run vocab:review` の確認シート)→ `draft` の行を消して、`review: confirmed` にする → `npm run build` と `npm run vocab:review`。
 - `npm run vocab:stats`(職種ごとの統計・点検・確認の状況)、`npm run vocab:review`(確認シート `docs/vocabulary-review.md` を作り直す。`-- --check` で、最新かを検査)。語録を変えたら、確認シートも、作り直す。
 - AI が書いた語は、必ず `draft: true` から始める(`docs/06_ai/vocabulary-generation-prompt.md`)。意味に自信がない点は、`note` に書く。
+- 公開済みの語への改善提案は `npm run vocab:check -- --improve`(関連用語がまだない語に、AIが追加案を提案。`docs/06_ai/content-improve-prompt.md`)。AI活用の全体の流れは `docs/06_ai/README.md` にまとめてある。

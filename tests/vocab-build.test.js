@@ -565,6 +565,22 @@ describe("文書との一致", () => {
       /最終判断にせず、人間による最終確認を必須/,
     );
     assert.match(read("docs/05_checklists/vocabulary-validation.md"), /人間が最終確認する/);
+    // AI活用の流れの文書化(Phase 25 PR3)
+    assert.match(
+      read("docs/06_ai/content-improve-prompt.md"),
+      /最終判断にせず、人間による最終確認を必須/,
+    );
+    const aiReadme = read("docs/06_ai/README.md");
+    for (const text of [
+      "vocabulary-generation-prompt.md",
+      "content-check-prompt.md",
+      "content-improve-prompt.md",
+      "npm run vocab:check -- --improve",
+      "有料APIとの自動連携は、作らない",
+      "管理画面",
+    ]) {
+      assert.ok(aiReadme.includes(text), text);
+    }
   });
 
   it("原稿は、YAML の項目の順序・書き方の説明(intro)を持ち、管理元であることを書いている", () => {
