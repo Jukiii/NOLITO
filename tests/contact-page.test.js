@@ -297,7 +297,11 @@ describe("API クライアント", () => {
   });
 
   it("対象のプロダクトの選択肢: 準備中を除き、id・題名・バージョンを返す。取れなければ空", async () => {
-    const real = (path) => jsonResponse(JSON.parse(read(`public${path}`)));
+    // /api/products は、D1 から組み立てる(Phase 26 PR2)。テストでは、同じ内容の静的ファイルで代用する
+    const real = (path) =>
+      jsonResponse(
+        JSON.parse(read(`public${path === "/api/products" ? "/data/products.json" : path}`)),
+      );
     const options = await fetchProductOptions(recorder(real).fetchImpl);
     assert.deepEqual(options.map((item) => item.id).sort(), ["escape-boss", "kii-michi"]);
     for (const item of options) {

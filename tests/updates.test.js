@@ -309,9 +309,9 @@ describe("ページの静的な性質", () => {
   it("外部へ通信しない(同じサイトの JSON だけ)。ブラウザに、記録を置かない", () => {
     const urls = [...main.matchAll(/loadJson\("([^"]+)"\)/g)].map((match) => match[1]);
     assert.deepEqual(urls.sort(), [
+      "/api/products",
       "/data/articles.json",
       "/data/categories.json",
-      "/data/products.json",
     ]);
     assert.ok(!/localStorage|sessionStorage|indexedDB|document\.cookie|https?:\/\//.test(main));
   });
