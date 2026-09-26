@@ -8,9 +8,10 @@ import { onRequestGet as me } from "../functions/api/me.js";
 import { onRequestPost as updateProfile } from "../functions/api/profile.js";
 import { onRequestGet as callback } from "../functions/auth/google/callback.js";
 import { onRequestGet as login } from "../functions/auth/google/login.js";
-import { OAUTH_COOKIE, SESSION_COOKIE } from "../functions/_lib/config.js";
+import { OAUTH_COOKIE, SESSION_COOKIE, adminEmails, isAdmin } from "../functions/_lib/config.js";
 import { sha256 } from "../functions/_lib/crypto.js";
 import { clearJwksCache } from "../functions/_lib/google.js";
+import { requireAdmin } from "../functions/_lib/guard.js";
 import {
   ABSOLUTE_SECONDS,
   IDLE_SECONDS,
@@ -403,17 +404,33 @@ describe("/api/me", () => {
     assert.equal(response.headers.get("Cache-Control"), "no-store");
   });
 
-  it("ログインしていれば、ニックネーム・メール・登録日・ランキング参加の状態だけを返す(sub やセッションは返さない)", async () => {
+  it("ログインしていれば、ニックネーム・メール・登録日・ランキング参加の状態・管理者かを返す(sub やセッションは返さない)", async () => {
     const { cookies } = await loggedIn();
     const data = await body(await me({ request: get("/api/me", { cookies }), env }));
     assert.deepEqual(Object.keys(data.user).sort(), [
       "createdAt",
       "email",
+      "isAdmin",
       "nickname",
       "rankingOptIn",
     ]);
     assert.equal(data.user.nickname, "ななしさん");
     assert.equal(data.user.rankingOptIn, false); // 既定は不参加
+    assert.equal(data.user.isAdmin, false); // 既定(ADMIN_EMAILS 未設定)は、管理者ではない
+  });
+
+  it("ADMIN_EMAILS にあるメールアドレスだけ、isAdmin: true(Phase 26)", async () => {
+    env = makeEnv({ ADMIN_EMAILS: "alice@example.com" });
+    const { cookies } = await loggedIn();
+    const data = await body(await me({ request: get("/api/me", { cookies }), env }));
+    assert.equal(data.user.isAdmin, true);
+
+    env = makeEnv({ ADMIN_EMAILS: "someone-else@example.com" });
+    const other = await loggedIn();
+    const otherData = await body(
+      await me({ request: get("/api/me", { cookies: other.cookies }), env }),
+    );
+    assert.equal(otherData.user.isAdmin, false);
   });
 
   it("でたらめなセッションの Cookie は、ログインしていない扱い", async () => {
@@ -455,6 +472,75 @@ describe("/api/me", () => {
     });
     assert.equal(response.status, 403);
     assert.equal((await body(response)).error, "not-invited");
+  });
+});
+
+describe("requireAdmin(guard.js。Phase 26 PR 1。管理画面の入り口の基盤)", () => {
+  it("ログインしていなければ、requireUser と同じ 401", async () => {
+    const result = await requireAdmin({ request: get("/api/admin/x"), env });
+    assert.equal(result.response.status, 401);
+  });
+
+  it("ログイン済みだが、ADMIN_EMAILS になければ、403 not-admin", async () => {
+    const { cookies } = await loggedIn();
+    const result = await requireAdmin({ request: get("/api/admin/x", { cookies }), env });
+    assert.equal(result.response.status, 403);
+    assert.equal((await body(result.response.clone())).error, "not-admin");
+  });
+
+  it("ADMIN_EMAILS にあれば、requireUser と同じ成功の形({ user, session, now })を返す", async () => {
+    env = makeEnv({ ADMIN_EMAILS: "alice@example.com" });
+    const { cookies } = await loggedIn();
+    const result = await requireAdmin({ request: get("/api/admin/x", { cookies }), env });
+    assert.ok(!result.response, "response がない(成功)");
+    assert.equal(result.user.email, "alice@example.com");
+  });
+
+  it("write: true のときは、CSRF も確認する(requireUser と同じ)", async () => {
+    env = makeEnv({ ADMIN_EMAILS: "alice@example.com" });
+    const { cookies } = await loggedIn();
+    const result = await requireAdmin(
+      {
+        request: write("POST", "/api/admin/x", {
+          cookies,
+          headers: { Origin: "https://evil.test" },
+        }),
+        env,
+      },
+      { write: true },
+    );
+    assert.equal(result.response.status, 403);
+    assert.equal((await body(result.response.clone())).error, "bad-origin");
+  });
+
+  it("招待から外されていれば(招待制)、管理者でも 403 not-invited", async () => {
+    env = makeEnv({ ADMIN_EMAILS: "alice@example.com" });
+    const { cookies } = await loggedIn(); // 招待されている間に、ログインする
+    const removed = { ...env, ALLOWED_EMAILS: "bob@example.com" }; // そのあと、招待から外す
+    const result = await requireAdmin({ request: get("/api/admin/x", { cookies }), env: removed });
+    assert.equal(result.response.status, 403);
+    assert.equal((await body(result.response.clone())).error, "not-invited");
+  });
+});
+
+describe("adminEmails・isAdmin(config.js。Phase 26 PR 1)", () => {
+  it("カンマ区切りを、小文字・前後の空白なしの集合にする", () => {
+    assert.deepEqual(
+      adminEmails({ ADMIN_EMAILS: " Alice@Example.com ,bob@example.com,, " }),
+      new Set(["alice@example.com", "bob@example.com"]),
+    );
+  });
+
+  it("未設定・空なら、空集合(管理者はいない)", () => {
+    assert.deepEqual(adminEmails({}), new Set());
+    assert.deepEqual(adminEmails({ ADMIN_EMAILS: "" }), new Set());
+  });
+
+  it("isAdmin は、大文字小文字を区別しない", () => {
+    const e = { ADMIN_EMAILS: "alice@example.com" };
+    assert.equal(isAdmin(e, "alice@example.com"), true);
+    assert.equal(isAdmin(e, "ALICE@EXAMPLE.COM"), true);
+    assert.equal(isAdmin(e, "bob@example.com"), false);
   });
 });
 

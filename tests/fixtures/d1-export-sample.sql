@@ -10,6 +10,7 @@ INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(3,'0003_inquiries.
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(4,'0004_game_sync.sql','2026-09-24 09:00:00');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(5,'0005_ranking.sql','2026-09-24 10:00:00');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(6,'0006_site_settings.sql','2026-09-24 11:00:00');
+INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(7,'0007_admin_audit.sql','2026-09-26 12:00:00');
 CREATE TABLE users (
   id TEXT PRIMARY KEY,
   google_sub TEXT NOT NULL UNIQUE,
@@ -104,11 +105,25 @@ CREATE TABLE site_settings (
   updated_at INTEGER NOT NULL
 );
 INSERT INTO "site_settings" ("user_id","theme","font_size","reduced_motion","updated_at") VALUES('u1','dark','large','system',2000);
+CREATE TABLE admin_audit_log (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  at INTEGER NOT NULL,
+  user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+  resource_type TEXT NOT NULL,
+  resource_id TEXT,
+  action TEXT NOT NULL,
+  before_json TEXT,
+  after_json TEXT
+);
+INSERT INTO "admin_audit_log" ("id","at","user_id","resource_type","resource_id","action","before_json","after_json") VALUES(1,2000,'u1','vocabulary','engineer-001','update','{"explanation":"前"}','{"explanation":"後"}');
 DELETE FROM sqlite_sequence;
-INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',6);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',7);
 INSERT INTO "sqlite_sequence" ("name","seq") VALUES('audit_log',2);
+INSERT INTO "sqlite_sequence" ("name","seq") VALUES('admin_audit_log',1);
 CREATE INDEX sessions_user ON sessions(user_id);
 CREATE INDEX audit_log_at ON audit_log(at);
 CREATE INDEX licenses_user ON licenses(user_id);
 CREATE INDEX inquiries_status ON inquiries(status, created_at);
 CREATE INDEX ranking_entries_lookup ON ranking_entries(role_id, difficulty_id, score DESC, achieved_at ASC);
+CREATE INDEX admin_audit_log_at ON admin_audit_log(at);
+CREATE INDEX admin_audit_log_resource ON admin_audit_log(resource_type, resource_id);

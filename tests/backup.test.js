@@ -141,8 +141,9 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
     const { tables, problems } = verifyDump(sample, required);
     assert.deepEqual(problems, []);
     assert.deepEqual(tables, {
+      admin_audit_log: 1,
       audit_log: 2,
-      d1_migrations: 6,
+      d1_migrations: 7,
       game_progress: 1,
       inquiries: 2,
       licenses: 2,
@@ -156,6 +157,7 @@ describe("バックアップの検査(メモリ上の SQLite に読み込む)", 
 
   it("migrations/ のすべてのテーブルが、バックアップにある", () => {
     assert.deepEqual([...required].sort(), [
+      "admin_audit_log",
       "audit_log",
       "game_progress",
       "inquiries",

@@ -1,8 +1,8 @@
 // GET /api/me — 今のログインの状態。
 //   { enabled: false }                     … アカウントの機能が、まだ有効でない(プレビューなど)
 //   { enabled: true, user: null }          … ログインしていない
-//   { enabled: true, user: { nickname, email, createdAt, rankingOptIn } }
-import { authStatus, isInvited } from "../_lib/config.js";
+//   { enabled: true, user: { nickname, email, createdAt, rankingOptIn, isAdmin } }
+import { authStatus, isAdmin, isInvited } from "../_lib/config.js";
 import { json, methodNotAllowed, nowSeconds } from "../_lib/http.js";
 import { findSession } from "../_lib/session.js";
 import { getUser } from "../_lib/users.js";
@@ -20,6 +20,7 @@ export async function onRequestGet({ request, env }) {
       email: user.email,
       createdAt: user.createdAt,
       rankingOptIn: user.rankingOptIn,
+      isAdmin: isAdmin(env, user.email), // Phase 26。管理画面は、まだない(判定だけ、先に用意する)
     },
   });
 }
