@@ -455,6 +455,9 @@ describe("コマンド", () => {
     assert.match(result.stdout, /形式の検証.*通りました/);
     assert.match(result.stdout, /人間に見てほしい点\(note\): 41 件/);
     assert.match(result.stdout, /engineer-009\(プルリクエスト\)/);
+    // 似た意味の語の候補(Phase 25 PR2)も、警告として出る
+    assert.match(result.stdout, /警告\(直したほうがよい点\): 2 件/);
+    assert.match(result.stdout, /food-service-007\(仕込み\) と food-service-012\(下ごしらえ\)/);
   });
 
   it("vocab:check --for-ai: 指示・機械の確認結果・確認する語の順で出す。下書きがなければ、その旨", () => {
@@ -465,6 +468,9 @@ describe("コマンド", () => {
     assert.ok(out.indexOf("機械の確認結果") < out.indexOf("確認する語"));
     assert.match(out, /確認する語が、ありません/);
     assert.match(out, /最終判断は、人間が行います/);
+    // 似た意味の語の候補(Phase 25 PR2)も、機械の確認結果に含まれる
+    assert.match(out, /- 警告: 2 件/);
+    assert.match(out, /sales-001\(顧客\) と sales-003\(納期\): 説明の文章が似ています/);
   });
 
   it("vocab:check --for-ai --all: 未確認の語も、YAML で出す(読み取れる形)", () => {
