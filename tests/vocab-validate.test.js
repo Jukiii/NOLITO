@@ -13,7 +13,12 @@ import {
 } from "../scripts/lib/vocab-validate.mjs";
 
 const ROLES = ["senpai", "kakaricho", "buchou", "shachou", "kaicho"];
-const context = { jobs: [{ id: "demo", name: "デモ" }], roleIds: ROLES };
+const DIFFICULTIES = ["easy", "normal", "hard"];
+const context = {
+  jobs: [{ id: "demo", name: "デモ" }],
+  roleIds: ROLES,
+  difficultyIds: DIFFICULTIES,
+};
 
 const item = (n, overrides = {}) => ({
   id: `demo-${String(n).padStart(3, "0")}`,
@@ -238,6 +243,23 @@ describe("そのほかの項目", () => {
     assert.ok(has(errorsOf(file([item(1, { roles: ["senpai", "senpai"] })])), "重複"));
   });
 
+  it("難易度専用(difficulties。Phase 24): 省略できる。書けば、実在する難易度 id の一覧(1 つ以上・重複なし)", () => {
+    const { errors, data } = check(file([item(1)]));
+    assert.deepEqual(errors, []);
+    assert.ok(!("difficulties" in data.items[0]), "省略時は、項目自体を作らない");
+
+    const ok = check(file([item(1, { difficulties: ["hard"] })]));
+    assert.deepEqual(ok.errors, []);
+    assert.deepEqual(ok.data.items[0].difficulties, ["hard"]);
+
+    assert.ok(has(errorsOf(file([item(1, { difficulties: [] })])), "difficulties"));
+    assert.ok(has(errorsOf(file([item(1, { difficulties: "hard" })])), "difficulties"));
+    assert.ok(
+      has(errorsOf(file([item(1, { difficulties: ["hard", "unknown"] })])), "知らない難易度"),
+    );
+    assert.ok(has(errorsOf(file([item(1, { difficulties: ["hard", "hard"] })])), "重複"));
+  });
+
   it("説明: 「。」で終わる 80 字以内の 1 行", () => {
     assert.ok(has(errorsOf(file([item(1, { explanation: "句点がない" })])), "「。」で終わる"));
     assert.ok(
@@ -418,7 +440,7 @@ describe("公開の形(toPublished)", () => {
     for (const word of published.items) {
       assert.deepEqual(
         Object.keys(word),
-        PUBLISHED_KEYS.filter((key) => key !== "detail"),
+        PUBLISHED_KEYS.filter((key) => !["detail", "difficulties"].includes(key)),
       );
     }
     assert.deepEqual(Object.keys(published), [
@@ -465,10 +487,13 @@ describe("詳細説明(detail。難語のための、少し長い説明)", () =>
     const { data } = check(file([item(1, { detail: "詳しい説明です。" }), item(2)]));
     const published = toPublished(data);
     const keys = (word) => Object.keys(word);
-    assert.deepEqual(keys(published.items[0]), PUBLISHED_KEYS);
+    assert.deepEqual(
+      keys(published.items[0]),
+      PUBLISHED_KEYS.filter((key) => key !== "difficulties"),
+    );
     assert.deepEqual(
       keys(published.items[1]),
-      PUBLISHED_KEYS.filter((key) => key !== "detail"),
+      PUBLISHED_KEYS.filter((key) => !["detail", "difficulties"].includes(key)),
     );
     const order = keys(published.items[0]);
     assert.equal(order.indexOf("detail"), order.indexOf("explanation") + 1);
@@ -483,5 +508,25 @@ describe("詳細説明(detail。難語のための、少し長い説明)", () =>
     assert.ok(
       has(errorsOf(file([item(1, { draft: true, detail: "句点なし" })])), "「。」で終わる"),
     );
+  });
+});
+
+describe("難易度専用(difficulties)の公開の形", () => {
+  it("省略した語には、項目を作らない。書いた語は、roles の直後・explanation の前に置く", () => {
+    const { data } = check(file([item(1, { difficulties: ["hard"] }), item(2)]));
+    const published = toPublished(data);
+    const keys = (word) => Object.keys(word);
+    assert.deepEqual(
+      keys(published.items[0]),
+      PUBLISHED_KEYS.filter((key) => key !== "detail"),
+    );
+    assert.deepEqual(
+      keys(published.items[1]),
+      PUBLISHED_KEYS.filter((key) => !["detail", "difficulties"].includes(key)),
+    );
+    const order = keys(published.items[0]);
+    assert.equal(order.indexOf("difficulties"), order.indexOf("roles") + 1);
+    assert.equal(order.indexOf("difficulties"), order.indexOf("explanation") - 1);
+    assert.deepEqual(published.items[0].difficulties, ["hard"]);
   });
 });

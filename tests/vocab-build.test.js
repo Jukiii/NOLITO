@@ -43,9 +43,11 @@ describe("実際の原稿 → 公開の JSON", () => {
       const text = read(`public/data/vocabulary/${job.id}.json`);
       assert.ok(!/"(review|draft|note)"/.test(text), job.id);
       const data = JSON.parse(text);
-      // detail(詳細説明)は、ある語だけ、explanation の直後に入る
+      // detail(詳細説明)・difficulties(難易度専用)は、ある語だけ、決まった位置に入る
       for (const item of data.items) {
-        const expected = PUBLISHED_KEYS.filter((key) => key !== "detail" || "detail" in item);
+        const expected = PUBLISHED_KEYS.filter(
+          (key) => !["detail", "difficulties"].includes(key) || key in item,
+        );
         assert.deepEqual(Object.keys(item), expected, item.id);
       }
     }
@@ -106,6 +108,7 @@ describe("実際の原稿 → 公開の JSON", () => {
 
 // ---- 合成した原稿 ----
 const ROLES = context.roleIds;
+const DIFFICULTIES = context.difficultyIds;
 const mkJob = (id, name) => ({ id, name });
 const word = (jobId, n, overrides = {}) => ({
   id: `${jobId}-${String(n).padStart(3, "0")}`,
@@ -135,8 +138,20 @@ const manuscript = (jobId, name, items, meta = {}) =>
     },
     { intro: `# ${name}` },
   ).replace(/ {4}romaji: \[x\]\n/g, "");
-const source = (name, text) => ({ name, file: `content/vocabulary/${name}.md`, text });
-const demoContext = { jobs: [mkJob("demo", "デモ")], roleIds: ROLES };
+const source = (name, text) => ({
+  name,
+  file: `content/vocabulary/${name}.md`,
+  text,
+  kind: "base",
+});
+// 拡張ファイル(Phase 24): job_id と items だけの、軽い原稿。JSON は、正しい YAML でもある
+const extSource = (name, tag, items, overrides = {}) => ({
+  name,
+  file: `content/vocabulary/${name}.ext-${tag}.md`,
+  kind: "ext",
+  text: `\`\`\`yaml\n${JSON.stringify({ job_id: name, items, ...overrides }, null, 2)}\n\`\`\`\n`,
+});
+const demoContext = { jobs: [mkJob("demo", "デモ")], roleIds: ROLES, difficultyIds: DIFFICULTIES };
 
 describe("合成した原稿", () => {
   it("下書きは公開しない。ローマ字は自動で作られる。原稿だけの項目は入らない", async () => {
@@ -255,6 +270,106 @@ describe("合成した原稿", () => {
   });
 });
 
+describe("拡張ファイル(役職・難易度の専用語を足す。Phase 24)", () => {
+  it("ベース + 拡張ファイルの items を、マージしてから検証する(ベースが先、拡張はあとに続く)", async () => {
+    const base = source("demo", manuscript("demo", "デモ", [word("demo", 1), word("demo", 2)]));
+    const ext = extSource("demo", "kaicho", [word("demo", 3, { roles: ["kaicho"] })]);
+    const { outputs, errors, files } = await buildOutputs([base, ext], demoContext);
+    assert.deepEqual(errors, []);
+    assert.equal(files.length, 1, "職種数は、拡張ファイルがあっても、1 のまま");
+    const json = JSON.parse(outputs.get("public/data/vocabulary/demo.json"));
+    assert.deepEqual(
+      json.items.map((item) => item.id),
+      ["demo-001", "demo-002", "demo-003"],
+    );
+    assert.deepEqual(json.items[2].roles, ["kaicho"]);
+  });
+
+  it("拡張ファイルは、複数あってよい(名前が違えば)。順は、渡した順のまま追加される", async () => {
+    const base = source("demo", manuscript("demo", "デモ", [word("demo", 1)]));
+    const ext1 = extSource("demo", "kaicho", [word("demo", 2, { roles: ["kaicho"] })]);
+    const ext2 = extSource("demo", "hard", [word("demo", 3, { difficulties: ["hard"] })]);
+    const { outputs, errors } = await buildOutputs([base, ext1, ext2], demoContext);
+    assert.deepEqual(errors, []);
+    const json = JSON.parse(outputs.get("public/data/vocabulary/demo.json"));
+    assert.deepEqual(
+      json.items.map((item) => item.id),
+      ["demo-001", "demo-002", "demo-003"],
+    );
+    assert.deepEqual(json.items[2].difficulties, ["hard"]);
+  });
+
+  it("拡張ファイルの語は、ベースの語(同じ職種)を関連用語にできる", async () => {
+    const base = source("demo", manuscript("demo", "デモ", [word("demo", 1)]));
+    const ext = extSource("demo", "kaicho", [
+      word("demo", 2, { roles: ["kaicho"], related_terms: [`demo語1`] }),
+    ]);
+    const { errors } = await buildOutputs([base, ext], demoContext);
+    assert.deepEqual(errors, []);
+  });
+
+  it("id・日本語・読みの重複は、ベースと拡張ファイルをまたいでも、検査される", async () => {
+    const base = source("demo", manuscript("demo", "デモ", [word("demo", 1)]));
+    const dupId = await buildOutputs(
+      [base, extSource("demo", "x", [word("demo", 1, { japanese: "別の語" })])],
+      demoContext,
+    );
+    assert.ok(dupId.errors.some((line) => line.includes("id が重複しています")));
+
+    const dupJapanese = await buildOutputs(
+      [base, extSource("demo", "x", [word("demo", 2, { japanese: word("demo", 1).japanese })])],
+      demoContext,
+    );
+    assert.ok(dupJapanese.errors.some((line) => line.includes("日本語の表記が重複しています")));
+
+    const dupReading = await buildOutputs(
+      [base, extSource("demo", "x", [word("demo", 2, { reading: word("demo", 1).reading })])],
+      demoContext,
+    );
+    assert.ok(dupReading.errors.some((line) => line.includes("読みが重複しています")));
+  });
+
+  it("拡張ファイルには job_id と items だけ。ほかの項目(job_name 等)は、エラー", async () => {
+    const base = source("demo", manuscript("demo", "デモ", [word("demo", 1)]));
+    const ext = extSource("demo", "x", [word("demo", 2)], { job_name: "デモ" });
+    const { errors } = await buildOutputs([base, ext], demoContext);
+    assert.ok(
+      errors.some((line) => line.includes("job_id と items だけ")),
+      errors.join("\n"),
+    );
+  });
+
+  it("拡張ファイルの job_id が、ファイル名(対応するベース)と違えば、エラー", async () => {
+    const base = source("demo", manuscript("demo", "デモ", [word("demo", 1)]));
+    const ext = { ...extSource("demo", "x", [word("other", 2)]) };
+    ext.text = ext.text.replace('"job_id": "demo"', '"job_id": "other"');
+    const { errors } = await buildOutputs([base, ext], demoContext);
+    assert.ok(
+      errors.some((line) => line.includes("ベースの原稿と同じ")),
+      errors.join("\n"),
+    );
+  });
+
+  it("拡張ファイルの items が、空・配列でなければ、エラー", async () => {
+    const base = source("demo", manuscript("demo", "デモ", [word("demo", 1)]));
+    const ext = extSource("demo", "x", []);
+    const { errors } = await buildOutputs([base, ext], demoContext);
+    assert.ok(
+      errors.some((line) => line.includes("items は、語の一覧")),
+      errors.join("\n"),
+    );
+  });
+
+  it("対応するベースの原稿がない拡張ファイルは、エラー(単独では検証できない)", async () => {
+    const ext = extSource("demo", "x", [word("demo", 1)]);
+    const { errors } = await buildOutputs([ext], demoContext);
+    assert.ok(
+      errors.some((line) => line.includes("対応するベースの原稿")),
+      errors.join("\n"),
+    );
+  });
+});
+
 describe("最新かの検査(checkOutputs)・書き出し", () => {
   const tempRoot = () => {
     const dir = mkdtempSync(join(tmpdir(), "nolito-vocab-"));
@@ -288,17 +403,38 @@ describe("最新かの検査(checkOutputs)・書き出し", () => {
 });
 
 describe("原稿の読み込み(loadSources)", () => {
-  it("content/vocabulary/*.md を、名前順に読む(ファイル名が、職種の id)", () => {
+  it("content/vocabulary/*.md を、名前順に読む(ファイル名が、職種の id)。いまは、すべてベース(拡張ファイルは、まだない)", () => {
     const sources = loadSources(root);
     assert.deepEqual(
       sources.map((entry) => entry.name),
       ["engineer", "food-service", "office", "retail", "sales", "teaching"],
     );
-    for (const entry of sources) assert.ok(!entry.text.includes("\r"), entry.name);
+    for (const entry of sources) {
+      assert.ok(!entry.text.includes("\r"), entry.name);
+      assert.equal(entry.kind, "base", entry.name);
+    }
   });
 
   it("フォルダがなければ、空", () => {
     assert.deepEqual(loadSources(join(tmpdir(), "nolito-none-xyz")), []);
+  });
+
+  it("<職種ID>.ext-<名前>.md は、拡張ファイル(kind: ext)として、職種IDを取り出す", () => {
+    const dir = mkdtempSync(join(tmpdir(), "nolito-vocab-src-"));
+    try {
+      const srcDir = join(dir, "content/vocabulary");
+      mkdirSync(srcDir, { recursive: true });
+      writeFileSync(join(srcDir, "engineer.md"), "base");
+      writeFileSync(join(srcDir, "engineer.ext-kaicho.md"), "ext1");
+      writeFileSync(join(srcDir, "food-service.ext-hard-words.md"), "ext2");
+      const sources = loadSources(dir);
+      assert.deepEqual(
+        sources.map(({ name, kind }) => `${name}:${kind}`),
+        ["engineer:ext", "engineer:base", "food-service:ext"],
+      );
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
 
@@ -366,6 +502,7 @@ describe("文書との一致", () => {
     const { errors, data } = validateVocabulary(raw, {
       jobs: [{ id: "engineer", name: "エンジニア" }],
       roleIds: ROLES,
+      difficultyIds: context.difficultyIds,
     });
     assert.deepEqual(errors, []);
     assert.equal(data.items[0].draft, true);
@@ -418,9 +555,10 @@ describe("文書との一致", () => {
 });
 
 describe("検証の文脈(loadContext)", () => {
-  it("jobs.json の 6 職種と、roles.json の 5 役職", () => {
+  it("jobs.json の 6 職種と、roles.json の 5 役職・difficulties.json の 3 難易度", () => {
     assert.equal(context.jobs.length, 6);
     assert.deepEqual(context.roleIds, ["senpai", "kakaricho", "buchou", "shachou", "kaicho"]);
+    assert.deepEqual(context.difficultyIds, ["easy", "normal", "hard"]);
     void validateVocabulary;
   });
 });
