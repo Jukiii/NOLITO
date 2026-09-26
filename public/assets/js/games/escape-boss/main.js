@@ -607,7 +607,10 @@ async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
     weakWeights(store.load().data.results, vocabulary.items, { level: settings.weakBoost }),
     roleWordWeights(vocabulary.items, stage),
   );
-  const words = pickWords(vocabulary.items, role.id, stage.goal_words, Math.random, { weights });
+  const words = pickWords(vocabulary.items, role.id, stage.goal_words, Math.random, {
+    weights,
+    difficultyId: difficulty.id,
+  });
   // 前のゲームの処理が残っていれば、必ず止めてから、新しいゲームに置き換える
   stopTimeline();
   sound.stopBgm();

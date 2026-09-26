@@ -17,6 +17,7 @@ items:
     category: 基本
     difficulty: 1
     roles: [senpai]
+    difficulties: [hard]
     explanation: 基本的な説明。
     detail: 難語のための、少し長い説明。省略できます。
     related_terms: []
@@ -48,7 +49,8 @@ items:
 | `romaji` | | ローマ字の候補の一覧(8 個まで)。**書かなければ、読みから作ります**(標準の表記 + 訓令式の表記)。書くときは、**先頭が画面に表示する書き方**で、すべて、読みの入力として、最後まで打てること |
 | `category` | ○ | カテゴリ。20 字まで |
 | `difficulty` | ○ | 1〜5 の整数。読みの長さの決め(単位数 3 以下 = 1、4〜5 = 2、6 以上 = 3。決定ログ 0006)に合わせる |
-| `roles` | ○ | 出題する役職の id の一覧(`roles.json` にあるもの) |
+| `roles` | ○ | 出題する役職の id の一覧(`roles.json` にあるもの)。**その役職だけの専用語**にするときは、対象の役職だけを書く(Phase 24) |
+| `difficulties` | | 出題する難易度の id の一覧(`difficulties.json` にあるもの。`easy`/`normal`/`hard`)。**省略すると、すべての難易度で出る**。**その難易度だけの専用語**(例: `[hard]` で「むずかしい」限定)にするときに書く(Phase 24)。語自体の `difficulty`(読みの長さ)とは、別の項目 |
 | `explanation` | ○ | **短文の説明**(基本)。「。」で終わる 1 行、80 字まで。一般に確立した意味だけを書く |
 | `detail` | | **難語の詳細説明**。短文だけでは足りない語(難易度が高い語・誤解しやすい語)に書く。「。」で終わる 1 行、300 字まで。書いた語だけ、ゲームの「くわしく」に出ます(結果の画面・用語確認の結果・成績ページの復習リスト) |
 | `related_terms` | | 関連用語の一覧。**同じ職種の、ほかの語の `japanese`**を書く(10 個まで)。ゲームでは、説明の下に「関連する語」として出ます |
@@ -57,6 +59,35 @@ items:
 | `review` | | 人間の確認の状況。`pending`(まだ。既定)か `confirmed`(済み)。公開の JSON には入りません |
 | `draft` | | `true` なら**下書き**。公開の JSON に入りません。人間が確認したら、この行を消します |
 | `note` | | 確認してほしい点のメモ(200 字まで)。確認シートに載ります。公開の JSON には入りません |
+
+## 拡張ファイル(役職・難易度の専用語を足すとき。Phase 24)
+
+既存の 30 語のベースの原稿(`content/vocabulary/<職種ID>.md`)を直接編集する代わりに、**拡張ファイル**(`content/vocabulary/<職種ID>.ext-<任意の名前>.md`。例: `content/vocabulary/engineer.ext-kaicho.md`)に、追加する語だけを書けます。1 つの職種に、拡張ファイルは何個でも作れます。
+
+拡張ファイルは、**`job_id` と `items` だけ**を持つ、軽い形です(`job_name`・`version`・`updated_at` は書きません。これらは、ベースの原稿だけが持ちます)。
+
+```text
+job_id: engineer
+items:
+  - id: engineer-031
+    japanese: 例(会長限定)
+    reading: れい
+    romaji: [rei]
+    category: 基本
+    difficulty: 1
+    roles: [kaicho]
+    explanation: 基本的な説明。
+    related_terms: []
+    learning_points: []
+    weak_detection:
+      enabled: true
+    draft: true
+    note: 確認してほしい点(公開されません)
+```
+
+(実際のファイルでは、ほかの原稿と同じ ` ```yaml ` で囲みます。ここは、テンプレート文書自体の YAML 検査(1 ファイル 1 ブロック)と重ならないよう、`text` にしています)
+
+`npm run build:vocabulary` は、ベースの原稿 + すべての拡張ファイルの `items` をマージしてから、検証し、1 つの `public/data/vocabulary/<職種ID>.json` を作ります(検証・id の連番・下書きの扱いは、ベースの原稿と同じ)。ベースの原稿がない拡張ファイル(職種の対応がとれない)は、エラーになります。
 
 ## 新しい語を足す流れ
 

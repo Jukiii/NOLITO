@@ -13,12 +13,15 @@ export const PUBLISHED_KEYS = [
   "category",
   "difficulty",
   "roles",
+  "difficulties",
   "explanation",
   "detail",
   "related_terms",
   "learning_points",
   "weak_detection",
 ];
+// 省略できる公開項目(ある語だけ、公開の JSON に項目を持つ)
+const OPTIONAL_PUBLISHED_KEYS = ["difficulties", "detail"];
 const MANUSCRIPT_KEYS = ["review", "draft", "note"];
 const REQUIRED_KEYS = [
   "id",
@@ -30,6 +33,8 @@ const REQUIRED_KEYS = [
   "explanation",
 ];
 const META_KEYS = ["job_id", "job_name", "version", "updated_at", "items"];
+// 拡張ファイル(Phase 24)の項目。job_id と items だけ(version 等は、ベースの原稿にだけ書く)
+export const EXTENSION_META_KEYS = ["job_id", "items"];
 
 /** 人間の確認の状況。pending = まだ、confirmed = 済み。 */
 export const REVIEW_STATES = ["pending", "confirmed"];
@@ -89,13 +94,14 @@ function typesFully(reading, romaji) {
 
 /**
  * 1 つの職種の原稿(YAML を読み取ったオブジェクト)を検証して、正規化する。
- * context: { jobs: [{ id, name }], roleIds: Set|Array }
+ * context: { jobs: [{ id, name }], roleIds: Set|Array, difficultyIds: Set|Array }
  * 戻り値: { errors: [文字列], data }。data は、正規化した語録(errors があるときは、信用しない)。
  *   data.items の項目は、公開の項目に、review(既定 pending)・draft(既定 false)・note(なければ省略)を加えた形。
  */
 export function validateVocabulary(raw, context) {
   const errors = [];
   const roleIds = new Set(context.roleIds);
+  const difficultyIds = new Set(context.difficultyIds ?? []);
   const problem = (where, message) => errors.push(`${where}: ${message}`);
 
   if (!isObject(raw)) return { errors: ["語録は、項目名と値の組で書いてください"], data: null };
@@ -272,6 +278,22 @@ export function validateVocabulary(raw, context) {
       }
     }
 
+    // 難易度専用(省略すると、すべての難易度で出る。Phase 24)
+    let difficulties;
+    if ("difficulties" in item) {
+      const value = item.difficulties;
+      if (!Array.isArray(value) || value.length === 0) {
+        problem(where, "difficulties は、難易度 id の一覧(1 つ以上)にしてください");
+      } else {
+        for (const d of value)
+          if (!isText(d) || !difficultyIds.has(d))
+            problem(where, `difficulties に、知らない難易度 "${String(d)}" があります`);
+        if (new Set(value).size !== value.length)
+          problem(where, "difficulties に、同じ難易度が重複しています");
+        difficulties = value;
+      }
+    }
+
     // 説明(短文)
     const explanation = text("explanation", LIMITS.explanation);
     if (explanation !== undefined) {
@@ -364,6 +386,7 @@ export function validateVocabulary(raw, context) {
       category,
       difficulty: item.difficulty,
       roles: item.roles,
+      ...(difficulties === undefined ? {} : { difficulties }),
       explanation,
       ...(detail === undefined ? {} : { detail }),
       related_terms: related,
@@ -440,9 +463,9 @@ export function toPublished(data) {
       .filter((item) => !item.draft)
       .map((item) =>
         Object.fromEntries(
-          PUBLISHED_KEYS.filter((key) => key !== "detail" || item.detail !== undefined).map(
-            (key) => [key, item[key]],
-          ),
+          PUBLISHED_KEYS.filter(
+            (key) => !OPTIONAL_PUBLISHED_KEYS.includes(key) || item[key] !== undefined,
+          ).map((key) => [key, item[key]]),
         ),
       ),
   };
