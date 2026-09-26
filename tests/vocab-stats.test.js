@@ -9,6 +9,7 @@ import {
   expectedDifficulty,
   findIssues,
   formatStats,
+  improvementCandidates,
   jobStats,
   readingUnits,
   reviewSheet,
@@ -185,6 +186,50 @@ describe("点検(合成したデータ)", () => {
       job([item({ id: "b-1", japanese: "在庫", reading: "ざいこ" })], { job_id: "b" }),
     ]);
     assert.ok(warnings.some((w) => w.includes("ほかの職種(a)にもあります")));
+  });
+});
+
+describe("改善提案の候補(improvementCandidates。Phase 25)", () => {
+  it("公開済み(下書きでない)で、関連用語が空の語だけを選ぶ", () => {
+    const data = job([
+      item({ id: "job-001", related_terms: [], draft: false }),
+      item({ id: "job-002", japanese: "別", reading: "べつ", related_terms: ["テスト"] }),
+      item({ id: "job-003", japanese: "下書き", reading: "したがき", draft: true }),
+    ]);
+    const [result] = improvementCandidates([data]);
+    assert.deepEqual(
+      result.items.map((entry) => entry.id),
+      ["job-001"],
+    );
+  });
+
+  it("確認済み(review: confirmed)かどうかは、問わない", () => {
+    const data = job([
+      item({ id: "job-001", review: "pending" }),
+      item({ id: "job-002", japanese: "別", reading: "べつ", review: "confirmed" }),
+    ]);
+    const [result] = improvementCandidates([data]);
+    assert.deepEqual(
+      result.items.map((entry) => entry.id),
+      ["job-001", "job-002"],
+    );
+  });
+
+  it("候補がない職種は、結果に含めない", () => {
+    const data = job([item({ id: "job-001", related_terms: ["ほか"] })]);
+    assert.deepEqual(improvementCandidates([data]), []);
+  });
+
+  it("実際の語録: 68 語が候補(いまは、すべて未確認)", () => {
+    const candidates = improvementCandidates(source);
+    const total = candidates.reduce((sum, data) => sum + data.items.length, 0);
+    assert.equal(total, 68);
+    for (const data of candidates) {
+      for (const entry of data.items) {
+        assert.notEqual(entry.draft, true, entry.id);
+        assert.equal((entry.related_terms ?? []).length, 0, entry.id);
+      }
+    }
   });
 });
 
