@@ -42,3 +42,31 @@ Phase 26 は、対象が8種類(語録・記事・ゲーム設定・プロダク
   - `public/assets/js/account/messages.js`: `not-admin` のエラー文を追加
 - **実際の管理画面(編集UI)・実際の管理者による変更(recordAdminChangeを呼ぶ具体的なAPI)は、まだない**。この PR は、基盤(だれが管理者か・変更をどう記録する仕組みがあるか)だけ
 - 新規・更新したテスト: `tests/auth-flow.test.js`(`requireAdmin`・`adminEmails`・`isAdmin`・`/api/me` の `isAdmin` を検証する9件を追加)。`tests/admin-audit.test.js`(新規8件。書き込み・削除・サイズ上限・JSON化できない値・外部キー・失敗時に落ちないこと)。`tests/backup.test.js`・`tests/fixtures/d1-export-sample.sql`(新しいテーブルを、バックアップの検査の見本に反映)
+
+## Phase 26 PR2a: プロダクトをD1に移す・公開の一覧を動的化
+
+チャットで、最初の編集対象を**プロダクト(products.json)**に決めた。実装を進める中で、products.json は、詳細ページの静的生成(`npm run build:products`)・`issue-license.mjs`・多数のテストからも読まれており、**丸ごとD1に移すと、CI(`npm run check`。D1ネットワークなしで動く必要がある)を壊す**ことが分かった。3回チャットで確認し、次の方針に決めた。
+
+### 決定(PR2a)
+
+| # | 項目 | 決定 | 理由 |
+| - | ---- | ---- | ---- |
+| 1 | データの保存先 | 新しいテーブル **`products`**(`migrations/0008_products.sql`。`id`・`sort_order`・`data`=プロダクト1件のJSON全体・`updated_at`)。移行時点(2026-09-26)の `public/data/products.json` の2件(`escape-boss`・`kii-michi`)を、そのままINSERT(round-trip一致を確認済み) | 既存の `schema.js` の検証・形式を、まったく変えずに使える(JSONをそのまま持つ) |
+| 2 | 公開の一覧の配信 | **新しいエンドポイント `GET /api/products`**(`functions/api/products.js`。ログイン不要)を追加し、D1からその場で組み立てる。**既存の静的ファイル `public/data/products.json` は、削除しない**(そのまま残す) | Cloudflare Pages は、静的ファイルがある経路では、Functionsを呼ばない。同じURL(`/data/products.json`)を動的化しようとすると、静的ファイルを消す必要があり、それに依存する他のスクリプト・テストが壊れる。**新しいURLにする**ことで、この問題を避けた |
+| 3 | 静的ファイルの今後の役割 | `public/data/products.json` は、(a) 詳細ページ生成(`build-products.mjs`)・`issue-license.mjs`・実データテストの入力、(b) D1がない環境(プレビュー等)への `/api/products` のフォールバック元、として**残す**。管理画面での編集は、D1にだけ反映され、この静的ファイルには、当面反映されない(**既知の制限**。詳細ページ・ライセンス発行は、後日、再生成の仕組みを別PRで用意するまで、静的ファイルの内容のまま) | 一覧(home・search・カテゴリ・お問い合わせの選択肢)は、管理画面での変更が、**すぐ反映される**ことを優先。詳細ページ・ライセンス発行は、変更頻度が低く、多少のタイムラグが許容できると判断した |
+| 4 | フォールバック | `env.DB` がない環境(プレビュー)では、`env.ASSETS.fetch()` で、静的な `public/data/products.json` を返す(壊れたページにしない) | プレビュー環境には、D1をつながない(既存方針。Googleログインのリダイレクト URI の制約)。プロダクト一覧という、アカウント機能と無関係な core な内容が、プレビューで表示できなくなるのを防ぐ |
+| 5 | クライアント側の変更 | `product-list.js`・`account/client.js`・`contact/client.js`・`home/main.js`・`search/main.js`・`updates/main.js` の6箇所を、`/data/products.json` → `/api/products` に変更 | 一覧を使うすべての画面が、動的なデータを見るようにする |
+
+### 除外(この PRではやらないこと)
+
+- 詳細ページの動的化(候補として検討したが、サイト全体に影響するcatch-all Functionが必要になり、リスクが大きいため、別PRに切り出した)
+- 実際の管理画面(編集UI)・管理APIでの変更(create/update/delete)。この PR は、公開の一覧の配信元をD1にするところまで
+- `public/data/products.json` を最新に保つ自動的な仕組み(後日、別PRで検討)
+
+### テスト結果(この PR(2a)完了時点)
+
+- `npm run check`: **全 2019 件、成功**
+- 実データでのD1移行が、`public/data/products.json` と完全に一致することを、実装時にスクリプトで確認済み(round-trip)
+- `tests/products-api.test.js`(新規5件): D1からの組み立て・Cache-Control・ASSETSフォールバック・DB/ASSETSともにない場合の503・メソッド制限
+- ローカルの `wrangler pages dev`(本物のSQLと同じnode:sqlite。実際にマイグレーションを適用)+ headless Edge で、ホーム・検索ページが、`/api/products` から実際に2件のプロダクトを表示することを確認(コンソールエラーなし)
+- `tests/backup.test.js`・`tests/fixtures/d1-export-sample.sql`(新しいテーブルをバックアップの検査に反映)、`tests/updates.test.js`・`tests/contact-page.test.js`(fetch先のURL変更を反映)、`account/messages.js`(`products-unavailable`のエラー文を追加)
