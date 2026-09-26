@@ -43,3 +43,10 @@ Phase 25 の仕様書(`docs/01_phases/phase-25.md`)も一行の要約のみで�
 - **実装した内容**: `vocab-stats.mjs` に `improvementCandidates(vocabularies)`(純粋関数。公開済み・関連用語が空の語を選ぶ)を追加。`vocab-check.mjs` に `--improve` オプション(`docs/06_ai/content-improve-prompt.md` を使い、候補の語を YAML で出す)を追加
 - 実際の語録では、**180 語中 68 語**が候補(いまは、すべて `review: pending`。確認済みかどうかは問わないため、確認が進んでも、この件数は変わらない)
 - 新規テスト: `tests/vocab-stats.test.js` に、合成データでの選び方(公開済み・関連用語が空だけを選ぶ・下書きは除く・確認状況は問わない・候補がない職種は結果から除く)と、実データでの件数(68件)を検証する4件。`tests/vocab-build.test.js` に、コマンドの出力(プロンプト→件数→YAMLの順、原稿を書き換えない旨の文言)を検証する1件
+
+### テスト結果(この PR(2)完了時点)
+
+- `npm run check`(lint・Prettier・単体テスト): **全 1997 件、成功**
+- **実装した内容**: `scripts/lib/vocab-similarity.mjs`(新規。DOM・ファイルに触れない純粋関数)に `bigramSet`(文字2-gramの集合)・`diceCoefficient`(2つの集合のDice係数。0〜1)・`similarPairs(items, { threshold = 0.6 })`(説明=explanationの文章が近い組を、スコアの高い順で返す)を追加。`vocab-check.mjs` の警告(プレーン表示・`--for-ai` の機械の確認結果の、両方)に、この結果を追加した(`--improve` には追加していない。別の関心ごとのため)
+- **しきい値は 0.6**。実データで、実際に試した結果(0.9〜0.4を比較): 0.6で2組、0.5で11組、0.4で38組。**0.6を採用した理由**: 2組のうち、`food-service-007(仕込み)`/`food-service-012(下ごしらえ)` は、実際に意味が近い、価値のある指摘だった(下ごしらえの説明文が「仕込み」の説明文に、そのまま含まれている)。`sales-001(顧客)`/`sales-003(納期)` は、説明の言い回し(「〜のこと。」という定型文)が近いだけの、誤検出の例(実際は無関係)。この2件の実例が、「しきい値以上でも、必ず重複とは限らない」という、この機能の位置づけ(目安・要確認)を、そのまま体現している
+- 新規テスト: `tests/vocab-similarity.test.js`(10件。`bigramSet`・`diceCoefficient`・`similarPairs`の単体テストと、実データでの実際の2組の検証)。`tests/vocab-build.test.js` の既存コマンドテスト(`vocab:check`・`vocab:check --for-ai`)に、この警告が含まれることの検証を追加
