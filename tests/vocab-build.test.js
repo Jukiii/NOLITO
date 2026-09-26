@@ -477,6 +477,22 @@ describe("コマンド", () => {
     assert.equal(data.items.length, 30);
   });
 
+  it("vocab:check --improve: 改善提案用プロンプト・候補の件数・語を、YAML で出す(Phase 25)", () => {
+    const result = run("vocab-check.mjs", ["--improve"]);
+    assert.equal(result.status, 0, result.stderr);
+    const out = result.stdout;
+    assert.ok(out.indexOf("AI改善提案用プロンプト") < out.indexOf("改善の候補"));
+    assert.match(out, /改善の候補\(公開済み・関連用語が、まだない語\): 68 件/);
+    assert.match(
+      out,
+      /AI の提案は、参考です。最終判断は、人間が行います。原稿は、AIが直接書き換えません。/,
+    );
+    const blocks = [...out.matchAll(/```yaml\n([\s\S]*?)\n```/g)];
+    assert.ok(blocks.length >= 1);
+    const data = parseVocabularyMarkdown(`\`\`\`yaml\n${blocks[0][1]}\n\`\`\``);
+    assert.ok(data.items.every((item) => (item.related_terms ?? []).length === 0));
+  });
+
   it("vocab:stats: 確認の状況も出す", () => {
     const result = run("vocab-stats.mjs");
     assert.equal(result.status, 0, result.stderr);

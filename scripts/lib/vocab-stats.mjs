@@ -108,6 +108,21 @@ export const publishedOf = (vocabularies) =>
   }));
 
 /**
+ * 改善提案の候補(Phase 25)。公開済み(下書きでない)で、関連用語(related_terms)が、まだない語。
+ * 確認済み(review: confirmed)かどうかは、問わない(内容の正確性の確認とは、別の関心ごとのため)。
+ * 原稿(review・draft を持つ形)を渡す。戻り値も、同じ形(職種ごと)。
+ */
+export const improvementCandidates = (vocabularies) =>
+  vocabularies
+    .map((data) => ({
+      ...data,
+      items: data.items.filter(
+        (item) => item.draft !== true && (item.related_terms?.length ?? 0) === 0,
+      ),
+    }))
+    .filter((data) => data.items.length > 0);
+
+/**
  * 人間の確認の状況。原稿の項目(review・draft を持つ)から数える。
  *   published … 公開する語 / confirmed … 確認済み(公開する語のうち) / pending … 未確認(公開する語のうち)
  *   draft … 下書き(公開しない語)

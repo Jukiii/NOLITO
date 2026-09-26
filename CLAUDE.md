@@ -444,3 +444,12 @@ Phase 24 の仕様(「難易度・役職拡張ファイル」)は解釈が複数
 - **難易度専用語**(新規): 語に、任意項目 **`difficulties`**(`difficulties.json` の id の一覧。`easy`/`normal`/`hard`)を書けば、その難易度限定になる。**省略すると、すべての難易度が対象**(既存語は影響を受けない)。語自体の `difficulty`(読みの長さ。1〜5)とは、別の項目。`pickWords(items, roleId, count, random, { weights, difficultyId })` が、`roles`・`difficulties` の**両方**を満たす語だけを候補にする。`main.js` の `beginGame` が、解決済みの `difficulty.id` を渡す。**用語確認(check モード)は、役職・難易度の選択がそもそもないため、専用語も含めて、すべての語が対象のまま**(意図した設計。フィルタしない)。
 - **拡張ファイル**(`content/vocabulary/<職種ID>.ext-<任意の名前>.md`): 既存のベースの原稿(30語。安定した内容)を直接編集せず、追加する専用語だけを、別ファイルに書ける。1 職種に何個でも作れる。**`job_id` と `items` だけ**を持つ、軽い形(`job_name`・`version`・`updated_at` は、ベースの原稿だけが持つ)。`npm run build:vocabulary`(`scripts/lib/vocab-build.mjs`)が、ベース + すべての拡張ファイルの `items` をマージしてから、既存の `validateVocabulary` にまとめて通す(id・日本語・読みの重複、関連用語の参照は、ベース・拡張ファイルをまたいで検査される)。対応するベースの原稿がない拡張ファイル・`job_id` と`items` 以外を書いた拡張ファイルは、エラーになる。id は、既存の連番のまま続ける(`<職種ID>-031` から)。
 - **このPRで実装したのは、しくみ(スキーマ・ビルド・検証・出題ロジック)だけ**。実際の役職・難易度専用語(下書きを含む)は、まだ追加していない(実在の `content/vocabulary/*.md`・`public/data/vocabulary/*.json` は、この PR では変更していない)。専用語を実際に追加するときは、既存の語と同じ流れ(AI下書き → `npm run vocab:check` → 人間の確認 → 公開)を守り、**対象の役職・難易度の組み合わせについてだけ**、`tests/balance.test.js` のシミュレーションで、クリア率への影響を確認すること(0006・0021)。
+
+## AI活用: 改善提案・類似語チェック・流れの文書化(Phase 25)
+
+Phase 25 の仕様(「生成・調整・説明・学習ポイント・チェック・重複・改善提案」)も、その大半(生成・チェック・人間確認必須・有料APIに依存しない)は、**すでに Phase 11・14 で実装済み**。チャットで運営者に確認し、新しく作る3点(改善提案・類似語チェック・流れの文書化)の承認を得た(決定は `docs/decisions/0050-phase-25-plan.md`)。**管理画面アップロードは、Phase 26(管理画面)待ちで、この Phase では対応しない**。
+
+### 公開済みの語への改善提案(Phase 25 PR 1)
+
+- `npm run vocab:check -- --improve`(新オプション)。**公開済み(下書きでない)かつ、関連用語(`related_terms`)が空の語**を対象に選び(`vocab-stats.mjs` の `improvementCandidates`。純粋関数)、`docs/06_ai/content-improve-prompt.md`(新規プロンプト)で、AIに、関連用語・学習ポイント・詳細説明の追加案を提案させる。**確認済み(`review: confirmed`)かどうかは、問わない**(内容の正確性の確認=既存の `--for-ai` とは、別の関心ごと)。実際の語録では、180語中68語が候補(いまは、すべて未確認)。
+- **AIの提案は、原稿を直接書き換えない**(既存の `--for-ai` と同じ考え方)。人間が、原稿を手で直し、`npm run vocab:check` → `npm run vocab:review` → 確認、という既存の流れを、そのまま使う。

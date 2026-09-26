@@ -2,6 +2,7 @@
 //   npm run vocab:check                  … 検証(エラー・警告)と、人間に見てほしい点の一覧
 //   npm run vocab:check -- --for-ai      … AI チェックに渡す文(指示 + 下書きの語 + 機械の確認結果)を出す
 //   npm run vocab:check -- --for-ai --all … 下書きだけでなく、未確認の語も含める
+//   npm run vocab:check -- --improve      … 公開済みの語(関連用語がまだない)への、AI改善提案に渡す文
 // AI の結果は、最終判断にしない。人間の確認(review: confirmed)が、必ず要る(docs/06_ai/content-check-prompt.md)。
 // エラー(直さないといけない点)があると、終了コード 1。
 import { readFileSync } from "node:fs";
@@ -10,6 +11,7 @@ import { loadSourceVocabularies, paths } from "./lib/vocab-io.mjs";
 import {
   expectedDifficulty,
   findIssues,
+  improvementCandidates,
   publishedOf,
   readingUnits,
   reviewCounts,
@@ -48,7 +50,26 @@ try {
     ),
   }));
 
-  if (args.has("--for-ai")) {
+  if (args.has("--improve")) {
+    const prompt = readFileSync(`${paths.root}docs/06_ai/content-improve-prompt.md`, "utf8")
+      .replaceAll("\r\n", "\n")
+      .trim();
+    console.log(prompt, "\n");
+    const candidates = improvementCandidates(source);
+    const total = candidates.reduce((sum, data) => sum + data.items.length, 0);
+    console.log(`## 改善の候補(公開済み・関連用語が、まだない語): ${total} 件\n`);
+    if (candidates.length === 0) {
+      console.log("(改善の候補が、ありません)");
+    }
+    for (const data of candidates) {
+      console.log(
+        `### ${data.job_name}(${data.job_id})\n\n\`\`\`yaml\n${stringifyVocabularyYaml(data)}\n\`\`\`\n`,
+      );
+    }
+    console.log(
+      "AI の提案は、参考です。最終判断は、人間が行います。原稿は、AIが直接書き換えません。",
+    );
+  } else if (args.has("--for-ai")) {
     const prompt = readFileSync(`${paths.root}docs/06_ai/content-check-prompt.md`, "utf8")
       .replaceAll("\r\n", "\n")
       .trim();
@@ -98,7 +119,7 @@ try {
       "\n次: 下書きの語は、人間が確認して、draft の行を消します。全部の語は、確認したら review: confirmed にします。",
     );
   }
-  if (errors.length > 0 && args.has("--for-ai")) process.exit(1);
+  if (errors.length > 0 && (args.has("--for-ai") || args.has("--improve"))) process.exit(1);
 } catch (error) {
   console.error(`エラー: ${error.message}`);
   process.exit(1);
