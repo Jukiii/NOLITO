@@ -30,7 +30,7 @@ function updateItem(entry) {
 export async function renderHomeUpdates(container) {
   try {
     const [productData, categoryData, articleData] = await Promise.all([
-      loadJson("/data/products.json"),
+      loadJson("/api/products"),
       loadJson("/data/categories.json"),
       loadJson("/data/articles.json"),
     ]);
