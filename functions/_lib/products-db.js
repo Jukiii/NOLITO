@@ -35,6 +35,14 @@ export async function deleteProduct(db, id) {
   await db.prepare("DELETE FROM products WHERE id = ?").bind(id).run();
 }
 
+/** 既存の1件の内容だけを差し替える(sort_order は変えない)。存在しなければ、何もしない。 */
+export async function updateProductData(db, { id, data, now }) {
+  await db
+    .prepare("UPDATE products SET data = ?, updated_at = ? WHERE id = ?")
+    .bind(JSON.stringify(data), now, id)
+    .run();
+}
+
 /** 公開の一覧の形({ version, products })。 */
 export async function assembleProductsJson(db) {
   return { version: PRODUCT_DATA_VERSION, products: await listProducts(db) };
