@@ -49,7 +49,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## プロダクト(Phase 6)
 
-- プロダクトは(Phase 26 PR2aから)**D1の`products`テーブルが保存元**。公開の一覧はカードの描画は`components/product-list.js`が`GET /api/products`(D1からその場で組み立てる。ログイン不要)を読む。静的ファイル`public/data/products.json`(version 5)は残っており、詳細ページ生成・ライセンス発行・プレビュー環境でのフォールバックに使う(詳細は「プロダクトをD1に移す」Phase26の節)。カテゴリは`categories.json`(静的ファイルのまま)で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存)、表示用の文字列は `format.js`。
+- プロダクトは(Phase 26 PR2aから)**D1の`products`テーブルが保存元**。公開の一覧はカードの描画は`components/product-list.js`が`GET /api/products`(D1からその場で組み立てる。ログイン不要)を読む。**管理者は`/account/admin/products/`(Phase 26 PR2b)から、作成・編集・削除できる**(`/api/admin/products`。管理者だけ)。静的ファイル`public/data/products.json`(version 5)は残っており、詳細ページ生成・ライセンス発行・プレビュー環境でのフォールバックに使う(詳細は「プロダクトをD1に移す」「プロダクトの管理API・管理画面UI」Phase26の節)。カテゴリは`categories.json`(静的ファイルのまま)で定義する。カテゴリは、データを足すだけで増やせる。検証は `public/assets/js/products/schema.js`(DOM 非依存。管理APIもここを共有する)、表示用の文字列は `format.js`。
 - 形式を変えるときは、`schema.js` の検証と `tests/products.test.js` を一緒に更新し、`PRODUCT_DATA_VERSION` を上げる。
 - `tags`(重複なし・20字以内・10件まで。検索(Phase 20 PR 3)の絞り込みに使う予定)と `featured`(真偽値。トップページの「おすすめ」に出すか)は、Phase 20 PR 2 で追加した(version 5)。
 - **URL は、`/` 始まりのサイト内パスか `https://` だけ**(`isSafeUrl`)。画像には alt が必須。表示は必ず `textContent`(`el()`)。不正な項目は、テストで失敗させ、実行時は「その項目だけ外して、他は表示」する。この安全側の挙動を緩めない(将来、管理画面からも書かれる)。
@@ -485,3 +485,17 @@ Phase 25 の仕様(「生成・調整・説明・学習ポイント・チェッ�
 - **静的ファイルの今後の役割**: (a) 詳細ページ生成・ライセンス発行・実データテストの入力(当面、変更なし)。(b) `env.DB`がない環境(プレビュー等。D1をつながない既存方針)への、`/api/products`のフォールバック元(`env.ASSETS.fetch()`)。**管理画面での編集は、D1にだけ反映され、この静的ファイルには、当面反映されない**(既知の制限。詳細ページ・ライセンス発行の再生成は、後日、別PRで検討)。
 - クライアント側の6箇所(`product-list.js`・`account/client.js`・`contact/client.js`・`home/main.js`・`search/main.js`・`updates/main.js`)を、`/data/products.json` → `/api/products` に変更した。
 - **このPRは、公開の一覧の配信元をD1にするところまで**。実際の管理画面(編集UI)・管理API(create/update/delete)は、次のPR(2b)。
+
+### プロダクトの管理API・管理画面UI(Phase 26 PR 2b)
+
+- **管理API**(`functions/api/admin/products/`。すべて `requireAdmin` で入り口を確認): `index.js` の `GET`(一覧)・`POST`(新規作成)、`[id].js` の `GET`(1件)・`PUT`(更新)・`DELETE`(削除)。検証は、既存の `public/assets/js/products/schema.js` の `validateProduct`/`validateProducts`・`PRODUCT_DATA_VERSION` を、そのまま使う(サーバー用の別の検証関数を作らない)。`_shared.js`(ルーティングされない。`_lib` と同じ考え方)に、共通の `loadCategories`(ASSETS経由でcategories.jsonを読む)・`MAX_PRODUCT_BYTES` を置く。
+- 変更(create/update/delete)は、すべて `recordAdminChange` で `admin_audit_log` に記録する(before/after つき。Phase 26 PR1 の監査ログを、初めて実際に使う)。更新は `functions/_lib/products-db.js` の `updateProductData`(sort_order を変えない。新規作成の `upsertProduct` とは別の関数)。
+- **更新(PUT)で、body の id が URL の id と違えば `400 product-id-mismatch`**(idは、詳細ページ・ライセンス発行・検索などが参照する安定な識別子のため、更新経路では変えられない。変えたい場合は削除+新規作成)。
+- **管理画面のUI は `/account/admin/products/`**(`noindex`)。プロダクト1件分を、生のJSON(`public/data/products.json` の項目と同じ形)として、textareaで編集する(専用の入力フォームは作らない。サーバーと同じ `schema.js` の検証結果=`details` を、そのまま表示する)。一覧(編集・削除ボタン)・新規作成・編集(モーダル)・削除確認(モーダル)。`assets/js/admin/products-page.js`(このページだけの、DOM に触れるスクリプト。`search/main.js`・`updates/main.js` と同じ、ページ固有の1ファイル構成)。`fetchMe()` の `isAdmin` で画面を出し分けるが、**実際のアクセス制御は、サーバー側の `requireAdmin` が担う**(クライアント側の出し分けは、見た目だけ)。
+- API クライアントは `assets/js/account/client.js`(`fetchAdminProducts`・`fetchAdminProduct`・`createAdminProduct`・`updateAdminProduct`・`deleteAdminProduct`)。既存の `call()` に、サーバーが返す `details`(検証エラーの一覧)があれば結果にそのまま含める拡張をした(既存の呼び出し元への影響はない)。
+- `/account/`(`public/account/index.html`)に、管理者にだけ見える「プロダクト管理」へのリンクを追加(`data-admin-link`。`user.isAdmin` で出し分け)。
+- 新しいエラー文(`account/messages.js`): `invalid-product`・`product-id-exists`・`product-not-found`・`product-id-mismatch`。
+- **レート制限は追加していない**(`ADMIN_EMAILS` の少数の運営者だけが呼べるため。不特定多数からの濫用を防ぐ既存のレート制限=contact・license-redeem等とは、性質が異なると判断した。将来、複数運営者体制になれば再検討する)。
+- **新しいD1マイグレーションは不要**(PR1の`admin_audit_log`・PR2aの`products`テーブルを、そのまま使う)。
+- **この PR でも、まだ行わないこと**(PR2aからの既知の制限のまま): 管理画面での編集の、`public/data/products.json`・詳細ページ・ライセンス発行への反映。
+- ローカルの `wrangler pages dev` でのD1確認は、`--d1 DB=<値>` に、`wrangler.toml` の `database_name`(`nolito`)ではなく **`database_id`**(ダミーID)を渡すこと(名前を渡すと、`d1 migrations apply` が作った永続化データとは別のD1インスタンスになり、テーブルが見つからない)。

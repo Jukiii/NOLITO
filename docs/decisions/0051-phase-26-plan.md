@@ -69,4 +69,47 @@ Phase 26 は、対象が8種類(語録・記事・ゲーム設定・プロダク
 - 実データでのD1移行が、`public/data/products.json` と完全に一致することを、実装時にスクリプトで確認済み(round-trip)
 - `tests/products-api.test.js`(新規5件): D1からの組み立て・Cache-Control・ASSETSフォールバック・DB/ASSETSともにない場合の503・メソッド制限
 - ローカルの `wrangler pages dev`(本物のSQLと同じnode:sqlite。実際にマイグレーションを適用)+ headless Edge で、ホーム・検索ページが、`/api/products` から実際に2件のプロダクトを表示することを確認(コンソールエラーなし)
-- `tests/backup.test.js`・`tests/fixtures/d1-export-sample.sql`(新しいテーブルをバックアップの検査に反映)、`tests/updates.test.js`・`tests/contact-page.test.js`(fetch先のURL変更を反映)、`account/messages.js`(`products-unavailable`のエラー文を追加)
+
+## Phase 26 PR2b: プロダクトの管理API・管理画面UI
+
+PR2a で用意した `products` テーブル・`GET /api/products` の上に、PR1 の管理者ゲート(`requireAdmin`)・監査ログ(`recordAdminChange`)を使って、実際の作成・更新・削除ができるようにした。新しいD1マイグレーションは不要(PR1・PR2aのテーブルをそのまま使う)。
+
+### 実装した内容
+
+- **管理API**(`functions/api/admin/products/`。すべて `requireAdmin` で入り口を確認):
+  - `index.js`: `GET`(一覧。`{ products: [...] }`)・`POST`(新規作成。body は `{ product }`)
+  - `[id].js`: `GET`(1件。なければ404)・`PUT`(更新。URLとbodyのidが違えば400)・`DELETE`(削除)
+  - `_shared.js`(ルーティングされない内部部品。`_lib` と同じ考え方): `loadCategories`(ASSETS経由でcategories.jsonを読む。検証に使う)・`MAX_PRODUCT_BYTES`
+  - 検証は、既存の `public/assets/js/products/schema.js` の `validateProducts` を、そのまま使う(サーバー用の別の検証関数を作らない。`PRODUCT_DATA_VERSION` も、そこから import する)
+  - 変更(create/update/delete)は、すべて `recordAdminChange` で `admin_audit_log` に記録する(before/after つき)
+  - `functions/_lib/products-db.js` に `updateProductData(db, { id, data, now })` を追加(既存の `upsertProduct` は sort_order の指定が要るが、更新では sort_order を変えないため、専用の関数にした)
+- **エラー文**(`account/messages.js`): `invalid-product`・`product-id-exists`・`product-not-found`・`product-id-mismatch` を追加
+- **管理画面のUI**(`/account/admin/products/`。`noindex`): 一覧(編集・削除ボタン)・新規作成・編集(モーダル)・削除確認(モーダル)。プロダクト1件分を、生のJSON(`public/data/products.json` の項目と同じ形)として、textareaで編集する(専用の入力フォームは作らない。検証は `schema.js` を使うため、サーバーと同じ判断になる)
+  - `assets/js/account/client.js`: `fetchAdminProducts`・`fetchAdminProduct`・`createAdminProduct`・`updateAdminProduct`・`deleteAdminProduct`(既存の `call()` をそのまま使う)。`call()` は、サーバーが返す `details`(検証エラーの一覧)があれば、結果にそのまま含めるよう拡張した(既存の呼び出し・テストへの影響はない)
+  - `assets/js/admin/products-page.js`(このページだけで使う、DOM に触れるスクリプト。`search/main.js`・`updates/main.js` と同じ、ページ固有の1ファイル構成)。`fetchMe()` の `isAdmin` で、画面を出し分ける(未ログイン・非管理者は、案内だけを表示。**実際のアクセス制御は、サーバー側の `requireAdmin` が担う**)
+  - `/account/`(`public/account/index.html`)に、管理者にだけ見える「プロダクト管理」へのリンクを追加(`data-admin-link`。`main.js` が `user.isAdmin` で出し分け)
+  - `assets/css/admin.css`(新規。管理画面共通の小さな部品。既存の `account.css` のクラス=`.account__form`・`.account__input` 等と、`.modal` を流用し、一覧の見た目だけを追加)
+- **レート制限は追加していない**(理由は下の表)
+
+### 決定・判断
+
+| 項目 | 決定 | 理由 |
+| ---- | ---- | ---- |
+| 検証 | クライアント(将来のUI)・サーバーとも、`schema.js` の `validateProduct`/`validateProducts` を共有 | 既存の「公開一覧・詳細ページ・管理画面で、検証の実装を重複させない」方針(Phase 6・26 PR1 の踏襲) |
+| id の変更 | 更新(PUT)で、body の id が URL と違えば `400 product-id-mismatch` として拒否 | id は、詳細ページ・ライセンス発行・検索などから参照される安定な識別子のため、更新経路での変更は許可しない(変更したい場合は削除+新規作成) |
+| レート制限 | 追加していない | 管理API は `ADMIN_EMAILS` の少数の運営者だけが呼べる(招待制よりさらに狭い)。既存の contact・license-redeem・game-sync 等のレート制限は、不特定多数からの濫用を防ぐためのものであり、性質が異なると判断した。将来、複数運営者体制になった際に再検討する |
+| 詳細ページ・products.json への反映 | この PR でも、まだ行わない(PR2a の既知の制限のまま) | PR2a の決定を踏襲。管理画面での編集は、当面 D1(`/api/products`)側だけに反映される |
+
+### テスト結果(この時点)
+
+- `npm run check`: **全 2039 件、成功**(lint・Prettier・html-validate・単体テスト)
+- `tests/products-admin-api.test.js`(新規20件): 一覧・作成・1件取得・更新・削除の、それぞれで、未ログイン401・非管理者403・CSRF・404・409(id重複)・400(形式不正・idの一致)・監査ログへの記録・sort_orderが変わらないこと、を確認
+- 実際の `public/data/categories.json` を ASSETS 経由のフェイクで読ませ、実在のカテゴリ(`tool` 等)で検証が通ることを確認
+- ローカルの `wrangler pages dev`(実際にマイグレーションを適用したD1・`ADMIN_EMAILS` 等を設定)+ curl で、`GET /api/admin/products`・`GET /api/admin/products/:id` が、未ログインで正しく401を返すこと、`/account/admin/products/`(静的ページ)・`assets/js/admin/products-page.js`・`assets/css/admin.css` が200で配信されること、`GET /api/products`(公開の一覧)が引き続き正しく動くこと(回帰なし)を確認
+  - **ローカルE2Eでの既知のハマりどころ**: `wrangler pages dev` の `--d1 DB=<値>` には、`wrangler.toml` の `database_name`(`nolito`)ではなく、**`database_id` の値**(ダミーID)を渡す必要がある。名前を渡すと、`wrangler d1 migrations apply` が作った永続化データ(同じ `--persist-to`)とは別のD1インスタンスが作られ、「no such table: products」になる(データの問題ではなく、コマンドの引数の問題)
+  - 本物のGoogleログインを要する画面(管理者としてのログイン後の動作)は、実際のGoogle認証情報がないため、ブラウザでは確認していない。`tests/products-admin-api.test.js`・`tests/auth-flow.test.js` が、暗号学的に本物と同じ(偽のGoogleを使う)ログインの流れで、`requireAdmin` を通しでテストしている(このプロジェクトの、認証つきエンドポイントの標準的なテスト方法)
+
+### 未実装(次の作業)
+
+- `public/data/products.json`・詳細ページ・ライセンス発行への反映(PR2aからの既知の制限のまま。別PRで検討)
+- 語録・記事・ゲーム設定・ユーザー・ランキング・問い合わせ・更新履歴など、プロダクト以外の管理対象(Phase 26のスコープを、このままプロダクトだけで完了とするかは、別途チャットで確認する)
