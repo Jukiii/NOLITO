@@ -350,6 +350,24 @@ describe("DELETE /api/admin/products/:id", () => {
     assert.equal(response.status, 404);
   });
 
+  it("ログインから10分を過ぎていたら、再ログインを求める(403 reauth-required)。削除しない", async () => {
+    const cookies = await adminCookies();
+    await env.DB.prepare("UPDATE sessions SET created_at = created_at - 601").run();
+    const response = await deleteProduct({
+      request: write("DELETE", `${BASE}/kii-michi`, { cookies }),
+      env,
+      params: { id: "kii-michi" },
+    });
+    assert.equal(response.status, 403);
+    assert.equal((await body(response)).error, "reauth-required");
+    const still = await getProduct({
+      request: get(`${BASE}/kii-michi`, { cookies }),
+      env,
+      params: { id: "kii-michi" },
+    });
+    assert.equal(still.status, 200);
+  });
+
   it("削除でき、一覧から消える。監査ログに残る", async () => {
     const cookies = await adminCookies();
     const response = await deleteProduct({
