@@ -15,9 +15,9 @@
 | リポジトリ     | https://github.com/Jukiii/NOLITO(public)   |
 | 本番           | https://nolito.pages.dev(Cloudflare Pages) |
 | 開発開始日     | 2026-09-19頃(PR #1)                        |
-| 最終更新日時   | 2026-09-26                                 |
-| 現在のフェーズ | Phase 26(管理画面・RBAC)。PR1・PR2a完了    |
-| 現在の状態     | IN_PROGRESS                                |
+| 最終更新日時   | 2026-09-29                                 |
+| 現在のフェーズ | Phase 26(管理画面・RBAC)。PR1・PR2a・PR2b完了 |
+| 現在の状態     | IN_PROGRESS(Phase 26 の追加スコープを検討中) |
 
 ---
 
@@ -63,7 +63,7 @@
 | Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | **COMPLETED** | PR1=#79, PR2=#81, PR3=#83                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0048決定ログ)                                                                                              |
 | Phase 24 | 語録の拡張ファイル・役職/難易度専用語のしくみ                            | **COMPLETED** | #87                                                           | #85(解決・クローズ)                            | 運営者が候補Bを選択。0049決定ログ。実際の専用語の追加(下書き→確認→公開)は、別の作業として継続中                                                  |
 | Phase 25 | AI活用(改善提案・類似語チェック・流れの文書化)                           | **COMPLETED** | PR1=#89, PR2=#90, PR3=#91                                     | -                                              | 3 PR すべて完了・マージ済み(0050決定ログ)。管理画面アップロードはPhase26待ち                                                                     |
-| Phase 26 | 管理画面・RBAC                                                           | IN_PROGRESS   | PR1=#93, PR2a=#95                                             | -                                              | PR1(管理者ゲート・監査ログ)・PR2a(プロダクトをD1に移行・公開一覧を動的化)完了。両方とも本番D1マイグレーション適用済み。PR2b(管理API・UI)は未着手 |
+| Phase 26 | 管理画面・RBAC                                                           | IN_PROGRESS   | PR1=#93, PR2a=#95, PR2b=#97                                   | -                                              | PR1(管理者ゲート・監査ログ)・PR2a(プロダクトをD1に移行・公開一覧を動的化)・PR2b(プロダクトの管理API・管理画面UI)完了。本番D1マイグレーションは PR1・PR2a まで適用済み(PR2bは新規マイグレーションなし)。他の管理対象(語録・記事等)へ広げるかは、次回チャットで確認予定 |
 | Phase 27 | セキュリティ強化・監査ログ・MFA                                          | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                  |
 | Phase 28 | パフォーマンス・監視・CI/CD強化                                          | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                  |
 | Phase 29 | 広告・アフィリエイト・収益化                                             | NOT_STARTED   | -                                                             | -                                              | Phase 29 まで広告事業者スクリプトを入れない方針(CLAUDE.md)                                                                                       |
@@ -76,34 +76,34 @@
 ## Current Phase
 
 ```text
-Phase 26 PR2a(プロダクトをD1に移行・公開一覧を動的化)完了。本番D1マイグレーション適用済み。
-次はPR2b(プロダクトの管理API・管理画面UI)
+Phase 26 PR2b(プロダクトの管理API・管理画面UI)完了。本番D1マイグレーションの追加なし(PR1・PR2aの
+テーブルを再利用)。次は、Phase 26を他の管理対象に広げるか、このままPhase 27へ進むかを判断する。
 ```
 
 ## Current Status
 
 ```text
-IN_PROGRESS(Phase 26 PR2a 完了。PR2b は着手前)
+IN_PROGRESS(Phase 26 PR1・PR2a・PR2b 完了。Phase 26 の追加スコープを検討中)
 ```
 
 ## Current Branch
 
 ```text
-main(Phase 26 PR2a は #95 でマージ済み。PR2b 用のブランチは、まだ作成していない)
+main(Phase 26 PR2b は #97 でマージ済み)
 ```
 
 ## Current Task
 
 ```text
-Phase 26 PR2b(プロダクトの管理API=create/update/delete、validateProduct/validateProducts
-で検証、recordAdminChangeで監査ログ・管理画面UI=一覧・編集画面)の実装計画を立てる。
+Phase 26 の追加スコープ(語録・記事・ゲーム設定・ユーザー・ランキング・問い合わせ・更新履歴の
+管理画面を追加するか、プロダクトだけでPhase 26を完了とするか)を、次回チャットで確認する。
 ```
 
 ## Current Step
 
 ```text
-Phase 26 PR2bに着手する(基本方針はPR2aで固まっているため、この段階のチャット確認は不要と判断。
-実装を進める中で、新たな判断点が出れば、これまでどおりチャットで確認する)
+PROJECT_STATUS.md の更新(このコミット)まで完了。次回セッションの最初に、Phase 26の範囲を
+AskUserQuestionで確認してから、Phase 26の続き or Phase 27 着手を判断する。
 ```
 
 ---
@@ -180,44 +180,56 @@ docs/decisions/0042-phase-19-plan.md(全体の計画。PR1〜PR3の内訳)
 ### 今何をしているか
 
 ```text
-Phase 26 PR2a(プロダクトをD1に移行・公開一覧を動的化)を実装・テスト・マージ・本番D1マイグレーション
-適用・本番確認まで完了した。次は PR2b(プロダクトの管理API・管理画面UI)。
+Phase 26 PR2b(プロダクトの管理API・管理画面UI)を実装・テスト・マージまで完了した。新しいD1
+マイグレーションは不要(PR1・PR2aのテーブルを再利用)。次は、Phase 26のスコープ(プロダクトだけで
+完了とするか、他の管理対象にも広げるか)を、チャットで確認する。
 ```
 
 ### 次に行う作業
 
 ```text
-1. Phase 26 PR2b: プロダクトの管理API(create/update/delete。validateProduct/validateProductsで
-   検証、recordAdminChangeで監査ログ)・管理画面UI(一覧・編集)を実装する
-2. 新しいブランチ(main から)で着手する
+1. Phase 26のスコープを、AskUserQuestionでユーザーに確認する
+   (プロダクトだけで完了 or 他の管理対象=語録・記事・ゲーム設定・ユーザー・ランキング・
+   問い合わせ・更新履歴 にも広げる)
+2. 回答に応じて、Phase 26の追加PR、または Phase 27 着手を進める
 ```
 
 ### 最後に完了した作業
 
 ```text
-Phase 26 PR2a: プロダクトをD1に移す・公開の一覧を動的化(PR #95、マージ済み。本番D1に
-migrations/0008_products.sqlを適用済み=productsテーブルが本番にあり、移行時点の2件
-=escape-boss・kii-michiのデータを含む。本番のGET /api/productsが、実際にD1から応答することを
-curlで確認済み)。
+Phase 26 PR2b: プロダクトの管理API・管理画面UI(PR #97、マージ済み)。
 
-実装を進める中で、products.jsonが詳細ページの静的生成(build-products.mjs)・issue-license.mjs・
-多数のテストからも読まれており、丸ごとD1に移すとCI(D1ネットワークなしで動く必要がある)を壊すことが
-判明。3回チャットで確認し、次の設計にした:
+実装内容:
+- 管理API(functions/api/admin/products/。すべて requireAdmin で入り口を確認)
+  - index.js: GET(一覧)・POST(新規作成)
+  - [id].js: GET(1件)・PUT(更新。URLとbodyのidが違えば400)・DELETE(削除)
+  - 検証は、既存の schema.js の validateProducts・PRODUCT_DATA_VERSION をそのまま使う
+  - 変更は、すべて recordAdminChange で admin_audit_log に記録(before/after つき。
+    PR1の監査ログを、初めて実際に使った)
+  - products-db.js に updateProductData(sort_order を変えない更新)を追加
+- 管理画面UI(/account/admin/products/。noindex)
+  - 一覧(編集・削除ボタン)・新規作成・編集(モーダル)・削除確認(モーダル)
+  - プロダクト1件分を、生のJSONとしてtextareaで編集(検証はサーバーと同じschema.js)
+  - fetchMe()のisAdminで画面を出し分け(実際のアクセス制御はサーバー側のrequireAdmin)
+  - /account/ に、管理者にだけ見える「プロダクト管理」へのリンクを追加
+- 新しいエラー文: invalid-product・product-id-exists・product-not-found・product-id-mismatch
+- レート制限は追加していない(ADMIN_EMAILSの少数の運営者だけが呼べるため。理由は決定ログに記載)
 
-新しいテーブルproducts(id・sort_order・data=JSON全体・updated_at)。新しいエンドポイント
-GET /api/products(ログイン不要。functions/api/products.js)が、D1からその場で組み立てる。
-**既存の静的ファイルpublic/data/products.jsonは削除しない**(Cloudflare Pagesは静的ファイルがある
-経路でFunctionsを呼ばないため、同じURLを動的化すると依存スクリプトが壊れる。新しいURLにすることで
-回避)。静的ファイルは、詳細ページ生成・ライセンス発行・実データテストの入力と、D1がない環境
-(プレビュー等)へのフォールバック元として残す。クライアント側6箇所を/api/productsに変更。
+**新しいD1マイグレーションは不要**(PR1のadmin_audit_log・PR2aのproductsテーブルをそのまま使う)。
+本番のADMIN_EMAILSは、まだ運営者が設定していない(設定されるまで、管理APIは全員に403を返す。
+これは想定どおりの安全側の挙動)。
 
-**既知の制限**: 管理画面での編集(次PR以降)は、D1にだけ反映され、静的ファイル(詳細ページ・
-ライセンス発行の入力)には、当面反映されない。再生成の仕組みは、後日、別PRで検討。
+単体テスト2039件、すべて成功(新規tests/products-admin-api.test.js 20件)。ローカルのwrangler pages
+devで、実際にマイグレーションを適用したD1・ADMIN_EMAILS等を設定し、管理APIの401応答・静的ページ/JS/
+CSSの配信・GET /api/products(公開の一覧)の回帰なしをcurlで確認した。本物のGoogleログインを要する
+画面の動作は、確認環境がないためブラウザでは未確認(requireAdminの通しの動作は、偽のGoogleを使う
+既存の方式=tests/auth-flow.test.jsと同じでテスト済み)。
 
-単体テスト2019件、すべて成功。決定・テスト結果はdocs/decisions/0051-phase-26-plan.md。CLAUDE.mdに
-「プロダクトをD1に移す・公開の一覧を動的化」節を追記。
+決定・テスト結果はdocs/decisions/0051-phase-26-plan.md(PR2bの節)。CLAUDE.mdに
+「プロダクトの管理API・管理画面UI」節を追記。
 
-**Phase 26 PR1(管理者ゲート・監査ログの基盤。PR #93)は、この前に完了した**。
+**Phase 26 PR2a(プロダクトをD1に移す・公開の一覧を動的化。PR #95)・PR1(管理者ゲート・監査ログの
+基盤。PR #93)は、この前に完了した**。
 ```
 
 ### 最後に変更したファイル
@@ -229,7 +241,7 @@ GET /api/products(ログイン不要。functions/api/products.js)が、D1から�
 ### 最後のコミット
 
 ```text
-(PR #91 のマージコミット。git log --oneline -1 で確認)
+(このPROJECT_STATUS.md更新のコミット。git log --oneline -1 で確認)
 ```
 
 ---
@@ -294,15 +306,16 @@ main
 ## Last Commit
 
 ```text
-(PR #95 のマージコミット。git log --oneline -1 で確認)
+(PR #97 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ## Pull Request
 
 ```text
-直近マージ: #95(Phase 26 PR2a。プロダクトをD1に移行・公開一覧を動的化。本番D1マイグレーション
-適用済み)、#93(Phase 26 PR1。管理者ゲート・監査ログの基盤。本番D1マイグレーション適用済み)、
-#91(Phase 25 PR3。Phase 25 完了)、#90(Phase 25 PR2)、#89(Phase 25 PR1)
+直近マージ: #97(Phase 26 PR2b。プロダクトの管理API・管理画面UI。新規D1マイグレーションなし)、
+#95(Phase 26 PR2a。プロダクトをD1に移行・公開一覧を動的化。本番D1マイグレーション適用済み)、
+#93(Phase 26 PR1。管理者ゲート・監査ログの基盤。本番D1マイグレーション適用済み)、
+#91(Phase 25 PR3。Phase 25 完了)
 オープン中: なし
 ```
 
@@ -380,6 +393,7 @@ main
 | Phase 25 PR3  | 2026-09-26     | #91           | AI活用の流れの文書化(docs/06_ai/README.md。**Phase 25 完了**)                                           |
 | Phase 26 PR1  | 2026-09-26     | #93           | 管理者ゲート・監査ログの基盤(本番D1マイグレーション適用済み)                                            |
 | Phase 26 PR2a | 2026-09-26     | #95           | プロダクトをD1に移行・公開一覧を動的化(GET /api/products。本番D1マイグレーション適用済み)               |
+| Phase 26 PR2b | 2026-09-29     | #97           | プロダクトの管理API・管理画面UI(/api/admin/products、/account/admin/products/。新規マイグレーションなし) |
 
 ---
 
@@ -531,51 +545,53 @@ Claude Codeは、
 ==================================================
 
 Phase:
-Phase 26(管理画面・RBAC)。PR1・PR2a完了。**Phase 25(AI活用)は完了**
+Phase 26(管理画面・RBAC)。PR1・PR2a・PR2b完了。**Phase 25(AI活用)は完了**
 
 Status:
-IN_PROGRESS
+IN_PROGRESS(Phase 26 の追加スコープを検討中)
 
 Branch:
-main(Phase 26 PR2a は #95 でマージ済み。PR2b 用ブランチは、まだ未作成)
+main(Phase 26 PR2b は #97 でマージ済み)
 
 Task:
-Phase 26 PR2b(プロダクトの管理API・管理画面UI)の実装
+Phase 26 のスコープ(プロダクトだけで完了とするか、他の管理対象にも広げるか)を確認する
 
 Last Completed:
-**Phase 26 PR2a(プロダクトをD1に移す・公開の一覧を動的化)を、完了した**(PR #95、マージ済み。
-**本番D1に`migrations/0008_products.sql`を適用済み**=`products`テーブルが本番にあり、移行時点の
-2件=escape-boss・kii-michiのデータを含む。本番の`GET /api/products`が、実際にD1から応答することを
-curlで確認済み)。
+**Phase 26 PR2b(プロダクトの管理API・管理画面UI)を、完了した**(PR #97、マージ済み)。
 
-実装を進める中で、`products.json`が詳細ページの静的生成(`build-products.mjs`)・
-`issue-license.mjs`・多数のテストからも読まれており、丸ごとD1に移すとCI(D1ネットワークなしで動く
-必要がある)を壊すことが判明。3回チャットで確認し、次の設計にした:
+実装内容:
+- 管理API(`functions/api/admin/products/`。すべて`requireAdmin`で入り口を確認): `index.js`の
+  `GET`(一覧)・`POST`(新規作成)、`[id].js`の`GET`(1件)・`PUT`(更新)・`DELETE`(削除)。
+  検証は既存の`schema.js`をそのまま使う。変更はすべて`recordAdminChange`で`admin_audit_log`に
+  記録(**PR1の監査ログを、初めて実際に使った**)。
+- 管理画面UI(`/account/admin/products/`。`noindex`): 一覧・新規作成・編集(モーダル)・
+  削除確認(モーダル)。プロダクト1件分を、生のJSONとしてtextareaで編集する(専用フォームは
+  作らず、サーバーと同じ`schema.js`の検証結果を、そのまま表示する)。`/account/`に、管理者にだけ
+  見えるリンクを追加。
+- **新しいD1マイグレーションは不要**(PR1・PR2aのテーブルをそのまま使う)。本番の`ADMIN_EMAILS`は、
+  まだ運営者が設定していない(設定されるまで、管理APIは全員に403を返す。想定どおりの安全側の挙動)。
 
-新しいテーブル`products`(`id`・`sort_order`・`data`=JSON全体・`updated_at`)。新しいエンドポイント
-`GET /api/products`(ログイン不要。`functions/api/products.js`)が、D1からその場で組み立てる。
-**既存の静的ファイル`public/data/products.json`は削除しない**(Cloudflare Pagesは静的ファイルが
-ある経路でFunctionsを呼ばないため、同じURLを動的化すると依存スクリプトが壊れる。新しいURLにする
-ことで回避)。静的ファイルは、詳細ページ生成・ライセンス発行・実データテストの入力と、D1がない環境
-(プレビュー等)へのフォールバック元として残す。クライアント側6箇所を`/api/products`に変更。
+単体テスト2039件、すべて成功(新規`tests/products-admin-api.test.js`20件)。ローカルの
+`wrangler pages dev`で、実際のD1マイグレーション・`ADMIN_EMAILS`を設定し、curlで401応答・静的
+ファイルの配信・公開の一覧の回帰なしを確認した。本物のGoogleログインでのブラウザ確認は、確認環境が
+ないため未実施(`requireAdmin`のテストは、既存の偽Google方式でカバー済み)。
 
-**既知の制限**: 管理画面での編集(次PR以降)は、D1にだけ反映され、静的ファイル(詳細ページ・
-ライセンス発行の入力)には、当面反映されない。再生成の仕組みは、後日、別PRで検討。
+決定・テスト結果は`docs/decisions/0051-phase-26-plan.md`(PR2bの節)。CLAUDE.mdに
+「プロダクトの管理API・管理画面UI」節を追記。
 
-単体テスト2019件、すべて成功。決定・テスト結果は`docs/decisions/0051-phase-26-plan.md`。CLAUDE.md
-に「プロダクトをD1に移す・公開の一覧を動的化」節を追記。
-
-**Phase 26 PR1(管理者ゲート・監査ログの基盤。PR #93)は、この前に完了した**。
+**Phase 26 PR2a(プロダクトをD1に移す・公開の一覧を動的化。PR #95)・PR1(管理者ゲート・監査ログの
+基盤。PR #93)は、この前に完了した**。
 
 Next Action:
-Phase 26 PR2b(プロダクトの管理API=`create`/`update`/`delete`。`validateProduct`/`validateProducts`
-で検証、`recordAdminChange`で監査ログ・管理画面UI=一覧・編集画面)を実装する。基本方針はPR2aで
-固まっているため、この段階でのチャット確認は不要と判断したが、新たな判断点が出れば、これまでどおり
-チャットで確認する。
+Phase 26のスコープを、AskUserQuestionでユーザーに確認する: プロダクトの管理画面だけでPhase 26を
+完了とし、Phase 27(セキュリティ強化)へ進むか、他の管理対象(語録・記事・ゲーム設定・ユーザー・
+ランキング・問い合わせ・更新履歴)にも管理画面を広げてから完了とするか。回答に応じて、次のPR、
+または次フェーズに着手する。
 
 Human Task:
 なし。Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
-Phase 21 PR3のプライバシーポリシーの版を上げない判断について、運営者の確認待ち(PR #71 に記載)
+Phase 21 PR3のプライバシーポリシーの版を上げない判断について、運営者の確認待ち(PR #71 に記載)。
+本番の`ADMIN_EMAILS`環境変数は、運営者が未設定(設定されるまで、管理画面は誰も使えない)。
 
 Blocker:
 なし
