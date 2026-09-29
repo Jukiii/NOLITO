@@ -38,6 +38,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - `npm run check` … lint(ESLint / Stylelint / html-validate)、Prettier のチェック、単体テスト。PR前に必ず通す。
 - `npm run test` … 単体テストのみ(Node 標準の `node --test`。`tests/` 配下)。ロジック(`romaji.js` `engine.js` など)を変えたらテストも書く。
 - `npm run format` … Prettier で整形。
+- `npm run audit` … 依存の脆弱性チェック(`npm audit --audit-level=high`。Phase 27 PR1)。CIでも実行する。PR前に、`npm run check` とあわせて実行すること(詳細は「セキュリティ強化」Phase27の節)。
 - ローカル表示は VS Code の Live Server(`public/` をルートにする)。詳細は `docs/dev-setup.md`。
 
 ## 記事・計測・広告(Phase 5)
@@ -499,3 +500,14 @@ Phase 25 の仕様(「生成・調整・説明・学習ポイント・チェッ�
 - **新しいD1マイグレーションは不要**(PR1の`admin_audit_log`・PR2aの`products`テーブルを、そのまま使う)。
 - **この PR でも、まだ行わないこと**(PR2aからの既知の制限のまま): 管理画面での編集の、`public/data/products.json`・詳細ページ・ライセンス発行への反映。
 - ローカルの `wrangler pages dev` でのD1確認は、`--d1 DB=<値>` に、`wrangler.toml` の `database_name`(`nolito`)ではなく **`database_id`**(ダミーID)を渡すこと(名前を渡すと、`d1 migrations apply` が作った永続化データとは別のD1インスタンスになり、テーブルが見つからない)。
+
+## セキュリティ強化(Phase 27)
+
+Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の列挙(RBAC・将来MFA・再認証・権限チェック・監査ログ・世代管理・暗号化・復元テスト・脆弱性チェック・依存更新・監査)のため、「段階導入」の方針どおり、複数のPRに分けて進める(計画は `docs/decisions/0052-phase-27-plan.md`)。RBAC・権限チェック・監査ログの基盤は、すでに Phase 9・Phase 26 で実装済み。
+
+### 依存の脆弱性チェック(Phase 27 PR 1)
+
+- `npm run audit`(`npm audit --audit-level=high`)を追加し、CI(`.github/workflows/ci.yml`)の `check` ジョブに、`npm run check` のあとの手順として組み込んだ。**しきい値は `high`**(moderate 以下では、CIを止めない)。
+- 理由: `wrangler`(devDependency。ローカル確認・CIでのみ使い、配信物には含まれない)が依存する `undici`(`miniflare` 経由)に、moderateの既知の脆弱性(WebSocketのpermessage-deflate展開でのDoS)があるが、**最新の `wrangler` でも直っておらず**(Cloudflare側の対応待ち)、moderateでCIを止めると、直せない項目のために恒久的にCIが赤くなる。`high` 以上を、実際に対応可能な基準にした。
+- 対象は、devDependencies を含む全ての依存(`--omit=dev` は使わない。このプロジェクトに `dependencies` = 本番用の依存はない。devDependencyも、CI・開発で実行されるコードで、サプライチェーンのリスクがあるため)。
+- **この PR でやらないこと**(次のPR以降で検討): 依存の自動更新(Dependabot等)・再認証の適用範囲の拡張・バックアップの復元テスト・監査ログの個人情報の扱いの強化・世代管理・暗号化・MFA。いずれも、着手前にチャットで範囲を確認すること。
