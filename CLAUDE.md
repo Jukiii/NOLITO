@@ -511,3 +511,9 @@ Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の�
 - 理由: `wrangler`(devDependency。ローカル確認・CIでのみ使い、配信物には含まれない)が依存する `undici`(`miniflare` 経由)に、moderateの既知の脆弱性(WebSocketのpermessage-deflate展開でのDoS)があるが、**最新の `wrangler` でも直っておらず**(Cloudflare側の対応待ち)、moderateでCIを止めると、直せない項目のために恒久的にCIが赤くなる。`high` 以上を、実際に対応可能な基準にした。
 - 対象は、devDependencies を含む全ての依存(`--omit=dev` は使わない。このプロジェクトに `dependencies` = 本番用の依存はない。devDependencyも、CI・開発で実行されるコードで、サプライチェーンのリスクがあるため)。
 - **この PR でやらないこと**(次のPR以降で検討): 依存の自動更新(Dependabot等)・再認証の適用範囲の拡張・バックアップの復元テスト・監査ログの個人情報の扱いの強化・世代管理・暗号化・MFA。いずれも、着手前にチャットで範囲を確認すること。
+
+### 重要な操作への再認証の拡張(Phase 27 PR 2)
+
+- **再認証**(直近 `REAUTH_WINDOW_SECONDS`=10分以内にログインしたセッションだけに許す。それ以外は`403 reauth-required`)は `functions/_lib/guard.js` の `requireUser(context, { write, recent })` の `recent: true` で行う(定数・実装は Phase 9 のアカウント削除から、ここへ集約した)。`requireAdmin` は `options` をそのまま `requireUser` に渡すため、`requireAdmin(context, { write: true, recent: true })` で、管理APIにもそのまま使える。
+- **適用範囲は、取り消せない操作(削除)だけ**(`DELETE /api/account`・`DELETE /api/admin/products/:id`)。**作成・更新には使わない**(セッションは最長90日有効なため、書き込み全般に10分の窓を課すと、管理者が連続して編集するだけで使い勝手を著しく損なうため。詳しい判断は決定ログ0052)。**新しく取り消せない操作(削除)を追加するときは、`recent: true` を付けること**。
+- 画面側は、`reauth-required` を受け取ったら、確認・実行のボタンを隠し、「もう一度ログインする」リンク(`/auth/google/login?reauth=1`。`account/client.js` の `REAUTH_PATH`)を出す(`/account/` のアカウント削除・`/account/admin/products/` の削除確認モーダルで、同じ考え方)。

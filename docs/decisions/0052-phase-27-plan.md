@@ -1,4 +1,4 @@
-# 0052: Phase 27 の計画・PR1(依存の脆弱性チェック)
+# 0052: Phase 27 の計画・PR1(依存の脆弱性チェック)・PR2(重要な操作への再認証の拡張)
 
 ## 背景
 
@@ -25,7 +25,30 @@ Phase 26(管理画面・RBAC)を、プロダクトの管理画面(PR1・PR2a・P
 - 監査ログ(admin_audit_log)の個人情報の扱いの、さらなる強化
 - 世代管理・暗号化・MFA(いずれも、仕様が抽象的で、対象が具体化していない。着手前に、都度チャットで範囲を確認する)
 
-## テスト結果
+## テスト結果(PR1)
 
 - `npm run audit`: 実行して、moderateの脆弱性(上記)が表示されるが、しきい値`high`未満のため、終了コード0(CIを止めない)ことを確認
 - `npm run check`: 全2039件、成功(この PR では、`check` の中身は変更していない)
+
+## 決定(PR2: 重要な操作への再認証の拡張)
+
+Phase 27 PR1 の完了後、チャットで次のPRの範囲を確認し、**「重要な操作への再認証の拡張」**を選んだ。すでにアカウント削除(`DELETE /api/account`)にある「直近10分以内にログインしたセッションだけに許す」しくみ(`REAUTH_WINDOW_SECONDS`。セッション自体は最長90日有効)を、Phase 26 で追加した管理API(`/api/admin/products/*`)にも広げる。
+
+**適用範囲は、削除(DELETE)だけに絞った**(チャットで確認)。理由: セッション有効期間(最長90日)に対して10分という窓は厳しく、これを作成(POST)・更新(PUT)を含む書き込み全般にそのまま適用すると、管理者がプロダクトを連続で編集するだけで、10分ごとに再ログインが必要になり、使い勝手を大きく損なう。一方、削除は取り消せない操作(監査ログに`before`の記録は残るが、UIから元に戻す手段はない)で、アカウント削除とまったく同じ性質のため、同じ基準(10分)をそのまま適用する。
+
+### 実装
+
+- `functions/_lib/guard.js`: `REAUTH_WINDOW_SECONDS`(`functions/api/account.js` から移動。共有の定数にした)。`requireUser(context, { write, recent })` に `recent` オプションを追加(`true` のとき、セッション作成から `REAUTH_WINDOW_SECONDS` を超えていれば `403 reauth-required`)。`requireAdmin` は、`options` をそのまま `requireUser` に渡す既存の実装のため、変更不要で `recent: true` を扱える。
+- `functions/api/account.js`: 独自に書いていた `REAUTH_WINDOW_SECONDS`・再認証のチェックを削除し、`requireUser(context, { write: true, recent: true })` を使うよう置き換えた(検証ロジックの重複をなくした)。チェックの順序が、`確認の文字(confirm) → reauth` から `reauth → confirm`(`requireUser` の中で先に判定)に変わったが、テストへの影響はない(新鮮なセッションなら reauth は素通りするため、既存のテストの前提=フレッシュな `loggedIn()` は変わらず通る)。
+- `functions/api/admin/products/[id].js`: `onRequestDelete` の `requireAdmin` 呼び出しに `recent: true` を追加。GET・PUT は変更なし。
+- 画面(`/account/admin/products/`): 削除確認モーダルに、`reauth-required` のときだけ出す「もう一度ログインする」リンク(`/auth/google/login?reauth=1`)を追加。既存の `/account/` のアカウント削除ダイアログと同じ考え方(確認ボタンを隠し、再ログインのリンクを出す)。
+
+## この PR2 でもやらないこと
+
+- 作成(POST)・更新(PUT)への再認証の適用(上記の理由により、意図的に対象外)
+- 依存の自動更新・バックアップの復元テスト・監査ログの個人情報対策の強化・世代管理・暗号化・MFA(引き続き、次のPR以降で、都度範囲を確認する)
+
+## テスト結果(PR2)
+
+- `npm run check`: 全2040件、成功(新規1件: `tests/products-admin-api.test.js` に、削除の再認証テストを追加)
+- 既存の `tests/auth-flow.test.js`(アカウント削除の再認証テスト。境界値=599秒/601秒を含む)は、`requireUser` の実装を差し替えたあとも、変更なしで成功することを確認(検証ロジックの一本化が、既存の挙動を壊していないことの裏付け)
