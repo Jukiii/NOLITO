@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="robots" content="noindex" />
+    <title>プロダクト管理 | NOLITO</title>
+    <meta name="description" content="NOLITO のプロダクトの管理(管理者だけ)。" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/account.css" />
+    <link rel="stylesheet" href="/assets/css/admin.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/admin/products-page.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <div class="account" data-admin-products>
+        <h1 id="admin-products-title" tabindex="-1">プロダクト管理</h1>
+        <p class="account__status" role="status" aria-live="polite" data-admin-status></p>
+
+        <noscript>
+          <p class="account__notice">プロダクト管理の表示には、JavaScript が必要です。</p>
+        </noscript>
+
+        <section class="account__view" data-view="loading" aria-label="読み込み中">
+          <p>読み込み中…</p>
+        </section>
+
+        <section class="account__view" data-view="unavailable" hidden>
+          <p class="account__notice">アカウント機能は、まだ使えません。</p>
+        </section>
+
+        <section class="account__view" data-view="signed-out" hidden>
+          <p class="account__notice">
+            この操作には、ログインが必要です。<a href="/account/">アカウントのページ</a
+            >から、ログインしてください。
+          </p>
+        </section>
+
+        <section class="account__view" data-view="forbidden" hidden>
+          <p class="account__notice">
+            この操作には、管理者の権限が必要です。<a href="/account/">アカウントのページ</a>に戻る。
+          </p>
+        </section>
+
+        <section class="account__view" data-view="ready" hidden>
+          <section aria-labelledby="admin-products-list-title">
+            <h2 id="admin-products-list-title">一覧</h2>
+            <p class="account__hint" data-admin-products-empty hidden>
+              まだ、プロダクトがありません。
+            </p>
+            <ul class="admin-products__list" data-admin-products-list></ul>
+          </section>
+
+          <section aria-labelledby="admin-products-new-title">
+            <h2 id="admin-products-new-title">新規作成</h2>
+            <p class="account__hint">
+              プロダクト1件分の JSON(<code>public/data/products.json</code>
+              の項目と同じ形)を貼り付けてください。
+            </p>
+            <form class="account__form" data-admin-products-create-form>
+              <div class="account__field">
+                <label for="admin-products-create-json">JSON</label>
+                <textarea
+                  class="account__input admin-products__json"
+                  id="admin-products-create-json"
+                  rows="14"
+                  spellcheck="false"
+                  data-admin-products-create-json
+                ></textarea>
+              </div>
+              <p
+                class="account__status account__status--error"
+                role="alert"
+                data-admin-products-create-error
+              ></p>
+              <button class="button button--primary" type="submit">作成する</button>
+            </form>
+          </section>
+        </section>
+      </div>
+
+      <dialog
+        class="modal"
+        id="admin-product-edit-dialog"
+        aria-labelledby="admin-product-edit-title"
+      >
+        <div class="modal__body">
+          <h2 id="admin-product-edit-title">プロダクトを編集</h2>
+          <form class="account__form" data-admin-products-edit-form>
+            <div class="account__field">
+              <label for="admin-products-edit-json">JSON</label>
+              <textarea
+                class="account__input admin-products__json"
+                id="admin-products-edit-json"
+                rows="18"
+                spellcheck="false"
+                data-admin-products-edit-json
+              ></textarea>
+            </div>
+            <p
+              class="account__status account__status--error"
+              role="alert"
+              data-admin-products-edit-error
+            ></p>
+            <div class="modal__actions">
+              <button class="button button--secondary" type="button" data-modal-close>
+                キャンセル
+              </button>
+              <button class="button button--primary" type="submit">保存する</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+
+      <dialog
+        class="modal"
+        id="admin-product-delete-dialog"
+        aria-labelledby="admin-product-delete-title"
+      >
+        <div class="modal__body">
+          <h2 id="admin-product-delete-title">削除しますか?</h2>
+          <p>
+            <strong data-admin-products-delete-name></strong>
+            を削除します。<strong>取り消せません</strong>。
+          </p>
+          <p
+            class="account__status account__status--error"
+            role="alert"
+            data-admin-products-delete-error
+          ></p>
+          <div class="modal__actions">
+            <button class="button button--secondary" type="button" data-modal-close>
+              キャンセル
+            </button>
+            <button class="button button--primary" type="button" data-admin-products-delete-confirm>
+              削除する
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

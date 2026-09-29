@@ -19,6 +19,10 @@ export const API_ERRORS = {
   "not-admin": "この操作には、管理者の権限が必要です。",
   "products-unavailable":
     "商品の情報を読み込めませんでした。時間をおいて、もう一度お試しください。",
+  "invalid-product": "プロダクトの内容が正しくないため、保存できませんでした。",
+  "product-id-exists": "その id は、すでに使われています。別の id にしてください。",
+  "product-not-found": "そのプロダクトは見つかりませんでした。",
+  "product-id-mismatch": "id を変更することはできません。",
   "bad-origin": "リクエストを確認できませんでした。ページを開き直して、もう一度お試しください。",
   "csrf-header-required":
     "リクエストを確認できませんでした。ページを開き直して、もう一度お試しください。",

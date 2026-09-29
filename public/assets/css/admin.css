@@ -1,0 +1,47 @@
+/* 管理画面(Phase 26。管理者だけ)。/account/admin/ 以下のページで使う */
+
+.admin-products__list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+.admin-products__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.admin-products__item-title {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.admin-products__item-meta {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.admin-products__item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.admin-products__json {
+  min-height: 16rem;
+  padding: var(--space-3);
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  white-space: pre;
+  resize: vertical;
+}
