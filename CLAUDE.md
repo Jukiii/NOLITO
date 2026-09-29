@@ -522,3 +522,9 @@ Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の�
 
 - `.github/dependabot.yml` で、**npm**(`package.json`)と **github-actions**(`.github/workflows/*.yml`)を、毎週月曜にチェックする。**npmのマイナー・パッチは1つのグループ(`npm-minor-patch`)にまとめ**、**メジャーは個別のPRのまま**(破壊的変更の可能性があるため、1件ずつ確認する)。
 - Dependabot が開くPRも、既存のCI(`.github/workflows/ci.yml`。`on: pull_request` でブランチを問わず動く)が、そのまま`npm run check`・`npm run audit`を通す。**自動マージは設定していない**(CIが通ることを確認してから、通常のPRと同じ手順でマージすること。`wrangler` など、動作確認が必要な依存があるため)。
+
+### バックアップの復元テスト(Phase 27 PR 4)
+
+- `npm run backup:restore-drill`(`scripts/restore-drill.mjs`)。**使い捨てのD1を、実際にCloudflareへ作り**、見本(既定。`tests/fixtures/d1-export-sample.sql`)または実際のバックアップ(`--file`)を読み込んで、テーブルごとの件数を、実際のCloudflare D1に問い合わせて確認し、最後に、その使い捨てのD1を必ず削除する(`finally`)。**本番のD1(`nolito`)には、いっさい触れない**(新しく作って、消すだけ)。壊れたファイルは、使い捨てのD1を作る前に断る。
+- `scripts/lib/backup.mjs`の`wranglerConfig(databaseId, databaseName)`・`scripts/lib/wrangler-remote.mjs`の`runWranglerD1`/`captureWranglerD1`に、`databaseName`(既定`"nolito"`。後方互換)を追加。復元練習では、使い捨てのDBの名前を渡す。同ファイルの`captureWranglerAccountLevel`(D1の作成・削除・一覧。特定のDBのIDを必要としない)も、新しく追加した。
+- `docs/backup.md` §5「復元の練習」は、この1コマンドの説明にした。手動の手順(練習用のD1を手で作る)は、なくなった。

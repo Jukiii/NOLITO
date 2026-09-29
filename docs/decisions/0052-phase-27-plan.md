@@ -73,3 +73,25 @@ PR1・PR2 の完了後、チャットで次のPRの範囲を確認し、**「依
 - `.github/dependabot.yml` の YAML 構文を、`yaml` パッケージ(既存の devDependency)で読み込んで確認
 - `npm run check`: 全2040件、成功(この PR では、アプリケーションコードは変更していない)
 - **マージ後に判明**: リポジトリの Dependabot vulnerability alerts(`GET /repos/.../vulnerability-alerts`)が、無効になっていた(`404`)。これが無効だと、バージョン更新(`dependabot.yml`)自体は動くが、GitHub のアドバイザリに基づく継続的な脆弱性の通知(Dependabot alerts)が届かず、PR1(`npm run audit`)の手動実行に頼ることになる。**リポジトリの設定(`PUT /repos/.../vulnerability-alerts`)で有効化した**(コードの変更ではなく、リポジトリの設定。無料・可逆・公開リポジトリでの標準的な設定のため、このセッションで直接有効化した)。有効化後、`204`(有効)を確認済み。
+- **マージ直後、Dependabot が最初のバッチ(3件のPR)を自動で開いた**: `actions/checkout` 4→7・`actions/setup-node` 4→7(どちらもメジャー。個別PR)、`npm-minor-patch` グループで `marked`・`prettier`・`wrangler` の3件(まとめて1PR)。**いずれもCI green(`npm run check`・`npm run audit`)を確認し、このセッション内でマージした**(`actions/setup-node` のPRは、先にマージした`actions/checkout`のPRとファイルが競合したため、Dependabotに`@dependabot rebase`をコメントして自動で解消させた)。マージ後、`npm ci` からの `npm run check`・`npm run audit` で、回帰がないことも再確認した。
+
+## 決定(PR4: バックアップの復元テスト)
+
+PR1・PR2・PR3 の完了後、チャットで次のPRの範囲を確認し、**「バックアップの復元テスト」**を選んだ。`docs/backup.md` §5 には、もともと「復元の練習(最初に1回)」という**手動の**手順があったが、実際に動かして確認する仕組みがなかった。これを、**1コマンドで実行できる自動化スクリプトにした**。
+
+- `scripts/restore-drill.mjs`(新規)。**使い捨てのD1を、実際にCloudflareへ作り**、見本のバックアップ(既定: `tests/fixtures/d1-export-sample.sql`。作り物のデータ)を読み込んで、テーブルごとの件数を、**実際のCloudflare D1に問い合わせて**表示し、最後に、その使い捨てのD1を**必ず削除する**(`finally`。削除に失敗しても、手動での削除手順を案内する)。
+- **本番のD1(`nolito`)には、いっさい触れない**(新しく作って、消すだけ)。読み込むデータも、既定は作り物(見本)。**実際に書き出した本物のバックアップ**(個人情報を含む)を使いたいときは、`--file <バックアップのファイル>` で指定できるが、この場合も、読み込む先は使い捨てのD1であり、本番の`nolito`には触れない。
+- 壊れたファイルは、**使い捨てのD1を作る前に**(メモリ上の`verifyDump`で)断る。無駄なCloudflareリソースを作らない。
+- `scripts/lib/backup.mjs` の `wranglerConfig(databaseId, databaseName)` に、`databaseName` を追加(既定は`"nolito"`。後方互換)。`scripts/lib/wrangler-remote.mjs` の `runWranglerD1`/`captureWranglerD1` も、同じ`databaseName`を受け取れるようにした(復元練習では、使い捨てのDBの名前を渡す。既存の呼び出し元=`backup-d1.mjs`・`d1-remote.mjs`は、変更不要)。同ファイルに `captureWranglerAccountLevel`(D1の作成・削除・一覧。特定のDBのIDを必要としない、アカウント単位の操作)を追加。
+- **このセッション内で、実際に本番のCloudflareアカウントに対して、1回実行して確認した**: 使い捨てのD1(`nolito-restore-drill-<時刻>`)を作成 → 見本データ(11テーブル、各1〜2件)を読み込み → 実際のCloudflare D1に問い合わせて、全テーブルの件数が見本どおりであることを確認 → 使い捨てのD1を削除 → `wrangler d1 list`で、本番の`nolito`だけが残っていることを確認。壊れたファイルを渡した場合も、使い捨てのD1を作らずに断ることを確認した。
+- `docs/backup.md` §5 を、手動の手順から、`npm run backup:restore-drill` の1コマンドの説明に置き換えた。
+
+## この PR4 でもやらないこと
+
+- 監査ログの個人情報対策の強化・世代管理・暗号化・MFA(引き続き、次のPR以降で、都度範囲を確認する)
+- CIでの自動実行(実際のCloudflareアカウントへの通信・認証が要るため、CIには組み込まない。運営者が、都度、手元で実行する)
+
+## テスト結果(PR4)
+
+- `npm run check`: 全2043件、成功(新規3件: `wranglerConfig`の`databaseName`引数・`restore-drill.mjs`の壊れたファイル/不明なオプションのエラー終了・npmスクリプト一覧・通信していないことの検査に、`restore-drill.mjs`を追加)
+- 上記のとおり、実際のCloudflareアカウントに対して、成功パス(作成→読み込み→確認→削除)と、失敗パス(壊れたファイルで、D1を作らずに断る)の、両方を、このセッション内で実際に確認した
