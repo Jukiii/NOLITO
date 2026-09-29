@@ -64,7 +64,7 @@
 | Phase 24 | 語録の拡張ファイル・役職/難易度専用語のしくみ                            | **COMPLETED** | #87                                                           | #85(解決・クローズ)                            | 運営者が候補Bを選択。0049決定ログ。実際の専用語の追加(下書き→確認→公開)は、別の作業として継続中                                                                                                            |
 | Phase 25 | AI活用(改善提案・類似語チェック・流れの文書化)                           | **COMPLETED** | PR1=#89, PR2=#90, PR3=#91                                     | -                                              | 3 PR すべて完了・マージ済み(0050決定ログ)。管理画面アップロードはPhase26待ち                                                                                                                               |
 | Phase 26 | 管理画面・RBAC                                                           | **COMPLETED** | PR1=#93, PR2a=#95, PR2b=#97                                   | -                                              | ユーザーがチャットで確認: プロダクトの管理画面(PR1・PR2a・PR2b)でPhase 26を完了とし、他の管理対象(語録・記事等)は着手しない。本番D1マイグレーションはPR1・PR2aまで適用済み(PR2bは新規マイグレーションなし) |
-| Phase 27 | セキュリティ強化・監査ログ・MFA                                          | IN_PROGRESS   | -                                                             | -                                              | 着手。仕様が高レベルのため、最初のPRの範囲をチャットで確認してから実装する                                                                                                                                 |
+| Phase 27 | セキュリティ強化・監査ログ・MFA                                          | IN_PROGRESS   | PR1=#99                                                       | -                                              | PR1(依存の脆弱性チェックをCIに追加。npm audit --audit-level=high)完了・マージ済み。仕様が高レベルのため、次PR以降も範囲をチャットで確認してから実装する(0052決定ログ)                                      |
 | Phase 28 | パフォーマンス・監視・CI/CD強化                                          | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                                                                            |
 | Phase 29 | 広告・アフィリエイト・収益化                                             | NOT_STARTED   | -                                                             | -                                              | Phase 29 まで広告事業者スクリプトを入れない方針(CLAUDE.md)                                                                                                                                                 |
 | Phase 30 | 全体仕様の統合ドキュメント                                               | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                                                                            |
@@ -76,34 +76,35 @@
 ## Current Phase
 
 ```text
-Phase 26 PR2b(プロダクトの管理API・管理画面UI)完了。本番D1マイグレーションの追加なし(PR1・PR2aの
-テーブルを再利用)。次は、Phase 26を他の管理対象に広げるか、このままPhase 27へ進むかを判断する。
+Phase 26(管理画面・RBAC)は、プロダクトの管理画面(PR1・PR2a・PR2b)で完了と、ユーザーがチャットで
+確認した。Phase 27(セキュリティ強化)PR1(依存の脆弱性チェックをCIに追加)も完了・マージ済み。
+次のPhase 27 PR(依存の自動更新、または再認証の拡張など)は、着手前にチャットで範囲を確認する。
 ```
 
 ## Current Status
 
 ```text
-IN_PROGRESS(Phase 26 PR1・PR2a・PR2b 完了。Phase 26 の追加スコープを検討中)
+IN_PROGRESS(Phase 27 PR1 完了。次のPR の範囲は未確認)
 ```
 
 ## Current Branch
 
 ```text
-main(Phase 26 PR2b は #97 でマージ済み)
+main(Phase 27 PR1 は #99 でマージ済み)
 ```
 
 ## Current Task
 
 ```text
-Phase 26 の追加スコープ(語録・記事・ゲーム設定・ユーザー・ランキング・問い合わせ・更新履歴の
-管理画面を追加するか、プロダクトだけでPhase 26を完了とするか)を、次回チャットで確認する。
+Phase 27 の次のPR(依存の自動更新・再認証の拡張・バックアップ復元テスト・監査ログの個人情報対策・
+世代管理・暗号化・MFA のいずれか)の範囲を、次回チャットで確認してから着手する。
 ```
 
 ## Current Step
 
 ```text
-PROJECT_STATUS.md の更新(このコミット)まで完了。次回セッションの最初に、Phase 26の範囲を
-AskUserQuestionで確認してから、Phase 26の続き or Phase 27 着手を判断する。
+Phase 27 PR1(依存の脆弱性チェック)のマージ・本番反映まで完了。次回セッションの最初に、
+次のPhase 27 PRの範囲をAskUserQuestionで確認してから、実装に着手する。
 ```
 
 ---
@@ -180,23 +181,48 @@ docs/decisions/0042-phase-19-plan.md(全体の計画。PR1〜PR3の内訳)
 ### 今何をしているか
 
 ```text
-Phase 26 PR2b(プロダクトの管理API・管理画面UI)を実装・テスト・マージまで完了した。新しいD1
-マイグレーションは不要(PR1・PR2aのテーブルを再利用)。次は、Phase 26のスコープ(プロダクトだけで
-完了とするか、他の管理対象にも広げるか)を、チャットで確認する。
+Phase 26のスコープをチャットで確認し(プロダクトだけで完了)、Phase 27(セキュリティ強化)へ進んだ。
+Phase 27 PR1(依存の脆弱性チェックをCIに追加)も、チャットで範囲を確認したうえで実装・テスト・
+マージまで完了した。次は、Phase 27の次のPRの範囲を、あらためてチャットで確認する。
 ```
 
 ### 次に行う作業
 
 ```text
-1. Phase 26のスコープを、AskUserQuestionでユーザーに確認する
-   (プロダクトだけで完了 or 他の管理対象=語録・記事・ゲーム設定・ユーザー・ランキング・
-   問い合わせ・更新履歴 にも広げる)
-2. 回答に応じて、Phase 26の追加PR、または Phase 27 着手を進める
+1. Phase 27の次のPR(依存の自動更新・再認証の拡張・バックアップ復元テスト・監査ログの個人情報
+   対策・世代管理・暗号化・MFA のいずれか)の範囲を、AskUserQuestionでユーザーに確認する
+2. 回答に応じて実装する
 ```
 
 ### 最後に完了した作業
 
 ```text
+Phase 27 PR1: 依存の脆弱性チェックをCIに追加(PR #99、マージ済み)。
+
+実装内容:
+- package.jsonに "audit": "npm audit --audit-level=high" を追加
+- CI(.github/workflows/ci.yml)のcheckジョブに、npm run checkのあとの手順として npm run audit
+  を追加
+- しきい値はhigh(moderate以下ではCIを止めない)。理由: wrangler(devDependency。配信物には
+  含まれない)が依存するundiciに、moderateの既知の脆弱性(WebSocketのpermessage-deflate展開での
+  DoS)があるが、最新のwranglerでも直っておらず(Cloudflare側の対応待ち)、moderateでCIを止めると
+  恒久的に赤くなるため
+- 対象はdevDependenciesを含む全ての依存(--omit=devは使わない。本プロジェクトにdependencies=
+  本番用の依存はないため)
+
+この PR でやらないこと(次のPR以降): 依存の自動更新(Dependabot等)・再認証の拡張・バックアップの
+復元テスト・監査ログの個人情報対策の強化・世代管理・暗号化・MFA。
+
+npm run check(全2039件、変更なし)・npm run audit(moderateが表示されるが終了コード0)を確認。
+決定・テスト結果はdocs/decisions/0052-phase-27-plan.md。CLAUDE.mdに「セキュリティ強化(Phase 27)」
+節・「依存の脆弱性チェック(Phase 27 PR 1)」節を追加。
+
+**この前に、Phase 26(管理画面・RBAC)を、プロダクトの管理画面(PR1=#93・PR2a=#95・PR2b=#97)で
+完了とすることを、ユーザーがチャットで確認した**(他の管理対象=語録・記事等には広げない)。
+
+---
+(以下、Phase 26 PR2b の記録。参考として残す)
+
 Phase 26 PR2b: プロダクトの管理API・管理画面UI(PR #97、マージ済み)。
 
 実装内容:
@@ -306,16 +332,17 @@ main
 ## Last Commit
 
 ```text
-(PR #97 のマージコミット。git log --oneline -1 で確認)
+(PR #99 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ## Pull Request
 
 ```text
-直近マージ: #97(Phase 26 PR2b。プロダクトの管理API・管理画面UI。新規D1マイグレーションなし)、
+直近マージ: #99(Phase 27 PR1。依存の脆弱性チェックをCIに追加。npm audit --audit-level=high)、
+#98(chore。PROJECT_STATUS.mdにPhase 26 PR2b完了を反映)、
+#97(Phase 26 PR2b。プロダクトの管理API・管理画面UI。新規D1マイグレーションなし)、
 #95(Phase 26 PR2a。プロダクトをD1に移行・公開一覧を動的化。本番D1マイグレーション適用済み)、
-#93(Phase 26 PR1。管理者ゲート・監査ログの基盤。本番D1マイグレーション適用済み)、
-#91(Phase 25 PR3。Phase 25 完了)
+#93(Phase 26 PR1。管理者ゲート・監査ログの基盤。本番D1マイグレーション適用済み)
 オープン中: なし
 ```
 
@@ -394,6 +421,9 @@ main
 | Phase 26 PR1  | 2026-09-26     | #93           | 管理者ゲート・監査ログの基盤(本番D1マイグレーション適用済み)                                             |
 | Phase 26 PR2a | 2026-09-26     | #95           | プロダクトをD1に移行・公開一覧を動的化(GET /api/products。本番D1マイグレーション適用済み)                |
 | Phase 26 PR2b | 2026-09-29     | #97           | プロダクトの管理API・管理画面UI(/api/admin/products、/account/admin/products/。新規マイグレーションなし) |
+| (chore)       | 2026-09-29     | #98           | 進捗ファイル整備(Phase 26 PR2b 完了の反映)                                                               |
+| Phase 26      | 2026-09-29     | -             | **完了**(プロダクトの管理画面で完了とすることを、ユーザーがチャットで確認)                               |
+| Phase 27 PR1  | 2026-09-29     | #99           | 依存の脆弱性チェックをCIに追加(npm audit --audit-level=high。新規マイグレーションなし)                   |
 
 ---
 
@@ -545,53 +575,53 @@ Claude Codeは、
 ==================================================
 
 Phase:
-Phase 26(管理画面・RBAC)。PR1・PR2a・PR2b完了。**Phase 25(AI活用)は完了**
+Phase 27(セキュリティ強化・監査ログ・MFA)。PR1完了。**Phase 26(管理画面・RBAC)は完了**
 
 Status:
-IN_PROGRESS(Phase 26 の追加スコープを検討中)
+IN_PROGRESS(Phase 27 の次のPRの範囲を検討中)
 
 Branch:
-main(Phase 26 PR2b は #97 でマージ済み)
+main(Phase 27 PR1 は #99 でマージ済み)
 
 Task:
-Phase 26 のスコープ(プロダクトだけで完了とするか、他の管理対象にも広げるか)を確認する
+Phase 27 の次のPR(依存の自動更新・再認証の拡張・バックアップ復元テスト・監査ログの個人情報対策・
+世代管理・暗号化・MFA のいずれか)の範囲を確認する
 
 Last Completed:
-**Phase 26 PR2b(プロダクトの管理API・管理画面UI)を、完了した**(PR #97、マージ済み)。
+**Phase 26(管理画面・RBAC)を、プロダクトの管理画面(PR1・PR2a・PR2b)で完了とすることを、
+ユーザーがチャットで確認した**。続けて、**Phase 27 PR1(依存の脆弱性チェックをCIに追加)を、
+完了した**(PR #99、マージ済み)。
 
 実装内容:
-- 管理API(`functions/api/admin/products/`。すべて`requireAdmin`で入り口を確認): `index.js`の
-  `GET`(一覧)・`POST`(新規作成)、`[id].js`の`GET`(1件)・`PUT`(更新)・`DELETE`(削除)。
-  検証は既存の`schema.js`をそのまま使う。変更はすべて`recordAdminChange`で`admin_audit_log`に
-  記録(**PR1の監査ログを、初めて実際に使った**)。
-- 管理画面UI(`/account/admin/products/`。`noindex`): 一覧・新規作成・編集(モーダル)・
-  削除確認(モーダル)。プロダクト1件分を、生のJSONとしてtextareaで編集する(専用フォームは
-  作らず、サーバーと同じ`schema.js`の検証結果を、そのまま表示する)。`/account/`に、管理者にだけ
-  見えるリンクを追加。
-- **新しいD1マイグレーションは不要**(PR1・PR2aのテーブルをそのまま使う)。本番の`ADMIN_EMAILS`は、
-  まだ運営者が設定していない(設定されるまで、管理APIは全員に403を返す。想定どおりの安全側の挙動)。
+- `package.json`に`"audit": "npm audit --audit-level=high"`を追加
+- CI(`.github/workflows/ci.yml`)の`check`ジョブに、`npm run check`のあとの手順として
+  `npm run audit`を追加
+- **しきい値は`high`**(moderate以下ではCIを止めない)。理由: `wrangler`(devDependency。配信物には
+  含まれない)が依存する`undici`に、moderateの既知の脆弱性(WebSocketのpermessage-deflate展開での
+  DoS)があるが、最新の`wrangler`(4.143.0)でも直っておらず(Cloudflare側の対応待ち)、moderateで
+  CIを止めると恒久的に赤くなるため
+- 対象はdevDependenciesを含む全ての依存(`--omit=dev`は使わない。本プロジェクトに`dependencies`=
+  本番用の依存はないため)
 
-単体テスト2039件、すべて成功(新規`tests/products-admin-api.test.js`20件)。ローカルの
-`wrangler pages dev`で、実際のD1マイグレーション・`ADMIN_EMAILS`を設定し、curlで401応答・静的
-ファイルの配信・公開の一覧の回帰なしを確認した。本物のGoogleログインでのブラウザ確認は、確認環境が
-ないため未実施(`requireAdmin`のテストは、既存の偽Google方式でカバー済み)。
+この PR でやらないこと(次のPR以降): 依存の自動更新(Dependabot等)・再認証の適用範囲の拡張・
+バックアップの復元テスト・監査ログ(admin_audit_log)の個人情報対策の強化・世代管理・暗号化・MFA。
 
-決定・テスト結果は`docs/decisions/0051-phase-26-plan.md`(PR2bの節)。CLAUDE.mdに
-「プロダクトの管理API・管理画面UI」節を追記。
+`npm run check`(全2039件、変更なし)・`npm run audit`(moderateの脆弱性が表示されるが、しきい値
+`high`未満のため終了コード0)を確認。決定・テスト結果は`docs/decisions/0052-phase-27-plan.md`。
+CLAUDE.mdに「セキュリティ強化(Phase 27)」節・「依存の脆弱性チェック(Phase 27 PR 1)」節を追加。
 
-**Phase 26 PR2a(プロダクトをD1に移す・公開の一覧を動的化。PR #95)・PR1(管理者ゲート・監査ログの
-基盤。PR #93)は、この前に完了した**。
+**Phase 26 PR2b(プロダクトの管理API・管理画面UI。PR #97)・PR2a(プロダクトをD1に移す・公開の
+一覧を動的化。PR #95)・PR1(管理者ゲート・監査ログの基盤。PR #93)は、この前に完了した**。
 
 Next Action:
-Phase 26のスコープを、AskUserQuestionでユーザーに確認する: プロダクトの管理画面だけでPhase 26を
-完了とし、Phase 27(セキュリティ強化)へ進むか、他の管理対象(語録・記事・ゲーム設定・ユーザー・
-ランキング・問い合わせ・更新履歴)にも管理画面を広げてから完了とするか。回答に応じて、次のPR、
-または次フェーズに着手する。
+Phase 27の次のPRの範囲を、AskUserQuestionでユーザーに確認する(候補: 依存の自動更新
+=Dependabot等・再認証の適用範囲の拡張=管理APIへの適用など・バックアップの復元テスト・
+監査ログの個人情報対策の強化・世代管理・暗号化・MFA)。回答に応じて実装する。
 
 Human Task:
 なし。Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
 Phase 21 PR3のプライバシーポリシーの版を上げない判断について、運営者の確認待ち(PR #71 に記載)。
-本番の`ADMIN_EMAILS`環境変数は、運営者が未設定(設定されるまで、管理画面は誰も使えない)。
+本番の`ADMIN_EMAILS`環境変数は、運営者が未設定(設定されるまで、Phase 26の管理画面は誰も使えない)。
 
 Blocker:
 なし
