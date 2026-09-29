@@ -172,6 +172,7 @@ async function init(root) {
     $("[data-user-email]").textContent = user.email;
     $("[data-user-created]").textContent = formatDate(user.createdAt);
     nickname.value = user.nickname;
+    $("[data-admin-link]").hidden = !user.isAdmin;
     renderRankingOptIn(user.rankingOptIn);
     show("signed-in");
     loadLicenses().then((result) => {

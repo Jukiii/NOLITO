@@ -6,7 +6,10 @@ import { NETWORK_ERROR, apiErrorMessage } from "./messages.js";
 export const LOGIN_PATH = "/auth/google/login";
 export const REAUTH_PATH = "/auth/google/login?reauth=1";
 
-/** { ok: true, data } か、{ ok: false, code, message, status }。例外は投げない。 */
+/**
+ * { ok: true, data } か、{ ok: false, code, message, status, details? }。例外は投げない。
+ * details は、サーバーが返したとき(管理APIの検証エラーの一覧など)だけ付く。
+ */
 export async function call(path, { method = "GET", body, fetchImpl = globalThis.fetch } = {}) {
   const headers = { Accept: "application/json" };
   if (method !== "GET") headers["X-NOLITO-CSRF"] = "1";
@@ -33,7 +36,8 @@ export async function call(path, { method = "GET", body, fetchImpl = globalThis.
   }
   if (!response.ok || data === null || typeof data !== "object") {
     const code = typeof data?.error === "string" ? data.error : "unknown";
-    return { ok: false, code, message: apiErrorMessage(code), status: response.status };
+    const details = Array.isArray(data?.details) ? { details: data.details } : {};
+    return { ok: false, code, message: apiErrorMessage(code), status: response.status, ...details };
   }
   return { ok: true, data };
 }
@@ -86,6 +90,25 @@ export const fetchOnlineRanking = (roleId, difficultyId, options) =>
 /** クリアした記録を、オンラインランキングに送る(参加している人だけ、実際に載る)。 */
 export const saveOnlineRanking = (entry, options) =>
   call("/api/games/escape-boss/ranking", { ...options, method: "POST", body: entry });
+
+// プロダクトの管理(Phase 26 PR 2b。管理者だけ)。実際のアクセス制御は、サーバー側の requireAdmin が行う
+export const fetchAdminProducts = (options) => call("/api/admin/products", options);
+
+export const createAdminProduct = (product, options) =>
+  call("/api/admin/products", { ...options, method: "POST", body: { product } });
+
+export const fetchAdminProduct = (id, options) =>
+  call(`/api/admin/products/${encodeURIComponent(id)}`, options);
+
+export const updateAdminProduct = (id, product, options) =>
+  call(`/api/admin/products/${encodeURIComponent(id)}`, {
+    ...options,
+    method: "PUT",
+    body: { product },
+  });
+
+export const deleteAdminProduct = (id, options) =>
+  call(`/api/admin/products/${encodeURIComponent(id)}`, { ...options, method: "DELETE" });
 
 /** 商品 ID → 商品名(公開の products.json から)。取れなければ空(ID のまま表示する)。 */
 export async function fetchProductNames(fetchImpl = globalThis.fetch) {
