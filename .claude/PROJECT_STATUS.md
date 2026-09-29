@@ -15,7 +15,7 @@
 | リポジトリ     | https://github.com/Jukiii/NOLITO(public)   |
 | 本番           | https://nolito.pages.dev(Cloudflare Pages) |
 | 開発開始日     | 2026-09-19頃(PR #1)                        |
-| 最終更新日時   | 2026-09-29                                 |
+| 最終更新日時   | 2026-09-30                                 |
 | 現在のフェーズ | Phase 27(セキュリティ強化・監査ログ・MFA)  |
 | 現在の状態     | IN_PROGRESS                                |
 
@@ -35,39 +35,39 @@
 
 # 3. 全体進捗
 
-| Phase    | 内容                                                                     | Status        | PR                                                            | Issue                                          | 備考                                                                                                                                                                                                       |
-| -------- | ------------------------------------------------------------------------ | ------------- | ------------------------------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Phase 00 | プロジェクト基盤(Static/Vanilla JS/Cloudflare Pages)                     | COMPLETED     | #1                                                            | -                                              |                                                                                                                                                                                                            |
-| Phase 01 | 共通UI(ヘッダー・フッター・テーマ)・favicon・ライセンス表記              | COMPLETED     | #2, #3                                                        | -                                              |                                                                                                                                                                                                            |
-| Phase 02 | ゲーム MVP(上司から逃げろ。ダッシュボード・タイピング)                   | COMPLETED     | #4                                                            | -                                              |                                                                                                                                                                                                            |
-| Phase 03 | 役職(先輩〜会長)・キャラ・ランキング・称号・実績                         | COMPLETED     | #5                                                            | -                                              |                                                                                                                                                                                                            |
-| Phase 04 | 成績・入力分析・語録の初期形                                             | COMPLETED     | #6, #7                                                        | -                                              |                                                                                                                                                                                                            |
-| Phase 05 | 記事・Google Analytics(同意ベース)                                       | COMPLETED     | #8, #9, #10                                                   | -                                              |                                                                                                                                                                                                            |
-| Phase 06 | プロダクト一覧(products.json/categories.json)                            | COMPLETED     | #11                                                           | -                                              |                                                                                                                                                                                                            |
-| Phase 07 | プロダクト詳細ページ(静的生成)                                           | COMPLETED     | #14                                                           | #12(公開前提。未着手・WAITING_HUMAN)           | 有料ソフト公開前に、販売サービス選定・特定商取引法の表記が必要                                                                                                                                             |
-| Phase 08 | ツール基盤 + 最初のツール「キーみち」                                    | COMPLETED     | #16, #17, #18                                                 | #15(解決済み・クローズ)                        |                                                                                                                                                                                                            |
-| Phase 09 | アカウント(Google ログイン)・ライセンス                                  | COMPLETED     | #20, #21                                                      | #19(一般公開の前提。未着手・WAITING_HUMAN)     | いまは招待制(SIGNUP_MODE=invite)                                                                                                                                                                           |
-| Phase 10 | バックアップ・更新履歴・問い合わせ                                       | COMPLETED     | #22, #23, #24                                                 | #13(問い合わせ先の決定。未着手・WAITING_HUMAN) | CONTACT_ENABLED はまだ未設定の可能性                                                                                                                                                                       |
-| Phase 11 | 語録の確認フロー・語録拡充                                               | COMPLETED     | #25, #28                                                      | -                                              |                                                                                                                                                                                                            |
-| Phase 12 | 用語確認モード・復習リスト・距離の計算式                                 | COMPLETED     | #26, #27, #29                                                 | -                                              |                                                                                                                                                                                                            |
-| Phase 13 | 出題(苦手語の重み)・入力方式・成績項目(版3)                              | COMPLETED     | #30, #31, #32                                                 | -                                              |                                                                                                                                                                                                            |
-| Phase 14 | 語録の原稿管理(Markdown)・詳細説明表示                                   | COMPLETED     | #33, #34                                                      | -                                              |                                                                                                                                                                                                            |
-| Phase 15 | ゲーム画面の場面・職種別背景                                             | COMPLETED     | #35, #36                                                      | -                                              |                                                                                                                                                                                                            |
-| Phase 16 | キャラクターの絵・演出とセリフ・音                                       | COMPLETED     | #37, #38, #39                                                 | -                                              |                                                                                                                                                                                                            |
-| Phase 17 | 役職ごとの文字数・特殊ルール・ルール演出・役職別演出                     | COMPLETED     | #40, #41, #42                                                 | -                                              |                                                                                                                                                                                                            |
-| Phase 18 | 難易度個別選択・開始前の確認欄・経験値/レベル/熟練度・隠し実績・改善記録 | **COMPLETED** | PR1=#43, PR2=#44, PR3=#47, PR4=#49                            | -                                              | 4 PR すべて完了・マージ・本番確認済み(0036〜0039決定ログ)                                                                                                                                                  |
-| Phase 19 | 未登録プレイ+アカウント移行・公開範囲設定・オンラインランキング          | **COMPLETED** | PR1=#56, PR2=#58, PR3=#61(すべて本番マイグレーション適用済み) | -                                              | 3 PR すべて完了・マージ・本番確認済み(0042〜0044決定ログ)                                                                                                                                                  |
-| Phase 20 | ナビ拡張・トップページ・検索                                             | **COMPLETED** | PR1=#63, PR2=#64, PR3=#65                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0045決定ログ)。静的サイトのみの変更のため、本番マイグレーションなし                                                                                                  |
-| Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | **COMPLETED** | PR1=#67, PR2=#69, PR3=#71(本番マイグレーション適用済み)       | -                                              | 3 PR すべて完了・マージ・本番確認済み(0046決定ログ)                                                                                                                                                        |
-| Phase 22 | キーボード/タッチ操作・端末最適化                                        | **COMPLETED** | PR1=#73, PR2=#75, PR3=#77                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0047決定ログ)                                                                                                                                                        |
-| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | **COMPLETED** | PR1=#79, PR2=#81, PR3=#83                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0048決定ログ)                                                                                                                                                        |
-| Phase 24 | 語録の拡張ファイル・役職/難易度専用語のしくみ                            | **COMPLETED** | #87                                                           | #85(解決・クローズ)                            | 運営者が候補Bを選択。0049決定ログ。実際の専用語の追加(下書き→確認→公開)は、別の作業として継続中                                                                                                            |
-| Phase 25 | AI活用(改善提案・類似語チェック・流れの文書化)                           | **COMPLETED** | PR1=#89, PR2=#90, PR3=#91                                     | -                                              | 3 PR すべて完了・マージ済み(0050決定ログ)。管理画面アップロードはPhase26待ち                                                                                                                               |
-| Phase 26 | 管理画面・RBAC                                                           | **COMPLETED** | PR1=#93, PR2a=#95, PR2b=#97                                   | -                                              | ユーザーがチャットで確認: プロダクトの管理画面(PR1・PR2a・PR2b)でPhase 26を完了とし、他の管理対象(語録・記事等)は着手しない。本番D1マイグレーションはPR1・PR2aまで適用済み(PR2bは新規マイグレーションなし) |
-| Phase 27 | セキュリティ強化・監査ログ・MFA                                          | IN_PROGRESS   | PR1=#99, PR2=#101, PR3=#103                                   | -                                              | PR1(依存の脆弱性チェック)・PR2(管理APIの削除に再認証を要求)・PR3(依存の自動更新=Dependabot)完了・マージ済み。仕様が高レベルのため、次PR以降も範囲をチャットで確認してから実装する(0052決定ログ)            |
-| Phase 28 | パフォーマンス・監視・CI/CD強化                                          | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                                                                            |
-| Phase 29 | 広告・アフィリエイト・収益化                                             | NOT_STARTED   | -                                                             | -                                              | Phase 29 まで広告事業者スクリプトを入れない方針(CLAUDE.md)                                                                                                                                                 |
-| Phase 30 | 全体仕様の統合ドキュメント                                               | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                                                                            |
+| Phase    | 内容                                                                     | Status        | PR                                                            | Issue                                          | 備考                                                                                                                                                                                                                                   |
+| -------- | ------------------------------------------------------------------------ | ------------- | ------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Phase 00 | プロジェクト基盤(Static/Vanilla JS/Cloudflare Pages)                     | COMPLETED     | #1                                                            | -                                              |                                                                                                                                                                                                                                        |
+| Phase 01 | 共通UI(ヘッダー・フッター・テーマ)・favicon・ライセンス表記              | COMPLETED     | #2, #3                                                        | -                                              |                                                                                                                                                                                                                                        |
+| Phase 02 | ゲーム MVP(上司から逃げろ。ダッシュボード・タイピング)                   | COMPLETED     | #4                                                            | -                                              |                                                                                                                                                                                                                                        |
+| Phase 03 | 役職(先輩〜会長)・キャラ・ランキング・称号・実績                         | COMPLETED     | #5                                                            | -                                              |                                                                                                                                                                                                                                        |
+| Phase 04 | 成績・入力分析・語録の初期形                                             | COMPLETED     | #6, #7                                                        | -                                              |                                                                                                                                                                                                                                        |
+| Phase 05 | 記事・Google Analytics(同意ベース)                                       | COMPLETED     | #8, #9, #10                                                   | -                                              |                                                                                                                                                                                                                                        |
+| Phase 06 | プロダクト一覧(products.json/categories.json)                            | COMPLETED     | #11                                                           | -                                              |                                                                                                                                                                                                                                        |
+| Phase 07 | プロダクト詳細ページ(静的生成)                                           | COMPLETED     | #14                                                           | #12(公開前提。未着手・WAITING_HUMAN)           | 有料ソフト公開前に、販売サービス選定・特定商取引法の表記が必要                                                                                                                                                                         |
+| Phase 08 | ツール基盤 + 最初のツール「キーみち」                                    | COMPLETED     | #16, #17, #18                                                 | #15(解決済み・クローズ)                        |                                                                                                                                                                                                                                        |
+| Phase 09 | アカウント(Google ログイン)・ライセンス                                  | COMPLETED     | #20, #21                                                      | #19(一般公開の前提。未着手・WAITING_HUMAN)     | いまは招待制(SIGNUP_MODE=invite)                                                                                                                                                                                                       |
+| Phase 10 | バックアップ・更新履歴・問い合わせ                                       | COMPLETED     | #22, #23, #24                                                 | #13(問い合わせ先の決定。未着手・WAITING_HUMAN) | CONTACT_ENABLED はまだ未設定の可能性                                                                                                                                                                                                   |
+| Phase 11 | 語録の確認フロー・語録拡充                                               | COMPLETED     | #25, #28                                                      | -                                              |                                                                                                                                                                                                                                        |
+| Phase 12 | 用語確認モード・復習リスト・距離の計算式                                 | COMPLETED     | #26, #27, #29                                                 | -                                              |                                                                                                                                                                                                                                        |
+| Phase 13 | 出題(苦手語の重み)・入力方式・成績項目(版3)                              | COMPLETED     | #30, #31, #32                                                 | -                                              |                                                                                                                                                                                                                                        |
+| Phase 14 | 語録の原稿管理(Markdown)・詳細説明表示                                   | COMPLETED     | #33, #34                                                      | -                                              |                                                                                                                                                                                                                                        |
+| Phase 15 | ゲーム画面の場面・職種別背景                                             | COMPLETED     | #35, #36                                                      | -                                              |                                                                                                                                                                                                                                        |
+| Phase 16 | キャラクターの絵・演出とセリフ・音                                       | COMPLETED     | #37, #38, #39                                                 | -                                              |                                                                                                                                                                                                                                        |
+| Phase 17 | 役職ごとの文字数・特殊ルール・ルール演出・役職別演出                     | COMPLETED     | #40, #41, #42                                                 | -                                              |                                                                                                                                                                                                                                        |
+| Phase 18 | 難易度個別選択・開始前の確認欄・経験値/レベル/熟練度・隠し実績・改善記録 | **COMPLETED** | PR1=#43, PR2=#44, PR3=#47, PR4=#49                            | -                                              | 4 PR すべて完了・マージ・本番確認済み(0036〜0039決定ログ)                                                                                                                                                                              |
+| Phase 19 | 未登録プレイ+アカウント移行・公開範囲設定・オンラインランキング          | **COMPLETED** | PR1=#56, PR2=#58, PR3=#61(すべて本番マイグレーション適用済み) | -                                              | 3 PR すべて完了・マージ・本番確認済み(0042〜0044決定ログ)                                                                                                                                                                              |
+| Phase 20 | ナビ拡張・トップページ・検索                                             | **COMPLETED** | PR1=#63, PR2=#64, PR3=#65                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0045決定ログ)。静的サイトのみの変更のため、本番マイグレーションなし                                                                                                                              |
+| Phase 21 | テーマ(ライト/ダーク)・アクセシビリティ強化                              | **COMPLETED** | PR1=#67, PR2=#69, PR3=#71(本番マイグレーション適用済み)       | -                                              | 3 PR すべて完了・マージ・本番確認済み(0046決定ログ)                                                                                                                                                                                    |
+| Phase 22 | キーボード/タッチ操作・端末最適化                                        | **COMPLETED** | PR1=#73, PR2=#75, PR3=#77                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0047決定ログ)                                                                                                                                                                                    |
+| Phase 23 | BGM/効果音の役職別拡張・演出設定                                         | **COMPLETED** | PR1=#79, PR2=#81, PR3=#83                                     | -                                              | 3 PR すべて完了・マージ・本番確認済み(0048決定ログ)                                                                                                                                                                                    |
+| Phase 24 | 語録の拡張ファイル・役職/難易度専用語のしくみ                            | **COMPLETED** | #87                                                           | #85(解決・クローズ)                            | 運営者が候補Bを選択。0049決定ログ。実際の専用語の追加(下書き→確認→公開)は、別の作業として継続中                                                                                                                                        |
+| Phase 25 | AI活用(改善提案・類似語チェック・流れの文書化)                           | **COMPLETED** | PR1=#89, PR2=#90, PR3=#91                                     | -                                              | 3 PR すべて完了・マージ済み(0050決定ログ)。管理画面アップロードはPhase26待ち                                                                                                                                                           |
+| Phase 26 | 管理画面・RBAC                                                           | **COMPLETED** | PR1=#93, PR2a=#95, PR2b=#97                                   | -                                              | ユーザーがチャットで確認: プロダクトの管理画面(PR1・PR2a・PR2b)でPhase 26を完了とし、他の管理対象(語録・記事等)は着手しない。本番D1マイグレーションはPR1・PR2aまで適用済み(PR2bは新規マイグレーションなし)                             |
+| Phase 27 | セキュリティ強化・監査ログ・MFA                                          | IN_PROGRESS   | PR1=#99, PR2=#101, PR3=#103, PR4=#109                         | -                                              | PR1(依存の脆弱性チェック)・PR2(管理APIの削除に再認証を要求)・PR3(依存の自動更新=Dependabot)・PR4(バックアップの復元テストを自動化)完了・マージ済み。仕様が高レベルのため、次PR以降も範囲をチャットで確認してから実装する(0052決定ログ) |
+| Phase 28 | パフォーマンス・監視・CI/CD強化                                          | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                                                                                                        |
+| Phase 29 | 広告・アフィリエイト・収益化                                             | NOT_STARTED   | -                                                             | -                                              | Phase 29 まで広告事業者スクリプトを入れない方針(CLAUDE.md)                                                                                                                                                                             |
+| Phase 30 | 全体仕様の統合ドキュメント                                               | NOT_STARTED   | -                                                             | -                                              |                                                                                                                                                                                                                                        |
 
 ---
 
@@ -78,36 +78,39 @@
 ```text
 Phase 26(管理画面・RBAC)は、プロダクトの管理画面(PR1・PR2a・PR2b)で完了と、ユーザーがチャットで
 確認した。Phase 27(セキュリティ強化)PR1(依存の脆弱性チェック)・PR2(管理APIの削除に再認証を
-要求)・PR3(依存の自動更新=Dependabot)も完了・マージ済み。次のPhase 27 PR(バックアップ復元
-テストなど)は、着手前にチャットで範囲を確認する。
+要求)・PR3(依存の自動更新=Dependabot)・PR4(バックアップの復元テストを自動化)も完了・
+マージ済み。次のPhase 27 PR(監査ログの個人情報対策など)は、着手前にチャットで範囲を確認する。
 ```
 
 ## Current Status
 
 ```text
-IN_PROGRESS(Phase 27 PR1・PR2・PR3 完了。次のPR の範囲は未確認)
+IN_PROGRESS(Phase 27 PR1・PR2・PR3・PR4 完了。次のPR の範囲は未確認)
 ```
 
 ## Current Branch
 
 ```text
-main(Phase 27 PR3=#103・進捗反映=#107・Dependabotの初回バッチ=#104〜#106 まで、すべてマージ済み)
+main(Phase 27 PR4=#109 でマージ済み。あわせて、npm audit が検出したundiciの深刻度悪化=high を
+package-lock.jsonの更新=npm audit fixで解消済み)
 ```
 
 ## Current Task
 
 ```text
-Phase 27 の次のPR(バックアップ復元テスト・監査ログの個人情報対策・世代管理・暗号化・MFA の
-いずれか)の範囲を、次回チャットで確認してから着手する。
+Phase 27 の次のPR(監査ログの個人情報対策・世代管理・暗号化・MFA のいずれか)の範囲を、
+次回チャットで確認してから着手する。
 ```
 
 ## Current Step
 
 ```text
-Phase 27 PR3(依存の自動更新=Dependabot)のマージまで完了(新しいD1マイグレーションはないため、
-本番D1への追加作業は不要)。マージ後、リポジトリの Dependabot vulnerability alerts が無効に
-なっていることに気づき、GitHub API で有効化した(コードの変更ではなく、リポジトリの設定。詳細は
-決定ログ0052のPR3節)。
+Phase 27 PR4(バックアップの復元テストを自動化)のマージまで完了。実際にCloudflareアカウントに
+使い捨てのD1を作り、見本データを読み込んで、実際のD1に問い合わせて件数を確認し、削除する一連の
+流れを、このセッション内で実際に確認済み(scripts/restore-drill.mjs)。作業中、npm run audit が
+undiciの深刻度悪化(moderate→high)を検出し、npm audit fix(forceなし)で解消(package-lock.json
+のみ更新。wranglerは既存のsemver範囲内で4.144.0に上がっただけ)。PR1の監査ゲートが、実際に機能した
+実例として記録した(決定ログ0052)。
 次回セッションの最初に、次のPhase 27 PRの範囲をAskUserQuestionで確認してから、実装に着手する。
 ```
 
@@ -187,44 +190,53 @@ docs/decisions/0042-phase-19-plan.md(全体の計画。PR1〜PR3の内訳)
 ```text
 Phase 26のスコープをチャットで確認し(プロダクトだけで完了)、Phase 27(セキュリティ強化)へ進んだ。
 Phase 27 PR1(依存の脆弱性チェック)・PR2(管理APIの削除に再認証を要求)・PR3(依存の自動更新
-=Dependabot)を、いずれもチャットで範囲を確認したうえで実装・テスト・マージまで完了した。
-次は、Phase 27の次のPRの範囲を確認する。
+=Dependabot)・PR4(バックアップの復元テストを自動化)を、いずれもチャットで範囲を確認したうえで
+実装・テスト・マージまで完了した。次は、Phase 27の次のPRの範囲を確認する。
 ```
 
 ### 次に行う作業
 
 ```text
-1. Phase 27の次のPR(バックアップ復元テスト・監査ログの個人情報対策・世代管理・暗号化・MFA の
-   いずれか)の範囲を、AskUserQuestionでユーザーに確認する
+1. Phase 27の次のPR(監査ログの個人情報対策・世代管理・暗号化・MFA のいずれか)の範囲を、
+   AskUserQuestionでユーザーに確認する
 2. 回答に応じて実装する
 ```
 
 ### 最後に完了した作業
 
 ```text
-Phase 27 PR3: 依存の自動更新(Dependabot)を設定(PR #103、マージ済み)。
+Phase 27 PR4: バックアップの復元テストを自動化(PR #109、マージ済み)。
 
 実装内容:
-- .github/dependabot.yml(新規): npm(package.json)・github-actions(.github/workflows/*.yml)
-  の2エコシステムを、毎週月曜にチェック
-- npmのマイナー・パッチは1つのグループ(npm-minor-patch)にまとめる(1人の運営者が確認する
-  プロジェクトのため、細かい更新PRが積み上がって見落とすリスクを避ける)。メジャーはまとめず、
-  個別のPRのまま(破壊的変更の可能性があるため、1件ずつ確認する)
-- open-pull-requests-limit: 10(npmのみ。既定の5から余裕を持たせた)
-- DependabotのPRも、既存のCI(on: pull_requestでブランチを問わず動く)がそのまま
-  npm run check・npm run auditを通す。この PR では、CI設定自体は変更していない
-- 自動マージは設定していない(CIの結果を見て、都度、通常のPRと同じ手順でマージする)
+- scripts/restore-drill.mjs(新規)。npm run backup:restore-drill。
+  - 使い捨てのD1を、実際にCloudflareへ作り、見本(既定。tests/fixtures/d1-export-sample.sql)
+    または実際のバックアップ(--file)を読み込む
+  - テーブルごとの件数を、実際のCloudflare D1に問い合わせて表示する
+  - 最後に、使い捨てのD1を必ず削除する(finally。削除に失敗しても、手動削除の案内を出す)
+  - 本番のD1(nolito)には、いっさい触れない(新しく作って、消すだけ)
+  - 壊れたファイルは、使い捨てのD1を作る前に(メモリ上の検査で)断る
+- scripts/lib/backup.mjsのwranglerConfig・scripts/lib/wrangler-remote.mjsのrunWranglerD1/
+  captureWranglerD1に、databaseName引数を追加(既定"nolito"。後方互換)。同ファイルに、
+  captureWranglerAccountLevel(D1の作成・削除・一覧)を追加
+- docs/backup.md §5「復元の練習」を、この1コマンドの説明に置き換えた
 
-**マージ後に判明**: リポジトリの Dependabot vulnerability alerts が無効になっていた(バージョン
-更新=dependabot.ymlとは別の設定。GitHubのアドバイザリに基づく継続的な脆弱性通知)。コードの
-変更ではなく、リポジトリの設定(無料・可逆・公開リポジトリでの標準的な設定)のため、GitHub API
-(PUT /repos/.../vulnerability-alerts)で、このセッション内で直接有効化した。
+**このセッション内で、実際にCloudflareアカウントに対して1回実行し、確認した**: 使い捨てのD1を
+作成→見本データ(11テーブル)を読み込み→実際のD1に問い合わせて件数が見本どおりであることを確認→
+削除→wrangler d1 listで本番のnolitoだけが残っていることを確認。壊れたファイルでは、D1を作らずに
+断ることも確認した。
 
-npm run check(全2040件、成功。アプリケーションコードの変更なし)。.github/dependabot.ymlの
-YAML構文を確認。
+npm run check(全2043件、成功。新規3件)。
 
-決定・テスト結果はdocs/decisions/0052-phase-27-plan.md(PR3の節)。CLAUDE.mdに
-「依存の自動更新(Phase 27 PR 3)」節を追加。
+**副産物**: 作業中、npm run audit(PR1)が、undici(wranglerの間接依存)の深刻度悪化
+(moderate→high。GHSAアドバイザリDBの更新による)を検出した。npm audit fix(forceなし)で解消
+(package-lock.jsonのみ更新。wranglerは既存のsemver範囲=^4.141.0内で4.144.0に上がっただけ。
+破壊的変更なし)。npm run auditがfound 0 vulnerabilitiesになることを確認し、このPRに含めた。
+
+決定・テスト結果はdocs/decisions/0052-phase-27-plan.md(PR4の節)。CLAUDE.mdに
+「バックアップの復元テスト(Phase 27 PR 4)」節を追加。
+
+**Phase 27 PR3(依存の自動更新をDependabotで設定。PR #103)・PR2(管理APIの削除操作に再認証を
+要求。PR #101)・PR1(依存の脆弱性チェックをCIに追加。PR #99)は、この前に完了した**。
 
 **Phase 27 PR2(管理APIの削除操作に再認証を要求。PR #101)・PR1(依存の脆弱性チェックをCIに
 追加。PR #99)は、この前に完了した**。
@@ -367,13 +379,15 @@ main
 ## Last Commit
 
 ```text
-(PR #105 のマージコミット。git log --oneline -1 で確認)
+(PR #109 のマージコミット。git log --oneline -1 で確認)
 ```
 
 ## Pull Request
 
 ```text
-直近マージ: #105(dependabot。actions/setup-node 4→7)、#106(dependabot。npm-minor-patch
+直近マージ: #109(Phase 27 PR4。バックアップの復元テストを自動化。あわせて、npm audit fixで
+undiciの深刻度悪化=highを解消)、
+#105(dependabot。actions/setup-node 4→7)、#106(dependabot。npm-minor-patch
 グループ=marked・prettier・wrangler)、#104(dependabot。actions/checkout 4→7)
 (この3件は、Phase 27 PR3=#103 で設定したDependabotが、マージ直後に自動で開いた最初のバッチ。
 いずれもCI green・`npm run check`/`npm run audit`確認のうえマージ)、
@@ -472,6 +486,7 @@ main
 | Phase 27 PR3  | 2026-09-29     | #103           | 依存の自動更新をDependabotで設定(.github/dependabot.yml。リポジトリのvulnerability alertsも有効化)                   |
 | (chore)       | 2026-09-29     | #107           | 進捗ファイル整備(Phase 27 PR3完了の反映)                                                                             |
 | (deps)        | 2026-09-29     | #104,#105,#106 | Dependabotが開いた最初のバッチをマージ(actions/checkout・actions/setup-node のメジャー更新、npm minor/patchグループ) |
+| Phase 27 PR4  | 2026-09-30     | #109           | バックアップの復元テストを自動化(scripts/restore-drill.mjs。あわせてnpm audit fixでundiciの深刻度悪化=highを解消)    |
 
 ---
 
@@ -516,6 +531,14 @@ main
   環境変数を直接操作できる(2026-09-24に判明。それまで「操作できない」と誤って案内していた)。
   **この権限は強力なので、本番D1への書き込み・環境変数の変更は、運営者の明示的な指示があるときだけ
   行うこと**。実データを作る操作(問い合わせフォームの実送信など)は、運営者に委ねる。
+  使い捨てのD1(`nolito-restore-drill-*`等)を作って消すような、本番に触れない account-level の
+  操作(`wrangler d1 create/delete/list`)は、この制約の対象外(実際に、Phase 27 PR4で実施済み)。
+- **git のリモートは HTTPS**(`https://github.com/Jukiii/NOLITO.git`。2026-09-30に、SSHから変更)。
+  このマシンのSSH鍵・エージェントが、セッションの途中で認証エラーになったため(原因不明。
+  `git@github.com: Permission denied (publickey)`)。`gh auth status` は、常に `Git operations
+  protocol: https` だったので、リモートURLをHTTPSに揃えたところ、`gh`のcredential helper経由で
+  push/pullとも正常に動いた。**もしSSHの認証エラーが再発したら、この変更を思い出すこと**(リモートを
+  SSHに戻す必要はない。HTTPSのままで問題ない)。
 ```
 
 ---
@@ -623,50 +646,56 @@ Claude Codeは、
 ==================================================
 
 Phase:
-Phase 27(セキュリティ強化・監査ログ・MFA)。PR1・PR2・PR3完了。**Phase 26(管理画面・RBAC)は完了**
+Phase 27(セキュリティ強化・監査ログ・MFA)。PR1・PR2・PR3・PR4完了。**Phase 26(管理画面・RBAC)は完了**
 
 Status:
 IN_PROGRESS(Phase 27 の次のPRの範囲を検討中)
 
 Branch:
-main(Phase 27 PR3=#103・進捗反映=#107・Dependabotの初回バッチ=#104〜#106 まで、すべてマージ済み)
+main(Phase 27 PR4=#109 でマージ済み。進捗反映=#107・#108、Dependabotの初回バッチ=#104〜#106・
+npm audit fix によるundici修正=#109の一部、まで、すべてマージ済み)
 
 Task:
-Phase 27 の次のPR(バックアップ復元テスト・監査ログの個人情報対策・世代管理・暗号化・MFA の
-いずれか)の範囲を確認する
+Phase 27 の次のPR(監査ログの個人情報対策・世代管理・暗号化・MFA のいずれか)の範囲を確認する
 
 Last Completed:
-**Phase 27 PR3(依存の自動更新をDependabotで設定)を、完了した**(PR #103、マージ済み)。
+**Phase 27 PR4(バックアップの復元テストを自動化)を、完了した**(PR #109、マージ済み)。
 
 実装内容:
-- `.github/dependabot.yml`(新規): npm(`package.json`)・github-actions
-  (`.github/workflows/*.yml`)の2エコシステムを、毎週月曜にチェック
-- npmのマイナー・パッチは1つのグループ(`npm-minor-patch`)にまとめる(1人の運営者が確認する
-  プロジェクトのため、細かい更新PRが積み上がって見落とすリスクを避ける)。メジャーはまとめず、
-  個別のPRのまま(破壊的変更の可能性があるため、1件ずつ確認する)
-- `open-pull-requests-limit: 10`(npmのみ)
-- DependabotのPRも、既存のCI(`on: pull_request`でブランチを問わず動く)がそのまま
-  `npm run check`・`npm run audit`を通す。この PR では、CI設定自体は変更していない
-- **自動マージは設定していない**(CIの結果を見て、都度、通常のPRと同じ手順でマージする)
+- `scripts/restore-drill.mjs`(新規)。`npm run backup:restore-drill`。
+  - 使い捨てのD1を、実際にCloudflareへ作り、見本(既定。`tests/fixtures/d1-export-sample.sql`)
+    または実際のバックアップ(`--file`)を読み込む
+  - テーブルごとの件数を、実際のCloudflare D1に問い合わせて表示する
+  - 最後に、使い捨てのD1を必ず削除する(`finally`。削除に失敗しても、手動削除の案内を出す)
+  - **本番のD1(`nolito`)には、いっさい触れない**(新しく作って、消すだけ)
+  - 壊れたファイルは、使い捨てのD1を作る前に(メモリ上の検査で)断る
+- `scripts/lib/backup.mjs`の`wranglerConfig`・`scripts/lib/wrangler-remote.mjs`の
+  `runWranglerD1`/`captureWranglerD1`に、`databaseName`引数を追加(既定`"nolito"`。後方互換)。
+  同ファイルに、`captureWranglerAccountLevel`(D1の作成・削除・一覧)を追加
+- `docs/backup.md` §5「復元の練習」を、この1コマンドの説明に置き換えた
 
-**マージ後に判明**: リポジトリの Dependabot vulnerability alerts が無効になっていた(バージョン
-更新=`dependabot.yml`とは別の設定。GitHubのアドバイザリに基づく継続的な脆弱性通知)。コードの
-変更ではなく、リポジトリの設定(無料・可逆・公開リポジトリでの標準的な設定)のため、GitHub API
-(`PUT /repos/.../vulnerability-alerts`)で、このセッション内で直接有効化した。
+**このセッション内で、実際にCloudflareアカウントに対して1回実行し、確認した**: 使い捨てのD1を
+作成 → 見本データ(11テーブル)を読み込み → 実際のD1に問い合わせて件数が見本どおりであることを
+確認 → 削除 → `wrangler d1 list`で本番の`nolito`だけが残っていることを確認。壊れたファイルでは、
+D1を作らずに断ることも確認した。
 
-`npm run check`(全2040件、成功。アプリケーションコードの変更なし)。`.github/dependabot.yml`の
-YAML構文を確認。
+`npm run check`(全2043件、成功。新規3件)。
 
-決定・テスト結果は`docs/decisions/0052-phase-27-plan.md`(PR3の節)。CLAUDE.mdに
-「依存の自動更新(Phase 27 PR 3)」節を追加。
+**副産物**: 作業中、`npm run audit`(PR1)が、`undici`(`wrangler`の間接依存)の深刻度悪化
+(moderate→high。GHSAアドバイザリDBの更新による)を検出した。`npm audit fix`(forceなし)で解消
+(`package-lock.json`のみ更新。`wrangler`は既存のsemver範囲=`^4.141.0`内で4.144.0に上がっただけ。
+破壊的変更なし)。`npm run audit`が`found 0 vulnerabilities`になることを確認し、このPRに含めた。
 
-**Phase 27 PR2(管理APIの削除操作に再認証を要求。PR #101)・PR1(依存の脆弱性チェックをCIに
-追加。PR #99)・Phase 26 PR2b(プロダクトの管理API・管理画面UI。PR #97)・PR2a(PR #95)・
-PR1(PR #93)は、この前に完了した**。
+決定・テスト結果は`docs/decisions/0052-phase-27-plan.md`(PR4の節)。CLAUDE.mdに
+「バックアップの復元テスト(Phase 27 PR 4)」節を追加。
+
+**Phase 27 PR3(依存の自動更新をDependabotで設定。PR #103)・PR2(管理APIの削除操作に再認証を
+要求。PR #101)・PR1(依存の脆弱性チェックをCIに追加。PR #99)・Phase 26 PR2b(PR #97)・
+PR2a(PR #95)・PR1(PR #93)は、この前に完了した**。
 
 Next Action:
-Phase 27の次のPRの範囲を、AskUserQuestionでユーザーに確認する(候補: バックアップの復元テスト・
-監査ログの個人情報対策の強化・世代管理・暗号化・MFA)。回答に応じて実装する。
+Phase 27の次のPRの範囲を、AskUserQuestionでユーザーに確認する(候補: 監査ログの個人情報対策の
+強化・世代管理・暗号化・MFA)。回答に応じて実装する。
 
 Human Task:
 なし。Issue #12・#13・#19 は WAITING_HUMAN のまま残っている(いまの作業のブロッカーではない)。
@@ -675,8 +704,9 @@ Phase 21 PR3のプライバシーポリシーの版を上げない判断につ�
 Dependabotが今後開くPRは、CIを確認してから、通常のPRと同じ手順でマージすること(**最初のバッチ
 =PR #104・#105・#106〈actions/checkout・actions/setup-node のメジャー更新、npm minor/patch
 グループ〉は、いずれもCI green(npm run check・npm run audit含む)を確認して、このセッション内で
-マージ済み。マージ後、`npm ci`から`npm run check`・`npm run audit`を実行し、回帰がないことも
-再確認した**)。
+マージ済み**)。**このマシンの git のリモートURLは、SSH(git@github.com:...)から
+HTTPS(https://github.com/...)に変更した**(SSHの鍵・エージェントが、このセッションの途中で
+認証エラーになったため。`gh`のcredential helper=HTTPSで、push/pullとも正常に動くことを確認済み)。
 
 Blocker:
 なし
