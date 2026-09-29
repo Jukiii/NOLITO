@@ -72,3 +72,4 @@ PR1・PR2 の完了後、チャットで次のPRの範囲を確認し、**「依
 
 - `.github/dependabot.yml` の YAML 構文を、`yaml` パッケージ(既存の devDependency)で読み込んで確認
 - `npm run check`: 全2040件、成功(この PR では、アプリケーションコードは変更していない)
+- **マージ後に判明**: リポジトリの Dependabot vulnerability alerts(`GET /repos/.../vulnerability-alerts`)が、無効になっていた(`404`)。これが無効だと、バージョン更新(`dependabot.yml`)自体は動くが、GitHub のアドバイザリに基づく継続的な脆弱性の通知(Dependabot alerts)が届かず、PR1(`npm run audit`)の手動実行に頼ることになる。**リポジトリの設定(`PUT /repos/.../vulnerability-alerts`)で有効化した**(コードの変更ではなく、リポジトリの設定。無料・可逆・公開リポジトリでの標準的な設定のため、このセッションで直接有効化した)。有効化後、`204`(有効)を確認済み。
