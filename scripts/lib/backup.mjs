@@ -32,15 +32,19 @@ export function splitIdOption(argv, envId) {
   return { args, id };
 }
 
-/** 一時的に使う wrangler の設定(リポジトリの wrangler.toml は、書き換えない。ID を、コミットしない)。 */
-export const wranglerConfig = (databaseId) =>
+/**
+ * 一時的に使う wrangler の設定(リポジトリの wrangler.toml は、書き換えない。ID を、コミットしない)。
+ * databaseName は、既定で本番("nolito")。復元の練習(restore-drill.mjs)では、使い捨てのD1の
+ * 名前を渡す(本番と同じ名前は、Cloudflare 側で使えないため)。
+ */
+export const wranglerConfig = (databaseId, databaseName = DATABASE_NAME) =>
   [
     'name = "nolito-backup"',
     'compatibility_date = "2026-09-01"',
     "",
     "[[d1_databases]]",
     'binding = "DB"',
-    `database_name = "${DATABASE_NAME}"`,
+    `database_name = "${databaseName}"`,
     `database_id = "${validateDatabaseId(databaseId)}"`,
     "",
   ].join("\n");

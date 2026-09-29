@@ -90,6 +90,11 @@ describe("一時的な wrangler の設定", () => {
     assert.throws(() => wranglerConfig(PLACEHOLDER_ID));
     assert.throws(() => wranglerConfig('x"; malicious = "1'));
   });
+
+  it("databaseName を渡すと、既定の nolito ではなく、その名前を使う(復元練習=restore-drill.mjs 用)", () => {
+    const config = wranglerConfig(REAL_ID, "nolito-restore-drill-1234");
+    assert.match(config, /database_name = "nolito-restore-drill-1234"/);
+  });
 });
 
 describe("ファイル名・保存先", () => {
@@ -289,10 +294,23 @@ describe("コマンド", () => {
     );
   });
 
+  it("backup:restore-drill: 壊れたファイルは、使い捨てのD1を作らずに、エラー終了(wrangler を呼ばない)", () => {
+    const broken = run("restore-drill.mjs", ["--file", `${root}package.json`]);
+    assert.equal(broken.status, 1);
+    assert.match(broken.stderr, /復元できません/);
+    assert.ok(!broken.stdout.includes("使い捨てのD1"));
+  });
+
+  it("backup:restore-drill: ファイルなし・知らないオプションは、エラー終了", () => {
+    assert.equal(run("restore-drill.mjs", ["--file", `${root}no-such-file.sql`]).status, 1);
+    assert.equal(run("restore-drill.mjs", ["--bogus"]).status, 1);
+  });
+
   it("npm のスクリプトが、登録されている", () => {
     const scripts = JSON.parse(readFileSync(`${root}package.json`, "utf8")).scripts;
     assert.equal(scripts["backup:d1"], "node scripts/backup-d1.mjs");
     assert.equal(scripts["backup:verify"], "node scripts/verify-backup.mjs");
+    assert.equal(scripts["backup:restore-drill"], "node scripts/restore-drill.mjs");
     assert.equal(scripts["d1:remote"], "node scripts/d1-remote.mjs");
   });
 
@@ -301,6 +319,7 @@ describe("コマンド", () => {
       "backup-d1.mjs",
       "verify-backup.mjs",
       "d1-remote.mjs",
+      "restore-drill.mjs",
       "lib/backup.mjs",
       "lib/backup-verify.mjs",
       "lib/wrangler-remote.mjs",

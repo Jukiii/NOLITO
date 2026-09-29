@@ -13,11 +13,11 @@ const wranglerJs = fileURLToPath(
 );
 
 /** wrangler d1 <args...> を実行する。端末に、そのまま出力する(ログインなどの対話に、対応するため)。 */
-export function runWranglerD1(args, databaseId) {
+export function runWranglerD1(args, databaseId, databaseName) {
   const dir = mkdtempSync(path.join(tmpdir(), "nolito-wrangler-"));
   try {
     const config = path.join(dir, "wrangler.toml");
-    writeFileSync(config, wranglerConfig(databaseId));
+    writeFileSync(config, wranglerConfig(databaseId, databaseName));
     const result = spawnSync(process.execPath, [wranglerJs, "d1", ...args, "--config", config], {
       stdio: "inherit",
     });
@@ -28,11 +28,11 @@ export function runWranglerD1(args, databaseId) {
 }
 
 /** wrangler d1 <args...> を実行して、標準出力を受け取る(問い合わせの読み取りなど)。エラーの表示は、そのまま端末に出す。 */
-export function captureWranglerD1(args, databaseId) {
+export function captureWranglerD1(args, databaseId, databaseName) {
   const dir = mkdtempSync(path.join(tmpdir(), "nolito-wrangler-"));
   try {
     const config = path.join(dir, "wrangler.toml");
-    writeFileSync(config, wranglerConfig(databaseId));
+    writeFileSync(config, wranglerConfig(databaseId, databaseName));
     const result = spawnSync(process.execPath, [wranglerJs, "d1", ...args, "--config", config], {
       stdio: ["inherit", "pipe", "inherit"],
       encoding: "utf8",
@@ -42,4 +42,18 @@ export function captureWranglerD1(args, databaseId) {
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+}
+
+/**
+ * D1 の作成・削除・一覧(アカウント単位の操作で、特定の D1 の ID を必要としない)。
+ * リポジトリの wrangler.toml(ダミーの ID)を、そのまま使う(このコマンドたちは、ID を見ない)。
+ */
+export function captureWranglerAccountLevel(args) {
+  const result = spawnSync(process.execPath, [wranglerJs, "d1", ...args], {
+    stdio: ["inherit", "pipe", "inherit"],
+    encoding: "utf8",
+    maxBuffer: 32 * 1024 * 1024,
+    cwd: fileURLToPath(new URL("../../", import.meta.url)),
+  });
+  return { status: result.status ?? 1, stdout: result.stdout ?? "" };
 }
