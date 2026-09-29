@@ -95,3 +95,7 @@ PR1・PR2・PR3 の完了後、チャットで次のPRの範囲を確認し、**
 
 - `npm run check`: 全2043件、成功(新規3件: `wranglerConfig`の`databaseName`引数・`restore-drill.mjs`の壊れたファイル/不明なオプションのエラー終了・npmスクリプト一覧・通信していないことの検査に、`restore-drill.mjs`を追加)
 - 上記のとおり、実際のCloudflareアカウントに対して、成功パス(作成→読み込み→確認→削除)と、失敗パス(壊れたファイルで、D1を作らずに断る)の、両方を、このセッション内で実際に確認した
+
+## 副産物: PR1(依存の脆弱性チェック)が、実際に脆弱性の悪化を検出した
+
+このPRの作業中、`npm run audit`(PR1で追加)が、`undici`(`wrangler`の間接依存)の深刻度が **moderate → high** に上がり、CVEの件数も増えていることを検出した(GHSAのアドバイザリDBが更新されたため。PR1・PR3の時点では、まだ moderate だった)。**今回は `npm audit fix`(force不要)だけで、`wrangler` を破壊的変更なしに解決できた**(`wrangler@4.141.0 → 4.144.0`。`package.json` の `^4.141.0` の範囲内)。`package-lock.json` を更新し、`npm run audit` が `found 0 vulnerabilities` になることを確認した。**このPRに、あわせて含めた**(無関係な変更に見えるが、実際にPR1のCIゲートが機能した実例であり、PR4の一部として記録する)。
