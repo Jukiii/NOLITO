@@ -45,6 +45,7 @@ async function init(root) {
   const deleteName = $("[data-admin-products-delete-name]");
   const deleteError = $("[data-admin-products-delete-error]");
   const deleteConfirm = $("[data-admin-products-delete-confirm]");
+  const deleteReauth = $("[data-admin-products-delete-reauth]");
 
   let editingId = null;
   let deletingId = null;
@@ -110,6 +111,8 @@ async function init(root) {
     if (!product) return;
     deletingId = id;
     deleteError.textContent = "";
+    deleteConfirm.hidden = false;
+    deleteReauth.hidden = true;
     deleteName.textContent = `${product.title}(${product.id})`;
     deleteDialog.showModal();
   }
@@ -157,6 +160,11 @@ async function init(root) {
     const result = await deleteAdminProduct(deletingId);
     if (!result.ok) {
       deleteError.textContent = result.message;
+      if (result.code === "reauth-required") {
+        // 取り消せない操作なので、直近にログインした人だけに許す。もう一度ログインすれば、続けられる
+        deleteConfirm.hidden = true;
+        deleteReauth.hidden = false;
+      }
       return;
     }
     deleteDialog.close();

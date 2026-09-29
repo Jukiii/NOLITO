@@ -6,6 +6,10 @@ import { getUser } from "./users.js";
 
 export const CSRF_HEADER = "X-NOLITO-CSRF";
 
+// 取り消せない・重大な操作の前に、直近のログインを求める窓(アカウント削除。Phase 9。
+// Phase 27 PR2 から、管理APIの削除にも使う)。セッション自体は、もっと長く有効(session.js 参照)
+export const REAUTH_WINDOW_SECONDS = 10 * 60;
+
 /**
  * 状態を変える要求(POST・DELETE)の確認。
  * 別のサイトのフォームやスクリプトからは、この 2 つを満たせない:
@@ -28,8 +32,12 @@ export function requireEnabled(env) {
  * ログイン済みの利用者を確かめる。
  * 成功: { user, session, now }。失敗: { response }。
  * 招待制のときは、許可リストから外されたメールアドレスを、ここで止める(リストの変更が、すぐ効く)。
+ * `recent: true` を渡すと、直近 `REAUTH_WINDOW_SECONDS` 以内にログインしたセッションだけを通す
+ * (それ以外は 403 reauth-required)。取り消せない・重大な操作(アカウント削除・管理APIの削除など)
+ * だけに使う。ふつうの操作(閲覧・作成・更新)には使わない(セッションが長く有効なため、使い勝手に
+ * 影響する)。
  */
-export async function requireUser({ request, env }, { write = false } = {}) {
+export async function requireUser({ request, env }, { write = false, recent = false } = {}) {
   const disabled = requireEnabled(env);
   if (disabled) return { response: disabled };
   if (write) {
@@ -42,6 +50,9 @@ export async function requireUser({ request, env }, { write = false } = {}) {
   const user = await getUser(env.DB, session.userId);
   if (!user) return { response: error(401, "not-logged-in") };
   if (!isInvited(env, user.email)) return { response: error(403, "not-invited") };
+  if (recent && now - session.createdAt > REAUTH_WINDOW_SECONDS) {
+    return { response: error(403, "reauth-required") };
+  }
   return { user, session, now };
 }
 

@@ -1,7 +1,7 @@
 // GET/PUT/DELETE /api/admin/products/:id — 1件の取得・更新・削除(Phase 26 PR 2b。管理者だけ)。
 //   GET    … 1件({ product }。なければ 404)
 //   PUT    … 更新。body は { product }(id は URL と同じであること。schema.js で検証)
-//   DELETE … 削除
+//   DELETE … 削除。取り消せない操作のため、直近のログインを求める(Phase 27 PR 2。recent: true)
 // 変更は、監査ログ(admin_audit_log)に、変更前後の内容ごと記録する。
 import { recordAdminChange } from "../../../_lib/admin-audit.js";
 import { requireAdmin } from "../../../_lib/guard.js";
@@ -64,7 +64,7 @@ export async function onRequestPut(context) {
 
 export async function onRequestDelete(context) {
   const { env, params } = context;
-  const auth = await requireAdmin(context, { write: true });
+  const auth = await requireAdmin(context, { write: true, recent: true });
   if (auth.response) return auth.response;
   const { user, now } = auth;
 
