@@ -517,3 +517,8 @@ Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の�
 - **再認証**(直近 `REAUTH_WINDOW_SECONDS`=10分以内にログインしたセッションだけに許す。それ以外は`403 reauth-required`)は `functions/_lib/guard.js` の `requireUser(context, { write, recent })` の `recent: true` で行う(定数・実装は Phase 9 のアカウント削除から、ここへ集約した)。`requireAdmin` は `options` をそのまま `requireUser` に渡すため、`requireAdmin(context, { write: true, recent: true })` で、管理APIにもそのまま使える。
 - **適用範囲は、取り消せない操作(削除)だけ**(`DELETE /api/account`・`DELETE /api/admin/products/:id`)。**作成・更新には使わない**(セッションは最長90日有効なため、書き込み全般に10分の窓を課すと、管理者が連続して編集するだけで使い勝手を著しく損なうため。詳しい判断は決定ログ0052)。**新しく取り消せない操作(削除)を追加するときは、`recent: true` を付けること**。
 - 画面側は、`reauth-required` を受け取ったら、確認・実行のボタンを隠し、「もう一度ログインする」リンク(`/auth/google/login?reauth=1`。`account/client.js` の `REAUTH_PATH`)を出す(`/account/` のアカウント削除・`/account/admin/products/` の削除確認モーダルで、同じ考え方)。
+
+### 依存の自動更新(Phase 27 PR 3)
+
+- `.github/dependabot.yml` で、**npm**(`package.json`)と **github-actions**(`.github/workflows/*.yml`)を、毎週月曜にチェックする。**npmのマイナー・パッチは1つのグループ(`npm-minor-patch`)にまとめ**、**メジャーは個別のPRのまま**(破壊的変更の可能性があるため、1件ずつ確認する)。
+- Dependabot が開くPRも、既存のCI(`.github/workflows/ci.yml`。`on: pull_request` でブランチを問わず動く)が、そのまま`npm run check`・`npm run audit`を通す。**自動マージは設定していない**(CIが通ることを確認してから、通常のPRと同じ手順でマージすること。`wrangler` など、動作確認が必要な依存があるため)。
