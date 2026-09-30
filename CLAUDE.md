@@ -540,3 +540,11 @@ Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の�
 - 判断は、ファイルの更新日時ではなく、**名前の日時(UTC)**(`scripts/lib/backup-retention.mjs`。DOM・ファイル・時計に触れない純粋な計算。`planPrune`)。名前の形でないファイル・フォルダ・シンボリックリンクには触れない。**いちばん新しい1つは、期限を過ぎても残す**。中身は、読まない・表示しない。リポジトリの中の保存先は、断る(`backup:d1` と同じ)。
 - 本番の D1・Cloudflare には、通信しない(手元のファイルの整理だけ)。外付けディスク・クラウドの写しは、対象外(運営者が手で消す)。
 
+## パフォーマンス・監視・CI/CD(Phase 28)
+
+Phase 28 の仕様は高レベルな列挙のため、Phase 27 と同じく段階導入する(計画は `docs/decisions/0053-phase-28-plan.md`)。Phase 27 の「将来MFA」「暗号化」は、対象が具体化していないため、区切りとした(複数の運営者体制・外部保管を始めるときに、改めて範囲を決める)。
+
+### キャッシュ制御(Phase 28 PR 1)
+
+- `public/_headers`(Cloudflare Pages の書式)で、**画像(`/assets/img/*`・`/favicon.svg`)だけ**、`Cache-Control: public, max-age=86400, stale-while-revalidate=604800` にした。**JS・CSS・HTML・`/data/*` には期限を付けない**(ファイル名に版がなく、ビルド工程もないため、長く持たせると、新しい HTML と古い JS が混ざる)。`immutable` も付けない(同じパスの画像を撮り直すため)。`tests/cache-headers.test.js` が検査する。
+- Pages Functions(`/api/*`・`/auth/*`)の応答には、`_headers` は効かない。**ファイル名に版を付ける(ビルド工程を入れる)のは、「バンドラを使わない」方針を変えるので、しない**。
