@@ -23,6 +23,7 @@
     "build": "npm run build:articles && npm run build:products && npm run build:vocabulary",
     "backup:d1": "node scripts/backup-d1.mjs",
     "backup:verify": "node scripts/verify-backup.mjs",
+    "backup:prune": "node scripts/prune-backups.mjs",
     "backup:restore-drill": "node scripts/restore-drill.mjs",
     "d1:remote": "node scripts/d1-remote.mjs",
     "inquiries": "node scripts/inquiries.mjs",
