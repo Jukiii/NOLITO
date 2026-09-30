@@ -1,6 +1,6 @@
 # 講師・教育の語録(拡張: 英語のまま打つ語)
 
-`teaching.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく、AI の下書きです。確認して「OK」の語だけ、`draft` の行を消します。
+`teaching.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく語で、運営者の確認を受けて公開しました(2026-10-01)。
 
 ```yaml
 job_id: teaching
@@ -18,8 +18,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「ICT」の説明と、よみがな(あいしーてぃー)を確認してください。
   - id: teaching-032
     japanese: PTA
     reading: ぴーてぃーえー
@@ -33,8 +31,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「PTA」の説明と、よみがな(ぴーてぃーえー)を確認してください。
   - id: teaching-033
     japanese: LMS
     reading: えるえむえす
@@ -48,8 +44,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「LMS」の説明と、よみがな(えるえむえす)を確認してください。
   - id: teaching-034
     japanese: Wi-Fi
     reading: わいふぁい
@@ -63,6 +57,4 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「Wi-Fi」の説明と、よみがな(わいふぁい)を確認してください。
 ```

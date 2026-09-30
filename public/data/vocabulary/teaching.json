@@ -1,8 +1,8 @@
 {
   "job_id": "teaching",
   "job_name": "講師・教育",
-  "version": "0.4.0",
-  "updated_at": "2026-09-21",
+  "version": "0.5.0",
+  "updated_at": "2026-10-01",
   "items": [
     {
       "id": "teaching-001",
@@ -454,6 +454,70 @@
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "テストなどの結果を集計し、成績としてまとめる事務作業。",
       "related_terms": ["成績"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-031",
+      "japanese": "ICT",
+      "reading": "あいしーてぃー",
+      "romaji": ["ict"],
+      "typing": "ict",
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "情報や通信に関する技術の総称。授業では、端末やネットワークを使った学習を指すことが多い。",
+      "related_terms": ["LMS", "Wi-Fi"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-032",
+      "japanese": "PTA",
+      "reading": "ぴーてぃーえー",
+      "romaji": ["pta"],
+      "typing": "pta",
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保護者と教職員が、子どもたちのために協力して活動する団体のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-033",
+      "japanese": "LMS",
+      "reading": "えるえむえす",
+      "romaji": ["lms"],
+      "typing": "lms",
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教材の配信や、課題の提出、成績の管理を行う、学習管理のシステムのこと。",
+      "related_terms": ["ICT"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-034",
+      "japanese": "Wi-Fi",
+      "reading": "わいふぁい",
+      "romaji": ["wi-fi"],
+      "typing": "wi-fi",
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ケーブルを使わずに、無線でネットワークにつなぐ通信の規格のこと。",
+      "related_terms": ["ICT"],
       "learning_points": [],
       "weak_detection": {
         "enabled": true

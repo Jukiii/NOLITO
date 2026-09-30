@@ -1,8 +1,8 @@
 {
   "job_id": "sales",
   "job_name": "営業",
-  "version": "0.4.0",
-  "updated_at": "2026-09-21",
+  "version": "0.5.0",
+  "updated_at": "2026-10-01",
   "items": [
     {
       "id": "sales-001",
@@ -454,6 +454,86 @@
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "期間が決まっている契約を続けるために、改めて結ぶこと。",
       "related_terms": ["契約"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-031",
+      "japanese": "CRM",
+      "reading": "しーあーるえむ",
+      "romaji": ["crm"],
+      "typing": "crm",
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の情報ややり取りをまとめて管理し、良い関係を続けるための仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-032",
+      "japanese": "KPI",
+      "reading": "けーぴーあい",
+      "romaji": ["kpi"],
+      "typing": "kpi",
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "目標の達成度を測るために決める、数値の指標のこと。",
+      "related_terms": ["ROI"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-033",
+      "japanese": "ROI",
+      "reading": "あーるおーあい",
+      "romaji": ["roi"],
+      "typing": "roi",
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "かけた費用に対して、どれだけの利益が得られたかを表す指標のこと。",
+      "related_terms": ["KPI"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-034",
+      "japanese": "BtoB",
+      "reading": "びーとぅーびー",
+      "romaji": ["btob"],
+      "typing": "btob",
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "企業どうしで行う、商品やサービスの売り買いのこと。",
+      "related_terms": ["BtoC"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-035",
+      "japanese": "BtoC",
+      "reading": "びーとぅーしー",
+      "romaji": ["btoc"],
+      "typing": "btoc",
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "個人のお客様に、直接売る形の取引のこと。",
+      "related_terms": ["BtoB"],
       "learning_points": [],
       "weak_detection": {
         "enabled": true

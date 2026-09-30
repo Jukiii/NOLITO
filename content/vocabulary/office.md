@@ -11,8 +11,8 @@
 ```yaml
 job_id: office
 job_name: 事務
-version: 0.4.0
-updated_at: 2026-09-21
+version: 0.5.0
+updated_at: 2026-10-01
 items:
   - id: office-001
     japanese: 備品

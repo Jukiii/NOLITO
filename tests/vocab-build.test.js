@@ -54,7 +54,7 @@ describe("実際の原稿 → 公開の JSON", () => {
     }
   });
 
-  it("公開している語は 180 語。原稿の語(下書きを除く)と、一対一で対応する", async () => {
+  it("公開している語は 203 語。原稿の語(下書きを除く)と、一対一で対応する", async () => {
     const { files } = await buildOutputs(loadSources(root), context);
     let total = 0;
     for (const { data } of files) {
@@ -67,7 +67,7 @@ describe("実際の原稿 → 公開の JSON", () => {
       );
       total += published.items.length;
     }
-    assert.equal(total, 180);
+    assert.equal(total, 203);
   });
 
   it("詳細説明(detail)のある語は 6 語(職種ごとに 1 語。難易度 3)。学習ポイントを持ち、確認メモがついている", async () => {
@@ -92,10 +92,10 @@ describe("実際の原稿 → 公開の JSON", () => {
     assert.equal(published, 6);
   });
 
-  it("原稿の確認メモ(note)は、64 件(以前の 41 件 + 英語で打つ語の下書き 23 件)。すべて実在する語についている", async () => {
+  it("原稿の確認メモ(note)は、41 件(英語で打つ語を公開したので、その下書きのメモは消えた)。すべて実在する語についている", async () => {
     const { files } = await buildOutputs(loadSources(root), context);
     const noted = files.flatMap(({ data }) => data.items.filter((item) => item.note));
-    assert.equal(noted.length, 64);
+    assert.equal(noted.length, 41);
     for (const item of noted) assert.ok(Array.from(item.note).length <= 200, item.id);
   });
 
@@ -447,29 +447,29 @@ describe("コマンド", () => {
   it("build:vocabulary --check: 最新なら、終了コード 0(職種数・公開の語数・下書きの数を出す)", () => {
     const result = run("build-vocabulary.mjs", ["--check"]);
     assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout, /最新です\(6 職種・公開 180 語\(下書き 23 語は、公開しません\)\)/);
+    assert.match(result.stdout, /最新です\(6 職種・公開 203 語\(下書き 0 語は、公開しません\)\)/);
   });
 
   it("vocab:check: 検証の結果・確認の状況・確認メモを出して、終了コード 0", () => {
     const result = run("vocab-check.mjs");
     assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout, /公開 180 語\(確認済み 0 語・未確認 180 語\)/);
+    assert.match(result.stdout, /公開 203 語\(確認済み 0 語・未確認 203 語\)/);
     assert.match(result.stdout, /形式の検証.*通りました/);
-    assert.match(result.stdout, /人間に見てほしい点\(note\): 64 件/);
+    assert.match(result.stdout, /人間に見てほしい点\(note\): 41 件/);
     assert.match(result.stdout, /engineer-009\(プルリクエスト\)/);
     // 似た意味の語の候補(Phase 25 PR2)も、警告として出る
     assert.match(result.stdout, /警告\(直したほうがよい点\): 2 件/);
     assert.match(result.stdout, /food-service-007\(仕込み\) と food-service-012\(下ごしらえ\)/);
   });
 
-  it("vocab:check --for-ai: 指示・機械の確認結果・確認する語の順で出す。下書きがあれば、その語(拡張ファイルの下書き 23 語)", () => {
+  it("vocab:check --for-ai: 指示・機械の確認結果・確認する語の順で出す。下書きがなければ、語は出さない", () => {
     const result = run("vocab-check.mjs", ["--for-ai"]);
     assert.equal(result.status, 0, result.stderr);
     const out = result.stdout;
     assert.ok(out.indexOf("AIチェック用プロンプト") < out.indexOf("機械の確認結果"));
     assert.ok(out.indexOf("機械の確認結果") < out.indexOf("確認する語"));
-    assert.ok(!out.includes("確認する語が、ありません"));
-    assert.match(out, /japanese: CRM/);
+    assert.match(out, /確認する語が、ありません/);
+    assert.ok(!out.includes("japanese: CRM"));
     assert.match(out, /最終判断は、人間が行います/);
     // 似た意味の語の候補(Phase 25 PR2)も、機械の確認結果に含まれる
     assert.match(out, /- 警告: 2 件/);
@@ -491,7 +491,7 @@ describe("コマンド", () => {
     assert.equal(result.status, 0, result.stderr);
     const out = result.stdout;
     assert.ok(out.indexOf("AI改善提案用プロンプト") < out.indexOf("改善の候補"));
-    assert.match(out, /改善の候補\(公開済み・関連用語が、まだない語\): 68 件/);
+    assert.match(out, /改善の候補\(公開済み・関連用語が、まだない語\): 81 件/);
     assert.match(
       out,
       /AI の提案は、参考です。最終判断は、人間が行います。原稿は、AIが直接書き換えません。/,
@@ -507,7 +507,7 @@ describe("コマンド", () => {
     assert.equal(result.status, 0, result.stderr);
     assert.match(
       result.stdout,
-      /人間の確認: 確認済み 0 語 \/ 未確認 180 語\(公開 180 語\)。下書き 23 語/,
+      /人間の確認: 確認済み 0 語 \/ 未確認 203 語\(公開 203 語\)。下書き 0 語/,
     );
   });
 

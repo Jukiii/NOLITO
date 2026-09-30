@@ -182,10 +182,10 @@ describe("実際のデータ", () => {
   );
   const index = buildIndex({ products, articles, vocabularies });
 
-  it("実際のプロダクト・記事・180語すべてが、索引に入る", () => {
+  it("実際のプロダクト・記事・203語すべてが、索引に入る", () => {
     assert.equal(index.filter((e) => e.type === "product").length, products.length);
     assert.equal(index.filter((e) => e.type === "article").length, articles.length);
-    assert.equal(index.filter((e) => e.type === "vocabulary").length, 180);
+    assert.equal(index.filter((e) => e.type === "vocabulary").length, 203);
   });
 
   it("id は、すべて重複しない", () => {
@@ -200,7 +200,11 @@ describe("実際のデータ", () => {
   it("実際の職種すべてで、絞り込める", () => {
     const jobs = json("public/data/jobs.json");
     for (const job of jobs) {
-      assert.equal(filterEntries(index, { jobId: job.id }).length, 30, job.id);
+      assert.equal(
+        filterEntries(index, { jobId: job.id }).length,
+        vocabularies.find((v) => v.job_id === job.id).items.length,
+        job.id,
+      );
     }
   });
 });

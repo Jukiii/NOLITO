@@ -177,7 +177,7 @@ describe("出題への反映(実際の語録・役職)", () => {
           for (const word of words) seen.add(word.id);
         }
       }
-      assert.equal(seen.size, 180, `${role.id}: 出る語 ${seen.size}`);
+      assert.equal(seen.size, 203, `${role.id}: 出る語 ${seen.size}`);
     }
   });
 

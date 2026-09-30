@@ -11,8 +11,8 @@
 ```yaml
 job_id: teaching
 job_name: 講師・教育
-version: 0.4.0
-updated_at: 2026-09-21
+version: 0.5.0
+updated_at: 2026-10-01
 items:
   - id: teaching-001
     japanese: 板書
