@@ -548,3 +548,9 @@ Phase 28 の仕様は高レベルな列挙のため、Phase 27 と同じく段�
 
 - `public/_headers`(Cloudflare Pages の書式)で、**画像(`/assets/img/*`・`/favicon.svg`)だけ**、`Cache-Control: public, max-age=86400, stale-while-revalidate=604800` にした。**JS・CSS・HTML・`/data/*` には期限を付けない**(ファイル名に版がなく、ビルド工程もないため、長く持たせると、新しい HTML と古い JS が混ざる)。`immutable` も付けない(同じパスの画像を撮り直すため)。`tests/cache-headers.test.js` が検査する。
 - Pages Functions(`/api/*`・`/auth/*`)の応答には、`_headers` は効かない。**ファイル名に版を付ける(ビルド工程を入れる)のは、「バンドラを使わない」方針を変えるので、しない**。
+
+### 運用の手順書・公開後の簡易チェック(Phase 28 PR 2)
+
+- 障害時の「気づく・止める・戻す・確認・記録」は `docs/operations.md`(決定は 0053)。新しい仕組みは足さず、既存の手段(Cloudflare の Rollback・`AUTH_ENABLED`/`CONTACT_ENABLED` の緊急停止・Time Travel・バックアップ)への入り口。**緊急停止の環境変数・手順を変えたら、この文書も直す**(`tests/smoke.test.js` が、指しているファイル・コマンド・設定の実在を検査する)。
+- `npm run smoke -- <URL>`(`scripts/lib/smoke.mjs`。fetch は引数)は、公開したサイトを**読むだけ**で確認する(主要ページ・404・API の JSON・画像のキャッシュ・**同意前に Google のアクセス解析を読み込まない**こと)。デプロイ後・ロールバック後・復元後に使う。新しい主要ページ・API を足したら、`SMOKE_CHECKS` にも足す。遅いページは印だけで、失敗にはしない。
+- 外部の監視・通知サービスは入れていない(規約・費用・第三者への送信・ポリシーへの影響を確認してから)。

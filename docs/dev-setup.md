@@ -111,6 +111,7 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 
 - プロダクトを更新したら、`products.json` の `version` を上げ、`changelog` の先頭に項目を足して、`npm run build`。詳細ページと `/updates/` に、自動で出る。
 - 1 機能 1 PR・テスト版の表示・戻し方は、`docs/release-process.md`。
+- 障害時の対応・公開後の簡易チェック(`npm run smoke -- <URL>`)は、`docs/operations.md`(Phase 28)。
 
 ## 問い合わせフォーム(Phase 10)
 
