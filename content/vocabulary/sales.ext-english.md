@@ -1,6 +1,6 @@
 # 営業の語録(拡張: 英語のまま打つ語)
 
-`sales.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく、AI の下書きです。確認して「OK」の語だけ、`draft` の行を消します。
+`sales.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく語で、運営者の確認を受けて公開しました(2026-10-01)。
 
 ```yaml
 job_id: sales
@@ -18,8 +18,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「CRM」の説明と、よみがな(しーあーるえむ)を確認してください。
   - id: sales-032
     japanese: KPI
     reading: けーぴーあい
@@ -33,8 +31,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「KPI」の説明と、よみがな(けーぴーあい)を確認してください。
   - id: sales-033
     japanese: ROI
     reading: あーるおーあい
@@ -48,8 +44,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「ROI」の説明と、よみがな(あーるおーあい)を確認してください。
   - id: sales-034
     japanese: BtoB
     reading: びーとぅーびー
@@ -63,8 +57,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「BtoB」の説明と、よみがな(びーとぅーびー)を確認してください。
   - id: sales-035
     japanese: BtoC
     reading: びーとぅーしー
@@ -78,6 +70,4 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「BtoC」の説明と、よみがな(びーとぅーしー)を確認してください。
 ```

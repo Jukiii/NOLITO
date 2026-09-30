@@ -1,6 +1,6 @@
 # 飲食の語録(拡張: 英語のまま打つ語)
 
-`food-service.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく、AI の下書きです。確認して「OK」の語だけ、`draft` の行を消します。
+`food-service.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく語で、運営者の確認を受けて公開しました(2026-10-01)。
 
 ```yaml
 job_id: food-service
@@ -18,8 +18,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「HACCP」の説明と、よみがな(はさっぷ)を確認してください。
   - id: food-service-032
     japanese: FIFO
     reading: ふぃふぉ
@@ -33,8 +31,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「FIFO」の説明と、よみがな(ふぃふぉ)を確認してください。
   - id: food-service-033
     japanese: menu
     reading: めにゅー
@@ -48,8 +44,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「menu」の説明と、よみがな(めにゅー)を確認してください。
   - id: food-service-034
     japanese: takeout
     reading: ていくあうと
@@ -63,6 +57,4 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 承認された表では POS でしたが、販売と日本語の表記が重複するためビルドが通りません。代わりの語として takeout(ていくあうと)を足しました。ほかの語がよければ知らせてください。
 ```

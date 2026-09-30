@@ -1,8 +1,8 @@
 {
   "job_id": "retail",
   "job_name": "接客販売",
-  "version": "0.4.0",
-  "updated_at": "2026-09-21",
+  "version": "0.5.0",
+  "updated_at": "2026-10-01",
   "items": [
     {
       "id": "retail-001",
@@ -454,6 +454,70 @@
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "商品やサービスの代金の代わりに使える、券のこと。",
       "related_terms": ["ポイント"],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-031",
+      "japanese": "POS",
+      "reading": "ぽす",
+      "romaji": ["pos"],
+      "typing": "pos",
+      "category": "店頭業務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品が売れた時点で、売上の情報を記録し、集計する仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-032",
+      "japanese": "SKU",
+      "reading": "えすけーゆー",
+      "romaji": ["sku"],
+      "typing": "sku",
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "在庫を管理するときの、色やサイズの違いまで分けた、商品の最小の単位のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-033",
+      "japanese": "EC",
+      "reading": "いーしー",
+      "romaji": ["ec"],
+      "typing": "ec",
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "インターネット上で、商品やサービスを売り買いすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-034",
+      "japanese": "QR",
+      "reading": "きゅーあーる",
+      "romaji": ["qr"],
+      "typing": "qr",
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "スマートフォンなどで読み取れる、四角い模様のコード(QRコード)のこと。",
+      "related_terms": [],
       "learning_points": [],
       "weak_detection": {
         "enabled": true

@@ -1,6 +1,6 @@
 # 接客販売の語録(拡張: 英語のまま打つ語)
 
-`retail.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく、AI の下書きです。確認して「OK」の語だけ、`draft` の行を消します。
+`retail.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく語で、運営者の確認を受けて公開しました(2026-10-01)。
 
 ```yaml
 job_id: retail
@@ -18,8 +18,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「POS」の説明と、よみがな(ぽす)を確認してください。
   - id: retail-032
     japanese: SKU
     reading: えすけーゆー
@@ -33,8 +31,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「SKU」の説明と、よみがな(えすけーゆー)を確認してください。
   - id: retail-033
     japanese: EC
     reading: いーしー
@@ -48,8 +44,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「EC」の説明と、よみがな(いーしー)を確認してください。
   - id: retail-034
     japanese: QR
     reading: きゅーあーる
@@ -63,6 +57,4 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「QR」の説明と、よみがな(きゅーあーる)を確認してください。
 ```

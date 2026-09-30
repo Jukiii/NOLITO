@@ -220,10 +220,10 @@ describe("改善提案の候補(improvementCandidates。Phase 25)", () => {
     assert.deepEqual(improvementCandidates([data]), []);
   });
 
-  it("実際の語録: 68 語が候補(いまは、すべて未確認)", () => {
+  it("実際の語録: 81 語が候補(いまは、すべて未確認)", () => {
     const candidates = improvementCandidates(source);
     const total = candidates.reduce((sum, data) => sum + data.items.length, 0);
-    assert.equal(total, 68);
+    assert.equal(total, 81);
     for (const data of candidates) {
       for (const entry of data.items) {
         assert.notEqual(entry.draft, true, entry.id);
@@ -243,9 +243,9 @@ describe("実際の語録", () => {
     assert.deepEqual(warnings, [], warnings.join(" / "));
   });
 
-  it("職種ごとに 30 語。id は連番で、欠けがない(語の id は、消さない・つけ替えない)", () => {
+  it("職種ごとに 30 語以上(英語で打つ語の拡張を含む)。id は連番で、欠けがない(語の id は、消さない・つけ替えない)", () => {
     for (const data of vocabularies) {
-      assert.equal(data.items.length, 30, data.job_id);
+      assert.ok(data.items.length >= 30, data.job_id);
       data.items.forEach((item, index) => {
         assert.equal(item.id, `${data.job_id}-${String(index + 1).padStart(3, "0")}`);
       });

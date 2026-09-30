@@ -1,6 +1,6 @@
 # 事務の語録(拡張: 英語のまま打つ語)
 
-`office.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく、AI の下書きです。確認して「OK」の語だけ、`draft` の行を消します。
+`office.md`(ベースの原稿)に足す、ふだん英語で打つ語です(Issue #131。決定ログ 0056)。表示は英語、よみがなは日本語、入力は英字をつづりのとおりに打ちます。運営者が承認した語の表に基づく語で、運営者の確認を受けて公開しました(2026-10-01)。
 
 ```yaml
 job_id: office
@@ -18,8 +18,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「PDF」の説明と、よみがな(ぴーでぃーえふ)を確認してください。
   - id: office-032
     japanese: email
     reading: いーめーる
@@ -33,8 +31,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「email」の説明と、よみがな(いーめーる)を確認してください。
   - id: office-033
     japanese: cc
     reading: しーしー
@@ -48,8 +44,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「cc」の説明と、よみがな(しーしー)を確認してください。
   - id: office-034
     japanese: bcc
     reading: びーしーしー
@@ -63,8 +57,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「bcc」の説明と、よみがな(びーしーしー)を確認してください。
   - id: office-035
     japanese: Excel
     reading: えくせる
@@ -78,8 +70,6 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「Excel」の説明と、よみがな(えくせる)を確認してください。
   - id: office-036
     japanese: CSV
     reading: しーえすぶい
@@ -93,6 +83,4 @@ items:
     weak_detection:
       enabled: true
     review: pending
-    draft: true
-    note: 「CSV」の説明と、よみがな(しーえすぶい)を確認してください。
 ```
