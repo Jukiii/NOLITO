@@ -112,3 +112,43 @@ describe("配線: 準備の間は、スペースキーを押すまで、始ま�
     assert.match(html, /全角のスペース/);
   });
 });
+
+describe("開始前の選択の並び(Issue #144): モード(ラジオボタン)→ 職種・追ってくる人 → スタート", () => {
+  const html = read("public/games/escape-boss/index.html");
+  const view = read("public/assets/js/games/escape-boss/view.js");
+  const at = (text) => html.indexOf(text);
+
+  it("この順に並ぶ。スタートは、「くわしい設定」より前", () => {
+    const order = [
+      "data-mode-list",
+      "data-job-list",
+      "data-role-list",
+      "data-start",
+      "game-setup__more",
+    ].map(at);
+    assert.ok(
+      order.every((index) => index > 0),
+      String(order),
+    );
+    assert.deepEqual(
+      order,
+      [...order].sort((a, b) => a - b),
+    );
+    assert.equal(html.split("data-start").length - 1, 1);
+  });
+
+  it("モードは、名前つきのグループの中の、ラジオボタン(選択欄ではない)", () => {
+    assert.match(html, /<fieldset class="game-setup__mode">\s*<legend>モード<\/legend>/);
+    assert.ok(!/<select[^>]*data-mode-list/.test(html));
+    assert.match(view, /type: "radio",\s*name: "setup-mode",/);
+    assert.match(view, /\$\("\[data-mode-list\] input:checked"\)/);
+  });
+
+  it("用語確認では、役職の特殊ルールの説明も隠す", () => {
+    const fn = view.slice(
+      view.indexOf("function updateRoleRules"),
+      view.indexOf("function updateBest"),
+    );
+    assert.match(fn, /box\.hidden = !role \|\| currentMode\(\) === "check";/);
+  });
+});

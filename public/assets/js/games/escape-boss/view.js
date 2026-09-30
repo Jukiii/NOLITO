@@ -119,14 +119,17 @@ export function createView(root) {
     else delete document.body.dataset.hideBottomNav;
   }
 
-  // 開始の前の選択(モード・職種・役職・難易度)は、ドロップダウン。選んでいる値を返す(なければ undefined)
+  // 開始の前の選択。モードはラジオボタン、職種・役職(役職 = 難易度)はドロップダウン。
+  // 選んでいる値を返す(なければ undefined)
   const CHOICE_LISTS = {
     mode: "[data-mode-list]",
     job: "[data-job-list]",
     role: "[data-role-list]",
-    difficulty: "[data-difficulty-list]",
   };
-  const checkedValue = (name) => $(CHOICE_LISTS[name]).value || undefined;
+  const checkedValue = (name) =>
+    name === "mode"
+      ? ($("[data-mode-list] input:checked")?.value ?? undefined)
+      : $(CHOICE_LISTS[name]).value || undefined;
   const currentMode = () => (checkedValue("mode") === "check" ? "check" : "chase");
 
   // 用語確認では、追ってくる人の選択・説明の設定(いつも表示する)を隠し、開始のボタンの文言を変える。
@@ -135,7 +138,7 @@ export function createView(root) {
   function applyMode() {
     const check = currentMode() === "check";
     $("[data-role-fieldset]").hidden = check;
-    $("[data-difficulty-fieldset]").hidden = check;
+    updateRoleRules();
     $("[data-explanation-option]").hidden = check;
     $("[data-weak-option]").hidden = check;
     $("[data-graphics-option]").hidden = check;
@@ -155,7 +158,7 @@ export function createView(root) {
   function updateRoleRules() {
     const role = setupRoles.find((item) => item.id === checkedValue("role"));
     const box = $("[data-role-rules]");
-    box.hidden = !role;
+    box.hidden = !role || currentMode() === "check";
     if (!role) return;
     const rules = describeRules(role.stage);
     setText("[data-role-rules-name]", role.name);
@@ -166,78 +169,23 @@ export function createView(root) {
     );
   }
 
-  // 難易度の選択(役職ごとに、挑戦できるかが変わる。役職を選び直すたびに、作り直す)
-  let setupDifficulties = [];
-  let difficultyUnlockOf = () => true;
+  // 選んだ職種・役職の自己ベスト(いつもの難易度=ふつうの記録。役職を選び直すたびに更新する)
   let bestOfJob = () => null;
-
-  // 前回の難易度(開始の前の選択の引き継ぎ)。最初に一覧を作るときだけ使う
-  let initialDifficulty;
-
-  function renderDifficultyList() {
-    const roleId = checkedValue("role");
-    const previous = checkedValue("difficulty") ?? initialDifficulty;
-    initialDifficulty = undefined;
-    const unlocked = (difficulty) => difficultyUnlockOf(difficulty, roleId);
-    const selectable = setupDifficulties.find((item) => item.id === previous && unlocked(item));
-    const selectedId = selectable ? previous : DEFAULT_DIFFICULTY;
-    $("[data-difficulty-list]").replaceChildren(
-      ...setupDifficulties.map((difficulty) =>
-        option({
-          value: difficulty.id,
-          label: difficulty.name,
-          selected: unlocked(difficulty) && difficulty.id === selectedId,
-          disabled: !unlocked(difficulty),
-          badge: unlocked(difficulty) ? "" : "ロック中",
-        }),
-      ),
-    );
-    const locked = setupDifficulties.filter((item) => !unlocked(item));
-    const hint = $("[data-difficulty-hint]");
-    hint.textContent = locked.map((item) => `${item.name}: ${item.description}`).join(" / ");
-    hint.hidden = locked.length === 0;
-    updateDifficultyInfo();
-  }
-
-  // 選んだ難易度の説明・経験値の倍率・自己ベスト(職種・役職・難易度がそろったとき)
-  function updateDifficultyInfo() {
-    const difficulty = setupDifficulties.find((item) => item.id === checkedValue("difficulty"));
-    const box = $("[data-difficulty-info]");
-    box.hidden = !difficulty;
-    if (!difficulty) return;
-    setText(
-      "[data-difficulty-info-text]",
-      `${difficulty.description}(経験値 ×${difficulty.exp_multiplier})`,
-    );
+  function updateBest() {
     const jobId = checkedValue("job");
     const roleId = checkedValue("role");
-    const best = jobId && roleId ? bestOfJob(jobId, roleId, difficulty.id) : null;
-    const bestNode = $("[data-difficulty-best]");
+    const best = jobId && roleId ? bestOfJob(jobId, roleId, DEFAULT_DIFFICULTY) : null;
+    const bestNode = $("[data-role-best]");
     bestNode.hidden = !best;
     if (best) {
-      setText(
-        "[data-difficulty-best]",
-        `自己ベスト: ${formatNumber(best.score)}点(${formatDate(best.playedAt)})`,
-      );
+      bestNode.textContent = `自己ベスト: ${formatNumber(best.score)}点(${formatDate(best.playedAt)})`;
     }
   }
 
-  function renderSetup({
-    jobs,
-    roles,
-    isUnlocked,
-    difficulties,
-    isDifficultyUnlocked,
-    bestOf,
-    masteries = [],
-    choice = {},
-  }) {
+  function renderSetup({ jobs, roles, isUnlocked, bestOf, masteries = [], choice = {} }) {
     setupRoles = roles;
-    setupDifficulties = difficulties;
-    difficultyUnlockOf = isDifficultyUnlocked;
     bestOfJob = bestOf;
     // 選んでいる値がなければ(最初の描画)、前回の選択を使う。データにない id・ロック中の役職は、使わない
-    initialDifficulty ??= choice.difficulty || undefined;
     const jobId = checkedValue("job") ?? choice.job;
     let roleId = checkedValue("role") ?? choice.role;
     const selectedJob = jobs.some((job) => job.id === jobId) ? jobId : jobs[0].id;
@@ -245,9 +193,22 @@ export function createView(root) {
     roleId = selectableRole ? roleId : roles.find((role) => isUnlocked(role)).id;
     const masteryById = new Map(masteries.map((mastery) => [mastery.id, mastery]));
 
-    const mode = checkedValue("mode") ?? choice.mode;
+    const requested = checkedValue("mode") ?? choice.mode;
+    const mode = MODES.some((item) => item.value === requested) ? requested : MODES[0].value;
     $("[data-mode-list]").replaceChildren(
-      ...MODES.map((item) => option({ ...item, selected: item.value === mode })),
+      ...MODES.map((item) =>
+        el(
+          "label",
+          { class: "game-setup__radio" },
+          el("input", {
+            type: "radio",
+            name: "setup-mode",
+            value: item.value,
+            checked: item.value === mode,
+          }),
+          el("span", {}, `${item.label}(${item.sub})`),
+        ),
+      ),
     );
     $("[data-job-list]").replaceChildren(
       ...jobs.map((job) =>
@@ -277,7 +238,7 @@ export function createView(root) {
     hint.textContent = locked.map((role) => `${role.name}: ${role.unlock.hint}`).join(" / ");
     hint.hidden = locked.length === 0;
     updateRoleRules();
-    renderDifficultyList();
+    updateBest();
     $("[data-start]").disabled = false;
     applyMode();
   }
@@ -503,16 +464,16 @@ export function createView(root) {
         const mode = currentMode();
         const jobId = checkedValue("job");
         const roleId = checkedValue("role");
-        const difficulty = checkedValue("difficulty") ?? DEFAULT_DIFFICULTY;
-        if (jobId && (mode === "check" || roleId)) onStart({ mode, jobId, roleId, difficulty });
+        if (jobId && (mode === "check" || roleId)) {
+          onStart({ mode, jobId, roleId, difficulty: DEFAULT_DIFFICULTY });
+        }
       });
       $("[data-mode-list]").addEventListener("change", applyMode);
-      $("[data-job-list]").addEventListener("change", updateDifficultyInfo);
+      $("[data-job-list]").addEventListener("change", updateBest);
       $("[data-role-list]").addEventListener("change", () => {
         updateRoleRules();
-        renderDifficultyList();
+        updateBest();
       });
-      $("[data-difficulty-list]").addEventListener("change", updateDifficultyInfo);
       // 前回の選択を引き継ぐため、選び直したら、知らせる(上の更新のあとに動く)
       for (const selector of Object.values(CHOICE_LISTS)) {
         $(selector).addEventListener("change", () =>
@@ -520,7 +481,6 @@ export function createView(root) {
             mode: currentMode(),
             job: checkedValue("job") ?? "",
             role: checkedValue("role") ?? "",
-            difficulty: checkedValue("difficulty") ?? "",
           }),
         );
       }
@@ -653,7 +613,6 @@ export function createView(root) {
       roles,
       isUnlocked,
       difficulties,
-      isDifficultyUnlocked,
       bestOf,
       profile,
       titles,
@@ -672,8 +631,6 @@ export function createView(root) {
         jobs,
         roles,
         isUnlocked,
-        difficulties,
-        isDifficultyUnlocked,
         bestOf,
         masteries,
         choice,

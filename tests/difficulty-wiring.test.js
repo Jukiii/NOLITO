@@ -10,22 +10,13 @@ const html = read("public/games/escape-boss/index.html");
 const view = read("public/assets/js/games/escape-boss/view.js");
 const main = read("public/assets/js/games/escape-boss/main.js");
 
-describe("難易度選択の HTML", () => {
-  it("役職の選択の後に、難易度のフィールドセットがある(役職と同じく、用語確認では隠れる)", () => {
-    const fieldset = html.slice(
-      html.indexOf("data-difficulty-fieldset"),
-      html.indexOf("data-explanation-option"),
-    );
-    assert.match(fieldset, /<label for="setup-difficulty">難易度<\/label>/);
-    assert.match(fieldset, /data-difficulty-list/);
-    assert.match(fieldset, /data-difficulty-hint\s+hidden/);
-    assert.match(
-      fieldset,
-      /<div class="game-setup__rules" aria-live="polite" data-difficulty-info hidden>/,
-    );
-    assert.ok(
-      fieldset.includes("data-difficulty-info-text") && fieldset.includes("data-difficulty-best"),
-    );
+describe("難易度は、追ってくる人(役職)と同じ(Issue #144)", () => {
+  it("開始前の選択に、難易度の選択欄はない。役職の選択に、難易度の意味を添える", () => {
+    for (const hook of ["data-difficulty-list", "data-difficulty-fieldset", "setup-difficulty"]) {
+      assert.ok(!html.includes(hook), hook);
+    }
+    assert.ok(html.includes("追ってくる人(役職が上がるほど、むずかしい)"));
+    assert.match(html, /data-role-best hidden/);
   });
 
   it("ランキングに、役職と対になる難易度の選択欄がある(役職の下)", () => {
@@ -37,57 +28,27 @@ describe("難易度選択の HTML", () => {
 });
 
 describe("view.js のつなぎ(難易度)", () => {
-  it("difficulty.js から DEFAULT_DIFFICULTY を使う。用語確認では、難易度のフィールドセットも隠す", () => {
-    assert.match(view, /import \{ DEFAULT_DIFFICULTY \} from "\.\/difficulty\.js";/);
-    const apply = view.slice(view.indexOf("function applyMode"), view.indexOf("function option"));
-    assert.match(apply, /\$\("\[data-difficulty-fieldset\]"\)\.hidden = check;/);
-  });
-
-  it("renderDifficultyList: 役職ごとに挑戦できるかを見て、作り直す。ロックは badge で示す", () => {
+  it("難易度の選択の描画・イベントは、なくなった。自己ベストは、役職の欄で更新する", () => {
+    for (const gone of ["renderDifficultyList", "updateDifficultyInfo", "data-difficulty-list"]) {
+      assert.ok(!view.includes(gone), gone);
+    }
     const fn = view.slice(
-      view.indexOf("function renderDifficultyList"),
-      view.indexOf("function updateDifficultyInfo"),
-    );
-    assert.match(fn, /difficultyUnlockOf\(difficulty, roleId\)/);
-    assert.match(fn, /disabled: !unlocked\(difficulty\)/);
-    assert.match(fn, /badge: unlocked\(difficulty\) \? "" : "ロック中"/);
-    assert.match(fn, /updateDifficultyInfo\(\);/);
-  });
-
-  it("updateDifficultyInfo: 説明・経験値の倍率・自己ベスト(あれば)を出す。文字は textContent 相当だけ", () => {
-    const fn = view.slice(
-      view.indexOf("function updateDifficultyInfo"),
+      view.indexOf("function updateBest"),
       view.indexOf("function renderSetup"),
     );
-    assert.match(fn, /difficulty\.description/);
-    assert.match(fn, /difficulty\.exp_multiplier/);
-    assert.match(fn, /bestOfJob\(jobId, roleId, difficulty\.id\)/);
+    assert.match(fn, /bestOfJob\(jobId, roleId, DEFAULT_DIFFICULTY\)/);
     assert.ok(!/innerHTML/.test(fn));
-  });
-
-  it("役職・職種・難易度を選び直すたびに、確認欄を更新する", () => {
+    assert.match(view, /\$\("\[data-job-list\]"\)\.addEventListener\("change", updateBest\);/);
     assert.match(
       view,
-      /\$\("\[data-job-list\]"\)\.addEventListener\("change", updateDifficultyInfo\);/,
-    );
-    assert.match(
-      view,
-      /\$\("\[data-role-list\]"\)\.addEventListener\("change", \(\) => \{\s*updateRoleRules\(\);\s*renderDifficultyList\(\);\s*\}\);/,
-    );
-    assert.match(
-      view,
-      /\$\("\[data-difficulty-list\]"\)\.addEventListener\("change", updateDifficultyInfo\);/,
+      /\$\("\[data-role-list\]"\)\.addEventListener\("change", \(\) => \{\s*updateRoleRules\(\);\s*updateBest\(\);\s*\}\);/,
     );
   });
 
-  it("開始の送信は、選んだ難易度(なければ既定)を、onStart に渡す", () => {
+  it("開始の送信は、いつも既定の難易度(ふつう)を onStart に渡す", () => {
     const start = view.indexOf('addEventListener("submit"');
     const submit = view.slice(start, view.indexOf("});", start) + 3);
-    assert.match(
-      submit,
-      /const difficulty = checkedValue\("difficulty"\) \?\? DEFAULT_DIFFICULTY;/,
-    );
-    assert.match(submit, /onStart\(\{ mode, jobId, roleId, difficulty \}\)/);
+    assert.match(submit, /onStart\(\{ mode, jobId, roleId, difficulty: DEFAULT_DIFFICULTY \}\)/);
   });
 
   it("ランキングの難易度の選択欄は、変わるたびに onRankingDifficultyChange を呼ぶ", () => {
@@ -97,9 +58,9 @@ describe("view.js のつなぎ(難易度)", () => {
     );
   });
 
-  it("renderDashboard: difficulties・isDifficultyUnlocked・bestOf を、renderSetup に渡す。ランキングの難易度欄は rankable だけ", () => {
+  it("renderDashboard: bestOf を renderSetup に渡す。ランキングの難易度欄は rankable だけ", () => {
     const fn = view.slice(view.indexOf("renderDashboard({"), view.indexOf("renderRanking,"));
-    assert.match(fn, /difficulties,\s*isDifficultyUnlocked,\s*bestOf,/);
+    assert.match(fn, /renderSetup\(\{\s*jobs,\s*roles,\s*isUnlocked,\s*bestOf,/);
     assert.match(fn, /rankingDifficultyId,/);
     assert.match(fn, /difficulty\.rankable/);
   });
