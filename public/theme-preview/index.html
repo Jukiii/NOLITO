@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="robots" content="noindex" />
+    <title>デザイン見本 | NOLITO</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/theme-preview.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/theme-preview/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <h1>デザイン見本</h1>
+      <p>
+        サイト全体のデザイン案を、選んで見比べるためのページです(検索エンジンには登録しません)。
+        選んだデザインは、このページの見た目だけに反映されます。サイトの「テーマ」の設定は変わりません。
+        URL の <code>?theme=</code> に、選んだ案が入るので、そのまま共有できます。
+      </p>
+
+      <section class="section" aria-labelledby="tp-pick">
+        <h2 id="tp-pick">デザインを選ぶ</h2>
+        <noscript><p>デザインの切り替えには、JavaScript が必要です。</p></noscript>
+        <fieldset class="tp-picker">
+          <legend>6つの案</legend>
+          <label class="tp-option">
+            <input type="radio" name="preview-theme" value="current" data-preview-radio checked />
+            <span
+              ><span class="tp-option__name">今のまま</span
+              ><span class="tp-option__note">いまのサイトの見た目(クリーム色・紫・金色)</span></span
+            >
+          </label>
+          <label class="tp-option">
+            <input type="radio" name="preview-theme" value="dark" data-preview-radio />
+            <span
+              ><span class="tp-option__name">ダーク</span
+              ><span class="tp-option__note">いまのダークテーマ</span></span
+            >
+          </label>
+          <label class="tp-option">
+            <input type="radio" name="preview-theme" value="white" data-preview-radio />
+            <span
+              ><span class="tp-option__name">ホワイト</span
+              ><span class="tp-option__note">白と灰色・青。線が細く、すっきり</span></span
+            >
+          </label>
+          <label class="tp-option">
+            <input type="radio" name="preview-theme" value="cute" data-preview-radio />
+            <span
+              ><span class="tp-option__name">可愛い</span
+              ><span class="tp-option__note">ピンク・大きな丸み・やわらかい影</span></span
+            >
+          </label>
+          <label class="tp-option">
+            <input type="radio" name="preview-theme" value="cool" data-preview-radio />
+            <span
+              ><span class="tp-option__name">クール</span
+              ><span class="tp-option__note">濃い紺・水色。角が小さく、光る縁</span></span
+            >
+          </label>
+          <label class="tp-option">
+            <input type="radio" name="preview-theme" value="metal" data-preview-radio />
+            <span
+              ><span class="tp-option__name">メタリック</span
+              ><span class="tp-option__note">ガンメタルと銀。金属の光沢</span></span
+            >
+          </label>
+        </fieldset>
+        <p class="tp-status" role="status" data-preview-status>いま見ているデザイン: 今のまま</p>
+        <p>
+          ヘッダー・フッター、下の見本が、選んだデザインに変わります。フッターの「テーマ」は、
+          サイトの設定です(このページの案とは別)。
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="tp-compare">
+        <h2 id="tp-compare">6つを並べて見る</h2>
+        <ul class="tp-compare">
+          <li class="tp-sample" data-preview-theme="current">
+            <h3 class="tp-sample__title">今のまま</h3>
+            <div class="tp-sample__card">
+              <p>サンプルのカード</p>
+              <span class="badge badge--live">公開中</span>
+              <span class="badge badge--soon">準備中</span>
+            </div>
+            <div class="tp-gauge" aria-hidden="true"><span class="tp-gauge__bar"></span></div>
+            <div class="tp-row">
+              <button class="button button--primary" type="button">ボタン</button>
+              <button class="button button--secondary" type="button">サブ</button>
+            </div>
+            <button class="button button--primary" type="button" data-preview-pick="current">
+              このデザインで全体を見る
+            </button>
+          </li>
+          <li class="tp-sample" data-preview-theme="dark">
+            <h3 class="tp-sample__title">ダーク</h3>
+            <div class="tp-sample__card">
+              <p>サンプルのカード</p>
+              <span class="badge badge--live">公開中</span>
+              <span class="badge badge--soon">準備中</span>
+            </div>
+            <div class="tp-gauge" aria-hidden="true"><span class="tp-gauge__bar"></span></div>
+            <div class="tp-row">
+              <button class="button button--primary" type="button">ボタン</button>
+              <button class="button button--secondary" type="button">サブ</button>
+            </div>
+            <button class="button button--primary" type="button" data-preview-pick="dark">
+              このデザインで全体を見る
+            </button>
+          </li>
+          <li class="tp-sample" data-preview-theme="white">
+            <h3 class="tp-sample__title">ホワイト</h3>
+            <div class="tp-sample__card">
+              <p>サンプルのカード</p>
+              <span class="badge badge--live">公開中</span>
+              <span class="badge badge--soon">準備中</span>
+            </div>
+            <div class="tp-gauge" aria-hidden="true"><span class="tp-gauge__bar"></span></div>
+            <div class="tp-row">
+              <button class="button button--primary" type="button">ボタン</button>
+              <button class="button button--secondary" type="button">サブ</button>
+            </div>
+            <button class="button button--primary" type="button" data-preview-pick="white">
+              このデザインで全体を見る
+            </button>
+          </li>
+          <li class="tp-sample" data-preview-theme="cute">
+            <h3 class="tp-sample__title">可愛い</h3>
+            <div class="tp-sample__card">
+              <p>サンプルのカード</p>
+              <span class="badge badge--live">公開中</span>
+              <span class="badge badge--soon">準備中</span>
+            </div>
+            <div class="tp-gauge" aria-hidden="true"><span class="tp-gauge__bar"></span></div>
+            <div class="tp-row">
+              <button class="button button--primary" type="button">ボタン</button>
+              <button class="button button--secondary" type="button">サブ</button>
+            </div>
+            <button class="button button--primary" type="button" data-preview-pick="cute">
+              このデザインで全体を見る
+            </button>
+          </li>
+          <li class="tp-sample" data-preview-theme="cool">
+            <h3 class="tp-sample__title">クール</h3>
+            <div class="tp-sample__card">
+              <p>サンプルのカード</p>
+              <span class="badge badge--live">公開中</span>
+              <span class="badge badge--soon">準備中</span>
+            </div>
+            <div class="tp-gauge" aria-hidden="true"><span class="tp-gauge__bar"></span></div>
+            <div class="tp-row">
+              <button class="button button--primary" type="button">ボタン</button>
+              <button class="button button--secondary" type="button">サブ</button>
+            </div>
+            <button class="button button--primary" type="button" data-preview-pick="cool">
+              このデザインで全体を見る
+            </button>
+          </li>
+          <li class="tp-sample" data-preview-theme="metal">
+            <h3 class="tp-sample__title">メタリック</h3>
+            <div class="tp-sample__card">
+              <p>サンプルのカード</p>
+              <span class="badge badge--live">公開中</span>
+              <span class="badge badge--soon">準備中</span>
+            </div>
+            <div class="tp-gauge" aria-hidden="true"><span class="tp-gauge__bar"></span></div>
+            <div class="tp-row">
+              <button class="button button--primary" type="button">ボタン</button>
+              <button class="button button--secondary" type="button">サブ</button>
+            </div>
+            <button class="button button--primary" type="button" data-preview-pick="metal">
+              このデザインで全体を見る
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" aria-labelledby="tp-parts">
+        <h2 id="tp-parts">部品の見本(選んだデザインで表示)</h2>
+
+        <h3>文字とリンク</h3>
+        <p>
+          本文の文字です。<a href="#tp-parts">リンクの見た目</a
+          >と、<small>小さな注釈</small>を確認します。
+        </p>
+
+        <h3>ボタンとバッジ</h3>
+        <div class="tp-row">
+          <button class="button button--primary" type="button">プライマリ</button>
+          <button class="button button--secondary" type="button">セカンダリ</button>
+          <button class="button button--primary" type="button" disabled>無効</button>
+          <span class="badge badge--live">公開中</span>
+          <span class="badge badge--soon">準備中</span>
+        </div>
+
+        <h3>カード</h3>
+        <div class="grid">
+          <article class="card">
+            <h4 class="card__title">カードのタイトル</h4>
+            <p class="card__text">カードの本文です。面・枠・影・丸みを確認します。</p>
+          </article>
+          <article class="card">
+            <h4 class="card__title">もうひとつのカード</h4>
+            <p class="card__text">並べたときの、まとまりを見ます。</p>
+          </article>
+        </div>
+
+        <h3>フォーム</h3>
+        <div class="tp-field">
+          <label for="tp-input">ニックネーム</label>
+          <input id="tp-input" type="text" value="ノリト" />
+          <label for="tp-select">職種</label>
+          <select id="tp-select">
+            <option>エンジニア</option>
+            <option>営業</option>
+          </select>
+        </div>
+
+        <h3>ゲームの画面のイメージ</h3>
+        <div class="tp-sample">
+          <div class="tp-gauge" role="img" aria-label="距離のゲージ(見本)">
+            <span class="tp-gauge__bar"></span>
+          </div>
+          <p class="tp-word"><small>よみ: でばっぐ</small>debug</p>
+        </div>
+        <p>
+          ゲームの場面の背景・キャラクターの絵は、ライトの配色向けに描いたままです(この見本には含めていません)。
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>
