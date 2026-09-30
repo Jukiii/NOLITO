@@ -47,6 +47,9 @@ describe("view.js・main.js が探す目印が、HTML にある", () => {
   it("用語確認・説明・ミスした語の目印が、そろっている", () => {
     for (const hook of [
       "data-mode-list",
+      "data-ready",
+      "data-ready-notice",
+      "data-ready-start",
       "data-role-fieldset",
       "data-explanation-option",
       "data-show-explanation",

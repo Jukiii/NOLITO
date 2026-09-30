@@ -16,9 +16,9 @@ describe("難易度選択の HTML", () => {
       html.indexOf("data-difficulty-fieldset"),
       html.indexOf("data-explanation-option"),
     );
-    assert.match(fieldset, /<legend>難易度を選ぶ<\/legend>/);
+    assert.match(fieldset, /<label for="setup-difficulty">難易度<\/label>/);
     assert.match(fieldset, /data-difficulty-list/);
-    assert.match(fieldset, /data-difficulty-hint hidden/);
+    assert.match(fieldset, /data-difficulty-hint\s+hidden/);
     assert.match(
       fieldset,
       /<div class="game-setup__rules" aria-live="polite" data-difficulty-info hidden>/,

@@ -23,6 +23,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 題名の頭に状態を付ける(運営者の決め。2026-09-30): **【要対応】**= 運営者の作業待ち、**【保留】**= 時期待ち、**【承認済み】**= 運営者は承認済みで Claude が実装する番。状態が変わったら、題名も直す。
 - 運営者からの依頼(`.github/ISSUE_TEMPLATE/request.md`)は **【依頼（要対応）】** で始まる。Claude が対応したら **【依頼（対応済み）】**、待ちなら **【依頼（保留）】** に変えて、結果(変更・PR・テスト・未対応)をコメントする。**「依頼」の Issue は、運営者がクローズする。Claude は閉じない。**
 - 「依頼」以外の Issue は、内容が済んだら Claude が閉じてよい(運営者の指示があれば従う)。
+- **Issue のコメント・Issue の作成・PR の説明には、運営者(`@Jukiii`)へのメンションを付ける**(運営者の決め。2026-09-30)。通知が届き、見落とさないため。
 - 題名にサイト内のパス(`/ads-policy/` など)を入れるとき、Git Bash では、引数の先頭の `/` がパスに変換される。**題名は、文字(【…】など)で始めること**。
 
 ## 構成
@@ -309,6 +310,13 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 語の任意項目 **`typing`**(英小文字・数字・`-`。`japanese` の小文字と同じつづり)がある語は、英語の表記で出し、`reading` は日本語のよみがなのまま、入力は英字を**つづりのとおり**に打つ(`romaji.js` の `createWordMatcher`。`typing` がなければ従来どおり読みからローマ字)。ローマ字の書き方の設定は、この語には効かない。決定は `docs/decisions/0056-english-typed-terms.md`。
 - `romaji` は、書かないか `["<typing>"]` だけ。`id`・`reading`・`difficulty`(読みの長さ)は変えない。**距離の文字数の分は `canonicalLengthOf(word)` を使う**(`createMatcher(word.reading)` を直接呼ばない)。マッチャーは、必ず `newMatcher(word)`(語のオブジェクトを渡す)で作る。
 - いまは、エンジニアの 15 語だけ(範囲は運営者の確認待ち)。語を足すときは、`typing` を書き、`npm run build:vocabulary`・`npm run vocab:review`・`tests/balance.test.js` を確認する。
+
+## ゲームのスタートまでの操作(Issue #140)
+
+- 決定は `docs/decisions/0059-game-start-flow.md`。連続タイピングの進み方は **ready → intro → play → outro → 結果**。「スタート」で `beginGame` が `session.phase = "ready"` にして準備の枠(`data-ready`)を出し、**半角スペース**(か枠のボタン)で `leaveReady()` → `beginIntro()`。**`beginIntro` を呼ぶのは `leaveReady` だけ**(自動で始めない)。**全角スペース**は始めず、枠の中の通知(`data-ready-notice`。`role="alert"`)で知らせる。それ以外の文字は無視(ミスにも数えない)。用語確認には準備がない。
+- 判断は `ready.js` の `readyAction(char)`(DOM・時計に触れない)。全角スペースはソースに直接書かず `String.fromCodePoint(0x3000)`。準備の枠に `data-chase-only` を付けない(`showPlay` が再表示するため)。`hideReady` は `clearStaging` の最後で呼ぶ(`tests/rule-cues.test.js` が先頭の並びを検査)。
+- スタート前の選択(モード・職種・追ってくる人・難易度)は**ドロップダウン**(`<select>`。`data-*-list`)。ロック中は `disabled` + 文字のバッジ。そのほかの設定は、ダッシュボードの「くわしい設定」(`<details class="game-setup__more">`)に畳む(プレイ画面には、開閉の部品を置かない)。
+- 前回の選択は、ゲーム設定(`settings.js`)の `lastChoice`(`mode`・`job`・`role`・`difficulty`)に保存する。記録のキー・版(5)は変えない。いま選べない値は、選ばない。
 
 ## 未登録プレイ・オンラインランキング(Phase 19)
 

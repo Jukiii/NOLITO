@@ -78,7 +78,9 @@
               <li>
                 追ってくる人が上の役職ほど、速く、厳しくなる。役職によって、出る言葉の長さも、特殊ルール(ダッシュ・ミスで加速・追い詰め)も違う。役職を選ぶと、説明が出る。
               </li>
-              <li>日本語入力(IME)はオフにして、半角英数で入力する。</li>
+              <li>
+                日本語入力(IME)はオフにして、半角英数で入力する。スタートを押したあと、準備ができたら、スペースキー(半角)を押すと始まる(ボタンをタップしても始められる)。
+              </li>
               <li>
                 音は、初期設定では「なし」。スタートの前の設定で、効果音・BGM・音量を選べる(プレイ中の「音」ボタンでも切り替えられる)。
               </li>
@@ -92,147 +94,176 @@
           </div>
 
           <form class="game-setup" data-setup>
-            <fieldset class="job-select">
-              <legend>モードを選ぶ</legend>
-              <div class="job-select__list" data-mode-list></div>
-            </fieldset>
-            <fieldset class="job-select">
-              <legend>職種を選ぶ</legend>
-              <div class="job-select__list" data-job-list></div>
-            </fieldset>
-            <fieldset class="job-select" data-role-fieldset>
-              <legend>追ってくる人を選ぶ</legend>
-              <div class="job-select__list job-select__list--roles" data-role-list></div>
-              <div class="game-setup__rules" aria-live="polite" data-role-rules hidden>
-                <p class="game-setup__rules-title">
-                  <strong data-role-rules-name></strong>の特殊ルール
+            <div class="game-setup__choices">
+              <div class="game-setup__choice">
+                <label for="setup-mode">モード</label>
+                <select
+                  class="game-input__field game-setup__select"
+                  id="setup-mode"
+                  data-mode-list
+                ></select>
+              </div>
+              <div class="game-setup__choice">
+                <label for="setup-job">職種</label>
+                <select
+                  class="game-input__field game-setup__select"
+                  id="setup-job"
+                  data-job-list
+                ></select>
+              </div>
+              <div class="game-setup__choice" data-role-fieldset>
+                <label for="setup-role">追ってくる人</label>
+                <select
+                  class="game-input__field game-setup__select"
+                  id="setup-role"
+                  aria-describedby="setup-role-hint"
+                  data-role-list
+                ></select>
+                <p class="game-setup__hint" id="setup-role-hint" data-role-hint hidden></p>
+                <div class="game-setup__rules" aria-live="polite" data-role-rules hidden>
+                  <p class="game-setup__rules-title">
+                    <strong data-role-rules-name></strong>の特殊ルール
+                  </p>
+                  <ul class="game-setup__rules-list" data-role-rules-list></ul>
+                </div>
+              </div>
+              <div class="game-setup__choice" data-difficulty-fieldset>
+                <label for="setup-difficulty">難易度</label>
+                <select
+                  class="game-input__field game-setup__select"
+                  id="setup-difficulty"
+                  aria-describedby="setup-difficulty-hint"
+                  data-difficulty-list
+                ></select>
+                <p
+                  class="game-setup__hint"
+                  id="setup-difficulty-hint"
+                  data-difficulty-hint
+                  hidden
+                ></p>
+                <div class="game-setup__rules" aria-live="polite" data-difficulty-info hidden>
+                  <p class="game-setup__rules-title" data-difficulty-info-text></p>
+                  <p class="game-setup__hint" data-difficulty-best hidden></p>
+                </div>
+              </div>
+            </div>
+            <p class="game-setup__hint">前回の選択と設定は、この端末に、引き継がれます。</p>
+            <details class="game-setup__more">
+              <summary>くわしい設定(説明・演出・苦手な語・ローマ字・音)</summary>
+              <div class="game-setup__option" data-explanation-option>
+                <input type="checkbox" id="show-explanation" data-show-explanation />
+                <label for="show-explanation">プレイ中に、用語の説明も表示する</label>
+              </div>
+              <div class="game-setup__option game-setup__option--field" data-graphics-option>
+                <div class="game-setup__checkbox-row">
+                  <input type="checkbox" id="simple-graphics" data-simple-graphics />
+                  <label for="simple-graphics">グラフィックを抑える(低性能な端末向け)</label>
+                </div>
+                <p class="game-setup__hint" id="simple-graphics-hint">
+                  場面の背景の絵・クリア/ゲームオーバー時の紙吹雪や光の演出を、表示しません。「動きを減らす」設定(フッターのサイト全体の設定)とは別です。
                 </p>
-                <ul class="game-setup__rules-list" data-role-rules-list></ul>
               </div>
-              <p class="game-setup__hint" data-role-hint hidden></p>
-            </fieldset>
-            <fieldset class="job-select" data-difficulty-fieldset>
-              <legend>難易度を選ぶ</legend>
-              <div class="job-select__list" data-difficulty-list></div>
-              <p class="game-setup__hint" data-difficulty-hint hidden></p>
-              <div class="game-setup__rules" aria-live="polite" data-difficulty-info hidden>
-                <p class="game-setup__rules-title" data-difficulty-info-text></p>
-                <p class="game-setup__hint" data-difficulty-best hidden></p>
+              <div class="game-setup__option game-setup__option--field" data-line-option>
+                <label for="line-level">セリフの表示</label>
+                <select
+                  class="game-input__field"
+                  id="line-level"
+                  aria-describedby="line-level-hint"
+                  data-line-level
+                >
+                  <option value="few">少なめ</option>
+                  <option value="normal">ふつう</option>
+                  <option value="many">多め</option>
+                </select>
+                <p class="game-setup__hint" id="line-level-hint">
+                  追ってくる人の吹き出しの、出る間隔と、表示している時間です。
+                </p>
               </div>
-            </fieldset>
-            <div class="game-setup__option" data-explanation-option>
-              <input type="checkbox" id="show-explanation" data-show-explanation />
-              <label for="show-explanation">プレイ中に、用語の説明も表示する</label>
-            </div>
-            <div class="game-setup__option game-setup__option--field" data-graphics-option>
-              <div class="game-setup__checkbox-row">
-                <input type="checkbox" id="simple-graphics" data-simple-graphics />
-                <label for="simple-graphics">グラフィックを抑える(低性能な端末向け)</label>
+              <div class="game-setup__option game-setup__option--field" data-staging-option>
+                <div class="game-setup__checkbox-row">
+                  <input type="checkbox" id="skip-staging" data-skip-staging />
+                  <label for="skip-staging">演出を自動で飛ばす</label>
+                </div>
+                <p class="game-setup__hint" id="skip-staging-hint">
+                  開始・終わりの演出(「よーい…スタート!」「逃げ切った!」など)を、押さなくても、すぐに飛ばします。
+                </p>
               </div>
-              <p class="game-setup__hint" id="simple-graphics-hint">
-                場面の背景の絵・クリア/ゲームオーバー時の紙吹雪や光の演出を、表示しません。「動きを減らす」設定(フッターのサイト全体の設定)とは別です。
-              </p>
-            </div>
-            <div class="game-setup__option game-setup__option--field" data-line-option>
-              <label for="line-level">セリフの表示</label>
-              <select
-                class="game-input__field"
-                id="line-level"
-                aria-describedby="line-level-hint"
-                data-line-level
-              >
-                <option value="few">少なめ</option>
-                <option value="normal">ふつう</option>
-                <option value="many">多め</option>
-              </select>
-              <p class="game-setup__hint" id="line-level-hint">
-                追ってくる人の吹き出しの、出る間隔と、表示している時間です。
-              </p>
-            </div>
-            <div class="game-setup__option game-setup__option--field" data-staging-option>
-              <div class="game-setup__checkbox-row">
-                <input type="checkbox" id="skip-staging" data-skip-staging />
-                <label for="skip-staging">演出を自動で飛ばす</label>
+              <div class="game-setup__option game-setup__option--field" data-weak-option>
+                <label for="weak-boost">苦手な語の出やすさ</label>
+                <select
+                  class="game-input__field"
+                  id="weak-boost"
+                  aria-describedby="weak-boost-hint"
+                  data-weak-boost
+                >
+                  <option value="off">なし(完全にランダム)</option>
+                  <option value="normal">ふつう</option>
+                  <option value="high">多め</option>
+                </select>
+                <p class="game-setup__hint" id="weak-boost-hint">
+                  直近20プレイでミスした語が、出やすくなります。同じゲームの中で、同じ語は出ません。
+                </p>
               </div>
-              <p class="game-setup__hint" id="skip-staging-hint">
-                開始・終わりの演出(「よーい…スタート!」「逃げ切った!」など)を、押さなくても、すぐに飛ばします。
-              </p>
-            </div>
-            <div class="game-setup__option game-setup__option--field" data-weak-option>
-              <label for="weak-boost">苦手な語の出やすさ</label>
-              <select
-                class="game-input__field"
-                id="weak-boost"
-                aria-describedby="weak-boost-hint"
-                data-weak-boost
-              >
-                <option value="off">なし(完全にランダム)</option>
-                <option value="normal">ふつう</option>
-                <option value="high">多め</option>
-              </select>
-              <p class="game-setup__hint" id="weak-boost-hint">
-                直近20プレイでミスした語が、出やすくなります。同じゲームの中で、同じ語は出ません。
-              </p>
-            </div>
-            <div class="game-setup__option game-setup__option--field" data-input-style-option>
-              <label for="input-style">ローマ字の書き方</label>
-              <select
-                class="game-input__field"
-                id="input-style"
-                aria-describedby="input-style-hint"
-                data-input-style
-              >
-                <option value="standard">標準(ヘボン式で表示)</option>
-                <option value="kunrei">訓令式で表示</option>
-                <option value="strict">表示どおりだけ</option>
-              </select>
-              <p class="game-setup__hint" id="input-style-hint">
-                標準: shi・chi・tsu などで表示します。si・ti・tu
-                など、ほかの書き方でも入力できます。 訓令式: si・ti・tu
-                などで表示します。ほかの書き方でも入力できます。 表示どおりだけ:
-                表示された書き方以外は、ミスになります。
-              </p>
-            </div>
-            <div class="game-setup__option game-setup__option--field" data-sound-option>
-              <label for="sound-mode">音</label>
-              <select
-                class="game-input__field"
-                id="sound-mode"
-                aria-describedby="sound-hint"
-                data-sound-mode
-              >
-                <option value="off">なし</option>
-                <option value="se">効果音だけ</option>
-                <option value="all">効果音 + BGM</option>
-              </select>
-              <p class="game-setup__volume">
-                <label for="sound-volume">音量</label>
-                <output for="sound-volume" data-sound-volume-value>50</output>
-              </p>
-              <input
-                class="game-setup__range"
-                id="sound-volume"
-                type="range"
-                min="0"
-                max="100"
-                step="5"
-                value="50"
-                aria-describedby="sound-hint"
-                data-sound-volume
-              />
-              <div class="game-setup__checkbox-row">
-                <input type="checkbox" id="simple-sound" data-simple-sound />
-                <label for="simple-sound">BGMを簡略化する(低性能な端末向け)</label>
+              <div class="game-setup__option game-setup__option--field" data-input-style-option>
+                <label for="input-style">ローマ字の書き方</label>
+                <select
+                  class="game-input__field"
+                  id="input-style"
+                  aria-describedby="input-style-hint"
+                  data-input-style
+                >
+                  <option value="standard">標準(ヘボン式で表示)</option>
+                  <option value="kunrei">訓令式で表示</option>
+                  <option value="strict">表示どおりだけ</option>
+                </select>
+                <p class="game-setup__hint" id="input-style-hint">
+                  標準: shi・chi・tsu などで表示します。si・ti・tu
+                  など、ほかの書き方でも入力できます。 訓令式: si・ti・tu
+                  などで表示します。ほかの書き方でも入力できます。 表示どおりだけ:
+                  表示された書き方以外は、ミスになります。
+                </p>
               </div>
-              <div>
-                <button class="button button--secondary" type="button" data-sound-test>
-                  音を試す
-                </button>
+              <div class="game-setup__option game-setup__option--field" data-sound-option>
+                <label for="sound-mode">音</label>
+                <select
+                  class="game-input__field"
+                  id="sound-mode"
+                  aria-describedby="sound-hint"
+                  data-sound-mode
+                >
+                  <option value="off">なし</option>
+                  <option value="se">効果音だけ</option>
+                  <option value="all">効果音 + BGM</option>
+                </select>
+                <p class="game-setup__volume">
+                  <label for="sound-volume">音量</label>
+                  <output for="sound-volume" data-sound-volume-value>50</output>
+                </p>
+                <input
+                  class="game-setup__range"
+                  id="sound-volume"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="5"
+                  value="50"
+                  aria-describedby="sound-hint"
+                  data-sound-volume
+                />
+                <div class="game-setup__checkbox-row">
+                  <input type="checkbox" id="simple-sound" data-simple-sound />
+                  <label for="simple-sound">BGMを簡略化する(低性能な端末向け)</label>
+                </div>
+                <div>
+                  <button class="button button--secondary" type="button" data-sound-test>
+                    音を試す
+                  </button>
+                </div>
+                <p class="game-setup__hint" id="sound-hint">
+                  初期設定は「なし」です。音は、このブラウザの中で作るので、通信しません。音を出す前に、音量に気をつけてください。プレイ中の「音」ボタンで、いつでも切り替えられます。BGMを簡略化すると、メロディーを鳴らさず、低音だけにします。
+                </p>
               </div>
-              <p class="game-setup__hint" id="sound-hint">
-                初期設定は「なし」です。音は、このブラウザの中で作るので、通信しません。音を出す前に、音量に気をつけてください。プレイ中の「音」ボタンで、いつでも切り替えられます。BGMを簡略化すると、メロディーを鳴らさず、低音だけにします。
-              </p>
-            </div>
+            </details>
             <button class="button button--primary" type="submit" data-start disabled>
               スタート
             </button>
@@ -483,6 +514,19 @@
               <p class="game-play__note" data-check-note hidden>
                 追ってくる人も、時間制限もありません。ミスしても大丈夫です。
               </p>
+
+              <div class="game-ready" data-ready hidden>
+                <p class="game-ready__title">準備ができたら、スペースキーを押すとスタート</p>
+                <p class="game-ready__hint">
+                  日本語入力(IME)をオフにして、半角英数にしてから押してください。
+                </p>
+                <p class="game-ready__notice" role="alert" data-ready-notice hidden>
+                  全角のスペースが入力されました。日本語入力をオフにして(半角英数にして)、もう一度スペースキーを押してください。
+                </p>
+                <button class="button button--primary" type="button" data-ready-start>
+                  スタート(タップでも始められます)
+                </button>
+              </div>
 
               <div class="game-input" data-input-box>
                 <label class="game-input__label" for="game-input">

@@ -295,6 +295,7 @@ describe("設定への反映(settings.js)", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
   });
 
