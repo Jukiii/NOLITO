@@ -140,12 +140,16 @@ describe("配色(WCAG AA)", () => {
     }
   });
 
-  it("「今のまま」は tokens.css のライト、「ダーク」は tokens.css のダークと同じ値", () => {
+  it("採用した4案は、tokens.css の本番のテーマと同じ値(今のまま=デフォルト・ホワイト・クール=ダーク・可愛い=プリティ)", () => {
     const light = colorsIn(blockOf(tokensCss, ":root {"));
-    const dark = { ...light, ...colorsIn(blockOf(tokensCss, ':root[data-theme="dark"]')) };
-    for (const name of NAMES) {
-      assert.equal(palettes.current[name], light[name], `current: ${name}`);
-      assert.equal(palettes.dark[name], dark[name], `dark: ${name}`);
+    const adopted = {
+      current: light,
+      white: { ...light, ...colorsIn(blockOf(tokensCss, ':root[data-theme="white"]')) },
+      cool: { ...light, ...colorsIn(blockOf(tokensCss, ':root[data-theme="dark"]')) },
+      cute: { ...light, ...colorsIn(blockOf(tokensCss, ':root[data-theme="pretty"]')) },
+    };
+    for (const [id, tokens] of Object.entries(adopted)) {
+      for (const name of NAMES) assert.equal(palettes[id][name], tokens[name], `${id}: ${name}`);
     }
   });
 

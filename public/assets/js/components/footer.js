@@ -4,8 +4,10 @@ import { el } from "./dom.js";
 // テーマの選択肢(値は components/theme.js の THEMES と同じ)
 const THEME_OPTIONS = [
   { value: "system", label: "システムの設定に合わせる" },
-  { value: "light", label: "ライト" },
+  { value: "light", label: "デフォルト" },
+  { value: "white", label: "ホワイト" },
   { value: "dark", label: "ダーク" },
+  { value: "pretty", label: "プリティ" },
 ];
 
 // 文字サイズの選択肢(値は components/font-size.js の FONT_SIZES と同じ)

@@ -363,6 +363,8 @@ Phase 21 は、複数の PR に分ける(計画は `docs/decisions/0046-phase-21
 
 ### ライト・ダーク・システムテーマ(Phase 21 PR 1)
 
+> **Phase 31 で 4 種に変わった**(決定 `docs/decisions/0058-theme-adoption.md`): 値は `light`(デフォルト)・`white`(ホワイト)・`dark`(ダーク = 濃い紺のクール)・`pretty`(プリティ)・`system`。色に加え、線の太さ・丸み・影(`--shadow-primary` を含む)も、`tokens.css` の `:root[data-theme="…"]` が持つ。`system` の OS ダークは、ホワイト・プリティの明示を除いて、ダークになる。**アクセント色の「共通」は、なくなった**(テーマごと)。FOUC のスクリプトは `/^(light|white|dark|pretty)$/.test(t)`。新しいテーマを足すときは、`theme.js`・`tokens.css`(`@media` の `:not()` の一覧も)・`footer.js`・FOUC(全ページ + `render.mjs`)・`tests/theme.test.js` をそろえる。以下の記述は、Phase 21 当時のもの。
+
 - 選べる項目は「ライト」「ダーク」「システム(既定)」の3つ。保存は `public/assets/js/components/theme.js`(DOM に依存しない純粋な関数)が、`localStorage` の**新しいキー** `nolito:theme:v1`(値は `"light"` / `"dark"` / `"system"`)に行う。ゲーム・ツールの記録・設定のキーとは別(サイト全体の見た目の設定のため)。
 - 反映は `<html data-theme="light|dark|system">`。CSS は `tokens.css` の3段階: `:root`(ライトが既定)→ `@media (prefers-color-scheme: dark)` かつ `:not([data-theme="light"])` でダークへ(**システム**選択時、OSの設定に追従)→ `:root[data-theme="dark"]` で、OSの設定に関係なく強制的にダークへ。**「ライト」を明示すると、OSがダークでも、ライトのまま**。**色はすべてトークン(`var(--color-...)`)経由**という既存ルールを守り、ダークの上書きも、同じトークン名の値を変えるだけ(新しいトークンを増やさない)。
 - **アクセント色(`--color-accent`・`--color-on-accent`)は、ライト・ダーク共通**(意図的に上書きしない。暗い背景でも明るい背景でも、はっきり見えるため)。**配色は、すべて WCAG AA(通常文字 4.5:1・UI部品 3:1)以上のコントラスト比になるよう計算して決めた**(`tests/theme.test.js` が、実際の `tokens.css` の値から比率を検査する)。新しいトークンを足す・ダークの値を変えるときは、この検査を通すこと。
@@ -592,4 +594,4 @@ Phase 29 は、契約・審査・ポリシーの版(同意)に関わるため、
 
 - `/theme-preview/`(`noindex`。リンクなし。決定は `docs/decisions/0057-design-preview.md`)は、サイト全体のデザイン案(今のまま・ダーク・ホワイト・可愛い・クール・メタリック)を、選んで見比べる見本。**本番のテーマ(`nolito:theme:v1`・`data-theme`・`isTheme`)には触れない**。属性は `data-preview-theme`、キーは `nolito:theme-preview:v1`(`?theme=`)。
 - 案は `assets/css/theme-preview.css`(見本ページだけが読む)の、トークンの上書き。`current`・`dark` は `tokens.css` と同じ値(テストが検査)。新しい案の配色は、AA を満たすこと(テストが検査)。`--shadow-pop` は、案ごとに宣言し直す。stylelint の `no-descending-specificity` のため、セレクタは詳細度の低い順(`[data-…]` → `:root[data-…]`)に書く。
-- 案を本番に採用するときは、上書きを `tokens.css` へ移す。選択肢に足すなら、`theme.js`・アカウント同期の検証・FOUC のスクリプト・`tests/theme.test.js` をそろえる。
+- **採用済み(2026-09-30)**: 今のまま = デフォルト・ホワイト・クール = ダーク・可愛い = プリティ(0058)。値は `tokens.css` と同じで、テストが検査する。ダーク(以前の暗い茶色)・メタリックは、見本だけに残る。
