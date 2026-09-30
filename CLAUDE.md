@@ -587,3 +587,9 @@ Phase 29 は、契約・審査・ポリシーの版(同意)に関わるため、
 - **既知の制限**: 管理画面の編集は D1 にだけ反映される。`public/data/affiliates.json` は、D1 のないプレビュー環境のフォールバックとして残り、管理画面では更新されない(products と同じ)。
 - **公開の動きは変わらない**: `config/ads.js` の `enabled: false` のまま。D1 の `affiliate_links` は最初は空。プライバシーポリシーの版は上げない(同じサイト内の JSON だけ)。本番の D1 に `0009` を実行する(`docs/auth-setup.md`)。管理画面を使うには、本番に `ADMIN_EMAILS` の設定が要る。
 - 次: 広告事業者のスクリプト(契約・審査・ポリシー版 5・同意の拡張が先。Issue #122・#123)。
+
+## デザイン見本(Phase 31)
+
+- `/theme-preview/`(`noindex`。リンクなし。決定は `docs/decisions/0057-design-preview.md`)は、サイト全体のデザイン案(今のまま・ダーク・ホワイト・可愛い・クール・メタリック)を、選んで見比べる見本。**本番のテーマ(`nolito:theme:v1`・`data-theme`・`isTheme`)には触れない**。属性は `data-preview-theme`、キーは `nolito:theme-preview:v1`(`?theme=`)。
+- 案は `assets/css/theme-preview.css`(見本ページだけが読む)の、トークンの上書き。`current`・`dark` は `tokens.css` と同じ値(テストが検査)。新しい案の配色は、AA を満たすこと(テストが検査)。`--shadow-pop` は、案ごとに宣言し直す。stylelint の `no-descending-specificity` のため、セレクタは詳細度の低い順(`[data-…]` → `:root[data-…]`)に書く。
+- 案を本番に採用するときは、上書きを `tokens.css` へ移す。選択肢に足すなら、`theme.js`・アカウント同期の検証・FOUC のスクリプト・`tests/theme.test.js` をそろえる。
