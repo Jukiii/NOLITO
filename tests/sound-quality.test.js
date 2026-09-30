@@ -49,7 +49,7 @@ describe("画面(HTML): 「BGMを簡略化する」のチェックボックス�
     const soundOption = html.slice(
       html.indexOf("data-sound-option"),
       html.indexOf("data-sound-option") +
-        html.slice(html.indexOf("data-sound-option")).indexOf("</div>\n            <button"),
+        html.slice(html.indexOf("data-sound-option")).indexOf("</div>\n            </details>"),
     );
     assert.match(soundOption, /data-simple-sound/);
   });

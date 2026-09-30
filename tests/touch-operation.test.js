@@ -7,27 +7,21 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
 
-describe("職種・役職の選択(job-option): ラベル全体がタップ対象(実ブラウザのタッチE2Eで確認済み)", () => {
+describe("開始前の選択(プルダウン): タップしやすい高さ(Issue #140)", () => {
   const css = read("public/assets/css/game.css");
 
-  it("input(実際のラジオボタン)は、透明なまま、ラベル全体(inset: 0)を覆う", () => {
+  it("選択欄(select)は、タップしやすい高さ(--tap-size)を持つ", () => {
     const block = css.slice(
-      css.indexOf(".job-option__input {"),
-      css.indexOf(".job-option__label {"),
-    );
-    assert.match(block, /position:\s*absolute;/);
-    assert.match(block, /inset:\s*0;/);
-    assert.match(block, /width:\s*100%;/);
-    assert.match(block, /height:\s*100%;/);
-    assert.match(block, /opacity:\s*0;/);
-  });
-
-  it("ラベル自体も、タップしやすい高さ(--tap-size)を持つ", () => {
-    const block = css.slice(
-      css.indexOf(".job-option__label {"),
-      css.indexOf(".job-option__label::before"),
+      css.indexOf(".game-setup__select {"),
+      css.indexOf(".game-setup__select {") + 150,
     );
     assert.match(block, /min-height:\s*var\(--tap-size\);/);
+  });
+
+  it("「くわしい設定」の見出し(summary)も、--tap-size を持つ", () => {
+    const start = css.indexOf(".game-setup__more > summary {");
+    assert.ok(start >= 0);
+    assert.match(css.slice(start, start + 300), /min-height:\s*var\(--tap-size\);/);
   });
 });
 

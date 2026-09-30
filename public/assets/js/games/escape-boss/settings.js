@@ -1,5 +1,6 @@
 // ゲームの設定(「プレイ中に、用語の説明も表示する」「グラフィックを抑える」「苦手な語の出やすさ」
-// 「ローマ字の書き方」「音」「音量」「BGMを簡略化する」「セリフの表示」「演出を自動で飛ばす」)。
+// 「ローマ字の書き方」「音」「音量」「BGMを簡略化する」「セリフの表示」「演出を自動で飛ばす」)と、
+// 前回選んだモード・職種・役職・難易度(開始の前の選択を、引き継ぐ。Issue #140)。
 // 記録(nolito:escape-boss:v1)とは、別のキーに保存する。
 // 保存できない環境(backend が null・書き込みに失敗)でも、落ちない。壊れた値・知らない値は、既定に戻す。
 
@@ -16,6 +17,21 @@ export const SETTINGS_KEY = "nolito:escape-boss:settings:v1";
 // 音は、既定でなし(仕事中に、突然音が出ないように)。音量は 0〜100
 // BGMを簡略化するは、既定でオフ(低性能な端末向け。グラフィックを抑える=Phase22 PR3とは別軸。Phase 23 PR3)
 // セリフの表示は、既定で「ふつう」。演出を自動で飛ばすは、既定でオフ(Phase 23 PR2)
+// 前回の選択は、id だけ(語・役職・難易度のデータに、その id があるかは、画面が確かめる。なければ既定)
+export const EMPTY_CHOICE = Object.freeze({ mode: "", job: "", role: "", difficulty: "" });
+const CHOICE_ID = /^[a-z0-9-]{1,30}$/;
+const choiceId = (value) => (typeof value === "string" && CHOICE_ID.test(value) ? value : "");
+
+export function normalizeChoice(raw) {
+  const value = typeof raw === "object" && raw !== null && !Array.isArray(raw) ? raw : {};
+  return {
+    mode: choiceId(value.mode),
+    job: choiceId(value.job),
+    role: choiceId(value.role),
+    difficulty: choiceId(value.difficulty),
+  };
+}
+
 export const DEFAULT_SETTINGS = Object.freeze({
   showExplanation: false,
   simpleGraphics: false,
@@ -26,6 +42,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
   simpleSound: false,
   lineLevel: DEFAULT_LINE_LEVEL,
   skipStaging: false,
+  lastChoice: EMPTY_CHOICE,
 });
 
 /** 読み込んだ値を、設定の形に整える(不正なら、既定)。 */
@@ -41,6 +58,7 @@ export function normalizeSettings(raw) {
     simpleSound: value.simpleSound === true,
     lineLevel: isLineLevel(value.lineLevel) ? value.lineLevel : DEFAULT_SETTINGS.lineLevel,
     skipStaging: value.skipStaging === true,
+    lastChoice: normalizeChoice(value.lastChoice),
   };
 }
 

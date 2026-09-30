@@ -82,7 +82,7 @@ describe("view.js のつなぎ", () => {
     assert.match(fn, /level,\s*masteries,/);
     assert.match(
       fn,
-      /renderSetup\(\{\s*jobs,\s*roles,\s*isUnlocked,\s*difficulties,\s*isDifficultyUnlocked,\s*bestOf,\s*masteries,?\s*\}\);/,
+      /renderSetup\(\{\s*jobs,\s*roles,\s*isUnlocked,\s*difficulties,\s*isDifficultyUnlocked,\s*bestOf,\s*masteries,\s*choice,?\s*\}\);/,
     );
     assert.match(fn, /renderLevel\(level\);/);
   });

@@ -78,6 +78,12 @@ export function createView(root) {
   const banner = $("[data-banner]");
   const bubble = $("[data-bubble]");
 
+  // 準備(スペースキーを押すまで、始まらない)の表示。全角スペースだったときの知らせも、ここで消す
+  const hideReady = () => {
+    $("[data-ready]").hidden = true;
+    $("[data-ready-notice]").hidden = true;
+  };
+
   // 開始・終わりの演出(バナー)を、出している間か
   const staging = () => !banner.hidden;
   // 演出を消す(場面の演出・バナー・吹き出し)。画面が替わるたびに呼ぶ
@@ -88,6 +94,7 @@ export function createView(root) {
     scene.dataset.outro = "";
     clearTimeout(bubbleTimer);
     bubble.hidden = true;
+    hideReady();
   }
 
   input.addEventListener("focus", () => {
@@ -112,7 +119,14 @@ export function createView(root) {
     else delete document.body.dataset.hideBottomNav;
   }
 
-  const checkedValue = (name) => root.querySelector(`input[name="${name}"]:checked`)?.value;
+  // 開始の前の選択(モード・職種・役職・難易度)は、ドロップダウン。選んでいる値を返す(なければ undefined)
+  const CHOICE_LISTS = {
+    mode: "[data-mode-list]",
+    job: "[data-job-list]",
+    role: "[data-role-list]",
+    difficulty: "[data-difficulty-list]",
+  };
+  const checkedValue = (name) => $(CHOICE_LISTS[name]).value || undefined;
   const currentMode = () => (checkedValue("mode") === "check" ? "check" : "chase");
 
   // 用語確認では、追ってくる人の選択・説明の設定(いつも表示する)を隠し、開始のボタンの文言を変える。
@@ -130,26 +144,10 @@ export function createView(root) {
     $("[data-start]").textContent = check ? "用語確認を始める" : "スタート";
   }
 
-  function option(name, { value, label, sub, checked, disabled, badge }) {
-    return el(
-      "label",
-      { class: "job-option" },
-      el("input", {
-        class: "job-option__input",
-        type: "radio",
-        name,
-        value,
-        checked,
-        disabled,
-      }),
-      el(
-        "span",
-        { class: "job-option__label" },
-        el("span", { class: "job-option__name" }, label),
-        sub ? el("span", { class: "job-option__sub" }, sub) : "",
-        badge ? el("span", { class: "badge badge--soon" }, badge) : "",
-      ),
-    );
+  // ドロップダウンの1項目。補足(熟練度・乗り物)・ロック中の印は、文字で添える(色だけに頼らない)
+  function option({ value, label, sub, selected, disabled, badge }) {
+    const text = `${label}${sub ? `(${sub})` : ""}${badge ? ` [${badge}]` : ""}`;
+    return el("option", { value, selected, disabled }, text);
   }
 
   // 選んだ役職の、特殊ルールの説明(ルールがなければ、その旨)。役職を選び直すたびに、更新する
@@ -173,18 +171,22 @@ export function createView(root) {
   let difficultyUnlockOf = () => true;
   let bestOfJob = () => null;
 
+  // 前回の難易度(開始の前の選択の引き継ぎ)。最初に一覧を作るときだけ使う
+  let initialDifficulty;
+
   function renderDifficultyList() {
     const roleId = checkedValue("role");
-    const previous = checkedValue("difficulty");
+    const previous = checkedValue("difficulty") ?? initialDifficulty;
+    initialDifficulty = undefined;
     const unlocked = (difficulty) => difficultyUnlockOf(difficulty, roleId);
     const selectable = setupDifficulties.find((item) => item.id === previous && unlocked(item));
     const selectedId = selectable ? previous : DEFAULT_DIFFICULTY;
     $("[data-difficulty-list]").replaceChildren(
       ...setupDifficulties.map((difficulty) =>
-        option("difficulty", {
+        option({
           value: difficulty.id,
           label: difficulty.name,
-          checked: unlocked(difficulty) && difficulty.id === selectedId,
+          selected: unlocked(difficulty) && difficulty.id === selectedId,
           disabled: !unlocked(difficulty),
           badge: unlocked(difficulty) ? "" : "ロック中",
         }),
@@ -228,40 +230,43 @@ export function createView(root) {
     isDifficultyUnlocked,
     bestOf,
     masteries = [],
+    choice = {},
   }) {
     setupRoles = roles;
     setupDifficulties = difficulties;
     difficultyUnlockOf = isDifficultyUnlocked;
     bestOfJob = bestOf;
-    const jobId = checkedValue("job");
-    let roleId = checkedValue("role");
+    // 選んでいる値がなければ(最初の描画)、前回の選択を使う。データにない id・ロック中の役職は、使わない
+    initialDifficulty ??= choice.difficulty || undefined;
+    const jobId = checkedValue("job") ?? choice.job;
+    let roleId = checkedValue("role") ?? choice.role;
     const selectedJob = jobs.some((job) => job.id === jobId) ? jobId : jobs[0].id;
     const selectableRole = roles.find((role) => role.id === roleId && isUnlocked(role));
     roleId = selectableRole ? roleId : roles.find((role) => isUnlocked(role)).id;
     const masteryById = new Map(masteries.map((mastery) => [mastery.id, mastery]));
 
-    const mode = currentMode();
+    const mode = checkedValue("mode") ?? choice.mode;
     $("[data-mode-list]").replaceChildren(
-      ...MODES.map((item) => option("mode", { ...item, checked: item.value === mode })),
+      ...MODES.map((item) => option({ ...item, selected: item.value === mode })),
     );
     $("[data-job-list]").replaceChildren(
       ...jobs.map((job) =>
-        option("job", {
+        option({
           value: job.id,
           label: job.name,
           sub: masteryById.get(job.id)?.name,
-          checked: job.id === selectedJob,
+          selected: job.id === selectedJob,
         }),
       ),
     );
     $("[data-role-list]").replaceChildren(
       ...roles.map((role) => {
         const unlocked = isUnlocked(role);
-        return option("role", {
+        return option({
           value: role.id,
           label: role.name,
           sub: role.vehicle,
-          checked: unlocked && role.id === roleId,
+          selected: unlocked && role.id === roleId,
           disabled: !unlocked,
           badge: unlocked ? "" : "ロック中",
         });
@@ -476,6 +481,8 @@ export function createView(root) {
       onSoundVolumeInput,
       onSoundVolumeChange,
       onSimpleSoundChange,
+      onChoiceChange,
+      onReadyStart,
       onSoundTest,
       onSoundToggle,
       onProfileChange,
@@ -506,6 +513,22 @@ export function createView(root) {
         renderDifficultyList();
       });
       $("[data-difficulty-list]").addEventListener("change", updateDifficultyInfo);
+      // 前回の選択を引き継ぐため、選び直したら、知らせる(上の更新のあとに動く)
+      for (const selector of Object.values(CHOICE_LISTS)) {
+        $(selector).addEventListener("change", () =>
+          onChoiceChange({
+            mode: currentMode(),
+            job: checkedValue("job") ?? "",
+            role: checkedValue("role") ?? "",
+            difficulty: checkedValue("difficulty") ?? "",
+          }),
+        );
+      }
+      // 準備の「スタート」ボタン(スペースキーを使えない・使いにくいとき用)。押したあとも、入力欄にフォーカスを戻す
+      $("[data-ready-start]").addEventListener("click", () => {
+        onReadyStart();
+        input.focus({ preventScroll: true });
+      });
       $("[data-show-explanation]").addEventListener("change", (event) =>
         onExplanationChange(event.target.checked),
       );
@@ -643,6 +666,7 @@ export function createView(root) {
       storageNotice,
       level,
       masteries,
+      choice,
     }) {
       renderSetup({
         jobs,
@@ -652,6 +676,7 @@ export function createView(root) {
         isDifficultyUnlocked,
         bestOf,
         masteries,
+        choice,
       });
       renderProfile({ profile, titles });
       renderLevel(level);
@@ -879,6 +904,19 @@ export function createView(root) {
         $("[data-miss]").textContent = "";
       }, 400);
     },
+
+    // 準備(連続タイピングの開始の前。スペースキーを押すまで、始まらない)。
+    // 全角スペースだったときは、始めずに、文字で知らせる(role="alert")
+    showReady() {
+      $("[data-ready-notice]").hidden = true;
+      $("[data-ready]").hidden = false;
+    },
+
+    showReadyNotice() {
+      $("[data-ready-notice]").hidden = false;
+    },
+
+    hideReady,
 
     showImeWarning(visible) {
       $("[data-ime-hint]").hidden = !visible;

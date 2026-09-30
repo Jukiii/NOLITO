@@ -213,6 +213,7 @@ describe("ゲームの設定", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
     assert.deepEqual(loadSettings(fakeBackend()), {
       showExplanation: false,
@@ -224,6 +225,7 @@ describe("ゲームの設定", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
   });
 
@@ -240,6 +242,7 @@ describe("ゲームの設定", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
     assert.notEqual(SETTINGS_KEY, STORAGE_KEY);
     assert.deepEqual([...backend.map.keys()], [SETTINGS_KEY]);
@@ -269,6 +272,7 @@ describe("ゲームの設定", () => {
           simpleSound: false,
           lineLevel: "normal",
           skipStaging: false,
+          lastChoice: { mode: "", job: "", role: "", difficulty: "" },
         },
         raw,
       );
@@ -283,6 +287,7 @@ describe("ゲームの設定", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
   });
 
@@ -297,6 +302,7 @@ describe("ゲームの設定", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
     assert.equal(saveSettings(null, { showExplanation: true }), false);
     const throwing = {
@@ -317,6 +323,7 @@ describe("ゲームの設定", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
     assert.equal(saveSettings(throwing, { showExplanation: true }), false);
   });
@@ -334,6 +341,7 @@ describe("ゲームの設定", () => {
           simpleSound: false,
           lineLevel: "normal",
           skipStaging: false,
+          lastChoice: { mode: "", job: "", role: "", difficulty: "" },
         }),
         true,
       );
@@ -347,6 +355,7 @@ describe("ゲームの設定", () => {
         simpleSound: false,
         lineLevel: "normal",
         skipStaging: false,
+        lastChoice: { mode: "", job: "", role: "", difficulty: "" },
       });
     }
     for (const bad of ["", "OFF", "low", "__proto__", "constructor", 1, null, true, [], {}]) {
@@ -363,6 +372,7 @@ describe("ゲームの設定", () => {
       simpleSound: false,
       lineLevel: "normal",
       skipStaging: false,
+      lastChoice: { mode: "", job: "", role: "", difficulty: "" },
     });
   });
 
@@ -383,6 +393,7 @@ describe("ゲームの設定", () => {
         simpleSound: false,
         lineLevel: "normal",
         skipStaging: false,
+        lastChoice: { mode: "", job: "", role: "", difficulty: "" },
       });
     }
     for (const bad of [
@@ -412,6 +423,7 @@ describe("ゲームの設定", () => {
         simpleSound: false,
         lineLevel: "normal",
         skipStaging: false,
+        lastChoice: { mode: "", job: "", role: "", difficulty: "" },
       },
     );
   });

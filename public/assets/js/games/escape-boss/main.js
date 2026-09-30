@@ -43,6 +43,7 @@ import {
   isDifficultyUnlocked as checkDifficultyUnlocked,
 } from "./difficulty.js";
 import { createTimeline, introSteps, outroSteps } from "./staging.js";
+import { readyAction } from "./ready.js";
 import { prefersReducedMotion } from "../../components/motion.js";
 import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
@@ -163,6 +164,7 @@ function refreshDashboard() {
       data.progress.jobs,
       jobs.map((job) => job.id),
     ),
+    choice: settings.lastChoice,
   });
 }
 
@@ -255,6 +257,12 @@ async function init() {
   view.setInputStyleSetting(settings.inputStyle);
   applySound();
   view.bind({
+    onChoiceChange: (choice) => {
+      // 前回の選択を、次に開いたときの初期値にする(記録とは別の設定に保存)
+      settings = normalizeSettings({ ...settings, lastChoice: choice });
+      saveSettings(backend, settings);
+    },
+    onReadyStart: leaveReady,
     onStart: ({ mode, jobId, roleId, difficulty }) => {
       sound.unlock(); // ブラウザは、操作のあとにしか、音を許さない。開始のクリックの中で、準備する
       return mode === "check" ? startCheck({ jobId }) : startGame({ jobId, roleId, difficulty });
@@ -647,10 +655,30 @@ async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
     showExplanation: settings.showExplanation,
     simpleGraphics: settings.simpleGraphics,
   });
-  view.announce(`ゲーム開始。職種は${job.name}。${role.name}が追ってきます。よーい…`);
+  view.announce(
+    `準備ができました。職種は${job.name}。${role.name}が追ってきます。日本語入力をオフにして、スペースキーを押すとスタートします。`,
+  );
   view.renderWord(words[0], session.matcher);
   view.renderStats(session.state, stage);
+  // スペースキーを押すまで、始まらない(準備。Issue #140)
+  session.phase = "ready";
+  view.showReady();
+}
+
+// 準備を終えて、開始の演出へ進む(スペースキー・スタートのボタンの、どちらからも)
+function leaveReady() {
+  if (session?.phase !== "ready") return;
+  view.hideReady();
+  session.phase = "intro";
+  view.announce(`ゲーム開始。追ってくる${session.role.name}から、逃げます。よーい…`);
   beginIntro();
+}
+
+// 準備の間の1文字。半角スペースで始める。全角スペースは、始めずに知らせる(IMEがオンのまま)
+function handleReadyChar(char) {
+  const action = readyAction(char);
+  if (action === "start") leaveReady();
+  else if (action === "fullwidth") view.showReadyNotice();
 }
 
 // 開始の演出。この間は、時間が進まず、入力も受け付けない(飛ばせる)。終わったら、ゲームを始める
@@ -860,6 +888,10 @@ function beginOutro(resultView, message) {
 function handleChar(char) {
   if (session?.kind === "check") {
     handleCheckChar(char);
+    return;
+  }
+  if (session?.phase === "ready") {
+    handleReadyChar(char);
     return;
   }
   // 開始・終わりの演出の間は、入力を受け付けない(間違いにも数えない)
