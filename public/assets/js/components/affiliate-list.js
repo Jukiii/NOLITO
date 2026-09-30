@@ -1,5 +1,5 @@
 // アフィリエイト・広告のリンクを、広告枠(data-ad-slot)に描く(Phase 29 PR 2)。
-// リンク情報は public/data/affiliates.json。検証・選び方は affiliates/schema.js。
+// リンク情報は GET /api/affiliates(D1。なければ public/data/affiliates.json)。検証・選び方は affiliates/schema.js。
 // 「PR」「広告」の文字・報酬の説明・外部サイトへの注意は、必ず一緒に出す(/ads-policy/ の「必要な表示」)。
 import { AFFILIATE_KINDS, linksForPlacement } from "../affiliates/schema.js";
 import { el } from "./dom.js";
@@ -52,7 +52,7 @@ export function affiliateNodes(data, placement) {
 export async function renderAffiliateSlot(slot, placement, { fetchJson = defaultFetch } = {}) {
   let nodes;
   try {
-    nodes = affiliateNodes(await fetchJson("/data/affiliates.json"), placement);
+    nodes = affiliateNodes(await fetchJson("/api/affiliates"), placement);
   } catch {
     nodes = [];
   }

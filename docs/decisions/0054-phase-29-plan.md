@@ -37,3 +37,15 @@
 ### PR2 のテスト結果
 
 - `tests/affiliates.test.js`(21 件): 検証(https だけ・配置・文字・重複)・枠ごとの選び方・カードの表示(文字・rel・textContent)・枠の描画(なければ非表示・失敗しても落ちない)・実データと方針の整合・styleguide の見本。`npm run check`(2102 件)・`npm run audit` 通過。
+
+## PR3 の決定(D1 への保存・公開 API・管理 API と管理画面)
+
+- **保存元を D1 の `affiliate_links` にした**(`migrations/0009_affiliate_links.sql`。products の 0008 と同じ形。最初は空)。公開の読み取りは新しい `GET /api/affiliates`(D1 → `{ version, links }`。D1 がなければ、静的な `public/data/affiliates.json` にフォールバック。`Cache-Control: public, max-age=60`)。静的ファイルを削除しない理由・新しい URL にした理由は、Phase 26 PR 2a(0051)と同じ。
+- **管理 API**(`/api/admin/affiliates`・`/api/admin/affiliates/:id`)は Phase 26 のプロダクト管理と同じ作り。`requireAdmin`・CSRF・監査ログ(`admin_audit_log`)・削除だけ再認証(0052)。検証は PR2 の `affiliates/schema.js` を共有し、一覧全体で重複も検査する。**リンクの `kind`(PR / 広告)の文字は、PR2 のとおり `kind` から決まる**ので、管理画面から書き換えられない。
+- **管理画面 `/account/admin/affiliates/`**: JSON の textarea による編集(products と同じ。専用フォームは作らない)。
+- **公開の動きは変えない**: `config/ads.js` の `enabled: false`・D1 は空・広告事業者のスクリプトなし。プライバシーポリシーの版は上げない(外部への送信・Cookie・計測は増えない)。
+- **既知の制限**: 管理画面の編集は D1 だけに反映される(静的ファイルは更新されない)。本番では、D1 に `0009` の実行と、`ADMIN_EMAILS` の設定が要る(後者は別の未対応事項)。
+
+### PR3 のテスト結果
+
+- `tests/affiliates-admin-api.test.js`: 公開 API(D1・フォールバック・503・405)・管理 API(認可・CSRF・重複 409・不正 400・id 不一致・再認証・監査ログ・並び順)・ページの配線。`tests/backup.test.js` の見本(`d1-export-sample.sql`)に新しいテーブルを足した。`tests/smoke.test.js` に `/api/affiliates`。`npm run check`・`npm run audit` 通過。

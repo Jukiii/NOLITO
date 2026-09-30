@@ -17,6 +17,8 @@ function healthyFetch(url) {
   if (pathname === "/api/me") return reply('{"enabled":false}', { type: "application/json" });
   if (pathname === "/api/products")
     return reply('{"version":5,"products":[]}', { type: "application/json" });
+  if (pathname === "/api/affiliates")
+    return reply('{"version":1,"links":[]}', { type: "application/json" });
   if (pathname.endsWith(".json")) return reply("{}", { type: "application/json" });
   if (pathname === "/favicon.svg") {
     return reply("<svg/>", {

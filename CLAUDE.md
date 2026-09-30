@@ -571,4 +571,13 @@ Phase 29 は、契約・審査・ポリシーの版(同意)に関わるため、
 - リンク情報は `public/data/affiliates.json`(version 1。`id`・`kind`・`title`・`description`・`advertiser`・`url`・`placements`)。**表示の文字「PR」(`affiliate`)・「広告」(`ad`)は、`kind` から決まる**(`affiliates/schema.js` の `AFFILIATE_KINDS`。自由に書けない)。`url` は https だけ。`placements` は `AD_PLACEMENTS` にあるものだけ(プレイ中は不可)。検証・選び方は `affiliates/schema.js`(DOM 非依存)。`public/data/` は誰でも読めるので、下書き・未契約のリンクを入れない。決定は `docs/decisions/0054-phase-29-plan.md`。
 - 表示は `components/affiliate-list.js`(`main.js` が `initAdSlots` に渡す)。「PR」「広告」のバッジ・提供元・外部サイトの注意・報酬の説明(`/ads-policy/` へのリンク)を、必ず一緒に出す。リンクは `rel="sponsored noopener noreferrer"`。文字は `el()` だけ。表示するリンクがなければ、枠は非表示に戻る。この安全側の挙動を緩めない。
 - **いまは、`config/ads.js` の `enabled: false`・`links: []`(何も表示しない)**。リンクを公開するときは、`enabled` を `true` にし、`/ads-policy/` とプライバシーポリシー §5 の『現在、掲載していません』を直す(`tests/affiliates.test.js` が検査する)。運営者の確認・広告事業者の契約は Issue #122・#123。カードを変えたら `/styleguide/` の見本も更新する。
-- 次の PR: 管理画面での管理(Phase 26 のプロダクト管理と同じ形)→ 広告事業者のスクリプト(ポリシー版 5・同意の拡張が先)。
+- 次の PR: 管理画面での管理(下の PR 3)→ 広告事業者のスクリプト(ポリシー版 5・同意の拡張が先)。
+
+### アフィリエイト・広告のリンクの保存と管理(Phase 29 PR 3)
+
+- リンク情報の保存元は、**D1 の `affiliate_links` テーブル**(`migrations/0009_affiliate_links.sql`。`id`・`sort_order`・`data`=リンク1件の JSON・`updated_at`。最初は空)。公開の読み取りは `GET /api/affiliates`(ログイン不要。D1 から `{ version, links }` を組み立てる。`env.DB` がない環境では、`public/data/affiliates.json` に静的にフォールバックする。どちらもなければ 503)。`components/affiliate-list.js` は、この API を読む。products(Phase 26 PR 2a)と同じ形。
+- 管理 API は `/api/admin/affiliates`(`GET` 一覧・`POST` 新規)と `/api/admin/affiliates/:id`(`GET`・`PUT`・`DELETE`)。すべて `requireAdmin`(書き込みは CSRF つき)。**削除だけ `recent: true`**(直近 10 分のログイン。`reauth-required`)。検証は `affiliates/schema.js` の `validateAffiliates` をそのまま使う(一覧全体の重複も検査)。`PUT` で本文の id が URL と違えば `400 affiliate-id-mismatch`。変更は `admin_audit_log`(`resource_type = 'affiliate'`。個人情報は自動で伏せられる)に残る。
+- 管理画面は `/account/admin/affiliates/`(`noindex`。`admin/affiliates-page.js`。1件分を JSON の textarea で編集する、products の管理画面と同じ形)。`/account/` の管理者向けのリンクから行く。
+- **既知の制限**: 管理画面の編集は D1 にだけ反映される。`public/data/affiliates.json` は、D1 のないプレビュー環境のフォールバックとして残り、管理画面では更新されない(products と同じ)。
+- **公開の動きは変わらない**: `config/ads.js` の `enabled: false` のまま。D1 の `affiliate_links` は最初は空。プライバシーポリシーの版は上げない(同じサイト内の JSON だけ)。本番の D1 に `0009` を実行する(`docs/auth-setup.md`)。管理画面を使うには、本番に `ADMIN_EMAILS` の設定が要る。
+- 次: 広告事業者のスクリプト(契約・審査・ポリシー版 5・同意の拡張が先。Issue #122・#123)。
