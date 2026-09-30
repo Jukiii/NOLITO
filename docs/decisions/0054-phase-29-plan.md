@@ -24,3 +24,16 @@
 
 - `tests/ads-policy.test.js`(6 件): リンク・「現在は掲載していない」がプライバシーポリシーと食い違わないこと・外部スクリプトを読まないこと・載せる場所が `AD_PLACEMENTS` と合っていること・必要な表示・検索用の情報。
 - `tests/contact-page.test.js` のフッターのリンクの期待値を更新。`npm run check` 通過。
+
+## PR2 の決定(リンク情報のデータ化と「PR」「広告」表示の部品)
+
+- **`public/data/affiliates.json`(version 1)**: `{ version, links: [...] }`。各リンクは `id`・`kind`(`affiliate` = 表示は「PR」/ `ad` = 「広告」)・`title`(60字)・`description`(120字)・`advertiser`(提供元。40字)・`url`(**https だけ**)・`placements`(`AD_PLACEMENTS` のうち 1 つ以上。重複なし)。**表示の文字は `kind` から決まり、データで自由に書けない**(「PR」「広告」の表示を、書き忘れ・書き換えできないようにする)。知らない項目・`< >`・制御文字・見えない文字は不可。`public/data/` は誰でも読めるので、**下書き・未契約のリンクを入れない**。
+- **検証は `affiliates/schema.js`**(DOM 非依存。将来の管理画面も、同じ検証を使う)。実行時は、不正な項目・重複を外して、ほかは表示する(products と同じ安全側)。1 つの枠に、最大 3 件。
+- **表示は `components/affiliate-list.js`**。カード(「PR」「広告」のバッジ・提供元・タイトルのリンク・説明・「外部サイトへ移動します。」)と、枠ごとの説明(報酬が入ることがある・`/ads-policy/` へのリンク)を、必ず一緒に出す。リンクは `rel="sponsored noopener noreferrer"`。文字は `textContent` だけ。表示するリンクがない・読み込めないときは、枠を非表示に戻す(空の「広告」の枠を残さない)。
+- **いまの動きは変わらない**: `config/ads.js` の `enabled` は `false` のまま(広告枠は出ない)、`affiliates.json` の `links` は空。`main.js` は、`initAdSlots` に描画の関数を渡すだけ。`enabled: true` にする前に、`/ads-policy/` の「始める前に行うこと」を終える(Issue #122・#123)。テストで、リンクがあるのに『現在、掲載していません』と書いたまま・設定が無効のまま、を検出する。
+- **プライバシーポリシーの版は、上げない**(版 4 のまま)。同じサイト内の JSON を読むだけで、外部への送信・Cookie・計測は増えない。広告事業者のスクリプトを入れるとき(最後の段階)に、上げる。
+- 管理画面での管理は、次の PR(Phase 26 のプロダクト管理と同じ形。D1・監査ログ)。
+
+### PR2 のテスト結果
+
+- `tests/affiliates.test.js`(21 件): 検証(https だけ・配置・文字・重複)・枠ごとの選び方・カードの表示(文字・rel・textContent)・枠の描画(なければ非表示・失敗しても落ちない)・実データと方針の整合・styleguide の見本。`npm run check`(2102 件)・`npm run audit` 通過。

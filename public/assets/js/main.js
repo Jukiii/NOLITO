@@ -1,3 +1,4 @@
+import { renderAffiliateSlot } from "./components/affiliate-list.js";
 import { initAdSlots } from "./components/ad-slot.js";
 import { renderBottomNav } from "./components/bottom-nav.js";
 import { renderCategoryList } from "./components/category-list.js";
@@ -29,7 +30,7 @@ if (footer) {
 initConsent();
 
 initModals();
-initAdSlots(document, adsConfig);
+initAdSlots(document, { ...adsConfig, render: renderAffiliateSlot });
 for (const container of document.querySelectorAll("[data-product-list]")) {
   renderProductList(container);
 }

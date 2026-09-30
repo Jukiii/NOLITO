@@ -237,3 +237,53 @@ body:has(dialog[open]) {
 .ad-slot[hidden] {
   display: none;
 }
+
+/* アフィリエイト・広告のリンク(広告枠の中。「PR」「広告」の文字と、報酬の説明を必ず添える) */
+.affiliate-card {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.affiliate-card + .affiliate-card {
+  margin-top: var(--space-3);
+}
+
+.affiliate-card__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.affiliate-card__badge {
+  background: var(--color-soft);
+  color: var(--color-text);
+}
+
+.affiliate-card__title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.affiliate-card__text,
+.affiliate-card__note,
+.affiliate-disclosure {
+  margin: 0;
+}
+
+.affiliate-card__note,
+.affiliate-disclosure {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.affiliate-disclosure {
+  margin-top: var(--space-3);
+}
