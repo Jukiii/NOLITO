@@ -345,6 +345,10 @@ Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19
 - ダッシュボードに、端末内の「ランキング」とは別の「オンラインランキング」の節(役職・難易度を、自分で選べる)。**ゲームの記録をほかの利用者にも公開する、新しい性質の変更のため、プライバシーポリシーは版 4**(6-2-2。「だれでも見られる」ことを明記)。`analyticsConfig.policyVersion` も 4。
 
 
+## スマホの横幅(Issue #154)
+
+- **横幅は、いつも画面の 100%**。`base.css` で、`html`(`overflow-x: hidden`)・`body`(`overflow-x: clip`)の `max-width: 100%`、`select`・`input`・`textarea` の `max-width: 100%` を指定している。グリッドの列は、`minmax(0, 1fr)` にする(入力欄の本来の幅で、列が広がらないように)。新しい画面・部品を作るときは、幅 360px で、横にはみ出さないことを確認する(表は、`overflow-x: auto` の枠の中)。
+
 ## ヘッダーメニュー・トップページ(Phase 20)
 
 Phase 20 は、複数の PR に分ける(計画は `docs/decisions/0045-phase-20-plan.md`)。
@@ -354,7 +358,7 @@ Phase 20 は、複数の PR に分ける(計画は `docs/decisions/0045-phase-20
 - `config/nav.js` の `mainNav` の各項目に、任意の `children: [{ label, href }]`(サブメニュー)を持たせられる。「ゲーム」「ツール」に、実在するページへのリンクを付けた。`available: false`(準備中)の項目には、`children` を付けない。
 - **PC**: `children` を持つ項目はボタンになり(`aria-expanded`・`aria-haspopup="true"`・`aria-controls`)、クリックでドロップダウンを開閉する。Esc・外側クリック・別項目を開くと閉じる(`components/nav.js`)。
 - **モバイル**: ハンバーガーのパネルでは、サブメニューを**常に展開した状態**で、親子をそのまま並べる(パネルの中に、もう1段の開閉を作らない)。
-- モバイル専用の下部固定バー(`bottomNav`。ホーム・ゲーム・ツール・記事)を追加(`components/bottom-nav.js`)。幅 48rem 未満だけに表示し、`main` に、バーの高さぶんの余白を付けて、本文が隠れないようにする。
+- モバイル専用の下部固定バー(`bottomNav`)は、**Issue #154 で廃止した**(運営者の依頼「ハンバーガーメニューだけでいい」。決定 `docs/decisions/0063-mobile-layout.md`)。モバイルのナビは、ハンバーガーのメニューだけ。下部に固定する部品を、新しく足さない。
 
 ### トップページ(Phase 20 PR 2)
 
@@ -411,7 +415,7 @@ Phase 22 は、複数の PR に分ける(計画は `docs/decisions/0047-phase-22
 ### モバイル・ソフトウェアキーボード対応・縦横自動調整・回転対応(Phase 22 PR 1)
 
 - ゲームの文字入力(`input.js`)は、**すでに** `keydown` ではなく `input` イベントで読む設計(Phase 8)。ソフトウェアキーボード・外付けキーボード、どちらでも、同じしくみで動く(この PR で変更していない)。
-- **プレイ中(入力欄がある間)は、モバイルの下部固定バー(`bottom-nav`)を隠す**(`view.js` の `showView("play")` が `document.body` に `data-hide-bottom-nav` を付け、それ以外の画面では外す。`layout.css` の `body[data-hide-bottom-nav] .bottom-nav { display: none; }`)。ソフトウェアキーボードと、縦の領域を取り合わないようにするため。
+- (下部固定バーの非表示の処理は、バーの廃止 = Issue #154 で、なくなった。)
 - **ソフトウェアキーボードが開いたとき**(`window.visualViewport` の `resize`。物理キーボード・デスクトップでは、ほぼ発生しない)、**入力欄にフォーカスがある間だけ**、`inputBox.scrollIntoView({ block: "nearest" })` する。**`input` の `focus` イベント自体では、スクロールしない**(ゲーム開始時の自動フォーカス等のたびに、デスクトップで意図せず画面が動くのを防ぐため)。
 - **ゲームの `input.focus()` の呼び出しは、すべて `{ preventScroll: true }` を付ける**(ブラウザの既定の自動スクロールも止める。新しく `input.focus()` を呼ぶ処理を足すときも、これに合わせること)。
 - **横向き(landscape)の低い画面**: `game.css` の末尾(カスケードの都合で、他の `.scene` 等のルールより、あとに書く必要がある)に `@media (orientation: landscape) and (height <= 32rem)` を置き、ヘッダーの高さ(`--header-height` トークンを、この場面だけ `--tap-size` に上書き)・`.main` の余白・ゲージ/場面/単語カードの余白と文字サイズを詰める。**並び順(距離ゲージ→場面→単語→入力欄。Phase 15)は変えない**。画面の回転そのものは、`screen.orientation.lock` 等で固定しない(CSSのメディアクエリだけで対応する)。

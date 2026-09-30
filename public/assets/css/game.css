@@ -1131,6 +1131,7 @@
 
 .profile-form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   margin-bottom: var(--space-3);
 }
@@ -1143,6 +1144,7 @@
 
 .profile-form__field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }

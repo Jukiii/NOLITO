@@ -1,6 +1,5 @@
 import { renderAffiliateSlot } from "./components/affiliate-list.js";
 import { initAdSlots } from "./components/ad-slot.js";
-import { renderBottomNav } from "./components/bottom-nav.js";
 import { renderCategoryList } from "./components/category-list.js";
 import { initConsent } from "./components/consent.js";
 import { renderFooter } from "./components/footer.js";
@@ -15,7 +14,6 @@ import { adsConfig } from "./config/ads.js";
 const header = document.querySelector("[data-site-header]");
 if (header) {
   renderHeader(header);
-  renderBottomNav();
 }
 
 const footer = document.querySelector("[data-site-footer]");

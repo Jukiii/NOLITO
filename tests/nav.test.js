@@ -1,17 +1,16 @@
-// ヘッダーメニューの拡張(サブメニュー)・モバイルの下部固定バー(Phase 20 PR 1)のテスト。
-// header.js・nav.js・bottom-nav.js は DOM を組み立てる部品なので、データの形と、
+// ヘッダーメニューの拡張(サブメニュー。Phase 20 PR 1。下部固定バーは Issue #154 で廃止)のテスト。
+// header.js・nav.js は DOM を組み立てる部品なので、データの形と、
 // ソースの静的な性質(安全なつくり・アクセシビリティ属性の対応)を検査する。
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
-import { bottomNav, mainNav } from "../public/assets/js/config/nav.js";
+import { mainNav } from "../public/assets/js/config/nav.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8");
 const header = read("public/assets/js/components/header.js");
 const nav = read("public/assets/js/components/nav.js");
-const bottomNavJs = read("public/assets/js/components/bottom-nav.js");
 
 describe("mainNav の children(サブメニュー)の形", () => {
   it("あれば、{ label, href } の配列(空でない)。href は / で始まる", () => {
@@ -30,17 +29,6 @@ describe("mainNav の children(サブメニュー)の形", () => {
     for (const item of mainNav) {
       if (item.available === false) assert.equal(item.children, undefined, item.label);
     }
-  });
-});
-
-describe("bottomNav(モバイルの下部固定バー)の形", () => {
-  it("項目は、mainNav にある href だけを指す(下部バー独自のリンクは持たない)", () => {
-    const known = new Set(mainNav.map((item) => item.href));
-    for (const item of bottomNav) assert.ok(known.has(item.href), item.href);
-  });
-
-  it("多すぎない(親指で届く範囲。5個まで)", () => {
-    assert.ok(bottomNav.length <= 5, bottomNav.length);
   });
 });
 
@@ -66,7 +54,6 @@ describe("header.js: サブメニューの、アクセシビリティの対応",
     for (const [name, text] of [
       ["header.js", header],
       ["nav.js", nav],
-      ["bottom-nav.js", bottomNavJs],
     ]) {
       assert.ok(!/innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(/.test(text), name);
     }
@@ -86,15 +73,5 @@ describe("nav.js: 開閉の性質", () => {
 
   it("画面幅がPCとモバイルを行き来しても、壊れない(resize時に、状態を作り直す)", () => {
     assert.match(nav, /desktop\.addEventListener\("change"/);
-  });
-});
-
-describe("bottom-nav.js: 表示の性質", () => {
-  it("現在地を、aria-current で示す(色だけに頼らない)", () => {
-    assert.match(bottomNavJs, /"aria-current":\s*current/);
-  });
-
-  it("nav 要素に、わかりやすい aria-label を持つ", () => {
-    assert.match(bottomNavJs, /aria-label/);
   });
 });

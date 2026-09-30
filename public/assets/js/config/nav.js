@@ -29,14 +29,6 @@ export const mainNav = [
   { label: "検索", href: "/search/" },
 ];
 
-// モバイルの下部固定バー(重要機能)。href は、mainNav の中から選ぶ(available: false は出さない)
-export const bottomNav = [
-  { label: "ホーム", href: "/" },
-  { label: "ゲーム", href: "/games/" },
-  { label: "ツール", href: "/tools/" },
-  { label: "記事", href: "/articles/" },
-];
-
 // フッターのリンク。ページができたものだけを並べる(存在しないページへのリンクは張らない)
 export const footerLinks = [
   { label: "サイト紹介", href: "/about/" },

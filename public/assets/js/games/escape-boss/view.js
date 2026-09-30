@@ -114,9 +114,6 @@ export function createView(root) {
   function showView(name) {
     clearStaging();
     for (const [key, section] of Object.entries(views)) section.hidden = key !== name;
-    // プレイ中(入力欄がある間)は、モバイルの下部固定バーを隠す(ソフトウェアキーボードと、縦の領域を取り合わないように)
-    if (name === "play") document.body.dataset.hideBottomNav = "true";
-    else delete document.body.dataset.hideBottomNav;
   }
 
   // 開始の前の選択。モードはラジオボタン、職種・役職(役職 = 難易度)はドロップダウン。

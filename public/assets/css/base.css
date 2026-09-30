@@ -4,13 +4,27 @@
   box-sizing: border-box;
 }
 
+/* 横幅は、いつも画面の 100%(はみ出した部品で、ページが横に動かないように。Issue #154) */
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
+  max-width: 100%;
+  overflow-x: clip;
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-base);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
+}
+
+select,
+input,
+textarea {
+  max-width: 100%;
 }
 
 h1,
