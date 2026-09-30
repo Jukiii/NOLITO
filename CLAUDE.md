@@ -528,3 +528,8 @@ Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の�
 - `npm run backup:restore-drill`(`scripts/restore-drill.mjs`)。**使い捨てのD1を、実際にCloudflareへ作り**、見本(既定。`tests/fixtures/d1-export-sample.sql`)または実際のバックアップ(`--file`)を読み込んで、テーブルごとの件数を、実際のCloudflare D1に問い合わせて確認し、最後に、その使い捨てのD1を必ず削除する(`finally`)。**本番のD1(`nolito`)には、いっさい触れない**(新しく作って、消すだけ)。壊れたファイルは、使い捨てのD1を作る前に断る。
 - `scripts/lib/backup.mjs`の`wranglerConfig(databaseId, databaseName)`・`scripts/lib/wrangler-remote.mjs`の`runWranglerD1`/`captureWranglerD1`に、`databaseName`(既定`"nolito"`。後方互換)を追加。復元練習では、使い捨てのDBの名前を渡す。同ファイルの`captureWranglerAccountLevel`(D1の作成・削除・一覧。特定のDBのIDを必要としない)も、新しく追加した。
 - `docs/backup.md` §5「復元の練習」は、この1コマンドの説明にした。手動の手順(練習用のD1を手で作る)は、なくなった。
+
+### 監査ログの個人情報の自動マスク(Phase 27 PR 5)
+
+- `functions/_lib/admin-audit.js` の `recordAdminChange` は、`before`/`after` を JSON にする前に、**`redactPersonalInfo` でメールアドレス・IPv4 アドレスを `[redacted]` に置き換える**(0051 の「個人情報をそのまま書かない」という約束を、書き込みの入り口でコードとして強制する)。伏せるのは、(a) キー名が `email`・`mail`・`mail_address`・`ip`・`ip_address`・`remote_addr`(大文字小文字を区別しない)のものの値すべて、(b) 文字列の値の中に現れるメールアドレス・IPv4 アドレス、の2つ。元の値は書き換えない(写しを作る)。入れ子の深さが 20 を超える値(循環参照を含む)は、従来どおり `null` を書く。
+- **これは最後の防波堤**。呼び出し側は、これまでどおり、そもそも個人情報を渡さない(ユーザー管理の変更を記録するときは、ニックネーム等の表示用の情報だけを渡す)。氏名など、パターンで見分けられない個人情報は、自動では伏せられない。**新しい種類の個人情報(電話番号など)を扱う管理画面を作るときは、`redactPersonalInfo` の対象と `tests/admin-audit.test.js` を、そろえて広げること**。
