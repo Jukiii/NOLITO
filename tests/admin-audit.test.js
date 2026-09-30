@@ -2,7 +2,11 @@
 // 既存の audit.js(ログイン等の短い出来事)とは別のテーブル。
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it, mock } from "node:test";
-import { pruneAdminAudit, recordAdminChange } from "../functions/_lib/admin-audit.js";
+import {
+  pruneAdminAudit,
+  recordAdminChange,
+  redactPersonalInfo,
+} from "../functions/_lib/admin-audit.js";
 import { upsertUser } from "../functions/_lib/users.js";
 import { createDb } from "./helpers/d1.js";
 
@@ -111,6 +115,67 @@ describe("recordAdminChange", () => {
 
     it("pruneAdminAudit: DB が壊れていても、例外を投げない", async () => {
       await assert.doesNotReject(pruneAdminAudit(brokenDb(), 1000));
+    });
+  });
+});
+
+describe("redactPersonalInfo(個人情報の自動マスク。Phase 27 PR5)", () => {
+  it("メールアドレスを含む文字列は、その部分だけ伏せる", () => {
+    assert.equal(
+      redactPersonalInfo("連絡は taro.yamada+x@example.co.jp まで"),
+      "連絡は [redacted] まで",
+    );
+  });
+
+  it("IPv4 アドレスも伏せる", () => {
+    assert.equal(redactPersonalInfo("from 203.0.113.42 (proxy)"), "from [redacted] (proxy)");
+  });
+
+  it("キー名が email・ip などのものは、値に関わらず伏せる(入れ子・配列の中も)", () => {
+    const out = redactPersonalInfo({
+      name: "太郎",
+      email: "x",
+      owner: { Mail: "y", ip_address: "z", nick: "ok" },
+      list: [{ IP: 1 }, "a@b.com"],
+    });
+    assert.deepEqual(out, {
+      name: "太郎",
+      email: "[redacted]",
+      owner: { Mail: "[redacted]", ip_address: "[redacted]", nick: "ok" },
+      list: [{ IP: "[redacted]" }, "[redacted]"],
+    });
+  });
+
+  it("個人情報でないもの(URL・バージョン・数値・真偽値・null)は、そのまま", () => {
+    const value = { url: "https://example.com/a@1", version: "1.2.3", n: 5, ok: true, none: null };
+    assert.deepEqual(redactPersonalInfo(value), value);
+  });
+
+  it("元の値は書き換えない", () => {
+    const value = { email: "a@b.com" };
+    redactPersonalInfo(value);
+    assert.equal(value.email, "a@b.com");
+  });
+
+  it("recordAdminChange は、DB に書く前に伏せる(before・after の両方)", async () => {
+    const db = createDb();
+    const userId = await testUser(db);
+    await recordAdminChange(db, {
+      userId,
+      resourceType: "user",
+      resourceId: "u1",
+      action: "update",
+      before: { nickname: "旧", email: "old@example.com" },
+      after: { nickname: "新", note: "新しい連絡先 new@example.com" },
+      now: 1000,
+    });
+    const row = await db.prepare("SELECT * FROM admin_audit_log").first();
+    assert.doesNotMatch(row.before_json, /example\.com/);
+    assert.doesNotMatch(row.after_json, /example\.com/);
+    assert.deepEqual(JSON.parse(row.before_json), { nickname: "旧", email: "[redacted]" });
+    assert.deepEqual(JSON.parse(row.after_json), {
+      nickname: "新",
+      note: "新しい連絡先 [redacted]",
     });
   });
 });
