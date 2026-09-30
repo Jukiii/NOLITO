@@ -11,26 +11,28 @@
 ```yaml
 job_id: engineer
 job_name: エンジニア
-version: 0.4.0
-updated_at: 2026-09-21
+version: 0.5.0
+updated_at: 2026-09-30
 items:
   - id: engineer-001
-    japanese: バグ
+    japanese: bug
     reading: ばぐ
-    romaji: [bagu]
+    romaji: [bug]
+    typing: bug
     category: 開発
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: プログラムの不具合や誤りのこと。
-    related_terms: [デバッグ]
+    related_terms: [debug]
     learning_points: []
     weak_detection:
       enabled: true
     review: pending
   - id: engineer-002
-    japanese: コード
+    japanese: code
     reading: こーど
-    romaji: [ko-do]
+    romaji: [code]
+    typing: code
     category: 開発
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -54,35 +56,38 @@ items:
       enabled: true
     review: pending
   - id: engineer-004
-    japanese: デバッグ
+    japanese: debug
     reading: でばっぐ
-    romaji: [debaggu]
+    romaji: [debug]
+    typing: debug
     category: 開発
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: プログラムの不具合(バグ)を見つけて直すこと。
-    related_terms: [バグ]
+    related_terms: [bug]
     learning_points: []
     weak_detection:
       enabled: true
     review: pending
   - id: engineer-005
-    japanese: コミット
+    japanese: commit
     reading: こみっと
-    romaji: [komitto]
+    romaji: [commit]
+    typing: commit
     category: 開発
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 変更内容をバージョン管理システムに記録すること。
-    related_terms: [バージョン]
+    related_terms: [version]
     learning_points: []
     weak_detection:
       enabled: true
     review: pending
   - id: engineer-006
-    japanese: レビュー
+    japanese: review
     reading: れびゅー
-    romaji: [rebyu-]
+    romaji: [review]
+    typing: review
     category: 開発
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -93,14 +98,15 @@ items:
       enabled: true
     review: pending
   - id: engineer-007
-    japanese: バージョン
+    japanese: version
     reading: ばーじょん
-    romaji: [ba-jonn]
+    romaji: [version]
+    typing: version
     category: 開発
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: ソフトウェアの版を区別する番号のこと。
-    related_terms: [コミット]
+    related_terms: [commit]
     learning_points: []
     weak_detection:
       enabled: true
@@ -126,7 +132,7 @@ items:
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 変更内容を取り込んでもらうために、確認を依頼する仕組みのこと。
-    related_terms: [レビュー]
+    related_terms: [review]
     learning_points: []
     weak_detection:
       enabled: true
@@ -141,16 +147,17 @@ items:
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 動作を変えずに、コードの構造を整理して読みやすくすること。
     detail: プログラムの外から見た動きは変えずに、中身の作りを整えることです。名前をわかりやすくする、同じ処理をまとめる、長い処理を分ける、といった小さな整理を重ねます。あとから機能を足したり、不具合を直したりしやすくなります。
-    related_terms: [コード]
+    related_terms: [code]
     learning_points: [動きが変わっていないことを、テストで確かめながら進める, 一度に大きく変えず、小さな整理を重ねる, 機能の追加や不具合の修正とは、分けて行う]
     weak_detection:
       enabled: true
     review: pending
     note: 詳細説明(detail)と学習ポイントを、新しく足しました(AI の下書き)。一般的な意味に合っているか、確認してください。
   - id: engineer-011
-    japanese: テスト
+    japanese: test
     reading: てすと
-    romaji: [tesuto]
+    romaji: [test]
+    typing: test
     category: 開発
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -161,9 +168,10 @@ items:
       enabled: true
     review: pending
   - id: engineer-012
-    japanese: ログ
+    japanese: log
     reading: ろぐ
-    romaji: [rogu]
+    romaji: [log]
+    typing: log
     category: インフラ
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -174,22 +182,24 @@ items:
       enabled: true
     review: pending
   - id: engineer-013
-    japanese: ブランチ
+    japanese: branch
     reading: ぶらんち
-    romaji: [buranchi, buranti]
+    romaji: [branch]
+    typing: branch
     category: 開発
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: バージョン管理で、作業の流れを枝分かれさせたもののこと。
-    related_terms: [コミット, バージョン]
+    related_terms: [commit, version]
     learning_points: []
     weak_detection:
       enabled: true
     review: pending
   - id: engineer-014
-    japanese: リリース
+    japanese: release
     reading: りりーす
-    romaji: [riri-su]
+    romaji: [release]
+    typing: release
     category: 開発
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -226,22 +236,24 @@ items:
       enabled: true
     review: pending
   - id: engineer-017
-    japanese: エラー
+    japanese: error
     reading: えらー
-    romaji: [era-]
+    romaji: [error]
+    typing: error
     category: 開発
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: プログラムが正しく動かないときに出る、問題を知らせる表示や状態のこと。
-    related_terms: [バグ, デバッグ]
+    related_terms: [bug, debug]
     learning_points: []
     weak_detection:
       enabled: true
     review: pending
   - id: engineer-018
-    japanese: ファイル
+    japanese: file
     reading: ふぁいる
-    romaji: [fairu]
+    romaji: [file]
+    typing: file
     category: 開発
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -279,9 +291,10 @@ items:
     review: pending
     note: 「クラウド」は、サービスの形(保存・計算・アプリなど)がさまざまです。説明は「借りて使うサーバーや保存場所」という、一般的な形にしています。
   - id: engineer-021
-    japanese: バックアップ
+    japanese: backup
     reading: ばっくあっぷ
-    romaji: [bakkuappu]
+    romaji: [backup]
+    typing: backup
     category: インフラ
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -292,9 +305,10 @@ items:
       enabled: true
     review: pending
   - id: engineer-022
-    japanese: パスワード
+    japanese: password
     reading: ぱすわーど
-    romaji: [pasuwa-do]
+    romaji: [password]
+    typing: password
     category: セキュリティ
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -312,7 +326,7 @@ items:
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: データを、鍵がないと読めない形に変えること。盗み見られても、中身を守れる。
-    related_terms: [パスワード]
+    related_terms: [password]
     learning_points: []
     weak_detection:
       enabled: true
@@ -325,7 +339,7 @@ items:
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: 利用者が本人かどうかを確かめること。ログインのときに行う。
-    related_terms: [パスワード]
+    related_terms: [password]
     learning_points: []
     weak_detection:
       enabled: true
@@ -338,20 +352,21 @@ items:
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: ソフトウェアの弱点や欠陥のこと。悪用されると被害が出るので、修正が必要。
-    related_terms: [アップデート]
+    related_terms: [update]
     learning_points: []
     weak_detection:
       enabled: true
     review: pending
   - id: engineer-026
-    japanese: アップデート
+    japanese: update
     reading: あっぷでーと
-    romaji: [appude-to]
+    romaji: [update]
+    typing: update
     category: 開発
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: ソフトウェアを新しい版に更新すること。不具合の修正や、機能の追加を行う。
-    related_terms: [バージョン, リリース]
+    related_terms: [version, release]
     learning_points: []
     weak_detection:
       enabled: true
@@ -391,7 +406,7 @@ items:
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: システムが止まる、正しく動かないなど、サービスに起きる問題のこと。
-    related_terms: [ログ]
+    related_terms: [log]
     learning_points: []
     weak_detection:
       enabled: true

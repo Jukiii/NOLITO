@@ -142,6 +142,7 @@ for (const job of jobs) {
     it("読みがローマ字入力エンジンで入力でき、宣言したローマ字候補がすべて受理される", () => {
       for (const item of vocabulary.items) {
         assert.doesNotThrow(() => createMatcher(item.reading), item.id);
+        if (item.typing !== undefined) continue; // 英語のまま打つ語は、下の別のテストで確かめる
         for (const candidate of item.romaji) {
           assert.equal(typeAll(item.reading, candidate), "done", `${item.id}: ${candidate}`);
         }

@@ -90,7 +90,7 @@ const flowList = (list) => `[${list.map((value) => scalar(value, { flow: true })
 
 /**
  * 語録(vocab-validate.mjs の正規化した形)を、YAML の文字列にする。
- * items の各項目は、id・japanese・reading・romaji・category・difficulty・roles・(difficulties)・explanation・(detail)・
+ * items の各項目は、id・japanese・reading・romaji・(typing)・category・difficulty・roles・(difficulties)・explanation・(detail)・
  * related_terms・learning_points・weak_detection と、原稿だけの review・draft・note を持てる。
  * 読み取り(parseVocabularyMarkdown)と検証を通すと、同じ値に戻る。
  */
@@ -108,6 +108,7 @@ export function stringifyVocabularyYaml(data) {
       `    japanese: ${scalar(item.japanese)}`,
       `    reading: ${scalar(item.reading)}`,
       `    romaji: ${flowList(item.romaji)}`,
+      ...(item.typing === undefined ? [] : [`    typing: ${scalar(item.typing)}`]),
       `    category: ${scalar(item.category)}`,
       `    difficulty: ${item.difficulty}`,
       `    roles: ${flowList(item.roles)}`,

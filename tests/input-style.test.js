@@ -9,12 +9,19 @@ import {
   isInputStyle,
   matcherOptionsFor,
 } from "../public/assets/js/games/escape-boss/input-style.js";
-import { createMatcher } from "../public/assets/js/games/escape-boss/romaji.js";
+import {
+  canonicalLengthOf,
+  createMatcher,
+  createWordMatcher,
+} from "../public/assets/js/games/escape-boss/romaji.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-const words = readdirSync(`${root}public/data/vocabulary/`).flatMap(
+const allWords = readdirSync(`${root}public/data/vocabulary/`).flatMap(
   (file) => JSON.parse(readFileSync(`${root}public/data/vocabulary/${file}`, "utf8")).items,
 );
+// 読みからローマ字入力する語(以下の多くのテスト)と、英語のまま打つ語(typing。最後のテスト)
+const words = allWords.filter((word) => word.typing === undefined);
+const typedWords = allWords.filter((word) => word.typing !== undefined);
 
 // 文字列を 1 文字ずつ入力する。途中で miss があれば "miss"
 function typeAll(reading, text, options) {
@@ -61,7 +68,7 @@ describe("方式の定義", () => {
 
 describe("実際の語録(全語)", () => {
   it("語録は、180 語ある", () => {
-    assert.ok(words.length >= 180);
+    assert.ok(allWords.length >= 180);
   });
 
   for (const [name, { options }] of Object.entries(INPUT_STYLES)) {
@@ -149,6 +156,35 @@ describe("実際の語録(全語)", () => {
     for (const word of words) {
       const standard = createMatcher(word.reading).canonicalLength;
       assert.equal(standard, word.romaji[0].length, word.id);
+    }
+  });
+});
+
+describe("英語のまま打つ語(typing)", () => {
+  it("英語で打つ語がある。書いたとおりの英字で、どの書き方の設定でも同じに入力できる", () => {
+    assert.ok(typedWords.length > 0);
+    for (const word of typedWords) {
+      for (const style of Object.values(INPUT_STYLES)) {
+        const matcher = createWordMatcher(word, style.options);
+        assert.equal(matcher.remaining, word.typing, word.id);
+        for (const char of word.typing) assert.notEqual(matcher.input(char), "miss", word.id);
+        assert.ok(matcher.done, word.id);
+      }
+    }
+  });
+
+  it("表示(japanese)は同じつづりの英語で、読み(reading)は、かなのまま。romaji は、打つ文字そのもの", () => {
+    for (const word of typedWords) {
+      assert.equal(word.japanese.toLowerCase(), word.typing, word.id);
+      assert.match(word.reading, /^[ぁ-ゖー]+$/, word.id);
+      assert.deepEqual(word.romaji, [word.typing], word.id);
+    }
+  });
+
+  it("距離の「文字数の分」は、打つ英字の長さ(設定に関係ない)", () => {
+    for (const word of typedWords) assert.equal(canonicalLengthOf(word), word.typing.length);
+    for (const word of words) {
+      assert.equal(canonicalLengthOf(word), createMatcher(word.reading).canonicalLength, word.id);
     }
   });
 });

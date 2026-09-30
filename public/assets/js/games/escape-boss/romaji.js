@@ -213,3 +213,44 @@ export function createMatcher(reading, { style = "hepburn", strict = false } = {
     },
   };
 }
+
+/**
+ * 英語のまま打つ語(語の typing。debug など)のマッチャー。書いたとおりの文字だけを、順に受け付ける
+ * (大文字小文字は区別しない。ローマ字の書き方の設定・表記の揺れは、関係ない)。createMatcher と同じ形を返す。
+ */
+export function createLiteralMatcher(text) {
+  const target = String(text).toLowerCase();
+  if (target.length === 0) throw new Error("入力する文字が空です");
+  let typed = "";
+  return {
+    canonical: target,
+    canonicalLength: target.length,
+    get typed() {
+      return typed;
+    },
+    get done() {
+      return typed.length === target.length;
+    },
+    get remaining() {
+      return target.slice(typed.length);
+    },
+    input(rawChar) {
+      if (typed.length === target.length) return "done";
+      if (rawChar.toLowerCase() !== target[typed.length]) return "miss";
+      typed += target[typed.length];
+      return typed.length === target.length ? "done" : "ok";
+    },
+  };
+}
+
+/** 語のマッチャー。typing(英語で打つ語)があれば書いたとおり、なければ、読みからローマ字入力で。 */
+export function createWordMatcher(word, options) {
+  return typeof word.typing === "string"
+    ? createLiteralMatcher(word.typing)
+    : createMatcher(word.reading, options);
+}
+
+/** 距離の「文字数の分」に使う、標準の入力の長さ(書き方の設定に関係ない)。 */
+export function canonicalLengthOf(word) {
+  return createWordMatcher(word).canonicalLength;
+}

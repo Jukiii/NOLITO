@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { createMatcher } from "../public/assets/js/games/escape-boss/romaji.js";
+import {
+  canonicalLengthOf,
+  createLiteralMatcher,
+  createMatcher,
+  createWordMatcher,
+} from "../public/assets/js/games/escape-boss/romaji.js";
 
 // 文字列を1文字ずつ入力し、最後の結果を返す。途中で miss があれば "miss" を返す。
 function typeAll(matcher, text) {
@@ -384,5 +389,40 @@ describe("小さい文字を分けて打つ書き方(標準・訓令式)", () =>
   it("っ の直後でも入力できる(っ + きゃ)", () => {
     assert.ok(accepts("ばっきゃく", "bakkyaku"));
     assert.ok(accepts("ばっきゃく", "bakkixyaku"));
+  });
+});
+
+describe("英語のまま打つ語(createLiteralMatcher・createWordMatcher)", () => {
+  it("つづりの通りに打つと、最後の1文字で done になる。大文字小文字は区別しない", () => {
+    const matcher = createLiteralMatcher("debug");
+    assert.equal(matcher.canonical, "debug");
+    assert.equal(matcher.canonicalLength, 5);
+    assert.equal(matcher.input("d"), "ok");
+    assert.equal(matcher.input("E"), "ok");
+    assert.equal(matcher.input("b"), "ok");
+    assert.equal(matcher.input("u"), "ok");
+    assert.equal(matcher.typed, "debu");
+    assert.equal(matcher.remaining, "g");
+    assert.equal(matcher.done, false);
+    assert.equal(matcher.input("g"), "done");
+    assert.equal(matcher.done, true);
+  });
+
+  it("違う文字は miss で、進みも変わらない", () => {
+    const matcher = createLiteralMatcher("log");
+    assert.equal(matcher.input("x"), "miss");
+    assert.equal(matcher.typed, "");
+    assert.equal(matcher.input("l"), "ok");
+    assert.equal(matcher.input("g"), "miss");
+    assert.equal(matcher.remaining, "og");
+  });
+
+  it("typing のある語は英語のつづり、ない語は読みから(設定の方式も効く)", () => {
+    const english = { reading: "でばっぐ", typing: "debug" };
+    assert.equal(createWordMatcher(english, { style: "kunrei" }).canonical, "debug");
+    assert.equal(canonicalLengthOf(english), 5);
+    const kana = { reading: "しゃしん" };
+    assert.equal(createWordMatcher(kana).canonical, createMatcher("しゃしん").canonical);
+    assert.equal(canonicalLengthOf(kana), createMatcher("しゃしん").canonicalLength);
   });
 });

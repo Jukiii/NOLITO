@@ -41,12 +41,13 @@ describe("実際の原稿 → 公開の JSON", () => {
   it("公開の JSON に、原稿だけの項目(review・draft・note)が、入っていない。項目の順序が決まっている", () => {
     for (const job of context.jobs) {
       const text = read(`public/data/vocabulary/${job.id}.json`);
-      assert.ok(!/"(review|draft|note)"/.test(text), job.id);
       const data = JSON.parse(text);
-      // detail(詳細説明)・difficulties(難易度専用)は、ある語だけ、決まった位置に入る
+      // 値ではなく、項目名で確かめる(語の表示が review のように、英語のことがある)
+      assert.ok(!/"(review|draft|note)":/.test(text), job.id);
+      // detail(詳細説明)・difficulties(難易度専用)・typing(英語で打つ語)は、ある語だけ、決まった位置に入る
       for (const item of data.items) {
         const expected = PUBLISHED_KEYS.filter(
-          (key) => !["detail", "difficulties"].includes(key) || key in item,
+          (key) => !["detail", "difficulties", "typing"].includes(key) || key in item,
         );
         assert.deepEqual(Object.keys(item), expected, item.id);
       }
