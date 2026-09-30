@@ -1,4 +1,4 @@
-// モバイル・ソフトウェアキーボード対応・縦横自動調整(Phase 22 PR1)のテスト。
+// モバイル・ソフトウェアキーボード対応・縦横自動調整(Phase 22 PR1)のテスト。下部固定バーは Issue #154 で廃止した。
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
@@ -7,19 +7,8 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
 
-describe("プレイ中は、下部固定バーを隠す(ソフトウェアキーボードと縦の領域を取り合わないように)", () => {
+describe("ゲームの 4 つの画面の切り替え", () => {
   const view = read("public/assets/js/games/escape-boss/view.js");
-  const layoutCss = read("public/assets/css/layout.css");
-
-  it("showView('play') で data-hide-bottom-nav を付け、それ以外では外す", () => {
-    const fn = view.slice(view.indexOf("function showView"), view.indexOf("const checkedValue"));
-    assert.match(fn, /if \(name === "play"\) document\.body\.dataset\.hideBottomNav = "true";/);
-    assert.match(fn, /else delete document\.body\.dataset\.hideBottomNav;/);
-  });
-
-  it("CSS: body[data-hide-bottom-nav] のとき、.bottom-nav を隠す", () => {
-    assert.match(layoutCss, /body\[data-hide-bottom-nav\]\s*\.bottom-nav\s*\{\s*display:\s*none;/);
-  });
 
   it("入力欄・結果・用語確認結果・ダッシュボードの4つの画面は、すべて showView() 経由で切り替わる(直接 hidden を書き換えない)", () => {
     const calls = [...view.matchAll(/showView\("([a-zA-Z-]+)"\)/g)].map((m) => m[1]);
@@ -101,5 +90,30 @@ describe("kii-michiの「キーを押して入力」は、物理キーボード�
   it("event.code(位置)で読む設計を保つ(タッチの仮想キーボードは対象外)", () => {
     const keys = read("public/assets/js/tools/kii-michi/keys.js");
     assert.match(keys, /event\.code/);
+  });
+});
+
+describe("スマホの横幅は、いつも 100%(Issue #154)", () => {
+  const baseCss = read("public/assets/css/base.css");
+
+  it("html・body は、はみ出した部品で、横にずれない(overflow-x)", () => {
+    assert.match(baseCss, /html \{[^}]*max-width: 100%;[^}]*overflow-x: hidden;/);
+    assert.match(baseCss, /body \{[^}]*max-width: 100%;[^}]*overflow-x: clip;/);
+  });
+
+  it("select・input・textarea は、親より広がらない", () => {
+    assert.match(baseCss, /select,\s*input,\s*textarea \{\s*max-width: 100%;/);
+  });
+
+  it("下部固定バーは、もうない(ナビは、ヘッダーのメニューだけ)", () => {
+    const all = [
+      "public/assets/css/layout.css",
+      "public/assets/css/tokens.css",
+      "public/assets/js/main.js",
+      "public/assets/js/config/nav.js",
+    ]
+      .map(read)
+      .join("\n");
+    assert.ok(!/bottom-nav|bottomNav|BottomNav/.test(all));
   });
 });
