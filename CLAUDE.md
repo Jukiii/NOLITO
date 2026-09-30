@@ -309,7 +309,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 - 語の任意項目 **`typing`**(英小文字・数字・`-`。`japanese` の小文字と同じつづり)がある語は、英語の表記で出し、`reading` は日本語のよみがなのまま、入力は英字を**つづりのとおり**に打つ(`romaji.js` の `createWordMatcher`。`typing` がなければ従来どおり読みからローマ字)。ローマ字の書き方の設定は、この語には効かない。決定は `docs/decisions/0056-english-typed-terms.md`。
 - `romaji` は、書かないか `["<typing>"]` だけ。`id`・`reading`・`difficulty`(読みの長さ)は変えない。**距離の文字数の分は `canonicalLengthOf(word)` を使う**(`createMatcher(word.reading)` を直接呼ばない)。マッチャーは、必ず `newMatcher(word)`(語のオブジェクトを渡す)で作る。
-- いまは、エンジニアの 15 語だけ(範囲は運営者の確認待ち)。語を足すときは、`typing` を書き、`npm run build:vocabulary`・`npm run vocab:review`・`tests/balance.test.js` を確認する。
+- 公開は、エンジニアの 15 語だけ(範囲は運営者の確認待ち)。ほかの 5 職種の 23 語は、拡張ファイル `<職種ID>.ext-english.md` に、下書きとして置いてある(決定ログ 0060。運営者の確認後に、`draft` を消して公開)。語を足すときは、`typing` を書き、`npm run build:vocabulary`・`npm run vocab:review`・`tests/balance.test.js` を確認する。
 
 ## ゲームのスタートまでの操作(Issue #140)
 
