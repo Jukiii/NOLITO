@@ -19,6 +19,7 @@ export const SMOKE_CHECKS = Object.freeze([
   { path: "/support/", type: HTML_TYPE },
   { path: "/privacy/", type: HTML_TYPE },
   { path: "/terms/", type: HTML_TYPE },
+  { path: "/ads-policy/", type: HTML_TYPE },
   { path: "/data/roles.json", type: JSON_TYPE },
   { path: "/api/me", type: JSON_TYPE, json: (data) => hasKey(data, "enabled") },
   {

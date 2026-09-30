@@ -507,10 +507,10 @@ describe("プライバシーポリシー v4 と、案内の文言", () => {
     assert.ok(CONSENT_KEY);
   });
 
-  it("フッターのリンクは、これまでどおり(更新履歴・サポート・ポリシー・利用規約)", () => {
+  it("フッターのリンクは、これまでどおり(更新履歴・サポート・ポリシー・利用規約・広告・収益化)", () => {
     assert.deepEqual(
       footerLinks.map((link) => link.href),
-      ["/about/", "/updates/", "/support/", "/privacy/", "/terms/"],
+      ["/about/", "/updates/", "/support/", "/privacy/", "/terms/", "/ads-policy/"],
     );
   });
 });

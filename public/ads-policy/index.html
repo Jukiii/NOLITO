@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
+        } catch (e) {}
+      })();
+    </script>
+    <title>広告・収益化について | NOLITO</title>
+    <meta
+      name="description"
+      content="NOLITOの収益化ポリシーと広告の基準。広告・アフィリエイトの掲載場所、表示のルール、掲載しないもの、開始前に行うことを説明します。"
+    />
+    <link rel="canonical" href="https://nolito.pages.dev/ads-policy/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/articles.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <article class="article">
+        <header class="article__header">
+          <h1 class="article__title">広告・収益化について</h1>
+          <p class="article__meta">制定日 2026年9月30日</p>
+        </header>
+        <div class="article__body">
+          <p>
+            NOLITO(以下「本サイト」)の、広告・アフィリエイトなど、収益化についての方針です。個人情報の取り扱いは、
+            <a href="/privacy/">プライバシーポリシー</a>に定めます。
+          </p>
+
+          <h2>1. 現在の状況</h2>
+          <p>
+            <strong>本サイトは、現在、広告もアフィリエイトも掲載していません。</strong
+            >広告事業者のスクリプトも、読み込んでいません。この状況が変わるときは、下の「6.
+            始める前に行うこと」を、先に行います。
+          </p>
+
+          <h2>2. 収益化の考え方</h2>
+          <ul>
+            <li>
+              本サイトの運営費(ドメイン・開発など)の一部をまかなうために、将来、広告やアフィリエイトを掲載することがあります。
+            </li>
+            <li>
+              まず、外部の販売サービスへのリンク(アフィリエイトを含む)から始めます。自サイトでの決済は、将来の検討事項で、この方針の対象外です(始めるときは、別に定めます)。
+            </li>
+            <li>利用者の使いやすさ・安全・プライバシーを、収益より優先します。</li>
+          </ul>
+
+          <h2>3. 広告を載せる場所・載せない場所</h2>
+          <ul>
+            <li>
+              <strong>載せてよい場所</strong>:
+              ゲームの外のページ(一覧・トップなど)・記事・ゲームの終了(結果)画面。
+            </li>
+            <li>
+              <strong>載せない場所</strong>:
+              ゲームのプレイ中の画面、問い合わせ・アカウント・ログインなどの、個人情報を入力するページ。
+            </li>
+            <li>
+              広告は、本文・操作の邪魔にならない位置に置き、本文と見分けがつく形で表示します。
+            </li>
+          </ul>
+
+          <h2>4. 必要な表示</h2>
+          <ul>
+            <li>
+              広告・アフィリエイトのリンクには、<strong>「広告」または「PR」</strong>と、はっきり表示します(色だけで区別せず、文字で示します)。
+            </li>
+            <li>
+              アフィリエイトのリンクを含むページには、リンクを経由した購入などで、運営者が報酬を受け取ることがある旨を、そのページ内に書きます。
+            </li>
+            <li>
+              広告・アフィリエイトのリンクは、外部のサイトへ移動します。リンクには、移動先が外部であることが分かる注意書きを付けます。
+            </li>
+            <li>
+              報酬の有無や金額によって、記事・ゲーム・ツールの内容(評価・順位・説明)を、ゆがめません。
+            </li>
+          </ul>
+
+          <h2>5. 広告の基準(掲載しないもの)</h2>
+          <ul>
+            <li>法令に違反するもの、虚偽・誇大な表現を含むもの</li>
+            <li>
+              ギャンブル、アダルト、暴力・差別を助長するもの、投資・副業などで、確実な利益をうたうもの
+            </li>
+            <li>
+              利用者をだます表示(閉じるボタンに見せかけたリンク、ゲームの操作・警告に見せかけた表示など)
+            </li>
+            <li>音声が自動で再生されるもの、画面を覆って操作を妨げるもの</li>
+            <li>本サイトの利用者(特に、子ども・未成年)にふさわしくないと、運営者が判断するもの</li>
+          </ul>
+          <p>
+            基準に合わない広告を見つけたときは、<a href="/support/#contact">サポートのページ</a
+            >のフォームから、お知らせください。確認のうえ、掲載をやめる・提携先へ連絡するなどの対応をします。
+          </p>
+
+          <h2>6. 始める前に行うこと</h2>
+          <p>広告やアフィリエイトを掲載する前に、次のことを、先に行います。</p>
+          <ul>
+            <li>広告事業者・販売サービスの規約、費用、審査の条件を確認する。</li>
+            <li>
+              <a href="/privacy/">プライバシーポリシー</a
+              >を、広告の配信で取得・共有する情報(Cookie・広告ID・送信先など)を含めて改定し、同意が必要なものは、同意を取り直す(改定の履歴に記載します)。
+            </li>
+            <li>
+              外部の販売サービスで有料のものを扱う前に、特定商取引法に基づく表記と、利用規約を整える。
+            </li>
+            <li>この文書の内容を、実際の掲載内容に合わせて見直す。</li>
+          </ul>
+
+          <h2>7. この方針の変更</h2>
+          <p>
+            この方針は、必要に応じて変更することがあります。内容を大きく変えたときは、本サイト上でお知らせします。
+          </p>
+
+          <h2>8. お問い合わせ</h2>
+          <p>
+            この方針に関するお問い合わせは、<a href="/support/#contact">サポートのページ</a
+            >のフォームから、お送りください。
+          </p>
+        </div>
+        <nav class="article__nav" aria-label="ページのナビゲーション">
+          <a href="/">← トップへ</a>
+        </nav>
+      </article>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

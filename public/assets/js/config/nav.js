@@ -44,4 +44,5 @@ export const footerLinks = [
   { label: "サポート", href: "/support/" },
   { label: "プライバシーポリシー", href: "/privacy/" },
   { label: "利用規約", href: "/terms/" },
+  { label: "広告・収益化について", href: "/ads-policy/" },
 ];
