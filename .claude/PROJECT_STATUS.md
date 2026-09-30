@@ -200,7 +200,8 @@ Phase 27 PR1(依存の脆弱性チェック)・PR2(管理APIの削除に再認�
 1. 運営者の確認待ち: /ads-policy/ の文言(Issue #122)、広告事業者の契約・ポリシー版5(Issue #123)、本番D1への0009適用(Issue #127)
 2. Phase 29 の最終段階(広告事業者のスクリプト)は、上の待ちが解けてから
 3. 英語のまま打つ語(決定ログ 0056。エンジニア 15 語): 対象範囲の確認は Issue #131
-4. Phase 30 の「公開」の実行(本番での docs/05_checklists/acceptance-test.md・release-checklist.md の確認)は、運営者が、上の待ちを解いたあとに行う
+4. デザイン見本(/theme-preview/。決定ログ 0057。PR #134)で、運営者が案(今のまま・ダーク・ホワイト・可愛い・クール・メタリック)を選ぶ。選ばれたら、tokens.css への本番採用を別 PR で行う
+5. Phase 30 の「公開」の実行(本番での docs/05_checklists/acceptance-test.md・release-checklist.md の確認)は、運営者が、上の待ちを解いたあとに行う
 ```
 
 ### 最後に完了した作業
