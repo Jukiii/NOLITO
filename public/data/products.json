@@ -74,9 +74,9 @@
       "cta": "遊ぶ",
       "download": null,
       "purchase": null,
-      "version": "0.26.0",
+      "version": "0.27.0",
       "released_at": "2026-09-20",
-      "updated_at": "2026-09-24",
+      "updated_at": "2026-09-30",
       "faq": [
         {
           "question": "記録は、どこに保存されますか?",
@@ -160,6 +160,14 @@
         }
       ],
       "changelog": [
+        {
+          "version": "0.27.0",
+          "date": "2026-09-30",
+          "changes": [
+            "エンジニアの語のうち、ふだん英語で打つ15語(bug・code・debug・commit・review・version・test・log・branch・release・error・file・update・password・backup)を、英語の表記で出し、英字でそのまま打つようにした(よみがなは、日本語で残る)",
+            "この語は、ローマ字の書き方の設定(標準・訓令式・表示どおりだけ)に関係なく、つづりのとおりに打つ。それ以外の語は、これまでどおり"
+          ]
+        },
         {
           "version": "0.26.0",
           "date": "2026-09-24",

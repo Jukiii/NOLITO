@@ -344,20 +344,16 @@ describe("入力方式(ローマ字の書き方。Phase 13 PR 2)", () => {
   it("マッチャーは、設定の方式で作る(連続タイピング・用語確認・復習リストの共通の newMatcher)", () => {
     assert.match(
       main,
-      /const newMatcher = \(reading\) =>\s*createMatcher\(reading, matcherOptionsFor\(settings\.inputStyle\)\)/,
+      /const newMatcher = \(word\) =>\s*createWordMatcher\(word, matcherOptionsFor\(settings\.inputStyle\)\)/,
     );
-    // 語ごとのマッチャー作成は、すべて newMatcher(標準の長さを数える 1 か所だけが、createMatcher)
-    const direct = [...main.matchAll(/createMatcher\(/g)].length;
-    assert.equal(
-      direct,
-      2,
-      "createMatcher の直接の呼び出しは、newMatcher の中と、標準の長さの 1 か所だけ",
-    );
+    // 語ごとのマッチャー作成は、すべて newMatcher(main.js は、createMatcher を直接呼ばない。標準の長さは canonicalLengthOf)
+    assert.equal([...main.matchAll(/createMatcher\(/g)].length, 0);
+    assert.equal([...main.matchAll(/createWordMatcher\(/g)].length, 1);
     assert.equal([...main.matchAll(/newMatcher\(/g)].length, 4);
   });
 
   it("距離の「文字数の分」は、書き方に関係なく、標準の書き方の長さで数える", () => {
-    assert.match(main, /const charCount = createMatcher\(word\.reading\)\.canonicalLength;/);
+    assert.match(main, /const charCount = canonicalLengthOf\(word\);/);
     assert.ok(!/session\.matcher\.canonicalLength/.test(main));
   });
 

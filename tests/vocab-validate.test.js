@@ -440,7 +440,7 @@ describe("公開の形(toPublished)", () => {
     for (const word of published.items) {
       assert.deepEqual(
         Object.keys(word),
-        PUBLISHED_KEYS.filter((key) => !["detail", "difficulties"].includes(key)),
+        PUBLISHED_KEYS.filter((key) => !["detail", "difficulties", "typing"].includes(key)),
       );
     }
     assert.deepEqual(Object.keys(published), [
@@ -489,11 +489,11 @@ describe("詳細説明(detail。難語のための、少し長い説明)", () =>
     const keys = (word) => Object.keys(word);
     assert.deepEqual(
       keys(published.items[0]),
-      PUBLISHED_KEYS.filter((key) => key !== "difficulties"),
+      PUBLISHED_KEYS.filter((key) => !["difficulties", "typing"].includes(key)),
     );
     assert.deepEqual(
       keys(published.items[1]),
-      PUBLISHED_KEYS.filter((key) => !["detail", "difficulties"].includes(key)),
+      PUBLISHED_KEYS.filter((key) => !["detail", "difficulties", "typing"].includes(key)),
     );
     const order = keys(published.items[0]);
     assert.equal(order.indexOf("detail"), order.indexOf("explanation") + 1);
@@ -518,15 +518,47 @@ describe("難易度専用(difficulties)の公開の形", () => {
     const keys = (word) => Object.keys(word);
     assert.deepEqual(
       keys(published.items[0]),
-      PUBLISHED_KEYS.filter((key) => key !== "detail"),
+      PUBLISHED_KEYS.filter((key) => !["detail", "typing"].includes(key)),
     );
     assert.deepEqual(
       keys(published.items[1]),
-      PUBLISHED_KEYS.filter((key) => !["detail", "difficulties"].includes(key)),
+      PUBLISHED_KEYS.filter((key) => !["detail", "difficulties", "typing"].includes(key)),
     );
     const order = keys(published.items[0]);
     assert.equal(order.indexOf("difficulties"), order.indexOf("roles") + 1);
     assert.equal(order.indexOf("difficulties"), order.indexOf("explanation") - 1);
     assert.deepEqual(published.items[0].difficulties, ["hard"]);
+  });
+});
+
+describe("英語のまま打つ語(typing)", () => {
+  const english = (overrides = {}) =>
+    item(1, { japanese: "debug", reading: "でばっぐ", typing: "debug", ...overrides });
+
+  it("英語の語は、romaji を省略しても、typing だけが入力の候補になる。公開の形にも入る", () => {
+    const { errors, data } = check(file([english()]));
+    assert.deepEqual(errors, []);
+    assert.deepEqual(data.items[0].romaji, ["debug"]);
+    assert.equal(data.items[0].typing, "debug");
+    const published = toPublished(data).items[0];
+    const keys = Object.keys(published);
+    assert.equal(keys.indexOf("typing"), keys.indexOf("romaji") + 1);
+  });
+
+  it("書かない語には、項目を作らない", () => {
+    const { data } = check(file([item(1)]));
+    assert.ok(!("typing" in data.items[0]));
+  });
+
+  it("romaji を書くなら、[typing] だけ", () => {
+    assert.deepEqual(errorsOf(file([english({ romaji: ["debug"] })])), []);
+    assert.ok(has(errorsOf(file([english({ romaji: ["debaggu"] })])), "romaji"));
+  });
+
+  it("英小文字・数字・- だけ。日本語(japanese)と同じつづりでなければ、エラー", () => {
+    assert.ok(has(errorsOf(file([english({ typing: "Debug" })])), "typing"));
+    assert.ok(has(errorsOf(file([english({ typing: "de bug" })])), "typing"));
+    assert.ok(has(errorsOf(file([english({ typing: "でばぐ" })])), "typing"));
+    assert.ok(has(errorsOf(file([english({ typing: "debugger" })])), "同じつづり"));
   });
 });

@@ -297,6 +297,12 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - **ハイスコア表・改善記録は、期間・役職の絞り込みの影響を受けない**(職種別の熟練度・復習リストと同じ考え)。`stats-page.js` の `init()` から 1 回だけ呼ぶ(`render()` からは呼ばない)。表示の位置も、「職種別の熟練度」の直後・絞り込みの前(`data-scoped` の外)。
 - 旧来の役職だけの「ベストスコア」表・`bestScoresByRole`(期間・役職の絞り込みの対象だった)は、削除した(新しいハイスコア表に置き換え)。
 
+## 英語のまま打つ語(typing)
+
+- 語の任意項目 **`typing`**(英小文字・数字・`-`。`japanese` の小文字と同じつづり)がある語は、英語の表記で出し、`reading` は日本語のよみがなのまま、入力は英字を**つづりのとおり**に打つ(`romaji.js` の `createWordMatcher`。`typing` がなければ従来どおり読みからローマ字)。ローマ字の書き方の設定は、この語には効かない。決定は `docs/decisions/0056-english-typed-terms.md`。
+- `romaji` は、書かないか `["<typing>"]` だけ。`id`・`reading`・`difficulty`(読みの長さ)は変えない。**距離の文字数の分は `canonicalLengthOf(word)` を使う**(`createMatcher(word.reading)` を直接呼ばない)。マッチャーは、必ず `newMatcher(word)`(語のオブジェクトを渡す)で作る。
+- いまは、エンジニアの 15 語だけ(範囲は運営者の確認待ち)。語を足すときは、`typing` を書き、`npm run build:vocabulary`・`npm run vocab:review`・`tests/balance.test.js` を確認する。
+
 ## 未登録プレイ・オンラインランキング(Phase 19)
 
 Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19-plan.md`)。PR2・PR3(アカウント移行・オンラインランキング)は、ゲームの記録を初めて運営者のサーバーに送る、privacy-sensitive な変更のため、慎重に進めた(PR2 の決定は `docs/decisions/0043-phase-19-account-sync.md`、PR3 は `docs/decisions/0044-phase-19-online-ranking.md`)。

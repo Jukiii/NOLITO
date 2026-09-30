@@ -10,6 +10,7 @@ export const PUBLISHED_KEYS = [
   "japanese",
   "reading",
   "romaji",
+  "typing",
   "category",
   "difficulty",
   "roles",
@@ -21,7 +22,7 @@ export const PUBLISHED_KEYS = [
   "weak_detection",
 ];
 // 省略できる公開項目(ある語だけ、公開の JSON に項目を持つ)
-const OPTIONAL_PUBLISHED_KEYS = ["difficulties", "detail"];
+const OPTIONAL_PUBLISHED_KEYS = ["difficulties", "detail", "typing"];
 const MANUSCRIPT_KEYS = ["review", "draft", "note"];
 const REQUIRED_KEYS = [
   "id",
@@ -59,6 +60,8 @@ const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const VERSION_PATTERN = /^\d+\.\d+\.\d+$/;
 const READING_PATTERN = /^[ぁ-ゖー]+$/;
 const ROMAJI_PATTERN = /^[a-z-]+$/;
+// 英語のまま打つ語(typing)。英小文字・数字・ハイフンだけ
+const TYPING_PATTERN = /^[a-z0-9-]+$/;
 // 制御文字・書式文字(向きを変える文字・幅のない文字など)は、どの文字列にも入れない
 const HIDDEN = /\p{Cc}|\p{Cf}|\p{Zl}|\p{Zp}/u;
 
@@ -209,9 +212,32 @@ export function validateVocabulary(raw, context) {
       seen.reading.set(reading, index + 1);
     }
 
-    // ローマ字(省略すると、読みから作る)
+    // 英語のまま打つ語(省略できる。debug など)。表示(japanese)は同じ英語、読み(reading)はかなのまま
+    let typing;
+    if ("typing" in item) {
+      const value = text("typing", LIMITS.romajiLength);
+      if (value !== undefined) {
+        if (!TYPING_PATTERN.test(value)) {
+          problem(where, "typing は、英小文字・数字・- だけの文字列にしてください");
+        } else if (japanese !== undefined && japanese.toLowerCase() !== value) {
+          problem(
+            where,
+            `typing "${value}" は、japanese(画面に表示する英語。大文字小文字は問いません)と同じつづりにしてください`,
+          );
+        } else {
+          typing = value;
+        }
+      }
+    }
+
+    // ローマ字(省略すると、読みから作る)。英語のまま打つ語は、打つ文字そのもの
     let romaji = null;
-    if ("romaji" in item) {
+    if (typing !== undefined) {
+      if ("romaji" in item && !(Array.isArray(item.romaji) && item.romaji.join() === typing)) {
+        problem(where, `typing がある語の romaji は、書かないか、["${typing}"] だけにしてください`);
+      }
+      romaji = [typing];
+    } else if ("romaji" in item) {
       const list = item.romaji;
       if (!Array.isArray(list) || list.length === 0 || list.length > LIMITS.romajiCandidates) {
         problem(
@@ -383,6 +409,7 @@ export function validateVocabulary(raw, context) {
       japanese: item.japanese,
       reading: item.reading,
       romaji,
+      ...(typing === undefined ? {} : { typing }),
       category,
       difficulty: item.difficulty,
       roles: item.roles,

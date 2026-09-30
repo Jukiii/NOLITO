@@ -31,7 +31,7 @@ import {
 import { levelOf } from "./levels.js";
 import { jobMasteries } from "./mastery.js";
 import { createLines, lineLevelOf } from "./lines.js";
-import { createMatcher } from "./romaji.js";
+import { canonicalLengthOf, createWordMatcher } from "./romaji.js";
 import { buildReviewList, indexWords } from "./review.js";
 import { roleSoundOf } from "./role-sound.js";
 import { isDanger, outroStyleOf } from "./scene.js";
@@ -498,7 +498,7 @@ async function beginReview() {
 }
 
 // 設定の「ローマ字の書き方」で、語のマッチャーを作る(ゲームを始めたときの設定。途中では、変わらない)
-const newMatcher = (reading) => createMatcher(reading, matcherOptionsFor(settings.inputStyle));
+const newMatcher = (word) => createWordMatcher(word, matcherOptionsFor(settings.inputStyle));
 
 // 用語確認の進行を始める(職種の 10 語でも、復習リストでも共通)
 function startCheckSession({ job, words, review = false }) {
@@ -510,7 +510,7 @@ function startCheckSession({ job, words, review = false }) {
     review,
     job,
     words,
-    matcher: newMatcher(words[0].reading),
+    matcher: newMatcher(words[0]),
     state: createCheckState(words.length),
     startedAt: performance.now(),
   };
@@ -552,7 +552,7 @@ function handleCheckChar(char) {
     finishCheck();
     return;
   }
-  session.matcher = newMatcher(session.words[session.state.index].reading);
+  session.matcher = newMatcher(session.words[session.state.index]);
   view.renderWord(session.words[session.state.index], session.matcher);
   view.renderCheckProgress(session.state);
   announceWord();
@@ -630,7 +630,7 @@ async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
     vocabularyVersion: vocabulary.version,
     words,
     index: 0,
-    matcher: newMatcher(words[0].reading),
+    matcher: newMatcher(words[0]),
     state: createGameState(stage),
     keyStats: createKeyStats(),
     // いまの語の、最初の正しい打鍵の時刻(ゲーム内の経過秒)。距離の「速さの分」に使う
@@ -887,7 +887,7 @@ function handleChar(char) {
   }
   // 1語打ち終わった
   // 文字数の分は、書き方の設定に関係なく、標準の書き方の長さで数える(設定で距離が変わらないように)
-  const charCount = createMatcher(word.reading).canonicalLength;
+  const charCount = canonicalLengthOf(word);
   const seconds = session.state.elapsed - session.wordStartedAt;
   update(
     applyCorrect(session.state, session.stage, charCount, {
@@ -901,7 +901,7 @@ function handleChar(char) {
   sound.play("correct");
   session.index += 1;
   session.wordStartedAt = null;
-  session.matcher = newMatcher(session.words[session.index].reading);
+  session.matcher = newMatcher(session.words[session.index]);
   view.renderWord(session.words[session.index], session.matcher);
 }
 
