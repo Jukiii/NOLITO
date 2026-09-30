@@ -143,7 +143,6 @@ function refreshDashboard() {
     roles,
     isUnlocked: (role) => isRoleUnlocked(data, role),
     difficulties,
-    isDifficultyUnlocked: isDifficultyUnlockedFor,
     bestOf: bestOfJob,
     profile: {
       nickname: data.profile.nickname,

@@ -94,15 +94,11 @@
           </div>
 
           <form class="game-setup" data-setup>
+            <fieldset class="game-setup__mode">
+              <legend>モード</legend>
+              <div class="game-setup__radios" data-mode-list></div>
+            </fieldset>
             <div class="game-setup__choices">
-              <div class="game-setup__choice">
-                <label for="setup-mode">モード</label>
-                <select
-                  class="game-input__field game-setup__select"
-                  id="setup-mode"
-                  data-mode-list
-                ></select>
-              </div>
               <div class="game-setup__choice">
                 <label for="setup-job">職種</label>
                 <select
@@ -112,7 +108,7 @@
                 ></select>
               </div>
               <div class="game-setup__choice" data-role-fieldset>
-                <label for="setup-role">追ってくる人</label>
+                <label for="setup-role">追ってくる人(役職が上がるほど、むずかしい)</label>
                 <select
                   class="game-input__field game-setup__select"
                   id="setup-role"
@@ -120,33 +116,18 @@
                   data-role-list
                 ></select>
                 <p class="game-setup__hint" id="setup-role-hint" data-role-hint hidden></p>
-                <div class="game-setup__rules" aria-live="polite" data-role-rules hidden>
-                  <p class="game-setup__rules-title">
-                    <strong data-role-rules-name></strong>の特殊ルール
-                  </p>
-                  <ul class="game-setup__rules-list" data-role-rules-list></ul>
-                </div>
-              </div>
-              <div class="game-setup__choice" data-difficulty-fieldset>
-                <label for="setup-difficulty">難易度</label>
-                <select
-                  class="game-input__field game-setup__select"
-                  id="setup-difficulty"
-                  aria-describedby="setup-difficulty-hint"
-                  data-difficulty-list
-                ></select>
-                <p
-                  class="game-setup__hint"
-                  id="setup-difficulty-hint"
-                  data-difficulty-hint
-                  hidden
-                ></p>
-                <div class="game-setup__rules" aria-live="polite" data-difficulty-info hidden>
-                  <p class="game-setup__rules-title" data-difficulty-info-text></p>
-                  <p class="game-setup__hint" data-difficulty-best hidden></p>
-                </div>
               </div>
             </div>
+            <div class="game-setup__rules" aria-live="polite" data-role-rules hidden>
+              <p class="game-setup__rules-title">
+                <strong data-role-rules-name></strong>の特殊ルール
+              </p>
+              <ul class="game-setup__rules-list" data-role-rules-list></ul>
+              <p class="game-setup__hint" data-role-best hidden></p>
+            </div>
+            <button class="button button--primary" type="submit" data-start disabled>
+              スタート
+            </button>
             <p class="game-setup__hint">前回の選択と設定は、この端末に、引き継がれます。</p>
             <details class="game-setup__more">
               <summary>くわしい設定(説明・演出・苦手な語・ローマ字・音)</summary>
@@ -264,9 +245,6 @@
                 </p>
               </div>
             </details>
-            <button class="button button--primary" type="submit" data-start disabled>
-              スタート
-            </button>
             <noscript><p>このゲームを遊ぶには JavaScript を有効にしてください。</p></noscript>
           </form>
 
