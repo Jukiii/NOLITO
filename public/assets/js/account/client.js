@@ -110,6 +110,22 @@ export const updateAdminProduct = (id, product, options) =>
 export const deleteAdminProduct = (id, options) =>
   call(`/api/admin/products/${encodeURIComponent(id)}`, { ...options, method: "DELETE" });
 
+// アフィリエイト・広告のリンクの管理(Phase 29 PR 3。管理者だけ)。実際のアクセス制御は、サーバー側の requireAdmin が行う
+export const fetchAdminAffiliates = (options) => call("/api/admin/affiliates", options);
+
+export const createAdminAffiliate = (link, options) =>
+  call("/api/admin/affiliates", { ...options, method: "POST", body: { link } });
+
+export const updateAdminAffiliate = (id, link, options) =>
+  call(`/api/admin/affiliates/${encodeURIComponent(id)}`, {
+    ...options,
+    method: "PUT",
+    body: { link },
+  });
+
+export const deleteAdminAffiliate = (id, options) =>
+  call(`/api/admin/affiliates/${encodeURIComponent(id)}`, { ...options, method: "DELETE" });
+
 /** 商品 ID → 商品名(公開の products.json から)。取れなければ空(ID のまま表示する)。 */
 export async function fetchProductNames(fetchImpl = globalThis.fetch) {
   try {

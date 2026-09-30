@@ -27,6 +27,11 @@ export const SMOKE_CHECKS = Object.freeze([
     type: JSON_TYPE,
     json: (data) => hasKey(data, "products") && Array.isArray(data.products),
   },
+  {
+    path: "/api/affiliates",
+    type: JSON_TYPE,
+    json: (data) => hasKey(data, "links") && Array.isArray(data.links),
+  },
   { path: "/favicon.svg", header: { "cache-control": "max-age=86400" } },
   // 存在しないページが、404 で返ること(すべてが 200 になる設定ミスの検出)
   { path: "/__smoke-not-found__/", status: 404 },

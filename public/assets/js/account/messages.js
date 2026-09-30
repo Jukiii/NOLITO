@@ -23,6 +23,12 @@ export const API_ERRORS = {
   "product-id-exists": "その id は、すでに使われています。別の id にしてください。",
   "product-not-found": "そのプロダクトは見つかりませんでした。",
   "product-id-mismatch": "id を変更することはできません。",
+  "affiliates-unavailable":
+    "リンクの情報を読み込めませんでした。時間をおいて、もう一度お試しください。",
+  "invalid-affiliate": "リンクの内容が正しくないため、保存できませんでした。",
+  "affiliate-id-exists": "その id は、すでに使われています。別の id にしてください。",
+  "affiliate-not-found": "そのリンクは見つかりませんでした。",
+  "affiliate-id-mismatch": "id を変更することはできません。",
   "bad-origin": "リクエストを確認できませんでした。ページを開き直して、もう一度お試しください。",
   "csrf-header-required":
     "リクエストを確認できませんでした。ページを開き直して、もう一度お試しください。",
