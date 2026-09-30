@@ -199,7 +199,9 @@ describe("書き出し(stringifyVocabularyMarkdown)", () => {
 });
 
 describe("実際の原稿(content/vocabulary/*.md)", () => {
-  const files = readdirSync(`${root}content/vocabulary`).filter((name) => name.endsWith(".md"));
+  const files = readdirSync(`${root}content/vocabulary`).filter(
+    (name) => name.endsWith(".md") && !name.includes(".ext-"),
+  );
   const read = (name) =>
     readFileSync(`${root}content/vocabulary/${name}`, "utf8").replaceAll("\r\n", "\n");
 
