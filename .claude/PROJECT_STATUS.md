@@ -85,7 +85,7 @@ Phase 26(管理画面・RBAC)は、プロダクトの管理画面(PR1・PR2a・P
 ## Current Status
 
 ```text
-WAITING_HUMAN(Phase 30 文書は完了=PR #129。Phase 29 最終段階=広告事業者のスクリプトは Issue #122・#123、本番D1の0009は #127、運営者対応待ち。ほかに #12・#13・#19)
+WAITING_HUMAN(Phase 30 文書は完了=PR #129。Phase 29 最終段階=広告事業者のスクリプトは Issue #122・#123、本番D1の0009は #127、運営者対応待ち。ほかに #12・#13・#19。追加の依頼「ふだん英語で打つ語を英字入力に」は PR #132 で対応済み=対象範囲の確認は Issue #131)
 ```
 
 ## Current Branch
@@ -199,7 +199,8 @@ Phase 27 PR1(依存の脆弱性チェック)・PR2(管理APIの削除に再認�
 ```text
 1. 運営者の確認待ち: /ads-policy/ の文言(Issue #122)、広告事業者の契約・ポリシー版5(Issue #123)、本番D1への0009適用(Issue #127)
 2. Phase 29 の最終段階(広告事業者のスクリプト)は、上の待ちが解けてから
-3. Phase 30 の「公開」の実行(本番での docs/05_checklists/acceptance-test.md・release-checklist.md の確認)は、運営者が、上の待ちを解いたあとに行う
+3. 英語のまま打つ語(決定ログ 0056。エンジニア 15 語): 対象範囲の確認は Issue #131
+4. Phase 30 の「公開」の実行(本番での docs/05_checklists/acceptance-test.md・release-checklist.md の確認)は、運営者が、上の待ちを解いたあとに行う
 ```
 
 ### 最後に完了した作業
