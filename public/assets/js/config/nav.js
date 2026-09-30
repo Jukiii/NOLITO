@@ -14,6 +14,7 @@ export const mainNav = [
       { label: "ゲーム一覧", href: "/games/" },
       { label: "上司から逃げろで遊ぶ", href: "/games/escape-boss/" },
       { label: "成績・実績を見る", href: "/games/escape-boss/stats/" },
+      { label: "用語一覧", href: "/games/escape-boss/glossary/" },
     ],
   },
   { label: "ソフト", href: "/software/", available: false },

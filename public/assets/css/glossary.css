@@ -1,0 +1,83 @@
+/* 用語一覧ページ(/games/escape-boss/glossary/)。語の 1 件の見た目は、game.css の .review-item を使う */
+.glossary__lead {
+  margin: 0 0 var(--space-4);
+}
+
+.glossary__notice {
+  margin: 0 0 var(--space-4);
+  font-weight: var(--font-weight-bold);
+}
+
+.glossary__form {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.glossary__field {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.glossary__field > label {
+  font-weight: var(--font-weight-bold);
+}
+
+/* 16px 以上にして、iOS の入力時の自動ズームを防ぐ */
+.glossary__input,
+.glossary__select {
+  min-height: var(--tap-size);
+  padding: 0 var(--space-3);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-base);
+}
+
+.glossary__status {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-bold);
+}
+
+.glossary__jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+}
+
+.glossary__jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-size);
+  padding: 0 var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.glossary__group {
+  margin: 0 0 var(--space-6);
+  scroll-margin-top: var(--space-4);
+}
+
+.glossary__group-title {
+  margin: 0 0 var(--space-3);
+}
+
+.glossary__count {
+  margin-left: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+}
+
+@media (width >= 40rem) {
+  .glossary__form {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
