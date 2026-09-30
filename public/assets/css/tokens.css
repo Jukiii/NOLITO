@@ -1,8 +1,10 @@
 /*
  * デザイントークン。色はすべて意味のある名前で定義する。
- * ダークテーマ(Phase 21 PR1)は、このファイルの下部で、色トークンを上書きする。
- * 切り替えは <html data-theme="light|dark|system">(components/theme.js)。
- * 「システム」は、OSの設定(prefers-color-scheme)に追従する。明示した light/dark は、OSより優先。
+ * テーマ(Phase 21 PR1 → Phase 31 で 4 種に)は、このファイルの下部で、色・形のトークンを上書きする。
+ * 切り替えは <html data-theme="light|white|dark|pretty|system">(components/theme.js)。
+ * light = デフォルト(この :root)・white = ホワイト・dark = ダーク(クール)・pretty = プリティ。
+ * 「システム」は、OSの設定(prefers-color-scheme)に追従する(ライト = デフォルト・ダーク = ダーク)。
+ * 明示した light/white/dark/pretty は、OSより優先。
  * ブレークポイント: 48rem(768px)以上をPC・タブレット横向きとする。
  */
 :root {
@@ -60,6 +62,7 @@
   --radius-pill: 999px;
   --shadow-pop: 0 4px 0 var(--color-border);
   --shadow-pop-sm: 0 2px 0 var(--color-border);
+  --shadow-primary: 0 4px 0 var(--color-border);
 
   /* Layout */
   --container-max: 64rem;
@@ -72,44 +75,124 @@
 }
 
 /*
- * ダーク(Phase 21 PR1)。文字・背景・強調色の組み合わせは、WCAG AA(通常文字 4.5:1・
- * UI部品 3:1)以上のコントラスト比になるよう、計算のうえ決めた(tests/theme.test.js で検査)。
- * アクセント(金色)は、ライトと共通(暗い背景でも明るい背景でも、はっきり見えるため)。
+ * ダーク(クール)。濃い紺・水色。角が小さく、縁が光る。Phase 31 で、以前のダーク(暗い茶色)から置き換えた。
+ * 「システム」で OS がダークのときも、同じ配色。
+ * 配色は、WCAG AA(通常文字 4.5:1・UI部品 3:1)以上になるよう決めた(tests/theme.test.js で検査)。
  */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme="light"], [data-theme="white"], [data-theme="pretty"]) {
     color-scheme: dark;
 
-    --color-bg: #181611;
-    --color-surface: #242019;
-    --color-text: #f2ede0;
-    --color-text-muted: #b8ae98;
-    --color-primary: #8f85ff;
-    --color-primary-strong: #a89dff;
-    --color-on-primary: #181611;
-    --color-soft: #3a331f;
-    --color-border: #f2ede0;
-    --color-focus: #ffd23f;
-    --color-chart-grid: #2c2820;
-    --color-chart-axis: #8a8270;
+    --color-bg: #0b1220;
+    --color-surface: #131d33;
+    --color-text: #e6f1ff;
+    --color-text-muted: #9db3d1;
+    --color-primary: #22d3ee;
+    --color-primary-strong: #67e8f9;
+    --color-on-primary: #06202a;
+    --color-accent: #a78bfa;
+    --color-on-accent: #0b1220;
+    --color-soft: #1b2a4a;
+    --color-border: #4fb3d9;
+    --color-focus: #22d3ee;
+    --color-chart-grid: #1b2a4a;
+    --color-chart-axis: #5f7ba3;
+    --color-glow: rgb(34 211 238 / 35%);
+    --border-width: 1px;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-pill: 0.375rem;
+    --shadow-pop: 0 0 14px var(--color-glow);
+    --shadow-pop-sm: 0 0 8px var(--color-glow);
+    --shadow-primary: 0 0 16px var(--color-glow);
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --color-bg: #181611;
-  --color-surface: #242019;
-  --color-text: #f2ede0;
-  --color-text-muted: #b8ae98;
-  --color-primary: #8f85ff;
-  --color-primary-strong: #a89dff;
-  --color-on-primary: #181611;
-  --color-soft: #3a331f;
-  --color-border: #f2ede0;
-  --color-focus: #ffd23f;
-  --color-chart-grid: #2c2820;
-  --color-chart-axis: #8a8270;
+  --color-bg: #0b1220;
+  --color-surface: #131d33;
+  --color-text: #e6f1ff;
+  --color-text-muted: #9db3d1;
+  --color-primary: #22d3ee;
+  --color-primary-strong: #67e8f9;
+  --color-on-primary: #06202a;
+  --color-accent: #a78bfa;
+  --color-on-accent: #0b1220;
+  --color-soft: #1b2a4a;
+  --color-border: #4fb3d9;
+  --color-focus: #22d3ee;
+  --color-chart-grid: #1b2a4a;
+  --color-chart-axis: #5f7ba3;
+  --color-glow: rgb(34 211 238 / 35%);
+  --border-width: 1px;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-pill: 0.375rem;
+  --shadow-pop: 0 0 14px var(--color-glow);
+  --shadow-pop-sm: 0 0 8px var(--color-glow);
+  --shadow-primary: 0 0 16px var(--color-glow);
+}
+
+/*
+ * ホワイト(Phase 31)。白と灰色・青。細い線とやわらかい影。
+ */
+:root[data-theme="white"] {
+  color-scheme: light;
+
+  --color-bg: #f6f7f9;
+  --color-surface: #fff;
+  --color-text: #1a1d23;
+  --color-text-muted: #4b5563;
+  --color-primary: #2563eb;
+  --color-primary-strong: #1d4ed8;
+  --color-on-primary: #fff;
+  --color-accent: #e5e7eb;
+  --color-on-accent: #1a1d23;
+  --color-soft: #e8eefc;
+  --color-border: #6b7280;
+  --color-focus: #2563eb;
+  --color-chart-grid: #e5e7eb;
+  --color-chart-axis: #9ca3af;
+  --color-shadow: rgb(15 23 42 / 14%);
+  --border-width: 1px;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-pill: 0.5rem;
+  --shadow-pop: 0 2px 8px var(--color-shadow);
+  --shadow-pop-sm: 0 1px 3px var(--color-shadow);
+  --shadow-primary: 0 2px 8px var(--color-shadow);
+}
+
+/*
+ * プリティ(Phase 31)。ピンク・大きな丸み・やわらかい影。
+ */
+:root[data-theme="pretty"] {
+  color-scheme: light;
+
+  --color-bg: #fff0f6;
+  --color-surface: #fff;
+  --color-text: #4a2040;
+  --color-text-muted: #7a3f68;
+  --color-primary: #c2255c;
+  --color-primary-strong: #a61e4d;
+  --color-on-primary: #fff;
+  --color-accent: #ffc9de;
+  --color-on-accent: #4a2040;
+  --color-soft: #ffe3ef;
+  --color-border: #b0407a;
+  --color-focus: #c2255c;
+  --color-chart-grid: #f6d3e2;
+  --color-chart-axis: #c98aa9;
+  --color-shadow: #f4a6c8;
+  --border-width: 3px;
+  --radius-sm: 1rem;
+  --radius-md: 1.5rem;
+  --radius-pill: 999px;
+  --shadow-pop: 0 5px 0 var(--color-shadow);
+  --shadow-pop-sm: 0 2px 0 var(--color-shadow);
+  --shadow-primary: 0 4px 0 var(--color-primary-strong);
 }
 
 /*

@@ -30,6 +30,7 @@
 .button--primary {
   background: var(--color-primary);
   color: var(--color-on-primary);
+  box-shadow: var(--shadow-primary);
 }
 
 .button--primary:hover {

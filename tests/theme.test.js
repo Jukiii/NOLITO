@@ -1,4 +1,4 @@
-// ライト・ダーク・システムテーマ(Phase 21 PR1)のテスト。
+// テーマ(Phase 21 PR1。Phase 31 で デフォルト・ホワイト・ダーク・プリティ の 4 種 + システム)のテスト。
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -53,21 +53,27 @@ function tokensBetween(css, start, end) {
 
 const tokensCss = read("public/assets/css/tokens.css");
 const light = tokensBetween(tokensCss, ":root {", "\n}");
-// ダークが上書きしない項目(例: アクセント)は、:root(ライト)の値のまま引き継がれる(実際のCSSと同じ)
-const dark = { ...light, ...tokensBetween(tokensCss, ':root[data-theme="dark"]', "\n}") };
+// 各テーマが上書きしない項目は、:root(デフォルト)の値のまま引き継がれる(実際のCSSと同じ)
+const themed = (id) => ({
+  ...light,
+  ...tokensBetween(tokensCss, `:root[data-theme="${id}"]`, "\n}"),
+});
+const dark = themed("dark");
+const white = themed("white");
+const pretty = themed("pretty");
 
 describe("theme.js(保存・読み込み・反映)", () => {
   it("THEME_KEY・THEMES・DEFAULT_THEME", () => {
     assert.equal(THEME_KEY, "nolito:theme:v1");
-    assert.deepEqual(THEMES, ["light", "dark", "system"]);
+    assert.deepEqual(THEMES, ["light", "white", "dark", "pretty", "system"]);
     assert.equal(DEFAULT_THEME, "system");
   });
 
-  it("isTheme: 3つの値だけ true", () => {
-    assert.equal(isTheme("light"), true);
-    assert.equal(isTheme("dark"), true);
-    assert.equal(isTheme("system"), true);
-    for (const bad of ["Light", "", null, undefined, 1, "auto"]) assert.equal(isTheme(bad), false);
+  it("isTheme: 5つの値だけ true", () => {
+    for (const ok of ["light", "white", "dark", "pretty", "system"])
+      assert.equal(isTheme(ok), true);
+    for (const bad of ["Light", "", null, undefined, 1, "auto", "cute", "cool", "metal"])
+      assert.equal(isTheme(bad), false);
   });
 
   // 偽の localStorage(node:test には DOM がないため)
@@ -117,7 +123,7 @@ describe("theme.js(保存・読み込み・反映)", () => {
 });
 
 describe("配色(コントラスト比。WCAG AA)", () => {
-  it("ライト・ダーク、どちらも、色トークンをすべて拾えている(取りこぼしがない)", () => {
+  it("4つのテーマすべてで、色トークンをすべて拾えている(取りこぼしがない)", () => {
     const names = [
       "color-bg",
       "color-surface",
@@ -135,12 +141,16 @@ describe("配色(コントラスト比。WCAG AA)", () => {
     for (const name of names) {
       assert.ok(light[name], `light: ${name}`);
       assert.ok(dark[name], `dark: ${name}`);
+      assert.ok(white[name], `white: ${name}`);
+      assert.ok(pretty[name], `pretty: ${name}`);
     }
   });
 
   for (const [name, tokens] of [
-    ["ライト", light],
+    ["デフォルト", light],
+    ["ホワイト", white],
     ["ダーク", dark],
+    ["プリティ", pretty],
   ]) {
     it(`${name}: 本文の文字は、背景・面のどちらでも 4.5:1 以上`, () => {
       assert.ok(contrast(tokens["color-text"], tokens["color-bg"]) >= 4.5, name);
@@ -174,11 +184,6 @@ describe("配色(コントラスト比。WCAG AA)", () => {
       assert.ok(contrast(tokens["color-focus"], tokens["color-bg"]) >= 3, name);
     });
   }
-
-  it("アクセント色は、ライト・ダークで共通(どちらの背景でもはっきり見えるため)", () => {
-    assert.equal(light["color-accent"], dark["color-accent"]);
-    assert.equal(light["color-on-accent"], dark["color-on-accent"]);
-  });
 });
 
 describe("すべてのページに、ちらつき防止(FOUC)のスクリプトがある(テーマ・文字サイズ・アニメーション)", () => {
@@ -230,8 +235,8 @@ describe("ページの静的な性質", () => {
     assert.match(mainJs, /initTheme\(/);
   });
 
-  it("テーマの選択肢は、theme.js の THEMES と同じ3つ", () => {
-    for (const value of ["system", "light", "dark"]) {
+  it("テーマの選択肢は、theme.js の THEMES と同じ5つ", () => {
+    for (const value of THEMES) {
       assert.match(footerJs, new RegExp(`value:\\s*"${value}"`));
     }
   });
@@ -255,12 +260,43 @@ describe("ページの静的な性質", () => {
     assert.match(componentsCss, /--color-backdrop/);
   });
 
-  it("tokens.css の色は、rgb() の背景幕を除いて、すべて #rrggbb か #rgb", () => {
+  it("tokens.css の色は、rgb() の半透明(背景幕・光・影)を除いて、すべて #rrggbb か #rgb", () => {
     const colorLines = tokensCss
       .split("\n")
-      .filter((line) => /^\s*--color-[a-z-]+:/.test(line) && !line.includes("backdrop"));
+      .filter((line) => /^\s*--color-[a-z-]+:/.test(line) && !line.includes("rgb("));
     for (const line of colorLines) {
       assert.match(line, /#[0-9a-fA-F]{3,6}/, line);
+    }
+  });
+});
+
+describe("テーマの形(Phase 31)", () => {
+  it("ホワイト・ダーク・プリティは、形のトークン(線の太さ・丸み・影)も上書きする", () => {
+    for (const id of ["white", "dark", "pretty"]) {
+      const block = tokensCss.slice(
+        tokensCss.indexOf(`:root[data-theme="${id}"]`),
+        tokensCss.indexOf("\n}", tokensCss.indexOf(`:root[data-theme="${id}"]`)),
+      );
+      for (const name of ["--border-width", "--radius-md", "--shadow-pop", "--shadow-primary"]) {
+        assert.ok(block.includes(name), `${id}: ${name}`);
+      }
+    }
+  });
+
+  it("「システム」でOSがダークのときも、ホワイト・プリティを選んでいれば、ダークにならない", () => {
+    assert.match(
+      tokensCss,
+      /@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\], \[data-theme="white"\], \[data-theme="pretty"\]\)/,
+    );
+  });
+
+  it("FOUC のスクリプトは、4つの値だけを data-theme に入れる(system は属性なし=OS任せ)", () => {
+    for (const file of htmlFiles()) {
+      assert.match(
+        readFileSync(file, "utf8"),
+        /\/\^\(light\|white\|dark\|pretty\)\$\/\.test\(t\)/,
+        file,
+      );
     }
   });
 });

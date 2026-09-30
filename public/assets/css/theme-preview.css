@@ -1,8 +1,9 @@
 /*
  * デザイン見本ページ(/theme-preview/)専用。サイト本体には読み込まない。
  * 6つのデザイン案を、色・形のトークンの上書きで表す。切り替えは data-preview-theme(見本ページの <html> と、比べる枠)。
- * サイトのテーマ(tokens.css の data-theme)とは別。「今のまま」「ダーク」は、tokens.css と同じ値(tests/theme-preview.test.js が検査)。
- * 新しいデザインを本番に採用するときは、この上書きを tokens.css へ移す。
+ * サイトのテーマ(tokens.css の data-theme)とは別。Phase 31 で「今のまま」「ホワイト」「クール」「可愛い」を本番に採用した
+ * (それぞれ デフォルト・ホワイト・ダーク・プリティ。値は tokens.css と同じ。tests/theme-preview.test.js が検査)。
+ * 「ダーク」(以前の暗い茶色)と「メタリック」は、採用していない。この見本は、比べる記録として残す。
  * 注意: --shadow-pop は、宣言した場所で var() が解決される。テーマごとに、影も宣言し直す。
  */
 
@@ -33,7 +34,7 @@
   --shadow-pop-sm: 0 2px 0 var(--color-border);
 }
 
-/* ダーク(tokens.css の [data-theme="dark"] と同じ) */
+/* ダーク(以前の暗い茶色。本番のダークは、Phase 31 で「クール」に置き換えた) */
 [data-preview-theme="dark"],
 :root[data-preview-theme="dark"] {
   color-scheme: dark;
