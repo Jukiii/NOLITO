@@ -1,6 +1,82 @@
 {
   "articles": [
     {
+      "slug": "escape-boss-records-backup",
+      "title": "記録の保存と引き継ぎ ― 「上司から逃げろ」の成績・ランキング・書き出し",
+      "description": "「上司から逃げろ」の記録はどこに保存されるのか、機種変更のときに引き継ぐ方法、JSONファイルの書き出しと読み込みの手順、成績ページの見方を説明します。",
+      "date": "2026-10-02",
+      "updated": null,
+      "tags": [
+        "ゲーム",
+        "記録",
+        "バックアップ"
+      ],
+      "url": "/articles/escape-boss-records-backup/"
+    },
+    {
+      "slug": "escape-boss-roles-and-rules",
+      "title": "追ってくる人で変わる難しさ ― 「上司から逃げろ」の役職と特殊ルール",
+      "description": "「上司から逃げろ」の先輩・係長・部長・社長・会長それぞれの違いと、ダッシュ・ミスで加速・追い詰めの特殊ルールを説明します。どの役職から挑戦するかの目安にも。",
+      "date": "2026-10-02",
+      "updated": null,
+      "tags": [
+        "ゲーム",
+        "攻略"
+      ],
+      "url": "/articles/escape-boss-roles-and-rules/"
+    },
+    {
+      "slug": "escape-boss-romaji-settings",
+      "title": "ローマ字入力の書き方を選ぶ ― 「上司から逃げろ」のローマ字の設定",
+      "description": "「し」を si と shi のどちらでも打てるのはなぜか。「上司から逃げろ」の「ローマ字の書き方」の3つの設定と、英語のまま打つ用語の入力のしかたを説明します。",
+      "date": "2026-10-02",
+      "updated": null,
+      "tags": [
+        "ゲーム",
+        "タイピング",
+        "ローマ字"
+      ],
+      "url": "/articles/escape-boss-romaji-settings/"
+    },
+    {
+      "slug": "escape-boss-term-review",
+      "title": "仕事の用語を覚える ― 用語確認モード・復習リスト・用語一覧の使い方",
+      "description": "「上司から逃げろ」で、仕事の用語を落ち着いて覚えるための3つの機能、用語確認モード、復習リスト、用語一覧の使い方を説明します。",
+      "date": "2026-10-02",
+      "updated": null,
+      "tags": [
+        "ゲーム",
+        "学習",
+        "用語"
+      ],
+      "url": "/articles/escape-boss-term-review/"
+    },
+    {
+      "slug": "kii-michi-guide",
+      "title": "「キーみち」の使い方 ― 自分の作業に合わせたキー操作ルートを作る",
+      "description": "キーボードだけで作業したい人向けのツール「キーみち」の使い方。操作の登録、ルートの組み立て、練習、チートシートの印刷と書き出しまでを順に説明します。",
+      "date": "2026-10-02",
+      "updated": null,
+      "tags": [
+        "ツール",
+        "キーボード",
+        "効率化"
+      ],
+      "url": "/articles/kii-michi-guide/"
+    },
+    {
+      "slug": "nolito-display-settings",
+      "title": "見た目・文字サイズ・動き・音を、自分に合わせる ― NOLITO の表示設定",
+      "description": "NOLITO のテーマ、文字サイズ、アニメーションの設定と、「上司から逃げろ」のグラフィックや音、セリフ、演出の設定を説明します。見やすさ・快適さを調整する方法です。",
+      "date": "2026-10-02",
+      "updated": null,
+      "tags": [
+        "設定",
+        "アクセシビリティ"
+      ],
+      "url": "/articles/nolito-display-settings/"
+    },
+    {
       "slug": "escape-boss-guide",
       "title": "「上司から逃げろ」の遊び方とローマ字入力のコツ",
       "description": "仕事の用語をローマ字で打って上司から逃げるタイピングゲーム「上司から逃げろ」の遊び方、役職ごとの違い、入力のコツ、成績の見方をまとめました。",
