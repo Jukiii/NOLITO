@@ -318,6 +318,10 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - スタート前の選択は、**モード = ラジオボタン**(`data-mode-list`)、職種・追ってくる人 = **ドロップダウン**(`<select>`。`data-*-list`)。並びは モード → 職種・追ってくる人 → スタート。**難易度の選択欄はない**(難易度 = 追ってくる人。プレイはいつも「ふつう」。決定ログ 0061。難易度のデータ・記録・ランキングの選択欄は残す)。ロック中は `disabled` + 文字のバッジ。そのほかの設定は、ダッシュボードの「くわしい設定」(`<details class="game-setup__more">`)に畳む(プレイ画面には、開閉の部品を置かない)。
 - 前回の選択は、ゲーム設定(`settings.js`)の `lastChoice`(`mode`・`job`・`role`・`difficulty`)に保存する。記録のキー・版(5)は変えない。いま選べない値は、選ばない。
 
+## 用語一覧ページ(Issue #156)
+
+- `/games/escape-boss/glossary/`。公開の語録 JSON を、ブラウザで読んで、職種ごとに一覧する(新しいデータの形はない)。1 語は `review-item.js` の `reviewItem` で描く。絞り込み(`glossary.js`。DOM に触れない純粋な関数)は、キーワード(空白区切りで、かつ条件)と職種。`?q=&job=` に反映する。表示は `el()` だけ。ゲームのメニューに「用語一覧」がある。決定は `docs/decisions/0064-glossary-page.md`。
+
 ## 未登録プレイ・オンラインランキング(Phase 19)
 
 Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19-plan.md`)。PR2・PR3(アカウント移行・オンラインランキング)は、ゲームの記録を初めて運営者のサーバーに送る、privacy-sensitive な変更のため、慎重に進めた(PR2 の決定は `docs/decisions/0043-phase-19-account-sync.md`、PR3 は `docs/decisions/0044-phase-19-online-ranking.md`)。
