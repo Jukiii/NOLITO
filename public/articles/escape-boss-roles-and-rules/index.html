@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (/^(light|white|dark|pretty)$/.test(t)) document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
+        } catch (e) {}
+      })();
+    </script>
+    <title>追ってくる人で変わる難しさ ― 「上司から逃げろ」の役職と特殊ルール | NOLITO</title>
+    <meta name="description" content="「上司から逃げろ」の先輩・係長・部長・社長・会長それぞれの違いと、ダッシュ・ミスで加速・追い詰めの特殊ルールを説明します。どの役職から挑戦するかの目安にも。" />
+    <link rel="canonical" href="https://nolito.pages.dev/articles/escape-boss-roles-and-rules/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="追ってくる人で変わる難しさ ― 「上司から逃げろ」の役職と特殊ルール | NOLITO" />
+    <meta property="og:description" content="「上司から逃げろ」の先輩・係長・部長・社長・会長それぞれの違いと、ダッシュ・ミスで加速・追い詰めの特殊ルールを説明します。どの役職から挑戦するかの目安にも。" />
+    <meta property="og:url" content="https://nolito.pages.dev/articles/escape-boss-roles-and-rules/" />
+    <meta property="og:site_name" content="NOLITO" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/articles.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <article class="article">
+        <header class="article__header">
+          <p class="article__meta"><time datetime="2026-10-02">2026年10月2日</time></p>
+          <h1 class="article__title">追ってくる人で変わる難しさ ― 「上司から逃げろ」の役職と特殊ルール</h1>
+          <ul class="tag-list" aria-label="タグ"><li class="tag">ゲーム</li><li class="tag">攻略</li></ul>
+        </header>
+        <div class="article__body">
+<p>「上司から逃げろ」では、追ってくる人を選びます。先輩・係長・部長・社長・会長の5段階があり、役職が上がるほど、むずかしくなります。ここでは、それぞれの違いと、特殊ルールを説明します。</p>
+<h2>役職ごとの違い</h2>
+<p>役職が上がるにつれて、次のように変わります。</p>
+<ul>
+<li>スタート時の逃走距離が、短くなる(余裕が少なくなる)。</li>
+<li>追ってくる速さが、速くなる。</li>
+<li>出てくる言葉の長さの傾向が変わる。先輩は短めの語が多く、役職が上がるほど、長めの語が増える。</li>
+<li>役職ごとの特殊ルールがつく。</li>
+</ul>
+<p>追ってくる人の絵や動き、セリフ、BGM のテンポや高さも、役職ごとに違います。</p>
+<h2>特殊ルール</h2>
+<p>特殊ルールは、追ってくる人が距離を縮める速さに、かけ算で効くものです。働いているときは、画面に、文字(「ダッシュ注意!」「ダッシュ中!」「ミスで加速中!」「追い詰め中!」)で知らせます。</p>
+<table>
+<thead>
+<tr>
+<th>ルール</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ダッシュ</td>
+<td>一定の間隔で、追ってくる速さが、少しの間だけ上がる。始まる直前に、予告が出る</td>
+</tr>
+<tr>
+<td>ミスで加速</td>
+<td>打ち間違えると、少しの間、追ってくる速さが上がる</td>
+</tr>
+<tr>
+<td>追い詰め</td>
+<td>距離がある値より短くなると、追ってくる速さが上がる</td>
+</tr>
+</tbody></table>
+<p>役職ごとの組み合わせは、次のとおりです。</p>
+<ul>
+<li>先輩: 特殊ルールなし。入門用です。</li>
+<li>係長: ダッシュ</li>
+<li>部長: ミスで加速</li>
+<li>社長: 追い詰め</li>
+<li>会長: 3つすべて</li>
+</ul>
+<p>特殊ルールの説明は、役職を選ぶと、画面に出ます。</p>
+<h2>会長を解放する</h2>
+<p>会長は、最初は選べません。先輩・係長・部長・社長の4つの役職を、クリアすると、選べるようになります。ロック中の役職は、選択肢に「ロック中」と文字で出ます。</p>
+<h2>挑戦の目安</h2>
+<ul>
+<li>まず、先輩で、ゲームの流れと、ローマ字入力に慣れる。</li>
+<li>係長で、ダッシュの予告に合わせて、落ち着いて打つ練習をする。</li>
+<li>部長では、「速く打つこと」より、「ミスしないこと」が大事になる。</li>
+<li>社長では、距離を、短くしすぎないことを意識する。</li>
+<li>会長は、すべての経験の、総仕上げ。</li>
+</ul>
+<p>特殊ルールは、ゆっくり打つ人には、特に厳しく働きます。つかまってしまうときは、<a href="/articles/escape-boss-term-review/">用語確認モード</a>で、言葉そのものを練習してから、もう一度挑戦してみてください。ローマ字の書き方は、<a href="/articles/escape-boss-romaji-settings/">設定</a>で変えられます。</p>
+<p><a href="/games/escape-boss/">ゲームのページ</a>から、役職を選んで、遊べます。</p>
+
+        </div>
+        <aside class="ad-slot" data-ad-slot="article" aria-label="広告" hidden></aside>
+        <nav class="article__nav" aria-label="記事のナビゲーション">
+          <a href="/articles/">← 記事の一覧へ</a>
+        </nav>
+      </article>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>
