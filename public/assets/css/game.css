@@ -27,6 +27,7 @@
  * 枠の中は、どのテーマでも暗い(下の .game-play で、意味のあるトークンを、枠の中だけ上書きする)。
  * aside は display: contents にして、HUD(.game-status)と 2 つのボタンを、枠のグリッドに直接置く。
  */
+.game-result,
 .game-play {
   --color-bg: var(--arcade-bg);
   --color-surface: var(--arcade-panel);
@@ -48,13 +49,6 @@
   --shadow-pop-sm: 0 2px 0 var(--arcade-bg);
   --shadow-primary: 0 4px 0 var(--arcade-bg);
 
-  display: grid;
-  grid-template-areas:
-    "hud hud"
-    "main main"
-    "sound quit";
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
   padding: var(--space-3);
   background: var(--arcade-bg);
   border: 0.375rem solid var(--arcade-cyan);
@@ -64,6 +58,16 @@
     0 0 2rem 0.5rem var(--arcade-glow);
   color: var(--arcade-text);
   color-scheme: dark;
+}
+
+.game-play {
+  display: grid;
+  grid-template-areas:
+    "hud hud"
+    "main main"
+    "sound quit";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
 }
 
 /* 狭い画面では、余白を詰めて、単語と入力欄が、画面に収まりやすいようにする */
@@ -88,9 +92,13 @@
 }
 
 @media (width >= 48rem) {
+  .game-result,
+  .game-play {
+    padding: var(--space-6);
+  }
+
   .game-play {
     gap: var(--space-4);
-    padding: var(--space-6);
   }
 
   .game-play__main {
@@ -1449,6 +1457,21 @@
   font-weight: 700;
 }
 
+/* 結果の画面(アーケード風)。「RESULT」の飾りの文字(読み上げない)・黄色い大きな見出し・光るスコア */
+.game-result__label {
+  margin: 0 0 var(--space-2);
+  color: var(--arcade-magenta);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-black);
+  letter-spacing: 0.3em;
+}
+
+.game-result h1 {
+  color: var(--arcade-yellow);
+  text-shadow: 0 0 0.75rem var(--arcade-glow);
+}
+
 /* 獲得経験値・レベルアップの知らせ(保存の警告と違い、前向きな見た目。実線・アクセントの色) */
 .result-exp {
   display: inline-block;
@@ -1474,6 +1497,20 @@
 .result-score strong {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-black);
+}
+
+.game-result .result-score strong,
+.result-score__roll {
+  color: var(--arcade-yellow);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--font-size-3xl);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-black);
+  text-shadow: 0 0 0.75rem var(--arcade-glow);
+}
+
+.result-score__roll[hidden] {
+  display: none;
 }
 
 /* 用語の説明(プレイ中・用語確認)。色だけに頼らず、文字の大きさで、日本語・読みより控えめにする */
@@ -1752,6 +1789,29 @@
   background: var(--color-soft);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
+}
+
+/* 点滅する「PRESS SPACE KEY TO START」。1 周 1.2 秒(光の点滅を避ける)。動きを減らす設定では、見える状態で止まる */
+.game-ready__press {
+  margin: 0;
+  color: var(--arcade-yellow);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-black);
+  letter-spacing: 0.12em;
+  overflow-wrap: anywhere;
+  animation: ready-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes ready-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
 }
 
 .game-ready__title {

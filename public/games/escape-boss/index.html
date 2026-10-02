@@ -335,6 +335,7 @@
               </p>
 
               <div class="game-ready" data-ready hidden>
+                <p class="game-ready__press" aria-hidden="true">PRESS SPACE KEY TO START</p>
                 <p class="game-ready__title">準備ができたら、スペースキーを押すとスタート</p>
                 <p class="game-ready__hint">
                   日本語入力(IME)をオフにして、半角英数にしてから押してください。
@@ -404,12 +405,14 @@
           </div>
         </section>
 
-        <section data-view="result" aria-labelledby="result-title" hidden>
+        <section class="game-result" data-view="result" aria-labelledby="result-title" hidden>
+          <p class="game-result__label" aria-hidden="true">RESULT</p>
           <h1 id="result-title" tabindex="-1" data-result-title>結果</h1>
           <p data-result-message></p>
           <p class="result__quote" lang="ja" data-result-quote hidden></p>
           <p class="result-score">
             スコア <strong data-result-score></strong>
+            <span class="result-score__roll" aria-hidden="true" data-result-roll hidden></span>
             <span class="badge badge--live" data-result-rank hidden></span>
           </p>
           <p class="result-exp" role="status" data-result-exp></p>
@@ -496,7 +499,12 @@
           <aside class="ad-slot" data-ad-slot="game-result" aria-label="広告" hidden></aside>
         </section>
 
-        <section data-view="check-result" aria-labelledby="check-result-title" hidden>
+        <section
+          class="game-result"
+          data-view="check-result"
+          aria-labelledby="check-result-title"
+          hidden
+        >
           <h1 id="check-result-title" tabindex="-1" data-check-title>用語確認、おつかれさま!</h1>
           <p data-check-message></p>
           <div class="card">
