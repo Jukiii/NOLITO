@@ -13,7 +13,7 @@
 }
 
 .game__rules ul {
-  margin: 0;
+  margin: 0 0 var(--space-4);
   padding-left: var(--space-6);
 }
 
@@ -1558,13 +1558,15 @@
 }
 
 /* くわしい設定は、閉じておく(開始前の設定を、少なく見せる) */
-.game-setup__more {
+.game-setup__more,
+.game__rules {
   margin: 0 0 var(--space-6);
   background: var(--color-surface);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
 }
 
+.game__rules > summary,
 .game-setup__more > summary {
   display: flex;
   gap: var(--space-2);
@@ -1575,20 +1577,24 @@
   cursor: pointer;
 }
 
-.game-setup__more[open] > summary {
+.game-setup__more[open] > summary,
+.game__rules[open] > summary {
   border-bottom: var(--border-width) solid var(--color-border);
 }
 
-.game-setup__more > summary:focus-visible {
+.game-setup__more > summary:focus-visible,
+.game__rules > summary:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 3px;
 }
 
-.game-setup__more > :not(summary) {
+.game-setup__more > :not(summary),
+.game__rules > :not(summary) {
   margin-inline: var(--space-4);
 }
 
-.game-setup__more > summary + * {
+.game-setup__more > summary + *,
+.game__rules > summary + * {
   margin-top: var(--space-4);
 }
 

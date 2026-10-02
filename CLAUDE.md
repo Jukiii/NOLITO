@@ -352,6 +352,7 @@ Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19
 ## スマホの横幅(Issue #154)
 
 - **横幅は、いつも画面の 100%**。`base.css` で、`html`(`overflow-x: hidden`)・`body`(`overflow-x: clip`)の `max-width: 100%`、`select`・`input`・`textarea` の `max-width: 100%` を指定している。グリッドの列は、`minmax(0, 1fr)` にする(入力欄の本来の幅で、列が広がらないように)。新しい画面・部品を作るときは、幅 360px で、横にはみ出さないことを確認する(表は、`overflow-x: auto` の枠の中)。
+- **本文の左右の余白は、`.container` の `padding-inline`**(Issue #163。決定 0065)。`.main` は `padding-block` だけにする(`padding` の一括指定は、左右の余白を 0 にして、文字が画面の端に付く。テストが検査する)。ゲームのダッシュボードの「遊び方」は、開閉できる `<details class="game__rules">` で、最初は閉じる。
 
 ## ヘッダーメニュー・トップページ(Phase 20)
 
