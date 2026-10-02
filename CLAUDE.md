@@ -311,6 +311,12 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - `romaji` は、書かないか `["<typing>"]` だけ。`id`・`reading`・`difficulty`(読みの長さ)は変えない。**距離の文字数の分は `canonicalLengthOf(word)` を使う**(`createMatcher(word.reading)` を直接呼ばない)。マッチャーは、必ず `newMatcher(word)`(語のオブジェクトを渡す)で作る。
 - 公開は、エンジニアの 15 語と、ほかの 5 職種の 23 語(拡張ファイル `<職種ID>.ext-english.md`。決定ログ 0060・0062。運営者が確認して、2026-10-01 に公開)の、計 38 語。新しい語は、`draft: true` の下書きから始める。語を足すときは、`typing` を書き、`npm run build:vocabulary`・`npm run vocab:review`・`tests/balance.test.js` を確認する。
 
+## アーケード風のゲーム画面(Issue #166)
+
+- 決定は `docs/decisions/0067-arcade-screen.md`(PR 1 = 枠・プレイ中の見た目、PR 2 = 開始・結果の演出、PR 3 = ドット文字)。**HTML は変えず、CSS(`game.css`)だけで作る**。`.game-play` が意味のトークンを、暗い `--arcade-*`(`tokens.css`。**テーマでは上書きしない**)に再定義する。`.scene` は淡い背景の絵のため、固定の明るい色に戻す。
+- **プレイ中は、ヘッダー・フッターを隠す**(`body:has(...)`)。スキップリンクは隠さない。「音」「やめる」は、画面の中に、いつもある(グリッドの場所)。新しい部品をプレイ画面に足すときも、360px で横にはみ出さず、`<details>` を置かない。
+- 横向きの低い画面の規則は、`game.css` の末尾(`tests/arcade-ui.test.js` が検査)。`game.css` に色の直書きはしない。`.scene__bubble` より後ろのコメントに `#` + 数字を書かない(古いテストが、ファイルの末尾まで色の直書きを検査する)。
+
 ## ゲームのスタートまでの操作(Issue #140)
 
 - 決定は `docs/decisions/0059-game-start-flow.md`。連続タイピングの進み方は **ready → intro → play → outro → 結果**。「スタート」で `beginGame` が `session.phase = "ready"` にして準備の枠(`data-ready`)を出し、**半角スペース**(か枠のボタン)で `leaveReady()` → `beginIntro()`。**`beginIntro` を呼ぶのは `leaveReady` だけ**(自動で始めない)。**全角スペース**は始めず、枠の中の通知(`data-ready-notice`。`role="alert"`)で知らせる。それ以外の文字は無視(ミスにも数えない)。用語確認には準備がない。

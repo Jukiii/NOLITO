@@ -211,7 +211,10 @@ describe("CSS", () => {
       scene,
       /prefers-reduced-motion: reduce[\s\S]*data-motion="drive"[\s\S]*display: none/,
     );
-    assert.match(scene, /left: calc\(\(100% - 6rem - 3\.2rem - 1rem\) \* var\(--closeness\)\)/);
+    assert.match(
+      scene,
+      /left: calc\(\(100% - var\(--chaser-w\) - var\(--player-w\) - 1rem\) \* var\(--closeness\)\)/,
+    );
   });
 
   it("場面の色は、トークンで指定する(色の直書きなし)", () => {
