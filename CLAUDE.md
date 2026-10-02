@@ -557,6 +557,8 @@ Phase 25 の仕様(「生成・調整・説明・学習ポイント・チェッ�
 - **この PR でも、まだ行わないこと**(PR2aからの既知の制限のまま): 管理画面での編集の、`public/data/products.json`・詳細ページ・ライセンス発行への反映。
 - ローカルの `wrangler pages dev` でのD1確認は、`--d1 DB=<値>` に、`wrangler.toml` の `database_name`(`nolito`)ではなく **`database_id`**(ダミーID)を渡すこと(名前を渡すと、`d1 migrations apply` が作った永続化データとは別のD1インスタンスになり、テーブルが見つからない)。
 
+- **管理画面のトップ `/account/admin/`**(Issue #162。`noindex`。`admin/hub-page.js`。画面の出し分けだけで、アクセス制御は各 API の `requireAdmin`)。各管理ページの先頭に、共通の `<nav class="admin-nav">`(トップ・プロダクト管理・広告・アフィリエイトのリンク管理・アカウントへ戻る。今のページに `aria-current="page"`)がある。**管理ページを足したら、トップの一覧と、すべての管理ページの `admin-nav` にもリンクを足す**(`tests/admin-products-page.test.js` が検査する)。`/account/` の管理者向けリンクは、トップへ行く。
+
 ## セキュリティ強化(Phase 27)
 
 Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の列挙(RBAC・将来MFA・再認証・権限チェック・監査ログ・世代管理・暗号化・復元テスト・脆弱性チェック・依存更新・監査)のため、「段階導入」の方針どおり、複数のPRに分けて進める(計画は `docs/decisions/0052-phase-27-plan.md`)。RBAC・権限チェック・監査ログの基盤は、すでに Phase 9・Phase 26 で実装済み。
