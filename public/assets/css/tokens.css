@@ -60,6 +60,9 @@
   /* Typography */
   --font-base:
     system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", meiryo, sans-serif;
+
+  /* ゲームの数字・英字の見出し(自前の字体。同梱の Basic Latin だけ。読み込めない間・失敗時は、等幅の字体) */
+  --font-display: "NOLITO Display", ui-monospace, sfmono-regular, menlo, consolas, monospace;
   --font-size-xs: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
