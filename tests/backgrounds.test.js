@@ -252,7 +252,7 @@ describe("CSS・つなぎ", () => {
     assert.match(scene, /background-image: var\(--scene-bg, none\),\s*linear-gradient\(/);
     assert.match(scene, /background-repeat: repeat-x, no-repeat/);
     assert.match(scene, /background-position:\s*left bottom,\s*0 0/);
-    assert.match(scene, /background-size:\s*auto 100%,\s*100% 100%/);
+    assert.match(scene, /background-size:\s*var\(--tile-w\) 100%,\s*100% 100%/);
   });
 
   it("CSS に、外部の URL・色の直書きを、加えていない(背景の絵は、jobs.json から)", () => {

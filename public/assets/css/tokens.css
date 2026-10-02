@@ -27,6 +27,30 @@
   /* モーダルなどの背景幕。暗く沈めるためだけの色なので、テーマが変わっても同じ */
   --color-backdrop: rgb(27 32 51 / 60%);
 
+  /*
+   * アーケード風のゲーム画面(Issue #166。game.css の .game-play)。どのテーマでも同じ、暗い画面。
+   * テーマでは上書きしない(テストが、文字と背景の明るさの比を検査する)。
+   * 場面(.scene)だけは、背景の絵が淡い色なので、明るい窓として、固定の明るい色を使う。
+   */
+  --arcade-bg: #0b0b1e;
+  --arcade-panel: #16163a;
+  --arcade-panel-2: #23235a;
+  --arcade-text: #f4f4ff;
+  --arcade-text-muted: #b9b9e0;
+  --arcade-cyan: #5ee6ff;
+  --arcade-yellow: #ffd84a;
+  --arcade-green: #5cff9c;
+  --arcade-red: #ff5470;
+  --arcade-magenta: #ff4fd8;
+  --arcade-on-bright: #0b0b1e;
+  --arcade-glow: rgb(255 79 216 / 45%);
+  --arcade-scene-top: #fff1b8;
+  --arcade-scene-bottom: #fff;
+  --arcade-scene-ink: #1b2033;
+  --arcade-scene-text-muted: #4a5068;
+  --arcade-scene-primary: #4b3fe0;
+  --arcade-scene-accent: #ffd23f;
+
   /* グラフ(グリッドは背景より一段だけ濃い実線のヘアライン。データより目立たせない) */
   --color-chart-grid: #e6e0d0;
   --color-chart-axis: #a9a391;
