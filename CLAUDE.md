@@ -317,6 +317,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 決定は `docs/decisions/0067-arcade-screen.md`(PR 1 = 枠・プレイ中の見た目、PR 2 = 開始・結果の演出、PR 3 = ドット文字)。**HTML は変えず、CSS(`game.css`)だけで作る**。`.game-play` が意味のトークンを、暗い `--arcade-*`(`tokens.css`。**テーマでは上書きしない**)に再定義する。`.scene` は淡い背景の絵のため、固定の明るい色に戻す。
 - **プレイ中は、ヘッダー・フッターを隠す**(`body:has(...)`)。スキップリンクは隠さない。「音」「やめる」は、画面の中に、いつもある(グリッドの場所)。新しい部品をプレイ画面に足すときも、360px で横にはみ出さず、`<details>` を置かない。
 - 場面には、上から差す光と足元の床の影を、`.scene::before`(`--arcade-scene-light`・`--arcade-scene-shade`。飾り。動かない)で敷く。キャラクターの絵は、立体的な描き方(0069)。
+- 数字・英字の見出し(結果のスコア・RESULT・開始の点滅の文)は、自前の字体 `--font-display`(`NOLITO Display`。Orbitron の Basic Latin を切り出した woff2。`public/assets/fonts/`。OFL・外部へ通信しない。決定 `docs/decisions/0070-display-font.md`)。日本語・打つ語には使わない。字体を足す・変えるときは、ライセンスの同梱と `tests/fonts.test.js` をそろえる。
 - 横向きの低い画面の規則は、`game.css` の末尾(`tests/arcade-ui.test.js` が検査)。`game.css` に色の直書きはしない。`.scene__bubble` より後ろのコメントに `#` + 数字を書かない(古いテストが、ファイルの末尾まで色の直書きを検査する)。
 
 ### 開始の点滅・結果のドラムロール(Issue #166 PR 2)

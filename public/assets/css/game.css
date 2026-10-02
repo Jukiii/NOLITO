@@ -1,4 +1,14 @@
 /* 「上司から逃げろ」専用のスタイル */
+
+/* 数字・英字の見出し用の字体(Orbitron の Basic Latin を切り出したもの。SIL OFL。自前の配信で、外部へ通信しない。決定 0070) */
+@font-face {
+  font-display: swap;
+  font-family: "NOLITO Display";
+  font-style: normal;
+  font-weight: 700 900;
+  src: url("/assets/fonts/nolito-display.woff2") format("woff2");
+}
+
 .game__error {
   margin: 0 0 var(--space-4);
   padding: var(--space-3) var(--space-4);
@@ -1473,7 +1483,7 @@
 .game-result__label {
   margin: 0 0 var(--space-2);
   color: var(--arcade-magenta);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-display);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-black);
   letter-spacing: 0.3em;
@@ -1514,7 +1524,7 @@
 .game-result .result-score strong,
 .result-score__roll {
   color: var(--arcade-yellow);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-display);
   font-size: var(--font-size-3xl);
   font-variant-numeric: tabular-nums;
   font-weight: var(--font-weight-black);
@@ -1807,7 +1817,7 @@
 .game-ready__press {
   margin: 0;
   color: var(--arcade-yellow);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-display);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-black);
   letter-spacing: 0.12em;
