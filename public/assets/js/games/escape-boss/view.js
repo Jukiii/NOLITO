@@ -1,4 +1,6 @@
 import { el } from "../../components/dom.js";
+import { prefersReducedMotion } from "../../components/motion.js";
+import { createRoll } from "./countup.js";
 import { achievementItem } from "./achievement-item.js";
 import { reviewItem } from "./review-item.js";
 import { activeCues, cueLabel, describeRules, rulesOf } from "./rules.js";
@@ -105,8 +107,39 @@ export function createView(root) {
     if (document.activeElement === input) inputBox.scrollIntoView({ block: "nearest" });
   });
 
+  // 結果のスコアのドラムロール。本物の数(data-result-score)は、いつも文字に入っていて、
+  // 数えている間だけ、飾りの数(aria-hidden)を見せる。動きを減らす設定では、数えない
+  const scoreNode = $("[data-result-score]");
+  const rollNode = $("[data-result-roll]");
+  const roll = createRoll({
+    now: () => performance.now(),
+    request: (fn) => requestAnimationFrame(fn),
+    cancel: (id) => cancelAnimationFrame(id),
+  });
+  function endRollView() {
+    rollNode.hidden = true;
+    scoreNode.classList.remove("visually-hidden");
+  }
+  function stopRoll() {
+    roll.cancel();
+    endRollView();
+  }
+  function startRoll(target) {
+    stopRoll();
+    if (prefersReducedMotion()) return;
+    scoreNode.classList.add("visually-hidden");
+    rollNode.hidden = false;
+    roll.start(target, {
+      onFrame: (value) => {
+        rollNode.textContent = formatNumber(value);
+      },
+      onDone: endRollView,
+    });
+  }
+
   function showView(name) {
     clearStaging();
+    stopRoll();
     for (const [key, section] of Object.entries(views)) section.hidden = key !== name;
   }
 
@@ -540,6 +573,17 @@ export function createView(root) {
       });
     },
 
+    // 結果のドラムロールを飛ばす(結果の画面のクリック・Enter・スペース・Esc。ボタン・リンク・入力のキーは奪わない)
+    bindRollSkip() {
+      views.result.addEventListener("click", () => roll.skip());
+      document.addEventListener("keydown", (event) => {
+        if (!roll.isRunning() || !isSkipKey(event.key)) return;
+        if (event.target !== $("[data-result-title]") && event.target !== document.body) return;
+        event.preventDefault();
+        roll.skip();
+      });
+    },
+
     // 追ってくる人の吹き出し(飾り。場面の中なので、読み上げない)。ms たつと消える
     showBubble(name, text, ms) {
       $("[data-bubble-name]").textContent = name;
@@ -704,6 +748,7 @@ export function createView(root) {
         section.hidden = false;
       }
       $("[data-result-title]").focus();
+      startRoll(score);
     },
   };
 }

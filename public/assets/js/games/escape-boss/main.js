@@ -274,6 +274,8 @@ async function init() {
   });
   // 開始・終わりの演出は、飛ばせる(Enter・スペース・Esc・場面のクリック)
   view.bindSkip(() => timeline?.skip());
+  // 結果のスコアのドラムロールも、飛ばせる(結果の画面のクリック・Enter・スペース・Esc)
+  view.bindRollSkip();
   refreshDashboard();
   initAccount(); // 失敗しても、ダッシュボードの表示は続ける(案内が出ない・オンラインランキングに送らないだけ)
 

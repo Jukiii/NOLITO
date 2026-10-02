@@ -2,7 +2,7 @@
 name: 運営者からの依頼
 about: 運営者から Claude Code への、機能の依頼・修正の依頼・確認の依頼
 title: "【依頼】"
-labels: []
+labels: ["依頼"]
 ---
 
 <!--
