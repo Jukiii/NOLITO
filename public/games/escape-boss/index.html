@@ -286,30 +286,36 @@
                 <div class="scene__confetti" data-confetti></div>
                 <div class="scene__glow" data-glow></div>
                 <div class="scene__chaser">
-                  <img
-                    class="scene__chaser-img"
-                    alt=""
-                    width="120"
-                    height="80"
-                    src="/assets/img/escape-boss/senpai.svg"
-                    data-chaser
-                  />
+                  <div class="scene__chaser-img">
+                    <img
+                      class="scene__sprite"
+                      alt=""
+                      width="720"
+                      height="80"
+                      src="/assets/img/escape-boss/senpai.svg"
+                      data-chaser
+                    />
+                  </div>
                   <span class="scene__alert" data-alert>!</span>
                 </div>
-                <img
-                  class="scene__player scene__player--calm"
-                  alt=""
-                  width="64"
-                  height="80"
-                  src="/assets/img/escape-boss/player.svg"
-                />
-                <img
-                  class="scene__player scene__player--panic"
-                  alt=""
-                  width="64"
-                  height="80"
-                  src="/assets/img/escape-boss/player-panic.svg"
-                />
+                <div class="scene__player scene__player--calm">
+                  <img
+                    class="scene__sprite"
+                    alt=""
+                    width="384"
+                    height="80"
+                    src="/assets/img/escape-boss/player.svg"
+                  />
+                </div>
+                <div class="scene__player scene__player--panic">
+                  <img
+                    class="scene__sprite"
+                    alt=""
+                    width="384"
+                    height="80"
+                    src="/assets/img/escape-boss/player-panic.svg"
+                  />
+                </div>
                 <p class="scene__bubble" data-bubble hidden>
                   <strong class="scene__bubble-name" data-bubble-name></strong>
                   <span data-bubble-text></span>
@@ -365,7 +371,7 @@
                 />
                 <p class="game-input__miss" data-miss></p>
                 <p class="game-input__hint" data-focus-hint hidden>
-                  入力欄をクリック(タップ)すると入力を続けられます。
+                  単語の部分をクリック(タップ)すると、入力を続けられます。
                 </p>
                 <p class="game-input__hint" data-ime-hint hidden>
                   日本語入力(IME)がオンです。オフにして半角英数で入力してください。
