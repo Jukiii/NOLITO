@@ -117,3 +117,28 @@ describe("スマホの横幅は、いつも 100%(Issue #154)", () => {
     assert.ok(!/bottom-nav|bottomNav|BottomNav/.test(all));
   });
 });
+
+describe("スマホで、文字が画面の端に付かない(Issue #163)", () => {
+  const layout = read("public/assets/css/layout.css");
+  const game = read("public/assets/css/game.css");
+  const rule = (css, selector) => {
+    const start = css.indexOf(`
+${selector} {`);
+    return start < 0 ? undefined : css.slice(start, css.indexOf("}", start));
+  };
+
+  it(".main は、.container の左右の余白を、打ち消さない(padding の一括指定にしない)", () => {
+    const main = rule(layout, ".main");
+    assert.ok(main);
+    assert.doesNotMatch(main, /(?:^|\s)padding:/);
+    assert.match(main, /padding-block:/);
+    assert.match(rule(layout, ".container"), /padding-inline:\s*var\(--space-4\)/);
+  });
+
+  it("ゲームのダッシュボードの「遊び方」は、開閉でき、スタートの前の長い文を畳んでいる", () => {
+    const html = read("public/games/escape-boss/index.html");
+    assert.match(html, /<details class="game__rules">\s*<summary>遊び方<\/summary>/);
+    assert.ok(html.indexOf('class="game__rules"') < html.indexOf("data-start"));
+    assert.match(game, /\.game__rules > summary,/);
+  });
+});
