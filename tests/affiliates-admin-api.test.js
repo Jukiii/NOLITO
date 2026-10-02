@@ -307,7 +307,8 @@ describe("管理画面のページ・つなぎ込み", () => {
 
   it("/account/ に、管理者だけに見えるリンクがある", () => {
     const html = read("public/account/index.html");
-    assert.match(html, /data-admin-link[\s\S]*?\/account\/admin\/affiliates\//);
+    assert.match(html, /data-admin-link[\s\S]*?\/account\/admin\//);
+    assert.ok(read("public/account/admin/index.html").includes("/account/admin/affiliates/"));
   });
 
   it("公開の描画は /api/affiliates を読む。新しいエラーの文がそろっている", async () => {

@@ -40,6 +40,15 @@
     </header>
     <main class="main container" id="main" tabindex="-1">
       <div class="account" data-admin-products>
+        <nav class="admin-nav" aria-label="管理画面の移動">
+          <ul class="admin-nav__list">
+            <li><a href="/account/admin/">管理画面トップ</a></li>
+            <li><a href="/account/admin/products/" aria-current="page">プロダクト管理</a></li>
+            <li><a href="/account/admin/affiliates/">広告・アフィリエイトのリンク管理</a></li>
+            <li><a href="/account/">アカウントへ戻る</a></li>
+          </ul>
+        </nav>
+
         <h1 id="admin-products-title" tabindex="-1">プロダクト管理</h1>
         <p class="account__status" role="status" aria-live="polite" data-admin-status></p>
 

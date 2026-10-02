@@ -26,3 +26,42 @@ describe("プロダクト管理の追加", () => {
     assert.ok(script.includes('"[data-admin-products-new]"'));
   });
 });
+
+describe("管理画面の行き来(Issue #162)", () => {
+  const pages = {
+    top: "public/account/admin/index.html",
+    products: "public/account/admin/products/index.html",
+    affiliates: "public/account/admin/affiliates/index.html",
+  };
+
+  it("管理画面のトップがあり、各管理ページへのリンクがある", () => {
+    const html = read(pages.top);
+    assert.match(html, /<meta name="robots" content="noindex"/);
+    assert.ok(html.includes('href="/account/admin/products/"'));
+    assert.ok(html.includes('href="/account/admin/affiliates/"'));
+    assert.ok(html.includes("/assets/js/admin/hub-page.js"));
+  });
+
+  it("すべての管理ページ(トップ含む)に、トップ・各ページ・アカウントへのリンク(今のページは aria-current)", () => {
+    for (const [name, path] of Object.entries(pages)) {
+      const html = read(path);
+      const nav = html.slice(html.indexOf('class="admin-nav"'), html.indexOf("</nav>"));
+      for (const href of [
+        "/account/admin/",
+        "/account/admin/products/",
+        "/account/admin/affiliates/",
+        "/account/",
+      ]) {
+        assert.ok(nav.includes(`href="${href}"`), `${name}: ${href}`);
+      }
+      assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1, name);
+    }
+  });
+
+  it("アカウントのページの管理者向けリンクは、管理画面のトップへ行く", () => {
+    assert.match(
+      read("public/account/index.html"),
+      /data-admin-link[^>]*>\s*<a href="\/account\/admin\/">/,
+    );
+  });
+});
