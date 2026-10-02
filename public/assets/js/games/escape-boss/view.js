@@ -99,6 +99,8 @@ export function createView(root) {
   input.addEventListener("blur", () => {
     if (!views.play.hidden) $("[data-focus-hint]").hidden = false;
   });
+  // 入力欄は画面に見えない。単語のカードを押すと、入力を続けられる
+  $(".game-word").addEventListener("click", () => input.focus({ preventScroll: true }));
 
   // ソフトウェアキーボードが開くと、visualViewport の高さが縮む(物理キーボード・デスクトップでは縮まない)。
   // 入力欄にフォーカスがある間に縮んだときだけ、入力欄が隠れないよう、見える位置に寄せる。

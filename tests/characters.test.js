@@ -1,4 +1,4 @@
-// キャラクターの絵(Phase 16 PR 1。Issue #166 PR 3 で、立体的な絵に描き直した)のテスト: 絵のファイル(SVG)の形・安全・色と、roles.json・画面との対応。
+// キャラクターの絵(Phase 16 PR 1。Issue #166 PR 3 で立体的な絵に、PR 5(Phase 41)でリアルな 6 コマのスプライトシートに描き直した)のテスト: 絵のファイル(SVG)の形・安全・色と、roles.json・画面との対応。
 import assert from "node:assert/strict";
 import { readFileSync, statSync } from "node:fs";
 import { describe, it } from "node:test";
@@ -12,15 +12,16 @@ const css = read("public/assets/css/game.css");
 
 const OUTLINE = "#1b2033";
 
-// 追ってくる人の絵(120×80)と、あなたの絵(64×80)
+// 追ってくる人の絵(1 コマ 120×80 を 6 コマ並べた 720×80)と、あなたの絵(1 コマ 64×80 を 6 コマ並べた 384×80)
+const FRAMES = 6;
 const CHASERS = roles.map((role) => ({ id: role.id, path: `public${role.image}` }));
 const PLAYERS = [
   { id: "player", path: "public/assets/img/escape-boss/player.svg" },
   { id: "player-panic", path: "public/assets/img/escape-boss/player-panic.svg" },
 ];
 const ALL = [
-  ...CHASERS.map((c) => ({ ...c, size: [120, 80] })),
-  ...PLAYERS.map((c) => ({ ...c, size: [64, 80] })),
+  ...CHASERS.map((c) => ({ ...c, size: [120 * FRAMES, 80], frame: [120, 80] })),
+  ...PLAYERS.map((c) => ({ ...c, size: [64 * FRAMES, 80], frame: [64, 80] })),
 ];
 
 // 使ってよい要素・属性(図形とグラデーションだけ。文字・画像・スクリプト・フィルタ・動き・外部の参照は、使わない)
@@ -108,20 +109,20 @@ describe("キャラクターの絵の一覧", () => {
       assert.ok(image, `${src} が、画面にありません`);
       return [/width="(\d+)"/.exec(image)[1], /height="(\d+)"/.exec(image)[1]].map(Number);
     };
-    assert.deepEqual(sizeOf("/assets/img/escape-boss/player.svg"), [64, 80]);
-    assert.deepEqual(sizeOf("/assets/img/escape-boss/player-panic.svg"), [64, 80]);
-    assert.deepEqual(sizeOf(roles[0].image), [120, 80]);
+    assert.deepEqual(sizeOf("/assets/img/escape-boss/player.svg"), [64 * FRAMES, 80]);
+    assert.deepEqual(sizeOf("/assets/img/escape-boss/player-panic.svg"), [64 * FRAMES, 80]);
+    assert.deepEqual(sizeOf(roles[0].image), [120 * FRAMES, 80]);
   });
 });
 
-for (const { id, path, size } of ALL) {
+for (const { id, path, size, frame } of ALL) {
   describe(`絵 ${id}`, () => {
     const text = read(path);
     const elements = parseSvg(text);
 
-    it("小さい(8KB 以内)。SVG として閉じている。大きさは viewBox・width・height がそろう", () => {
+    it("軽い(40KB 以内)。SVG として閉じている。大きさは viewBox・width・height がそろう", () => {
       assert.ok(
-        statSync(`${root}${path}`).size <= 8192,
+        statSync(`${root}${path}`).size <= 40960,
         `${statSync(`${root}${path}`).size} バイト`,
       );
       assert.ok(text.trimStart().startsWith("<svg ") && text.trimEnd().endsWith("</svg>"));
@@ -165,11 +166,24 @@ for (const { id, path, size } of ALL) {
       assert.ok(text.includes(OUTLINE), "濃い色(輪郭・髪・目)が、使われていません");
     });
 
-    it("ポップなデフォルメ: 顔(肌のグラデーションの円)が、大きい(直径が、絵の高さの 25% 以上)", () => {
-      const heads = elements.filter((e) => e.name === "circle" && e.attrs.fill === "url(#sk)");
-      assert.ok(heads.length > 0, "顔がありません");
-      const biggest = Math.max(...heads.map((e) => Number(e.attrs.r)));
-      assert.ok(biggest * 2 >= size[1] * 0.25, `顔の直径 ${biggest * 2}`);
+    it("6 コマ: 1 コマ分の幅ずつ、右へずらした枠(g)が 6 つ。コマは、おおむね違う絵(動いて見える)", () => {
+      const groups = elements.filter(
+        (e) => e.name === "g" && /^translate\(\d+(?:[ ,]+0)?\)$/.test(e.attrs.transform ?? ""),
+      );
+      const xs = groups.map((e) => Number(/\d+/.exec(e.attrs.transform)[0]));
+      assert.deepEqual(
+        xs,
+        Array.from({ length: FRAMES }, (_, i) => i * frame[0]),
+      );
+      const starts = groups.map((g) => text.indexOf(`<g transform="${g.attrs.transform}"`));
+      assert.ok(starts.every((at) => at > 0));
+      const bodies = starts.map((at, i) => text.slice(at, starts[i + 1] ?? text.length));
+      const distinct = new Set(bodies.map((b) => b.replace(/^<g[^>]*>/, "")));
+      assert.ok(distinct.size >= 5, `違うコマは ${distinct.size} 個`);
+    });
+
+    it("顔: 肌のグラデーション(url(#sk))が、使われている", () => {
+      assert.ok(elements.some((e) => e.attrs.fill === "url(#sk)"));
     });
 
     it("立体感: グラデーションが 2 つ以上あり、足元の影(楕円)がある", () => {
@@ -191,7 +205,7 @@ describe("危ないときの、あなたの表情", () => {
       css,
       /\.scene__player--panic,\s*\.scene\.is-danger \.scene__player--calm\s*\{\s*display: none;/,
     );
-    assert.match(css, /\.scene\.is-danger \.scene__player--panic\s*\{\s*display: block;/);
+    assert.match(css, /\.scene\.is-danger \.scene__player--panic\s*\{[^}]*display: block;/);
   });
 
   it("焦った顔の絵は、ふつうの顔と、同じ大きさ(切り替えで、位置がずれない)", () => {

@@ -155,9 +155,15 @@ describe("画面(HTML・view.js)", () => {
     );
     assert.match(scene, /aria-hidden="true"/);
     assert.match(scene, /<div class="scene__speed" data-speed><\/div>/);
-    assert.match(scene, /data-chaser\s*\/>\s*<span class="scene__alert" data-alert>!<\/span>/);
+    assert.match(
+      scene,
+      /data-chaser\s*\/>\s*<\/div>\s*<span class="scene__alert" data-alert>!<\/span>/,
+    );
     // 既存の構造(位置の枠 → 動く絵)は、変わらない
-    assert.match(scene, /<div class="scene__chaser">\s*<img\s+class="scene__chaser-img"/);
+    assert.match(
+      scene,
+      /<div class="scene__chaser">\s*<div class="scene__chaser-img">\s*<img\s+class="scene__sprite"/,
+    );
   });
 
   it("view.js: renderStats が、遊んでいる間だけ、ルールの合図を出す(終わったら消す)。文字は el()(textContent)だけ", () => {

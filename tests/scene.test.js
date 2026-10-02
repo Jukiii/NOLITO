@@ -135,7 +135,7 @@ describe("画面の構造(HTML)", () => {
     );
     assert.match(
       play,
-      /<div class="scene__chaser">\s*<img\s+class="scene__chaser-img"[^>]*data-chaser/,
+      /<div class="scene__chaser">\s*<div class="scene__chaser-img">\s*<img\s+class="scene__sprite"[^>]*data-chaser/,
     );
     assert.match(play, /class="scene__player scene__player--calm"/);
     // 絵に、大きさの指定(レイアウトのずれの防止)と、空の alt(装飾)がある
