@@ -330,7 +330,7 @@ Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19
 
 - `storage.js` の `createStore(backend, { now })` が返す `exportJson()`/`parseImport(text)`/`importJson(text)`(キーみちの `tools/store.js` と同じ考え方)。**移行のしくみを重複させず、既存の `normalizeData`(版1〜5の移行)を、取り込みの検証にそのまま使う**。`EXPORT_FORMAT`・`MAX_IMPORT_BYTES` は `storage.js` からエクスポートする(画面側の事前チェックと、値を共有するため)。
 - **取り込みは、いまの記録を、まるごと置き換える**(合わせない)。置き換える前のデータは、`:before-import` に退避する。壊れている記録は、書き出せない(`exportJson()` が `null`)。
-- 画面は、ダッシュボード(`/games/escape-boss/`)の「記録の書き出し・読み込み」の節。読み込みは、ファイルを選ぶと、確認のダイアログ(`#backup-import-dialog`。共通の `components/modal.js` を使う)を経由し、**押すまでは置き換えない**。ファイル名は `escape-boss-<日付>.json`。
+- 画面は、プレイヤー・記録のページ(`/games/escape-boss/profile/`。「記録の管理」タブ。Issue #163・決定 0066。以前はダッシュボードにあった)。読み込みは、ファイルを選ぶと、確認のダイアログ(`#backup-import-dialog`。共通の `components/modal.js` を使う)を経由し、**押すまでは置き換えない**。ファイル名は `escape-boss-<日付>.json`。
 
 ### アカウント移行(同期。Phase 19 PR 2)
 
@@ -346,8 +346,15 @@ Phase 19 は、複数の PR に分ける(計画は `docs/decisions/0042-phase-19
 - データは `ranking_entries`(`migrations/0005_ranking.sql`)。**1 利用者 × 役職 × 難易度で 1 行**(職種をまたいだ自己ベスト。成績ページの「ハイスコア」= Phase 18 PR4 と同じ考え方)。自己ベストを上回ってクリアしたときだけ、自動で送る(main.js の `submitOnlineRanking`。押すボタンはない)。
 - **サーバー側の検証(0004決定ログの約束)**: `functions/_lib/ranking-limits.js` の `isPlausibleScore` が、送られてきたスコアが、その役職の理論上の最大値(目標語数・最大距離・正確率100%・あり得ないほど速い打鍵から計算)を超えていないかを検査する。**スコアの式は、公開の `score.js` の `SCORE_RULES` を、そのまま使う**(重複させない)。役職の構造(目標語数・最大距離・倍率)だけ小さく複製し、`tests/ranking-limits.test.js` で、実際の `roles.json` と値がそろっているかを検査する。
 - API は `GET`(ログイン不要。だれでも見られる。IPごとにレート制限)/`POST`(ログイン必須) `/api/games/escape-boss/ranking`、参加の切り替えは `POST /api/ranking-opt-in`。応答に、個人を特定する情報(メールアドレス・アカウントID)は含めない。不参加への切り替え・アカウント削除は、どちらも `ranking_entries` を即座に消す。
-- ダッシュボードに、端末内の「ランキング」とは別の「オンラインランキング」の節(役職・難易度を、自分で選べる)。**ゲームの記録をほかの利用者にも公開する、新しい性質の変更のため、プライバシーポリシーは版 4**(6-2-2。「だれでも見られる」ことを明記)。`analyticsConfig.policyVersion` も 4。
+- プレイヤー・記録のページの「ランキング」タブに、端末内の「ランキング」とは別の「オンラインランキング」の節(役職・難易度を、自分で選べる。最初にタブを開いたときに読む。以前はダッシュボードにあった)。**ゲームの記録をほかの利用者にも公開する、新しい性質の変更のため、プライバシーポリシーは版 4**(6-2-2。「だれでも見られる」ことを明記)。`analyticsConfig.policyVersion` も 4。
 
+
+## プレイヤー・記録のページ(Issue #163)
+
+- `/games/escape-boss/profile/`(`noindex`。ナビの「ゲーム」の子「プレイヤー・記録」。ダッシュボードにも、リンクの節がある)。決定は `docs/decisions/0066-profile-page.md`。**ダッシュボードにあった、プレイヤー(レベル・ニックネーム・称号)・ランキング(端末内・オンライン)・称号と実績・記録の書き出し/読み込みを、ここへ移した**(中身・保存の形・API は変えていない。記録の版 5・キー `v1` もそのまま)。
+- **4 つのタブ**(`player`・`ranking`・`achievements`・`backup`)。`role="tablist"`/`tab`/`tabpanel`・`aria-selected`・roving `tabindex`・矢印キー/Home/End(`tabs.js` の `nextTabIndex`・`resolveTab`。DOM に触れない)。選択中は、色だけでなく、太字と下線でも示す。`?tab=<id>` に反映し、一覧にない値は先頭のタブ。見た目は `assets/css/profile.css`(トークンだけ)。
+- スクリプトは `profile-page.js`(このページだけ。`createStore` で端末の記録を読み書きする)。ダッシュボードの `view.js`・`main.js` は、これらに触れない(`submitOnlineRanking`・`initAccount` は `main.js` に残る)。実績の 1 件の描画は、結果画面と共通の `achievement-item.js`(隠し実績は、解放するまで内容を隠す)。
+- 新しい欄を足すときは、HTML の `data-*` と `profile-page.js` をそろえる(`tests/profile-page.test.js` が、スクリプトが探す属性が HTML にあることを検査する)。
 
 ## スマホの横幅(Issue #154)
 

@@ -1,4 +1,5 @@
-// 記録の書き出し・読み込み(Phase 19 PR 1)の、画面(HTML・view.js)と main.js のつなぎのテスト。
+// 記録の書き出し・読み込み(Phase 19 PR 1)の、画面(HTML)とページのスクリプトのつなぎのテスト。
+// 画面は、プレイヤー・記録のページ(/games/escape-boss/profile/。「記録の管理」タブ)にある。
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
@@ -6,9 +7,9 @@ import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
-const html = read("public/games/escape-boss/index.html");
-const view = read("public/assets/js/games/escape-boss/view.js");
-const main = read("public/assets/js/games/escape-boss/main.js");
+const html = read("public/games/escape-boss/profile/index.html");
+const view = read("public/assets/js/games/escape-boss/profile-page.js");
+const main = view;
 
 describe("記録の書き出し・読み込みの HTML", () => {
   it("書き出しのボタン・読み込みのファイル欄・結果の表示欄がある", () => {
@@ -37,15 +38,11 @@ describe("記録の書き出し・読み込みの HTML", () => {
   });
 });
 
-describe("view.js のつなぎ", () => {
-  it("bind は、onBackupExport・onBackupImport を受け取る", () => {
-    assert.match(view, /onBackupExport,\s*onBackupImport,/);
-  });
-
+describe("プレイヤー・記録のページ(画面のつなぎ)", () => {
   it("書き出しボタンは、結果の文をそのまま表示欄に出す", () => {
     assert.match(
       view,
-      /\$\("\[data-backup-export\]"\)\.addEventListener\("click", \(\) => \{\s*showBackupStatus\(onBackupExport\(\)\.message\);/,
+      /\$\("\[data-backup-export\]"\)\.addEventListener\("click", \(\) => \{\s*showBackupStatus\(exportBackup\(\)\.message\);/,
     );
   });
 
@@ -54,30 +51,30 @@ describe("view.js のつなぎ", () => {
     const fn = view.slice(start, view.indexOf('$("[data-backup-import-confirm]")'));
     assert.match(fn, /file\.size > MAX_IMPORT_BYTES/);
     assert.match(fn, /showModal\(\)/);
-    assert.ok(!/onBackupImport\(/.test(fn), "ダイアログを開く前に取り込んでいない");
+    assert.ok(!/importBackup\(/.test(fn), "ダイアログを開く前に取り込んでいない");
   });
 
   it("確認ダイアログの「置き換える」を押したときだけ、取り込みを実行する", () => {
     const start = view.indexOf('$("[data-backup-import-confirm]")');
-    const fn = view.slice(start, view.indexOf('$("[data-retry]")', start));
-    assert.match(fn, /onBackupImport\(pendingImportText\)/);
+    const fn = view.slice(start, view.indexOf("// ---- 全体 ----", start));
+    assert.match(fn, /importBackup\(pendingImportText\)/);
   });
 
   it("MAX_IMPORT_BYTES は storage.js から取り込む(サイズの基準を重複させない)", () => {
-    assert.match(view, /import \{ MAX_IMPORT_BYTES \} from "\.\/storage\.js";/);
+    assert.match(view, /import \{[^}]*\bMAX_IMPORT_BYTES\b[^}]*\} from "\.\/storage\.js";/);
   });
 
   it("文字は textContent 相当(el()・setText・showBackupStatus)だけで入れる", () => {
     const fn = view.slice(
-      view.indexOf("const showBackupStatus"),
-      view.indexOf("const showBackupStatus") + 200,
+      view.indexOf("function showStatus"),
+      view.indexOf("function showStatus") + 300,
     );
     assert.match(fn, /\.textContent = message;/);
-    assert.ok(!/innerHTML/.test(fn));
+    assert.ok(!/innerHTML/.test(view));
   });
 });
 
-describe("main.js のつなぎ", () => {
+describe("プレイヤー・記録のページ(書き出し・読み込みの処理)", () => {
   it("exportBackup は、store.exportJson() を、ファイルとして書き出す(ダウンロード)", () => {
     const fn = main.slice(
       main.indexOf("function exportBackup"),
@@ -88,11 +85,11 @@ describe("main.js のつなぎ", () => {
     assert.match(fn, /if \(json === null\)/);
   });
 
-  it("importBackup は、store.importJson を呼び、成功したら refreshDashboard する", () => {
+  it("importBackup は、store.importJson を呼び、成功したら画面を描き直す", () => {
     const start = main.indexOf("function importBackup");
     const fn = main.slice(start, main.indexOf("\n}\n", start) + 2);
     assert.match(fn, /store\.importJson\(text\)/);
-    assert.match(fn, /refreshDashboard\(\);/);
+    assert.match(fn, /renderAll\(\);/);
     assert.match(fn, /BACKUP_IMPORT_ERRORS\[result\.error\]/);
   });
 

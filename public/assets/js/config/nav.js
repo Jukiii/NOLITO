@@ -13,6 +13,7 @@ export const mainNav = [
     children: [
       { label: "ゲーム一覧", href: "/games/" },
       { label: "上司から逃げろで遊ぶ", href: "/games/escape-boss/" },
+      { label: "プレイヤー・記録", href: "/games/escape-boss/profile/" },
       { label: "成績・実績を見る", href: "/games/escape-boss/stats/" },
       { label: "用語一覧", href: "/games/escape-boss/glossary/" },
     ],
