@@ -50,6 +50,8 @@
   --arcade-scene-text-muted: #4a5068;
   --arcade-scene-primary: #4b3fe0;
   --arcade-scene-accent: #ffd23f;
+  --arcade-scene-light: rgb(255 255 255 / 75%);
+  --arcade-scene-shade: rgb(27 32 51 / 14%);
 
   /* グラフ(グリッドは背景より一段だけ濃い実線のヘアライン。データより目立たせない) */
   --color-chart-grid: #e6e0d0;

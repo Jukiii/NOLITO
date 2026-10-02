@@ -1,4 +1,4 @@
-// キャラクターの絵(Phase 16 PR 1)のテスト: 絵のファイル(SVG)の形・安全・色と、roles.json・画面との対応。
+// キャラクターの絵(Phase 16 PR 1。Issue #166 PR 3 で、立体的な絵に描き直した)のテスト: 絵のファイル(SVG)の形・安全・色と、roles.json・画面との対応。
 import assert from "node:assert/strict";
 import { readFileSync, statSync } from "node:fs";
 import { describe, it } from "node:test";
@@ -11,24 +11,6 @@ const play = read("public/games/escape-boss/index.html");
 const css = read("public/assets/css/game.css");
 
 const OUTLINE = "#1b2033";
-const SKIN = "#ffd9b3";
-
-// 使ってよい色(サイトの配色に、少数の色を足したもの)。色を足すときは、ここと、決定ログ 0030 を直す
-const PALETTE = new Set([
-  OUTLINE, // 輪郭・髪
-  SKIN, // 肌
-  "#ff9f8f", // ほお
-  "#ffffff",
-  "#4b3fe0", // 主役の色(サイトのプライマリ)
-  "#ffd23f", // 強調の色(サイトのアクセント)
-  "#e5484d", // 赤(ネクタイ・口・ランプ)
-  "#6b7189", // ズボン
-  "#c9cedd", // 明るい灰色
-  "#d9f0ff", // 窓・ガラス
-  "#8fd3ff", // 汗
-  "#35a58a", // 部長の車
-  "#3b4570", // 社長の車
-]);
 
 // 追ってくる人の絵(120×80)と、あなたの絵(64×80)
 const CHASERS = roles.map((role) => ({ id: role.id, path: `public${role.image}` }));
@@ -41,18 +23,34 @@ const ALL = [
   ...PLAYERS.map((c) => ({ ...c, size: [64, 80] })),
 ];
 
-// 使ってよい要素・属性(図形だけ。文字・画像・スクリプト・動き・外部の参照は、使わない)
-const ELEMENTS = new Set(["svg", "g", "rect", "circle", "ellipse", "line", "path", "polygon"]);
+// 使ってよい要素・属性(図形とグラデーションだけ。文字・画像・スクリプト・フィルタ・動き・外部の参照は、使わない)
+const ELEMENTS = new Set([
+  "svg",
+  "defs",
+  "linearGradient",
+  "radialGradient",
+  "stop",
+  "g",
+  "rect",
+  "circle",
+  "ellipse",
+  "line",
+  "path",
+  "polygon",
+]);
 const ATTRIBUTES = new Set([
   "xmlns",
   "viewBox",
   "width",
   "height",
+  "id",
   "fill",
+  "fill-opacity",
   "stroke",
   "stroke-width",
   "stroke-linecap",
   "stroke-linejoin",
+  "opacity",
   "transform",
   "x",
   "y",
@@ -63,7 +61,15 @@ const ATTRIBUTES = new Set([
   "ry",
   "d",
   "points",
+  "x1",
+  "y1",
+  "x2",
+  "y2",
+  "offset",
+  "stop-color",
+  "stop-opacity",
 ]);
+const COLOR = /^(#[0-9a-f]{6}|url\(#[A-Za-z0-9_-]+\))$/;
 
 // SVG を、タグの並びにする(簡単な読み取り。閉じ忘れ・入れ子の誤りを見つける)
 function parseSvg(text) {
@@ -113,9 +119,9 @@ for (const { id, path, size } of ALL) {
     const text = read(path);
     const elements = parseSvg(text);
 
-    it("小さい(4KB 以内)。SVG として閉じている。大きさは viewBox・width・height がそろう", () => {
+    it("小さい(8KB 以内)。SVG として閉じている。大きさは viewBox・width・height がそろう", () => {
       assert.ok(
-        statSync(`${root}${path}`).size <= 4096,
+        statSync(`${root}${path}`).size <= 8192,
         `${statSync(`${root}${path}`).size} バイト`,
       );
       assert.ok(text.trimStart().startsWith("<svg ") && text.trimEnd().endsWith("</svg>"));
@@ -123,9 +129,11 @@ for (const { id, path, size } of ALL) {
       assert.equal(svg.name, "svg");
       assert.equal(svg.attrs.xmlns, "http://www.w3.org/2000/svg");
       assert.equal(svg.attrs.viewBox, `0 0 ${size[0]} ${size[1]}`);
+      assert.equal(svg.attrs.width, String(size[0]));
+      assert.equal(svg.attrs.height, String(size[1]));
     });
 
-    it("使う要素・属性は、図形だけ。文字・画像・スクリプト・スタイル・動き・外部の参照は、ない", () => {
+    it("使う要素・属性は、図形とグラデーションだけ。文字・画像・スクリプト・スタイル・フィルタ・動き・外部の参照は、ない", () => {
       for (const { name, attrs } of elements) {
         assert.ok(ELEMENTS.has(name), `要素 ${name}`);
         for (const [key, value] of Object.entries(attrs)) {
@@ -135,28 +143,39 @@ for (const { id, path, size } of ALL) {
         }
       }
       assert.ok(
-        !/<(script|style|image|foreignObject|text|a|animate|set|filter|mask|clipPath|use|defs|iframe)\b/i.test(
+        !/<(script|style|image|foreignObject|text|a|animate|animateTransform|set|filter|mask|clipPath|use|pattern|iframe)\b/i.test(
           text,
         ),
       );
       assert.ok(!/@import|<!ENTITY|<!DOCTYPE|<\?xml|\son\w+=/i.test(text));
     });
 
-    it("色は、決めた配色(PALETTE)の 16 進の色だけ。輪郭は、濃い色(#1b2033)", () => {
-      assert.equal(elements[0].attrs.stroke, OUTLINE);
-      for (const { attrs } of elements) {
-        for (const key of ["fill", "stroke"]) {
+    it("色は、16 進の色か、同じファイルの中で定義したグラデーション(url(#id))だけ。id は重ならない", () => {
+      const ids = elements.map((e) => e.attrs.id).filter((v) => v !== undefined);
+      assert.equal(new Set(ids).size, ids.length, "id が重なっています");
+      for (const { name, attrs } of elements) {
+        for (const key of ["fill", "stroke", "stop-color"]) {
           if (attrs[key] === undefined || attrs[key] === "none") continue;
-          assert.match(attrs[key], /^#[0-9a-f]{6}$/, `${key}="${attrs[key]}"`);
-          assert.ok(PALETTE.has(attrs[key]), `${attrs[key]} は、配色にありません`);
+          assert.match(attrs[key], COLOR, `${key}="${attrs[key]}"`);
+          const ref = /^url\(#([A-Za-z0-9_-]+)\)$/.exec(attrs[key]);
+          if (ref) assert.ok(ids.includes(ref[1]), `${ref[1]} が、定義されていません`);
         }
+        if (name === "stop") assert.ok(attrs.offset !== undefined && attrs["stop-color"]);
       }
+      assert.ok(text.includes(OUTLINE), "濃い色(輪郭・髪・目)が、使われていません");
     });
 
-    it("ポップなデフォルメ: 顔(肌の色の円)が、大きい(直径が、絵の高さの 25% 以上)", () => {
-      const heads = elements.filter((e) => e.name === "circle" && e.attrs.fill === SKIN);
+    it("ポップなデフォルメ: 顔(肌のグラデーションの円)が、大きい(直径が、絵の高さの 25% 以上)", () => {
+      const heads = elements.filter((e) => e.name === "circle" && e.attrs.fill === "url(#sk)");
+      assert.ok(heads.length > 0, "顔がありません");
       const biggest = Math.max(...heads.map((e) => Number(e.attrs.r)));
       assert.ok(biggest * 2 >= size[1] * 0.25, `顔の直径 ${biggest * 2}`);
+    });
+
+    it("立体感: グラデーションが 2 つ以上あり、足元の影(楕円)がある", () => {
+      const gradients = elements.filter((e) => /Gradient$/.test(e.name));
+      assert.ok(gradients.length >= 2);
+      assert.ok(elements.some((e) => e.name === "ellipse" && e.attrs.opacity !== undefined));
     });
   });
 }
