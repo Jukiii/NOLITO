@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (/^(light|white|dark|pretty)$/.test(t)) document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
+        } catch (e) {}
+      })();
+    </script>
+    <title>プレイヤー・記録 | 上司から逃げろ | NOLITO</title>
+    <meta
+      name="description"
+      content="「上司から逃げろ」のニックネーム・称号の設定、ランキング、実績、記録の書き出し・読み込みを、タブで切り替えて管理できます。"
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/game.css" />
+    <link rel="stylesheet" href="/assets/css/profile.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/games/escape-boss/profile-page.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <p class="breadcrumb"><a href="/games/escape-boss/">← 上司から逃げろ</a></p>
+      <div class="profile-page" data-profile-page>
+        <h1>プレイヤー・記録</h1>
+        <p class="game__notice" role="status" data-storage-notice hidden></p>
+        <p class="game__error" role="alert" data-error hidden></p>
+        <noscript><p>この画面を使うには JavaScript を有効にしてください。</p></noscript>
+
+        <div class="profile-tabs" role="tablist" aria-label="プレイヤーと記録" data-tablist>
+          <button
+            class="profile-tab"
+            type="button"
+            role="tab"
+            id="tab-player"
+            aria-controls="panel-player"
+            aria-selected="true"
+            data-tab="player"
+          >
+            プレイヤー
+          </button>
+          <button
+            class="profile-tab"
+            type="button"
+            role="tab"
+            id="tab-ranking"
+            aria-controls="panel-ranking"
+            aria-selected="false"
+            tabindex="-1"
+            data-tab="ranking"
+          >
+            ランキング
+          </button>
+          <button
+            class="profile-tab"
+            type="button"
+            role="tab"
+            id="tab-achievements"
+            aria-controls="panel-achievements"
+            aria-selected="false"
+            tabindex="-1"
+            data-tab="achievements"
+          >
+            称号・実績
+          </button>
+          <button
+            class="profile-tab"
+            type="button"
+            role="tab"
+            id="tab-backup"
+            aria-controls="panel-backup"
+            aria-selected="false"
+            tabindex="-1"
+            data-tab="backup"
+          >
+            記録の管理
+          </button>
+        </div>
+
+        <section
+          class="profile-panel"
+          role="tabpanel"
+          id="panel-player"
+          aria-labelledby="tab-player"
+          data-panel="player"
+        >
+          <h2 id="profile-title">プレイヤー</h2>
+          <p class="player-level">
+            レベル <strong data-level>1</strong>
+            <span data-level-max hidden>(最高レベル)</span>
+          </p>
+          <!-- [html-validate-disable-next prefer-native-element -- 幅アニメーションを独自に描画するため] -->
+          <div
+            class="player-level__bar"
+            role="progressbar"
+            aria-labelledby="profile-title"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            data-level-bar
+          >
+            <div class="player-level__fill" data-level-fill></div>
+          </div>
+          <p class="dash-section__note" data-level-text></p>
+          <form class="profile-form" data-profile>
+            <div class="profile-form__field">
+              <label for="nickname">ニックネーム(12文字まで)</label>
+              <input
+                class="game-input__field"
+                id="nickname"
+                type="text"
+                maxlength="12"
+                autocomplete="off"
+                data-nickname
+              />
+            </div>
+            <div class="profile-form__field">
+              <label for="title-select">称号</label>
+              <select class="game-input__field" id="title-select" data-title-select></select>
+            </div>
+            <div class="profile-form__actions">
+              <button class="button button--secondary" type="submit">保存する</button>
+            </div>
+          </form>
+          <p class="game__notice" role="status" data-profile-status hidden></p>
+          <p class="dash-section__note">
+            記録はこの端末(ブラウザ)にだけ保存されます。ほかの端末には引き継がれません。
+          </p>
+          <p>
+            <a href="/games/escape-boss/stats/">成績・成長グラフ・苦手文字・復習リストを見る</a>
+          </p>
+        </section>
+
+        <section
+          class="profile-panel"
+          role="tabpanel"
+          id="panel-ranking"
+          aria-labelledby="tab-ranking"
+          data-panel="ranking"
+          hidden
+        >
+          <h2 id="ranking-title">ランキング</h2>
+          <div class="profile-form__field">
+            <label for="ranking-role">追ってくる人</label>
+            <select class="game-input__field" id="ranking-role" data-ranking-role></select>
+          </div>
+          <div class="profile-form__field">
+            <label for="ranking-difficulty">難易度</label>
+            <select
+              class="game-input__field"
+              id="ranking-difficulty"
+              data-ranking-difficulty
+            ></select>
+          </div>
+          <p class="dash-section__note" data-ranking-empty hidden>
+            まだ記録がありません。クリアするとここに載ります。
+          </p>
+          <table class="ranking" data-ranking-table>
+            <caption class="visually-hidden">
+              クリアした記録の上位10件(スコアの高い順)
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">順位</th>
+                <th scope="col">プレイヤー</th>
+                <th scope="col">スコア</th>
+              </tr>
+            </thead>
+            <tbody data-ranking-body></tbody>
+          </table>
+
+          <h2 id="online-ranking-title">オンラインランキング</h2>
+          <p class="dash-section__note">
+            参加を選んだ利用者どうしの、役職・難易度ごとの上位です。参加は任意で、既定は不参加です。<a
+              href="/account/"
+              >アカウントのページ</a
+            >から、参加を切り替えられます。
+          </p>
+          <div class="profile-form__field">
+            <label for="online-ranking-role">追ってくる人</label>
+            <select
+              class="game-input__field"
+              id="online-ranking-role"
+              data-online-ranking-role
+            ></select>
+          </div>
+          <div class="profile-form__field">
+            <label for="online-ranking-difficulty">難易度</label>
+            <select
+              class="game-input__field"
+              id="online-ranking-difficulty"
+              data-online-ranking-difficulty
+            ></select>
+          </div>
+          <p class="dash-section__note" role="status" data-online-ranking-status></p>
+          <table class="ranking" data-online-ranking-table hidden>
+            <caption class="visually-hidden">
+              オンラインランキングの上位10件(スコアの高い順)
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">順位</th>
+                <th scope="col">プレイヤー</th>
+                <th scope="col">スコア</th>
+              </tr>
+            </thead>
+            <tbody data-online-ranking-body></tbody>
+          </table>
+        </section>
+
+        <section
+          class="profile-panel"
+          role="tabpanel"
+          id="panel-achievements"
+          aria-labelledby="tab-achievements"
+          data-panel="achievements"
+          hidden
+        >
+          <h2 id="achievements-title">称号・実績</h2>
+          <p class="dash-section__note" data-achievement-summary></p>
+          <ul class="achievement-list" data-achievement-list></ul>
+        </section>
+
+        <section
+          class="profile-panel"
+          role="tabpanel"
+          id="panel-backup"
+          aria-labelledby="tab-backup"
+          data-panel="backup"
+          data-backup
+          hidden
+        >
+          <h2 id="backup-title">記録の書き出し・読み込み</h2>
+          <p class="dash-section__note">
+            結果・ランキング・実績・プロフィールを、JSONファイルに書き出せます。機種変更やバックアップに使えます。
+          </p>
+          <p>
+            <button class="button button--secondary" type="button" data-backup-export>
+              JSONファイルに書き出す
+            </button>
+          </p>
+          <div class="profile-form__field">
+            <label for="backup-import-file">JSONファイルから読み込む</label>
+            <p class="dash-section__note" id="backup-import-hint">
+              いまのこの端末の記録を、ファイルの内容に置き換えます(合わせません)。
+            </p>
+            <input
+              class="game-input__field"
+              id="backup-import-file"
+              type="file"
+              accept="application/json"
+              aria-describedby="backup-import-hint"
+              data-backup-import
+            />
+          </div>
+          <p class="game__notice" role="status" data-backup-status hidden></p>
+        </section>
+
+        <dialog class="modal" id="backup-import-dialog" aria-labelledby="backup-import-title">
+          <div class="modal__body">
+            <h2 id="backup-import-title">記録を置き換えますか?</h2>
+            <p>
+              いまのこの端末の記録を、選んだファイルの内容に置き換えます。<strong>取り消せません</strong>(直前の記録は、この端末の中に、一度だけ退避されます)。
+            </p>
+            <p class="game__notice" role="alert" data-backup-import-message hidden></p>
+            <div class="modal__actions">
+              <button class="button button--secondary" type="button" data-modal-close>
+                キャンセル
+              </button>
+              <button class="button button--primary" type="button" data-backup-import-confirm>
+                置き換える
+              </button>
+            </div>
+          </div>
+        </dialog>
+      </div>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

@@ -1,10 +1,10 @@
 import { el } from "../../components/dom.js";
+import { achievementItem } from "./achievement-item.js";
 import { reviewItem } from "./review-item.js";
 import { activeCues, cueLabel, describeRules, rulesOf } from "./rules.js";
 import { isSkipKey } from "./staging.js";
 import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
 import { DEFAULT_DIFFICULTY } from "./difficulty.js";
-import { MAX_IMPORT_BYTES } from "./storage.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
 // 文字列(語録・ニックネームなど)は textContent で入れる。HTML として解釈しない。
@@ -45,12 +45,6 @@ export function createView(root) {
     const notice = $(selector);
     notice.textContent = STORAGE_NOTICES[kind] ?? "";
     notice.hidden = !STORAGE_NOTICES[kind];
-  };
-  // 記録の書き出し・読み込みの結果(成功・失敗、どちらも同じ場所に出す)
-  const showBackupStatus = (message) => {
-    const notice = $("[data-backup-status]");
-    notice.textContent = message;
-    notice.hidden = !message;
   };
 
   let missTimer = 0;
@@ -240,158 +234,6 @@ export function createView(root) {
     applyMode();
   }
 
-  // レベル・累計の経験値のバー(プレイヤー欄から呼ぶ)
-  function renderLevel(level) {
-    setText("[data-level]", level.level);
-    const max = level.nextAt === null;
-    $("[data-level-max]").hidden = !max;
-    $("[data-level-bar]").setAttribute("aria-valuenow", String(Math.round(level.ratio * 100)));
-    $("[data-level-fill]").style.width = `${(level.ratio * 100).toFixed(1)}%`;
-    setText(
-      "[data-level-text]",
-      max
-        ? `累計の経験値 ${level.exp}`
-        : `経験値 ${level.into} / ${level.needed}(次のレベルまで、あと${level.remaining})`,
-    );
-  }
-
-  function renderProfile({ profile, titles }) {
-    $("[data-nickname]").value = profile.nickname;
-    const select = $("[data-title-select]");
-    select.replaceChildren(
-      ...titles.map((title) =>
-        el("option", { value: title.id, selected: title.id === profile.titleId }, title.name),
-      ),
-    );
-  }
-
-  function renderRanking({ entries, jobsById }) {
-    $("[data-ranking-empty]").hidden = entries.length > 0;
-    $("[data-ranking-table]").hidden = entries.length === 0;
-    $("[data-ranking-body]").replaceChildren(
-      ...entries.map((entry, index) =>
-        el(
-          "tr",
-          {},
-          el("th", { scope: "row", class: "ranking__rank" }, `${index + 1}位`),
-          el(
-            "td",
-            {},
-            el("span", { class: "ranking__name" }, entry.nickname),
-            entry.title ? el("span", { class: "ranking__title" }, entry.title) : "",
-          ),
-          el(
-            "td",
-            { class: "ranking__score" },
-            el("span", { class: "ranking__points" }, formatNumber(entry.score)),
-            el(
-              "span",
-              { class: "ranking__meta" },
-              `${jobsById[entry.jobId] ?? entry.jobId} ・ ${formatDate(entry.playedAt)}`,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // オンラインランキング(Phase 19 PR 3。任意)。読み込み中・空・失敗を、文字で示す(表は、あるときだけ出す)
-  const ONLINE_RANKING_STATUS = {
-    loading: "読み込んでいます…",
-    empty: "まだ、参加している人がいません。",
-    error: "読み込めませんでした。しばらくして、もう一度お試しください。",
-  };
-
-  function renderOnlineRankingOptions({ roles, difficulties, roleId, difficultyId }) {
-    $("[data-online-ranking-role]").replaceChildren(
-      ...roles.map((role) =>
-        el("option", { value: role.id, selected: role.id === roleId }, role.name),
-      ),
-    );
-    $("[data-online-ranking-difficulty]").replaceChildren(
-      ...difficulties
-        .filter((difficulty) => difficulty.rankable)
-        .map((difficulty) =>
-          el(
-            "option",
-            { value: difficulty.id, selected: difficulty.id === difficultyId },
-            difficulty.name,
-          ),
-        ),
-    );
-  }
-
-  function renderOnlineRanking({ state, entries = [], jobsById = {} }) {
-    const table = $("[data-online-ranking-table]");
-    const status = $("[data-online-ranking-status]");
-    if (state === "ok" && entries.length > 0) {
-      status.textContent = "";
-      table.hidden = false;
-    } else {
-      status.textContent =
-        state === "ok" ? ONLINE_RANKING_STATUS.empty : ONLINE_RANKING_STATUS[state];
-      table.hidden = true;
-    }
-    $("[data-online-ranking-body]").replaceChildren(
-      ...entries.map((entry, index) =>
-        el(
-          "tr",
-          {},
-          el("th", { scope: "row", class: "ranking__rank" }, `${index + 1}位`),
-          el(
-            "td",
-            {},
-            el("span", { class: "ranking__name" }, entry.nickname),
-            entry.title ? el("span", { class: "ranking__title" }, entry.title) : "",
-          ),
-          el(
-            "td",
-            { class: "ranking__score" },
-            el("span", { class: "ranking__points" }, formatNumber(entry.score)),
-            el("span", { class: "ranking__meta" }, jobsById[entry.jobId] ?? entry.jobId),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // 隠し実績(definition.hidden)は、解放するまで、名前・説明・称号を明かさない(条件のネタバレを防ぐ)
-  const HIDDEN_NAME = "??? (隠し実績)";
-  const HIDDEN_TEXT = "まだ見つかっていません。条件を満たすと、内容が明らかになります。";
-
-  function achievementItem(definition, unlockedAt) {
-    const unlocked = unlockedAt !== undefined;
-    const masked = Boolean(definition.hidden) && !unlocked;
-    const showMeta = unlocked || (Boolean(definition.title) && !masked);
-    return el(
-      "li",
-      { class: `achievement ${unlocked ? "is-unlocked" : "is-locked"}` },
-      el(
-        "p",
-        { class: "achievement__name" },
-        masked ? HIDDEN_NAME : definition.name,
-        el(
-          "span",
-          { class: `badge ${unlocked ? "badge--live" : "badge--soon"}` },
-          unlocked ? "解放済み" : "未解放",
-        ),
-      ),
-      el("p", { class: "achievement__text" }, masked ? HIDDEN_TEXT : definition.description),
-      showMeta
-        ? el(
-            "p",
-            { class: "achievement__meta" },
-            [
-              !masked && definition.title ? `称号「${definition.title}」` : "",
-              unlocked ? formatDate(unlockedAt) : "",
-            ]
-              .filter(Boolean)
-              .join(" ・ "),
-          )
-        : "",
-    );
-  }
-
   // 今回のミス分析。キー名は a-z・0-9・- だけだが、他の文字列と同じく textContent で入れる。
   const keyBadge = (key) => el("kbd", { class: "key" }, key);
 
@@ -414,14 +256,6 @@ export function createView(root) {
     $(selector).replaceChildren(...entries.map(reviewItem));
   };
 
-  function renderAchievements({ definitions, unlocked }) {
-    const done = definitions.filter((definition) => definition.id in unlocked).length;
-    setText("[data-achievement-summary]", `解放済み ${done} / ${definitions.length}`);
-    $("[data-achievement-list]").replaceChildren(
-      ...definitions.map((definition) => achievementItem(definition, unlocked[definition.id])),
-    );
-  }
-
   return {
     input,
     $,
@@ -443,13 +277,6 @@ export function createView(root) {
       onReadyStart,
       onSoundTest,
       onSoundToggle,
-      onProfileChange,
-      onRankingRoleChange,
-      onRankingDifficultyChange,
-      onOnlineRankingRoleChange,
-      onOnlineRankingDifficultyChange,
-      onBackupExport,
-      onBackupImport,
       onRetry,
       onBack,
       onQuit,
@@ -526,60 +353,6 @@ export function createView(root) {
       });
       $("[data-check-retry]").addEventListener("click", onCheckRetry);
       $("[data-check-back]").addEventListener("click", onBack);
-      const profileChanged = () =>
-        onProfileChange({
-          nickname: $("[data-nickname]").value,
-          titleId: $("[data-title-select]").value,
-        });
-      $("[data-nickname]").addEventListener("change", profileChanged);
-      $("[data-title-select]").addEventListener("change", profileChanged);
-      $("[data-profile]").addEventListener("submit", (event) => {
-        event.preventDefault();
-        profileChanged();
-      });
-      $("[data-ranking-role]").addEventListener("change", (event) =>
-        onRankingRoleChange(event.target.value),
-      );
-      $("[data-ranking-difficulty]").addEventListener("change", (event) =>
-        onRankingDifficultyChange(event.target.value),
-      );
-      $("[data-online-ranking-role]").addEventListener("change", (event) =>
-        onOnlineRankingRoleChange(event.target.value),
-      );
-      $("[data-online-ranking-difficulty]").addEventListener("change", (event) =>
-        onOnlineRankingDifficultyChange(event.target.value),
-      );
-      $("[data-backup-export]").addEventListener("click", () => {
-        showBackupStatus(onBackupExport().message);
-      });
-      let pendingImportText = null;
-      $("[data-backup-import]").addEventListener("change", async (event) => {
-        const [file] = event.target.files;
-        event.target.value = "";
-        if (!file) return;
-        if (file.size > MAX_IMPORT_BYTES) {
-          showBackupStatus("ファイルが大きすぎます(1MBまでです)。");
-          return;
-        }
-        pendingImportText = await file.text();
-        const message = $("[data-backup-import-message]");
-        message.textContent = "";
-        message.hidden = true;
-        $("#backup-import-dialog").showModal();
-      });
-      $("[data-backup-import-confirm]").addEventListener("click", () => {
-        if (pendingImportText === null) return;
-        const result = onBackupImport(pendingImportText);
-        pendingImportText = null;
-        if (result.ok) {
-          $("#backup-import-dialog").close();
-          showBackupStatus(result.message);
-          return;
-        }
-        const message = $("[data-backup-import-message]");
-        message.textContent = result.message;
-        message.hidden = false;
-      });
       $("[data-retry]").addEventListener("click", onRetry);
       $("[data-back]").addEventListener("click", onBack);
       $("[data-quit]").addEventListener("click", onQuit);
@@ -605,25 +378,7 @@ export function createView(root) {
     },
 
     // ダッシュボード全体を描画する。選択中の職種・役職・難易度は、可能なら保持する。
-    renderDashboard({
-      jobs,
-      roles,
-      isUnlocked,
-      difficulties,
-      bestOf,
-      profile,
-      titles,
-      rankingRoleId,
-      rankingDifficultyId,
-      ranking,
-      jobsById,
-      achievements,
-      unlocked,
-      storageNotice,
-      level,
-      masteries,
-      choice,
-    }) {
+    renderDashboard({ jobs, roles, isUnlocked, bestOf, storageNotice, masteries, choice }) {
       renderSetup({
         jobs,
         roles,
@@ -632,37 +387,8 @@ export function createView(root) {
         masteries,
         choice,
       });
-      renderProfile({ profile, titles });
-      renderLevel(level);
-      $("[data-ranking-role]").replaceChildren(
-        ...roles.map((role) =>
-          el("option", { value: role.id, selected: role.id === rankingRoleId }, role.name),
-        ),
-      );
-      $("[data-ranking-difficulty]").replaceChildren(
-        ...difficulties
-          .filter((difficulty) => difficulty.rankable)
-          .map((difficulty) =>
-            el(
-              "option",
-              { value: difficulty.id, selected: difficulty.id === rankingDifficultyId },
-              difficulty.name,
-            ),
-          ),
-      );
-      renderRanking({ entries: ranking, jobsById });
-      renderOnlineRankingOptions({
-        roles,
-        difficulties,
-        roleId: rankingRoleId,
-        difficultyId: rankingDifficultyId,
-      });
-      renderAchievements({ definitions: achievements, unlocked });
       showNotice("[data-storage-notice]", storageNotice);
     },
-
-    renderRanking,
-    renderOnlineRanking,
 
     // 「プレイ中に、用語の説明も表示する」のチェック(保存されていた設定を反映する)
     setExplanationSetting(checked) {
@@ -704,10 +430,6 @@ export function createView(root) {
       const toggle = $("[data-sound-toggle]");
       toggle.setAttribute("aria-pressed", String(on));
       setText("[data-sound-state]", on ? "あり" : "なし");
-    },
-
-    setNickname(nickname) {
-      $("[data-nickname]").value = nickname;
     },
 
     showDashboard() {

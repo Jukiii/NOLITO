@@ -10,13 +10,15 @@ const html = read("public/games/escape-boss/index.html");
 const statsHtml = read("public/games/escape-boss/stats/index.html");
 const view = read("public/assets/js/games/escape-boss/view.js");
 const main = read("public/assets/js/games/escape-boss/main.js");
+const profileHtml = read("public/games/escape-boss/profile/index.html");
+const profilePage = read("public/assets/js/games/escape-boss/profile-page.js");
 const statsPage = read("public/assets/js/games/escape-boss/stats-page.js");
 const records = read("public/assets/js/games/escape-boss/records.js");
 
 describe("プレイヤー欄(レベル・経験値)の HTML", () => {
   it("レベルの数・最高レベルの注記・バー(role=progressbar)・文が、プレイヤー欄にある", () => {
-    const start = html.indexOf('id="profile-title"');
-    const section = html.slice(start, html.indexOf("<form", start));
+    const start = profileHtml.indexOf('id="profile-title"');
+    const section = profileHtml.slice(start, profileHtml.indexOf("<form", start));
     assert.match(section, /<strong data-level>1<\/strong>/);
     assert.match(section, /<span data-level-max hidden>/);
     assert.match(section, /role="progressbar"/);
@@ -26,7 +28,7 @@ describe("プレイヤー欄(レベル・経験値)の HTML", () => {
   });
 
   it("バーの aria-labelledby は、プレイヤー欄の見出しを指す(読み上げに、意味が伝わる)", () => {
-    assert.match(html, /role="progressbar"\s*\n\s*aria-labelledby="profile-title"/);
+    assert.match(profileHtml, /role="progressbar"\s*\n\s*aria-labelledby="profile-title"/);
   });
 });
 
@@ -60,31 +62,32 @@ describe("view.js のつなぎ", () => {
   it("renderSetup は、masteries を受け取り、職種の選択肢に、熟練度の段階を sub として出す", () => {
     const setup = view.slice(
       view.indexOf("function renderSetup"),
-      view.indexOf("function renderProfile"),
+      view.indexOf("// 今回のミス分析"),
     );
     assert.match(setup, /masteries = \[\]/);
     assert.match(setup, /masteryById\.get\(job\.id\)\?\.name/);
   });
 
-  it("renderLevel: レベル・バーの割合・文を、data 属性に反映する。文字は el()(textContent)相当だけ", () => {
-    const fn = view.slice(
-      view.indexOf("function renderLevel"),
-      view.indexOf("function renderProfile"),
+  it("renderPlayer(プレイヤー・記録のページ): レベル・バーの割合・文を、data 属性に反映する。文字は textContent だけ", () => {
+    const fn = profilePage.slice(
+      profilePage.indexOf("function renderPlayer"),
+      profilePage.indexOf("function saveProfile"),
     );
-    assert.match(fn, /setText\("\[data-level\]", level\.level\)/);
-    assert.match(fn, /\$\("\[data-level-bar\]"\)\.setAttribute\("aria-valuenow"/);
-    assert.match(fn, /\$\("\[data-level-fill\]"\)\.style\.width/);
+    assert.match(fn, /levelOf\(data\.progress\.exp\)/);
+    assert.match(fn, /\[data-level\]/);
+    assert.match(fn, /\[data-level-bar\]/);
+    assert.match(fn, /aria-valuenow/);
+    assert.match(fn, /\[data-level-fill\]/);
     assert.match(fn, /累計の経験値|次のレベルまで/);
+    assert.ok(!/innerHTML/.test(fn));
   });
 
-  it("renderDashboard は、level・masteries を受け取り、renderSetup・renderLevel に渡す", () => {
-    const fn = view.slice(view.indexOf("renderDashboard({"), view.indexOf("renderRanking,"));
-    assert.match(fn, /level,\s*masteries,/);
-    assert.match(
-      fn,
-      /renderSetup\(\{\s*jobs,\s*roles,\s*isUnlocked,\s*bestOf,\s*masteries,\s*choice,?\s*\}\);/,
+  it("renderDashboard は、masteries を受け取り、renderSetup に渡す(レベルは、プレイヤー・記録のページ)", () => {
+    const fn = view.slice(
+      view.indexOf("renderDashboard({"),
+      view.indexOf("// 「プレイ中に、用語の説明も"),
     );
-    assert.match(fn, /renderLevel\(level\);/);
+    assert.match(fn, /masteries,/);
   });
 
   it("showResult は、獲得経験値を出し、レベルアップのときだけ、その文を出す", () => {
@@ -103,14 +106,12 @@ describe("view.js のつなぎ", () => {
 });
 
 describe("main.js のつなぎ", () => {
-  it("refreshDashboard は、levelOf・jobMasteries を使って、renderDashboard に渡す", () => {
-    assert.match(main, /import \{ levelOf \} from "\.\/levels\.js";/);
+  it("refreshDashboard は、jobMasteries を使って、renderDashboard に渡す", () => {
     assert.match(main, /import \{ jobMasteries \} from "\.\/mastery\.js";/);
     const fn = main.slice(
       main.indexOf("function refreshDashboard"),
       main.indexOf("async function init"),
     );
-    assert.match(fn, /level: levelOf\(data\.progress\.exp\)/);
     assert.match(fn, /masteries: jobMasteries\(/);
   });
 

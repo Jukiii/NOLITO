@@ -1,6 +1,6 @@
 import { availableTitles, evaluateAchievements, titleName as titleNameOf } from "./achievements.js";
 // アカウントの案内・オンラインランキング(Phase 19 PR 2・3)。アカウントの API クライアントを再利用する(重複させない)
-import { fetchMe, fetchOnlineRanking, saveOnlineRanking } from "../../account/client.js";
+import { fetchMe, saveOnlineRanking } from "../../account/client.js";
 import {
   checkHit,
   checkMiss,
@@ -20,15 +20,7 @@ import {
   recordMiss,
   topConfusions,
 } from "./keystats.js";
-import {
-  getRanking,
-  grantExp,
-  isRoleUnlocked,
-  recordResult,
-  unlockAchievements,
-  updateProfile,
-} from "./records.js";
-import { levelOf } from "./levels.js";
+import { grantExp, isRoleUnlocked, recordResult, unlockAchievements } from "./records.js";
 import { jobMasteries } from "./mastery.js";
 import { createLines, lineLevelOf } from "./lines.js";
 import { canonicalLengthOf, createWordMatcher } from "./romaji.js";
@@ -63,7 +55,6 @@ import { createView } from "./view.js";
 
 // 1フレームで進める時間の上限(重い処理や一時停止からの復帰で距離が一気に減らないようにする)
 const MAX_FRAME_SECONDS = 0.1;
-const DEFAULT_ROLE_ID = "senpai";
 // 復習リストで始めた用語確認の「職種」の表示(職種ではないので、名前だけ)
 const REVIEW_JOB = { id: "review", name: "復習リスト" };
 
@@ -79,11 +70,6 @@ let jobs = [];
 let roles = [];
 let difficulties = [];
 let config = { default_title: { id: "newbie", name: "新入社員" }, achievements: [] };
-let rankingRoleId = DEFAULT_ROLE_ID;
-let rankingDifficultyId = DEFAULT_DIFFICULTY;
-// オンラインランキング(Phase 19 PR 3。任意)の、いま見ている役職・難易度(端末内ランキングとは別に選べる)
-let onlineRankingRoleId = DEFAULT_ROLE_ID;
-let onlineRankingDifficultyId = DEFAULT_DIFFICULTY;
 let storageNotice = "";
 let session = null;
 // 開始・終わりの演出の進行(進んでいる間だけ、ある)
@@ -107,8 +93,6 @@ const stopTimeline = () => {
   timeline?.cancel();
   timeline = null;
 };
-
-const jobsById = () => Object.fromEntries(jobs.map((job) => [job.id, job.name]));
 
 // 難易度に、いま挑戦できるか(role_clear_normal は、その役職を「ふつう」で 1 回以上クリアしていること)
 const isDifficultyUnlockedFor = (difficulty, roleId) =>
@@ -137,46 +121,18 @@ function noticeFor(status, saved = true) {
 
 function refreshDashboard() {
   const { data } = store.load();
-  const titles = availableTitles(config, data.achievements);
   view.renderDashboard({
     jobs,
     roles,
     isUnlocked: (role) => isRoleUnlocked(data, role),
-    difficulties,
     bestOf: bestOfJob,
-    profile: {
-      nickname: data.profile.nickname,
-      titleId: titles.some((title) => title.id === data.profile.titleId)
-        ? data.profile.titleId
-        : config.default_title.id,
-    },
-    titles,
-    rankingRoleId,
-    rankingDifficultyId,
-    ranking: getRanking(data, rankingRoleId, rankingDifficultyId),
-    jobsById: jobsById(),
-    achievements: config.achievements,
-    unlocked: data.achievements,
     storageNotice,
-    level: levelOf(data.progress.exp),
     masteries: jobMasteries(
       data.progress.jobs,
       jobs.map((job) => job.id),
     ),
     choice: settings.lastChoice,
   });
-}
-
-// オンラインランキング(Phase 19 PR 3。任意)の、いま選んでいる役職・難易度の上位を取ってきて描く。
-// だれでも見られる(ログイン不要)。取得に失敗しても、ダッシュボードの表示は続ける
-async function loadOnlineRanking() {
-  view.renderOnlineRanking({ state: "loading" });
-  const result = await fetchOnlineRanking(onlineRankingRoleId, onlineRankingDifficultyId);
-  if (!result.ok) {
-    view.renderOnlineRanking({ state: "error" });
-    return;
-  }
-  view.renderOnlineRanking({ state: "ok", entries: result.data.entries, jobsById: jobsById() });
 }
 
 // クリアの記録を、オンラインランキングに送る(参加している人だけ)。押した操作ではないので、
@@ -191,18 +147,7 @@ function submitOnlineRanking({ cleared, difficulty, role, job, score, data }) {
     nickname: data.profile.nickname,
     title: titleNameOf(config, data.profile.titleId),
     score,
-  })
-    .then((result) => {
-      // 選んで見ている役職・難易度と同じなら、表を更新する(自分の記録が、すぐ反映されるように)
-      if (
-        result.ok &&
-        role.id === onlineRankingRoleId &&
-        difficulty.id === onlineRankingDifficultyId
-      ) {
-        loadOnlineRanking();
-      }
-    })
-    .catch(() => {});
+  }).catch(() => {});
 }
 
 function bannerDismissed() {
@@ -320,43 +265,17 @@ async function init() {
       if (session.review) startReview();
       else startCheck({ jobId: session.job.id });
     },
-    onProfileChange: handleProfileChange,
-    onRankingRoleChange: (roleId) => {
-      rankingRoleId = roleId;
-      view.renderRanking({
-        entries: getRanking(store.load().data, roleId, rankingDifficultyId),
-        jobsById: jobsById(),
-      });
-    },
-    onRankingDifficultyChange: (difficultyId) => {
-      rankingDifficultyId = difficultyId;
-      view.renderRanking({
-        entries: getRanking(store.load().data, rankingRoleId, difficultyId),
-        jobsById: jobsById(),
-      });
-    },
-    onBackupExport: exportBackup,
-    onBackupImport: importBackup,
     onRetry: () =>
       session &&
       startGame({ jobId: session.job.id, roleId: session.role.id, difficulty: session.difficulty }),
     onBack: quit,
     onQuit: quit,
     onAccountBannerDismiss: dismissAccountBanner,
-    onOnlineRankingRoleChange: (roleId) => {
-      onlineRankingRoleId = roleId;
-      loadOnlineRanking();
-    },
-    onOnlineRankingDifficultyChange: (difficultyId) => {
-      onlineRankingDifficultyId = difficultyId;
-      loadOnlineRanking();
-    },
   });
   // 開始・終わりの演出は、飛ばせる(Enter・スペース・Esc・場面のクリック)
   view.bindSkip(() => timeline?.skip());
   refreshDashboard();
   initAccount(); // 失敗しても、ダッシュボードの表示は続ける(案内が出ない・オンラインランキングに送らないだけ)
-  loadOnlineRanking();
 
   // 成績ページの「復習リストで用語確認をする」から来たとき(?review=1)。アドレスからは消す
   const params = new URLSearchParams(location.search);
@@ -372,70 +291,6 @@ function changeSound(change) {
   saveSettings(backend, settings);
   applySound();
   sound.unlock(); // 設定を変える操作の中で、準備する(設定を反映したあとに。「なし」の間は、作らない)
-}
-
-// 記録の書き出し・読み込み(Phase 19 PR 1。バックアップ・機種変更用。キーみちと同じ考え方)
-function download(filename, text, mime) {
-  const url = URL.createObjectURL(new Blob([text], { type: mime }));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-const dateStamp = () => {
-  const now = new Date();
-  const pad = (n) => String(n).padStart(2, "0");
-  return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
-};
-
-const BACKUP_IMPORT_ERRORS = {
-  "invalid-json": "JSONとして読み取れません。この画面で書き出したファイルを選んでください。",
-  "invalid-format": "この画面で書き出したファイルではありません。",
-  "newer-version":
-    "新しい版の書き出しファイルです。ページを再読み込みして、もう一度お試しください。",
-  "invalid-data": "ファイルの中身が正しくありません(壊れているか、書き換えられています)。",
-  "too-large": "ファイルが大きすぎます(1MBまでです)。",
-};
-
-function exportBackup() {
-  const json = store.exportJson();
-  if (json === null) {
-    return {
-      ok: false,
-      message: "書き出せる記録がありません(保存されているデータが読めない状態です)。",
-    };
-  }
-  download(`escape-boss-${dateStamp()}.json`, json, "application/json;charset=utf-8");
-  return { ok: true, message: "JSONファイルに書き出しました。" };
-}
-
-function importBackup(text) {
-  const result = store.importJson(text);
-  if (!result.ok) {
-    return { ok: false, message: BACKUP_IMPORT_ERRORS[result.error] ?? "読み込めませんでした。" };
-  }
-  storageNotice = noticeFor(store.status, result.saved);
-  refreshDashboard();
-  return {
-    ok: true,
-    message: result.saved
-      ? "記録を置き換えました。"
-      : "記録を置き換えました(ただし、この環境では保存できません)。",
-  };
-}
-
-function handleProfileChange({ nickname, titleId }) {
-  const out = store.update((data) => {
-    const ids = availableTitles(config, data.achievements).map((title) => title.id);
-    return { data: updateProfile(data, { nickname, titleId }, ids) };
-  });
-  view.setNickname(out.data.profile.nickname);
-  storageNotice = noticeFor(store.status, out.saved);
-  view.announce(out.saved ? "保存しました。" : "この端末では保存できません。");
 }
 
 let starting = false;
@@ -819,8 +674,6 @@ function finish() {
     kaicho && !isRoleUnlocked(before, kaicho) && isRoleUnlocked(out.data, kaicho),
   );
   storageNotice = noticeFor(store.status, out.saved);
-  rankingRoleId = role.id;
-  rankingDifficultyId = difficulty.id;
 
   const resultView = {
     state,

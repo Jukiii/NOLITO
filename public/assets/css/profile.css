@@ -1,0 +1,51 @@
+/* プレイヤー・記録のページ(/games/escape-boss/profile/)。タブ以外の見た目は、game.css の部品を使う */
+.profile-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+/* 選んでいるタブは、色だけでなく、太字と下線でも示す */
+.profile-tab {
+  min-height: var(--tap-size);
+  padding: 0 var(--space-4);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-bottom: 0;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--font-weight-normal);
+}
+
+.profile-tab[aria-selected="true"] {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: var(--font-weight-black);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.3em;
+}
+
+.profile-panel {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}
+
+.profile-panel[hidden] {
+  display: none;
+}
+
+.profile-panel > h2,
+.profile-panel > p {
+  margin: 0;
+}
+
+.profile-panel > h2:not(:first-child) {
+  margin-top: var(--space-6);
+}

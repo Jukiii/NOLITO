@@ -9,6 +9,8 @@ const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n",
 const html = read("public/games/escape-boss/index.html");
 const view = read("public/assets/js/games/escape-boss/view.js");
 const main = read("public/assets/js/games/escape-boss/main.js");
+const profileHtml = read("public/games/escape-boss/profile/index.html");
+const profilePage = read("public/assets/js/games/escape-boss/profile-page.js");
 
 describe("難易度は、追ってくる人(役職)と同じ(Issue #144)", () => {
   it("開始前の選択に、難易度の選択欄はない。役職の選択に、難易度の意味を添える", () => {
@@ -20,8 +22,8 @@ describe("難易度は、追ってくる人(役職)と同じ(Issue #144)", () =>
   });
 
   it("ランキングに、役職と対になる難易度の選択欄がある(役職の下)", () => {
-    const start = html.indexOf('id="ranking-role"');
-    const section = html.slice(start, html.indexOf("</section>", start));
+    const start = profileHtml.indexOf('id="ranking-role"');
+    const section = profileHtml.slice(start, profileHtml.indexOf("</section>", start));
     assert.match(section, /<label for="ranking-difficulty">難易度<\/label>/);
     assert.match(section, /id="ranking-difficulty"[\s\S]*?data-ranking-difficulty/);
   });
@@ -51,18 +53,12 @@ describe("view.js のつなぎ(難易度)", () => {
     assert.match(submit, /onStart\(\{ mode, jobId, roleId, difficulty: DEFAULT_DIFFICULTY \}\)/);
   });
 
-  it("ランキングの難易度の選択欄は、変わるたびに onRankingDifficultyChange を呼ぶ", () => {
-    assert.match(
-      view,
-      /\$\("\[data-ranking-difficulty\]"\)\.addEventListener\("change", \(event\) =>\s*onRankingDifficultyChange\(event\.target\.value\),?\s*\);/,
+  it("renderDashboard: bestOf を renderSetup に渡す", () => {
+    const fn = view.slice(
+      view.indexOf("renderDashboard({"),
+      view.indexOf("// 「プレイ中に、用語の説明も"),
     );
-  });
-
-  it("renderDashboard: bestOf を renderSetup に渡す。ランキングの難易度欄は rankable だけ", () => {
-    const fn = view.slice(view.indexOf("renderDashboard({"), view.indexOf("renderRanking,"));
     assert.match(fn, /renderSetup\(\{\s*jobs,\s*roles,\s*isUnlocked,\s*bestOf,/);
-    assert.match(fn, /rankingDifficultyId,/);
-    assert.match(fn, /difficulty\.rankable/);
   });
 });
 
@@ -117,11 +113,11 @@ describe("main.js のつなぎ(難易度)", () => {
     );
   });
 
-  it("ランキングは、役職と難易度の組で読む(getRanking の第三引数)", () => {
-    assert.match(main, /getRanking\(store\.load\(\)\.data, roleId, rankingDifficultyId\)/);
+  it("ランキングは、プレイヤー・記録のページで、役職と難易度の組で読む(getRanking の第三引数)", () => {
     assert.match(
-      main,
-      /onRankingDifficultyChange: \(difficultyId\) => \{\s*rankingDifficultyId = difficultyId;/,
+      profilePage,
+      /getRanking\(store\.load\(\)\.data, rankingRoleId, rankingDifficultyId\)/,
     );
+    assert.ok(!/getRanking/.test(main));
   });
 });
