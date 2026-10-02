@@ -217,7 +217,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 ## ゲーム画面の場面(Phase 15)
 
-- プレイ画面の並びは、上から **距離ゲージ → 場面(追ってくる人)→ 単語 → 入力欄**、サイドステータスは横(狭い画面では下)。決定は `docs/decisions/0028-phase-15-scene.md`。**入力欄は、画面から隠している**(Issue #166 PR 5・決定 0071。1px に切り抜く。`display: none`・`visibility: hidden` にしない = フォーカス・ソフトウェアキーボードを保つ。単語のカードを押すと、入力欄にフォーカスする)。場面は飾り(`aria-hidden`)。距離は、ゲージ(`role="progressbar"`)が伝える。
+- プレイ画面の並びは、上から **距離ゲージ → 場面(追ってくる人)→ 単語 → 入力欄**、サイドステータスは横(狭い画面では下)。決定は `docs/decisions/0028-phase-15-scene.md`。**入力欄は、画面から隠している**(Issue #166 PR 5・決定 0071。1px に切り抜く。`display: none`・`visibility: hidden` にしない = フォーカス・ソフトウェアキーボードを保つ。単語のカードを押すと、入力欄にフォーカスする)。**隠す規則は、`.game-input` の中だけ**(`.game-input .game-input__field`)。同じクラス `game-input__field` は、設定・成績・プロフィールの選択欄も使うので、クラス単独で隠さない・暗い固定色にしない(Issue #173・決定 0073)。場面は飾り(`aria-hidden`)。距離は、ゲージ(`role="progressbar"`)が伝える。
 - **役職ごとの動き**は `roles.json` の `scene.motion`(`run`・`pedal`・`drive`・`glide`・`aura`。`scene.js` の `SCENE_MOTIONS`)。CSS は `.scene[data-motion="…"]`。**動きを足す・変えるときは、`scene.js`・CSS・テスト(`tests/scene.test.js`)をそろえる**。絵は、そのまま(描き直しは Phase 16)。
 - 追ってくる人は、外側の枠 `.scene__chaser`(位置 = `--closeness` から計算した `left`)と、中の絵 `.scene__chaser-img`(動き)に分ける。**位置は、動きを減らす設定でも、距離に応じて変わる**(この性質を変えない)。
 - 危ない(距離が 25% 以下)の判断は、`isDanger`(ゲージと場面で共通)。場面の一瞬の演出は、`view.pulseScene("miss" | "gain")` が `[data-event]` を 350ms だけ付ける。**色・明るさ・影を変えるアニメーションは、1 周 0.8 秒以上**(光の点滅を避ける。テストが検査する)。CSS の `@keyframes` は、名前が定義され、使われていること(テストが検査する)。
