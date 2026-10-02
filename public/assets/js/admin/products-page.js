@@ -9,6 +9,7 @@ import {
   updateAdminProduct,
 } from "../account/client.js";
 import { el } from "../components/dom.js";
+import { newProductTemplate } from "./product-template.js";
 
 const root = document.querySelector("[data-admin-products]");
 if (root) init(root);
@@ -117,6 +118,12 @@ async function init(root) {
     deleteDialog.showModal();
   }
 
+  createJson.value = newProductTemplate();
+  $("[data-admin-products-add]").addEventListener("click", () => {
+    $("[data-admin-products-new]").scrollIntoView({ block: "start" });
+    createJson.focus();
+  });
+
   createForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     createError.textContent = "";
@@ -131,7 +138,7 @@ async function init(root) {
         result.message + (result.details ? ` (${result.details.join(" / ")})` : "");
       return;
     }
-    createJson.value = "";
+    createJson.value = newProductTemplate();
     await loadList();
     say(`作成しました(${result.data.product.id})。`);
   });
