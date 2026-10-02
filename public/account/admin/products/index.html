@@ -75,13 +75,19 @@
               まだ、プロダクトがありません。
             </p>
             <ul class="admin-products__list" data-admin-products-list></ul>
+            <p>
+              <button class="button button--primary" type="button" data-admin-products-add>
+                プロダクトを追加する
+              </button>
+            </p>
           </section>
 
-          <section aria-labelledby="admin-products-new-title">
-            <h2 id="admin-products-new-title">新規作成</h2>
+          <section aria-labelledby="admin-products-new-title" data-admin-products-new>
+            <h2 id="admin-products-new-title" tabindex="-1">新規作成</h2>
             <p class="account__hint">
-              プロダクト1件分の JSON(<code>public/data/products.json</code>
-              の項目と同じ形)を貼り付けてください。
+              ひな形が入っています。<code>id</code>・<code>title</code>・<code>description</code>
+              などを書き換えて、「作成する」を押してください(1件分の JSON。形は
+              <code>public/data/products.json</code> の項目と同じ)。
             </p>
             <form class="account__form" data-admin-products-create-form>
               <div class="account__field">
