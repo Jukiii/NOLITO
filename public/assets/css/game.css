@@ -38,7 +38,8 @@
  * aside は display: contents にして、HUD(.game-status)と 2 つのボタンを、枠のグリッドに直接置く。
  */
 .game-result,
-.game-play {
+.game-play,
+.game-setup {
   --color-bg: var(--arcade-bg);
   --color-surface: var(--arcade-panel);
   --color-soft: var(--arcade-panel-2);
@@ -1740,6 +1741,43 @@
   margin: 0;
   padding-left: var(--space-6);
   overflow-wrap: anywhere;
+}
+
+/* 開始前の画面(Issue 173)。結果・プレイ中と同じ暗い枠。見出しは飾り(aria-hidden)で、日本語の見出しは、そのまま残る */
+.game-setup {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-6);
+  padding: var(--space-4);
+}
+
+.game-setup > * {
+  min-width: 0;
+  margin-block: 0;
+}
+
+.game-setup__banner {
+  margin: 0;
+  color: var(--arcade-yellow);
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-black);
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-shadow: 0 0.125rem 0 var(--arcade-magenta);
+  overflow-wrap: anywhere;
+}
+
+.game-setup__mode > legend,
+.game-setup__choice > label {
+  color: var(--arcade-cyan);
+}
+
+.game-setup [data-start] {
+  width: 100%;
+  min-height: 3.5rem;
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.2em;
 }
 
 /* 開始前の選択(プルダウン。前回の選択は、引き継がれる) */

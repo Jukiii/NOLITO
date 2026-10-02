@@ -76,7 +76,7 @@ describe("game.css のアーケード画面", () => {
   });
 
   it("ゲーム画面は、どのテーマでも暗い(.game-play がトークンを暗い値にする)", () => {
-    const start = css.indexOf(".game-play {");
+    const start = css.indexOf(".game-setup {\n  --color-bg");
     const block = css.slice(start, css.indexOf("\n}\n", start));
     assert.match(block, /--color-bg:\s*var\(--arcade-bg\)/);
     assert.match(block, /--color-text:\s*var\(--arcade-text\)/);

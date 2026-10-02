@@ -133,8 +133,16 @@ describe("結果画面・開始画面の配線", () => {
     assert.match(block, /100%\s*\{\s*opacity: 1/);
   });
 
+  it("開始前の画面(.game-setup)も、暗い枠。見出し(STAGE SELECT)は飾りで、選択欄は読める色のまま(Issue #173)", () => {
+    assert.match(
+      html,
+      /<form class="game-setup" data-setup>\s*<p class="game-setup__banner" aria-hidden="true">STAGE SELECT<\/p>/,
+    );
+    assert.match(css, /\.game-setup__banner\s*\{[^}]*font-family: var\(--font-display\)/);
+  });
+
   it("結果の画面も、暗い枠(.game-play と同じトークン)。数え上げの欄は、hidden で消える", () => {
-    assert.match(css, /\.game-result,\s*\.game-play\s*\{/);
+    assert.match(css, /\.game-result,\s*\.game-play,\s*\.game-setup\s*\{/);
     assert.match(css, /\.result-score__roll\[hidden\]\s*\{\s*display: none/);
   });
 
