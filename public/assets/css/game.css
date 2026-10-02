@@ -276,16 +276,33 @@
   gap: var(--space-2);
 }
 
-/*
- * 入力欄は、画面には見せない(打った分は、単語の上の色・下線で見える)。
- * ただし、フォーカスは受け取れるまま(display: none にしない。キーボード・スマホの入力を受けるため)。
- * ラベルも、読み上げには残す。16px 以上で、iOS の入力時の自動ズームを防ぐ
- */
-.game-input__label,
+.game-input__label {
+  font-weight: var(--font-weight-bold);
+}
+
+/* 設定の選択欄・成績・プロフィールの欄も、この見た目を使う。16px 以上で、iOS の入力時の自動ズームを防ぐ */
 .game-input__field {
+  min-height: 3.25rem;
+  padding: 0 var(--space-4);
+  background: var(--color-surface);
+  border: 0.25rem solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-lg);
+}
+
+/*
+ * プレイ中の入力欄(.game-input の中)だけ、画面には見せない(打った分は、単語の上の色・下線で見える)。
+ * ただし、フォーカスは受け取れるまま(display: none にしない。キーボード・スマホの入力を受けるため)。
+ * ラベルも、読み上げには残す。同じクラスの選択欄(設定・成績・プロフィール)は、隠さない
+ */
+.game-input .game-input__label,
+.game-input .game-input__field {
   position: absolute;
   width: 1px;
   height: 1px;
+  min-height: 0;
   margin: -1px;
   padding: 0;
   overflow: hidden;
@@ -294,11 +311,9 @@
   white-space: nowrap;
 }
 
-.game-input__field {
+.game-input .game-input__field {
   background: transparent;
   color: transparent;
-  font: inherit;
-  font-size: var(--font-size-lg);
   caret-color: transparent;
 }
 
@@ -1991,6 +2006,14 @@ body:has([data-game] [data-view="play"]:not([hidden])) .main {
 
   .game-input {
     gap: var(--space-1);
+  }
+
+  .game-input__label {
+    font-size: var(--font-size-xs);
+  }
+
+  .game-input__field {
+    min-height: var(--tap-size);
   }
 
   .game-input__miss {
