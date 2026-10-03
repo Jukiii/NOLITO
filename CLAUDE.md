@@ -113,7 +113,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - 監査ログ・回数の制限のキーに、メールアドレス・IP をそのまま入れない。アカウントの削除は、直近 10 分以内にログインしたセッションだけ(`reauth-required`)。
 - サーバーが返すエラーの種類を足したら、`public/assets/js/account/messages.js` の文も足す(`tests/account-page.test.js` が検査する)。表示は `textContent` だけ。
 - `wrangler.toml` はローカル専用。**`pages_build_output_dir` を書かない**(書くと、Cloudflare のダッシュボードの設定が読み取り専用になる)。
-- フッター・ナビに「アカウント」を出すのは、一般公開のとき(いまは `/account/` は `noindex` で、リンクなし)。ゲームの記録・ランキングのアカウント連携は Phase 19。
+- フッター・ナビの項目に「アカウント」を出すのは、一般公開のとき(`/account/` は `noindex`)。**ヘッダーの右端には、ログイン状態で変わるアイコン(`components/account-link.js`。ログイン中 = 塗りつぶし・未ログイン = 枠。`/api/me` で確認し、機能がない環境では隠す)がある**(Issue #173・決定 `docs/decisions/0089-header-account-icon.md`。ログイン状態を端末に保存しない)。ゲームの記録・ランキングのアカウント連携は Phase 19。
 - プライバシーポリシーの版は、個人情報の取り扱いの変更(一般公開・第三者への提供など)で上げる。限定公開の間の取り扱いは、`/account/` に書いてある。
 
 ### ライセンス(Phase 9 PR 2)

@@ -1,4 +1,5 @@
 import { mainNav, siteName } from "../config/nav.js";
+import { createAccountLink, initAccountLink } from "./account-link.js";
 import { el } from "./dom.js";
 import { initNav } from "./nav.js";
 
@@ -104,6 +105,8 @@ export function renderHeader(target, currentPath = window.location.pathname) {
     ),
   );
 
+  const account = createAccountLink();
+
   target.replaceChildren(
     el(
       "div",
@@ -111,7 +114,9 @@ export function renderHeader(target, currentPath = window.location.pathname) {
       el("a", { class: "site-logo", href: "/" }, siteName),
       toggle,
       nav,
+      account,
     ),
   );
   initNav(toggle, nav);
+  initAccountLink(account);
 }
