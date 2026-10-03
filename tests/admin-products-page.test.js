@@ -21,9 +21,27 @@ describe("プロダクト管理の追加", () => {
     const html = read("public/account/admin/products/index.html");
     const script = read("public/assets/js/admin/products-page.js");
     assert.match(html, /<button[^>]*data-admin-products-add>\s*プロダクトを追加する/);
-    assert.ok(html.includes("data-admin-products-new"));
-    assert.ok(script.includes('"[data-admin-products-add]"'));
-    assert.ok(script.includes('"[data-admin-products-new]"'));
+    for (const name of [
+      "data-admin-products-new",
+      "data-admin-products-form",
+      "data-admin-products-form-title",
+      "data-admin-products-fields",
+      "data-admin-products-error",
+      "data-admin-products-reset",
+      "data-admin-products-list",
+      "data-admin-products-empty",
+      "data-admin-products-delete-confirm",
+      "data-admin-products-delete-reauth",
+    ]) {
+      assert.ok(html.includes(name), `HTML: ${name}`);
+      assert.ok(script.includes(`[${name}]`), `script: ${name}`);
+    }
+  });
+
+  it("JSON の入力欄は、なくなった(入力欄だけで編集する)", () => {
+    const html = read("public/account/admin/products/index.html");
+    assert.ok(!html.includes("<textarea"));
+    assert.ok(!html.includes("admin-product-edit-dialog"));
   });
 });
 

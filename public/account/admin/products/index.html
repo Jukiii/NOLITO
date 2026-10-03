@@ -92,67 +92,35 @@
             </p>
           </section>
 
-          <section aria-labelledby="admin-products-new-title" data-admin-products-new>
-            <h2 id="admin-products-new-title" tabindex="-1">新規作成</h2>
+          <section aria-labelledby="admin-products-form-title" data-admin-products-new>
+            <h2 id="admin-products-form-title" tabindex="-1" data-admin-products-form-title>
+              新しいプロダクトを作る
+            </h2>
             <p class="account__hint">
-              ひな形が入っています。<code>id</code>・<code>title</code>・<code>description</code>
-              などを書き換えて、「作成する」を押してください(1件分の JSON。形は
-              <code>public/data/products.json</code> の項目と同じ)。
+              入力欄に書いて「保存する」を押すと、サーバーが内容を確かめます(決まりに合わないところは、ここに出ます)。
             </p>
-            <form class="account__form" data-admin-products-create-form>
-              <div class="account__field">
-                <label for="admin-products-create-json">JSON</label>
-                <textarea
-                  class="account__input admin-products__json"
-                  id="admin-products-create-json"
-                  rows="14"
-                  spellcheck="false"
-                  data-admin-products-create-json
-                ></textarea>
-              </div>
+            <form class="account__form" data-admin-products-form>
+              <div data-admin-products-fields></div>
               <p
                 class="account__status account__status--error"
                 role="alert"
-                data-admin-products-create-error
+                data-admin-products-error
               ></p>
-              <button class="button button--primary" type="submit">作成する</button>
+              <div class="admin-products__actions">
+                <button class="button button--primary" type="submit">保存する</button>
+                <button
+                  class="button button--secondary"
+                  type="button"
+                  hidden
+                  data-admin-products-reset
+                >
+                  編集をやめて、新しく作る
+                </button>
+              </div>
             </form>
           </section>
         </section>
       </div>
-
-      <dialog
-        class="modal"
-        id="admin-product-edit-dialog"
-        aria-labelledby="admin-product-edit-title"
-      >
-        <div class="modal__body">
-          <h2 id="admin-product-edit-title">プロダクトを編集</h2>
-          <form class="account__form" data-admin-products-edit-form>
-            <div class="account__field">
-              <label for="admin-products-edit-json">JSON</label>
-              <textarea
-                class="account__input admin-products__json"
-                id="admin-products-edit-json"
-                rows="18"
-                spellcheck="false"
-                data-admin-products-edit-json
-              ></textarea>
-            </div>
-            <p
-              class="account__status account__status--error"
-              role="alert"
-              data-admin-products-edit-error
-            ></p>
-            <div class="modal__actions">
-              <button class="button button--secondary" type="button" data-modal-close>
-                キャンセル
-              </button>
-              <button class="button button--primary" type="submit">保存する</button>
-            </div>
-          </form>
-        </div>
-      </dialog>
 
       <dialog
         class="modal"

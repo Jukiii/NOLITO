@@ -1,6 +1,7 @@
-// プロダクト管理のページ(/account/admin/products/。管理者だけ)。DOM に触れるのは、このファイルだけ。
+// プロダクト管理のページ(/account/admin/products/。管理者だけ)。DOM に触れるのは、このファイルと product-editor.js だけ。
 // 実際のアクセス制御は、サーバー側の requireAdmin が行う(ここでの isAdmin の確認は、画面の出し分けだけ)。
 // 表示する文字列は、必ず textContent(el())で入れる(プロダクトの内容は、管理者が書き換えられる)。
+// 入力欄 ⇔ 保存する形の変換は product-form.js(純粋)。保存の形・API・検証(schema.js)は、入力欄になっても変わらない。
 import {
   createAdminProduct,
   deleteAdminProduct,
@@ -9,20 +10,23 @@ import {
   updateAdminProduct,
 } from "../account/client.js";
 import { el } from "../components/dom.js";
+import { createProductEditor } from "./product-editor.js";
 import { newProductTemplate } from "./product-template.js";
 
 const root = document.querySelector("[data-admin-products]");
 if (root) init(root);
 
-function parseProductJson(text) {
+const withDetails = (result) =>
+  result.message + (result.details ? ` (${result.details.join(" / ")})` : "");
+
+async function loadCategories() {
   try {
-    const value = JSON.parse(text);
-    if (typeof value !== "object" || value === null || Array.isArray(value)) {
-      return { ok: false, error: "JSON はオブジェクト(1件分のプロダクト)にしてください。" };
-    }
-    return { ok: true, value };
+    const response = await fetch("/data/categories.json");
+    if (!response.ok) return [];
+    const data = await response.json();
+    return Array.isArray(data.categories) ? data.categories : [];
   } catch {
-    return { ok: false, error: "JSON として読み取れませんでした。形を確認してください。" };
+    return [];
   }
 }
 
@@ -33,14 +37,10 @@ async function init(root) {
   const list = $("[data-admin-products-list]");
   const listEmpty = $("[data-admin-products-empty]");
 
-  const createForm = $("[data-admin-products-create-form]");
-  const createJson = $("[data-admin-products-create-json]");
-  const createError = $("[data-admin-products-create-error]");
-
-  const editDialog = $("#admin-product-edit-dialog");
-  const editForm = $("[data-admin-products-edit-form]");
-  const editJson = $("[data-admin-products-edit-json]");
-  const editError = $("[data-admin-products-edit-error]");
+  const form = $("[data-admin-products-form]");
+  const formTitle = $("[data-admin-products-form-title]");
+  const formError = $("[data-admin-products-error]");
+  const resetButton = $("[data-admin-products-reset]");
 
   const deleteDialog = $("#admin-product-delete-dialog");
   const deleteName = $("[data-admin-products-delete-name]");
@@ -48,6 +48,7 @@ async function init(root) {
   const deleteConfirm = $("[data-admin-products-delete-confirm]");
   const deleteReauth = $("[data-admin-products-delete-reauth]");
 
+  let editor = null;
   let editingId = null;
   let deletingId = null;
   let products = new Map();
@@ -59,6 +60,14 @@ async function init(root) {
     status.textContent = text ? `${kind === "error" ? "エラー: " : ""}${text}` : "";
     status.classList.toggle("account__status--error", kind === "error" && Boolean(text));
   };
+
+  function startNew() {
+    editingId = null;
+    formTitle.textContent = "新しいプロダクトを作る";
+    editor.load(JSON.parse(newProductTemplate()), { creating: true });
+    formError.textContent = "";
+    resetButton.hidden = true;
+  }
 
   function productItem(product) {
     const editButton = el("button", { class: "button button--secondary", type: "button" }, "編集");
@@ -100,11 +109,14 @@ async function init(root) {
   function openEdit(id) {
     const product = products.get(id);
     if (!product) return;
+    say("");
     editingId = id;
-    editError.textContent = "";
-    editJson.value = JSON.stringify(product, null, 2);
-    editDialog.showModal();
-    editJson.focus();
+    formTitle.textContent = `プロダクトを編集(${id})`;
+    editor.load(product, { creating: false });
+    formError.textContent = "";
+    resetButton.hidden = false;
+    form.scrollIntoView({ block: "start" });
+    editor.focusFirst();
   }
 
   function openDelete(id) {
@@ -118,48 +130,37 @@ async function init(root) {
     deleteDialog.showModal();
   }
 
-  createJson.value = newProductTemplate();
   $("[data-admin-products-add]").addEventListener("click", () => {
+    startNew();
     $("[data-admin-products-new]").scrollIntoView({ block: "start" });
-    createJson.focus();
+    editor.focusFirst();
   });
 
-  createForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    createError.textContent = "";
-    const parsed = parseProductJson(createJson.value);
-    if (!parsed.ok) {
-      createError.textContent = parsed.error;
-      return;
-    }
-    const result = await createAdminProduct(parsed.value);
-    if (!result.ok) {
-      createError.textContent =
-        result.message + (result.details ? ` (${result.details.join(" / ")})` : "");
-      return;
-    }
-    createJson.value = newProductTemplate();
-    await loadList();
-    say(`作成しました(${result.data.product.id})。`);
+  resetButton.addEventListener("click", () => {
+    startNew();
+    say("");
   });
 
-  editForm.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    editError.textContent = "";
-    const parsed = parseProductJson(editJson.value);
-    if (!parsed.ok) {
-      editError.textContent = parsed.error;
-      return;
-    }
-    const result = await updateAdminProduct(editingId, parsed.value);
+    formError.textContent = "";
+    const product = editor.read();
+    const wasEditing = editingId !== null;
+    const result = wasEditing
+      ? await updateAdminProduct(editingId, product)
+      : await createAdminProduct(product);
     if (!result.ok) {
-      editError.textContent =
-        result.message + (result.details ? ` (${result.details.join(" / ")})` : "");
+      formError.textContent = withDetails(result);
       return;
     }
-    editDialog.close();
+    const saved = result.data.product;
     await loadList();
-    say(`保存しました(${result.data.product.id})。`);
+    if (wasEditing) {
+      say(`保存しました(${saved.id})。`);
+    } else {
+      startNew();
+      say(`作成しました(${saved.id})。`);
+    }
   });
 
   deleteConfirm.addEventListener("click", async () => {
@@ -175,6 +176,7 @@ async function init(root) {
       return;
     }
     deleteDialog.close();
+    if (editingId === deletingId) startNew();
     await loadList();
     say("削除しました。");
   });
@@ -192,6 +194,8 @@ async function init(root) {
     show("forbidden");
     return;
   }
+  editor = createProductEditor($("[data-admin-products-fields]"), await loadCategories());
+  startNew();
   show("ready");
   await loadList();
 }
