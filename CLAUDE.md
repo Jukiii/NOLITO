@@ -565,7 +565,7 @@ Phase 27 は、仕様(`docs/01_phases/phase-27.md`)が高レベルな一文の�
 
 ### 依存の脆弱性チェック(Phase 27 PR 1)
 
-- `npm run audit`(`npm audit --audit-level=high`)を追加し、CI(`.github/workflows/ci.yml`)の `check` ジョブに、`npm run check` のあとの手順として組み込んだ。**しきい値は `high`**(moderate 以下では、CIを止めない)。
+- `npm run audit`(`npm audit --audit-level=high`。2026-10-03 から、`scripts/audit.mjs` に替え、期限つきの除外を持つ。決定 0077。除外は、`scripts/lib/audit-allow.mjs` の `ALLOWED_ADVISORIES`。期限 2026-11-03 を過ぎたら、Jさんに確認)を追加し、CI(`.github/workflows/ci.yml`)の `check` ジョブに、`npm run check` のあとの手順として組み込んだ。**しきい値は `high`**(moderate 以下では、CIを止めない)。
 - 理由: `wrangler`(devDependency。ローカル確認・CIでのみ使い、配信物には含まれない)が依存する `undici`(`miniflare` 経由)に、moderateの既知の脆弱性(WebSocketのpermessage-deflate展開でのDoS)があるが、**最新の `wrangler` でも直っておらず**(Cloudflare側の対応待ち)、moderateでCIを止めると、直せない項目のために恒久的にCIが赤くなる。`high` 以上を、実際に対応可能な基準にした。
 - 対象は、devDependencies を含む全ての依存(`--omit=dev` は使わない。このプロジェクトに `dependencies` = 本番用の依存はない。devDependencyも、CI・開発で実行されるコードで、サプライチェーンのリスクがあるため)。
 - **この PR でやらないこと**(次のPR以降で検討): 依存の自動更新(Dependabot等)・再認証の適用範囲の拡張・バックアップの復元テスト・監査ログの個人情報の扱いの強化・世代管理・暗号化・MFA。いずれも、着手前にチャットで範囲を確認すること。
