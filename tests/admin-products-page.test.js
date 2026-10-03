@@ -32,6 +32,7 @@ describe("管理画面の行き来(Issue #162)", () => {
     top: "public/account/admin/index.html",
     products: "public/account/admin/products/index.html",
     affiliates: "public/account/admin/affiliates/index.html",
+    articles: "public/account/admin/articles/index.html",
   };
 
   it("管理画面のトップがあり、各管理ページへのリンクがある", () => {
@@ -39,6 +40,7 @@ describe("管理画面の行き来(Issue #162)", () => {
     assert.match(html, /<meta name="robots" content="noindex"/);
     assert.ok(html.includes('href="/account/admin/products/"'));
     assert.ok(html.includes('href="/account/admin/affiliates/"'));
+    assert.ok(html.includes('href="/account/admin/articles/"'));
     assert.ok(html.includes("/assets/js/admin/hub-page.js"));
   });
 
@@ -50,6 +52,7 @@ describe("管理画面の行き来(Issue #162)", () => {
         "/account/admin/",
         "/account/admin/products/",
         "/account/admin/affiliates/",
+        "/account/admin/articles/",
         "/account/",
       ]) {
         assert.ok(nav.includes(`href="${href}"`), `${name}: ${href}`);

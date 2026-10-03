@@ -648,6 +648,12 @@ Phase 29 は、契約・審査・ポリシーの版(同意)に関わるため、
 - **検証は、ビルドと共有する**: 先頭情報は `scripts/lib/article-fields.mjs`(`frontmatter.mjs` が再エクスポート)、本文は `scripts/lib/markdown.mjs`。サーバー用に別の検証を作らない。監査ログには、本文を入れず `bodyChars` だけ。
 - **Functions は、npm の依存を取り込まない**(Cloudflare Pages はビルドコマンドなしで、依存を入れない。取り込むとプレビューのビルドが失敗する)。`marked` は `scripts/lib/vendor/marked.esm.js` に同梱している(`tests/vendor-marked.test.js` が、インストール版との一致を検査。Dependabot で上がったら、`node_modules/marked/lib/marked.esm.js` と LICENSE をコピーし直す)。Functions から npm のパッケージを import しない。
 
+### 記事の管理画面(Issue #195 PR 2)
+
+- 決定は `docs/decisions/0087-articles-admin-ui.md`。`/account/admin/articles/`(`noindex`。`admin/articles-page.js`)は**入力フォーム**(スラッグ・題名・説明・日付・タグ・下書き/公開・本文)+ 本文のプレビュー。プロダクトの JSON の textarea 形式とは違う。スラッグは新規のときだけ入力できる。DOM に触れない部品は `admin/article-form.js`(`parseTags`)・`admin/preview.js`。
+- プレビューは `POST /api/admin/article-preview`(`requireAdmin`・CSRF。**何も保存せず、監査ログも書かない**)が公開と同じ変換をして返し、画面は `preview.js` の `buildPreview` が、許可した要素・属性(`ALLOWED`)だけで作り直す(`innerHTML` を使わない)。許可を広げるときは、`tests/admin-articles-page.test.js` の検査(script・iframe・style・`on*` なし)を守る。
+- 管理ページを足したので、トップの一覧と、すべての管理ページの `admin-nav` に「記事の管理」がある。**公開の記事ページは、PR 3 まで静的ファイルが元**(ここで保存した記事は、まだ公開に出ない)。
+
 ## デザイン見本(Phase 31)
 
 - `/theme-preview/`(`noindex`。リンクなし。決定は `docs/decisions/0057-design-preview.md`)は、サイト全体のデザイン案(今のまま・ダーク・ホワイト・可愛い・クール・メタリック)を、選んで見比べる見本。**本番のテーマ(`nolito:theme:v1`・`data-theme`・`isTheme`)には触れない**。属性は `data-preview-theme`、キーは `nolito:theme-preview:v1`(`?theme=`)。

@@ -126,6 +126,29 @@ export const updateAdminAffiliate = (id, link, options) =>
 export const deleteAdminAffiliate = (id, options) =>
   call(`/api/admin/affiliates/${encodeURIComponent(id)}`, { ...options, method: "DELETE" });
 
+// 記事の管理(Issue #195 PR 2。管理者だけ)。実際のアクセス制御は、サーバー側の requireAdmin が行う
+export const fetchAdminArticles = (options) => call("/api/admin/articles", options);
+
+export const fetchAdminArticle = (slug, options) =>
+  call(`/api/admin/articles/${encodeURIComponent(slug)}`, options);
+
+export const createAdminArticle = (article, options) =>
+  call("/api/admin/articles", { ...options, method: "POST", body: { article } });
+
+export const updateAdminArticle = (slug, article, options) =>
+  call(`/api/admin/articles/${encodeURIComponent(slug)}`, {
+    ...options,
+    method: "PUT",
+    body: { article },
+  });
+
+export const deleteAdminArticle = (slug, options) =>
+  call(`/api/admin/articles/${encodeURIComponent(slug)}`, { ...options, method: "DELETE" });
+
+/** 本文(Markdown)のプレビュー。成功すると data.html(公開と同じ安全な変換の結果)が返る。 */
+export const previewAdminArticle = (body, options) =>
+  call("/api/admin/article-preview", { ...options, method: "POST", body: { body } });
+
 /** 商品 ID → 商品名(公開の products.json から)。取れなければ空(ID のまま表示する)。 */
 export async function fetchProductNames(fetchImpl = globalThis.fetch) {
   try {

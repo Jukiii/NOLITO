@@ -13,6 +13,25 @@ export const isPlainObject = (value) =>
 const lines = (error) => error.message.split("\n");
 
 /**
+ * 本文(Markdown)を、公開と同じ安全な変換に通す。戻り値: { html }(問題なし)か { errors: [文...] }。
+ * 危険なリンク・alt のない画像・見出し1は、エラーにする。生の HTML は、文字として出す。
+ */
+export function renderArticleBody(body, env) {
+  if (typeof body !== "string" || body.trim() === "") {
+    return { errors: ["body(本文)は必須です"] };
+  }
+  if (body.length > MAX_BODY_CHARS) {
+    return { errors: [`body は${MAX_BODY_CHARS}文字までです(現在${body.length}文字)`] };
+  }
+  try {
+    const origin = siteOrigin(env);
+    return { html: renderMarkdown(body, { siteHost: origin ? new URL(origin).hostname : "" }) };
+  } catch (error) {
+    return { errors: lines(error) };
+  }
+}
+
+/**
  * 記事1件(先頭情報 + body)を検証して、正規化した値を返す。
  * 戻り値: { article }(問題なし)か { errors: [文...] }。
  * slug は、URL の識別子。本文は、公開と同じ安全な変換に通して、危険なリンク・alt のない画像・見出し1を弾く。
@@ -30,18 +49,9 @@ export function validateArticleInput(value, env) {
     errors.push(...lines(error));
   }
 
-  if (typeof body !== "string" || body.trim() === "") {
-    errors.push("body(本文)は必須です");
-  } else if (body.length > MAX_BODY_CHARS) {
-    errors.push(`body は${MAX_BODY_CHARS}文字までです(現在${body.length}文字)`);
-  } else {
-    try {
-      const origin = siteOrigin(env);
-      renderMarkdown(body, { siteHost: origin ? new URL(origin).hostname : "" });
-    } catch (error) {
-      errors.push(...lines(error));
-    }
-  }
+  const rendered = renderArticleBody(body, env);
+  if (rendered.errors) errors.push(...rendered.errors);
+
   if (errors.length > 0) return { errors };
   return { article: { ...meta, body } };
 }
