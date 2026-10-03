@@ -125,8 +125,6 @@ function refreshDashboard() {
     jobs,
     roles,
     isUnlocked: (role) => isRoleUnlocked(data, role),
-    difficulties,
-    isDifficultyUnlocked: isDifficultyUnlockedFor,
     bestOf: bestOfJob,
     storageNotice,
     masteries: jobMasteries(

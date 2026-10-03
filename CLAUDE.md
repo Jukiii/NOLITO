@@ -330,7 +330,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 
 - 決定は `docs/decisions/0059-game-start-flow.md`。連続タイピングの進み方は **ready → intro → play → outro → 結果**。「スタート」で `beginGame` が `session.phase = "ready"` にして準備の枠(`data-ready`)を出し、**半角スペース**(か枠のボタン)で `leaveReady()` → `beginIntro()`。**`beginIntro` を呼ぶのは `leaveReady` だけ**(自動で始めない)。**全角スペース**は始めず、枠の中の通知(`data-ready-notice`。`role="alert"`)で知らせる。それ以外の文字は無視(ミスにも数えない)。用語確認には準備がない。
 - 判断は `ready.js` の `readyAction(char)`(DOM・時計に触れない)。全角スペースはソースに直接書かず `String.fromCodePoint(0x3000)`。準備の枠に `data-chase-only` を付けない(`showPlay` が再表示するため)。`hideReady` は `clearStaging` の最後で呼ぶ(`tests/rule-cues.test.js` が先頭の並びを検査)。
-- スタート前の選択は、**モード = ラジオボタン**(`data-mode-list`)、職種・追ってくる人 = **ドロップダウン**(`<select>`。`data-*-list`)。並びは モード → 職種・追ってくる人・難易度 → スタート。**難易度の選択欄は、Issue #173 で戻した**(決定ログ 0076。0061 の「難易度 = 追ってくる人」を置き換え。既定はふつう。むずかしいは、その役職をふつうでクリアするまでロック中。用語確認では隠す。`view.js` の `renderDifficultyList`。中身・記録・ランキングは 0037 のまま)。ロック中は `disabled` + 文字のバッジ。そのほかの設定は、ダッシュボードの「くわしい設定」(`<details class="game-setup__more">`)に畳む(プレイ画面には、開閉の部品を置かない)。
+- スタート前の選択は、**モード = ラジオボタン**(`data-mode-list`)、職種・追ってくる人 = **ドロップダウン**(`<select>`。`data-*-list`)。並びは モード → 職種・追ってくる人 → スタート。**難易度の選択欄はない**(難易度 = 追ってくる人。プレイはいつも「ふつう」。決定ログ 0061。Jさんが「難易度」と言っていたのは役職のことだったため、0076 で戻した選択欄を 0079 で、また外した。難易度のデータ・記録・ランキングの選択欄は残す)。ロック中は `disabled` + 文字のバッジ。そのほかの設定は、ダッシュボードの「くわしい設定」(`<details class="game-setup__more">`)に畳む(プレイ画面には、開閉の部品を置かない)。
 - 前回の選択は、ゲーム設定(`settings.js`)の `lastChoice`(`mode`・`job`・`role`・`difficulty`)に保存する。記録のキー・版(5)は変えない。いま選べない値は、選ばない。
 
 - **スタート前のフォーム(`.game-setup`)も、アーケード風の暗い枠**(プレイ中・結果と同じ共通の規則。飾りの見出し `STAGE SELECT` は `aria-hidden`。Issue #173・決定 `docs/decisions/0074-arcade-start-screen.md`)。色はトークン経由のまま(選択欄は `--color-surface`・`--color-text`)。
