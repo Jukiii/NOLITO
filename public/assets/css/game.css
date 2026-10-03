@@ -1995,6 +1995,13 @@
   display: none;
 }
 
+/* 準備の間(スペースキーを押すまで)は、ステータス・ゲージ・場面を出さない(Issue 173)。「音」「やめる」は残す */
+[data-play][data-ready-state] .game-status,
+[data-play][data-ready-state] .gauge-block,
+[data-play][data-ready-state] .scene {
+  display: none;
+}
+
 /*
  * プレイ中(用語確認も含む)は、ヘッダー・フッター(ほかのページへのリンク)を隠し、ゲーム画面だけを、広く出す(Issue 166)。
  * 出口は、画面の中の「やめる」。本文へのスキップリンクは、残る。
