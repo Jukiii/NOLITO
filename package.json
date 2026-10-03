@@ -28,6 +28,7 @@
     "backup:restore-drill": "node scripts/restore-drill.mjs",
     "d1:remote": "node scripts/d1-remote.mjs",
     "inquiries": "node scripts/inquiries.mjs",
+    "articles:import": "node scripts/import-articles.mjs",
     "vocab:stats": "node scripts/vocab-stats.mjs",
     "vocab:check": "node scripts/vocab-check.mjs",
     "vocab:review": "node scripts/vocab-review.mjs"

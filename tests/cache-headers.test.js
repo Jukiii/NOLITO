@@ -29,7 +29,8 @@ function parse(source) {
 
 const allRules = parse(text);
 const securityRule = allRules.find((rule) => rule.path === "/*");
-const rules = allRules.filter((rule) => rule.path !== "/*");
+const noindexRule = allRules.find((rule) => rule.path === "/articles-static/*");
+const rules = allRules.filter((rule) => rule.path !== "/*" && rule !== noindexRule);
 
 describe("public/_headers: セキュリティ用のヘッダー(全ページ。Issue #189 の案 A・Issue #191)", () => {
   it("全ページ(/*)に、4 つのヘッダーだけを付ける(CSP は、広告事業者を決めてから)", () => {
@@ -67,6 +68,13 @@ describe("public/_headers: セキュリティ用のヘッダー(全ページ。I
     };
     walk(`${root}public`);
     assert.deepEqual(found, []);
+  });
+});
+
+describe("public/_headers: 記事の静的な写し(D1 のない環境のフォールバック。Issue #195 PR 3)", () => {
+  it("検索に出さない(本物の記事ページは、D1 から出す /articles/)", () => {
+    assert.ok(noindexRule, "/articles-static/* の規則がありません");
+    assert.deepEqual(noindexRule.headers, { "x-robots-tag": "noindex" });
   });
 });
 

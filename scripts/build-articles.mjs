@@ -1,4 +1,4 @@
-// 記事の原稿(content/articles/*.md)から、公開する HTML とデータ(public/articles/, public/data/articles.json)を作る。
+// 記事の原稿(content/articles/*.md)から、公開する HTML とデータ(public/articles-static/, public/data/articles.json。D1 のない環境へのフォールバック)を作る。
 //   node scripts/build-articles.mjs           … 書き出す
 //   node scripts/build-articles.mjs --check   … 書き出さず、生成物が原稿と一致しているか検査する
 // 生成物はコミットする(Cloudflare Pages のビルドは使わない)。

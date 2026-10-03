@@ -26,7 +26,7 @@ Jさんが、Issue #162 で「記事の管理は管理画面がいい」と答�
 ## 注意(PR 3 で確認すること)
 
 - **Functions が npm の依存を取り込めない**(PR 1 の最初のプレビューのデプロイで、Cloudflare Pages のビルドが失敗した。ビルドコマンドなしの Pages は、依存を入れないため)。そこで、`marked` の ESM(MIT)を `scripts/lib/vendor/marked.esm.js`(+ `marked.LICENSE.md`)に同梱し、`markdown.mjs` はそれを読む。`marked` は devDependency に残し(Dependabot の更新の合図)、`tests/vendor-marked.test.js` が、同梱の写しとインストール版の一致を検査する(上がったら、コピーし直す)。同梱のファイルは、ESLint・Prettier の対象外。
-- 静的な `public/articles/<スラッグ>/index.html` があるあいだは、同じ URL を Functions が処理しない(静的ファイルが先)。PR 3 で、静的な記事ページを D1 から出す方式に替えるときに扱う。
+- 静的な `public/articles/<スラッグ>/index.html` があるあいだは、同じ URL を Functions が処理しない(静的ファイルが先)。PR 3(決定 0090)で、静的な記事ページを `public/articles-static/` へ移し、Functions が D1 から出す方式に替えて解決した。
 
 ## テスト
 

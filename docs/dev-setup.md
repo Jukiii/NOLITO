@@ -47,11 +47,12 @@ npm run test    # 単体テストのみ(tests/ 配下、Node 標準の node --te
 
 ## 記事の書き方(公開の流れ)
 
-1. `content/articles/<スラッグ>.md` を作る。スラッグは英小文字・数字・ハイフンだけ(URL になる: `/articles/<スラッグ>/`)。
-2. 先頭に、YAML で `title`(100字まで)・`description`(10〜160字)・`date`(`"2026-09-20"` のように引用符で囲む)を書く。任意で `updated`・`tags`(5個まで)・`draft: true`(公開しない)。
-3. 本文は `##` から始める(題名は `title`。本文に見出し1は使えない)。画像には代替テキストが必須: `![代替テキスト](/assets/img/xxx.png)`。
-4. `npm run build:articles` で、公開用の HTML とデータを生成する。**生成物もコミットする**(`npm run check` が、生成物が最新かを検査する)。
-5. PR を作る。**PR のマージが公開**になる(内容の確認は、PR のレビューで行う)。
+Issue #195 PR 3(決定 0090)から、公開の元は **D1** です。
+
+- **ふだんの書き方**: 管理者でログインし、`/account/admin/articles/` の入力フォームで書く(スラッグ・題名・説明・日付・タグ・下書き/公開・本文。本文のプレビューあり)。保存すると、すぐ公開のページに出る(`draft` のものは出ない)。本文は `##` から始める。画像には代替テキストが必須: `![代替テキスト](/assets/img/xxx.png)`。
+- **原稿(`content/articles/*.md`)**: D1 への取り込み元と、D1 のない環境(プレビュー)のフォールバック。管理画面で直した内容は、原稿には戻らない。
+- **既存の原稿を D1 へ入れる**(最初の 1 回。運営者のパソコンで): `npx wrangler login` のあと、環境変数 `NOLITO_D1_DATABASE_ID` に本番の D1 の ID を入れて、`npm run articles:import`(確認だけ)→ `npm run articles:import -- --yes`(書き込み)。すでにあるスラッグは、飛ばす(上書きしない)。
+- **フォールバックの生成物**: 原稿を直したら、`npm run build:articles` で `public/articles-static/` と `public/data/articles.json` を作り直し、**生成物もコミットする**(`npm run check` が検査する)。
 
 ## アクセス解析(Google Analytics)の設定
 

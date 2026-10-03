@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (/^(light|white|dark|pretty)$/.test(t)) document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
+        } catch (e) {}
+      })();
+    </script>
+    <title>ローマ字入力の書き方を選ぶ ― 「上司から逃げろ」のローマ字の設定 | NOLITO</title>
+    <meta name="description" content="「し」を si と shi のどちらでも打てるのはなぜか。「上司から逃げろ」の「ローマ字の書き方」の3つの設定と、英語のまま打つ用語の入力のしかたを説明します。" />
+    <link rel="canonical" href="https://nolito.pages.dev/articles/escape-boss-romaji-settings/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="ローマ字入力の書き方を選ぶ ― 「上司から逃げろ」のローマ字の設定 | NOLITO" />
+    <meta property="og:description" content="「し」を si と shi のどちらでも打てるのはなぜか。「上司から逃げろ」の「ローマ字の書き方」の3つの設定と、英語のまま打つ用語の入力のしかたを説明します。" />
+    <meta property="og:url" content="https://nolito.pages.dev/articles/escape-boss-romaji-settings/" />
+    <meta property="og:site_name" content="NOLITO" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/articles.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <article class="article">
+        <header class="article__header">
+          <p class="article__meta"><time datetime="2026-10-02">2026年10月2日</time></p>
+          <h1 class="article__title">ローマ字入力の書き方を選ぶ ― 「上司から逃げろ」のローマ字の設定</h1>
+          <ul class="tag-list" aria-label="タグ"><li class="tag">ゲーム</li><li class="tag">タイピング</li><li class="tag">ローマ字</li></ul>
+        </header>
+        <div class="article__body">
+<p>日本語をローマ字で打つとき、同じ文字でも、書き方がいくつかあります。たとえば「し」は si でも shi でも打てますし、「ん」は n 1つでも nn でも入ります。「上司から逃げろ」では、この違いに対応するため、「ローマ字の書き方」の設定を用意しています。</p>
+<h2>3つの設定</h2>
+<p>ゲームのページの「くわしい設定」にある「ローマ字の書き方」は、次の3つから選べます。</p>
+<table>
+<thead>
+<tr>
+<th>設定</th>
+<th>画面に表示される書き方</th>
+<th>ほかの書き方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>標準(ヘボン式で表示)</td>
+<td>shi、tsu、chi など</td>
+<td>受け付ける</td>
+</tr>
+<tr>
+<td>訓令式で表示</td>
+<td>si、tu、ti など</td>
+<td>受け付ける</td>
+</tr>
+<tr>
+<td>表示どおりだけ</td>
+<td>標準の書き方</td>
+<td>ミスになる</td>
+</tr>
+</tbody></table>
+<p>既定は「標準」です。標準と訓令式は、表示する書き方が違うだけで、どちらも、ほかの書き方で打っても正解になります。「ん」を n と nn のどちらで打つ、「っ」を xtu で打つ、小さい文字を分けて打つ(kixya のように)といった打ち方も、受け付けます。</p>
+<p>「表示どおりだけ」にすると、画面に出ているつづりだけが正解になります。ほかの書き方で打つと、ミスになります。決まったつづりを正確に打つ練習をしたい人向けです。</p>
+<h2>設定を変えても、距離の増え方は変わらない</h2>
+<p>どの書き方を選んでも、言葉を打ち終えたときの、逃げた距離の増え方は変わりません。距離の計算は、設定に関係なく、標準の書き方の長さをもとにします。書き方を変えたからといって、有利になったり、不利になったりはしません。</p>
+<p>この設定は、連続タイピングにも、用語確認にも効きます。</p>
+<h2>英語のまま打つ用語</h2>
+<p>エンジニアの用語など、一部の言葉は、英語の表記のまま出てきます。このような言葉は、ローマ字ではなく、英字を、そのままのつづりで打ちます。たとえば表示が英語の言葉なら、そのつづりを、そのまま入力します。読みは、日本語のよみがなで添えてあります。</p>
+<p>英語のまま打つ言葉には、「ローマ字の書き方」の設定は効きません。</p>
+<h2>打ち間違いを減らすコツ</h2>
+<ul>
+<li>「ん」の次に、な行・母音・や行が続くときは、n を2つ打つ(「こんな」は konna)。それ以外は、n 1つでも通る(「かんじ」は kanji)。</li>
+<li>小さい文字(ゃ・ゅ・ょ・っ)は、打ち方を1つ決めて、くり返して慣れる。</li>
+<li>手が止まりがちなつづりは、用語確認で、ゆっくり練習する。</li>
+</ul>
+<p>ローマ字入力の基本は、<a href="/articles/escape-boss-guide/">「上司から逃げろ」の遊び方とローマ字入力のコツ</a>にも書いています。苦手な語の練習には、<a href="/articles/escape-boss-term-review/">用語確認モード</a>も役立ちます。</p>
+
+        </div>
+        <aside class="ad-slot" data-ad-slot="article" aria-label="広告" hidden></aside>
+        <nav class="article__nav" aria-label="記事のナビゲーション">
+          <a href="/articles/">← 記事の一覧へ</a>
+        </nav>
+      </article>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

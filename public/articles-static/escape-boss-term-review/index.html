@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- テーマ・文字サイズ・アニメーションの、ちらつき防止(FOUC)。CSSが読み込まれる前に、保存済みの選択を反映する -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("nolito:theme:v1");
+          if (/^(light|white|dark|pretty)$/.test(t)) document.documentElement.dataset.theme = t;
+          var f = localStorage.getItem("nolito:font-size:v1");
+          if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
+          var m = localStorage.getItem("nolito:motion:v1");
+          if (m === "reduce") document.documentElement.dataset.reducedMotion = m;
+        } catch (e) {}
+      })();
+    </script>
+    <title>仕事の用語を覚える ― 用語確認モード・復習リスト・用語一覧の使い方 | NOLITO</title>
+    <meta name="description" content="「上司から逃げろ」で、仕事の用語を落ち着いて覚えるための3つの機能、用語確認モード、復習リスト、用語一覧の使い方を説明します。" />
+    <link rel="canonical" href="https://nolito.pages.dev/articles/escape-boss-term-review/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="仕事の用語を覚える ― 用語確認モード・復習リスト・用語一覧の使い方 | NOLITO" />
+    <meta property="og:description" content="「上司から逃げろ」で、仕事の用語を落ち着いて覚えるための3つの機能、用語確認モード、復習リスト、用語一覧の使い方を説明します。" />
+    <meta property="og:url" content="https://nolito.pages.dev/articles/escape-boss-term-review/" />
+    <meta property="og:site_name" content="NOLITO" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/articles.css" />
+    <script type="module" src="/assets/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header" data-site-header>
+      <noscript>
+        <div class="site-header__inner container">
+          <a class="site-logo" href="/">NOLITO</a>
+        </div>
+      </noscript>
+    </header>
+    <main class="main container" id="main" tabindex="-1">
+      <article class="article">
+        <header class="article__header">
+          <p class="article__meta"><time datetime="2026-10-02">2026年10月2日</time></p>
+          <h1 class="article__title">仕事の用語を覚える ― 用語確認モード・復習リスト・用語一覧の使い方</h1>
+          <ul class="tag-list" aria-label="タグ"><li class="tag">ゲーム</li><li class="tag">学習</li><li class="tag">用語</li></ul>
+        </header>
+        <div class="article__body">
+<p>「上司から逃げろ」は、追ってくる上司から逃げながら、仕事の用語をローマ字で打つゲームです。ただ、追われている最中は、言葉の意味を考える余裕がないこともあります。そこで、用語そのものを落ち着いて確認するための機能を用意しています。</p>
+<h2>用語確認モード</h2>
+<p><a href="/games/escape-boss/">ゲームのページ</a>で、モードに「用語確認」を選ぶと、追いかけも時間制限もない、練習用のモードで遊べます。</p>
+<ul>
+<li>語は10語です。</li>
+<li>日本語の表記、読み、説明を見ながら、読みを入力します。</li>
+<li>時間制限がなく、ミスしても罰はありません。</li>
+<li>終わると、ミスした語が、説明つきで一覧になります。</li>
+</ul>
+<p>「連続タイピング」(追ってくる人から逃げるモード)では、説明は、設定でオンにしたときだけ表示されます(既定はオフ)。用語確認では、説明がいつも表示されます。</p>
+<p>用語確認の結果は、保存されません。ランキングや成績、実績にも入りません。気軽に練習できます。</p>
+<h2>復習リスト</h2>
+<p>連続タイピングでミスした語は、<a href="/games/escape-boss/stats/">成績のページ</a>の「復習リスト」にたまります。</p>
+<ul>
+<li>対象は、直近20プレイでミスした語です。</li>
+<li>ミスの多い順に、最大20語が並びます。</li>
+<li>「復習リストで用語確認をする」を押すと、その語で、用語確認を始められます。</li>
+</ul>
+<p>復習リストは、成績の期間や役職の絞り込みには影響されません。</p>
+<h2>苦手な語を出やすくする</h2>
+<p>ゲームの「くわしい設定」には、「苦手な語の出やすさ」があります。「なし(完全にランダム)」「ふつう」「多め」から選べます。直近20プレイでミスした語が、連続タイピングで出やすくなります。強くするほど、苦手な語が増えるので、そのぶん難しくなります。</p>
+<h2>用語一覧で、まとめて確認する</h2>
+<p><a href="/games/escape-boss/glossary/">用語一覧</a>のページでは、ゲームに出てくる用語を、職種ごとに見られます。読みや説明、関連する語も載っています。</p>
+<ul>
+<li>キーワード欄で、語・読み・説明などから探せます。空白で区切ると、すべてを含む語だけに絞れます。</li>
+<li>職種のプルダウンで、職種を絞れます。</li>
+<li>絞り込みの内容は、アドレスに反映されるので、ブックマークもできます。</li>
+</ul>
+<p>ゲームを始める前に、どんな言葉が出るかを見ておくと、本番で落ち着いて打てます。</p>
+<h2>おすすめの使い方</h2>
+<ol>
+<li>まず、用語一覧で、自分の職種の言葉を眺める。</li>
+<li>用語確認モードで、意味を見ながら、打つ練習をする。</li>
+<li>連続タイピングで、実際に逃げてみる。</li>
+<li>ミスした語は、復習リストで、もう一度確認する。</li>
+</ol>
+<p>説明は、一般に確立した意味だけを書くようにしています。会社や地域、ツールによって使い方が違う言葉は、実際の職場の使い方を、あわせて確認してください。</p>
+
+        </div>
+        <aside class="ad-slot" data-ad-slot="article" aria-label="広告" hidden></aside>
+        <nav class="article__nav" aria-label="記事のナビゲーション">
+          <a href="/articles/">← 記事の一覧へ</a>
+        </nav>
+      </article>
+    </main>
+    <footer class="site-footer" data-site-footer>
+      <noscript>
+        <div class="container"><small>© NOLITO</small></div>
+      </noscript>
+    </footer>
+  </body>
+</html>

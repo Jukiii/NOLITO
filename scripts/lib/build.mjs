@@ -1,10 +1,15 @@
 // 記事の原稿から、公開するファイルの中身を作る(ファイルの読み書きはしない純粋な処理)と、
 // 書き出し・検査(--check)のための入出力。
+// 公開の /articles/ は、D1 から組み立てる Functions が出す(Issue #195 PR 3)。ここで作る HTML は、
+// D1 のない環境(プレビューなど)へのフォールバックで、静的ファイルが Functions より先に配信されるため、
+// 別の場所(public/articles-static/)に置く。data/articles.json も、同じフォールバックの元。
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { splitFrontmatter, validateArticle } from "./frontmatter.mjs";
 import { renderMarkdown } from "./markdown.mjs";
 import { renderArticleIndex, renderArticlePage } from "./render.mjs";
+
+export const STATIC_DIR = "articles-static";
 
 /**
  * sources: [{ slug, text }](原稿)。site: { name, url, language }。
@@ -37,10 +42,10 @@ export function buildOutputs(sources, site) {
 
   const files = new Map();
   for (const { article, html } of parsed) {
-    files.set(`articles/${article.slug}/index.html`, renderArticlePage(article, html, site));
+    files.set(`${STATIC_DIR}/${article.slug}/index.html`, renderArticlePage(article, html, site));
   }
   const articles = parsed.map(({ article }) => article);
-  files.set("articles/index.html", renderArticleIndex(articles, site));
+  files.set(`${STATIC_DIR}/index.html`, renderArticleIndex(articles, site));
   files.set(
     "data/articles.json",
     `${JSON.stringify(
@@ -79,13 +84,13 @@ export function loadSite(publicDir) {
   return JSON.parse(readFileSync(join(publicDir, "data", "site.json"), "utf8"));
 }
 
-// public/articles/ の中で、いまの記事に対応しない(削除・下書きに戻した)ページのフォルダ
+// public/articles-static/ の中で、いまの記事に対応しない(削除・下書きに戻した)ページのフォルダ
 function staleArticleDirs(publicDir, files) {
-  const articlesDir = join(publicDir, "articles");
+  const articlesDir = join(publicDir, STATIC_DIR);
   if (!existsSync(articlesDir)) return [];
   return readdirSync(articlesDir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
-    .map((entry) => `articles/${entry.name}/index.html`)
+    .map((entry) => `${STATIC_DIR}/${entry.name}/index.html`)
     .filter((path) => !files.has(path) && existsSync(join(publicDir, path)));
 }
 
