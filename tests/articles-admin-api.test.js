@@ -11,6 +11,10 @@ import {
   onRequestGet as listArticles,
   onRequestPost as createArticle,
 } from "../functions/api/admin/articles/index.js";
+import {
+  onRequestPost as previewArticle,
+  onRequest as anyPreview,
+} from "../functions/api/admin/article-preview.js";
 import { onRequestGet as getPublic, onRequest as anyPublic } from "../functions/api/articles.js";
 import { SESSION_COOKIE } from "../functions/_lib/config.js";
 import { clearJwksCache } from "../functions/_lib/google.js";
@@ -327,6 +331,59 @@ describe("DELETE /api/admin/articles/:id", () => {
     assert.equal(audit.resource_id, "sample-article");
     assert.equal(audit.after_json, null);
     assert.equal(JSON.parse(audit.before_json).slug, "sample-article");
+  });
+});
+
+describe("POST /api/admin/article-preview(本文のプレビュー)", () => {
+  const preview = (cookies, value) =>
+    previewArticle({
+      request: write("POST", "/api/admin/article-preview", { body: value, cookies }),
+      env,
+    });
+
+  it("管理者でなければ 403。CSRF のヘッダーがなければ拒否する", async () => {
+    assert.equal((await preview(await memberCookies(), { body: "## a" })).status, 403);
+    const cookies = await adminCookies();
+    const noCsrf = await previewArticle({
+      request: new Request("https://nolito.test/api/admin/article-preview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "https://nolito.test" },
+        body: JSON.stringify({ body: "## a" }),
+      }),
+      env,
+    });
+    assert.ok(noCsrf.status >= 400);
+    assert.equal((await preview(cookies, { body: "## a" })).status, 200);
+  });
+
+  it("公開と同じ変換の HTML を返す。生の HTML は文字になる。何も保存しない", async () => {
+    const cookies = await adminCookies();
+    const response = await preview(cookies, {
+      body: "## 見出し\n\n<script>x</script>\n\n**strong** です",
+    });
+    assert.equal(response.status, 200);
+    const { html } = await body(response);
+    assert.match(html, /<h2>見出し<\/h2>/);
+    assert.match(html, /<strong>strong<\/strong>/);
+    assert.ok(!html.includes("<script>"));
+    assert.deepEqual(await listSlugs(cookies), []);
+    const audit = await env.DB.prepare("SELECT COUNT(*) AS n FROM admin_audit_log").first();
+    assert.equal(audit.n, 0);
+  });
+
+  it("危険なリンク・alt のない画像・見出し1・空の本文は、400 invalid-article と理由", async () => {
+    const cookies = await adminCookies();
+    for (const text of ["[x](javascript:alert(1))", "![](/a.png)", "# 見出し1", "  ", undefined]) {
+      const response = await preview(cookies, { body: text });
+      assert.equal(response.status, 400, String(text));
+      const result = await body(response);
+      assert.equal(result.error, "invalid-article");
+      assert.ok(result.details.length > 0);
+    }
+  });
+
+  it("POST 以外は 405", async () => {
+    assert.equal((await anyPreview()).status, 405);
   });
 });
 
