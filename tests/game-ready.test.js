@@ -117,6 +117,23 @@ describe("配線: 準備の間は、スペースキーを押すまで、始ま�
     assert.match(read("public/assets/css/game.css"), /\.game-word\[hidden\]/);
   });
 
+  it("準備の間は、ステータス・ゲージ・場面を隠す(Issue #173)。音・やめるは残す", () => {
+    assert.match(
+      view.slice(view.indexOf("showReady(line"), view.indexOf("showReadyNotice() {")),
+      /dataset\.readyState = "on"/,
+    );
+    assert.match(
+      view.slice(view.indexOf("const hideReady"), view.indexOf("// 開始・終わりの演出")),
+      /delete \$\("\[data-play\]"\)\.dataset\.readyState/,
+    );
+    const css = read("public/assets/css/game.css");
+    const rule = css.slice(css.indexOf("[data-play][data-ready-state] .game-status"));
+    const block = rule.slice(0, rule.indexOf("}"));
+    for (const target of [".game-status", ".gauge-block", ".scene"])
+      assert.ok(block.includes(target), target);
+    assert.ok(!block.includes("data-sound-toggle") && !block.includes("data-quit"));
+  });
+
   it("全角の知らせは、文字で示す(色だけに頼らない)", () => {
     assert.match(html, /全角のスペース/);
   });

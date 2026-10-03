@@ -79,6 +79,7 @@ export function createView(root) {
     $("[data-ready]").hidden = true;
     $("[data-ready-notice]").hidden = true;
     $("[data-word-card]").hidden = false;
+    delete $("[data-play]").dataset.readyState;
   };
 
   // 開始・終わりの演出(バナー)を、出している間か
@@ -636,6 +637,8 @@ export function createView(root) {
       $("[data-ready]").hidden = false;
       // 始める前は、最初の語を見せない(スタートしてから出す)
       $("[data-word-card]").hidden = true;
+      // 準備の間は、ステータス・ゲージ・場面も出さない(CSS が、この印で隠す)
+      $("[data-play]").dataset.readyState = "on";
     },
 
     showReadyNotice() {
