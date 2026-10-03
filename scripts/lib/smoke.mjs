@@ -11,7 +11,12 @@ export const SLOW_MS = 3000;
 // path・status・type(Content-Type に含まれる文字)・header(名前 → 含まれる文字)・
 // excludes(本文に含まれてはいけない文字)・json(本文の JSON を検査する関数。true なら合格)
 export const SMOKE_CHECKS = Object.freeze([
-  { path: "/", type: HTML_TYPE, excludes: ["googletagmanager.com"] },
+  {
+    path: "/",
+    type: HTML_TYPE,
+    excludes: ["googletagmanager.com"],
+    header: { "x-content-type-options": "nosniff", "x-frame-options": "DENY" },
+  },
   { path: "/games/escape-boss/", type: HTML_TYPE, excludes: ["googletagmanager.com"] },
   { path: "/tools/kii-michi/", type: HTML_TYPE },
   { path: "/articles/", type: HTML_TYPE },

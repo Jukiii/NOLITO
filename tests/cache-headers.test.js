@@ -1,6 +1,6 @@
-// キャッシュ制御(Phase 28 PR1)のテスト。public/_headers の形と、長く持たせる範囲を検査する。
+// キャッシュ制御(Phase 28 PR1)・セキュリティ用のヘッダー(Issue #191)のテスト。public/_headers の形を検査する。
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
@@ -27,7 +27,48 @@ function parse(source) {
   return rules;
 }
 
-const rules = parse(text);
+const allRules = parse(text);
+const securityRule = allRules.find((rule) => rule.path === "/*");
+const rules = allRules.filter((rule) => rule.path !== "/*");
+
+describe("public/_headers: セキュリティ用のヘッダー(全ページ。Issue #189 の案 A・Issue #191)", () => {
+  it("全ページ(/*)に、4 つのヘッダーだけを付ける(CSP は、広告事業者を決めてから)", () => {
+    assert.ok(securityRule, "/* の規則がありません");
+    assert.deepEqual(Object.keys(securityRule.headers).sort(), [
+      "permissions-policy",
+      "referrer-policy",
+      "x-content-type-options",
+      "x-frame-options",
+    ]);
+  });
+
+  it("値は、nosniff・DENY・strict-origin-when-cross-origin", () => {
+    assert.equal(securityRule.headers["x-content-type-options"], "nosniff");
+    assert.equal(securityRule.headers["x-frame-options"], "DENY");
+    assert.equal(securityRule.headers["referrer-policy"], "strict-origin-when-cross-origin");
+  });
+
+  it("Permissions-Policy は、カメラ・マイク・位置情報を、だれにも許さない", () => {
+    const value = securityRule.headers["permissions-policy"];
+    for (const name of ["camera", "microphone", "geolocation"]) {
+      assert.match(value, new RegExp(`${name}=\\(\\)`));
+    }
+  });
+
+  it("サイトの中に、iframe がない(X-Frame-Options: DENY と矛盾しない)", () => {
+    const found = [];
+    const walk = (dir) => {
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const path = `${dir}/${entry.name}`;
+        if (entry.isDirectory()) walk(path);
+        else if (/\.(html|js)$/.test(entry.name) && /<iframe/i.test(readFileSync(path, "utf8")))
+          found.push(path);
+      }
+    };
+    walk(`${root}public`);
+    assert.deepEqual(found, []);
+  });
+});
 
 describe("public/_headers", () => {
   it("パスは / 始まり、ヘッダーは Cache-Control だけ", () => {
