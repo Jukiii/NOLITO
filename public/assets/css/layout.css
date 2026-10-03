@@ -58,6 +58,7 @@ body {
   align-items: center;
   gap: var(--space-2);
   min-height: var(--tap-size);
+  margin-left: auto;
   padding: 0 var(--space-3);
   background: var(--color-surface);
   border: var(--border-width) solid var(--color-border);
@@ -103,6 +104,7 @@ body {
   right: 0;
   left: 0;
   display: none;
+  margin-left: auto;
   padding: var(--space-2) var(--space-4) var(--space-4);
   background: var(--color-surface);
   border-bottom: var(--border-width) solid var(--color-border);
@@ -212,9 +214,100 @@ a.site-nav__sublink:hover {
   text-underline-offset: 0.3em;
 }
 
+/* ヘッダーの「アカウント」のアイコン(Issue #173)。ログイン中は塗りつぶし、未ログインは枠だけ */
+.site-account {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: var(--tap-size);
+  min-height: var(--tap-size);
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.site-account[hidden] {
+  display: none;
+}
+
+.site-account[data-state="loading"] {
+  visibility: hidden;
+}
+
+.site-account:hover {
+  background: var(--color-soft);
+  color: var(--color-text);
+}
+
+.site-account__icon {
+  position: relative;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  overflow: hidden;
+  border: var(--border-width) solid currentcolor;
+  border-radius: 50%;
+}
+
+.site-account__icon::before,
+.site-account__icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  background: currentcolor;
+  border-radius: 50%;
+}
+
+.site-account__icon::before {
+  top: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: -0.25rem;
+}
+
+.site-account__icon::after {
+  bottom: -0.45rem;
+  width: 1.1rem;
+  height: 0.9rem;
+  margin-left: -0.55rem;
+}
+
+.site-account[data-state="signed-in"] .site-account__icon {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* 文字は、狭い画面では読み上げだけ(アイコンの横の場所を取らない)。PC では見せる */
+.site-account__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 @media (width >= 48rem) {
   .nav-toggle {
     display: none;
+  }
+
+  .site-account {
+    padding-inline: var(--space-2) var(--space-3);
+  }
+
+  .site-account__label {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
   }
 
   .site-nav,
