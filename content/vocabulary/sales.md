@@ -11,7 +11,7 @@
 ```yaml
 job_id: sales
 job_name: 営業
-version: 0.5.0
+version: 0.6.0
 updated_at: 2026-10-01
 items:
   - id: sales-001

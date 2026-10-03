@@ -120,7 +120,7 @@ describe("実際の語録(全語)", () => {
     }
   });
 
-  it("訓令式で、表示の長さが変わる語は、37 語前後(じゅ = zyu のように、長くなる語もある)。全体では、約 2% 短い", () => {
+  it("訓令式で、表示の長さが変わる語は、100〜150 語(じゅ = zyu のように、長くなる語もある)。全体では、約 2% 短い", () => {
     let hepburnTotal = 0;
     let kunreiTotal = 0;
     let differing = 0;
@@ -131,7 +131,7 @@ describe("実際の語録(全語)", () => {
       kunreiTotal += b;
       if (a !== b) differing += 1;
     }
-    assert.ok(differing > 20 && differing < 60, String(differing));
+    assert.ok(differing > 100 && differing < 150, String(differing));
     assert.ok(kunreiTotal < hepburnTotal && kunreiTotal > hepburnTotal * 0.95);
   });
 
