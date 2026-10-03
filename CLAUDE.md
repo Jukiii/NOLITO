@@ -646,6 +646,7 @@ Phase 29 は、契約・審査・ポリシーの版(同意)に関わるため、
 - 決定は `docs/decisions/0086-articles-d1.md`(PR 1 = D1・API、PR 2 = 管理画面の入力フォーム、PR 3 = 公開ページを D1 から出す・既存の記事の移行)。**PR 1 の間、公開の記事ページ・一覧・検索・`npm run build:articles` は変わらない**(静的ファイルが元)。
 - テーブルは `articles`(`migrations/0010_articles.sql`。本文は Markdown のまま)。公開 `GET /api/articles`(下書きは出さない。`env.DB` がなければ `/data/articles.json` にフォールバック)・管理 `/api/admin/articles[/:slug]`(`requireAdmin`・削除だけ `recent: true`・スラッグは更新で変えられない)。DB の読み書きは `functions/_lib/articles-db.js`。
 - **検証は、ビルドと共有する**: 先頭情報は `scripts/lib/article-fields.mjs`(`frontmatter.mjs` が再エクスポート)、本文は `scripts/lib/markdown.mjs`。サーバー用に別の検証を作らない。監査ログには、本文を入れず `bodyChars` だけ。
+- **Functions は、npm の依存を取り込まない**(Cloudflare Pages はビルドコマンドなしで、依存を入れない。取り込むとプレビューのビルドが失敗する)。`marked` は `scripts/lib/vendor/marked.esm.js` に同梱している(`tests/vendor-marked.test.js` が、インストール版との一致を検査。Dependabot で上がったら、`node_modules/marked/lib/marked.esm.js` と LICENSE をコピーし直す)。Functions から npm のパッケージを import しない。
 
 ## デザイン見本(Phase 31)
 

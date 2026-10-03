@@ -8,3 +8,4 @@ README.md
 content/
 public/articles/
 public/data/articles.json
+scripts/lib/vendor/

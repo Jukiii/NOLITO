@@ -3,7 +3,7 @@
 //   - 危険なリンク(javascript: など)は、黙って捨てず、ビルドを失敗させる(書いた人が気づけるように)
 //   - 画像には代替テキスト(alt)を必須にする。画像の場所は、サイト内か https のみ
 //   - 本文の見出し1(#)は使えない(題名は先頭情報の title。ページの h1 は1つにする)
-import { Marked } from "marked";
+import { Marked } from "./vendor/marked.esm.js";
 import { escapeHtml } from "./html.mjs";
 
 /**

@@ -2,7 +2,7 @@ import js from "@eslint/js";
 import globals from "globals";
 
 export default [
-  { ignores: ["node_modules/", "docs/", ".wrangler/"] },
+  { ignores: ["node_modules/", "docs/", ".wrangler/", "scripts/lib/vendor/"] },
   js.configs.recommended,
   {
     files: ["public/**/*.js"],
