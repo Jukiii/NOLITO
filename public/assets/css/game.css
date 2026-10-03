@@ -1942,6 +1942,7 @@
 .game-setup__choice[hidden],
 .game-ready[hidden],
 .game-ready__notice[hidden],
+.game-word[hidden],
 .review-list[hidden] {
   display: none;
 }

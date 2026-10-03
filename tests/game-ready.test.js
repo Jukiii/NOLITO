@@ -108,6 +108,15 @@ describe("配線: 準備の間は、スペースキーを押すまで、始ま�
     assert.match(html, /role="alert"/);
   });
 
+  it("始める前は、最初の語のカードを隠し、始めたら出す(Issue #173)", () => {
+    assert.match(html, /class="game-word" data-word-card/);
+    const show = view.slice(view.indexOf("showReady() {"), view.indexOf("showReadyNotice() {"));
+    assert.match(show, /\[data-word-card\]"\)\.hidden = true/);
+    const hide = view.slice(view.indexOf("const hideReady"), view.indexOf("// 開始・終わりの演出"));
+    assert.match(hide, /\[data-word-card\]"\)\.hidden = false/);
+    assert.match(read("public/assets/css/game.css"), /\.game-word\[hidden\]/);
+  });
+
   it("全角の知らせは、文字で示す(色だけに頼らない)", () => {
     assert.match(html, /全角のスペース/);
   });
