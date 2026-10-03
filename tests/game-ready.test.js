@@ -68,7 +68,7 @@ describe("配線: 準備の間は、スペースキーを押すまで、始ま�
   it("beginGame は、開始の演出ではなく、準備(ready)で終わる", () => {
     const start = main.indexOf("function beginGame") >= 0 ? main.indexOf("function beginGame") : 0;
     const fn = main.slice(start, main.indexOf("function leaveReady"));
-    assert.match(fn, /session\.phase = "ready";\s*view\.showReady\(\);/);
+    assert.match(fn, /session\.phase = "ready";[\s\S]*?view\.showReady\(lastReadyLine\);/);
     assert.doesNotMatch(fn.slice(fn.lastIndexOf("view.renderStats")), /beginIntro\(\)/);
   });
 
@@ -110,7 +110,7 @@ describe("配線: 準備の間は、スペースキーを押すまで、始ま�
 
   it("始める前は、最初の語のカードを隠し、始めたら出す(Issue #173)", () => {
     assert.match(html, /class="game-word" data-word-card/);
-    const show = view.slice(view.indexOf("showReady() {"), view.indexOf("showReadyNotice() {"));
+    const show = view.slice(view.indexOf("showReady(line"), view.indexOf("showReadyNotice() {"));
     assert.match(show, /\[data-word-card\]"\)\.hidden = true/);
     const hide = view.slice(view.indexOf("const hideReady"), view.indexOf("// 開始・終わりの演出"));
     assert.match(hide, /\[data-word-card\]"\)\.hidden = false/);

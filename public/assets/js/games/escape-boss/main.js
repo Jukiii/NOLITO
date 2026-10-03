@@ -35,7 +35,7 @@ import {
   isDifficultyUnlocked as checkDifficultyUnlocked,
 } from "./difficulty.js";
 import { createTimeline, introSteps, outroSteps } from "./staging.js";
-import { readyAction } from "./ready.js";
+import { pickReadyLine, readyAction } from "./ready.js";
 import { prefersReducedMotion } from "../../components/motion.js";
 import { averageDifficulty } from "./stats.js";
 import { loadSettings, normalizeSettings, saveSettings } from "./settings.js";
@@ -72,6 +72,8 @@ let difficulties = [];
 let config = { default_title: { id: "newbie", name: "新入社員" }, achievements: [] };
 let storageNotice = "";
 let session = null;
+// 準備の画面のつぶやき(同じ言葉を続けないため、直前のものを覚える)
+let lastReadyLine = "";
 // 開始・終わりの演出の進行(進んでいる間だけ、ある)
 let timeline = null;
 
@@ -518,7 +520,8 @@ async function beginGame({ jobId, roleId, difficulty: difficultyId }) {
   view.renderStats(session.state, stage);
   // スペースキーを押すまで、始まらない(準備。Issue #140)
   session.phase = "ready";
-  view.showReady();
+  lastReadyLine = pickReadyLine(Math.random, lastReadyLine);
+  view.showReady(lastReadyLine);
 }
 
 // 準備を終えて、開始の演出へ進む(スペースキー・スタートのボタンの、どちらからも)

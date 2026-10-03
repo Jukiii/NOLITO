@@ -25,9 +25,9 @@ describe("コマ送りの絵", () => {
     );
   });
 
-  it("画面の 3 枚(追ってくる人・ふつうの顔・焦った顔)が、枠 + 絵の形で、飾り(alt が空)", () => {
+  it("画面の 4 枚(追ってくる人・ふつうの顔・焦った顔・準備の画面のあなた)が、枠 + 絵の形で、飾り(alt が空)", () => {
     const sprites = html.match(/<img\s+class="scene__sprite"[^>]*>/g) ?? [];
-    assert.equal(sprites.length, 3);
+    assert.equal(sprites.length, 4);
     for (const tag of sprites) assert.match(tag, /alt=""/);
   });
 

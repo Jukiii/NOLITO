@@ -1892,6 +1892,54 @@
   border-radius: var(--radius-md);
 }
 
+/* 準備の画面のキャラクターと吹き出し(飾り。aria-hidden)。絵は、場面と同じ player.svg のコマ送り */
+.game-ready__talk {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.game-ready__character {
+  flex: none;
+  width: 4.8rem;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.game-ready__bubble {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  text-align: left;
+  overflow-wrap: anywhere;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.game-ready__bubble::before {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--space-2) * -1);
+  width: var(--space-3);
+  height: var(--space-3);
+  content: "";
+  background: var(--color-surface);
+  border-bottom: var(--border-width) solid var(--color-border);
+  border-left: var(--border-width) solid var(--color-border);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.game-ready__bubble:empty {
+  display: none;
+}
+
 /* 点滅する「PRESS SPACE KEY TO START」。1 周 1.2 秒(光の点滅を避ける)。動きを減らす設定では、見える状態で止まる */
 .game-ready__press {
   margin: 0;

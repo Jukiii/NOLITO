@@ -16,3 +16,25 @@ export function readyAction(char) {
   if (char === FULL_WIDTH_SPACE) return "fullwidth";
   return "ignore";
 }
+
+// 準備の画面で、あなたのキャラクターがつぶやく一言(Issue #173。AI の下書き。運営者の確認待ち)。
+// 1 つ 20 字まで(lines.js の isValidLine と同じ決め)。軽い冗談だけにする
+export const READY_LINES = Object.freeze([
+  "今日こそ、逃げ切ってみせる!",
+  "指ならしは、ばっちり。",
+  "深呼吸して、いってみよう。",
+  "ミスしても、あわてない。",
+  "やる気は、じゅうぶん。",
+  "まずは、落ち着いて。",
+  "定時までは、あと少し!",
+  "キーボード、準備オーケー!",
+  "あせらず、いこう。",
+  "スペースキーで、勝負だ!",
+]);
+
+/** つぶやきを 1 つ選ぶ。直前と同じものは続けない。乱数・直前の言葉は引数 */
+export function pickReadyLine(random = Math.random, previous = "") {
+  const choices = READY_LINES.filter((line) => line !== previous);
+  const index = Math.min(Math.floor(random() * choices.length), choices.length - 1);
+  return choices[index];
+}

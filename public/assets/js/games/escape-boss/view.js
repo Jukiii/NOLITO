@@ -630,7 +630,8 @@ export function createView(root) {
 
     // 準備(連続タイピングの開始の前。スペースキーを押すまで、始まらない)。
     // 全角スペースだったときは、始めずに、文字で知らせる(role="alert")
-    showReady() {
+    showReady(line = "") {
+      $("[data-ready-line]").textContent = line;
       $("[data-ready-notice]").hidden = true;
       $("[data-ready]").hidden = false;
       // 始める前は、最初の語を見せない(スタートしてから出す)
