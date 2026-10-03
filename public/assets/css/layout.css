@@ -281,7 +281,7 @@ a.site-nav__sublink:hover {
   color: var(--color-on-primary);
 }
 
-/* 文字は、狭い画面では読み上げだけ(アイコンの横の場所を取らない)。PC では見せる */
+/* 文字は、読み上げだけ(Jさんの依頼で、PC でも見せない)。見た目の違いは、塗りつぶしと枠で示す */
 .site-account__label {
   position: absolute;
   width: 1px;
@@ -295,19 +295,6 @@ a.site-nav__sublink:hover {
 @media (width >= 48rem) {
   .nav-toggle {
     display: none;
-  }
-
-  .site-account {
-    padding-inline: var(--space-2) var(--space-3);
-  }
-
-  .site-account__label {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    clip-path: none;
   }
 
   .site-nav,
