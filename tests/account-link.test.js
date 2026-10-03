@@ -109,4 +109,11 @@ describe("ヘッダーへの組み込み・見た目", () => {
     );
     assert.ok(!/#[0-9a-f]{3,8}\b/i.test(block));
   });
+
+  it("文字は、広い画面でも見せない(読み上げだけ。Jさんの依頼)", () => {
+    const wide = css.slice(css.indexOf("@media (width >= 48rem)"));
+    const wideBlock = wide.slice(0, wide.indexOf("/* Footer */"));
+    assert.ok(!wideBlock.includes(".site-account"));
+    assert.match(css, /\.site-account__label\s*\{[^}]*clip-path:\s*inset\(50%\)/);
+  });
 });
