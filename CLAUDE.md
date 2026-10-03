@@ -605,6 +605,7 @@ Phase 28 の仕様は高レベルな列挙のため、Phase 27 と同じく段�
 ### キャッシュ制御(Phase 28 PR 1)
 
 - `public/_headers`(Cloudflare Pages の書式)で、**画像(`/assets/img/*`・`/favicon.svg`)だけ**、`Cache-Control: public, max-age=86400, stale-while-revalidate=604800` にした。**JS・CSS・HTML・`/data/*` には期限を付けない**(ファイル名に版がなく、ビルド工程もないため、長く持たせると、新しい HTML と古い JS が混ざる)。`immutable` も付けない(同じパスの画像を撮り直すため)。`tests/cache-headers.test.js` が検査する。
+- **全ページ(`/*`)には、セキュリティ用のヘッダー 4 つ**(`nosniff`・`X-Frame-Options: DENY`・`Referrer-Policy`・`Permissions-Policy`)を付けている(Issue #189 の案 A・#191。決定 `docs/decisions/0082-security-headers.md`)。**CSP は、広告事業者を決めるまで入れない**(Issue #122・#123)。サイトに iframe を足すときは、`X-Frame-Options` と合わせて見直す(テストが、iframe がないことを検査)。`npm run smoke` が、`/` のヘッダーも確認する。
 - Pages Functions(`/api/*`・`/auth/*`)の応答には、`_headers` は効かない。**ファイル名に版を付ける(ビルド工程を入れる)のは、「バンドラを使わない」方針を変えるので、しない**。
 
 ### 運用の手順書・公開後の簡易チェック(Phase 28 PR 2)

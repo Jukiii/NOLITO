@@ -26,7 +26,9 @@ function healthyFetch(url) {
       headers: { "cache-control": "public, max-age=86400" },
     });
   }
-  return reply("<html></html>");
+  return reply("<html></html>", {
+    headers: { "x-content-type-options": "nosniff", "x-frame-options": "DENY" },
+  });
 }
 
 test("チェックする静的なページは、実際にある", () => {
