@@ -105,6 +105,23 @@ CREATE TABLE affiliate_links (
 );
 ```
 
+**0010**(`0010_articles.sql`。Issue #195 の PR 1。記事の保存先。最初は空。本文は Markdown のまま持つ)
+
+```sql 0010_articles.sql
+CREATE TABLE articles (
+  slug TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  date TEXT NOT NULL,
+  updated TEXT,
+  tags TEXT NOT NULL,
+  draft INTEGER NOT NULL,
+  body TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+```
+
 ## 2. Pages に D1 をつなぐ(本番だけ)
 
 1. Cloudflare → **Workers & Pages** → プロジェクト `nolito` → **Settings** → **Bindings** → **Add** → **D1 database**。

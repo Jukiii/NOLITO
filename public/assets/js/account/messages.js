@@ -29,6 +29,11 @@ export const API_ERRORS = {
   "affiliate-id-exists": "その id は、すでに使われています。別の id にしてください。",
   "affiliate-not-found": "そのリンクは見つかりませんでした。",
   "affiliate-id-mismatch": "id を変更することはできません。",
+  "invalid-article": "記事の内容に問題があります。下の一覧を確認してください。",
+  "article-slug-exists": "同じスラッグ(URL の名前)の記事が、すでにあります。",
+  "article-not-found": "その記事は、見つかりません。",
+  "article-slug-mismatch": "スラッグ(URL の名前)を変更することはできません。",
+  "articles-unavailable": "記事の一覧を読み込めませんでした。",
   "bad-origin": "リクエストを確認できませんでした。ページを開き直して、もう一度お試しください。",
   "csrf-header-required":
     "リクエストを確認できませんでした。ページを開き直して、もう一度お試しください。",

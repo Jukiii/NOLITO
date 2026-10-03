@@ -13,6 +13,7 @@ INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(6,'0006_site_setti
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(7,'0007_admin_audit.sql','2026-09-26 12:00:00');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(8,'0008_products.sql','2026-09-26 13:00:00');
 INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(9,'0009_affiliate_links.sql','2026-09-30 09:00:00');
+INSERT INTO "d1_migrations" ("id","name","applied_at") VALUES(10,'0010_articles.sql','2026-10-03 09:00:00');
 CREATE TABLE users (
   id TEXT PRIMARY KEY,
   google_sub TEXT NOT NULL UNIQUE,
@@ -133,6 +134,22 @@ CREATE TABLE affiliate_links (
   updated_at INTEGER NOT NULL
 );
 INSERT INTO affiliate_links (id, sort_order, data, updated_at) VALUES ('sample-link', 0, '{"id":"sample-link","kind":"affiliate","title":"サンプルのサービス","description":"見本の説明です。","advertiser":"サンプル社","url":"https://example.com/item","placements":["article"]}', 1790000000000);
+CREATE TABLE articles (
+  slug TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  date TEXT NOT NULL,
+  updated TEXT,
+  tags TEXT NOT NULL,
+  draft INTEGER NOT NULL,
+  body TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+INSERT INTO articles (slug, title, description, date, updated, tags, draft, body, created_at, updated_at) VALUES ('sample-article', 'サンプルの記事', '見本の説明です。検索結果に出る、短い説明の文章になります。', '2026-10-01', NULL, '["サンプル"]', 0, '## 見出し
+
+本文の段落です。
+', 1790000000000, 1790000000000);
 DELETE FROM sqlite_sequence;
 INSERT INTO "sqlite_sequence" ("name","seq") VALUES('d1_migrations',8);
 INSERT INTO "sqlite_sequence" ("name","seq") VALUES('audit_log',2);
