@@ -54,7 +54,7 @@ describe("実際の原稿 → 公開の JSON", () => {
     }
   });
 
-  it("公開している語は 203 語。原稿の語(下書きを除く)と、一対一で対応する", async () => {
+  it("公開している語は 523 語。原稿の語(下書きを除く)と、一対一で対応する", async () => {
     const { files } = await buildOutputs(loadSources(root), context);
     let total = 0;
     for (const { data } of files) {
@@ -67,7 +67,7 @@ describe("実際の原稿 → 公開の JSON", () => {
       );
       total += published.items.length;
     }
-    assert.equal(total, 203);
+    assert.equal(total, 523);
   });
 
   it("詳細説明(detail)のある語は 6 語(職種ごとに 1 語。難易度 3)。学習ポイントを持ち、確認メモがついている", async () => {
@@ -99,11 +99,16 @@ describe("実際の原稿 → 公開の JSON", () => {
     for (const item of noted) assert.ok(Array.from(item.note).length <= 200, item.id);
   });
 
-  it("既存の語は、すべて review: pending(人間の確認は、まだ。確認できたら、confirmed にする)", async () => {
+  it("公開している語の review は、203 語が pending(基本の語・英語の語。確認はまだ)、320 語が confirmed(バッチ1。Issue #182 でJさんが確認)", async () => {
     const { files } = await buildOutputs(loadSources(root), context);
+    const counts = { pending: 0, confirmed: 0 };
     for (const { data } of files) {
-      for (const item of data.items) assert.equal(item.review, "pending", item.id);
+      for (const item of data.items) {
+        if (item.draft) continue;
+        counts[item.review] += 1;
+      }
     }
+    assert.deepEqual(counts, { pending: 203, confirmed: 320 });
   });
 });
 
@@ -453,13 +458,13 @@ describe("コマンド", () => {
   it("build:vocabulary --check: 最新なら、終了コード 0(職種数・公開の語数・下書きの数を出す)", () => {
     const result = run("build-vocabulary.mjs", ["--check"]);
     assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout, /最新です\(6 職種・公開 203 語\(下書き \d+ 語は、公開しません\)\)/);
+    assert.match(result.stdout, /最新です\(6 職種・公開 523 語\(下書き \d+ 語は、公開しません\)\)/);
   });
 
   it("vocab:check: 検証の結果・確認の状況・確認メモを出して、終了コード 0", () => {
     const result = run("vocab-check.mjs");
     assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout, /公開 203 語\(確認済み 0 語・未確認 203 語\)/);
+    assert.match(result.stdout, /公開 523 語\(確認済み 320 語・未確認 203 語\)/);
     assert.match(result.stdout, /形式の検証.*通りました/);
     assert.match(result.stdout, /人間に見てほしい点\(note\): 49 件/);
     assert.match(result.stdout, /engineer-009\(プルリクエスト\)/);
@@ -468,13 +473,15 @@ describe("コマンド", () => {
     assert.match(result.stdout, /food-service-007\(仕込み\) と food-service-012\(下ごしらえ\)/);
   });
 
-  it("vocab:check --for-ai: 指示・機械の確認結果・確認する語の順で出す。確認する語は、下書きの語だけ", () => {
+  it("vocab:check --for-ai: 指示・機械の確認結果・確認する語の順で出す。確認する語は、下書きの語だけ(いまは、下書きがない)", () => {
     const result = run("vocab-check.mjs", ["--for-ai"]);
     assert.equal(result.status, 0, result.stderr);
     const out = result.stdout;
     assert.ok(out.indexOf("AIチェック用プロンプト") < out.indexOf("機械の確認結果"));
     assert.ok(out.indexOf("機械の確認結果") < out.indexOf("確認する語"));
-    assert.ok(out.includes("draft: true"));
+    // バッチ1(Issue #182)を公開したので、下書きの語は、いまはない
+    assert.ok(!out.includes("draft: true"));
+    assert.match(out, /確認する語が、ありません/);
     assert.ok(!out.includes("japanese: CRM"));
     assert.match(out, /最終判断は、人間が行います/);
     // 似た意味の語の候補(Phase 25 PR2)も、機械の確認結果に含まれる
@@ -489,7 +496,7 @@ describe("コマンド", () => {
     assert.equal(blocks.length, 6);
     const data = parseVocabularyMarkdown(`\`\`\`yaml\n${blocks[0][1]}\n\`\`\``);
     assert.equal(data.job_id, "engineer");
-    assert.equal(data.items.length, 84);
+    assert.equal(data.items.length, 30);
   });
 
   it("vocab:check --improve: 改善提案用プロンプト・候補の件数・語を、YAML で出す(Phase 25)", () => {
@@ -497,7 +504,7 @@ describe("コマンド", () => {
     assert.equal(result.status, 0, result.stderr);
     const out = result.stdout;
     assert.ok(out.indexOf("AI改善提案用プロンプト") < out.indexOf("改善の候補"));
-    assert.match(out, /改善の候補\(公開済み・関連用語が、まだない語\): 81 件/);
+    assert.match(out, /改善の候補\(公開済み・関連用語が、まだない語\): 401 件/);
     assert.match(
       out,
       /AI の提案は、参考です。最終判断は、人間が行います。原稿は、AIが直接書き換えません。/,
@@ -513,7 +520,7 @@ describe("コマンド", () => {
     assert.equal(result.status, 0, result.stderr);
     assert.match(
       result.stdout,
-      /人間の確認: 確認済み 0 語 \/ 未確認 203 語\(公開 203 語\)。下書き \d+ 語/,
+      /人間の確認: 確認済み 320 語 \/ 未確認 203 語\(公開 523 語\)。下書き \d+ 語/,
     );
   });
 

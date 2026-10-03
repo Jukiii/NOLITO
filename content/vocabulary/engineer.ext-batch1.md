@@ -1,6 +1,6 @@
-# エンジニアの語録(拡張: 第 1 弾の下書き)
+# エンジニアの語録(拡張: 第 1 弾)
 
-語録を増やす Issue #182 の第 1 弾です。AI の下書きで、すべて `draft: true`(公開されません)・`review: pending` です。運営者が確認した語だけ、`draft` の行を消して公開します。
+語録を増やす Issue #182 の第 1 弾です。AI の下書きを、運営者が確認して(2026-10-03。Issue #182)、公開した語です(`review: confirmed`)。
 
 ```yaml
 job_id: engineer
@@ -16,8 +16,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-032
     japanese: "アルゴリズム"
     reading: "あるごりずむ"
@@ -29,8 +28,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-033
     japanese: "変数"
     reading: "へんすう"
@@ -42,8 +40,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-034
     japanese: "関数"
     reading: "かんすう"
@@ -55,8 +52,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-035
     japanese: "配列"
     reading: "はいれつ"
@@ -68,8 +64,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-036
     japanese: "クラス"
     reading: "くらす"
@@ -81,8 +76,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-037
     japanese: "オブジェクト"
     reading: "おぶじぇくと"
@@ -94,8 +88,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-038
     japanese: "ライブラリ"
     reading: "らいぶらり"
@@ -107,8 +100,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-039
     japanese: "インターフェース"
     reading: "いんたーふぇーす"
@@ -120,8 +112,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-040
     japanese: "バージョン管理"
     reading: "ばーじょんかんり"
@@ -133,8 +124,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-041
     japanese: "テスト環境"
     reading: "てすとかんきょう"
@@ -146,8 +136,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-042
     japanese: "本番環境"
     reading: "ほんばんかんきょう"
@@ -159,8 +148,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-043
     japanese: "開発環境"
     reading: "かいはつかんきょう"
@@ -172,8 +160,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-044
     japanese: "デプロイ"
     reading: "でぷろい"
@@ -185,8 +172,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-045
     japanese: "ビルド"
     reading: "びるど"
@@ -198,8 +184,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-046
     japanese: "ロールバック"
     reading: "ろーるばっく"
@@ -211,8 +196,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-047
     japanese: "バグ修正"
     reading: "ばぐしゅうせい"
@@ -224,8 +208,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-048
     japanese: "例外処理"
     reading: "れいがいしょり"
@@ -237,8 +220,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-049
     japanese: "非同期"
     reading: "ひどうき"
@@ -250,8 +232,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-050
     japanese: "並列処理"
     reading: "へいれつしょり"
@@ -263,8 +244,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-051
     japanese: "キャッシュ"
     reading: "きゃっしゅ"
@@ -276,8 +256,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-052
     japanese: "ロードバランサー"
     reading: "ろーどばらんさー"
@@ -289,8 +268,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-053
     japanese: "ファイアウォール"
     reading: "ふぁいあうぉーる"
@@ -302,8 +280,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-054
     japanese: "アクセス権限"
     reading: "あくせすけんげん"
@@ -315,8 +292,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-055
     japanese: "二段階認証"
     reading: "にだんかいにんしょう"
@@ -328,8 +304,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-056
     japanese: "ウイルス対策"
     reading: "ういるすたいさく"
@@ -341,8 +316,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-057
     japanese: "不正アクセス"
     reading: "ふせいあくせす"
@@ -354,8 +328,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-058
     japanese: "個人情報保護"
     reading: "こじんじょうほうほご"
@@ -367,8 +340,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-059
     japanese: "リストア"
     reading: "りすとあ"
@@ -380,8 +352,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-060
     japanese: "ログ監視"
     reading: "ろぐかんし"
@@ -393,8 +364,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-061
     japanese: "負荷試験"
     reading: "ふかしけん"
@@ -406,8 +376,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-062
     japanese: "単体テスト"
     reading: "たんたいてすと"
@@ -419,8 +388,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-063
     japanese: "結合テスト"
     reading: "けつごうてすと"
@@ -432,8 +400,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-064
     japanese: "受け入れテスト"
     reading: "うけいれてすと"
@@ -445,8 +412,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-065
     japanese: "コードレビュー"
     reading: "こーどれびゅー"
@@ -458,8 +424,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-066
     japanese: "ペアプログラミング"
     reading: "ぺあぷろぐらみんぐ"
@@ -471,8 +436,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-067
     japanese: "アジャイル"
     reading: "あじゃいる"
@@ -484,8 +448,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-068
     japanese: "ウォーターフォール"
     reading: "うぉーたーふぉーる"
@@ -497,8 +460,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-069
     japanese: "スプリント"
     reading: "すぷりんと"
@@ -510,8 +472,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
     note: "スクラムという手法での呼び方。会社・手法によって期間や呼び方が違う"
   - id: engineer-070
     japanese: "基本設計"
@@ -524,8 +485,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-071
     japanese: "詳細設計"
     reading: "しょうさいせっけい"
@@ -537,8 +497,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-072
     japanese: "テーブル"
     reading: "てーぶる"
@@ -550,8 +509,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-073
     japanese: "主キー"
     reading: "しゅきー"
@@ -563,8 +521,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-074
     japanese: "インデックス"
     reading: "いんでっくす"
@@ -576,8 +533,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-075
     japanese: "トランザクション"
     reading: "とらんざくしょん"
@@ -589,8 +545,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-076
     japanese: "正規化"
     reading: "せいきか"
@@ -602,8 +557,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-077
     japanese: "仮想マシン"
     reading: "かそうましん"
@@ -615,8 +569,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-078
     japanese: "コンテナ"
     reading: "こんてな"
@@ -628,8 +581,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-079
     japanese: "リポジトリ"
     reading: "りぽじとり"
@@ -641,8 +593,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-080
     japanese: "マージ"
     reading: "まーじ"
@@ -654,8 +605,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-081
     japanese: "コンフリクト"
     reading: "こんふりくと"
@@ -667,8 +617,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-082
     japanese: "運用"
     reading: "うんよう"
@@ -680,8 +629,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-083
     japanese: "冗長化"
     reading: "じょうちょうか"
@@ -693,8 +641,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: engineer-084
     japanese: "スケールアウト"
     reading: "すけーるあうと"
@@ -706,6 +653,5 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
 ```

@@ -1,6 +1,6 @@
-# 講師・教育の語録(拡張: 第 1 弾の下書き)
+# 講師・教育の語録(拡張: 第 1 弾)
 
-語録を増やす Issue #182 の第 1 弾です。AI の下書きで、すべて `draft: true`(公開されません)・`review: pending` です。運営者が確認した語だけ、`draft` の行を消して公開します。
+語録を増やす Issue #182 の第 1 弾です。AI の下書きを、運営者が確認して(2026-10-03。Issue #182)、公開した語です(`review: confirmed`)。
 
 ```yaml
 job_id: teaching
@@ -16,8 +16,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-036
     japanese: "学習指導要領"
     reading: "がくしゅうしどうようりょう"
@@ -29,8 +28,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-037
     japanese: "教材"
     reading: "きょうざい"
@@ -42,8 +40,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-038
     japanese: "教材研究"
     reading: "きょうざいけんきゅう"
@@ -55,8 +52,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-039
     japanese: "ワークシート"
     reading: "わーくしーと"
@@ -68,8 +64,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-040
     japanese: "プリント"
     reading: "ぷりんと"
@@ -81,8 +76,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-041
     japanese: "黒板"
     reading: "こくばん"
@@ -94,8 +88,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-042
     japanese: "電子黒板"
     reading: "でんしこくばん"
@@ -107,8 +100,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-043
     japanese: "タブレット"
     reading: "たぶれっと"
@@ -120,8 +112,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-044
     japanese: "端末"
     reading: "たんまつ"
@@ -133,8 +124,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-045
     japanese: "学習目標"
     reading: "がくしゅうもくひょう"
@@ -146,8 +136,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-046
     japanese: "導入"
     reading: "どうにゅう"
@@ -159,8 +148,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-047
     japanese: "展開"
     reading: "てんかい"
@@ -172,8 +160,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-048
     japanese: "まとめ"
     reading: "まとめ"
@@ -185,8 +172,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-049
     japanese: "発問"
     reading: "はつもん"
@@ -198,8 +184,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-050
     japanese: "机間指導"
     reading: "きかんしどう"
@@ -211,8 +196,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-051
     japanese: "グループ学習"
     reading: "ぐるーぷがくしゅう"
@@ -224,8 +208,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-052
     japanese: "話し合い"
     reading: "はなしあい"
@@ -237,8 +220,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-053
     japanese: "発表"
     reading: "はっぴょう"
@@ -250,8 +232,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-054
     japanese: "音読"
     reading: "おんどく"
@@ -263,8 +244,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-055
     japanese: "漢字練習"
     reading: "かんじれんしゅう"
@@ -276,8 +256,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-056
     japanese: "計算ドリル"
     reading: "けいさんどりる"
@@ -289,8 +268,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-057
     japanese: "自主学習"
     reading: "じしゅがくしゅう"
@@ -302,8 +280,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-058
     japanese: "ノート指導"
     reading: "のーとしどう"
@@ -315,8 +292,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-059
     japanese: "定期テスト"
     reading: "ていきてすと"
@@ -328,8 +304,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-060
     japanese: "期末テスト"
     reading: "きまつてすと"
@@ -341,8 +316,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-061
     japanese: "通知表"
     reading: "つうちひょう"
@@ -354,8 +328,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
     note: "学校ごとに呼び方や形式が違う"
   - id: teaching-062
     japanese: "観点別評価"
@@ -368,8 +341,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-063
     japanese: "学力調査"
     reading: "がくりょくちょうさ"
@@ -381,8 +353,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-064
     japanese: "個別指導"
     reading: "こべつしどう"
@@ -394,8 +365,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-065
     japanese: "生活指導"
     reading: "せいかつしどう"
@@ -407,8 +377,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-066
     japanese: "教育相談"
     reading: "きょういくそうだん"
@@ -420,8 +389,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-067
     japanese: "保健室"
     reading: "ほけんしつ"
@@ -433,8 +401,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-068
     japanese: "職員室"
     reading: "しょくいんしつ"
@@ -446,8 +413,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-069
     japanese: "校長"
     reading: "こうちょう"
@@ -459,8 +425,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-070
     japanese: "教頭"
     reading: "きょうとう"
@@ -472,8 +437,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-071
     japanese: "職員会議"
     reading: "しょくいんかいぎ"
@@ -485,8 +449,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-072
     japanese: "校内研修"
     reading: "こうないけんしゅう"
@@ -498,8 +461,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-073
     japanese: "研究授業"
     reading: "けんきゅうじゅぎょう"
@@ -511,8 +473,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-074
     japanese: "学校行事"
     reading: "がっこうぎょうじ"
@@ -524,8 +485,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-075
     japanese: "運動会"
     reading: "うんどうかい"
@@ -537,8 +497,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-076
     japanese: "遠足"
     reading: "えんそく"
@@ -550,8 +509,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-077
     japanese: "修学旅行"
     reading: "しゅうがくりょこう"
@@ -563,8 +521,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-078
     japanese: "文化祭"
     reading: "ぶんかさい"
@@ -576,8 +533,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-079
     japanese: "終業式"
     reading: "しゅうぎょうしき"
@@ -589,8 +545,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-080
     japanese: "卒業式"
     reading: "そつぎょうしき"
@@ -602,8 +557,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-081
     japanese: "入学式"
     reading: "にゅうがくしき"
@@ -615,8 +569,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-082
     japanese: "登校"
     reading: "とうこう"
@@ -628,8 +581,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-083
     japanese: "下校"
     reading: "げこう"
@@ -641,8 +593,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-084
     japanese: "給食"
     reading: "きゅうしょく"
@@ -654,8 +605,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-085
     japanese: "日直"
     reading: "にっちょく"
@@ -667,8 +617,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-086
     japanese: "連絡帳"
     reading: "れんらくちょう"
@@ -680,8 +629,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-087
     japanese: "学級通信"
     reading: "がっきゅうつうしん"
@@ -693,8 +641,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-088
     japanese: "懇談会"
     reading: "こんだんかい"
@@ -706,8 +653,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-089
     japanese: "特別支援"
     reading: "とくべつしえん"
@@ -719,8 +665,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: teaching-090
     japanese: "不登校"
     reading: "ふとうこう"
@@ -732,7 +677,6 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
     note: "学校・自治体で、定義(欠席日数など)が違う"
 ```

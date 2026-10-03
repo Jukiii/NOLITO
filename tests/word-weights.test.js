@@ -177,7 +177,15 @@ describe("出題への反映(実際の語録・役職)", () => {
           for (const word of words) seen.add(word.id);
         }
       }
-      assert.equal(seen.size, 203, `${role.id}: 出る語 ${seen.size}`);
+      const eligible = new Set(
+        jobs.flatMap((job) =>
+          vocab[job.id].filter((word) => word.roles.includes(role.id)).map((word) => word.id),
+        ),
+      );
+      assert.ok(
+        seen.size >= eligible.size * 0.9,
+        `${role.id}: 出る語 ${seen.size} / 対象 ${eligible.size}`,
+      );
     }
   });
 

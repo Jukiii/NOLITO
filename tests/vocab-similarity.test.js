@@ -80,12 +80,26 @@ describe("similarPairs(似た説明の組)", () => {
     assert.equal(pair.score, 1);
   });
 
-  it("実際の語録: しきい値0.6で、2組(職種をまたいだ組も検出できる)", () => {
+  it("実際の語録: しきい値0.6で、13 組(職種をまたいだ組も検出できる。説明の言い回しが近いだけの組も含む目安)", () => {
     const items = loadVocabularies().flatMap((data) => data.items);
     const pairs = similarPairs(items);
     assert.deepEqual(
       pairs.map(({ aId, bId }) => `${aId}/${bId}`),
-      ["food-service-007/food-service-012", "sales-001/sales-003"],
+      [
+        "retail-072/retail-073",
+        "teaching-060/teaching-079",
+        "engineer-047/office-059",
+        "food-service-054/food-service-055",
+        "teaching-082/teaching-083",
+        "retail-068/retail-070",
+        "sales-001/sales-047",
+        "engineer-004/engineer-047",
+        "food-service-063/food-service-064",
+        "food-service-007/food-service-012",
+        "food-service-061/food-service-062",
+        "food-service-062/food-service-063",
+        "sales-001/sales-003",
+      ],
     );
     for (const pair of pairs) assert.ok(pair.score >= DEFAULT_THRESHOLD, JSON.stringify(pair));
   });
