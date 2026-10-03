@@ -26,7 +26,11 @@ function htmlFiles(dir = publicDir) {
 const pageExists = (href) => {
   const path = href.split("#")[0].split("?")[0];
   if (path === "") return true;
-  const target = path.endsWith("/") ? `${path}index.html` : path;
+  // 記事のページは Functions が D1 から出す。静的な写し(articles-static)で、実在するスラッグを確かめる
+  const real = path.startsWith("/articles/")
+    ? path.replace("/articles/", "/articles-static/")
+    : path;
+  const target = real.endsWith("/") ? `${real}index.html` : real;
   return existsSync(join(publicDir, target.slice(1)));
 };
 
@@ -149,8 +153,8 @@ describe("広告の枠の配置ルール", () => {
   });
 
   it("記事のページと一覧に、枠がある", () => {
-    assert.match(read("articles/index.html"), /data-ad-slot="page"/);
-    assert.match(read("articles/escape-boss-guide/index.html"), /data-ad-slot="article"/);
+    assert.match(read("articles-static/index.html"), /data-ad-slot="page"/);
+    assert.match(read("articles-static/escape-boss-guide/index.html"), /data-ad-slot="article"/);
   });
 });
 

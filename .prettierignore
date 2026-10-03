@@ -6,6 +6,6 @@ docs/
 CLAUDE.md
 README.md
 content/
-public/articles/
+public/articles-static/
 public/data/articles.json
 scripts/lib/vendor/
