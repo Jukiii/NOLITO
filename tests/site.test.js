@@ -66,6 +66,18 @@ describe("サイトの設定の整合", () => {
   it("広告は、Phase 5 では無効(広告事業者の導入は Phase 29)", () => {
     assert.equal(adsConfig.enabled, false);
   });
+
+  it("AdSense の所有権確認情報があり、広告スクリプトは読み込まない", () => {
+    assert.match(
+      read("index.html"),
+      /<meta name="google-adsense-account" content="ca-pub-5848767633026930"\s*\/>/,
+    );
+    assert.equal(
+      read("ads.txt").trim(),
+      "google.com, pub-5848767633026930, DIRECT, f08c47fec0942fa0",
+    );
+    assert.doesNotMatch(read("index.html"), /adsbygoogle\.js/);
+  });
 });
 
 // Cloudflare Pages Functions のルート: "/auth/google/login" → functions/auth/google/login.js
