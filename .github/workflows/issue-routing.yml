@@ -16,8 +16,9 @@ jobs:
           script: |
             const issue = context.payload.issue;
             const labels = issue.labels.map(({ name }) => name);
+            const isRepositoryOwner = issue.author_association === "OWNER";
 
-            if (labels.includes("question")) {
+            if (labels.includes("question") && isRepositoryOwner) {
               await github.rest.issues.createComment({
                 ...context.repo,
                 issue_number: issue.number,
@@ -29,9 +30,7 @@ jobs:
               });
               return;
             }
-
             const isTask = labels.includes("bug") || labels.includes("enhancement");
-            const isRepositoryOwner = issue.author_association === "OWNER";
 
             if (isTask && isRepositoryOwner) {
               await github.rest.issues.addAssignees({
