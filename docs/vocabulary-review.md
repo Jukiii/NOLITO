@@ -2,7 +2,7 @@
 
 > このファイルは、`npm run vocab:review` が、語録の原稿(`content/vocabulary/*.md`)から作ります。**手で書き換えません**。確認の状況(`review`)・確認のメモ(`note`)・下書き(`draft`)は、原稿に書きます。
 
-語録には、人間の確認が必要な語があります(`docs/05_checklists/vocabulary-validation.md`)。未確認 203 語と下書き 0 語を、次の観点で確認してください。
+全 1800 語を掲載しています。未確認 203 語と下書き 0 語は、人間が確認してください(`docs/05_checklists/vocabulary-validation.md`)。
 
 | 観点 | 見ること |
 | ---- | ---- |

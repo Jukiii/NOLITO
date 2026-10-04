@@ -220,10 +220,10 @@ describe("改善提案の候補(improvementCandidates。Phase 25)", () => {
     assert.deepEqual(improvementCandidates([data]), []);
   });
 
-  it("実際の語録: 401 語が候補(いまは、すべて未確認)", () => {
+  it("実際の語録: 関連用語がない公開語を改善提案の候補にする", () => {
     const candidates = improvementCandidates(source);
     const total = candidates.reduce((sum, data) => sum + data.items.length, 0);
-    assert.equal(total, 401);
+    assert.equal(total, 1678);
     for (const data of candidates) {
       for (const entry of data.items) {
         assert.notEqual(entry.draft, true, entry.id);
