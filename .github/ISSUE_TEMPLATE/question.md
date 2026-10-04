@@ -2,7 +2,7 @@
 name: 運営者からの質問
 about: 運営者から Claude Code への、質問(仕組み・仕様・現状・進め方などを知りたいとき)
 title: "【質問】"
-labels: ["質問"]
+labels: ["question", "質問"]
 ---
 
 <!--
