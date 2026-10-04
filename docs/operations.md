@@ -8,7 +8,7 @@ Phase 28。サイトに問題が起きたときの、**気づき方・止め方�
 
 | 方法 | 内容 |
 | ---- | ---- |
-| GitHub Actions | `main` への反映と PR ごとに、CI(`npm run check`・`npm run audit`)が動く。失敗すると、GitHub から通知が来る |
+| GitHub Actions | `main` への反映と PR ごとに CI(`npm run check`・`npm run audit`)が動く。Actions の「CI」から「Run workflow」を選ぶと、任意のブランチでも手動実行できる。失敗すると、GitHub から通知が来る |
 | Cloudflare のダッシュボード | Pages → **Deployments**(ビルドの成否)・**Functions** のログ・D1 の状態を見る(画面の名前は、変わることがある) |
 | `npm run smoke` | 公開したサイトの簡易チェック(下の「3. 確認」) |
 
