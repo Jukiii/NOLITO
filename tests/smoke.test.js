@@ -34,7 +34,9 @@ function healthyFetch(url) {
 test("チェックする静的なページは、実際にある", () => {
   for (const check of SMOKE_CHECKS) {
     if (check.status === 404 || check.path.startsWith("/api/")) continue;
-    const relative = check.path.endsWith("/") ? `${check.path}index.html` : check.path;
+    // /articles/ は Functions が出す。静的な写しの有無で確かめる
+    const path = check.path.replace("/articles/", "/articles-static/");
+    const relative = path.endsWith("/") ? `${path}index.html` : path;
     assert.ok(existsSync(`${publicDir}${relative.slice(1)}`), `${check.path} がありません`);
   }
 });

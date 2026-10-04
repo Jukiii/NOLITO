@@ -213,8 +213,8 @@ describe("すべてのページに、ちらつき防止(FOUC)のスクリプト�
 
   it("生成物(記事・詳細ページ)にも、同じテンプレートから入る", () => {
     for (const file of [
-      "public/articles/index.html",
-      "public/articles/escape-boss-guide/index.html",
+      "public/articles-static/index.html",
+      "public/articles-static/escape-boss-guide/index.html",
       "public/games/escape-boss/about/index.html",
       "public/tools/kii-michi/about/index.html",
     ]) {

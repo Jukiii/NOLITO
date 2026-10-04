@@ -46,7 +46,7 @@ async function init(root) {
     const [productData, categoryData, articleData, jobs, ...vocabularies] = await Promise.all([
       loadJson("/api/products"),
       loadJson("/data/categories.json"),
-      loadJson("/data/articles.json"),
+      loadJson("/api/articles"),
       loadJson("/data/jobs.json"),
       ...["engineer", "sales", "office", "food-service", "teaching", "retail"].map((id) =>
         loadJson(`/data/vocabulary/${id}.json`),

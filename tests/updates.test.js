@@ -88,7 +88,11 @@ describe("実際のデータ", () => {
   it("リンク先(詳細ページ・記事)が、実在する(404 を作らない)。#changelog の節も、ある", () => {
     for (const item of updates) {
       const [path, hash] = item.href.split("#");
-      const file = `public${path}${path.endsWith("/") ? "index.html" : ""}`;
+      // 記事は D1 から出す(Functions)。静的な写しの有無で、スラッグの実在を確かめる
+      const real = path.startsWith("/articles/")
+        ? path.replace("/articles/", "/articles-static/")
+        : path;
+      const file = `public${real}${real.endsWith("/") ? "index.html" : ""}`;
       assert.ok(existsSync(`${root}${file}`), item.href);
       if (hash) assert.match(read(file), new RegExp(`id="${hash}"`), item.href);
     }
@@ -308,11 +312,7 @@ describe("ページの静的な性質", () => {
 
   it("外部へ通信しない(同じサイトの JSON だけ)。ブラウザに、記録を置かない", () => {
     const urls = [...main.matchAll(/loadJson\("([^"]+)"\)/g)].map((match) => match[1]);
-    assert.deepEqual(urls.sort(), [
-      "/api/products",
-      "/data/articles.json",
-      "/data/categories.json",
-    ]);
+    assert.deepEqual(urls.sort(), ["/api/articles", "/api/products", "/data/categories.json"]);
     assert.ok(!/localStorage|sessionStorage|indexedDB|document\.cookie|https?:\/\//.test(main));
   });
 

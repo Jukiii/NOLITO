@@ -44,7 +44,7 @@ async function renderUpdates(container) {
     const [productData, categoryData, articleData] = await Promise.all([
       loadJson("/api/products"),
       loadJson("/data/categories.json"),
-      loadJson("/data/articles.json"),
+      loadJson("/api/articles"),
     ]);
     const { products, skipped: skippedProducts } = usableProducts(
       productData,

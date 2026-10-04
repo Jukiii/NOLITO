@@ -32,7 +32,7 @@ export async function renderHomeUpdates(container) {
     const [productData, categoryData, articleData] = await Promise.all([
       loadJson("/api/products"),
       loadJson("/data/categories.json"),
-      loadJson("/data/articles.json"),
+      loadJson("/api/articles"),
     ]);
     const { products } = usableProducts(productData, categoryData.categories);
     const { articles } = usableArticles(articleData);

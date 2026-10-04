@@ -260,8 +260,8 @@ describe("記事のビルド", () => {
       site,
     );
     assert.deepEqual([...files.keys()].sort(), [
-      "articles/first/index.html",
-      "articles/index.html",
+      "articles-static/first/index.html",
+      "articles-static/index.html",
       "data/articles.json",
     ]);
     assert.equal(articles.length, 1);
@@ -290,7 +290,7 @@ describe("記事のビルド", () => {
       ],
       site,
     );
-    const html = files.get("articles/first/index.html");
+    const html = files.get("articles-static/first/index.html");
     assert.match(html, /<html lang="ja">/);
     assert.match(html, /<title>a &quot;b&quot; &lt;c&gt; \| NOLITO<\/title>/);
     assert.match(
@@ -319,7 +319,7 @@ describe("記事のビルド", () => {
 
   it("更新日が公開日と同じなら、更新の表示を出さない", () => {
     const { files } = buildOutputs([{ slug: "a", text: article({ updated: "2026-09-20" }) }], site);
-    assert.doesNotMatch(files.get("articles/a/index.html"), /更新/);
+    assert.doesNotMatch(files.get("articles-static/a/index.html"), /更新/);
   });
 
   it("一覧は新しい順(同じ日付ならスラッグ順)", () => {
@@ -336,7 +336,7 @@ describe("記事のビルド", () => {
       articles.map((a) => a.slug),
       ["a-new", "b-new", "mid", "old"],
     );
-    const index = files.get("articles/index.html");
+    const index = files.get("articles-static/index.html");
     assert.ok(index.indexOf("/articles/a-new/") < index.indexOf("/articles/old/"));
   });
 
@@ -349,13 +349,13 @@ describe("記事のビルド", () => {
       site,
     );
     assert.equal(articles.length, 1);
-    assert.equal(files.has("articles/wip/index.html"), false);
-    assert.doesNotMatch(files.get("articles/index.html"), /wip/);
+    assert.equal(files.has("articles-static/wip/index.html"), false);
+    assert.doesNotMatch(files.get("articles-static/index.html"), /wip/);
   });
 
   it("記事がなくても、一覧ページと索引を作る", () => {
     const { files } = buildOutputs([], site);
-    assert.match(files.get("articles/index.html"), /まだ記事がありません/);
+    assert.match(files.get("articles-static/index.html"), /まだ記事がありません/);
     assert.deepEqual(JSON.parse(files.get("data/articles.json")), { articles: [] });
   });
 
@@ -415,17 +415,17 @@ describe("書き出しと検査", () => {
       assert.match(checkOutputs(publicDir, files).join("\n"), /生成されていません/);
 
       writeOutputs(publicDir, files);
-      writeFileSync(join(publicDir, "articles", "a", "index.html"), "手で書き換えた");
+      writeFileSync(join(publicDir, "articles-static", "a", "index.html"), "手で書き換えた");
       assert.match(
         checkOutputs(publicDir, files).join("\n"),
-        /articles\/a\/index\.html: 原稿と内容が違います/,
+        /articles-static\/a\/index\.html: 原稿と内容が違います/,
       );
 
       writeOutputs(publicDir, files);
       const fewer = buildOutputs([], site).files;
       assert.match(
         checkOutputs(publicDir, fewer).join("\n"),
-        /articles\/a\/index\.html: 対応する記事がありません/,
+        /articles-static\/a\/index\.html: 対応する記事がありません/,
       );
     } finally {
       rmSync(dir, { recursive: true, force: true });
@@ -448,9 +448,11 @@ describe("書き出しと検査", () => {
       );
       writeOutputs(publicDir, buildOutputs([{ slug: "a", text: article() }], site).files);
       assert.equal(loadSources(join(dir, "none")).length, 0);
-      assert.throws(() => readFileSync(join(publicDir, "articles", "b", "index.html")));
+      assert.throws(() => readFileSync(join(publicDir, "articles-static", "b", "index.html")));
       assert.ok(
-        readFileSync(join(publicDir, "articles", "a", "index.html"), "utf8").includes("題名"),
+        readFileSync(join(publicDir, "articles-static", "a", "index.html"), "utf8").includes(
+          "題名",
+        ),
       );
     } finally {
       rmSync(dir, { recursive: true, force: true });
