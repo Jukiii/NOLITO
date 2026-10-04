@@ -1,8 +1,8 @@
-// テーマ(Phase 21 PR1。Phase 31 で 4 種に)。<html data-theme> で切り替える。
-// light = デフォルト・white = ホワイト・dark = ダーク(クール)・pretty = プリティ・system = OSの設定に合わせる。
+// テーマ(Phase 21 PR1。Phase 31 で 4 種に。2026-10-04 に スマート を足した)。<html data-theme> で切り替える。
+// light = デフォルト・white = ホワイト・dark = ダーク(クール)・pretty = プリティ・smart = スマート・system = OSの設定に合わせる。
 // CSS 側(tokens.css)が、実際の配色を持つ。ここは、保存・読み込み・反映だけ。
 export const THEME_KEY = "nolito:theme:v1";
-export const THEMES = Object.freeze(["light", "white", "dark", "pretty", "system"]);
+export const THEMES = Object.freeze(["light", "white", "dark", "pretty", "smart", "system"]);
 export const DEFAULT_THEME = "system";
 
 export const isTheme = (value) => THEMES.includes(value);

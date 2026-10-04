@@ -1,10 +1,10 @@
 /*
  * デザイントークン。色はすべて意味のある名前で定義する。
  * テーマ(Phase 21 PR1 → Phase 31 で 4 種に)は、このファイルの下部で、色・形のトークンを上書きする。
- * 切り替えは <html data-theme="light|white|dark|pretty|system">(components/theme.js)。
- * light = デフォルト(この :root)・white = ホワイト・dark = ダーク(クール)・pretty = プリティ。
+ * 切り替えは <html data-theme="light|white|dark|pretty|smart|system">(components/theme.js)。
+ * light = デフォルト(この :root)・white = ホワイト・dark = ダーク(クール)・pretty = プリティ・smart = スマート。
  * 「システム」は、OSの設定(prefers-color-scheme)に追従する(ライト = デフォルト・ダーク = ダーク)。
- * 明示した light/white/dark/pretty は、OSより優先。
+ * 明示した light/white/dark/pretty/smart は、OSより優先。
  * ブレークポイント: 48rem(768px)以上をPC・タブレット横向きとする。
  */
 :root {
@@ -107,7 +107,12 @@
  * 配色は、WCAG AA(通常文字 4.5:1・UI部品 3:1)以上になるよう決めた(tests/theme.test.js で検査)。
  */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"], [data-theme="white"], [data-theme="pretty"]) {
+  :root:not(
+    [data-theme="light"],
+    [data-theme="white"],
+    [data-theme="pretty"],
+    [data-theme="smart"]
+  ) {
     color-scheme: dark;
 
     --color-bg: #0b1220;
@@ -220,6 +225,35 @@
   --shadow-pop: 0 5px 0 var(--color-shadow);
   --shadow-pop-sm: 0 2px 0 var(--color-shadow);
   --shadow-primary: 0 4px 0 var(--color-primary-strong);
+}
+
+/*
+ * スマート(2026-10-04。決定 0091)。白と黒だけ。角のない矩形・細い黒い線・影なし。余白を広く見せる、ミニマルな配色。
+ */
+:root[data-theme="smart"] {
+  color-scheme: light;
+
+  --color-bg: #fff;
+  --color-surface: #fff;
+  --color-text: #111;
+  --color-text-muted: #555;
+  --color-primary: #111;
+  --color-primary-strong: #333;
+  --color-on-primary: #fff;
+  --color-accent: #f0f0f0;
+  --color-on-accent: #111;
+  --color-soft: #f2f2f2;
+  --color-border: #111;
+  --color-focus: #111;
+  --color-chart-grid: #e8e8e8;
+  --color-chart-axis: #8a8a8a;
+  --border-width: 1px;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-pill: 0;
+  --shadow-pop: none;
+  --shadow-pop-sm: none;
+  --shadow-primary: none;
 }
 
 /*
