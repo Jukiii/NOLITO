@@ -61,16 +61,17 @@ const themed = (id) => ({
 const dark = themed("dark");
 const white = themed("white");
 const pretty = themed("pretty");
+const smart = themed("smart");
 
 describe("theme.js(保存・読み込み・反映)", () => {
   it("THEME_KEY・THEMES・DEFAULT_THEME", () => {
     assert.equal(THEME_KEY, "nolito:theme:v1");
-    assert.deepEqual(THEMES, ["light", "white", "dark", "pretty", "system"]);
+    assert.deepEqual(THEMES, ["light", "white", "dark", "pretty", "smart", "system"]);
     assert.equal(DEFAULT_THEME, "system");
   });
 
-  it("isTheme: 5つの値だけ true", () => {
-    for (const ok of ["light", "white", "dark", "pretty", "system"])
+  it("isTheme: 6つの値だけ true", () => {
+    for (const ok of ["light", "white", "dark", "pretty", "smart", "system"])
       assert.equal(isTheme(ok), true);
     for (const bad of ["Light", "", null, undefined, 1, "auto", "cute", "cool", "metal"])
       assert.equal(isTheme(bad), false);
@@ -123,7 +124,7 @@ describe("theme.js(保存・読み込み・反映)", () => {
 });
 
 describe("配色(コントラスト比。WCAG AA)", () => {
-  it("4つのテーマすべてで、色トークンをすべて拾えている(取りこぼしがない)", () => {
+  it("5つのテーマすべてで、色トークンをすべて拾えている(取りこぼしがない)", () => {
     const names = [
       "color-bg",
       "color-surface",
@@ -143,6 +144,7 @@ describe("配色(コントラスト比。WCAG AA)", () => {
       assert.ok(dark[name], `dark: ${name}`);
       assert.ok(white[name], `white: ${name}`);
       assert.ok(pretty[name], `pretty: ${name}`);
+      assert.ok(smart[name], `smart: ${name}`);
     }
   });
 
@@ -151,6 +153,7 @@ describe("配色(コントラスト比。WCAG AA)", () => {
     ["ホワイト", white],
     ["ダーク", dark],
     ["プリティ", pretty],
+    ["スマート", smart],
   ]) {
     it(`${name}: 本文の文字は、背景・面のどちらでも 4.5:1 以上`, () => {
       assert.ok(contrast(tokens["color-text"], tokens["color-bg"]) >= 4.5, name);
@@ -235,7 +238,7 @@ describe("ページの静的な性質", () => {
     assert.match(mainJs, /initTheme\(/);
   });
 
-  it("テーマの選択肢は、theme.js の THEMES と同じ5つ", () => {
+  it("テーマの選択肢は、theme.js の THEMES と同じ6つ", () => {
     for (const value of THEMES) {
       assert.match(footerJs, new RegExp(`value:\\s*"${value}"`));
     }
@@ -271,8 +274,8 @@ describe("ページの静的な性質", () => {
 });
 
 describe("テーマの形(Phase 31)", () => {
-  it("ホワイト・ダーク・プリティは、形のトークン(線の太さ・丸み・影)も上書きする", () => {
-    for (const id of ["white", "dark", "pretty"]) {
+  it("ホワイト・ダーク・プリティ・スマートは、形のトークン(線の太さ・丸み・影)も上書きする", () => {
+    for (const id of ["white", "dark", "pretty", "smart"]) {
       const block = tokensCss.slice(
         tokensCss.indexOf(`:root[data-theme="${id}"]`),
         tokensCss.indexOf("\n}", tokensCss.indexOf(`:root[data-theme="${id}"]`)),
@@ -286,7 +289,7 @@ describe("テーマの形(Phase 31)", () => {
   it("「システム」でOSがダークのときも、ホワイト・プリティを選んでいれば、ダークにならない", () => {
     assert.match(
       tokensCss,
-      /@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\], \[data-theme="white"\], \[data-theme="pretty"\]\)/,
+      /@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\s*\[data-theme="light"\],\s*\[data-theme="white"\],\s*\[data-theme="pretty"\],\s*\[data-theme="smart"\]\s*\)/,
     );
   });
 
@@ -294,7 +297,7 @@ describe("テーマの形(Phase 31)", () => {
     for (const file of htmlFiles()) {
       assert.match(
         readFileSync(file, "utf8"),
-        /\/\^\(light\|white\|dark\|pretty\)\$\/\.test\(t\)/,
+        /\/\^\(light\|white\|dark\|pretty\|smart\)\$\/\.test\(t\)/,
         file,
       );
     }

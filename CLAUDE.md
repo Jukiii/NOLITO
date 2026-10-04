@@ -411,7 +411,7 @@ Phase 21 は、複数の PR に分ける(計画は `docs/decisions/0046-phase-21
 
 ### ライト・ダーク・システムテーマ(Phase 21 PR 1)
 
-> **Phase 31 で 4 種に変わった**(決定 `docs/decisions/0058-theme-adoption.md`): 値は `light`(デフォルト)・`white`(ホワイト)・`dark`(ダーク = 濃い紺のクール)・`pretty`(プリティ)・`system`。色に加え、線の太さ・丸み・影(`--shadow-primary` を含む)も、`tokens.css` の `:root[data-theme="…"]` が持つ。`system` の OS ダークは、ホワイト・プリティの明示を除いて、ダークになる。**アクセント色の「共通」は、なくなった**(テーマごと)。FOUC のスクリプトは `/^(light|white|dark|pretty)$/.test(t)`。新しいテーマを足すときは、`theme.js`・`tokens.css`(`@media` の `:not()` の一覧も)・`footer.js`・FOUC(全ページ + `render.mjs`)・`tests/theme.test.js` をそろえる。以下の記述は、Phase 21 当時のもの。
+> **Phase 31 で 4 種に変わった**(決定 `docs/decisions/0058-theme-adoption.md`): 値は `light`(デフォルト)・`white`(ホワイト)・`dark`(ダーク = 濃い紺のクール)・`pretty`(プリティ)・`smart`(スマート。2026-10-04 に追加。決定 `docs/decisions/0091-smart-theme.md`)・`system`。色に加え、線の太さ・丸み・影(`--shadow-primary` を含む)も、`tokens.css` の `:root[data-theme="…"]` が持つ。`system` の OS ダークは、ホワイト・プリティ・スマートの明示を除いて、ダークになる。**アクセント色の「共通」は、なくなった**(テーマごと)。FOUC のスクリプトは `/^(light|white|dark|pretty|smart)$/.test(t)`。新しいテーマを足すときは、`theme.js`・`tokens.css`(`@media` の `:not()` の一覧も)・`footer.js`・FOUC(全ページ + `render.mjs`)・`tests/theme.test.js` をそろえる。以下の記述は、Phase 21 当時のもの。
 
 - 選べる項目は「ライト」「ダーク」「システム(既定)」の3つ。保存は `public/assets/js/components/theme.js`(DOM に依存しない純粋な関数)が、`localStorage` の**新しいキー** `nolito:theme:v1`(値は `"light"` / `"dark"` / `"system"`)に行う。ゲーム・ツールの記録・設定のキーとは別(サイト全体の見た目の設定のため)。
 - 反映は `<html data-theme="light|dark|system">`。CSS は `tokens.css` の3段階: `:root`(ライトが既定)→ `@media (prefers-color-scheme: dark)` かつ `:not([data-theme="light"])` でダークへ(**システム**選択時、OSの設定に追従)→ `:root[data-theme="dark"]` で、OSの設定に関係なく強制的にダークへ。**「ライト」を明示すると、OSがダークでも、ライトのまま**。**色はすべてトークン(`var(--color-...)`)経由**という既存ルールを守り、ダークの上書きも、同じトークン名の値を変えるだけ(新しいトークンを増やさない)。
