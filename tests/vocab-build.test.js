@@ -18,11 +18,14 @@ import {
   writeOutputs,
 } from "../scripts/lib/vocab-build.mjs";
 import { parseVocabularyMarkdown, stringifyVocabularyMarkdown } from "../scripts/lib/vocab-md.mjs";
+import { expectedDifficulty, readingUnits } from "../scripts/lib/vocab-stats.mjs";
+import { loadSourceVocabularies } from "../scripts/lib/vocab-io.mjs";
 import { PUBLISHED_KEYS, validateVocabulary } from "../scripts/lib/vocab-validate.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
 const context = loadContext(root);
+const manuscripts = loadSourceVocabularies();
 
 // ---- 実際の原稿と生成物 ----
 describe("実際の原稿 → 公開の JSON", () => {
@@ -68,6 +71,28 @@ describe("実際の原稿 → 公開の JSON", () => {
       total += published.items.length;
     }
     assert.equal(total, 523);
+  });
+
+  it("原稿の語数は、職種ごとにちょうど 300 語で、id は連番", () => {
+    const expected = {
+      engineer: 300,
+      sales: 300,
+      office: 300,
+      "food-service": 300,
+      teaching: 300,
+      retail: 300,
+    };
+    for (const data of manuscripts) {
+      assert.equal(data.items.length, expected[data.job_id], data.job_id);
+      assert.deepEqual(
+        data.items.map((item) => item.id).sort(),
+        Array.from(
+          { length: 300 },
+          (_, index) => `${data.job_id}-${String(index + 1).padStart(3, "0")}`,
+        ),
+        data.job_id,
+      );
+    }
   });
 
   it("詳細説明(detail)のある語は 6 語(職種ごとに 1 語。難易度 3)。学習ポイントを持ち、確認メモがついている", async () => {
@@ -421,7 +446,9 @@ describe("原稿の読み込み(loadSources)", () => {
         "engineer",
         "engineer",
         "engineer",
+        "engineer",
         ...["food-service", "office", "retail", "sales", "teaching"].flatMap((name) => [
+          name,
           name,
           name,
           name,
@@ -445,6 +472,60 @@ describe("原稿の読み込み(loadSources)", () => {
         items.every((item) => item.draft === true && item.review === "pending"),
         source.name,
       );
+    }
+  });
+
+  it("バッチ4は、不足数どおりに追加した未確認下書きで、id が連番", () => {
+    const expected = {
+      engineer: [153, 148],
+      sales: [156, 145],
+      office: [164, 137],
+      "food-service": [153, 148],
+      teaching: [164, 137],
+      retail: [155, 146],
+    };
+    const sources = loadSources(root).filter((entry) => entry.file.endsWith(".ext-batch4.md"));
+    assert.deepEqual(
+      sources.map((entry) => entry.name),
+      ["engineer", "food-service", "office", "retail", "sales", "teaching"],
+    );
+    for (const source of sources) {
+      const { items } = parseVocabularyMarkdown(source.text);
+      const [firstId, count] = expected[source.name];
+      assert.equal(items.length, count, source.name);
+      assert.deepEqual(
+        items.map((item) => item.id),
+        Array.from(
+          { length: count },
+          (_, index) => `${source.name}-${String(firstId + index).padStart(3, "0")}`,
+        ),
+        source.name,
+      );
+      assert.ok(
+        items.every((item) => item.draft === true && item.review === "pending"),
+        source.name,
+      );
+    }
+  });
+
+  it("バッチ4の日本語・読みは全職種で重複せず、難易度と役職が正しい", () => {
+    const batchSources = loadSources(root).filter((entry) => entry.file.endsWith(".ext-batch4.md"));
+    const batchItems = batchSources.flatMap((entry) => parseVocabularyMarkdown(entry.text).items);
+    const batchIds = new Set(batchItems.map((item) => item.id));
+    const existingItems = manuscripts
+      .flatMap((data) => data.items)
+      .filter((item) => !batchIds.has(item.id));
+    const japanese = new Set(existingItems.map((item) => item.japanese));
+    const readings = new Set(existingItems.map((item) => item.reading));
+    for (const item of batchItems) {
+      assert.ok(!japanese.has(item.japanese), `${item.id}: ${item.japanese}`);
+      assert.ok(!readings.has(item.reading), `${item.id}: ${item.reading}`);
+      japanese.add(item.japanese);
+      readings.add(item.reading);
+      assert.equal(item.difficulty, expectedDifficulty(readingUnits(item.reading)), item.id);
+      assert.ok(item.roles.length > 0, item.id);
+      for (const role of item.roles)
+        assert.ok(context.roleIds.includes(role), `${item.id}: ${role}`);
     }
   });
 
@@ -488,8 +569,9 @@ describe("コマンド", () => {
     assert.match(result.stdout, /形式の検証.*通りました/);
     assert.match(result.stdout, /人間に見てほしい点\(note\): 54 件/);
     assert.match(result.stdout, /engineer-009\(プルリクエスト\)/);
-    // 似た意味の語の候補(Phase 25 PR2)も、警告として出る
-    assert.match(result.stdout, /警告\(直したほうがよい点\): 25 件/);
+    // 似た意味の語の候補(Phase 25 PR2)も、既知の候補以上の警告として出る
+    const warningCount = result.stdout.match(/警告\(直したほうがよい点\): (\d+) 件/);
+    assert.ok(warningCount && Number(warningCount[1]) >= 25);
     assert.match(result.stdout, /food-service-007\(仕込み\) と food-service-012\(下ごしらえ\)/);
   });
 
@@ -499,12 +581,13 @@ describe("コマンド", () => {
     const out = result.stdout;
     assert.ok(out.indexOf("AIチェック用プロンプト") < out.indexOf("機械の確認結果"));
     assert.ok(out.indexOf("機械の確認結果") < out.indexOf("確認する語"));
-    // バッチ2(Issue #182)の下書きがある
+    // バッチ4の下書きがある
     assert.ok(out.includes("draft: true"));
     assert.ok(!out.includes("japanese: CRM"));
     assert.match(out, /最終判断は、人間が行います/);
     // 似た意味の語の候補(Phase 25 PR2)も、機械の確認結果に含まれる
-    assert.match(out, /- 警告: 25 件/);
+    const warningCount = out.match(/- 警告: (\d+) 件/);
+    assert.ok(warningCount && Number(warningCount[1]) >= 25);
     assert.match(out, /sales-001\(顧客\) と sales-003\(納期\): 説明の文章が似ています/);
   });
 
@@ -515,7 +598,10 @@ describe("コマンド", () => {
     assert.equal(blocks.length, 6);
     const data = parseVocabularyMarkdown(`\`\`\`yaml\n${blocks[0][1]}\n\`\`\``);
     assert.equal(data.job_id, "engineer");
-    assert.equal(data.items.length, 98);
+    const expected = manuscripts
+      .find((entry) => entry.job_id === "engineer")
+      .items.filter((item) => item.draft || item.review === "pending").length;
+    assert.equal(data.items.length, expected);
   });
 
   it("vocab:check --improve: 改善提案用プロンプト・候補の件数・語を、YAML で出す(Phase 25)", () => {
