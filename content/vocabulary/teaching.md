@@ -11,7 +11,7 @@
 ```yaml
 job_id: teaching
 job_name: 講師・教育
-version: 0.6.0
+version: 0.7.0
 updated_at: 2026-10-01
 items:
   - id: teaching-001

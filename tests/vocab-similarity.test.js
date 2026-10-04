@@ -80,24 +80,51 @@ describe("similarPairs(似た説明の組)", () => {
     assert.equal(pair.score, 1);
   });
 
-  it("実際の語録: しきい値0.6で、13 組(職種をまたいだ組も検出できる。説明の言い回しが近いだけの組も含む目安)", () => {
+  it("実際の語録: しきい値0.6で、40 組(職種をまたいだ組も検出できる。説明の言い回しが近いだけの組も含む目安)", () => {
     const items = loadVocabularies().flatMap((data) => data.items);
     const pairs = similarPairs(items);
     assert.deepEqual(
       pairs.map(({ aId, bId }) => `${aId}/${bId}`),
       [
+        "retail-185/retail-198",
         "retail-072/retail-073",
+        "sales-093/sales-094",
         "teaching-060/teaching-079",
+        "food-service-237/food-service-238",
+        "office-183/office-184",
+        "sales-185/sales-252",
+        "sales-283/sales-284",
         "engineer-047/office-059",
         "food-service-054/food-service-055",
+        "retail-197/retail-198",
+        "sales-020/retail-204",
+        "sales-085/retail-025",
         "teaching-082/teaching-083",
         "retail-068/retail-070",
+        "office-016/office-105",
+        "teaching-087/teaching-135",
+        "engineer-102/engineer-103",
         "sales-001/sales-047",
+        "sales-091/sales-092",
+        "sales-225/sales-239",
+        "retail-002/retail-139",
+        "retail-037/retail-146",
+        "retail-185/retail-197",
+        "food-service-289/retail-255",
         "engineer-004/engineer-047",
+        "sales-003/sales-166",
+        "office-052/office-108",
+        "food-service-274/retail-250",
         "food-service-063/food-service-064",
+        "engineer-049/engineer-215",
         "food-service-007/food-service-012",
+        "food-service-283/retail-216",
+        "food-service-014/food-service-142",
         "food-service-061/food-service-062",
         "food-service-062/food-service-063",
+        "office-102/office-103",
+        "retail-186/retail-187",
+        "sales-143/sales-144",
         "sales-001/sales-003",
       ],
     );

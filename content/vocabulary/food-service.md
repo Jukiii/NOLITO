@@ -11,7 +11,7 @@
 ```yaml
 job_id: food-service
 job_name: 飲食
-version: 0.6.0
+version: 0.7.0
 updated_at: 2026-10-01
 items:
   - id: food-service-001

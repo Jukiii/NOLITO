@@ -1,4 +1,4 @@
-# 営業の語録(拡張: 第 2 弾の下書き)
+# 営業の語録(拡張: 第 2 弾の語録)
 
 語録を増やす Issue #182 の第 2 弾です。AI の下書きで、すべて `draft: true`(公開されません)・`review: pending` です。運営者が確認した語だけ、`draft` の行を消して公開します。
 
@@ -16,8 +16,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-086
     japanese: "リード"
     reading: "りーど"
@@ -29,8 +28,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-087
     japanese: "インサイドセールス"
     reading: "いんさいどせーるす"
@@ -42,8 +40,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-088
     japanese: "フィールドセールス"
     reading: "ふぃーるどせーるす"
@@ -55,8 +52,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-089
     japanese: "パイプライン"
     reading: "ぱいぷらいん"
@@ -68,8 +64,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-090
     japanese: "ヨミ"
     reading: "よみ"
@@ -81,9 +76,8 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
+    review: confirmed
     note: "営業の現場用語。会社によって、A・B・Cなどの区分の使い方が違う"
-    draft: true
   - id: sales-091
     japanese: "アップセル"
     reading: "あっぷせる"
@@ -95,8 +89,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-092
     japanese: "クロスセル"
     reading: "くろすせる"
@@ -108,8 +101,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-093
     japanese: "解約率"
     reading: "かいやくりつ"
@@ -121,8 +113,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-094
     japanese: "継続率"
     reading: "けいぞくりつ"
@@ -134,8 +125,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-095
     japanese: "顧客単価"
     reading: "こきゃくたんか"
@@ -147,8 +137,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-096
     japanese: "客単価"
     reading: "きゃくたんか"
@@ -160,8 +149,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-097
     japanese: "商圏"
     reading: "しょうけん"
@@ -173,8 +161,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-098
     japanese: "利益率"
     reading: "りえきりつ"
@@ -186,8 +173,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-099
     japanese: "損益分岐点"
     reading: "そんえきぶんきてん"
@@ -199,8 +185,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-100
     japanese: "見込み"
     reading: "みこみ"
@@ -212,8 +197,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-101
     japanese: "確度"
     reading: "かくど"
@@ -225,8 +209,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-102
     japanese: "提案活動"
     reading: "ていあんかつどう"
@@ -238,8 +221,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-103
     japanese: "プレゼン"
     reading: "ぷれぜん"
@@ -251,8 +233,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-104
     japanese: "デモ"
     reading: "でも"
@@ -264,8 +245,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-105
     japanese: "トライアル"
     reading: "とらいある"
@@ -277,8 +257,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-106
     japanese: "導入事例"
     reading: "どうにゅうじれい"
@@ -290,8 +269,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-107
     japanese: "相見積もり"
     reading: "あいみつもり"
@@ -303,8 +281,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-108
     japanese: "稟議書"
     reading: "りんぎしょ"
@@ -316,8 +293,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-109
     japanese: "発注書"
     reading: "はっちゅうしょ"
@@ -329,8 +305,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-110
     japanese: "注文書"
     reading: "ちゅうもんしょ"
@@ -342,8 +317,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-111
     japanese: "検収"
     reading: "けんしゅう"
@@ -355,8 +329,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-112
     japanese: "支払い条件"
     reading: "しはらいじょうけん"
@@ -368,8 +341,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-113
     japanese: "締め日"
     reading: "しめび"
@@ -381,8 +353,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-114
     japanese: "支払い期日"
     reading: "しはらいきじつ"
@@ -394,8 +365,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-115
     japanese: "未入金"
     reading: "みにゅうきん"
@@ -407,8 +377,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-116
     japanese: "督促"
     reading: "とくそく"
@@ -420,8 +389,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-117
     japanese: "入金消込"
     reading: "にゅうきんけしこみ"
@@ -433,8 +401,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-118
     japanese: "営業会議"
     reading: "えいぎょうかいぎ"
@@ -446,8 +413,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-119
     japanese: "週報"
     reading: "しゅうほう"
@@ -459,8 +425,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-120
     japanese: "月次報告"
     reading: "げつじほうこく"
@@ -472,8 +437,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-121
     japanese: "ロープレ"
     reading: "ろーぷれ"
@@ -485,9 +449,8 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
+    review: confirmed
     note: "「ロールプレイング」の略。現場の呼び方なので、確認してほしい"
-    draft: true
   - id: sales-122
     japanese: "同行営業"
     reading: "どうこうえいぎょう"
@@ -499,8 +462,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-123
     japanese: "アフターフォロー"
     reading: "あふたーふぉろー"
@@ -512,8 +474,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-124
     japanese: "顧客満足度"
     reading: "こきゃくまんぞくど"
@@ -525,8 +486,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-125
     japanese: "解約"
     reading: "かいやく"
@@ -538,8 +498,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-126
     japanese: "値上げ交渉"
     reading: "ねあげこうしょう"
@@ -551,8 +510,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-127
     japanese: "納期遅れ"
     reading: "のうきおくれ"
@@ -564,8 +522,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-128
     japanese: "代替案"
     reading: "だいたいあん"
@@ -577,8 +534,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-129
     japanese: "ご挨拶"
     reading: "ごあいさつ"
@@ -590,8 +546,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-130
     japanese: "アポ取り"
     reading: "あぽとり"
@@ -603,8 +558,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-131
     japanese: "ご紹介"
     reading: "ごしょうかい"
@@ -616,8 +570,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-132
     japanese: "担当者"
     reading: "たんとうしゃ"
@@ -629,8 +582,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-133
     japanese: "見積有効期限"
     reading: "みつもりゆうこうきげん"
@@ -642,8 +594,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-134
     japanese: "相場"
     reading: "そうば"
@@ -655,8 +606,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: sales-135
     japanese: "ブランド力"
     reading: "ぶらんどりょく"
@@ -668,6 +618,5 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
 ```

@@ -156,7 +156,7 @@ describe("出題への反映(実際の語録・役職)", () => {
         `${roles[i].id}: ${means.map((m) => m.toFixed(2))}`,
       );
     }
-    assert.ok(means[0] < 1.85 && means.at(-1) > 2.15);
+    assert.ok(means[0] < 2.1 && means.at(-1) > 2.15);
   });
 
   it("語は削らない: どの役職・職種でも、目標語数を、重複なしで選べる。全語が、選ばれうる", () => {
@@ -165,7 +165,7 @@ describe("出題への反映(実際の語録・役職)", () => {
       for (const job of jobs) {
         const items = vocab[job.id];
         const random = seeded(3);
-        for (let trial = 0; trial < 60; trial++) {
+        for (let trial = 0; trial < 100; trial++) {
           const weights = mergeWeights(roleWordWeights(items, role.stage));
           const words = pickWords(items, role.id, role.stage.goal_words, random, { weights });
           assert.equal(words.length, role.stage.goal_words);

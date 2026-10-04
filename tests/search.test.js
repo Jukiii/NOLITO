@@ -182,10 +182,10 @@ describe("実際のデータ", () => {
   );
   const index = buildIndex({ products, articles, vocabularies });
 
-  it("実際のプロダクト・記事・523語すべてが、索引に入る", () => {
+  it("実際のプロダクト・記事・1800語すべてが、索引に入る", () => {
     assert.equal(index.filter((e) => e.type === "product").length, products.length);
     assert.equal(index.filter((e) => e.type === "article").length, articles.length);
-    assert.equal(index.filter((e) => e.type === "vocabulary").length, 523);
+    assert.equal(index.filter((e) => e.type === "vocabulary").length, 1800);
   });
 
   it("id は、すべて重複しない", () => {

@@ -1,7 +1,7 @@
 {
   "job_id": "food-service",
   "job_name": "飲食",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "updated_at": "2026-10-01",
   "items": [
     {
@@ -1233,6 +1233,3216 @@
       "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "食事の最後に出される、甘いものなどのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-087",
+      "japanese": "ハンディ",
+      "reading": "はんでぃ",
+      "romaji": ["handhi"],
+      "category": "接客",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文を入力して、厨房へ送る手持ちの端末のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-088",
+      "japanese": "追加注文",
+      "reading": "ついかちゅうもん",
+      "romaji": ["tsuikachuumonn", "tuikatyuumonn"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食事の途中で、さらに頼まれる注文のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-089",
+      "japanese": "復唱",
+      "reading": "ふくしょう",
+      "romaji": ["fukushou", "hukusyou"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "聞いた注文を、確認のために、繰り返して言うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-090",
+      "japanese": "オーダーミス",
+      "reading": "おーだーみす",
+      "romaji": ["o-da-misu"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文を、聞き間違えたり入力を間違えたりすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-091",
+      "japanese": "アレルゲン",
+      "reading": "あれるげん",
+      "romaji": ["arerugenn"],
+      "category": "衛生",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "アレルギーの原因となる食べ物などの物質のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-092",
+      "japanese": "提供時間",
+      "reading": "ていきょうじかん",
+      "romaji": ["teikyoujikann", "teikyouzikann"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文を受けてから、料理を出すまでにかかる時間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-093",
+      "japanese": "サーブ",
+      "reading": "さーぶ",
+      "romaji": ["sa-bu"],
+      "category": "接客",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理や飲み物を、客に出すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-094",
+      "japanese": "お会計",
+      "reading": "おかいけい",
+      "romaji": ["okaikei"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食事の代金を、支払ってもらうこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-095",
+      "japanese": "割り勘",
+      "reading": "わりかん",
+      "romaji": ["warikann"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "代金を、人数で等しく分けて払うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-096",
+      "japanese": "別会計",
+      "reading": "べつかいけい",
+      "romaji": ["betsukaikei", "betukaikei"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ席でも、人ごとに代金を分けて支払うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-097",
+      "japanese": "個室",
+      "reading": "こしつ",
+      "romaji": ["koshitsu", "kositu"],
+      "category": "店舗運営",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ほかの客と仕切られた、専用の部屋のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-098",
+      "japanese": "貸し切り",
+      "reading": "かしきり",
+      "romaji": ["kashikiri", "kasikiri"],
+      "category": "店舗運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店や部屋を、その客だけが使えるようにすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-099",
+      "japanese": "宴会",
+      "reading": "えんかい",
+      "romaji": ["enkai"],
+      "category": "店舗運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "大人数で行う、食事や飲酒の集まりのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-100",
+      "japanese": "ランチタイム",
+      "reading": "らんちたいむ",
+      "romaji": ["ranchitaimu", "rantitaimu"],
+      "category": "店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "昼食の時間帯のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-101",
+      "japanese": "ピークタイム",
+      "reading": "ぴーくたいむ",
+      "romaji": ["pi-kutaimu"],
+      "category": "店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が、いちばん多くなる時間帯のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-102",
+      "japanese": "アイドルタイム",
+      "reading": "あいどるたいむ",
+      "romaji": ["aidorutaimu"],
+      "category": "店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が少なく、手が空きやすい時間帯のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-103",
+      "japanese": "売上日報",
+      "reading": "うりあげにっぽう",
+      "romaji": ["uriagenippou"],
+      "category": "店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "1日の売上や状況を、記録した報告のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-104",
+      "japanese": "人件費",
+      "reading": "じんけんひ",
+      "romaji": ["jinkenhi", "zinkenhi"],
+      "category": "店舗運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員の給料など、人に関わる費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-105",
+      "japanese": "歩留まり",
+      "reading": "ぶどまり",
+      "romaji": ["budomari"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "材料から、実際に使える部分が取れる割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-106",
+      "japanese": "廃棄ロス",
+      "reading": "はいきろす",
+      "romaji": ["haikirosu"],
+      "category": "店舗運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売れ残りや使えなくなって、捨てることによる損失のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-107",
+      "japanese": "発注量",
+      "reading": "はっちゅうりょう",
+      "romaji": ["hacchuuryou", "hattyuuryou"],
+      "category": "店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕入れるために、注文する量のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-108",
+      "japanese": "賞味期限切れ",
+      "reading": "しょうみきげんぎれ",
+      "romaji": ["shoumikigengire", "syoumikigengire"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "おいしく食べられる期限を、過ぎてしまったこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-109",
+      "japanese": "先入れ",
+      "reading": "さきいれ",
+      "romaji": ["sakiire"],
+      "category": "店舗運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "先に仕入れたものから、順に使うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-110",
+      "japanese": "常温保存",
+      "reading": "じょうおんほぞん",
+      "romaji": ["jouonhozonn", "zyouonhozonn"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "冷やしたり温めたりせず、室温のままで保管すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-111",
+      "japanese": "冷蔵保存",
+      "reading": "れいぞうほぞん",
+      "romaji": ["reizouhozonn"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "冷蔵庫の中で、冷やして保管すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-112",
+      "japanese": "冷凍保存",
+      "reading": "れいとうほぞん",
+      "romaji": ["reitouhozonn"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "凍らせて、長く保管すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-113",
+      "japanese": "殺菌",
+      "reading": "さっきん",
+      "romaji": ["sakkinn"],
+      "category": "衛生",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "熱や薬品などで、菌を死なせること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-114",
+      "japanese": "除菌",
+      "reading": "じょきん",
+      "romaji": ["jokinn", "zyokinn"],
+      "category": "衛生",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "物や手などについた、菌を取りのぞくこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-115",
+      "japanese": "アルコール消毒",
+      "reading": "あるこーるしょうどく",
+      "romaji": ["aruko-rushoudoku", "aruko-rusyoudoku"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "アルコールを使って、手や物の菌を減らすこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-116",
+      "japanese": "検温",
+      "reading": "けんおん",
+      "romaji": ["kennonn"],
+      "category": "衛生",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "体温や食品の温度を、測って確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-117",
+      "japanese": "体調管理",
+      "reading": "たいちょうかんり",
+      "romaji": ["taichoukanri", "taityoukanri"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "自分の健康状態に気を配って、整えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-118",
+      "japanese": "使い捨て手袋",
+      "reading": "つかいすててぶくろ",
+      "romaji": ["tsukaisutetebukuro", "tukaisutetebukuro"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一度使ったら捨てる、調理用などの手袋のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-119",
+      "japanese": "エプロン",
+      "reading": "えぷろん",
+      "romaji": ["epuronn"],
+      "category": "衛生",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "衣服の汚れを防ぐために、身につける前掛けのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-120",
+      "japanese": "三角巾",
+      "reading": "さんかくきん",
+      "romaji": ["sankakukinn"],
+      "category": "衛生",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "髪の毛が落ちないように、頭に巻く布のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-121",
+      "japanese": "下処理",
+      "reading": "したしょり",
+      "romaji": ["shitashori", "sitasyori"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "調理の前に、洗う・切るなどの準備をすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-122",
+      "japanese": "あく抜き",
+      "reading": "あくぬき",
+      "romaji": ["akunuki"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "野菜などの、苦みやえぐみを取りのぞくこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-123",
+      "japanese": "湯通し",
+      "reading": "ゆどおし",
+      "romaji": ["yudooshi", "yudoosi"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "材料を、さっと熱湯にくぐらせること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-124",
+      "japanese": "塩抜き",
+      "reading": "しおぬき",
+      "romaji": ["shionuki", "sionuki"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "塩漬けの食材を、水につけて塩気を取ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-125",
+      "japanese": "だしを取る",
+      "reading": "だしをとる",
+      "romaji": ["dashiwotoru", "dasiwotoru"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "かつお節や昆布などから、うま味を煮出すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-126",
+      "japanese": "灰汁",
+      "reading": "あく",
+      "romaji": ["aku"],
+      "category": "調理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材を煮るときに出る、苦みや渋みのもとの泡のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-127",
+      "japanese": "焦げ付き",
+      "reading": "こげつき",
+      "romaji": ["kogetsuki", "kogetuki"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "鍋などの底に、食材が焼けてくっついてしまうこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-128",
+      "japanese": "ゆで時間",
+      "reading": "ゆでじかん",
+      "romaji": ["yudejikann", "yudezikann"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材を、お湯でゆでる時間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-129",
+      "japanese": "タイマー",
+      "reading": "たいまー",
+      "romaji": ["taima-"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決めた時間が来ると、音で知らせる道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-130",
+      "japanese": "温度計",
+      "reading": "おんどけい",
+      "romaji": ["ondokei"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品や油などの、温度を測る道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-131",
+      "japanese": "秤",
+      "reading": "はかり",
+      "romaji": ["hakari"],
+      "category": "調理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "材料などの、重さを量る道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-132",
+      "japanese": "盛り付け例",
+      "reading": "もりつけれい",
+      "romaji": ["moritsukerei", "moritukerei"],
+      "category": "調理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理の盛り方を、示した見本のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-133",
+      "japanese": "アレルギー表示",
+      "reading": "あれるぎーひょうじ",
+      "romaji": ["arerugi-hyouji", "arerugi-hyouzi"],
+      "category": "衛生管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品に含まれるアレルギーの原因となる物質を示す表示のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-134",
+      "japanese": "食物アレルギー",
+      "reading": "しょくもつあれるぎー",
+      "romaji": ["shokumotsuarerugi-", "syokumotuarerugi-"],
+      "category": "衛生管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特定の食べ物に反応して、体に症状が現れること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-135",
+      "japanese": "仕込み量",
+      "reading": "しこみりょう",
+      "romaji": ["shikomiryou", "sikomiryou"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業前などに、あらかじめ準備しておく食材や料理の量のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-136",
+      "japanese": "味付け",
+      "reading": "あじつけ",
+      "romaji": ["ajitsuke", "azituke"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材や料理に、調味料などで味を付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-137",
+      "japanese": "加熱温度",
+      "reading": "かねつおんど",
+      "romaji": ["kanetsuondo", "kanetuondo"],
+      "category": "調理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材を加熱するときに、目安として管理する温度のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-138",
+      "japanese": "食材温度",
+      "reading": "しょくざいおんど",
+      "romaji": ["shokuzaiondo", "syokuzaiondo"],
+      "category": "衛生管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "調理や保管の際に確認する、食材の温度のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-139",
+      "japanese": "器盛り",
+      "reading": "うつわもり",
+      "romaji": ["utsuwamori", "utuwamori"],
+      "category": "調理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理を器に盛り、形を整えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-140",
+      "japanese": "食器返却",
+      "reading": "しょっきへんきゃく",
+      "romaji": ["shokkihenkyaku", "syokkihenkyaku"],
+      "category": "片付け",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "使用後の食器を、所定の場所へ戻すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-141",
+      "japanese": "器具除菌",
+      "reading": "きぐじょきん",
+      "romaji": ["kigujokinn", "kiguzyokinn"],
+      "category": "片付け",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "調理器具に付いた菌を減らすため、定めた方法で処理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-142",
+      "japanese": "洗浄機",
+      "reading": "せんじょうき",
+      "romaji": ["senjouki", "senzyouki"],
+      "category": "片付け",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食器や調理器具などを洗うための機械のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-143",
+      "japanese": "手洗い手順",
+      "reading": "てあらいてじゅん",
+      "romaji": ["tearaitejunn", "tearaitezyunn"],
+      "category": "衛生管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手を清潔にするための、洗い方や順番を定めたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-144",
+      "japanese": "衛生手袋",
+      "reading": "えいせいてぶくろ",
+      "romaji": ["eiseitebukuro"],
+      "category": "衛生管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品を扱うときなどに、手の汚れが移るのを防ぐ手袋のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-145",
+      "japanese": "温度記録",
+      "reading": "おんどきろく",
+      "romaji": ["ondokiroku"],
+      "category": "衛生管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "冷蔵庫や食品などの温度を測って記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-146",
+      "japanese": "冷蔵庫温度",
+      "reading": "れいぞうこおんど",
+      "romaji": ["reizoukoondo"],
+      "category": "衛生管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品の保管状態を確かめるために測る、冷蔵庫内の温度のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-147",
+      "japanese": "冷凍保管",
+      "reading": "れいとうほかん",
+      "romaji": ["reitouhokann"],
+      "category": "食材管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品を凍らせた状態で保管すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-148",
+      "japanese": "納品時検品",
+      "reading": "のうひんじけんぴん",
+      "romaji": ["nouhinjikenpinn", "nouhinzikenpinn"],
+      "category": "食材管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材が届いたときに、品目や数量、状態を確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-149",
+      "japanese": "伝票照合",
+      "reading": "でんぴょうしょうごう",
+      "romaji": ["denpyoushougou", "denpyousyougou"],
+      "category": "食材管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "伝票の内容と、実際に受け取った品物などを照らし合わせること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-150",
+      "japanese": "予約台帳",
+      "reading": "よやくだいちょう",
+      "romaji": ["yoyakudaichou", "yoyakudaityou"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "予約の日時や人数などを記録して管理する帳簿のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-151",
+      "japanese": "注文確認",
+      "reading": "ちゅうもんかくにん",
+      "romaji": ["chuumonkakuninn", "tyuumonkakuninn"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文された料理や数量が合っているかを確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-152",
+      "japanese": "配膳順",
+      "reading": "はいぜんじゅん",
+      "romaji": ["haizenjunn", "haizenzyunn"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理を客席へ運ぶ順番のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-153",
+      "japanese": "来店受付",
+      "reading": "らいてんうけつけ",
+      "romaji": ["raitennuketsuke", "raitennuketuke"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "来店した客の人数や希望を確認し、案内を始めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-154",
+      "japanese": "順番待ち名簿",
+      "reading": "じゅんばんまちめいぼ",
+      "romaji": ["junbanmachimeibo", "zyunbanmatimeibo"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "待っている客の名前や人数、受付順を記録する一覧。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-155",
+      "japanese": "呼び出し番号",
+      "reading": "よびだしばんごう",
+      "romaji": ["yobidashibangou", "yobidasibangou"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "順番が来た客を案内するために知らせる番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-156",
+      "japanese": "席回転率",
+      "reading": "せきかいてんりつ",
+      "romaji": ["sekikaitenritsu", "sekikaitenritu"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "席が一定期間に何回利用されたかを示す目安のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-157",
+      "japanese": "客席稼働率",
+      "reading": "きゃくせきかどうりつ",
+      "romaji": ["kyakusekikadouritsu", "kyakusekikadouritu"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "用意した客席のうち、利用中の席が占める割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-158",
+      "japanese": "予約確認電話",
+      "reading": "よやくかくにんでんわ",
+      "romaji": ["yoyakukakunindenwa"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "来店予定や人数を、予約者へ事前に確認する連絡。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-159",
+      "japanese": "予約変更受付",
+      "reading": "よやくへんこううけつけ",
+      "romaji": ["yoyakuhenkouuketsuke", "yoyakuhenkouuketuke"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "日時や人数など、予約内容の変更を受け付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-160",
+      "japanese": "無断キャンセル",
+      "reading": "むだんきゃんせる",
+      "romaji": ["mudankyanseru"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "予約した客が、連絡せずに来店しないこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-161",
+      "japanese": "予約重複",
+      "reading": "よやくちょうふく",
+      "romaji": ["yoyakuchoufuku", "yoyakutyouhuku"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ席や時間帯に、複数の予約を入れてしまった状態。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-162",
+      "japanese": "席割り",
+      "reading": "せきわり",
+      "romaji": ["sekiwari"],
+      "category": "店舗サービス",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "来店人数や予約状況に合わせて、客席を割り当てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-163",
+      "japanese": "座席表",
+      "reading": "ざせきひょう",
+      "romaji": ["zasekihyou"],
+      "category": "店舗サービス",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客席の配置や番号を記した図のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-164",
+      "japanese": "団体予約",
+      "reading": "だんたいよやく",
+      "romaji": ["dantaiyoyaku"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数人での来店や食事を、事前にまとめて予約すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-165",
+      "japanese": "宴会進行表",
+      "reading": "えんかいしんこうひょう",
+      "romaji": ["enkaishinkouhyou", "enkaisinkouhyou"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "宴会の開始時刻や料理、挨拶などの順を示した表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-166",
+      "japanese": "宴会幹事",
+      "reading": "えんかいかんじ",
+      "romaji": ["enkaikanji", "enkaikanzi"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "宴会の予約や人数、内容の調整を担当する人。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-167",
+      "japanese": "貸切条件",
+      "reading": "かしきりじょうけん",
+      "romaji": ["kashikirijoukenn", "kasikirizyoukenn"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗や部屋を貸し切る際に必要な料金や人数などの条件。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-168",
+      "japanese": "席時間",
+      "reading": "せきじかん",
+      "romaji": ["sekijikann", "sekizikann"],
+      "category": "店舗サービス",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が席を利用できる時間や、予約上の利用時間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-169",
+      "japanese": "テーブル担当",
+      "reading": "てーぶるたんとう",
+      "romaji": ["te-burutantou"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特定の客席を受け持ち、注文や提供を行う担当者。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-170",
+      "japanese": "テーブル番号",
+      "reading": "てーぶるばんごう",
+      "romaji": ["te-burubangou"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文や料理を正しい客席へ届けるための識別番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-171",
+      "japanese": "配膳台",
+      "reading": "はいぜんだい",
+      "romaji": ["haizendai"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理や食器を一時的に置き、提供準備をする台。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-172",
+      "japanese": "配膳台車",
+      "reading": "はいぜんだいしゃ",
+      "romaji": ["haizendaisha", "haizendaisya"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理や食器を客席へ運ぶ際に使う車輪付きの台のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-173",
+      "japanese": "料理提供順",
+      "reading": "りょうりていきょうじゅん",
+      "romaji": ["ryouriteikyoujunn", "ryouriteikyouzyunn"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コースや注文の料理を客へ出す順番のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-174",
+      "japanese": "料理提供遅延",
+      "reading": "りょうりていきょうちえん",
+      "romaji": ["ryouriteikyouchienn", "ryouriteikyoutienn"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文された料理が、予定より遅れて客へ出されること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-175",
+      "japanese": "提供確認",
+      "reading": "ていきょうかくにん",
+      "romaji": ["teikyoukakuninn"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理や飲料を、注文した客へ正しく届けたか確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-176",
+      "japanese": "注文訂正",
+      "reading": "ちゅうもんていせい",
+      "romaji": ["chuumonteisei", "tyuumonteisei"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "受け付けた注文の数量や内容を修正すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-177",
+      "japanese": "注文取消",
+      "reading": "ちゅうもんとりけし",
+      "romaji": ["chuumontorikeshi", "tyuumontorikesi"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "調理開始前などに、受け付けた注文を取り消すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-178",
+      "japanese": "追加料金",
+      "reading": "ついかりょうきん",
+      "romaji": ["tsuikaryoukinn", "tuikaryoukinn"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "基本料金に加えて、条件に応じて請求する金額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-179",
+      "japanese": "サービス料",
+      "reading": "さーびすりょう",
+      "romaji": ["sa-bisuryou"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "接客や店内サービスの対価として、料金に加える費用。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-180",
+      "japanese": "席料",
+      "reading": "せきりょう",
+      "romaji": ["sekiryou"],
+      "category": "店舗サービス",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "席の利用に対して、飲食代と別に設定される料金。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-181",
+      "japanese": "会計分割",
+      "reading": "かいけいぶんかつ",
+      "romaji": ["kaikeibunkatsu", "kaikeibunkatu"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一つの会計を、複数人や支払方法ごとに分けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-182",
+      "japanese": "領収証発行",
+      "reading": "りょうしゅうしょうはっこう",
+      "romaji": ["ryoushuushouhakkou", "ryousyuusyouhakkou"],
+      "category": "店舗サービス",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "支払いを受け取ったことを示す書類を発行すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-183",
+      "japanese": "ブレゼ",
+      "reading": "ぶれぜ",
+      "romaji": ["bureze"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材を焼いてから、少量の液体でふたをして蒸し煮にする調理法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-184",
+      "japanese": "ポシェ",
+      "reading": "ぽしぇ",
+      "romaji": ["poshe", "posye"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "沸騰させない程度の液体で、食材を静かに加熱する調理法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-185",
+      "japanese": "ソテー",
+      "reading": "そてー",
+      "romaji": ["sote-"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "少量の油を使い、比較的強い火で食材を炒め焼きにすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-186",
+      "japanese": "ロースト",
+      "reading": "ろーすと",
+      "romaji": ["ro-suto"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材をオーブンなどの熱で、表面を焼きながら加熱する方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-187",
+      "japanese": "グリル",
+      "reading": "ぐりる",
+      "romaji": ["guriru"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "網や熱した面を使い、食材に直接熱を当てて焼く調理法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-188",
+      "japanese": "フランベ",
+      "reading": "ふらんべ",
+      "romaji": ["furanbe", "huranbe"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "加熱中の料理に酒を加え、アルコールに火をつけて燃やす手法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-189",
+      "japanese": "マリネ",
+      "reading": "まりね",
+      "romaji": ["marine"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "調味液に食材を浸し、味を付けたり風味を移したりすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-190",
+      "japanese": "乳化状態",
+      "reading": "にゅうかじょうたい",
+      "romaji": ["nyuukajoutai", "nyuukazyoutai"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "水分と油分などが細かく分散し、均一に混ざっている状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-191",
+      "japanese": "泡立て",
+      "reading": "あわだて",
+      "romaji": ["awadate"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "液体や生地に空気を含ませ、泡状にする調理操作。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-192",
+      "japanese": "裏ごし",
+      "reading": "うらごし",
+      "romaji": ["uragoshi", "uragosi"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "網などを通し、食材をなめらかな状態にすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-193",
+      "japanese": "湯むき",
+      "reading": "ゆむき",
+      "romaji": ["yumuki"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "熱湯に短時間入れて皮をゆるめ、食材の皮をむく方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-194",
+      "japanese": "飾り切り",
+      "reading": "かざりぎり",
+      "romaji": ["kazarigiri"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材を模様や形に切り、料理の見た目を整えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-195",
+      "japanese": "面取り",
+      "reading": "めんとり",
+      "romaji": ["mentori"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "野菜などの角を薄く削り、煮崩れしにくくする下処理。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-196",
+      "japanese": "隠し包丁",
+      "reading": "かくしぼうちょう",
+      "romaji": ["kakushibouchou", "kakusiboutyou"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材に浅い切り込みを入れ、火の通りや味の染みを助けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-197",
+      "japanese": "筋切り",
+      "reading": "すじきり",
+      "romaji": ["sujikiri", "suzikiri"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "肉などの筋に切れ目を入れ、加熱時の縮みを抑える下処理。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-198",
+      "japanese": "肉たたき",
+      "reading": "にくたたき",
+      "romaji": ["nikutataki"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "肉をたたいて繊維をほぐし、厚みを整える道具や作業。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-199",
+      "japanese": "合わせ調味料",
+      "reading": "あわせちょうみりょう",
+      "romaji": ["awasechoumiryou", "awasetyoumiryou"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の調味料をあらかじめ混ぜ合わせたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-200",
+      "japanese": "香味油",
+      "reading": "こうみゆ",
+      "romaji": ["koumiyu"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "香味野菜や香辛料の香りを移した油のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-201",
+      "japanese": "ブイヨン",
+      "reading": "ぶいよん",
+      "romaji": ["buiyonn"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "肉や野菜などを煮出して作る、料理の基本となるだし。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-202",
+      "japanese": "フォン",
+      "reading": "ふぉん",
+      "romaji": ["fonn"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "肉や骨、野菜などを煮出して作る、ソース用のだし。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-203",
+      "japanese": "ルー",
+      "reading": "るー",
+      "romaji": ["ru-"],
+      "category": "調理・仕込み",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "小麦粉を油脂で炒め、ソースやスープにとろみを付けるもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-204",
+      "japanese": "リエゾン",
+      "reading": "りえぞん",
+      "romaji": ["riezonn"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "卵黄やクリームなどを加え、ソースやスープに濃度を付ける方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-205",
+      "japanese": "ゼラチン化",
+      "reading": "ぜらちんか",
+      "romaji": ["zerachinka", "zeratinka"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "加熱したでんぷんが水分を吸い、とろみや粘りを生じる変化。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-206",
+      "japanese": "メイラード反応",
+      "reading": "めいらーどはんのう",
+      "romaji": ["meira-dohannou"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "加熱で糖とアミノ酸が反応し、焼き色や香りが生まれる現象。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-207",
+      "japanese": "カラメル化",
+      "reading": "からめるか",
+      "romaji": ["karameruka"],
+      "category": "調理・仕込み",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "糖を加熱し、色や香り、苦みを持つ状態へ変えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-208",
+      "japanese": "中心加熱",
+      "reading": "ちゅうしんかねつ",
+      "romaji": ["chuushinkanetsu", "tyuusinkanetu"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材の内部まで熱を伝え、適切に加熱すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-209",
+      "japanese": "余熱調理",
+      "reading": "よねつちょうり",
+      "romaji": ["yonetsuchouri", "yonetutyouri"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "火を止めた後に残る熱を使って食材に火を通す方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-210",
+      "japanese": "低温調理",
+      "reading": "ていおんちょうり",
+      "romaji": ["teionchouri", "teiontyouri"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "比較的低い温度を保ち、時間をかけて食材を加熱する方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-211",
+      "japanese": "真空調理",
+      "reading": "しんくうちょうり",
+      "romaji": ["shinkuuchouri", "sinkuutyouri"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材と調味料を袋に密封し、温度管理して加熱する調理法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-212",
+      "japanese": "急速冷却",
+      "reading": "きゅうそくれいきゃく",
+      "romaji": ["kyuusokureikyaku"],
+      "category": "調理・仕込み",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "加熱調理した食品の温度を、短時間で下げること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-213",
+      "japanese": "可食部",
+      "reading": "かしょくぶ",
+      "romaji": ["kashokubu", "kasyokubu"],
+      "category": "食材・メニュー",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材のうち、調理して食べる部分のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-214",
+      "japanese": "ポーションサイズ",
+      "reading": "ぽーしょんさいず",
+      "romaji": ["po-shonsaizu", "po-syonsaizu"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一皿や一食あたりに提供する料理の標準的な量のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-215",
+      "japanese": "原材料表示",
+      "reading": "げんざいりょうひょうじ",
+      "romaji": ["genzairyouhyouji", "genzairyouhyouzi"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品に使った原材料を、定められた形式で示す表示。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-216",
+      "japanese": "産地表示",
+      "reading": "さんちひょうじ",
+      "romaji": ["sanchihyouji", "santihyouzi"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材が生産された地域や国を、商品やメニューに示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-217",
+      "japanese": "栄養成分表示",
+      "reading": "えいようせいぶんひょうじ",
+      "romaji": ["eiyouseibunhyouji", "eiyouseibunhyouzi"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品に含まれる熱量や栄養素の量を示す情報。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-218",
+      "japanese": "食事制限",
+      "reading": "しょくじせいげん",
+      "romaji": ["shokujiseigenn", "syokuziseigenn"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "健康や信条などに合わせ、食べる物を調整すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-219",
+      "japanese": "食物禁忌",
+      "reading": "しょくもつきんき",
+      "romaji": ["shokumotsukinki", "syokumotukinki"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "宗教や文化、体質などの理由で食べない食品のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-220",
+      "japanese": "アレルギー申告",
+      "reading": "あれるぎーしんこく",
+      "romaji": ["arerugi-shinkoku", "arerugi-sinkoku"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が食物アレルギーについて店舗へ伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-221",
+      "japanese": "アレルゲン照合",
+      "reading": "あれるげんしょうごう",
+      "romaji": ["arerugenshougou", "arerugensyougou"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理の原材料と、申告されたアレルゲンを確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-222",
+      "japanese": "原材料規格書",
+      "reading": "げんざいりょうきかくしょ",
+      "romaji": ["genzairyoukikakusho", "genzairyoukikakusyo"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材の原材料や成分、製造条件などを記した資料。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-223",
+      "japanese": "食品ラベル",
+      "reading": "しょくひんらべる",
+      "romaji": ["shokuhinraberu", "syokuhinraberu"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品名や原材料、期限などを容器に表示したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-224",
+      "japanese": "メニュー改訂",
+      "reading": "めにゅーかいてい",
+      "romaji": ["menyu-kaitei"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理の内容や価格、表示情報を新しくすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-225",
+      "japanese": "季節メニュー",
+      "reading": "きせつめにゅー",
+      "romaji": ["kisetsumenyu-", "kisetumenyu-"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "季節の食材や需要に合わせて提供する料理のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-226",
+      "japanese": "日替わりメニュー",
+      "reading": "ひがわりめにゅー",
+      "romaji": ["higawarimenyu-"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "日ごとに内容を変えて提供する料理のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-227",
+      "japanese": "限定メニュー",
+      "reading": "げんていめにゅー",
+      "romaji": ["genteimenyu-"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "期間や数量、店舗などを限って提供する料理のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-228",
+      "japanese": "コース構成",
+      "reading": "こーすこうせい",
+      "romaji": ["ko-sukousei"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コース料理の品数や料理の順番を組み立てたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-229",
+      "japanese": "一品料理",
+      "reading": "いっぴんりょうり",
+      "romaji": ["ippinryouri"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コースや定食とは別に、一皿単位で注文できる料理。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-230",
+      "japanese": "盛り合わせ",
+      "reading": "もりあわせ",
+      "romaji": ["moriawase"],
+      "category": "食材・メニュー",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の料理や食材を、一つの皿に組み合わせて盛ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-231",
+      "japanese": "試食提供",
+      "reading": "ししょくていきょう",
+      "romaji": ["shishokuteikyou", "sisyokuteikyou"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "味や品質を知ってもらうため、少量の料理を提供すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-232",
+      "japanese": "テイクアウト容器",
+      "reading": "ていくあうとようき",
+      "romaji": ["teikuautoyouki"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "持ち帰り用の料理を入れるために使う容器。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-233",
+      "japanese": "持ち帰り注文",
+      "reading": "もちかえりちゅうもん",
+      "romaji": ["mochikaerichuumonn", "motikaerityuumonn"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店内で食べず、商品を持ち帰る注文のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-234",
+      "japanese": "デリバリー注文",
+      "reading": "でりばりーちゅうもん",
+      "romaji": ["deribari-chuumonn", "deribari-tyuumonn"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理を指定場所へ届けてもらうための注文。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-235",
+      "japanese": "ケータリング",
+      "reading": "けーたりんぐ",
+      "romaji": ["ke-taringu"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "指定の場所へ料理やサービスを届けて提供すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-236",
+      "japanese": "仕出し料理",
+      "reading": "しだしりょうり",
+      "romaji": ["shidashiryouri", "sidasiryouri"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文に応じて調理し、指定先へ届ける料理のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-237",
+      "japanese": "食べ放題",
+      "reading": "たべほうだい",
+      "romaji": ["tabehoudai"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決められた料金や時間の範囲で、対象の料理を自由に食べられる方式。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-238",
+      "japanese": "飲み放題",
+      "reading": "のみほうだい",
+      "romaji": ["nomihoudai"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決められた料金や時間の範囲で、対象の飲料を自由に飲める方式。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-239",
+      "japanese": "ドリンクバー",
+      "reading": "どりんくばー",
+      "romaji": ["dorinkuba-"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が設置場所から飲料を自分で注ぐ提供方式。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-240",
+      "japanese": "コルク料",
+      "reading": "こるくりょう",
+      "romaji": ["korukuryou"],
+      "category": "食材・メニュー",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が持ち込んだ酒類を店内で飲む際に請求する料金。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-241",
+      "japanese": "ノンアルコール飲料",
+      "reading": "のんあるこーるいんりょう",
+      "romaji": ["nonnaruko-ruinryou"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "アルコールを含まない、またはごく少量に抑えた飲料のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-242",
+      "japanese": "カフェインレス",
+      "reading": "かふぇいんれす",
+      "romaji": ["kafeinresu"],
+      "category": "食材・メニュー",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "カフェインを取り除くか、含有量を減らした飲料の表示。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-243",
+      "japanese": "交差接触",
+      "reading": "こうさせっしょく",
+      "romaji": ["kousasesshoku", "kousasessyoku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "アレルゲンなどが、器具や手を介して別の食品に付くこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-244",
+      "japanese": "食品トレーサビリティ",
+      "reading": "しょくひんとれーさびりてぃ",
+      "romaji": ["shokuhintore-sabirithi", "syokuhintore-sabirithi"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品の生産や流通の履歴を、記録からたどれる仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-245",
+      "japanese": "ロット番号",
+      "reading": "ろっとばんごう",
+      "romaji": ["rottobangou"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ条件で生産や仕入れをした食品のまとまりを識別する番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-246",
+      "japanese": "入荷記録",
+      "reading": "にゅうかきろく",
+      "romaji": ["nyuukakiroku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "届いた食材の数量や日時、仕入れ先などを記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-247",
+      "japanese": "検品記録",
+      "reading": "けんぴんきろく",
+      "romaji": ["kenpinkiroku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "届いた商品や食材の状態を確認した結果の記録。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-248",
+      "japanese": "食材規格照合",
+      "reading": "しょくざいきかくしょうごう",
+      "romaji": ["shokuzaikikakushougou", "syokuzaikikakusyougou"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "届いた食材が、仕入れ時に定めた仕様に合うか確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-249",
+      "japanese": "納品温度",
+      "reading": "のうひんおんど",
+      "romaji": ["nouhinnondo"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材が納品された時点で測定した温度のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-250",
+      "japanese": "期限表示確認",
+      "reading": "きげんひょうじかくにん",
+      "romaji": ["kigenhyoujikakuninn", "kigenhyouzikakuninn"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品の期限や表示が正しいか、受け入れ時などに確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-251",
+      "japanese": "温度逸脱",
+      "reading": "おんどいつだつ",
+      "romaji": ["ondoitsudatsu", "ondoitudatu"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保管や加熱の温度が、決めた範囲から外れた状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-252",
+      "japanese": "温度逸脱記録",
+      "reading": "おんどいつだつきろく",
+      "romaji": ["ondoitsudatsukiroku", "ondoitudatukiroku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "温度が基準範囲を外れた時刻や値、対応を残した記録。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-253",
+      "japanese": "廃棄判定",
+      "reading": "はいきはんてい",
+      "romaji": ["haikihantei"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "期限や状態などから、食品を使用せず処分するか決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-254",
+      "japanese": "食品廃棄記録",
+      "reading": "しょくひんはいききろく",
+      "romaji": ["shokuhinhaikikiroku", "syokuhinhaikikiroku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "廃棄した食品の種類や数量、理由を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-255",
+      "japanese": "検便",
+      "reading": "けんべん",
+      "romaji": ["kenbenn"],
+      "category": "衛生・品質管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品を扱う人の健康管理のため、便を検査すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-256",
+      "japanese": "健康申告",
+      "reading": "けんこうしんこく",
+      "romaji": ["kenkoushinkoku", "kenkousinkoku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品を扱う人が体調不良などを責任者へ伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-257",
+      "japanese": "手指消毒",
+      "reading": "しゅししょうどく",
+      "romaji": ["shushishoudoku", "syusisyoudoku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手洗い後などに薬剤を使い、手指の微生物を減らすこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-258",
+      "japanese": "衛生区域",
+      "reading": "えいせいくいき",
+      "romaji": ["eiseikuiki"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "衛生状態を保つため、作業内容に応じて区分した場所。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-259",
+      "japanese": "汚染区域",
+      "reading": "おせんくいき",
+      "romaji": ["osenkuiki"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "汚れや微生物が持ち込まれる可能性を考慮して分けた区域。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-260",
+      "japanese": "清潔区域",
+      "reading": "せいけつくいき",
+      "romaji": ["seiketsukuiki", "seiketukuiki"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品への汚染を防ぐため、清潔に保つ必要がある区域。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-261",
+      "japanese": "厨房区画",
+      "reading": "ちゅうぼうくかく",
+      "romaji": ["chuuboukukaku", "tyuuboukukaku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "厨房を作業内容や設備に応じて分けた場所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-262",
+      "japanese": "交差汚染防止",
+      "reading": "こうさおせんぼうし",
+      "romaji": ["kousaosenboushi", "kousaosenbousi"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材や器具を介して汚れや微生物が移るのを防ぐこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-263",
+      "japanese": "器具使い分け",
+      "reading": "きぐつかいわけ",
+      "romaji": ["kigutsukaiwake", "kigutukaiwake"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材や用途に応じて、調理器具を分けて使用すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-264",
+      "japanese": "洗浄手順書",
+      "reading": "せんじょうてじゅんしょ",
+      "romaji": ["senjoutejunsho", "senzyoutezyunsyo"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "器具や設備を洗う順番や方法を記した文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-265",
+      "japanese": "洗浄確認",
+      "reading": "せんじょうかくにん",
+      "romaji": ["senjoukakuninn", "senzyoukakuninn"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "洗浄後に汚れが残っていないか、決めた方法で調べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-266",
+      "japanese": "清掃点検表",
+      "reading": "せいそうてんけんひょう",
+      "romaji": ["seisoutenkenhyou"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "清掃する場所や実施状況を記録するチェック表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-267",
+      "japanese": "害虫防除",
+      "reading": "がいちゅうぼうじょ",
+      "romaji": ["gaichuuboujo", "gaityuubouzyo"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品や施設を守るため、害虫の侵入や発生を防ぐこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-268",
+      "japanese": "害虫点検記録",
+      "reading": "がいちゅうてんけんきろく",
+      "romaji": ["gaichuutenkenkiroku", "gaityuutenkenkiroku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "害虫の発生や点検、対策の状況を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-269",
+      "japanese": "異物報告",
+      "reading": "いぶつほうこく",
+      "romaji": ["ibutsuhoukoku", "ibutuhoukoku"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品への異物混入が疑われた際に、状況を責任者へ伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-270",
+      "japanese": "異物混入調査",
+      "reading": "いぶつこんにゅうちょうさ",
+      "romaji": ["ibutsukonnyuuchousa", "ibutukonnyuutyousa"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "混入した物や発生工程を調べ、原因と対策を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-271",
+      "japanese": "苦情調査",
+      "reading": "くじょうちょうさ",
+      "romaji": ["kujouchousa", "kuzyoutyousa"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食品や接客に関する申し出の内容と原因を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-272",
+      "japanese": "衛生監査",
+      "reading": "えいせいかんさ",
+      "romaji": ["eiseikansa"],
+      "category": "衛生・品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決められた衛生管理が実施されているか確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-273",
+      "japanese": "仕入れ原価",
+      "reading": "しいれげんか",
+      "romaji": ["shiiregenka", "siiregenka"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材を仕入れるためにかかった費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-274",
+      "japanese": "食材原価率",
+      "reading": "しょくざいげんかりつ",
+      "romaji": ["shokuzaigenkaritsu", "syokuzaigenkaritu"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上に対する食材費の割合を示す指標のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-275",
+      "japanese": "標準原価",
+      "reading": "ひょうじゅんげんか",
+      "romaji": ["hyoujungenka", "hyouzyungenka"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決めた使用量や価格をもとに算出した、基準となる原価。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-276",
+      "japanese": "実際原価",
+      "reading": "じっさいげんか",
+      "romaji": ["jissaigenka", "zissaigenka"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "実際の仕入れ価格や使用量から算出した原価のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-277",
+      "japanese": "原価差異",
+      "reading": "げんかさい",
+      "romaji": ["genkasai"],
+      "category": "食材・店舗運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "標準原価と実際原価の差のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-278",
+      "japanese": "仕入れ先台帳",
+      "reading": "しいれさきだいちょう",
+      "romaji": ["shiiresakidaichou", "siiresakidaityou"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材の仕入れ先や連絡先、取引条件を記録した台帳。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-279",
+      "japanese": "納品予定表",
+      "reading": "のうひんよていひょう",
+      "romaji": ["nouhinnyoteihyou"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材や備品が届く日時と内容をまとめた表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-280",
+      "japanese": "納品照合",
+      "reading": "のうひんしょうごう",
+      "romaji": ["nouhinshougou", "nouhinsyougou"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "届いた数量や品目を、発注内容と照らし合わせること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-281",
+      "japanese": "定期発注日",
+      "reading": "ていきはっちゅうび",
+      "romaji": ["teikihacchuubi", "teikihattyuubi"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材や備品を定期的に注文する日として定めた日付。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-282",
+      "japanese": "安全在庫",
+      "reading": "あんぜんざいこ",
+      "romaji": ["anzenzaiko"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "需要や納品の変動に備えて、通常より多く保有する在庫。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-283",
+      "japanese": "発注ロット",
+      "reading": "はっちゅうろっと",
+      "romaji": ["hacchuurotto", "hattyuurotto"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一回の注文で仕入れ先が受け付ける数量のまとまり。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-284",
+      "japanese": "仕入れ単位",
+      "reading": "しいれたんい",
+      "romaji": ["shiiretanni", "siiretanni"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材を発注や計上するときに使う数量の単位。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-285",
+      "japanese": "食材受払記録",
+      "reading": "しょくざいうけはらいきろく",
+      "romaji": ["shokuzaiukeharaikiroku", "syokuzaiukeharaikiroku"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "食材の受け入れや調理への払い出しを記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-286",
+      "japanese": "在庫回転日数",
+      "reading": "ざいこかいてんにっすう",
+      "romaji": ["zaikokaitennissuu"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "在庫が仕入れられてから使い切るまでの日数の目安。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-287",
+      "japanese": "食材ロス率",
+      "reading": "しょくざいろすりつ",
+      "romaji": ["shokuzairosuritsu", "syokuzairosuritu"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕入れや調理で使えず廃棄した食材の割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-288",
+      "japanese": "仕込み量計画",
+      "reading": "しこみりょうけいかく",
+      "romaji": ["shikomiryoukeikaku", "sikomiryoukeikaku"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "予約や需要の見込みをもとに、準備する量を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-289",
+      "japanese": "需要予測",
+      "reading": "じゅようよそく",
+      "romaji": ["juyouyosoku", "zyuyouyosoku"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "過去の販売や予約などから、今後の注文量を見積もること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-290",
+      "japanese": "来店客数予測",
+      "reading": "らいてんきゃくすうよそく",
+      "romaji": ["raitenkyakusuuyosoku"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "曜日や予約などをもとに、来店する客の人数を見積もること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-291",
+      "japanese": "仕込み時間",
+      "reading": "しこみじかん",
+      "romaji": ["shikomijikann", "sikomizikann"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業前などに、食材を準備するために必要な時間。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-292",
+      "japanese": "仕込み担当表",
+      "reading": "しこみたんとうひょう",
+      "romaji": ["shikomitantouhyou", "sikomitantouhyou"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕込み作業の担当者や品目、予定を示した表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-293",
+      "japanese": "調理工程表",
+      "reading": "ちょうりこうていひょう",
+      "romaji": ["chourikouteihyou", "tyourikouteihyou"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "料理を作る順序や作業内容を示した表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-294",
+      "japanese": "調理担当割り",
+      "reading": "ちょうりたんとうわり",
+      "romaji": ["chouritantouwari", "tyouritantouwari"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "時間帯や料理に応じ、調理担当者を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-295",
+      "japanese": "厨房動線",
+      "reading": "ちゅうぼうどうせん",
+      "romaji": ["chuuboudousenn", "tyuuboudousenn"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "厨房内で人や食材、料理が移動する経路のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-296",
+      "japanese": "厨房レイアウト",
+      "reading": "ちゅうぼうれいあうと",
+      "romaji": ["chuuboureiauto", "tyuuboureiauto"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "調理設備や作業場所の配置を決めた設計のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-297",
+      "japanese": "調理設備点検",
+      "reading": "ちょうりせつびてんけん",
+      "romaji": ["chourisetsubitenkenn", "tyourisetubitenkenn"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "厨房の機器が安全に動作するか確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-298",
+      "japanese": "設備故障記録",
+      "reading": "せつびこしょうきろく",
+      "romaji": ["setsubikoshoukiroku", "setubikosyoukiroku"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "厨房機器の不具合や修理の内容を残した記録。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-299",
+      "japanese": "営業開始点検",
+      "reading": "えいぎょうかいしてんけん",
+      "romaji": ["eigyoukaishitenkenn", "eigyoukaisitenkenn"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "開店前に設備や食材、客席などの状態を確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "food-service-300",
+      "japanese": "閉店確認表",
+      "reading": "へいてんかくにんひょう",
+      "romaji": ["heitenkakuninhyou"],
+      "category": "食材・店舗運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "閉店時の清掃や施錠、機器停止などを確認する表。",
       "related_terms": [],
       "learning_points": [],
       "weak_detection": {

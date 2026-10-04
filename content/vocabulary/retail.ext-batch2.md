@@ -1,4 +1,4 @@
-# 小売の語録(拡張: 第 2 弾の下書き)
+# 小売の語録(拡張: 第 2 弾の語録)
 
 語録を増やす Issue #182 の第 2 弾です。AI の下書きで、すべて `draft: true`(公開されません)・`review: pending` です。運営者が確認した語だけ、`draft` の行を消して公開します。
 
@@ -16,8 +16,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-089
     japanese: "開店"
     reading: "かいてん"
@@ -29,8 +28,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-090
     japanese: "閉店"
     reading: "へいてん"
@@ -42,8 +40,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-091
     japanese: "荷受け"
     reading: "にうけ"
@@ -55,8 +52,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-092
     japanese: "入荷"
     reading: "にゅうか"
@@ -68,8 +64,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-093
     japanese: "出荷"
     reading: "しゅっか"
@@ -81,8 +76,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-094
     japanese: "値付け"
     reading: "ねづけ"
@@ -94,8 +88,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-095
     japanese: "値札付け"
     reading: "ねふだつけ"
@@ -107,8 +100,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-096
     japanese: "ゾーニング"
     reading: "ぞーにんぐ"
@@ -120,8 +112,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-097
     japanese: "動線"
     reading: "どうせん"
@@ -133,8 +124,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-098
     japanese: "什器"
     reading: "じゅうき"
@@ -146,8 +136,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-099
     japanese: "ゴンドラ"
     reading: "ごんどら"
@@ -159,8 +148,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-100
     japanese: "エンド"
     reading: "えんど"
@@ -172,8 +160,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-101
     japanese: "平台"
     reading: "ひらだい"
@@ -185,8 +172,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-102
     japanese: "ハンガー"
     reading: "はんがー"
@@ -198,8 +184,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-103
     japanese: "マネキン"
     reading: "まねきん"
@@ -211,8 +196,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-104
     japanese: "シーズン"
     reading: "しーずん"
@@ -224,8 +208,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-105
     japanese: "ワゴン"
     reading: "わごん"
@@ -237,8 +220,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-106
     japanese: "ワゴンセール"
     reading: "わごんせーる"
@@ -250,8 +232,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-107
     japanese: "見切り品"
     reading: "みきりひん"
@@ -263,8 +244,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-108
     japanese: "広告の品"
     reading: "こうこくのひん"
@@ -276,8 +256,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-109
     japanese: "チラシ"
     reading: "ちらし"
@@ -289,8 +268,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-110
     japanese: "販促"
     reading: "はんそく"
@@ -302,8 +280,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-111
     japanese: "サンプル"
     reading: "さんぷる"
@@ -315,8 +292,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-112
     japanese: "試食"
     reading: "ししょく"
@@ -328,8 +304,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-113
     japanese: "実演販売"
     reading: "じつえんはんばい"
@@ -341,8 +316,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-114
     japanese: "併売"
     reading: "へいばい"
@@ -354,8 +328,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-115
     japanese: "ついで買い"
     reading: "ついでがい"
@@ -367,8 +340,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-116
     japanese: "衝動買い"
     reading: "しょうどうがい"
@@ -380,8 +352,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-117
     japanese: "来店客"
     reading: "らいてんきゃく"
@@ -393,8 +364,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-118
     japanese: "客層"
     reading: "きゃくそう"
@@ -406,8 +376,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-119
     japanese: "接客用語"
     reading: "せっきゃくようご"
@@ -419,8 +388,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-120
     japanese: "お客様対応"
     reading: "おきゃくさまたいおう"
@@ -432,8 +400,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-121
     japanese: "クレーム"
     reading: "くれーむ"
@@ -445,8 +412,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-122
     japanese: "謝罪"
     reading: "しゃざい"
@@ -458,8 +424,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-123
     japanese: "交換"
     reading: "こうかん"
@@ -471,8 +436,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-124
     japanese: "返金"
     reading: "へんきん"
@@ -484,8 +448,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-125
     japanese: "配達"
     reading: "はいたつ"
@@ -497,8 +460,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-126
     japanese: "予約販売"
     reading: "よやくはんばい"
@@ -510,8 +472,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-127
     japanese: "通販"
     reading: "つうはん"
@@ -523,8 +484,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-128
     japanese: "店頭受け取り"
     reading: "てんとううけとり"
@@ -536,8 +496,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-129
     japanese: "在庫数"
     reading: "ざいこすう"
@@ -549,8 +508,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-130
     japanese: "在庫管理"
     reading: "ざいこかんり"
@@ -562,8 +520,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-131
     japanese: "発注点"
     reading: "はっちゅうてん"
@@ -575,8 +532,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-132
     japanese: "適正在庫"
     reading: "てきせいざいこ"
@@ -588,8 +544,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-133
     japanese: "万引き"
     reading: "まんびき"
@@ -601,8 +556,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: retail-134
     japanese: "ロス"
     reading: "ろす"
@@ -614,6 +568,5 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
 ```

@@ -1,7 +1,7 @@
 {
   "job_id": "retail",
   "job_name": "接客販売",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "updated_at": "2026-10-01",
   "items": [
     {
@@ -1248,6 +1248,3201 @@
       "difficulty": 1,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "従業員の勤務する日や時間を、割り振った予定のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-088",
+      "japanese": "店舗運営",
+      "reading": "てんぽうんえい",
+      "romaji": ["tenpounnei"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店を、開けてから閉めるまで、安定して動かしていくこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-089",
+      "japanese": "開店",
+      "reading": "かいてん",
+      "romaji": ["kaitenn"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店を開けて、営業を始めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-090",
+      "japanese": "閉店",
+      "reading": "へいてん",
+      "romaji": ["heitenn"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "1日の営業を終えて、店を閉めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-091",
+      "japanese": "荷受け",
+      "reading": "にうけ",
+      "romaji": ["niuke"],
+      "category": "店頭業務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "配送された荷物を、受け取って確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-092",
+      "japanese": "入荷",
+      "reading": "にゅうか",
+      "romaji": ["nyuuka"],
+      "category": "店頭業務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品が、店に届くこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-093",
+      "japanese": "出荷",
+      "reading": "しゅっか",
+      "romaji": ["shukka", "syukka"],
+      "category": "店頭業務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を、店や客のもとへ送り出すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-094",
+      "japanese": "値付け",
+      "reading": "ねづけ",
+      "romaji": ["neduke"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品に、売る値段を決めて付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-095",
+      "japanese": "値札付け",
+      "reading": "ねふだつけ",
+      "romaji": ["nefudatsuke", "nehudatuke"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品に、値札を取り付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-096",
+      "japanese": "ゾーニング",
+      "reading": "ぞーにんぐ",
+      "romaji": ["zo-ningu"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売り場を、商品の種類ごとの区画に分けて配置すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-097",
+      "japanese": "動線",
+      "reading": "どうせん",
+      "romaji": ["dousenn"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客が、店内を歩いて進む経路のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-098",
+      "japanese": "什器",
+      "reading": "じゅうき",
+      "romaji": ["juuki", "zyuuki"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を並べるための、棚や台などの道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-099",
+      "japanese": "ゴンドラ",
+      "reading": "ごんどら",
+      "romaji": ["gondora"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店内に置かれる、商品を並べるための、長い棚のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-100",
+      "japanese": "エンド",
+      "reading": "えんど",
+      "romaji": ["endo"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "棚の端にあって、目につきやすい、陳列の場所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-101",
+      "japanese": "平台",
+      "reading": "ひらだい",
+      "romaji": ["hiradai"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を、平らに並べる低い台のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-102",
+      "japanese": "ハンガー",
+      "reading": "はんがー",
+      "romaji": ["hanga-"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "衣類を、つるして掛けておく道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-103",
+      "japanese": "マネキン",
+      "reading": "まねきん",
+      "romaji": ["manekinn"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "服を着せて見せるための、人の形をした人形のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-104",
+      "japanese": "シーズン",
+      "reading": "しーずん",
+      "romaji": ["shi-zunn", "si-zunn"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品が売れる、季節ごとの時期のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-105",
+      "japanese": "ワゴン",
+      "reading": "わごん",
+      "romaji": ["wagonn"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を載せて、売り場に出す、車輪のついた台のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-106",
+      "japanese": "ワゴンセール",
+      "reading": "わごんせーる",
+      "romaji": ["wagonse-ru"],
+      "category": "売り場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ワゴンに商品を並べて、値下げして売ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-107",
+      "japanese": "見切り品",
+      "reading": "みきりひん",
+      "romaji": ["mikirihinn"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売れ残りそうで、値下げして売る商品のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-108",
+      "japanese": "広告の品",
+      "reading": "こうこくのひん",
+      "romaji": ["koukokunohinn"],
+      "category": "売り場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "チラシなどで、お知らせして安く売る商品のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-109",
+      "japanese": "チラシ",
+      "reading": "ちらし",
+      "romaji": ["chirashi", "tirasi"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や特売を、知らせるために配る紙のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-110",
+      "japanese": "販促",
+      "reading": "はんそく",
+      "romaji": ["hansoku"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "「販売促進」の略で、商品が売れるようにする工夫のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-111",
+      "japanese": "サンプル",
+      "reading": "さんぷる",
+      "romaji": ["sanpuru"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の見本として、試してもらうために出す品のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-112",
+      "japanese": "試食",
+      "reading": "ししょく",
+      "romaji": ["shishoku", "sisyoku"],
+      "category": "売り場づくり",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "買う前に、食べ物を味見してもらうこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-113",
+      "japanese": "実演販売",
+      "reading": "じつえんはんばい",
+      "romaji": ["jitsuenhanbai", "zituenhanbai"],
+      "category": "売り場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の使い方を、客の前で見せながら売ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-114",
+      "japanese": "併売",
+      "reading": "へいばい",
+      "romaji": ["heibai"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関連する商品を、あわせて買ってもらえるように売ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-115",
+      "japanese": "ついで買い",
+      "reading": "ついでがい",
+      "romaji": ["tsuidegai", "tuidegai"],
+      "category": "売り場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "買うつもりのなかった物を、ほかの買い物のついでに買うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-116",
+      "japanese": "衝動買い",
+      "reading": "しょうどうがい",
+      "romaji": ["shoudougai", "syoudougai"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "よく考えずに、その場の気持ちで買ってしまうこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-117",
+      "japanese": "来店客",
+      "reading": "らいてんきゃく",
+      "romaji": ["raitenkyaku"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店に訪れた、客のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-118",
+      "japanese": "客層",
+      "reading": "きゃくそう",
+      "romaji": ["kyakusou"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店を訪れる客を、年齢や性別などの特徴で分けたまとまりのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-119",
+      "japanese": "接客用語",
+      "reading": "せっきゃくようご",
+      "romaji": ["sekkyakuyougo"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客に対して使う、丁寧な決まった言葉のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-120",
+      "japanese": "お客様対応",
+      "reading": "おきゃくさまたいおう",
+      "romaji": ["okyakusamataiou"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客からの問い合わせや要望に、応じること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-121",
+      "japanese": "クレーム",
+      "reading": "くれーむ",
+      "romaji": ["kure-mu"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスに対する、客からの苦情のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-122",
+      "japanese": "謝罪",
+      "reading": "しゃざい",
+      "romaji": ["shazai", "syazai"],
+      "category": "接客",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相手に、悪かったと詫びること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-123",
+      "japanese": "交換",
+      "reading": "こうかん",
+      "romaji": ["koukann"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "買われた商品を、別の物と取り替えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-124",
+      "japanese": "返金",
+      "reading": "へんきん",
+      "romaji": ["henkinn"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "受け取った代金を、客に返すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-125",
+      "japanese": "配達",
+      "reading": "はいたつ",
+      "romaji": ["haitatsu", "haitatu"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文された商品を、客の家などへ運んで届けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-126",
+      "japanese": "予約販売",
+      "reading": "よやくはんばい",
+      "romaji": ["yoyakuhanbai"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "発売の前に、注文を受け付けて売ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-127",
+      "japanese": "通販",
+      "reading": "つうはん",
+      "romaji": ["tsuuhann", "tuuhann"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店に行かず、ネットや電話などで買う販売方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-128",
+      "japanese": "店頭受け取り",
+      "reading": "てんとううけとり",
+      "romaji": ["tentouuketori"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ネットで注文した商品を、店で受け取ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-129",
+      "japanese": "在庫数",
+      "reading": "ざいこすう",
+      "romaji": ["zaikosuu"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店にある、商品の数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-130",
+      "japanese": "在庫管理",
+      "reading": "ざいこかんり",
+      "romaji": ["zaikokanri"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の数を、把握して適切に保つこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-131",
+      "japanese": "発注点",
+      "reading": "はっちゅうてん",
+      "romaji": ["hacchuutenn", "hattyuutenn"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "在庫が減って、注文するべき数量のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-132",
+      "japanese": "適正在庫",
+      "reading": "てきせいざいこ",
+      "romaji": ["tekiseizaiko"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "多すぎも少なすぎもしない、ちょうどよい在庫の量のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-133",
+      "japanese": "万引き",
+      "reading": "まんびき",
+      "romaji": ["manbiki"],
+      "category": "店頭業務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店の商品を、代金を払わずに持ち去ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-134",
+      "japanese": "ロス",
+      "reading": "ろす",
+      "romaji": ["rosu"],
+      "category": "店頭業務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売れ残りや破損、盗難などで、失われる商品や金額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-135",
+      "japanese": "商品陳列",
+      "reading": "しょうひんちんれつ",
+      "romaji": ["shouhinchinretsu", "syouhintinretu"],
+      "category": "売場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を棚や売場に並べて、見やすく配置すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-136",
+      "japanese": "売場変更",
+      "reading": "うりばへんこう",
+      "romaji": ["uribahenkou"],
+      "category": "売場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の配置や売場の構成を、別の形に変えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-137",
+      "japanese": "販促物",
+      "reading": "はんそくぶつ",
+      "romaji": ["hansokubutsu", "hansokubutu"],
+      "category": "販売",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の販売を促すために、店頭などで使う案内物のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-138",
+      "japanese": "価格表示",
+      "reading": "かかくひょうじ",
+      "romaji": ["kakakuhyouji", "kakakuhyouzi"],
+      "category": "販売",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品などの価格を、見える形で示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-139",
+      "japanese": "棚札",
+      "reading": "たなふだ",
+      "romaji": ["tanafuda", "tanahuda"],
+      "category": "販売",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "棚に付けて、商品の価格や情報を示す札のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-140",
+      "japanese": "商品ラベル",
+      "reading": "しょうひんらべる",
+      "romaji": ["shouhinraberu", "syouhinraberu"],
+      "category": "商品管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の名称や情報などを記した貼り札のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-141",
+      "japanese": "商品コード",
+      "reading": "しょうひんこーど",
+      "romaji": ["shouhinko-do", "syouhinko-do"],
+      "category": "商品管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を識別して管理するために付けた番号や記号のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-142",
+      "japanese": "在庫差異",
+      "reading": "ざいこさい",
+      "romaji": ["zaikosai"],
+      "category": "在庫管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "帳簿上の在庫数と、実際に数えた在庫数の違いのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-143",
+      "japanese": "品切れ",
+      "reading": "しなぎれ",
+      "romaji": ["shinagire", "sinagire"],
+      "category": "在庫管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売する商品がなくなり、在庫がない状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-144",
+      "japanese": "補充発注",
+      "reading": "ほじゅうはっちゅう",
+      "romaji": ["hojuuhacchuu", "hozyuuhattyuu"],
+      "category": "在庫管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "減った在庫を補うために、商品を追加で注文すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-145",
+      "japanese": "棚割り",
+      "reading": "たなわり",
+      "romaji": ["tanawari"],
+      "category": "売場づくり",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "棚に置く商品の種類や位置を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-146",
+      "japanese": "陳列棚",
+      "reading": "ちんれつだな",
+      "romaji": ["chinretsudana", "tinretudana"],
+      "category": "売場づくり",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を並べて販売するための棚のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-147",
+      "japanese": "売場巡回",
+      "reading": "うりばじゅんかい",
+      "romaji": ["uribajunkai", "uribazyunkai"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売場を見て回り、商品や設備の状態を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-148",
+      "japanese": "店内放送",
+      "reading": "てんないほうそう",
+      "romaji": ["tennaihousou"],
+      "category": "接客",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店内の利用者に向けて、案内や連絡を音声で伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-149",
+      "japanese": "試着室",
+      "reading": "しちゃくしつ",
+      "romaji": ["shichakushitsu", "sityakusitu"],
+      "category": "接客",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "衣類などを購入前に試すための部屋のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-150",
+      "japanese": "返品受付",
+      "reading": "へんぴんうけつけ",
+      "romaji": ["henpinnuketsuke", "henpinnuketuke"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入された商品を返したいという申し出を受けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-151",
+      "japanese": "交換対応",
+      "reading": "こうかんたいおう",
+      "romaji": ["koukantaiou"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を別の商品と取り替えたいという申し出に応じること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-152",
+      "japanese": "新規会員手続き",
+      "reading": "しんきかいいんてつづき",
+      "romaji": ["shinkikaiintetsuduki", "sinkikaiintetuduki"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "新しい利用者を会員として登録するための手続きのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-153",
+      "japanese": "ポイント付与",
+      "reading": "ぽいんとふよ",
+      "romaji": ["pointofuyo", "pointohuyo"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入などの条件に応じて、会員にポイントを付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-154",
+      "japanese": "レジ応援",
+      "reading": "れじおうえん",
+      "romaji": ["rejiouenn", "reziouenn"],
+      "category": "店頭業務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会計が混雑したときなどに、別の担当者がレジ業務を手伝うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-155",
+      "japanese": "商品構成",
+      "reading": "しょうひんこうせい",
+      "romaji": ["shouhinkousei", "syouhinkousei"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗で扱う商品を、種類や価格帯などで組み合わせたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-156",
+      "japanese": "品揃え計画",
+      "reading": "しなぞろえけいかく",
+      "romaji": ["shinazoroekeikaku", "sinazoroekeikaku"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客や売場の方針に合わせ、扱う商品を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-157",
+      "japanese": "品揃え幅",
+      "reading": "しなぞろえはば",
+      "romaji": ["shinazoroehaba", "sinazoroehaba"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一つの売場や分類で扱う商品の種類の広さのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-158",
+      "japanese": "品揃え深度",
+      "reading": "しなぞろえしんど",
+      "romaji": ["shinazoroeshindo", "sinazoroesindo"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一つの商品分類で扱うサイズや色などの選択肢の多さ。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-159",
+      "japanese": "商品分類",
+      "reading": "しょうひんぶんるい",
+      "romaji": ["shouhinbunrui", "syouhinbunrui"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を種類や用途などの共通点でグループ分けすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-160",
+      "japanese": "商品カテゴリ",
+      "reading": "しょうひんかてごり",
+      "romaji": ["shouhinkategori", "syouhinkategori"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "似た用途や特徴の商品をまとめた区分のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-161",
+      "japanese": "カテゴリーマネジメント",
+      "reading": "かてごりーまねじめんと",
+      "romaji": ["kategori-manejimento", "kategori-manezimento"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品分類ごとに品揃えや売場を管理し、成果を高める方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-162",
+      "japanese": "商品マスター",
+      "reading": "しょうひんますたー",
+      "romaji": ["shouhinmasuta-", "syouhinmasuta-"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品名やコード、価格などの基本情報をまとめたデータ。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-163",
+      "japanese": "商品属性",
+      "reading": "しょうひんぞくせい",
+      "romaji": ["shouhinzokusei", "syouhinzokusei"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サイズや色、素材など、商品を説明する特徴のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-164",
+      "japanese": "商品仕様",
+      "reading": "しょうひんしよう",
+      "romaji": ["shouhinshiyou", "syouhinsiyou"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の寸法や素材、機能などを定めた情報。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-165",
+      "japanese": "商品説明書",
+      "reading": "しょうひんせつめいしょ",
+      "romaji": ["shouhinsetsumeisho", "syouhinsetumeisyo"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の使い方や特徴、注意事項を記した文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-166",
+      "japanese": "原産国表示",
+      "reading": "げんさんこくひょうじ",
+      "romaji": ["gensankokuhyouji", "gensankokuhyouzi"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の製造や生産が行われた国を示す表示。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-167",
+      "japanese": "品質表示",
+      "reading": "ひんしつひょうじ",
+      "romaji": ["hinshitsuhyouji", "hinsituhyouzi"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "素材や取扱方法など、品質に関する情報を商品に示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-168",
+      "japanese": "価格ラベル",
+      "reading": "かかくらべる",
+      "romaji": ["kakakuraberu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や売場に、販売価格などを記した表示。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-169",
+      "japanese": "商品タグ",
+      "reading": "しょうひんたぐ",
+      "romaji": ["shouhintagu", "syouhintagu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "価格や品番、素材などを記した商品に付ける札。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-170",
+      "japanese": "バーコードラベル",
+      "reading": "ばーこーどらべる",
+      "romaji": ["ba-ko-doraberu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品識別用のバーコードを印刷したラベル。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-171",
+      "japanese": "商品コード体系",
+      "reading": "しょうひんこーどたいけい",
+      "romaji": ["shouhinko-dotaikei", "syouhinko-dotaikei"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を識別するコードの付け方や桁構成を定めたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-172",
+      "japanese": "陳列基準",
+      "reading": "ちんれつきじゅん",
+      "romaji": ["chinretsukijunn", "tinretukizyunn"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を売場に並べる位置や向きを決めたルール。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-173",
+      "japanese": "棚割り表",
+      "reading": "たなわりひょう",
+      "romaji": ["tanawarihyou"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "棚ごとに置く商品や幅、並び順を示した計画表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-174",
+      "japanese": "フェーシング数",
+      "reading": "ふぇーしんぐすう",
+      "romaji": ["fe-shingusuu", "fe-singusuu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "棚の正面から見えるように並べる商品の列数。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-175",
+      "japanese": "陳列量",
+      "reading": "ちんれつりょう",
+      "romaji": ["chinretsuryou", "tinreturyou"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売場の棚や平台に並べる商品の数量のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-176",
+      "japanese": "陳列高さ",
+      "reading": "ちんれつたかさ",
+      "romaji": ["chinretsutakasa", "tinretutakasa"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を売場の棚のどの高さに配置するかを示す位置。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-177",
+      "japanese": "売場区画",
+      "reading": "うりばくかく",
+      "romaji": ["uribakukaku"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売場の中で商品や用途ごとに分けた場所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-178",
+      "japanese": "関連陳列",
+      "reading": "かんれんちんれつ",
+      "romaji": ["kanrenchinretsu", "kanrentinretu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一緒に使われる商品を近くに並べ、選びやすくする方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-179",
+      "japanese": "クロスマーチャンダイジング",
+      "reading": "くろすまーちゃんだいじんぐ",
+      "romaji": ["kurosuma-chandaijingu", "kurosuma-tyandaizingu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "異なる商品分類を組み合わせて売場を作る販売手法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-180",
+      "japanese": "エンド陳列",
+      "reading": "えんどちんれつ",
+      "romaji": ["endochinretsu", "endotinretu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通路端の棚に、商品をまとめて並べる売場の作り方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-181",
+      "japanese": "平台陳列",
+      "reading": "ひらだいちんれつ",
+      "romaji": ["hiradaichinretsu", "hiradaitinretu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "低い平面の什器に商品を積んで見せる陳列方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-182",
+      "japanese": "ゴールデンライン",
+      "reading": "ごーるでんらいん",
+      "romaji": ["go-rudenrainn"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "客の目に入りやすく、手に取りやすい棚の高さの範囲。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-183",
+      "japanese": "視認性",
+      "reading": "しにんせい",
+      "romaji": ["shininsei", "sininsei"],
+      "category": "商品・売場管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や表示が、売場でどれだけ見つけやすいかの度合い。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-184",
+      "japanese": "売場演出",
+      "reading": "うりばえんしゅつ",
+      "romaji": ["uribaenshutsu", "uribaensyutu"],
+      "category": "商品・売場管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "装飾や配置を工夫し、商品の魅力や季節感を伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-185",
+      "japanese": "購買率",
+      "reading": "こうばいりつ",
+      "romaji": ["koubairitsu", "koubairitu"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "来店した客のうち、商品を購入した人の割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-186",
+      "japanese": "入店客数",
+      "reading": "にゅうてんきゃくすう",
+      "romaji": ["nyuutenkyakusuu"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に店舗へ入った客の人数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-187",
+      "japanese": "客数",
+      "reading": "きゃくすう",
+      "romaji": ["kyakusuu"],
+      "category": "販売・顧客対応",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に来店または購入した客の人数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-188",
+      "japanese": "買上点数",
+      "reading": "かいあげてんすう",
+      "romaji": ["kaiagetensuu"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一回の会計で購入された商品の個数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-189",
+      "japanese": "平均買上点数",
+      "reading": "へいきんかいあげてんすう",
+      "romaji": ["heikinkaiagetensuu"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引一回あたりに購入された商品の平均個数。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-190",
+      "japanese": "併買率",
+      "reading": "へいばいりつ",
+      "romaji": ["heibairitsu", "heibairitu"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ある商品を買った客が、別の商品も同時に買う割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-191",
+      "japanese": "来店頻度",
+      "reading": "らいてんひんど",
+      "romaji": ["raitenhindo"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が一定期間に店舗を訪れる回数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-192",
+      "japanese": "リピート購買",
+      "reading": "りぴーとこうばい",
+      "romaji": ["ripi-tokoubai"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ顧客が、同じ店や商品を繰り返し購入すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-193",
+      "japanese": "購買履歴",
+      "reading": "こうばいりれき",
+      "romaji": ["koubairireki"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が過去に購入した商品や日時などの記録。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-194",
+      "japanese": "購買データ分析",
+      "reading": "こうばいでーたぶんせき",
+      "romaji": ["koubaide-tabunseki"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売記録を調べ、商品や顧客の傾向を把握すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-195",
+      "japanese": "顧客動線",
+      "reading": "こきゃくどうせん",
+      "romaji": ["kokyakudousenn"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "来店客が店内を移動する経路のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-196",
+      "japanese": "入店率",
+      "reading": "にゅうてんりつ",
+      "romaji": ["nyuutenritsu", "nyuutenritu"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗の前を通った人のうち、入店した人の割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-197",
+      "japanese": "試着率",
+      "reading": "しちゃくりつ",
+      "romaji": ["shichakuritsu", "sityakuritu"],
+      "category": "販売・顧客対応",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "対象となる来店客のうち、商品を試着した人の割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-198",
+      "japanese": "試着後購入率",
+      "reading": "しちゃくごこうにゅうりつ",
+      "romaji": ["shichakugokounyuuritsu", "sityakugokounyuuritu"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "試着した客のうち、商品を購入した人の割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-199",
+      "japanese": "接客記録",
+      "reading": "せっきゃくきろく",
+      "romaji": ["sekkyakukiroku"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客対応の内容や希望、次の対応を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-200",
+      "japanese": "接客評価",
+      "reading": "せっきゃくひょうか",
+      "romaji": ["sekkyakuhyouka"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "接客の品質や顧客の反応を、決めた観点で確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-201",
+      "japanese": "顧客アンケート",
+      "reading": "こきゃくあんけーと",
+      "romaji": ["kokyakuanke-to"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や店舗の利用について、顧客の意見を尋ねる調査。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-202",
+      "japanese": "顧客意見箱",
+      "reading": "こきゃくいけんばこ",
+      "romaji": ["kokyakuikenbako"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店の利用者が意見や要望を寄せるための窓口。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-203",
+      "japanese": "商品問い合わせ",
+      "reading": "しょうひんといあわせ",
+      "romaji": ["shouhintoiawase", "syouhintoiawase"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の仕様や在庫、使い方について顧客から受ける質問。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-204",
+      "japanese": "苦情受付",
+      "reading": "くじょううけつけ",
+      "romaji": ["kujouuketsuke", "kuzyouuketuke"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスへの不満を、顧客から受け取ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-205",
+      "japanese": "返品条件",
+      "reading": "へんぴんじょうけん",
+      "romaji": ["henpinjoukenn", "henpinzyoukenn"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入品を返品できる期限や状態などを定めた条件。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-206",
+      "japanese": "返品伝票",
+      "reading": "へんぴんでんぴょう",
+      "romaji": ["henpindenpyou"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "返品された商品の内容や返金を記録する伝票。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-207",
+      "japanese": "交換条件",
+      "reading": "こうかんじょうけん",
+      "romaji": ["koukanjoukenn", "koukanzyoukenn"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入品を別の商品へ交換するときの期限や状態の規則。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-208",
+      "japanese": "返金処理",
+      "reading": "へんきんしょり",
+      "romaji": ["henkinshori", "henkinsyori"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "返品などに応じ、受け取った代金を顧客へ返すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-209",
+      "japanese": "返金方法",
+      "reading": "へんきんほうほう",
+      "romaji": ["henkinhouhou"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "現金や決済取消など、代金を返すために使う手段。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-210",
+      "japanese": "接客申し送り",
+      "reading": "せっきゃくもうしおくり",
+      "romaji": ["sekkyakumoushiokuri", "sekkyakumousiokuri"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の希望や対応の続きについて、次の担当者へ伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-211",
+      "japanese": "接客研修記録",
+      "reading": "せっきゃくけんしゅうきろく",
+      "romaji": ["sekkyakukenshuukiroku", "sekkyakukensyuukiroku"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "接客研修で扱った内容や参加状況を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-212",
+      "japanese": "顧客対応方針",
+      "reading": "こきゃくたいおうほうしん",
+      "romaji": ["kokyakutaiouhoushinn", "kokyakutaiouhousinn"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "申し出や要望に対する、店舗内の基本的な対応方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-213",
+      "japanese": "再来店促進",
+      "reading": "さいらいてんそくしん",
+      "romaji": ["sairaitensokushinn", "sairaitensokusinn"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客に再び来店してもらうために行う案内や企画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-214",
+      "japanese": "会員特典",
+      "reading": "かいいんとくてん",
+      "romaji": ["kaiintokutenn"],
+      "category": "販売・顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会員登録した顧客に提供する割引やサービスなどの特典。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-215",
+      "japanese": "納品曜日",
+      "reading": "のうひんようび",
+      "romaji": ["nouhinnyoubi"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕入れ先から商品が届く曜日として定められた日。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-216",
+      "japanese": "最小発注数量",
+      "reading": "さいしょうはっちゅうすうりょう",
+      "romaji": ["saishouhacchuusuuryou", "saisyouhattyuusuuryou"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕入れ先が受け付ける、一回の注文の最低数量。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-217",
+      "japanese": "補充点",
+      "reading": "ほじゅうてん",
+      "romaji": ["hojuutenn", "hozyuutenn"],
+      "category": "在庫・物流",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "在庫がその数量以下になったとき、補充を始める基準。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-218",
+      "japanese": "仕入れリードタイム",
+      "reading": "しいれりーどたいむ",
+      "romaji": ["shiireri-dotaimu", "siireri-dotaimu"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文してから仕入れ商品が店舗や倉庫に届くまでの期間。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-219",
+      "japanese": "在庫補充頻度",
+      "reading": "ざいこほじゅうひんど",
+      "romaji": ["zaikohojuuhindo", "zaikohozyuuhindo"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗の在庫を一定期間に補充する回数の目安。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-220",
+      "japanese": "在庫消化率",
+      "reading": "ざいこしょうかりつ",
+      "romaji": ["zaikoshoukaritsu", "zaikosyoukaritu"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕入れた商品のうち、一定期間で販売された割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-221",
+      "japanese": "欠品率",
+      "reading": "けっぴんりつ",
+      "romaji": ["keppinritsu", "keppinritu"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売機会に商品が在庫切れとなっていた割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-222",
+      "japanese": "在庫精度",
+      "reading": "ざいこせいど",
+      "romaji": ["zaikoseido"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "記録上の在庫数と、実際の数量が一致している度合い。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-223",
+      "japanese": "実在庫",
+      "reading": "じつざいこ",
+      "romaji": ["jitsuzaiko", "zituzaiko"],
+      "category": "在庫・物流",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "倉庫や売場で実際に数えられる商品の数量。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-224",
+      "japanese": "帳簿在庫",
+      "reading": "ちょうぼざいこ",
+      "romaji": ["choubozaiko", "tyoubozaiko"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "在庫管理システムなどに記録されている商品の数量。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-225",
+      "japanese": "在庫差異調査",
+      "reading": "ざいこさいちょうさ",
+      "romaji": ["zaikosaichousa", "zaikosaityousa"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "記録と実数が異なる原因を調べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-226",
+      "japanese": "棚卸日",
+      "reading": "たなおろしび",
+      "romaji": ["tanaoroshibi", "tanaorosibi"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の実数を数える日として定めた日付のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-227",
+      "japanese": "棚卸表",
+      "reading": "たなおろしひょう",
+      "romaji": ["tanaoroshihyou", "tanaorosihyou"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品ごとの実数や確認結果を記入する一覧表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-228",
+      "japanese": "循環棚卸",
+      "reading": "じゅんかんたなおろし",
+      "romaji": ["junkantanaoroshi", "zyunkantanaorosi"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品群を分け、時期をずらして順番に数える方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-229",
+      "japanese": "在庫移動票",
+      "reading": "ざいこいどうひょう",
+      "romaji": ["zaikoidouhyou"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗や倉庫間で商品を移動した内容を記録する書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-230",
+      "japanese": "店舗間移動",
+      "reading": "てんぽかんいどう",
+      "romaji": ["tenpokannidou"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "在庫の過不足に応じ、商品を別の店舗へ移すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-231",
+      "japanese": "入荷予定",
+      "reading": "にゅうかよてい",
+      "romaji": ["nyuukayotei"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "今後店舗や倉庫へ届く商品と日時の予定。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-232",
+      "japanese": "返品状態確認",
+      "reading": "へんぴんじょうたいかくにん",
+      "romaji": ["henpinjoutaikakuninn", "henpinzyoutaikakuninn"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "返品された商品に傷や使用跡がないか、再販売前に確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-233",
+      "japanese": "検品差異",
+      "reading": "けんぴんさい",
+      "romaji": ["kenpinsai"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "納品書の内容と、実際に届いた商品の違い。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-234",
+      "japanese": "納品伝票",
+      "reading": "のうひんでんぴょう",
+      "romaji": ["nouhindenpyou"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "納入された商品の品目や数量を記した書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-235",
+      "japanese": "出荷指示",
+      "reading": "しゅっかしじ",
+      "romaji": ["shukkashiji", "syukkasizi"],
+      "category": "在庫・物流",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "倉庫から出す商品や数量、届け先を指定する指示。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-236",
+      "japanese": "出荷検品",
+      "reading": "しゅっかけんぴん",
+      "romaji": ["shukkakenpinn", "syukkakenpinn"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "発送前に商品と数量、送り先を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-237",
+      "japanese": "出荷ラベル",
+      "reading": "しゅっからべる",
+      "romaji": ["shukkaraberu", "syukkaraberu"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "届け先や取扱情報を記して荷物に貼るラベル。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-238",
+      "japanese": "配送追跡番号",
+      "reading": "はいそうついせきばんごう",
+      "romaji": ["haisoutsuisekibangou", "haisoutuisekibangou"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "配送状況を確認するため、荷物ごとに割り当てた番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-239",
+      "japanese": "納期回答",
+      "reading": "のうきかいとう",
+      "romaji": ["noukikaitou"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文品が届く予定日を、仕入れ先などから受け取る返答。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-240",
+      "japanese": "物流センター",
+      "reading": "ぶつりゅうせんたー",
+      "romaji": ["butsuryuusenta-", "buturyuusenta-"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品を集約し、保管や仕分け、出荷を行う施設。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-241",
+      "japanese": "入荷検収",
+      "reading": "にゅうかけんしゅう",
+      "romaji": ["nyuukakenshuu", "nyuukakensyuu"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "納品物が注文条件を満たしているか確認し、受け取ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-242",
+      "japanese": "返品在庫",
+      "reading": "へんぴんざいこ",
+      "romaji": ["henpinzaiko"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "返品後、再販売や処理の確認が必要な商品在庫。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-243",
+      "japanese": "長期滞留在庫",
+      "reading": "ちょうきたいりゅうざいこ",
+      "romaji": ["choukitairyuuzaiko", "tyoukitairyuuzaiko"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "長期間販売や移動がなく、保管されたままの商品。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-244",
+      "japanese": "滞留在庫処分",
+      "reading": "たいりゅうざいこしょぶん",
+      "romaji": ["tairyuuzaikoshobunn", "tairyuuzaikosyobunn"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "動きの少ない在庫を、値下げや返品などで整理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-245",
+      "japanese": "在庫評価",
+      "reading": "ざいこひょうか",
+      "romaji": ["zaikohyouka"],
+      "category": "在庫・物流",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保有する商品の価値を、会計や管理の基準で見積もること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-246",
+      "japanese": "店舗予算",
+      "reading": "てんぽよさん",
+      "romaji": ["tenpoyosann"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗の売上や費用について、期間ごとに定めた計画額。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-247",
+      "japanese": "日別売上",
+      "reading": "ひべつうりあげ",
+      "romaji": ["hibetsuuriage", "hibetuuriage"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業日ごとに集計した販売金額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-248",
+      "japanese": "部門別売上",
+      "reading": "ぶもんべつうりあげ",
+      "romaji": ["bumonbetsuuriage", "bumonbetuuriage"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品部門や売場ごとに分けて集計した販売金額。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-249",
+      "japanese": "売上構成比",
+      "reading": "うりあげこうせいひ",
+      "romaji": ["uriagekouseihi"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "全売上に対して、商品や部門が占める割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-250",
+      "japanese": "粗利益率",
+      "reading": "あらりえきりつ",
+      "romaji": ["arariekiritsu", "arariekiritu"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上に対する粗利益の割合を示す指標。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-251",
+      "japanese": "値入率",
+      "reading": "ねいれりつ",
+      "romaji": ["neireritsu", "neireritu"],
+      "category": "店舗運営・数値",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売価格に対し、仕入れ価格へ加えた利益分の割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-252",
+      "japanese": "値下げ率",
+      "reading": "ねさげりつ",
+      "romaji": ["nesageritsu", "nesageritu"],
+      "category": "店舗運営・数値",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "元の価格から、どれだけ価格を下げたかを表す割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-253",
+      "japanese": "値下げ販売",
+      "reading": "ねさげはんばい",
+      "romaji": ["nesagehanbai"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売価格を引き下げて商品を販売すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-254",
+      "japanese": "値下げ承認",
+      "reading": "ねさげしょうにん",
+      "romaji": ["nesageshouninn", "nesagesyouninn"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "価格を変更する前に、責任者の承認を受けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-255",
+      "japanese": "販売予測",
+      "reading": "はんばいよそく",
+      "romaji": ["hanbaiyosoku"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "過去の実績や季節要因から、今後の販売量を見積もること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-256",
+      "japanese": "棚替え計画",
+      "reading": "たながえけいかく",
+      "romaji": ["tanagaekeikaku"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "棚の商品配置を入れ替える日程や手順をまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-257",
+      "japanese": "予算達成率",
+      "reading": "よさんたっせいりつ",
+      "romaji": ["yosantasseiritsu", "yosantasseiritu"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "実績が設定した予算目標に対して占める割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-258",
+      "japanese": "売上進捗",
+      "reading": "うりあげしんちょく",
+      "romaji": ["uriageshinchoku", "uriagesintyoku"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上目標に対する、現在までの達成状況のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-259",
+      "japanese": "商品別利益",
+      "reading": "しょうひんべつりえき",
+      "romaji": ["shouhinbetsurieki", "syouhinbeturieki"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品ごとの売上から関連する原価などを差し引いた利益。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-260",
+      "japanese": "人時売上高",
+      "reading": "にんじうりあげだか",
+      "romaji": ["ninjiuriagedaka", "ninziuriagedaka"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員の労働時間一時間あたりの売上を示す指標。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-261",
+      "japanese": "人件費率",
+      "reading": "じんけんひりつ",
+      "romaji": ["jinkenhiritsu", "zinkenhiritu"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上に占める人件費の割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-262",
+      "japanese": "労働生産性",
+      "reading": "ろうどうせいさんせい",
+      "romaji": ["roudouseisansei"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "労働時間や人数に対して得られた売上や成果の度合い。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-263",
+      "japanese": "シフト充足率",
+      "reading": "しふとじゅうそくりつ",
+      "romaji": ["shifutojuusokuritsu", "sihutozyuusokuritu"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "必要な勤務枠のうち、担当者が配置された割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-264",
+      "japanese": "勤務配置表",
+      "reading": "きんむはいちひょう",
+      "romaji": ["kinmuhaichihyou", "kinmuhaitihyou"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "時間帯ごとの担当者や配置場所を示した表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-265",
+      "japanese": "開店点検表",
+      "reading": "かいてんてんけんひょう",
+      "romaji": ["kaitentenkenhyou"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "開店前に設備や売場の準備状況を確認する表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-266",
+      "japanese": "閉店点検表",
+      "reading": "へいてんてんけんひょう",
+      "romaji": ["heitentenkenhyou"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "閉店後の施錠や設備、売上処理を確認する表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-267",
+      "japanese": "金庫管理",
+      "reading": "きんこかんり",
+      "romaji": ["kinkokanri"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "現金や鍵を安全に保管し、入出金を記録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-268",
+      "japanese": "売上金回収",
+      "reading": "うりあげきんかいしゅう",
+      "romaji": ["uriagekinkaishuu", "uriagekinkaisyuu"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "レジなどに保管された売上金を回収して管理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-269",
+      "japanese": "釣銭準備金",
+      "reading": "つりせんじゅんびきん",
+      "romaji": ["tsurisenjunbikinn", "turisenzyunbikinn"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会計時の釣銭として、営業前にレジへ用意する現金。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-270",
+      "japanese": "レジ差異報告",
+      "reading": "れじさいほうこく",
+      "romaji": ["rejisaihoukoku", "rezisaihoukoku"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上記録と現金などの差が出たとき、状況を報告すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-271",
+      "japanese": "販売日報",
+      "reading": "はんばいにっぽう",
+      "romaji": ["hanbainippou"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "日ごとの売上や客数、特記事項を記録した報告書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-272",
+      "japanese": "店内巡回",
+      "reading": "てんないじゅんかい",
+      "romaji": ["tennaijunkai", "tennaizyunkai"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売場や通路を回り、陳列や安全の状態を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-273",
+      "japanese": "売場点検",
+      "reading": "うりばてんけん",
+      "romaji": ["uribatenkenn"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の並びや価格表示、清潔さなどを確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-274",
+      "japanese": "売場変更計画",
+      "reading": "うりばへんこうけいかく",
+      "romaji": ["uribahenkoukeikaku"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の配置や陳列を変更する手順と日程を定めた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-275",
+      "japanese": "販売促進計画",
+      "reading": "はんばいそくしんけいかく",
+      "romaji": ["hanbaisokushinkeikaku", "hanbaisokusinkeikaku"],
+      "category": "店舗運営・数値",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売を促す広告や企画、実施時期をまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-276",
+      "japanese": "決済端末",
+      "reading": "けっさいたんまつ",
+      "romaji": ["kessaitanmatsu", "kessaitanmatu"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "カードや電子決済を処理するための機器。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-277",
+      "japanese": "決済承認",
+      "reading": "けっさいしょうにん",
+      "romaji": ["kessaishouninn", "kessaisyouninn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決済会社が支払いを受け付けることを確認する処理。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-278",
+      "japanese": "決済取消",
+      "reading": "けっさいとりけし",
+      "romaji": ["kessaitorikeshi", "kessaitorikesi"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "誤った支払いや注文の決済を取り消す手続き。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-279",
+      "japanese": "決済照合",
+      "reading": "けっさいしょうごう",
+      "romaji": ["kessaishougou", "kessaisyougou"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗の売上記録と決済会社の入金情報を比べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-280",
+      "japanese": "決済手数料",
+      "reading": "けっさいてすうりょう",
+      "romaji": ["kessaitesuuryou"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "カードなどの決済処理を利用するために支払う費用。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-281",
+      "japanese": "電子レシート",
+      "reading": "でんしれしーと",
+      "romaji": ["denshireshi-to", "densiresi-to"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入内容を紙ではなく電子データで受け取る領収情報。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-282",
+      "japanese": "クーポン利用条件",
+      "reading": "くーぽんりようじょうけん",
+      "romaji": ["ku-ponriyoujoukenn", "ku-ponriyouzyoukenn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "値引き券を使える商品や期限などを定めたルール。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-283",
+      "japanese": "ポイント失効",
+      "reading": "ぽいんとしっこう",
+      "romaji": ["pointoshikkou", "pointosikkou"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用期限を過ぎたポイントが使えなくなること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-284",
+      "japanese": "会員情報更新",
+      "reading": "かいいんじょうほうこうしん",
+      "romaji": ["kaiinjouhoukoushinn", "kaiinzyouhoukousinn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の住所や連絡先などの登録内容を変更すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-285",
+      "japanese": "個人情報取扱",
+      "reading": "こじんじょうほうとりあつかい",
+      "romaji": ["kojinjouhoutoriatsukai", "kozinzyouhoutoriatukai"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の個人情報を、決められた目的や方法で扱うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-286",
+      "japanese": "防犯巡回",
+      "reading": "ぼうはんじゅんかい",
+      "romaji": ["bouhanjunkai", "bouhanzyunkai"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "不正や事故を防ぐため、売場や設備を見回ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-287",
+      "japanese": "万引き対策",
+      "reading": "まんびきたいさく",
+      "romaji": ["manbikitaisaku"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の不正な持ち出しを防ぐために行う対応。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-288",
+      "japanese": "不正返品",
+      "reading": "ふせいへんぴん",
+      "romaji": ["fuseihenpinn", "huseihenpinn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "規則に反する方法で商品や代金の返還を得ようとする返品。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-289",
+      "japanese": "返品不正検知",
+      "reading": "へんぴんふせいけんち",
+      "romaji": ["henpinfuseikenchi", "henpinhuseikenti"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "不自然な返品の回数や内容を確認し、問題を見つけること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-290",
+      "japanese": "レジ障害対応",
+      "reading": "れじしょうがいたいおう",
+      "romaji": ["rejishougaitaiou", "rezisyougaitaiou"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会計端末が動かないとき、店舗で行う確認や代替手順。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-291",
+      "japanese": "ロス率",
+      "reading": "ろすりつ",
+      "romaji": ["rosuritsu", "rosuritu"],
+      "category": "決済・リスク管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "紛失や破損などで販売できなくなった商品の割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-292",
+      "japanese": "破損商品",
+      "reading": "はそんしょうひん",
+      "romaji": ["hasonshouhinn", "hasonsyouhinn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "包装や本体が壊れ、通常の販売が難しくなった商品。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-293",
+      "japanese": "破損報告",
+      "reading": "はそんほうこく",
+      "romaji": ["hasonhoukoku"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や設備の破損を確認し、担当者へ内容を伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-294",
+      "japanese": "事故報告",
+      "reading": "じこほうこく",
+      "romaji": ["jikohoukoku", "zikohoukoku"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗で起きた事故の状況や対応を記録して報告すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-295",
+      "japanese": "苦情対応記録",
+      "reading": "くじょうたいおうきろく",
+      "romaji": ["kujoutaioukiroku", "kuzyoutaioukiroku"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客からの苦情と店舗の対応内容を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-296",
+      "japanese": "災害時対応",
+      "reading": "さいがいじたいおう",
+      "romaji": ["saigaijitaiou", "saigaizitaiou"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "災害発生時に、客や従業員の安全を守るために行う対応。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-297",
+      "japanese": "避難誘導",
+      "reading": "ひなんゆうどう",
+      "romaji": ["hinannyuudou"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "危険な場所から安全な場所へ人を案内すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-298",
+      "japanese": "防災備品",
+      "reading": "ぼうさいびひん",
+      "romaji": ["bousaibihinn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "災害時の安全確保や連絡に使うため備えておく物品。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-299",
+      "japanese": "衛生点検",
+      "reading": "えいせいてんけん",
+      "romaji": ["eiseitenkenn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店舗や設備の清潔さ、衛生上の状態を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "retail-300",
+      "japanese": "作業安全確認",
+      "reading": "さぎょうあんぜんかくにん",
+      "romaji": ["sagyouanzenkakuninn"],
+      "category": "決済・リスク管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "作業前に危険がないか、手順や設備を確かめること。",
       "related_terms": [],
       "learning_points": [],
       "weak_detection": {

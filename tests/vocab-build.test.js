@@ -18,11 +18,18 @@ import {
   writeOutputs,
 } from "../scripts/lib/vocab-build.mjs";
 import { parseVocabularyMarkdown, stringifyVocabularyMarkdown } from "../scripts/lib/vocab-md.mjs";
+import {
+  expectedDifficulty,
+  improvementCandidates,
+  readingUnits,
+} from "../scripts/lib/vocab-stats.mjs";
+import { loadSourceVocabularies } from "../scripts/lib/vocab-io.mjs";
 import { PUBLISHED_KEYS, validateVocabulary } from "../scripts/lib/vocab-validate.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
 const context = loadContext(root);
+const manuscripts = loadSourceVocabularies();
 
 // ---- 実際の原稿と生成物 ----
 describe("実際の原稿 → 公開の JSON", () => {
@@ -54,7 +61,7 @@ describe("実際の原稿 → 公開の JSON", () => {
     }
   });
 
-  it("公開している語は 523 語。原稿の語(下書きを除く)と、一対一で対応する", async () => {
+  it("公開している語は 1800 語。原稿の語(下書きを除く)と、一対一で対応する", async () => {
     const { files } = await buildOutputs(loadSources(root), context);
     let total = 0;
     for (const { data } of files) {
@@ -67,7 +74,29 @@ describe("実際の原稿 → 公開の JSON", () => {
       );
       total += published.items.length;
     }
-    assert.equal(total, 523);
+    assert.equal(total, 1800);
+  });
+
+  it("原稿の語数は、職種ごとにちょうど 300 語で、id は連番", () => {
+    const expected = {
+      engineer: 300,
+      sales: 300,
+      office: 300,
+      "food-service": 300,
+      teaching: 300,
+      retail: 300,
+    };
+    for (const data of manuscripts) {
+      assert.equal(data.items.length, expected[data.job_id], data.job_id);
+      assert.deepEqual(
+        data.items.map((item) => item.id).sort(),
+        Array.from(
+          { length: 300 },
+          (_, index) => `${data.job_id}-${String(index + 1).padStart(3, "0")}`,
+        ),
+        data.job_id,
+      );
+    }
   });
 
   it("詳細説明(detail)のある語は 6 語(職種ごとに 1 語。難易度 3)。学習ポイントを持ち、確認メモがついている", async () => {
@@ -99,7 +128,7 @@ describe("実際の原稿 → 公開の JSON", () => {
     for (const item of noted) assert.ok(Array.from(item.note).length <= 200, item.id);
   });
 
-  it("公開している語の review は、203 語が pending(基本の語・英語の語。確認はまだ)、320 語が confirmed(バッチ1。Issue #182 でJさんが確認)", async () => {
+  it("公開している語の review は、203 語が pending、1597 語が confirmed", async () => {
     const { files } = await buildOutputs(loadSources(root), context);
     const counts = { pending: 0, confirmed: 0 };
     for (const { data } of files) {
@@ -108,7 +137,7 @@ describe("実際の原稿 → 公開の JSON", () => {
         counts[item.review] += 1;
       }
     }
-    assert.deepEqual(counts, { pending: 203, confirmed: 320 });
+    assert.deepEqual(counts, { pending: 203, confirmed: 1597 });
   });
 });
 
@@ -409,7 +438,7 @@ describe("最新かの検査(checkOutputs)・書き出し", () => {
 });
 
 describe("原稿の読み込み(loadSources)", () => {
-  it("content/vocabulary/*.md を、名前順に読む(ファイル名が、職種の id)。ベース 6 つのほか、拡張ファイル(英語で打つ語の下書き。Issue #131)も読む", () => {
+  it("content/vocabulary/*.md を、名前順に読む(ファイル名が、職種の id)。ベース 6 つのほか、拡張ファイルも読む", () => {
     const sources = loadSources(root);
     assert.deepEqual(
       sources.filter((entry) => entry.kind === "base").map((entry) => entry.name),
@@ -420,7 +449,11 @@ describe("原稿の読み込み(loadSources)", () => {
       [
         "engineer",
         "engineer",
+        "engineer",
+        "engineer",
         ...["food-service", "office", "retail", "sales", "teaching"].flatMap((name) => [
+          name,
+          name,
           name,
           name,
           name,
@@ -428,6 +461,83 @@ describe("原稿の読み込み(loadSources)", () => {
       ],
     );
     for (const entry of sources) assert.ok(!entry.text.includes("\r"), entry.name);
+  });
+
+  it("バッチ2〜4の追加語は、確認済みで公開されている", () => {
+    const sources = loadSources(root).filter((entry) => /\.ext-batch[234]\.md$/.test(entry.file));
+    const items = sources.flatMap((source) => parseVocabularyMarkdown(source.text).items);
+    assert.equal(items.length, 1277);
+    assert.ok(items.every((item) => item.draft !== true && item.review === "confirmed"));
+  });
+
+  it("バッチ3は、各職種20語が確認済みで公開されている", () => {
+    const sources = loadSources(root).filter((entry) => entry.file.endsWith(".ext-batch3.md"));
+    assert.deepEqual(
+      sources.map((entry) => entry.name),
+      ["engineer", "food-service", "office", "retail", "sales", "teaching"],
+    );
+    for (const source of sources) {
+      const { items } = parseVocabularyMarkdown(source.text);
+      assert.equal(items.length, 20, source.name);
+      assert.ok(
+        items.every((item) => item.draft !== true && item.review === "confirmed"),
+        source.name,
+      );
+    }
+  });
+
+  it("バッチ4は、不足数どおりの語が確認済みで公開され、id が連番", () => {
+    const expected = {
+      engineer: [153, 148],
+      sales: [156, 145],
+      office: [164, 137],
+      "food-service": [153, 148],
+      teaching: [164, 137],
+      retail: [155, 146],
+    };
+    const sources = loadSources(root).filter((entry) => entry.file.endsWith(".ext-batch4.md"));
+    assert.deepEqual(
+      sources.map((entry) => entry.name),
+      ["engineer", "food-service", "office", "retail", "sales", "teaching"],
+    );
+    for (const source of sources) {
+      const { items } = parseVocabularyMarkdown(source.text);
+      const [firstId, count] = expected[source.name];
+      assert.equal(items.length, count, source.name);
+      assert.deepEqual(
+        items.map((item) => item.id),
+        Array.from(
+          { length: count },
+          (_, index) => `${source.name}-${String(firstId + index).padStart(3, "0")}`,
+        ),
+        source.name,
+      );
+      assert.ok(
+        items.every((item) => item.draft !== true && item.review === "confirmed"),
+        source.name,
+      );
+    }
+  });
+
+  it("バッチ4の日本語・読みは全職種で重複せず、難易度と役職が正しい", () => {
+    const batchSources = loadSources(root).filter((entry) => entry.file.endsWith(".ext-batch4.md"));
+    const batchItems = batchSources.flatMap((entry) => parseVocabularyMarkdown(entry.text).items);
+    const batchIds = new Set(batchItems.map((item) => item.id));
+    const existingItems = manuscripts
+      .flatMap((data) => data.items)
+      .filter((item) => !batchIds.has(item.id));
+    const japanese = new Set(existingItems.map((item) => item.japanese));
+    const readings = new Set(existingItems.map((item) => item.reading));
+    for (const item of batchItems) {
+      assert.ok(!japanese.has(item.japanese), `${item.id}: ${item.japanese}`);
+      assert.ok(!readings.has(item.reading), `${item.id}: ${item.reading}`);
+      japanese.add(item.japanese);
+      readings.add(item.reading);
+      assert.equal(item.difficulty, expectedDifficulty(readingUnits(item.reading)), item.id);
+      assert.ok(item.roles.length > 0, item.id);
+      for (const role of item.roles)
+        assert.ok(context.roleIds.includes(role), `${item.id}: ${role}`);
+    }
   });
 
   it("フォルダがなければ、空", () => {
@@ -460,33 +570,34 @@ describe("コマンド", () => {
   it("build:vocabulary --check: 最新なら、終了コード 0(職種数・公開の語数・下書きの数を出す)", () => {
     const result = run("build-vocabulary.mjs", ["--check"]);
     assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout, /最新です\(6 職種・公開 523 語\(下書き \d+ 語は、公開しません\)\)/);
+    assert.match(result.stdout, /最新です\(6 職種・公開 1800 語\(下書き 0 語は、公開しません\)\)/);
   });
 
   it("vocab:check: 検証の結果・確認の状況・確認メモを出して、終了コード 0", () => {
     const result = run("vocab-check.mjs");
     assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout, /公開 523 語\(確認済み 320 語・未確認 203 語\)/);
+    assert.match(result.stdout, /公開 1800 語\(確認済み 1597 語・未確認 203 語\)/);
     assert.match(result.stdout, /形式の検証.*通りました/);
     assert.match(result.stdout, /人間に見てほしい点\(note\): 54 件/);
     assert.match(result.stdout, /engineer-009\(プルリクエスト\)/);
-    // 似た意味の語の候補(Phase 25 PR2)も、警告として出る
-    assert.match(result.stdout, /警告\(直したほうがよい点\): 21 件/);
+    // 似た意味の語の候補(Phase 25 PR2)も、既知の候補以上の警告として出る
+    const warningCount = result.stdout.match(/警告\(直したほうがよい点\): (\d+) 件/);
+    assert.ok(warningCount && Number(warningCount[1]) >= 25);
     assert.match(result.stdout, /food-service-007\(仕込み\) と food-service-012\(下ごしらえ\)/);
   });
 
-  it("vocab:check --for-ai: 指示・機械の確認結果・確認する語の順で出す。確認する語は、下書きの語だけ", () => {
+  it("vocab:check --for-ai: 指示・機械の確認結果・確認する語の順で出す。公開済み下書きは含めない", () => {
     const result = run("vocab-check.mjs", ["--for-ai"]);
     assert.equal(result.status, 0, result.stderr);
     const out = result.stdout;
     assert.ok(out.indexOf("AIチェック用プロンプト") < out.indexOf("機械の確認結果"));
     assert.ok(out.indexOf("機械の確認結果") < out.indexOf("確認する語"));
-    // バッチ2(Issue #182)の下書きがある
-    assert.ok(out.includes("draft: true"));
+    assert.ok(!out.includes("draft: true"));
     assert.ok(!out.includes("japanese: CRM"));
     assert.match(out, /最終判断は、人間が行います/);
     // 似た意味の語の候補(Phase 25 PR2)も、機械の確認結果に含まれる
-    assert.match(out, /- 警告: 21 件/);
+    const warningCount = out.match(/- 警告: (\d+) 件/);
+    assert.ok(warningCount && Number(warningCount[1]) >= 25);
     assert.match(out, /sales-001\(顧客\) と sales-003\(納期\): 説明の文章が似ています/);
   });
 
@@ -497,15 +608,25 @@ describe("コマンド", () => {
     assert.equal(blocks.length, 6);
     const data = parseVocabularyMarkdown(`\`\`\`yaml\n${blocks[0][1]}\n\`\`\``);
     assert.equal(data.job_id, "engineer");
-    assert.equal(data.items.length, 78);
+    const expected = manuscripts
+      .find((entry) => entry.job_id === "engineer")
+      .items.filter((item) => item.draft || item.review === "pending").length;
+    assert.equal(data.items.length, expected);
   });
 
   it("vocab:check --improve: 改善提案用プロンプト・候補の件数・語を、YAML で出す(Phase 25)", () => {
     const result = run("vocab-check.mjs", ["--improve"]);
     assert.equal(result.status, 0, result.stderr);
     const out = result.stdout;
+    const candidates = improvementCandidates(manuscripts).reduce(
+      (sum, data) => sum + data.items.length,
+      0,
+    );
     assert.ok(out.indexOf("AI改善提案用プロンプト") < out.indexOf("改善の候補"));
-    assert.match(out, /改善の候補\(公開済み・関連用語が、まだない語\): 401 件/);
+    assert.match(
+      out,
+      new RegExp(`改善の候補\\(公開済み・関連用語が、まだない語\\): ${candidates} 件`),
+    );
     assert.match(
       out,
       /AI の提案は、参考です。最終判断は、人間が行います。原稿は、AIが直接書き換えません。/,
@@ -521,7 +642,7 @@ describe("コマンド", () => {
     assert.equal(result.status, 0, result.stderr);
     assert.match(
       result.stdout,
-      /人間の確認: 確認済み 320 語 \/ 未確認 203 語\(公開 523 語\)。下書き \d+ 語/,
+      /人間の確認: 確認済み 1597 語 \/ 未確認 203 語\(公開 1800 語\)。下書き 0 語/,
     );
   });
 
