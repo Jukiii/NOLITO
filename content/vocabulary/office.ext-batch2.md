@@ -1,4 +1,4 @@
-# 事務の語録(拡張: 第 2 弾の下書き)
+# 事務の語録(拡張: 第 2 弾の語録)
 
 語録を増やす Issue #182 の第 2 弾です。AI の下書きで、すべて `draft: true`(公開されません)・`review: pending` です。運営者が確認した語だけ、`draft` の行を消して公開します。
 
@@ -16,8 +16,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-094
     japanese: "ステープラー"
     reading: "すてーぷらー"
@@ -29,8 +28,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-095
     japanese: "クリアファイル"
     reading: "くりあふぁいる"
@@ -42,8 +40,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-096
     japanese: "バインダー"
     reading: "ばいんだー"
@@ -55,8 +52,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-097
     japanese: "ラベル"
     reading: "らべる"
@@ -68,8 +64,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-098
     japanese: "郵便物"
     reading: "ゆうびんぶつ"
@@ -81,8 +76,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-099
     japanese: "書留"
     reading: "かきとめ"
@@ -94,8 +88,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-100
     japanese: "速達"
     reading: "そくたつ"
@@ -107,8 +100,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-101
     japanese: "代表電話"
     reading: "だいひょうでんわ"
@@ -120,8 +112,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-102
     japanese: "不在"
     reading: "ふざい"
@@ -133,8 +124,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-103
     japanese: "在席"
     reading: "ざいせき"
@@ -146,8 +136,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-104
     japanese: "来訪者"
     reading: "らいほうしゃ"
@@ -159,8 +148,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-105
     japanese: "応接室"
     reading: "おうせつしつ"
@@ -172,8 +160,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-106
     japanese: "会議資料"
     reading: "かいぎしりょう"
@@ -185,8 +172,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-107
     japanese: "会議招集"
     reading: "かいぎしょうしゅう"
@@ -198,8 +184,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-108
     japanese: "出席者"
     reading: "しゅっせきしゃ"
@@ -211,8 +196,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-109
     japanese: "議題"
     reading: "ぎだい"
@@ -224,8 +208,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-110
     japanese: "決定事項"
     reading: "けっていじこう"
@@ -237,8 +220,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-111
     japanese: "期日"
     reading: "きじつ"
@@ -250,8 +232,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-112
     japanese: "締め切り"
     reading: "しめきり"
@@ -263,8 +244,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-113
     japanese: "提出"
     reading: "ていしゅつ"
@@ -276,8 +256,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-114
     japanese: "控え"
     reading: "ひかえ"
@@ -289,8 +268,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-115
     japanese: "原本"
     reading: "げんぽん"
@@ -302,8 +280,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-116
     japanese: "写し"
     reading: "うつし"
@@ -315,8 +292,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-117
     japanese: "文書管理"
     reading: "ぶんしょかんり"
@@ -328,8 +304,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-118
     japanese: "保管期間"
     reading: "ほかんきかん"
@@ -341,8 +316,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-119
     japanese: "廃棄"
     reading: "はいき"
@@ -354,8 +328,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-120
     japanese: "電子データ"
     reading: "でんしでーた"
@@ -367,8 +340,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-121
     japanese: "共有フォルダ"
     reading: "きょうゆうふぉるだ"
@@ -380,8 +352,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-122
     japanese: "アクセス権"
     reading: "あくせすけん"
@@ -393,8 +364,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-123
     japanese: "ファイル名"
     reading: "ふぁいるめい"
@@ -406,8 +376,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-124
     japanese: "フォルダ分け"
     reading: "ふぉるだわけ"
@@ -419,8 +388,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-125
     japanese: "数式"
     reading: "すうしき"
@@ -432,8 +400,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-126
     japanese: "セル"
     reading: "せる"
@@ -445,8 +412,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-127
     japanese: "グラフ"
     reading: "ぐらふ"
@@ -458,8 +424,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-128
     japanese: "書式設定"
     reading: "しょしきせってい"
@@ -471,8 +436,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-129
     japanese: "差し込み印刷"
     reading: "さしこみいんさつ"
@@ -484,8 +448,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-130
     japanese: "一斉送信"
     reading: "いっせいそうしん"
@@ -497,8 +460,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-131
     japanese: "自動返信"
     reading: "じどうへんしん"
@@ -510,8 +472,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-132
     japanese: "署名"
     reading: "しょめい"
@@ -523,8 +484,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-133
     japanese: "支払依頼"
     reading: "しはらいいらい"
@@ -536,8 +496,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-134
     japanese: "仕訳"
     reading: "しわけ"
@@ -549,8 +508,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-135
     japanese: "勘定科目"
     reading: "かんじょうかもく"
@@ -562,8 +520,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-136
     japanese: "消耗品費"
     reading: "しょうもうひんひ"
@@ -575,8 +532,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-137
     japanese: "交通費"
     reading: "こうつうひ"
@@ -588,8 +544,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-138
     japanese: "給与計算"
     reading: "きゅうよけいさん"
@@ -601,8 +556,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-139
     japanese: "社会保険"
     reading: "しゃかいほけん"
@@ -614,8 +568,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-140
     japanese: "採用"
     reading: "さいよう"
@@ -627,8 +580,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-141
     japanese: "退職手続き"
     reading: "たいしょくてつづき"
@@ -640,8 +592,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-142
     japanese: "防災訓練"
     reading: "ぼうさいくんれん"
@@ -653,8 +604,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: office-143
     japanese: "設備点検"
     reading: "せつびてんけん"
@@ -666,6 +616,5 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
 ```

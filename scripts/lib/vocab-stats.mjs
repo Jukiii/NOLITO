@@ -184,7 +184,7 @@ export function reviewSheet(vocabularies, notes = {}) {
     "",
     "> このファイルは、`npm run vocab:review` が、語録の原稿(`content/vocabulary/*.md`)から作ります。**手で書き換えません**。確認の状況(`review`)・確認のメモ(`note`)・下書き(`draft`)は、原稿に書きます。",
     "",
-    `語録は、AI(私)が書いた**下書き**です。公開する前に、人間の確認が要ります(\`docs/05_checklists/vocabulary-validation.md\`)。**全 ${total} 語**を、次の観点で確認してください。`,
+    `語録には、人間の確認が必要な語があります(\`docs/05_checklists/vocabulary-validation.md\`)。未確認 ${counts.pending} 語と下書き ${counts.draft} 語を、次の観点で確認してください。`,
     "",
     "| 観点 | 見ること |",
     "| ---- | ---- |",

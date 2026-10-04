@@ -1,7 +1,7 @@
 {
   "job_id": "sales",
   "job_name": "営業",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "updated_at": "2026-10-01",
   "items": [
     {
@@ -1188,6 +1188,3246 @@
       "difficulty": 3,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "お客様の名前や連絡先などを、まとめた一覧のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-085",
+      "japanese": "アプローチ",
+      "reading": "あぷろーち",
+      "romaji": ["apuro-chi", "apuro-ti"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相手に近づいて、働きかけること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-086",
+      "japanese": "リード",
+      "reading": "りーど",
+      "romaji": ["ri-do"],
+      "category": "営業活動",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品に関心を持つかもしれない、見込みのある相手の情報のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-087",
+      "japanese": "インサイドセールス",
+      "reading": "いんさいどせーるす",
+      "romaji": ["insaidose-rusu"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "訪問せずに、電話やメールなどで進める営業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-088",
+      "japanese": "フィールドセールス",
+      "reading": "ふぃーるどせーるす",
+      "romaji": ["fi-rudose-rusu"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客を訪問して、直接進める営業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-089",
+      "japanese": "パイプライン",
+      "reading": "ぱいぷらいん",
+      "romaji": ["paipurainn"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談が、どの段階まで進んでいるかを、全体で見渡した状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-090",
+      "japanese": "ヨミ",
+      "reading": "よみ",
+      "romaji": ["yomi"],
+      "category": "営業管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談が、どのくらいの確度で受注できそうかを、見込んだ予想のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-091",
+      "japanese": "アップセル",
+      "reading": "あっぷせる",
+      "romaji": ["appuseru"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "いま使っている顧客に、より高い商品やプランをすすめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-092",
+      "japanese": "クロスセル",
+      "reading": "くろすせる",
+      "romaji": ["kurosuseru"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "いま使っている顧客に、関連する別の商品をすすめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-093",
+      "japanese": "解約率",
+      "reading": "かいやくりつ",
+      "romaji": ["kaiyakuritsu", "kaiyakuritu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約していた顧客のうち、やめた顧客の割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-094",
+      "japanese": "継続率",
+      "reading": "けいぞくりつ",
+      "romaji": ["keizokuritsu", "keizokuritu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約していた顧客のうち、続けている顧客の割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-095",
+      "japanese": "顧客単価",
+      "reading": "こきゃくたんか",
+      "romaji": ["kokyakutanka"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "1人の顧客が、1回の取引で使う金額の平均のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-096",
+      "japanese": "客単価",
+      "reading": "きゃくたんか",
+      "romaji": ["kyakutanka"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客1人あたりの、1回の購入金額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-097",
+      "japanese": "商圏",
+      "reading": "しょうけん",
+      "romaji": ["shoukenn", "syoukenn"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "店や会社が、顧客を集められる地理的な範囲のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-098",
+      "japanese": "利益率",
+      "reading": "りえきりつ",
+      "romaji": ["riekiritsu", "riekiritu"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上のうち、利益が占める割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-099",
+      "japanese": "損益分岐点",
+      "reading": "そんえきぶんきてん",
+      "romaji": ["sonnekibunkitenn"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上と費用が等しくなり、利益も損失も出ない点のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-100",
+      "japanese": "見込み",
+      "reading": "みこみ",
+      "romaji": ["mikomi"],
+      "category": "営業管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "これから先の、数字や結果についての予想のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-101",
+      "japanese": "確度",
+      "reading": "かくど",
+      "romaji": ["kakudo"],
+      "category": "営業管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談が、受注に結びつく確かさの度合いのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-102",
+      "japanese": "提案活動",
+      "reading": "ていあんかつどう",
+      "romaji": ["teiankatsudou", "teiankatudou"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の課題に合わせて、解決策を示す一連の活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-103",
+      "japanese": "プレゼン",
+      "reading": "ぷれぜん",
+      "romaji": ["purezenn"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "資料などを使って、相手に内容を説明して伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-104",
+      "japanese": "デモ",
+      "reading": "でも",
+      "romaji": ["demo"],
+      "category": "営業活動",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や機能を、実際に動かして見せること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-105",
+      "japanese": "トライアル",
+      "reading": "とらいある",
+      "romaji": ["toraiaru"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入の前に、一定の期間、試しに使ってもらうこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-106",
+      "japanese": "導入事例",
+      "reading": "どうにゅうじれい",
+      "romaji": ["dounyuujirei", "dounyuuzirei"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "他の顧客が、商品をどのように使って成果を出したかの例のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-107",
+      "japanese": "相見積もり",
+      "reading": "あいみつもり",
+      "romaji": ["aimitsumori", "aimitumori"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の会社から見積もりを取って、比べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-108",
+      "japanese": "稟議書",
+      "reading": "りんぎしょ",
+      "romaji": ["ringisho", "ringisyo"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入などについて、社内で承認を得るための書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-109",
+      "japanese": "発注書",
+      "reading": "はっちゅうしょ",
+      "romaji": ["hacchuusho", "hattyuusyo"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスを注文するときに、買い手が出す書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-110",
+      "japanese": "注文書",
+      "reading": "ちゅうもんしょ",
+      "romaji": ["chuumonsho", "tyuumonsyo"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文する内容を、記して売り手へ渡す書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-111",
+      "japanese": "検収",
+      "reading": "けんしゅう",
+      "romaji": ["kenshuu", "kensyuu"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "納められた物が、注文どおりかを、確かめて受け取ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-112",
+      "japanese": "支払い条件",
+      "reading": "しはらいじょうけん",
+      "romaji": ["shiharaijoukenn", "siharaizyoukenn"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "代金を、いつ・どのような方法で払うかを定めた取り決めのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-113",
+      "japanese": "締め日",
+      "reading": "しめび",
+      "romaji": ["shimebi", "simebi"],
+      "category": "営業管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引の代金を、集計して区切る日のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-114",
+      "japanese": "支払い期日",
+      "reading": "しはらいきじつ",
+      "romaji": ["shiharaikijitsu", "siharaikizitu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "代金を、払わなければならない期限の日のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-115",
+      "japanese": "未入金",
+      "reading": "みにゅうきん",
+      "romaji": ["minyuukinn"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "請求した代金が、まだ振り込まれていない状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-116",
+      "japanese": "督促",
+      "reading": "とくそく",
+      "romaji": ["tokusoku"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "約束の期日を過ぎた代金などの、支払いをうながすこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-117",
+      "japanese": "入金消込",
+      "reading": "にゅうきんけしこみ",
+      "romaji": ["nyuukinkeshikomi", "nyuukinkesikomi"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "入金された金額を、請求と照らし合わせて、済みにする作業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-118",
+      "japanese": "営業会議",
+      "reading": "えいぎょうかいぎ",
+      "romaji": ["eigyoukaigi"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業の進み具合や課題を、チームで共有する会議のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-119",
+      "japanese": "週報",
+      "reading": "しゅうほう",
+      "romaji": ["shuuhou", "syuuhou"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "1週間の活動や結果を、まとめて報告する文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-120",
+      "japanese": "月次報告",
+      "reading": "げつじほうこく",
+      "romaji": ["getsujihoukoku", "getuzihoukoku"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "1か月の結果や状況を、まとめて報告すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-121",
+      "japanese": "ロープレ",
+      "reading": "ろーぷれ",
+      "romaji": ["ro-pure"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業の場面を想定して、役を決めて練習すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-122",
+      "japanese": "同行営業",
+      "reading": "どうこうえいぎょう",
+      "romaji": ["doukoueigyou"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "先輩や上司と一緒に、顧客を訪問して学ぶ営業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-123",
+      "japanese": "アフターフォロー",
+      "reading": "あふたーふぉろー",
+      "romaji": ["afuta-foro-", "ahuta-foro-"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売のあとも、顧客の様子を気づかって対応すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-124",
+      "japanese": "顧客満足度",
+      "reading": "こきゃくまんぞくど",
+      "romaji": ["kokyakumanzokudo"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスに対して、顧客がどのくらい満足したかを示す度合いのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-125",
+      "japanese": "解約",
+      "reading": "かいやく",
+      "romaji": ["kaiyaku"],
+      "category": "顧客対応",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "結んでいた契約を、途中でやめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-126",
+      "japanese": "値上げ交渉",
+      "reading": "ねあげこうしょう",
+      "romaji": ["neagekoushou", "neagekousyou"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品の価格を上げることを、相手に理解してもらうための話し合いのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-127",
+      "japanese": "納期遅れ",
+      "reading": "のうきおくれ",
+      "romaji": ["noukiokure"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "約束した期日までに、納められなかった状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-128",
+      "japanese": "代替案",
+      "reading": "だいたいあん",
+      "romaji": ["daitaiann"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "もとの案が使えないときに、代わりとして出す案のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-129",
+      "japanese": "ご挨拶",
+      "reading": "ごあいさつ",
+      "romaji": ["goaisatsu", "goaisatu"],
+      "category": "顧客対応",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相手を訪ねたり会ったりしたときの、礼儀としての言葉のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-130",
+      "japanese": "アポ取り",
+      "reading": "あぽとり",
+      "romaji": ["apotori"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "訪問や面会の日時を、相手と約束すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-131",
+      "japanese": "ご紹介",
+      "reading": "ごしょうかい",
+      "romaji": ["goshoukai", "gosyoukai"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "知り合いを通して、新しい相手とつないでもらうこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-132",
+      "japanese": "担当者",
+      "reading": "たんとうしゃ",
+      "romaji": ["tantousha", "tantousya"],
+      "category": "営業活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "その仕事や取引を、受け持っている人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-133",
+      "japanese": "見積有効期限",
+      "reading": "みつもりゆうこうきげん",
+      "romaji": ["mitsumoriyuukoukigenn", "mitumoriyuukoukigenn"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "出した見積もりの内容を、保証する期限のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-134",
+      "japanese": "相場",
+      "reading": "そうば",
+      "romaji": ["souba"],
+      "category": "営業活動",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品などの、そのときの一般的な値段のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-135",
+      "japanese": "ブランド力",
+      "reading": "ぶらんどりょく",
+      "romaji": ["burandoryoku"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "名前を聞いただけで、信頼や魅力を感じてもらえる力のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-136",
+      "japanese": "顧客課題",
+      "reading": "こきゃくかだい",
+      "romaji": ["kokyakukadai"],
+      "category": "商談",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が業務などで困っていて、解決を必要としている問題のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-137",
+      "japanese": "提案資料",
+      "reading": "ていあんしりょう",
+      "romaji": ["teianshiryou", "teiansiryou"],
+      "category": "商談",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客に提案する内容や根拠を、見やすくまとめた資料のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-138",
+      "japanese": "利用事例",
+      "reading": "りようじれい",
+      "romaji": ["riyoujirei", "riyouzirei"],
+      "category": "提案",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスを使った顧客の事例を紹介するもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-139",
+      "japanese": "費用対効果",
+      "reading": "ひようたいこうか",
+      "romaji": ["hiyoutaikouka"],
+      "category": "提案",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "かけた費用に対して、どの程度の成果が得られるかを表す考え方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-140",
+      "japanese": "見積条件",
+      "reading": "みつもりじょうけん",
+      "romaji": ["mitsumorijoukenn", "mitumorizyoukenn"],
+      "category": "見積",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見積金額を算出するときに、前提として決めた内容のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-141",
+      "japanese": "有効期限",
+      "reading": "ゆうこうきげん",
+      "romaji": ["yuukoukigenn"],
+      "category": "見積",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見積書や契約などの条件が有効な期間の終わりのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-142",
+      "japanese": "条件調整",
+      "reading": "じょうけんちょうせい",
+      "romaji": ["joukenchousei", "zyoukentyousei"],
+      "category": "商談",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談で合意できるよう、取引の条件を相手と話し合うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-143",
+      "japanese": "購買責任者",
+      "reading": "こうばいせきにんしゃ",
+      "romaji": ["koubaisekininsha", "koubaisekininsya"],
+      "category": "商談",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織で商品やサービスの購入に責任を持つ人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-144",
+      "japanese": "購買担当",
+      "reading": "こうばいたんとう",
+      "romaji": ["koubaitantou"],
+      "category": "顧客対応",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織で、商品やサービスの購入手続きを担当する人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-145",
+      "japanese": "競合比較",
+      "reading": "きょうごうひかく",
+      "romaji": ["kyougouhikaku"],
+      "category": "提案",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "自社の商品と競合する商品を、特徴や条件で比べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-146",
+      "japanese": "差別化",
+      "reading": "さべつか",
+      "romaji": ["sabetsuka", "sabetuka"],
+      "category": "提案",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "競合する商品との違いを明らかにし、独自の価値を示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-147",
+      "japanese": "販売実績",
+      "reading": "はんばいじっせき",
+      "romaji": ["hanbaijisseki", "hanbaizisseki"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "これまでに商品を販売した数量や金額などの記録のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-148",
+      "japanese": "受注見込み",
+      "reading": "じゅちゅうみこみ",
+      "romaji": ["juchuumikomi", "zyutyuumikomi"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談中の案件が、受注につながると予測した度合いのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-149",
+      "japanese": "営業目標",
+      "reading": "えいぎょうもくひょう",
+      "romaji": ["eigyoumokuhyou"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業活動で達成を目指す、売上や件数などの基準のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-150",
+      "japanese": "受注見通し",
+      "reading": "じゅちゅうみとおし",
+      "romaji": ["juchuumitooshi", "zyutyuumitoosi"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談の状況などをもとに、今後の受注を見込むこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-151",
+      "japanese": "紹介案件",
+      "reading": "しょうかいあんけん",
+      "romaji": ["shoukaiankenn", "syoukaiankenn"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "既存の顧客や関係者から紹介を受けた、営業の見込み案件のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-152",
+      "japanese": "商談記録",
+      "reading": "しょうだんきろく",
+      "romaji": ["shoudankiroku", "syoudankiroku"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客との商談で話した内容や決定事項を記した記録のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-153",
+      "japanese": "再提案",
+      "reading": "さいていあん",
+      "romaji": ["saiteiann"],
+      "category": "商談",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相手の要望や状況を受けて、提案内容を改めて示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-154",
+      "japanese": "販売代理店",
+      "reading": "はんばいだいりてん",
+      "romaji": ["hanbaidairitenn"],
+      "category": "販売",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "メーカーなどに代わって、商品を販売する事業者のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-155",
+      "japanese": "営業同行",
+      "reading": "えいぎょうどうこう",
+      "romaji": ["eigyoudoukou"],
+      "category": "営業活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業担当者の訪問や商談に、別の担当者が一緒に参加すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-156",
+      "japanese": "休眠顧客",
+      "reading": "きゅうみんこきゃく",
+      "romaji": ["kyuuminkokyaku"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間、購入や問い合わせがない既存顧客のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-157",
+      "japanese": "顧客接点",
+      "reading": "こきゃくせってん",
+      "romaji": ["kokyakusettenn"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客と企業が、接触したり情報を交わしたりする機会のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-158",
+      "japanese": "リード獲得",
+      "reading": "りーどかくとく",
+      "romaji": ["ri-dokakutoku"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "将来の顧客候補となる人や組織の情報を得る活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-159",
+      "japanese": "リード育成",
+      "reading": "りーどいくせい",
+      "romaji": ["ri-doikusei"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見込み客へ情報を届け、購入の検討を進めてもらう活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-160",
+      "japanese": "見込み度",
+      "reading": "みこみど",
+      "romaji": ["mikomido"],
+      "category": "顧客開拓",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見込み客が購入や契約に至る可能性を表す目安のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-161",
+      "japanese": "商談化率",
+      "reading": "しょうだんかりつ",
+      "romaji": ["shoudankaritsu", "syoudankaritu"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "接点を持った見込み客のうち、商談になった割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-162",
+      "japanese": "リードスコアリング",
+      "reading": "りーどすこありんぐ",
+      "romaji": ["ri-dosukoaringu"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "行動や属性を点数化し、見込み客の優先度を付ける方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-163",
+      "japanese": "リードナーチャリング",
+      "reading": "りーどなーちゃりんぐ",
+      "romaji": ["ri-dona-charingu", "ri-dona-tyaringu"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見込み客の関心に合わせて情報を提供し、関係を深める活動。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-164",
+      "japanese": "顧客属性",
+      "reading": "こきゃくぞくせい",
+      "romaji": ["kokyakuzokusei"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の業種や規模、地域など、特徴を表す情報のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-165",
+      "japanese": "顧客セグメント",
+      "reading": "こきゃくせぐめんと",
+      "romaji": ["kokyakusegumento"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "共通する特徴やニーズを持つ顧客のまとまりのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-166",
+      "japanese": "ターゲット顧客",
+      "reading": "たーげっとこきゃく",
+      "romaji": ["ta-gettokokyaku"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスを届けたいと定めた顧客のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-167",
+      "japanese": "顧客ペルソナ",
+      "reading": "こきゃくぺるそな",
+      "romaji": ["kokyakuperusona"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "典型的な顧客像を、具体的な人物像として整理したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-168",
+      "japanese": "購買行動",
+      "reading": "こうばいこうどう",
+      "romaji": ["koubaikoudou"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が商品を知り、比較して購入するまでに取る行動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-169",
+      "japanese": "購買動機",
+      "reading": "こうばいどうき",
+      "romaji": ["koubaidouki"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が商品やサービスを買おうとする理由のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-170",
+      "japanese": "購買条件",
+      "reading": "こうばいじょうけん",
+      "romaji": ["koubaijoukenn", "koubaizyoukenn"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が購入を決める際に重視する価格や納期などの条件。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-171",
+      "japanese": "顧客課題仮説",
+      "reading": "こきゃくかだいかせつ",
+      "romaji": ["kokyakukadaikasetsu", "kokyakukadaikasetu"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の状況から、解決が必要な問題を仮に立てた見立て。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-172",
+      "japanese": "顧客理解",
+      "reading": "こきゃくりかい",
+      "romaji": ["kokyakurikai"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の状況や期待、困りごとを把握すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-173",
+      "japanese": "紹介元",
+      "reading": "しょうかいもと",
+      "romaji": ["shoukaimoto", "syoukaimoto"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見込み客や顧客を紹介した人や組織のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-174",
+      "japanese": "紹介先",
+      "reading": "しょうかいさき",
+      "romaji": ["shoukaisaki", "syoukaisaki"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "紹介を受け、提案や連絡を行う相手のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-175",
+      "japanese": "紹介依頼",
+      "reading": "しょうかいいらい",
+      "romaji": ["shoukaiirai", "syoukaiirai"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客や関係者に、別の候補者を紹介してもらう依頼のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-176",
+      "japanese": "顧客紹介",
+      "reading": "こきゃくしょうかい",
+      "romaji": ["kokyakushoukai", "kokyakusyoukai"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "既存の顧客などから、新しい顧客候補を紹介してもらうこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-177",
+      "japanese": "紹介手数料",
+      "reading": "しょうかいてすうりょう",
+      "romaji": ["shoukaitesuuryou", "syoukaitesuuryou"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客や取引を紹介した対価として支払う料金のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-178",
+      "japanese": "顧客データベース",
+      "reading": "こきゃくでーたべーす",
+      "romaji": ["kokyakude-tabe-su"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の連絡先や対応履歴などを整理して保存する仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-179",
+      "japanese": "顧客名寄せ",
+      "reading": "こきゃくなよせ",
+      "romaji": ["kokyakunayose"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同一の顧客に関する複数の記録を、まとめて管理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-180",
+      "japanese": "顧客重複",
+      "reading": "こきゃくちょうふく",
+      "romaji": ["kokyakuchoufuku", "kokyakutyouhuku"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ顧客の情報が、複数の記録として登録されている状態。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-181",
+      "japanese": "担当顧客",
+      "reading": "たんとうこきゃく",
+      "romaji": ["tantoukokyaku"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業担当者が関係づくりや提案を受け持つ顧客のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-182",
+      "japanese": "顧客引き継ぎ",
+      "reading": "こきゃくひきつぎ",
+      "romaji": ["kokyakuhikitsugi", "kokyakuhikitugi"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "担当変更時に、顧客情報や対応状況を次の担当へ伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-183",
+      "japanese": "顧客訪問計画",
+      "reading": "こきゃくほうもんけいかく",
+      "romaji": ["kokyakuhoumonkeikaku"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "訪問する相手や目的、日程を事前に組み立てた計画のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-184",
+      "japanese": "訪問先選定",
+      "reading": "ほうもんさきせんてい",
+      "romaji": ["houmonsakisentei"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "訪問の目的や優先度に基づき、訪問する相手を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-185",
+      "japanese": "訪問頻度",
+      "reading": "ほうもんひんど",
+      "romaji": ["houmonhindo"],
+      "category": "顧客開拓",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客や見込み客を、一定期間に訪問する回数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-186",
+      "japanese": "初回接触",
+      "reading": "しょかいせっしょく",
+      "romaji": ["shokaisesshoku", "syokaisessyoku"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見込み客と初めて連絡を取り、関心や状況を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-187",
+      "japanese": "商談目的",
+      "reading": "しょうだんもくてき",
+      "romaji": ["shoudanmokuteki", "syoudanmokuteki"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一回の商談で確認や合意を目指す事項のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-188",
+      "japanese": "商談準備",
+      "reading": "しょうだんじゅんび",
+      "romaji": ["shoudanjunbi", "syoudanzyunbi"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相手の情報や目的を調べ、質問や資料を用意すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-189",
+      "japanese": "商談アジェンダ",
+      "reading": "しょうだんあじぇんだ",
+      "romaji": ["shoudannajenda", "syoudannazyenda"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談で話す項目と順序をまとめたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-190",
+      "japanese": "商談参加者",
+      "reading": "しょうだんさんかしゃ",
+      "romaji": ["shoudansankasha", "syoudansankasya"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談に出席し、説明や判断に関わる人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-191",
+      "japanese": "商談時間",
+      "reading": "しょうだんじかん",
+      "romaji": ["shoudanjikann", "syoudanzikann"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一回の商談にかける時間や、予定された長さのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-192",
+      "japanese": "商談場所",
+      "reading": "しょうだんばしょ",
+      "romaji": ["shoudanbasho", "syoudanbasyo"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客との打ち合わせを行う場所やオンライン会議の場。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-193",
+      "japanese": "議事メモ",
+      "reading": "ぎじめも",
+      "romaji": ["gijimemo", "gizimemo"],
+      "category": "商談活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談で出た要点や合意、次の作業を記録した短いメモ。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-194",
+      "japanese": "商談録音",
+      "reading": "しょうだんろくおん",
+      "romaji": ["shoudanrokuonn", "syoudanrokuonn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談内容を、許可や規則に従って音声で記録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-195",
+      "japanese": "商談評価",
+      "reading": "しょうだんひょうか",
+      "romaji": ["shoudanhyouka", "syoudanhyouka"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談の進行や顧客の反応を振り返って確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-196",
+      "japanese": "顧客反応",
+      "reading": "こきゃくはんのう",
+      "romaji": ["kokyakuhannou"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提案や質問に対して顧客が示した意見や態度のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-197",
+      "japanese": "質問設計",
+      "reading": "しつもんせっけい",
+      "romaji": ["shitsumonsekkei", "situmonsekkei"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "必要な情報を得るため、質問の内容や順番を考えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-198",
+      "japanese": "オープンクエスチョン",
+      "reading": "おーぷんくえすちょん",
+      "romaji": ["o-punkuesuchonn", "o-punkuesutyonn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相手が自由に説明できる形で尋ねる質問のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-199",
+      "japanese": "クローズドクエスチョン",
+      "reading": "くろーずどくえすちょん",
+      "romaji": ["kuro-zudokuesuchonn", "kuro-zudokuesutyonn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "はい・いいえや限られた選択肢で答えられる質問のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-200",
+      "japanese": "確認質問",
+      "reading": "かくにんしつもん",
+      "romaji": ["kakuninshitsumonn", "kakuninsitumonn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相手の発言や条件の理解が正しいか確かめる質問のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-201",
+      "japanese": "深掘り質問",
+      "reading": "ふかぼりしつもん",
+      "romaji": ["fukaborishitsumonn", "hukaborisitumonn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "背景や理由を尋ね、相手の課題を詳しく把握する質問のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-202",
+      "japanese": "ニーズ確認",
+      "reading": "にーずかくにん",
+      "romaji": ["ni-zukakuninn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が必要とする機能や条件を、対話で確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-203",
+      "japanese": "現状把握",
+      "reading": "げんじょうはあく",
+      "romaji": ["genjouhaaku", "genzyouhaaku"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が現在行っている業務や使っている仕組みを確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-204",
+      "japanese": "導入目的",
+      "reading": "どうにゅうもくてき",
+      "romaji": ["dounyuumokuteki"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスを導入して達成したいこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-205",
+      "japanese": "導入時期",
+      "reading": "どうにゅうじき",
+      "romaji": ["dounyuujiki", "dounyuuziki"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が利用開始や契約を希望する時期のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-206",
+      "japanese": "導入条件",
+      "reading": "どうにゅうじょうけん",
+      "romaji": ["dounyuujoukenn", "dounyuuzyoukenn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "導入を進めるうえで満たす必要がある技術や運用上の条件。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-207",
+      "japanese": "選定基準",
+      "reading": "せんていきじゅん",
+      "romaji": ["senteikijunn", "senteikizyunn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が候補を比較し、採用先を決めるための条件のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-208",
+      "japanese": "競合状況",
+      "reading": "きょうごうじょうきょう",
+      "romaji": ["kyougoujoukyou", "kyougouzyoukyou"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ顧客に対して、ほかの提供者が提案している状態。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-209",
+      "japanese": "比較表",
+      "reading": "ひかくひょう",
+      "romaji": ["hikakuhyou"],
+      "category": "商談活動",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の候補について、条件や特徴を並べて比べる資料。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-210",
+      "japanese": "意思決定者",
+      "reading": "いしけっていしゃ",
+      "romaji": ["ishiketteisha", "isiketteisya"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入や契約を最終的に決定する権限を持つ人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-211",
+      "japanese": "決裁手順",
+      "reading": "けっさいてじゅん",
+      "romaji": ["kessaitejunn", "kessaitezyunn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織内で契約や支出の承認を得るための流れ。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-212",
+      "japanese": "購買委員会",
+      "reading": "こうばいいいんかい",
+      "romaji": ["koubaiiinkai"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織内で購入候補を検討し、選定に関わる会議体のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-213",
+      "japanese": "稟議経路",
+      "reading": "りんぎけいろ",
+      "romaji": ["ringikeiro"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "社内で申請内容を確認し、承認者へ回す順序のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-214",
+      "japanese": "契約担当者",
+      "reading": "けいやくたんとうしゃ",
+      "romaji": ["keiyakutantousha", "keiyakutantousya"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約条件の確認や書類手続きを担当する人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-215",
+      "japanese": "商談ステージ",
+      "reading": "しょうだんすてーじ",
+      "romaji": ["shoudansute-ji", "syoudansute-zi"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談の進み具合を、決めた段階に分けて示すもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-216",
+      "japanese": "次回アクション",
+      "reading": "じかいあくしょん",
+      "romaji": ["jikaiakushonn", "zikaiakusyonn"],
+      "category": "商談活動",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談の後に実施する連絡や資料送付などの作業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-217",
+      "japanese": "提案範囲",
+      "reading": "ていあんはんい",
+      "romaji": ["teianhanni"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客に提示する商品や支援、作業の対象を定めたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-218",
+      "japanese": "提案条件",
+      "reading": "ていあんじょうけん",
+      "romaji": ["teianjoukenn", "teianzyoukenn"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提案を実施する際に適用する前提や制限のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-219",
+      "japanese": "提案骨子",
+      "reading": "ていあんこっし",
+      "romaji": ["teiankosshi", "teiankossi"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提案の目的や解決策、期待効果をまとめた要点のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-220",
+      "japanese": "提案シナリオ",
+      "reading": "ていあんしなりお",
+      "romaji": ["teianshinario", "teiansinario"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の課題に沿って、説明や確認を進める筋書きのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-221",
+      "japanese": "提案比較",
+      "reading": "ていあんひかく",
+      "romaji": ["teianhikaku"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "異なる解決案の費用や効果、条件を比べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-222",
+      "japanese": "導入効果",
+      "reading": "どうにゅうこうか",
+      "romaji": ["dounyuukouka"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスを使うことで得られる業務上の変化のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-223",
+      "japanese": "投資対効果",
+      "reading": "とうしたいこうか",
+      "romaji": ["toushitaikouka", "tousitaikouka"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "投じる費用に対して、得られる効果を比較する考え方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-224",
+      "japanese": "費用試算",
+      "reading": "ひようしさん",
+      "romaji": ["hiyoushisann", "hiyousisann"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "導入や利用に必要な費用を、条件に基づき計算すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-225",
+      "japanese": "価格内訳",
+      "reading": "かかくうちわけ",
+      "romaji": ["kakakuuchiwake", "kakakuutiwake"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "合計価格を、作業や商品などの項目ごとに分けたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-226",
+      "japanese": "追加費用",
+      "reading": "ついかひよう",
+      "romaji": ["tsuikahiyou", "tuikahiyou"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "当初の見積もりに含まれず、後から必要になる費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-227",
+      "japanese": "導入費用",
+      "reading": "どうにゅうひよう",
+      "romaji": ["dounyuuhiyou"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用開始までに発生する設定や作業などの費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-228",
+      "japanese": "運用費用",
+      "reading": "うんようひよう",
+      "romaji": ["unnyouhiyou"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用開始後、継続的な運用や保守にかかる費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-229",
+      "japanese": "価格表",
+      "reading": "かかくひょう",
+      "romaji": ["kakakuhyou"],
+      "category": "提案・交渉",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスの価格と適用条件を一覧にした資料。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-230",
+      "japanese": "価格改定",
+      "reading": "かかくかいてい",
+      "romaji": ["kakakukaitei"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスの価格を、新しい条件に変更すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-231",
+      "japanese": "価格提示",
+      "reading": "かかくていじ",
+      "romaji": ["kakakuteiji", "kakakuteizi"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客に購入や契約の価格を正式に示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-232",
+      "japanese": "交渉余地",
+      "reading": "こうしょうよち",
+      "romaji": ["koushouyochi", "kousyouyoti"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "条件交渉によって変更できる可能性がある範囲のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-233",
+      "japanese": "譲歩条件",
+      "reading": "じょうほじょうけん",
+      "romaji": ["jouhojoukenn", "zyouhozyoukenn"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "交渉で条件を譲る場合に、引き換えに求める内容のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-234",
+      "japanese": "交渉方針",
+      "reading": "こうしょうほうしん",
+      "romaji": ["koushouhoushinn", "kousyouhousinn"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "目標や許容範囲を踏まえて交渉を進める基本の考え方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-235",
+      "japanese": "条件提示",
+      "reading": "じょうけんていじ",
+      "romaji": ["joukenteiji", "zyoukenteizi"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約や購入に必要な条件を、相手へ明示すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-236",
+      "japanese": "代替提案",
+      "reading": "だいたいていあん",
+      "romaji": ["daitaiteiann"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "希望条件が難しい場合に、別の方法や条件を示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-237",
+      "japanese": "提案修正",
+      "reading": "ていあんしゅうせい",
+      "romaji": ["teianshuusei", "teiansyuusei"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の意見や条件に合わせ、提案内容を変更すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-238",
+      "japanese": "見積前提",
+      "reading": "みつもりぜんてい",
+      "romaji": ["mitsumorizentei", "mitumorizentei"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "価格を計算する際に、対象や数量などで仮定した条件。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-239",
+      "japanese": "見積内訳",
+      "reading": "みつもりうちわけ",
+      "romaji": ["mitsumoriuchiwake", "mitumoriutiwake"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "見積金額を、商品や作業などの項目ごとに分けたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-240",
+      "japanese": "見積提示",
+      "reading": "みつもりていじ",
+      "romaji": ["mitsumoriteiji", "mitumoriteizi"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "算出した価格と条件を、顧客へ正式に伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-241",
+      "japanese": "見積承認",
+      "reading": "みつもりしょうにん",
+      "romaji": ["mitsumorishouninn", "mitumorisyouninn"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提示された見積内容を、社内の権限者が認めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-242",
+      "japanese": "見積変更",
+      "reading": "みつもりへんこう",
+      "romaji": ["mitsumorihenkou", "mitumorihenkou"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "数量や条件が変わったとき、提示済みの金額を改めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-243",
+      "japanese": "価格有効期間",
+      "reading": "かかくゆうこうきかん",
+      "romaji": ["kakakuyuukoukikann"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提示した価格を適用する期限や期間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-244",
+      "japanese": "契約期間",
+      "reading": "けいやくきかん",
+      "romaji": ["keiyakukikann"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約が有効となる開始日から終了日までの期間。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-245",
+      "japanese": "自動更新条項",
+      "reading": "じどうこうしんじょうこう",
+      "romaji": ["jidoukoushinjoukou", "zidoukousinzyoukou"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "期限までに手続きがなければ契約を更新する定めのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-246",
+      "japanese": "解約予告期間",
+      "reading": "かいやくよこくきかん",
+      "romaji": ["kaiyakuyokokukikann"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約を終える際、事前に通知する必要がある期間。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-247",
+      "japanese": "支払サイト",
+      "reading": "しはらいさいと",
+      "romaji": ["shiharaisaito", "siharaisaito"],
+      "category": "提案・交渉",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "請求の締めから実際の支払いまでに設けられた期間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-248",
+      "japanese": "営業計画",
+      "reading": "えいぎょうけいかく",
+      "romaji": ["eigyoukeikaku"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "期間内に達成する目標と、実施する活動を定めたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-249",
+      "japanese": "営業予算",
+      "reading": "えいぎょうよさん",
+      "romaji": ["eigyouyosann"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業活動に使える費用や、売上の計画額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-250",
+      "japanese": "活動計画",
+      "reading": "かつどうけいかく",
+      "romaji": ["katsudoukeikaku", "katudoukeikaku"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "訪問や連絡、提案などの営業活動を事前に組み立てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-251",
+      "japanese": "活動実績",
+      "reading": "かつどうじっせき",
+      "romaji": ["katsudoujisseki", "katudouzisseki"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "実際に行った訪問や連絡、提案などを記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-252",
+      "japanese": "訪問件数",
+      "reading": "ほうもんけんすう",
+      "romaji": ["houmonkensuu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に顧客や見込み客を訪問した回数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-253",
+      "japanese": "架電件数",
+      "reading": "かでんけんすう",
+      "romaji": ["kadenkensuu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に電話をかけた回数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-254",
+      "japanese": "接触件数",
+      "reading": "せっしょくけんすう",
+      "romaji": ["sesshokukensuu", "sessyokukensuu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に顧客候補と接点を持った回数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-255",
+      "japanese": "商談件数",
+      "reading": "しょうだんけんすう",
+      "romaji": ["shoudankensuu", "syoudankensuu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に実施した商談の数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-256",
+      "japanese": "商談期間",
+      "reading": "しょうだんきかん",
+      "romaji": ["shoudankikann", "syoudankikann"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "最初の接触から契約や失注までにかかる期間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-257",
+      "japanese": "受注率",
+      "reading": "じゅちゅうりつ",
+      "romaji": ["juchuuritsu", "zyutyuuritu"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提案や商談のうち、注文に至った割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-258",
+      "japanese": "商談勝率",
+      "reading": "しょうだんしょうりつ",
+      "romaji": ["shoudanshouritsu", "syoudansyouritu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商談のうち、受注で終了した割合を示す指標のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-259",
+      "japanese": "案件規模",
+      "reading": "あんけんきぼ",
+      "romaji": ["ankenkibo"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一つの商談で見込まれる金額や取引の大きさのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-260",
+      "japanese": "案件優先度",
+      "reading": "あんけんゆうせんど",
+      "romaji": ["ankennyuusendo"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業資源をどの商談へ先に使うかを示す順番のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-261",
+      "japanese": "営業予測",
+      "reading": "えいぎょうよそく",
+      "romaji": ["eigyouyosoku"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "進行中の商談情報から、将来の受注や売上を見積もること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-262",
+      "japanese": "予測精度",
+      "reading": "よそくせいど",
+      "romaji": ["yosokuseido"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "予測した売上や受注が、実績にどれだけ近いかの度合い。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-263",
+      "japanese": "売上構成",
+      "reading": "うりあげこうせい",
+      "romaji": ["uriagekousei"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上を商品や顧客、地域などの区分で分けた内訳のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-264",
+      "japanese": "販売数量",
+      "reading": "はんばいすうりょう",
+      "romaji": ["hanbaisuuryou"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に販売した商品やサービスの数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-265",
+      "japanese": "受注金額",
+      "reading": "じゅちゅうきんがく",
+      "romaji": ["juchuukingaku", "zyutyuukingaku"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客から受けた注文に含まれる金額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-266",
+      "japanese": "平均販売価格",
+      "reading": "へいきんはんばいかかく",
+      "romaji": ["heikinhanbaikakaku"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間の販売金額を販売数量で割った平均価格。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-267",
+      "japanese": "利益貢献",
+      "reading": "りえきこうけん",
+      "romaji": ["riekikoukenn"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品や顧客などが、利益にどの程度寄与したかを示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-268",
+      "japanese": "販売構成比",
+      "reading": "はんばいこうせいひ",
+      "romaji": ["hanbaikouseihi"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "全体の販売に対する、特定の商品などの販売割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-269",
+      "japanese": "営業利益",
+      "reading": "えいぎょうりえき",
+      "romaji": ["eigyourieki"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "本業の売上から、営業に関わる費用を差し引いた利益のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-270",
+      "japanese": "売上総利益",
+      "reading": "うりあげそうりえき",
+      "romaji": ["uriagesourieki"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上から売上原価を差し引いた金額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-271",
+      "japanese": "限界利益",
+      "reading": "げんかいりえき",
+      "romaji": ["genkairieki"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上から変動費を差し引いた、固定費と利益に充てる金額。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-272",
+      "japanese": "販売手数料",
+      "reading": "はんばいてすうりょう",
+      "romaji": ["hanbaitesuuryou"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスの販売に応じて発生する手数料のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-273",
+      "japanese": "販売奨励金",
+      "reading": "はんばいしょうれいきん",
+      "romaji": ["hanbaishoureikinn", "hanbaisyoureikinn"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "販売目標の達成などに応じて、販売先へ支払う金銭のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-274",
+      "japanese": "営業報酬",
+      "reading": "えいぎょうほうしゅう",
+      "romaji": ["eigyouhoushuu", "eigyouhousyuu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "営業担当者の成果や役割に応じて支払われる報酬のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-275",
+      "japanese": "歩合給",
+      "reading": "ぶあいきゅう",
+      "romaji": ["buaikyuu"],
+      "category": "営業管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "売上や成果に応じて金額が変わる給与のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-276",
+      "japanese": "目標配賦",
+      "reading": "もくひょうはいふ",
+      "romaji": ["mokuhyouhaifu", "mokuhyouhaihu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織全体の目標を、担当者や部署ごとに割り振ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-277",
+      "japanese": "目標進捗率",
+      "reading": "もくひょうしんちょくりつ",
+      "romaji": ["mokuhyoushinchokuritsu", "mokuhyousintyokuritu"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "設定した目標に対して、現在どこまで達成したかを示す割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-278",
+      "japanese": "営業担当区域",
+      "reading": "えいぎょうたんとうくいき",
+      "romaji": ["eigyoutantoukuiki"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "担当者が顧客対応や営業活動を受け持つ地域のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-279",
+      "japanese": "担当割り当て",
+      "reading": "たんとうわりあて",
+      "romaji": ["tantouwariate"],
+      "category": "営業管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客や案件を、担当者やチームへ割り振ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-280",
+      "japanese": "契約書案",
+      "reading": "けいやくしょあん",
+      "romaji": ["keiyakushoann", "keiyakusyoann"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "合意前に、契約内容を確認するために作成した草案のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-281",
+      "japanese": "契約締結",
+      "reading": "けいやくていけつ",
+      "romaji": ["keiyakuteiketsu", "keiyakuteiketu"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "当事者が合意し、契約を成立させること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-282",
+      "japanese": "電子契約",
+      "reading": "でんしけいやく",
+      "romaji": ["denshikeiyaku", "densikeiyaku"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "電子データや電子署名を用いて締結する契約のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-283",
+      "japanese": "契約更新日",
+      "reading": "けいやくこうしんび",
+      "romaji": ["keiyakukoushinbi", "keiyakukousinbi"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約の期間が更新される日として定められた日付のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-284",
+      "japanese": "契約満了日",
+      "reading": "けいやくまんりょうび",
+      "romaji": ["keiyakumanryoubi"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約期間が終了する日として定められた日付のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-285",
+      "japanese": "契約変更",
+      "reading": "けいやくへんこう",
+      "romaji": ["keiyakuhenkou"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "当事者の合意により、契約の条件を書き換えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-286",
+      "japanese": "契約解除",
+      "reading": "けいやくかいじょ",
+      "romaji": ["keiyakukaijo", "keiyakukaizyo"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約の効力を、定めや合意に従って終了させること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-287",
+      "japanese": "契約違反",
+      "reading": "けいやくいはん",
+      "romaji": ["keiyakuihann"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "契約で約束した義務や条件を守らないこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-288",
+      "japanese": "秘密保持契約",
+      "reading": "ひみつほじけいやく",
+      "romaji": ["himitsuhojikeiyaku", "himituhozikeiyaku"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "共有する機密情報を第三者へ漏らさないと約束する契約。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-289",
+      "japanese": "サービス水準合意",
+      "reading": "さーびすすいじゅんごうい",
+      "romaji": ["sa-bisusuijungoui", "sa-bisusuizyungoui"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提供者と顧客が、サービスの品質や対応条件を定める合意。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-290",
+      "japanese": "利用規約",
+      "reading": "りようきやく",
+      "romaji": ["riyoukiyaku"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サービスの利用条件や利用者の守る事項を定めた文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-291",
+      "japanese": "導入支援",
+      "reading": "どうにゅうしえん",
+      "romaji": ["dounyuushienn", "dounyuusienn"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "新しい商品やサービスを使い始めるための支援のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-292",
+      "japanese": "操作説明会",
+      "reading": "そうさせつめいかい",
+      "romaji": ["sousasetsumeikai", "sousasetumeikai"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客へ製品やサービスの操作方法を説明する会のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-293",
+      "japanese": "利用者研修",
+      "reading": "りようしゃけんしゅう",
+      "romaji": ["riyoushakenshuu", "riyousyakensyuu"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客の利用者が、製品や業務の使い方を学ぶ機会のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-294",
+      "japanese": "稼働確認",
+      "reading": "かどうかくにん",
+      "romaji": ["kadoukakuninn"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "導入した仕組みが、予定どおり利用できるか確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-295",
+      "japanese": "定着支援",
+      "reading": "ていちゃくしえん",
+      "romaji": ["teichakushienn", "teityakusienn"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が新しい製品や手順を継続して使えるよう支援すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-296",
+      "japanese": "利用状況確認",
+      "reading": "りようじょうきょうかくにん",
+      "romaji": ["riyoujoukyoukakuninn", "riyouzyoukyoukakuninn"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客がサービスをどの程度使っているかを把握すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-297",
+      "japanese": "利用率",
+      "reading": "りようりつ",
+      "romaji": ["riyouritsu", "riyouritu"],
+      "category": "契約・顧客支援",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "対象となる利用者や機能のうち、実際に使われた割合。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-298",
+      "japanese": "更新意向",
+      "reading": "こうしんいこう",
+      "romaji": ["koushinnikou", "kousinnikou"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が契約や利用を継続する意思を持っているかの状況。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-299",
+      "japanese": "継続利用",
+      "reading": "けいぞくりよう",
+      "romaji": ["keizokuriyou"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が契約やサービスの利用を続けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "sales-300",
+      "japanese": "解約理由",
+      "reading": "かいやくりゆう",
+      "romaji": ["kaiyakuriyuu"],
+      "category": "契約・顧客支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "顧客が契約を終えるときに示した理由のこと。",
       "related_terms": [],
       "learning_points": [],
       "weak_detection": {

@@ -1,8 +1,8 @@
 {
   "job_id": "engineer",
   "job_name": "エンジニア",
-  "version": "0.6.0",
-  "updated_at": "2026-10-03",
+  "version": "0.7.0",
+  "updated_at": "2026-10-04",
   "items": [
     {
       "id": "engineer-001",
@@ -1278,6 +1278,3246 @@
       "difficulty": 3,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "処理能力を増やすために、サーバーの台数を増やすこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-085",
+      "japanese": "依存関係",
+      "reading": "いぞんかんけい",
+      "romaji": ["izonkankei"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "あるプログラムが、動くために別のプログラムを必要とする関係のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-086",
+      "japanese": "ソースコード",
+      "reading": "そーすこーど",
+      "romaji": ["so-suko-do"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "人が読み書きするプログラムの文章のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-087",
+      "japanese": "実装",
+      "reading": "じっそう",
+      "romaji": ["jissou", "zissou"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "設計した内容を、実際に動くプログラムとして作ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-088",
+      "japanese": "環境変数",
+      "reading": "かんきょうへんすう",
+      "romaji": ["kankyouhensuu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムの外から、設定の値を渡すための仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-089",
+      "japanese": "引数",
+      "reading": "ひきすう",
+      "romaji": ["hikisuu"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関数を呼び出すときに、渡す値のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-090",
+      "japanese": "戻り値",
+      "reading": "もどりち",
+      "romaji": ["modorichi", "modoriti"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関数が処理を終えたときに、呼び出し元へ返す値のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-091",
+      "japanese": "再帰",
+      "reading": "さいき",
+      "romaji": ["saiki"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関数が、自分自身を呼び出して処理を進めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-092",
+      "japanese": "スレッド",
+      "reading": "すれっど",
+      "romaji": ["sureddo"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムの中で、並んで進められる処理の流れのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-093",
+      "japanese": "継承",
+      "reading": "けいしょう",
+      "romaji": ["keishou", "keisyou"],
+      "category": "設計",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "あるクラスの性質を引き継いで、新しいクラスを作ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-094",
+      "japanese": "技術的負債",
+      "reading": "ぎじゅつてきふさい",
+      "romaji": ["gijutsutekifusai", "gizyututekihusai"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "目先の都合で後回しにした設計や修正が、あとの開発の足かせになること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-095",
+      "japanese": "プッシュ",
+      "reading": "ぷっしゅ",
+      "romaji": ["pusshu", "pussyu"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手元の変更を、共有のリポジトリへ送ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-096",
+      "japanese": "クローン",
+      "reading": "くろーん",
+      "romaji": ["kuro-nn"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "共有のリポジトリを、手元にまるごと複製すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-097",
+      "japanese": "チェックアウト",
+      "reading": "ちぇっくあうと",
+      "romaji": ["chekkuauto", "tyekkuauto"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "作業するブランチや版を、切り替えて取り出すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-098",
+      "japanese": "ドメイン",
+      "reading": "どめいん",
+      "romaji": ["domeinn"],
+      "category": "インフラ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "インターネット上で、サイトの場所を示す名前のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-099",
+      "japanese": "ポート",
+      "reading": "ぽーと",
+      "romaji": ["po-to"],
+      "category": "インフラ",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ネットワークで、通信の種類を見分けるための番号のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-100",
+      "japanese": "プロキシ",
+      "reading": "ぷろきし",
+      "romaji": ["purokishi", "purokisi"],
+      "category": "インフラ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通信を、間に入って代わりに中継するサーバーのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-101",
+      "japanese": "証明書",
+      "reading": "しょうめいしょ",
+      "romaji": ["shoumeisho", "syoumeisyo"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通信相手が本物だと、第三者が保証する電子的な書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-102",
+      "japanese": "公開鍵",
+      "reading": "こうかいかぎ",
+      "romaji": ["koukaikagi"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "暗号化に使う2つの鍵のうち、相手に渡してよいほうの鍵のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-103",
+      "japanese": "秘密鍵",
+      "reading": "ひみつかぎ",
+      "romaji": ["himitsukagi", "himitukagi"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "暗号化に使う2つの鍵のうち、自分だけが持つほうの鍵のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-104",
+      "japanese": "ハッシュ",
+      "reading": "はっしゅ",
+      "romaji": ["hasshu", "hassyu"],
+      "category": "セキュリティ",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データから計算して作る、元に戻せない決まった長さの値のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-105",
+      "japanese": "フィッシング",
+      "reading": "ふぃっしんぐ",
+      "romaji": ["fisshingu", "fissingu"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "本物そっくりの偽サイトなどで、パスワードなどをだまし取る手口のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-106",
+      "japanese": "ランサムウェア",
+      "reading": "らんさむうぇあ",
+      "romaji": ["ransamuwea"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データを使えなくして、元に戻す代わりに金銭を要求するウイルスのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-107",
+      "japanese": "死活監視",
+      "reading": "しかつかんし",
+      "romaji": ["shikatsukanshi", "sikatukansi"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サーバーなどが、動いているかどうかを、定期的に確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-108",
+      "japanese": "タイムアウト",
+      "reading": "たいむあうと",
+      "romaji": ["taimuauto"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決めた時間を過ぎても返事がなく、待つのをやめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-109",
+      "japanese": "レイテンシ",
+      "reading": "れいてんし",
+      "romaji": ["reitenshi", "reitensi"],
+      "category": "インフラ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通信や処理に、依頼してから結果が返るまでかかる時間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-110",
+      "japanese": "スキーマ",
+      "reading": "すきーま",
+      "romaji": ["suki-ma"],
+      "category": "データ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データベースの、テーブルや項目の構造を定めた設計のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-111",
+      "japanese": "マイグレーション",
+      "reading": "まいぐれーしょん",
+      "romaji": ["maigure-shonn", "maigure-syonn"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データベースの構造やデータを、新しい形へ移し替えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-112",
+      "japanese": "クエリ",
+      "reading": "くえり",
+      "romaji": ["kueri"],
+      "category": "データ",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データベースに対する、問い合わせの命令のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-113",
+      "japanese": "外部キー",
+      "reading": "がいぶきー",
+      "romaji": ["gaibuki-"],
+      "category": "データ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "別のテーブルの行を指し示すために、使う項目のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-114",
+      "japanese": "ログイン",
+      "reading": "ろぐいん",
+      "romaji": ["roguinn"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "名前やパスワードを示して、サービスを使い始めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-115",
+      "japanese": "セッション",
+      "reading": "せっしょん",
+      "romaji": ["sesshonn", "sessyonn"],
+      "category": "セキュリティ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ログインしてから終わるまでの、一連のやり取りのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-116",
+      "japanese": "脆弱性診断",
+      "reading": "ぜいじゃくせいしんだん",
+      "romaji": ["zeijakuseishindann", "zeizyakuseisindann"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムの弱点がないかを、調べて確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-117",
+      "japanese": "パッチ",
+      "reading": "ぱっち",
+      "romaji": ["pacchi", "patti"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ソフトの不具合や弱点を直すための、修正用のプログラムのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-118",
+      "japanese": "ホットフィックス",
+      "reading": "ほっとふぃっくす",
+      "romaji": ["hottofikkusu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "重大な不具合を、急いで直して公開する修正のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-119",
+      "japanese": "リリースノート",
+      "reading": "りりーすのーと",
+      "romaji": ["riri-suno-to"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "新しい版で、何が変わったかを書いた文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-120",
+      "japanese": "ステージング環境",
+      "reading": "すてーじんぐかんきょう",
+      "romaji": ["sute-jingukankyou", "sute-zingukankyou"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "本番と同じ構成で、公開前の最終確認をする環境のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-121",
+      "japanese": "モック",
+      "reading": "もっく",
+      "romaji": ["mokku"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "テストのために、本物の代わりに使う、まねた部品のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-122",
+      "japanese": "回帰テスト",
+      "reading": "かいきてすと",
+      "romaji": ["kaikitesuto"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変更したあとで、以前の機能が壊れていないか確かめるテストのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-123",
+      "japanese": "カバレッジ",
+      "reading": "かばれっじ",
+      "romaji": ["kabarejji", "kabarezzi"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "テストが、プログラムのどのくらいの範囲を試したかの割合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-124",
+      "japanese": "継続的インテグレーション",
+      "reading": "けいぞくてきいんてぐれーしょん",
+      "romaji": ["keizokutekiintegure-shonn", "keizokutekiintegure-syonn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変更のたびに、自動でビルドやテストを行って確かめる開発の進め方のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-125",
+      "japanese": "障害対応",
+      "reading": "しょうがいたいおう",
+      "romaji": ["shougaitaiou", "syougaitaiou"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムの障害が起きたときに、原因を調べて復旧させること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-126",
+      "japanese": "ポストモーテム",
+      "reading": "ぽすともーてむ",
+      "romaji": ["posutomo-temu"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "障害のあとに、原因と再発防止を振り返って、まとめる文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-127",
+      "japanese": "オンプレミス",
+      "reading": "おんぷれみす",
+      "romaji": ["onpuremisu"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "自社の設備の中に、サーバーを置いて運用すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-128",
+      "japanese": "サーバーレス",
+      "reading": "さーばーれす",
+      "romaji": ["sa-ba-resu"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サーバーの管理を意識せず、プログラムだけを動かせる仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-129",
+      "japanese": "エンドポイント",
+      "reading": "えんどぽいんと",
+      "romaji": ["endopointo"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "外部から、サービスの機能を呼び出すための窓口となる住所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-130",
+      "japanese": "ワークフロー",
+      "reading": "わーくふろー",
+      "romaji": ["wa-kufuro-", "wa-kuhuro-"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕事や作業が、進む順番や流れのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-131",
+      "japanese": "ドキュメント",
+      "reading": "どきゅめんと",
+      "romaji": ["dokyumento"],
+      "category": "設計",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムの内容や使い方を、説明した文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-132",
+      "japanese": "命名規則",
+      "reading": "めいめいきそく",
+      "romaji": ["meimeikisoku"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変数や関数などの名前の付け方について、決めた約束のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-133",
+      "japanese": "コンポーネント",
+      "reading": "こんぽーねんと",
+      "romaji": ["konpo-nento"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "大きなシステムを組み立てる、独立した部品のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-134",
+      "japanese": "型推論",
+      "reading": "かたすいろん",
+      "romaji": ["katasuironn"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "型を明示しなくても、値などから型を推定する仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-135",
+      "japanese": "データ構造",
+      "reading": "でーたこうぞう",
+      "romaji": ["de-takouzou"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データを効率よく扱うために、整理して格納する方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-136",
+      "japanese": "パッケージ",
+      "reading": "ぱっけーじ",
+      "romaji": ["pakke-ji", "pakke-zi"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関連するプログラムやデータを、まとめて扱えるようにしたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-137",
+      "japanese": "差分表示",
+      "reading": "さぶんひょうじ",
+      "romaji": ["sabunhyouji", "sabunhyouzi"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変更前と変更後の違いを、比較できる形で示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-138",
+      "japanese": "パッチファイル",
+      "reading": "ぱっちふぁいる",
+      "romaji": ["pacchifairu", "pattifairu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムの変更内容を記録し、別の環境へ適用できるファイルのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-139",
+      "japanese": "競合解決",
+      "reading": "きょうごうかいけつ",
+      "romaji": ["kyougoukaiketsu", "kyougoukaiketu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ箇所への変更が重なったとき、採用する内容を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-140",
+      "japanese": "再現手順",
+      "reading": "さいげんてじゅん",
+      "romaji": ["saigentejunn", "saigentezyunn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "不具合などを、同じ条件で起こすための操作や条件の順序のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-141",
+      "japanese": "異常系処理",
+      "reading": "いじょうけいしょり",
+      "romaji": ["ijoukeishori", "izyoukeisyori"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通常とは異なる事態が起きたときの、プログラムの対応のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-142",
+      "japanese": "ソースマップ",
+      "reading": "そーすまっぷ",
+      "romaji": ["so-sumappu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変換後のプログラムから、元のソースコードの位置を探すための情報のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-143",
+      "japanese": "コード整形",
+      "reading": "こーどせいけい",
+      "romaji": ["ko-doseikei"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決めた書式に合わせて、プログラムの空白や改行などを整えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-144",
+      "japanese": "依存解決",
+      "reading": "いぞんかいけつ",
+      "romaji": ["izonkaiketsu", "izonkaiketu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "必要なライブラリやその版の組み合わせを決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-145",
+      "japanese": "ブレークポイント",
+      "reading": "ぶれーくぽいんと",
+      "romaji": ["bure-kupointo"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "デバッグ中に、プログラムの実行を一時停止する位置のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-146",
+      "japanese": "シナリオテスト",
+      "reading": "しなりおてすと",
+      "romaji": ["shinariotesuto", "sinariotesuto"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決めた要件を満たし、利用者が受け入れられるかを確かめるテストのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-147",
+      "japanese": "負荷テスト",
+      "reading": "ふかてすと",
+      "romaji": ["fukatesuto", "hukatesuto"],
+      "category": "品質管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "多くの処理や利用が重なったときの動作を確かめるテストのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-148",
+      "japanese": "ユニットテスト",
+      "reading": "ゆにっとてすと",
+      "romaji": ["yunittotesuto"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムの小さな単位ごとに、動作を確かめるテストのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-149",
+      "japanese": "統合テスト",
+      "reading": "とうごうてすと",
+      "romaji": ["tougoutesuto"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムの複数の部分を合わせて、全体の動作を確かめるテストのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-150",
+      "japanese": "テストケース",
+      "reading": "てすとけーす",
+      "romaji": ["tesutoke-su"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "テストで確かめる条件や操作、期待する結果をまとめたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-151",
+      "japanese": "静的解析",
+      "reading": "せいてきかいせき",
+      "romaji": ["seitekikaiseki"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムを実行せずに、書き方や問題の可能性を調べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-152",
+      "japanese": "リンター",
+      "reading": "りんたー",
+      "romaji": ["rinta-"],
+      "category": "品質管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムの書き方や規則違反を自動で検出する道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-153",
+      "japanese": "メソッド",
+      "reading": "めそっど",
+      "romaji": ["mesoddo"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "クラスなどに定義する、特定の処理を行う関数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-154",
+      "japanese": "プロパティ",
+      "reading": "ぷろぱてぃ",
+      "romaji": ["puropathi"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "オブジェクトが持つ値や、その値を扱うための属性のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-155",
+      "japanese": "名前空間",
+      "reading": "なまえくうかん",
+      "romaji": ["namaekuukann"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "名前の重複を避けるため、関連する名前をまとめる仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-156",
+      "japanese": "列挙型",
+      "reading": "れっきょがた",
+      "romaji": ["rekkyogata"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取りうる値を、あらかじめ定めた候補に限定する型のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-157",
+      "japanese": "ジェネリクス",
+      "reading": "じぇねりくす",
+      "romaji": ["jenerikusu", "zyenerikusu"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "型を引数のように扱い、複数の型で使える処理を作る仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-158",
+      "japanese": "型安全",
+      "reading": "かたあんぜん",
+      "romaji": ["kataanzenn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "値の種類に合わない操作を防ぎ、型による誤りを減らす性質のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-159",
+      "japanese": "型注釈",
+      "reading": "かたちゅうしゃく",
+      "romaji": ["katachuushaku", "katatyuusyaku"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変数や引数などに、使う値の型を明示する記述のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-160",
+      "japanese": "型検査",
+      "reading": "かたけんさ",
+      "romaji": ["katakensa"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "値や式の型が、決められた規則に合うか調べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-161",
+      "japanese": "宣言文",
+      "reading": "せんげんぶん",
+      "romaji": ["sengenbunn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変数や関数などの名前と性質を、プログラムに示す文のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-162",
+      "japanese": "式",
+      "reading": "しき",
+      "romaji": ["shiki", "siki"],
+      "category": "開発",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "値を表したり計算したりし、評価の結果を持つ記述のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-163",
+      "japanese": "演算子",
+      "reading": "えんざんし",
+      "romaji": ["enzanshi", "enzansi"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "計算や比較などの操作を表し、値に適用する記号や語のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-164",
+      "japanese": "条件分岐",
+      "reading": "じょうけんぶんき",
+      "romaji": ["joukenbunki", "zyoukenbunki"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "条件の結果に応じて、実行する処理を選び分けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-165",
+      "japanese": "反復処理",
+      "reading": "はんぷくしょり",
+      "romaji": ["hanpukushori", "hanpukusyori"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ処理を、条件を満たす間または決めた回数だけ繰り返すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-166",
+      "japanese": "イテレーター",
+      "reading": "いてれーたー",
+      "romaji": ["itere-ta-"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "集まりの要素を、順番に一つずつ取り出す仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-167",
+      "japanese": "コールバック",
+      "reading": "こーるばっく",
+      "romaji": ["ko-rubakku"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "別の処理に渡し、決めたタイミングで呼び出してもらう関数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-168",
+      "japanese": "クロージャー",
+      "reading": "くろーじゃー",
+      "romaji": ["kuro-ja-", "kuro-zya-"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関数と、その関数が参照する外側の変数を組み合わせたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-169",
+      "japanese": "ラムダ式",
+      "reading": "らむだしき",
+      "romaji": ["ramudashiki", "ramudasiki"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "名前を付けずに、短い関数を式として記述する方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-170",
+      "japanese": "デコレーター",
+      "reading": "でこれーたー",
+      "romaji": ["dekore-ta-"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関数やクラスに、追加の処理や性質を適用する仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-171",
+      "japanese": "アノテーション",
+      "reading": "あのてーしょん",
+      "romaji": ["anote-shonn", "anote-syonn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コードの要素に、補足情報や型などを付ける記法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-172",
+      "japanese": "モジュール",
+      "reading": "もじゅーる",
+      "romaji": ["moju-ru", "mozyu-ru"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関連するコードをまとめ、再利用や管理をしやすくした単位のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-173",
+      "japanese": "インポート",
+      "reading": "いんぽーと",
+      "romaji": ["inpo-to"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "別のモジュールにある機能を、現在のコードで使えるようにすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-174",
+      "japanese": "エクスポート",
+      "reading": "えくすぽーと",
+      "romaji": ["ekusupo-to"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "モジュールの機能を、ほかのコードから利用できる形で公開すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-175",
+      "japanese": "スコープ",
+      "reading": "すこーぷ",
+      "romaji": ["suko-pu"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変数や関数の名前を参照できる範囲のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-176",
+      "japanese": "可変長引数",
+      "reading": "かへんちょうひきすう",
+      "romaji": ["kahenchouhikisuu", "kahentyouhikisuu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "呼び出すときに個数を変えられる引数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-177",
+      "japanese": "副作用",
+      "reading": "ふくさよう",
+      "romaji": ["fukusayou", "hukusayou"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "関数の外の状態を変えたり、外部とのやり取りを起こしたりすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-178",
+      "japanese": "純粋関数",
+      "reading": "じゅんすうかんすう",
+      "romaji": ["junsuukansuu", "zyunsuukansuu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ入力に同じ結果を返し、外部の状態を変えない関数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-179",
+      "japanese": "パーサー",
+      "reading": "ぱーさー",
+      "romaji": ["pa-sa-"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "入力された文字列を、文法に沿って構造として読み取る処理のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-180",
+      "japanese": "字句解析",
+      "reading": "じくかいせき",
+      "romaji": ["jikukaiseki", "zikukaiseki"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文字列を、識別子や記号などの意味を持つ単位に分けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-181",
+      "japanese": "構文解析",
+      "reading": "こうぶんかいせき",
+      "romaji": ["koubunkaiseki"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "記号などの並びが、定められた文法に合うか調べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-182",
+      "japanese": "抽象構文木",
+      "reading": "ちゅうしょうこうぶんぎ",
+      "romaji": ["chuushoukoubungi", "tyuusyoukoubungi"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムの構造を、木の形で表したデータのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-183",
+      "japanese": "中間表現",
+      "reading": "ちゅうかんひょうげん",
+      "romaji": ["chuukanhyougenn", "tyuukanhyougenn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ソースコードと実行形式の間で、処理系が使う表現のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-184",
+      "japanese": "実行時",
+      "reading": "じっこうじ",
+      "romaji": ["jikkouji", "zikkouzi"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムが実際に動作している時間や状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-185",
+      "japanese": "ランタイムエラー",
+      "reading": "らんたいむえらー",
+      "romaji": ["rantaimuera-"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "プログラムの実行中に発生し、処理を妨げる誤りのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-186",
+      "japanese": "メモリーリーク",
+      "reading": "めもりーりーく",
+      "romaji": ["memori-ri-ku"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "不要になったメモリーが解放されず、使用量が増え続ける問題のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-187",
+      "japanese": "ガベージコレクション",
+      "reading": "がべーじこれくしょん",
+      "romaji": ["gabe-jikorekushonn", "gabe-zikorekusyonn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "使われなくなったメモリー領域を、自動で回収する仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-188",
+      "japanese": "不変性",
+      "reading": "ふへんせい",
+      "romaji": ["fuhensei", "huhensei"],
+      "category": "開発",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "作成後の値を直接変更せず、新しい値として扱う性質のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-189",
+      "japanese": "遅延評価",
+      "reading": "ちえんひょうか",
+      "romaji": ["chienhyouka", "tienhyouka"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "必要になるまで式の計算を行わない評価方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-190",
+      "japanese": "型変換",
+      "reading": "かたへんかん",
+      "romaji": ["katahenkann"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "値を、別のデータ型として扱える形に変えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-191",
+      "japanese": "文字列補間",
+      "reading": "もじれつほかん",
+      "romaji": ["mojiretsuhokann", "moziretuhokann"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文字列の中に、変数や式の値を埋め込む記法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-192",
+      "japanese": "正規表現",
+      "reading": "せいきひょうげん",
+      "romaji": ["seikihyougenn"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文字列の検索や置換の条件を、一定の記法で表すもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-193",
+      "japanese": "シリアライズ",
+      "reading": "しりあらいず",
+      "romaji": ["shiriaraizu", "siriaraizu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データを保存や送信に使える形式へ変換すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-194",
+      "japanese": "デシリアライズ",
+      "reading": "でしりあらいず",
+      "romaji": ["deshiriaraizu", "desiriaraizu"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保存や送信に使われた形式から、データを復元すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-195",
+      "japanese": "エスケープ処理",
+      "reading": "えすけーぷしょり",
+      "romaji": ["esuke-pushori", "esuke-pusyori"],
+      "category": "開発",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特別な意味を持つ文字を、安全に扱える表現へ置き換えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-196",
+      "japanese": "文字コード",
+      "reading": "もじこーど",
+      "romaji": ["mojiko-do", "moziko-do"],
+      "category": "設計",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文字とコンピューター上の数値との対応を定めた規則のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-197",
+      "japanese": "依存注入",
+      "reading": "いぞんちゅうにゅう",
+      "romaji": ["izonchuunyuu", "izontyuunyuu"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "必要な部品を内部で作らず、外部から渡して使う設計方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-198",
+      "japanese": "制御反転",
+      "reading": "せいぎょはんてん",
+      "romaji": ["seigyohantenn"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "処理の呼び出しや依存の管理を、利用側から枠組み側へ移す考え方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-199",
+      "japanese": "多態性",
+      "reading": "たたいせい",
+      "romaji": ["tataisei"],
+      "category": "設計",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "共通の操作を、対象の種類に応じて異なる動作として扱う性質のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-200",
+      "japanese": "名前解決",
+      "reading": "なまえかいけつ",
+      "romaji": ["namaekaiketsu", "namaekaiketu"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "識別子が、どの変数や関数などを指すか決める処理のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-201",
+      "japanese": "論理演算",
+      "reading": "ろんりえんざん",
+      "romaji": ["ronrienzann"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "真偽値に対して、かつ・または・否定などを行う計算のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-202",
+      "japanese": "ビット演算",
+      "reading": "びっとえんざん",
+      "romaji": ["bittoenzann"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "数値を二進数の各桁として扱い、桁ごとに行う演算のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-203",
+      "japanese": "オーバーロード",
+      "reading": "おーばーろーど",
+      "romaji": ["o-ba-ro-do"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ名前の関数などを、引数の型や数に応じて使い分けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-204",
+      "japanese": "オーバーライド",
+      "reading": "おーばーらいど",
+      "romaji": ["o-ba-raido"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "継承したメソッドを、派生先で独自の内容に置き換えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-205",
+      "japanese": "抽象クラス",
+      "reading": "ちゅうしょうくらす",
+      "romaji": ["chuushoukurasu", "tyuusyoukurasu"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "共通の性質を定義し、派生したクラスの土台にするクラスのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-206",
+      "japanese": "依存関係逆転",
+      "reading": "いぞんかんけいぎゃくてん",
+      "romaji": ["izonkankeigyakutenn"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "具体的な実装ではなく、抽象に依存させる設計上の原則のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-207",
+      "japanese": "疎結合",
+      "reading": "そけつごう",
+      "romaji": ["soketsugou", "soketugou"],
+      "category": "設計",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "部品同士の依存を小さくし、個別に変更しやすくした状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-208",
+      "japanese": "凝集度",
+      "reading": "ぎょうしゅうど",
+      "romaji": ["gyoushuudo", "gyousyuudo"],
+      "category": "設計",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一つの部品が、関連する役割をどれだけまとまりよく持つかの度合い。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-209",
+      "japanese": "責務分離",
+      "reading": "せきむぶんり",
+      "romaji": ["sekimubunri"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "異なる役割を別々の部品に分け、変更の影響を抑える設計の考え方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-210",
+      "japanese": "デザインパターン",
+      "reading": "でざいんぱたーん",
+      "romaji": ["dezainpata-nn"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "繰り返し現れる設計上の課題に対する、定番の解決方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-211",
+      "japanese": "レイヤー構造",
+      "reading": "れいやーこうぞう",
+      "romaji": ["reiya-kouzou"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "役割ごとに層を分け、決めた方向で処理を連携させる設計のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-212",
+      "japanese": "イベント駆動",
+      "reading": "いべんとくどう",
+      "romaji": ["ibentokudou"],
+      "category": "設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "発生した出来事をきっかけに、処理を実行する設計方式のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-213",
+      "japanese": "メッセージキュー",
+      "reading": "めっせーじきゅー",
+      "romaji": ["messe-jikyu-", "messe-zikyu-"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "処理依頼を一時保存し、後から順番に取り出す仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-214",
+      "japanese": "イベントループ",
+      "reading": "いべんとるーぷ",
+      "romaji": ["ibentoru-pu"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "イベントを待ち受け、発生した処理を順に実行する仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-215",
+      "japanese": "ノンブロッキング",
+      "reading": "のんぶろっきんぐ",
+      "romaji": ["nonburokkingu"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "処理の完了を待つ間も、ほかの作業を進められる方式のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-216",
+      "japanese": "排他制御",
+      "reading": "はいたせいぎょ",
+      "romaji": ["haitaseigyo"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の処理が同じ資源を同時に変更しないよう調整すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-217",
+      "japanese": "デッドロック",
+      "reading": "でっどろっく",
+      "romaji": ["deddorokku"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の処理が互いの資源待ちになり、先へ進めない状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-218",
+      "japanese": "競合状態",
+      "reading": "きょうごうじょうたい",
+      "romaji": ["kyougoujoutai", "kyougouzyoutai"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "実行順序によって処理結果が変わる、並行処理上の問題のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-219",
+      "japanese": "アトミック操作",
+      "reading": "あとみっくそうさ",
+      "romaji": ["atomikkusousa"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "途中の状態を見せず、ひとまとまりとして完了する操作のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-220",
+      "japanese": "クリティカルセクション",
+      "reading": "くりてぃかるせくしょん",
+      "romaji": ["kurithikarusekushonn", "kurithikarusekusyonn"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同時実行を避ける必要がある、共有資源を扱う処理区間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-221",
+      "japanese": "データ競合",
+      "reading": "でーたきょうごう",
+      "romaji": ["de-takyougou"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の処理が同じデータに同時アクセスし、少なくとも一方が書き込む状態。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-222",
+      "japanese": "スレッドプール",
+      "reading": "すれっどぷーる",
+      "romaji": ["sureddopu-ru"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "再利用する複数のスレッドを用意し、処理を割り当てる仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-223",
+      "japanese": "バックプレッシャー",
+      "reading": "ばっくぷれっしゃー",
+      "romaji": ["bakkupuressha-", "bakkupuressya-"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "処理先の負荷に合わせ、データを送る側の量を調整する仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-224",
+      "japanese": "リアクティブ処理",
+      "reading": "りあくてぃぶしょり",
+      "romaji": ["riakuthibushori", "riakuthibusyori"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データや出来事の流れに応じて、非同期に処理する方式のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-225",
+      "japanese": "冪等性",
+      "reading": "べきとうせい",
+      "romaji": ["bekitousei"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ操作を複数回行っても、結果が一度の場合と変わらない性質のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-226",
+      "japanese": "リトライ制御",
+      "reading": "りとらいせいぎょ",
+      "romaji": ["ritoraiseigyo"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "失敗した処理を再試行する回数や間隔を管理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-227",
+      "japanese": "指数バックオフ",
+      "reading": "しすうばっくおふ",
+      "romaji": ["shisuubakkuofu", "sisuubakkuohu"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "再試行の待ち時間を、段階的に長くする方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-228",
+      "japanese": "サーキットブレーカー",
+      "reading": "さーきっとぶれーかー",
+      "romaji": ["sa-kittobure-ka-"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "障害中の接続先への呼び出しを一時停止し、復旧を助ける仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-229",
+      "japanese": "ヘルスチェック",
+      "reading": "へるすちぇっく",
+      "romaji": ["herusuchekku", "herusutyekku"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サービスや機器が正常に動作しているか定期的に確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-230",
+      "japanese": "可用性",
+      "reading": "かようせい",
+      "romaji": ["kayousei"],
+      "category": "インフラ",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "必要なときにシステムを利用できる度合いのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-231",
+      "japanese": "信頼性",
+      "reading": "しんらいせい",
+      "romaji": ["shinraisei", "sinraisei"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムが期待した動作を継続して行える度合いのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-232",
+      "japanese": "耐障害性",
+      "reading": "たいしょうがいせい",
+      "romaji": ["taishougaisei", "taisyougaisei"],
+      "category": "インフラ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一部に故障が起きても、全体の機能を保つ性質のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-233",
+      "japanese": "復旧時間目標",
+      "reading": "ふっきゅうじかんもくひょう",
+      "romaji": ["fukkyuujikanmokuhyou", "hukkyuuzikanmokuhyou"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "障害からの復旧に許容する時間の目安のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-234",
+      "japanese": "復旧時点目標",
+      "reading": "ふっきゅうじてんもくひょう",
+      "romaji": ["fukkyuujitenmokuhyou", "hukkyuuzitenmokuhyou"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "障害時にどの時点までのデータを復元するか示す目標のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-235",
+      "japanese": "フェイルオーバー",
+      "reading": "ふぇいるおーばー",
+      "romaji": ["feiruo-ba-"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "障害時に、待機していた別の機器や経路へ切り替えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-236",
+      "japanese": "フェイルバック",
+      "reading": "ふぇいるばっく",
+      "romaji": ["feirubakku"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "障害復旧後に、通常使う機器や経路へ戻すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-237",
+      "japanese": "レプリケーション",
+      "reading": "れぷりけーしょん",
+      "romaji": ["repurike-shonn", "repurike-syonn"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データを別のサーバーや場所へ複製すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-238",
+      "japanese": "分散システム",
+      "reading": "ぶんさんしすてむ",
+      "romaji": ["bunsanshisutemu", "bunsansisutemu"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数のコンピューターが連携して、一つの機能を提供する仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-239",
+      "japanese": "水平分割",
+      "reading": "すいへいぶんかつ",
+      "romaji": ["suiheibunkatsu", "suiheibunkatu"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データを行などの単位で分け、複数の保存先に配置すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-240",
+      "japanese": "垂直分割",
+      "reading": "すいちょくぶんかつ",
+      "romaji": ["suichokubunkatsu", "suityokubunkatu"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データの列や機能のまとまりを分け、別々に管理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-241",
+      "japanese": "一貫性モデル",
+      "reading": "いっかんせいもでる",
+      "romaji": ["ikkanseimoderu"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "分散したデータの読み書きが、どのように見えるか定める考え方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-242",
+      "japanese": "整合性制約",
+      "reading": "せいごうせいせいやく",
+      "romaji": ["seigouseiseiyaku"],
+      "category": "データ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "データが満たすべき条件を定め、矛盾した値を防ぐ規則のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-243",
+      "japanese": "多要素認証",
+      "reading": "たようそにんしょう",
+      "romaji": ["tayousoninshou", "tayousoninsyou"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "異なる種類の要素を複数組み合わせて本人を確かめる方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-244",
+      "japanese": "認可",
+      "reading": "にんか",
+      "romaji": ["ninka"],
+      "category": "セキュリティ",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "認証された利用者が、特定の操作を許されるか確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-245",
+      "japanese": "アクセス制御",
+      "reading": "あくせすせいぎょ",
+      "romaji": ["akusesuseigyo"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用者や処理ごとに、資源の利用範囲を決める仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-246",
+      "japanese": "脅威モデリング",
+      "reading": "きょういもでりんぐ",
+      "romaji": ["kyouimoderingu"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "想定される攻撃や弱点を整理し、対策を検討する手法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-247",
+      "japanese": "攻撃対象領域",
+      "reading": "こうげきたいしょうりょういき",
+      "romaji": ["kougekitaishouryouiki", "kougekitaisyouryouiki"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "攻撃者がアクセスできる、システムの入口や機能の範囲。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-248",
+      "japanese": "入力検証",
+      "reading": "にゅうりょくけんしょう",
+      "romaji": ["nyuuryokukenshou", "nyuuryokukensyou"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "受け取った値が形式や範囲の条件を満たすか確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-249",
+      "japanese": "出力エンコード",
+      "reading": "しゅつりょくえんこーど",
+      "romaji": ["shutsuryokuenko-do", "syuturyokuenko-do"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "表示先に応じて特殊文字を変換し、意図しない解釈を防ぐこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-250",
+      "japanese": "クロスサイトリクエストフォージェリ",
+      "reading": "くろすさいとりくえすとふぉーじぇり",
+      "romaji": ["kurosusaitorikuesutofo-jeri", "kurosusaitorikuesutofo-zyeri"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用者の意図しない状態変更を、別サイト経由で起こさせる攻撃。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-251",
+      "japanese": "クロスサイトスクリプティング",
+      "reading": "くろすさいとすくりぷてぃんぐ",
+      "romaji": ["kurosusaitosukuriputhingu"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ページに悪意あるスクリプトを混入させ、閲覧者に実行させる攻撃。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-252",
+      "japanese": "コンテンツセキュリティポリシー",
+      "reading": "こんてんつせきゅりてぃぽりしー",
+      "romaji": ["kontentsusekyurithiporishi-", "kontentusekyurithiporisi-"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ページで読み込めるスクリプトなどの出所を制限する設定。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-253",
+      "japanese": "相互TLS認証",
+      "reading": "そうごてぃーえるえすにんしょう",
+      "romaji": ["sougothi-eruesuninshou", "sougothi-eruesuninsyou"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通信する双方が証明書を提示して相手を確認する方式。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-254",
+      "japanese": "鍵ローテーション",
+      "reading": "かぎろーてーしょん",
+      "romaji": ["kagiro-te-shonn", "kagiro-te-syonn"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "暗号鍵を定期的に新しいものへ入れ替える運用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-255",
+      "japanese": "デジタル署名",
+      "reading": "でじたるしょめい",
+      "romaji": ["dejitarushomei", "dezitarusyomei"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "送信者とデータの完全性を、公開鍵暗号で確かめる仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-256",
+      "japanese": "証明書失効",
+      "reading": "しょうめいしょしっこう",
+      "romaji": ["shoumeishoshikkou", "syoumeisyosikkou"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "無効になった証明書を、期限前に使えなくすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-257",
+      "japanese": "ソフトウェア部品表",
+      "reading": "そふとうぇあぶひんひょう",
+      "romaji": ["sofutoweabuhinhyou", "sohutoweabuhinhyou"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ソフトウェアに含まれる部品や依存関係を列挙した一覧。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-258",
+      "japanese": "脆弱性管理",
+      "reading": "ぜいじゃくせいかんり",
+      "romaji": ["zeijakuseikanri", "zeizyakuseikanri"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "弱点を把握し、優先度を決めて修正や対策を進めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-259",
+      "japanese": "セキュアコーディング",
+      "reading": "せきゅあこーでぃんぐ",
+      "romaji": ["sekyuako-dhingu"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "よくある攻撃や誤用を防ぐことを意識してコードを書く方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-260",
+      "japanese": "セキュリティテスト",
+      "reading": "せきゅりてぃてすと",
+      "romaji": ["sekyurithitesuto"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムに弱点がないか、決めた条件で調べるテスト。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-261",
+      "japanese": "権限昇格",
+      "reading": "けんげんしょうかく",
+      "romaji": ["kengenshoukaku", "kengensyoukaku"],
+      "category": "セキュリティ",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "本来許されていない高い権限を得ること、またはその攻撃。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-262",
+      "japanese": "変更要求",
+      "reading": "へんこうようきゅう",
+      "romaji": ["henkouyoukyuu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "既存の仕様や成果物を変える理由と内容を示す依頼のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-263",
+      "japanese": "変更管理",
+      "reading": "へんこうかんり",
+      "romaji": ["henkoukanri"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変更の影響や承認、実施状況を記録しながら進めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-264",
+      "japanese": "構成管理",
+      "reading": "こうせいかんり",
+      "romaji": ["kouseikanri"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "システムを構成する要素や版、関係を記録して保つこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-265",
+      "japanese": "リリース管理",
+      "reading": "りりーすかんり",
+      "romaji": ["riri-sukanri"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変更をまとめ、利用環境へ安全に公開する計画と作業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-266",
+      "japanese": "変更凍結",
+      "reading": "へんこうとうけつ",
+      "romaji": ["henkoutouketsu", "henkoutouketu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特定の期間、緊急時を除いて変更を控える運用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-267",
+      "japanese": "カナリアリリース",
+      "reading": "かなりありりーす",
+      "romaji": ["kanariariri-su"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一部の利用者へ先に公開し、影響を確認してから広げる方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-268",
+      "japanese": "ブルーグリーンデプロイ",
+      "reading": "ぶるーぐりーんでぷろい",
+      "romaji": ["buru-guri-ndepuroi"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "二つの環境を用意し、切り替えて公開する手法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-269",
+      "japanese": "段階的ロールアウト",
+      "reading": "だんかいてきろーるあうと",
+      "romaji": ["dankaitekiro-ruauto"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "公開範囲を少しずつ広げながら、問題がないか確かめる方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-270",
+      "japanese": "機能フラグ",
+      "reading": "きのうふらぐ",
+      "romaji": ["kinoufuragu", "kinouhuragu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コードを再配布せず、機能の利用可否を切り替える設定。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-271",
+      "japanese": "継続的デリバリー",
+      "reading": "けいぞくてきでりばりー",
+      "romaji": ["keizokutekideribari-"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "変更をいつでも安全に公開できる状態に保つ開発手法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-272",
+      "japanese": "継続的デプロイ",
+      "reading": "けいぞくてきでぷろい",
+      "romaji": ["keizokutekidepuroi"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "テストを通過した変更を、自動で本番環境へ公開する手法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-273",
+      "japanese": "ビルド成果物",
+      "reading": "びるどせいかぶつ",
+      "romaji": ["birudoseikabutsu", "birudoseikabutu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ソースコードから生成され、配布や実行に使うファイルのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-274",
+      "japanese": "環境分離",
+      "reading": "かんきょうぶんり",
+      "romaji": ["kankyoubunri"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "開発・検証・本番などの環境を分け、相互の影響を抑えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-275",
+      "japanese": "構成ドリフト",
+      "reading": "こうせいどりふと",
+      "romaji": ["kouseidorifuto", "kouseidorihuto"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "管理上の設定と、実際の環境の設定が食い違った状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-276",
+      "japanese": "インフラストラクチャーコード",
+      "reading": "いんふらすとらくちゃーこーど",
+      "romaji": ["infurasutorakucha-ko-do", "inhurasutorakutya-ko-do"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サーバーやネットワークの構成を、コードで定義する手法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-277",
+      "japanese": "コンテナイメージ",
+      "reading": "こんてないめーじ",
+      "romaji": ["kontenaime-ji", "kontenaime-zi"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "実行に必要なファイルや設定をまとめたコンテナの雛形。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-278",
+      "japanese": "コンテナレジストリ",
+      "reading": "こんてなれじすとり",
+      "romaji": ["kontenarejisutori", "kontenarezisutori"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コンテナイメージを保存し、配布するサービスや場所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-279",
+      "japanese": "オーケストレーション",
+      "reading": "おーけすとれーしょん",
+      "romaji": ["o-kesutore-shonn", "o-kesutore-syonn"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数のコンテナやサービスの起動・配置を自動で管理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-280",
+      "japanese": "サービスメッシュ",
+      "reading": "さーびすめっしゅ",
+      "romaji": ["sa-bisumesshu", "sa-bisumessyu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サービス間通信の監視や暗号化などを共通の仕組みで行う構成。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-281",
+      "japanese": "サービスディスカバリー",
+      "reading": "さーびすでぃすかばりー",
+      "romaji": ["sa-bisudhisukabari-"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用可能なサービスの場所や接続先を自動で見つける仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-282",
+      "japanese": "コンテンツ配信網",
+      "reading": "こんてんつはいしんもう",
+      "romaji": ["kontentsuhaishinmou", "kontentuhaisinmou"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用者に近い拠点からデータを届け、配信を速める仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-283",
+      "japanese": "エッジコンピューティング",
+      "reading": "えっじこんぴゅーてぃんぐ",
+      "romaji": ["ejjikonpyu-thingu", "ezzikonpyu-thingu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "利用者や機器の近くでデータ処理を行う方式のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-284",
+      "japanese": "サーバーサイドレンダリング",
+      "reading": "さーばーさいどれんだりんぐ",
+      "romaji": ["sa-ba-saidorendaringu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サーバー側で画面のHTMLを作ってから、ブラウザーへ返す方式。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-285",
+      "japanese": "クライアントサイドレンダリング",
+      "reading": "くらいあんとさいどれんだりんぐ",
+      "romaji": ["kuraiantosaidorendaringu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ブラウザー側で画面の内容を組み立てて表示する方式。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-286",
+      "japanese": "静的サイト生成",
+      "reading": "せいてきさいとせいせい",
+      "romaji": ["seitekisaitoseisei"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "公開前にページを生成し、完成したファイルを配信する方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-287",
+      "japanese": "ウェブフック",
+      "reading": "うぇぶふっく",
+      "romaji": ["webufukku", "webuhukku"],
+      "category": "運用",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "出来事をきっかけに、別のサービスへHTTPで通知する仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-288",
+      "japanese": "レート制限",
+      "reading": "れーとせいげん",
+      "romaji": ["re-toseigenn"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定時間内に受け付ける要求の数を制限すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-289",
+      "japanese": "リクエストトレース",
+      "reading": "りくえすととれーす",
+      "romaji": ["rikuesutotore-su"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一つの要求が複数の処理を通る経路を追跡すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-290",
+      "japanese": "分散トレーシング",
+      "reading": "ぶんさんとれーしんぐ",
+      "romaji": ["bunsantore-shingu", "bunsantore-singu"],
+      "category": "運用",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数サービスにまたがる処理の流れと所要時間を記録する方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-291",
+      "japanese": "境界値分析",
+      "reading": "きょうかいちぶんせき",
+      "romaji": ["kyoukaichibunseki", "kyoukaitibunseki"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "入力範囲の境目やその前後を重点的に確認するテスト設計法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-292",
+      "japanese": "同値分割",
+      "reading": "どうちぶんかつ",
+      "romaji": ["douchibunkatsu", "doutibunkatu"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ結果が期待できる入力をグループに分け、代表値で試す方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-293",
+      "japanese": "探索的テスト",
+      "reading": "たんさくてきてすと",
+      "romaji": ["tansakutekitesuto"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "操作しながら学んだことを次の確認に活かすテスト手法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-294",
+      "japanese": "契約テスト",
+      "reading": "けいやくてすと",
+      "romaji": ["keiyakutesuto"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サービス間で合意した入出力の形式や振る舞いを確かめるテスト。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-295",
+      "japanese": "ミューテーションテスト",
+      "reading": "みゅーてーしょんてすと",
+      "romaji": ["myu-te-shontesuto", "myu-te-syontesuto"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コードに意図的な変更を加え、テストが誤りを検出できるか調べる方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-296",
+      "japanese": "フレイキーテスト",
+      "reading": "ふれいきーてすと",
+      "romaji": ["fureiki-tesuto", "hureiki-tesuto"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ条件でも成功と失敗が不安定に入れ替わるテストのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-297",
+      "japanese": "テストダブル",
+      "reading": "てすとだぶる",
+      "romaji": ["tesutodaburu"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "テスト時に実物の代わりとして使う、簡易な部品の総称。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-298",
+      "japanese": "品質ゲート",
+      "reading": "ひんしつげーと",
+      "romaji": ["hinshitsuge-to", "hinsituge-to"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "次の工程へ進める前に、品質条件を満たしたか確認する基準。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-299",
+      "japanese": "欠陥密度",
+      "reading": "けっかんみつど",
+      "romaji": ["kekkanmitsudo", "kekkanmitudo"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ソフトウェアの規模に対する欠陥の数を示す指標のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "engineer-300",
+      "japanese": "テストピラミッド",
+      "reading": "てすとぴらみっど",
+      "romaji": ["tesutopiramiddo"],
+      "category": "品質管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "小さな範囲のテストを多くし、広い範囲のテストを絞る考え方。",
       "related_terms": [],
       "learning_points": [],
       "weak_detection": {

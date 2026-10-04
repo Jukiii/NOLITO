@@ -1,7 +1,7 @@
 {
   "job_id": "teaching",
   "job_name": "講師・教育",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "updated_at": "2026-10-01",
   "items": [
     {
@@ -1293,6 +1293,3156 @@
       "difficulty": 2,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "何らかの理由で、学校に行かない、または行けない状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-091",
+      "japanese": "年間指導計画",
+      "reading": "ねんかんしどうけいかく",
+      "romaji": ["nenkanshidoukeikaku", "nenkansidoukeikaku"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "1年間に、何をいつ教えるかを、まとめた計画のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-092",
+      "japanese": "単元",
+      "reading": "たんげん",
+      "romaji": ["tangenn"],
+      "category": "授業",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教える内容を、ひとまとまりにした学習の区切りのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-093",
+      "japanese": "めあて",
+      "reading": "めあて",
+      "romaji": ["meate"],
+      "category": "授業",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "その授業で、子どもが達成するべき目標のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-094",
+      "japanese": "振り返り",
+      "reading": "ふりかえり",
+      "romaji": ["furikaeri", "hurikaeri"],
+      "category": "授業",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学んだことや活動を、あとで思い返して確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-095",
+      "japanese": "板書計画",
+      "reading": "ばんしょけいかく",
+      "romaji": ["banshokeikaku", "bansyokeikaku"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業で黒板に、何をどう書くかを、あらかじめ決めた計画のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-096",
+      "japanese": "挙手",
+      "reading": "きょしゅ",
+      "romaji": ["kyoshu", "kyosyu"],
+      "category": "授業",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手を挙げて、発言や意思を示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-097",
+      "japanese": "指名",
+      "reading": "しめい",
+      "romaji": ["shimei", "simei"],
+      "category": "授業",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "発言や発表をする人を、先生が指して決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-098",
+      "japanese": "ペア学習",
+      "reading": "ぺあがくしゅう",
+      "romaji": ["peagakushuu", "peagakusyuu"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "2人1組で、教え合ったり話し合ったりする学習のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-099",
+      "japanese": "一斉授業",
+      "reading": "いっせいじゅぎょう",
+      "romaji": ["isseijugyou", "isseizyugyou"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級全体に、同じ内容を同時に教える授業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-100",
+      "japanese": "少人数指導",
+      "reading": "しょうにんずうしどう",
+      "romaji": ["shouninzuushidou", "syouninzuusidou"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級を分けて、少ない人数で行う指導のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-101",
+      "japanese": "習熟度別",
+      "reading": "しゅうじゅくどべつ",
+      "romaji": ["shuujukudobetsu", "syuuzyukudobetu"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "理解の進み具合に合わせて、グループを分けて学ぶこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-102",
+      "japanese": "理解度",
+      "reading": "りかいど",
+      "romaji": ["rikaido"],
+      "category": "授業",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学んだ内容を、どのくらい分かっているかの程度のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-103",
+      "japanese": "つまずき",
+      "reading": "つまずき",
+      "romaji": ["tsumazuki", "tumazuki"],
+      "category": "指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の中で、子どもが分からなくなってしまう所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-104",
+      "japanese": "個別支援",
+      "reading": "こべつしえん",
+      "romaji": ["kobetsushienn", "kobetusienn"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一人一人の状況に合わせて、行う手助けのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-105",
+      "japanese": "宿題チェック",
+      "reading": "しゅくだいちぇっく",
+      "romaji": ["shukudaichekku", "syukudaityekku"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "出された宿題を、先生が確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-106",
+      "japanese": "丸付け",
+      "reading": "まるつけ",
+      "romaji": ["marutsuke", "marutuke"],
+      "category": "指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "答えを確かめて、正しいものに丸を付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-107",
+      "japanese": "採点",
+      "reading": "さいてん",
+      "romaji": ["saitenn"],
+      "category": "指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "答案を調べて、点数を付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-108",
+      "japanese": "評価規準",
+      "reading": "ひょうかきじゅん",
+      "romaji": ["hyoukakijunn", "hyoukakizyunn"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の成果を、評価するためのものさしとなる基準のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-109",
+      "japanese": "ルーブリック",
+      "reading": "るーぶりっく",
+      "romaji": ["ru-burikku"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "評価の観点と、達成の度合いを、表にして示したもののこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-110",
+      "japanese": "ポートフォリオ",
+      "reading": "ぽーとふぉりお",
+      "romaji": ["po-toforio"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の成果物などを、ためて残して、成長を確かめる記録のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-111",
+      "japanese": "所見",
+      "reading": "しょけん",
+      "romaji": ["shokenn", "syokenn"],
+      "category": "指導",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通知表などに書く、子どもの様子や成長についての文章のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-112",
+      "japanese": "指導要録",
+      "reading": "しどうようろく",
+      "romaji": ["shidouyouroku", "sidouyouroku"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "児童・生徒の学習や成長を、公式に記録する書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-113",
+      "japanese": "出席停止",
+      "reading": "しゅっせきていし",
+      "romaji": ["shussekiteishi", "syussekiteisi"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "感染症などで、登校を一時的にやめるよう求める措置のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-114",
+      "japanese": "学級閉鎖",
+      "reading": "がっきゅうへいさ",
+      "romaji": ["gakkyuuheisa"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "感染症などの広がりを防ぐために、学級を休みにすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-115",
+      "japanese": "健康観察",
+      "reading": "けんこうかんさつ",
+      "romaji": ["kenkoukansatsu", "kenkoukansatu"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "子どもの体調や様子を、毎日確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-116",
+      "japanese": "避難訓練",
+      "reading": "ひなんくんれん",
+      "romaji": ["hinankunrenn"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "災害に備えて、安全に逃げる練習をすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-117",
+      "japanese": "安全指導",
+      "reading": "あんぜんしどう",
+      "romaji": ["anzenshidou", "anzensidou"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "事故を防ぐために、気を付けることを教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-118",
+      "japanese": "交通安全",
+      "reading": "こうつうあんぜん",
+      "romaji": ["koutsuuanzenn", "koutuuanzenn"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "交通事故に遭わないように、気を付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-119",
+      "japanese": "通学路",
+      "reading": "つうがくろ",
+      "romaji": ["tsuugakuro", "tuugakuro"],
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "子どもが、家と学校の間を行き来する道のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-120",
+      "japanese": "下校指導",
+      "reading": "げこうしどう",
+      "romaji": ["gekoushidou", "gekousidou"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "安全に帰るための、見守りや声かけのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-121",
+      "japanese": "清掃指導",
+      "reading": "せいそうしどう",
+      "romaji": ["seisoushidou", "seisousidou"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "掃除のやり方や、心がまえを教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-122",
+      "japanese": "給食指導",
+      "reading": "きゅうしょくしどう",
+      "romaji": ["kyuushokushidou", "kyuusyokusidou"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "給食の準備・食べ方・片付けを、教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-123",
+      "japanese": "当番活動",
+      "reading": "とうばんかつどう",
+      "romaji": ["toubankatsudou", "toubankatudou"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級の仕事を、順番に分担して行う活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-124",
+      "japanese": "係活動",
+      "reading": "かかりかつどう",
+      "romaji": ["kakarikatsudou", "kakarikatudou"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級の仕事を、役割を決めて受け持つ活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-125",
+      "japanese": "学級会",
+      "reading": "がっきゅうかい",
+      "romaji": ["gakkyuukai"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級の課題を、子どもたちが話し合って決める活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-126",
+      "japanese": "児童会",
+      "reading": "じどうかい",
+      "romaji": ["jidoukai", "zidoukai"],
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "児童が、自主的に学校生活を良くするための組織のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-127",
+      "japanese": "委員会活動",
+      "reading": "いいんかいかつどう",
+      "romaji": ["iinkaikatsudou", "iinkaikatudou"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "児童・生徒が、分担して学校の仕事を担う活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-128",
+      "japanese": "部活動",
+      "reading": "ぶかつどう",
+      "romaji": ["bukatsudou", "bukatudou"],
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業のほかに、スポーツや文化の活動を行う、学校の活動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-129",
+      "japanese": "顧問",
+      "reading": "こもん",
+      "romaji": ["komonn"],
+      "category": "学校運営",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "部活動などで、指導や助言をする教員のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-130",
+      "japanese": "時数",
+      "reading": "じすう",
+      "romaji": ["jisuu", "zisuu"],
+      "category": "学校運営",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業を行った時間の、数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-131",
+      "japanese": "教科担任",
+      "reading": "きょうかたんにん",
+      "romaji": ["kyoukatanninn"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特定の教科を、学級を超えて教える教員のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-132",
+      "japanese": "学年会",
+      "reading": "がくねんかい",
+      "romaji": ["gakunenkai"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ学年の教員が、情報を共有する会議のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-133",
+      "japanese": "校務分掌",
+      "reading": "こうむぶんしょう",
+      "romaji": ["koumubunshou", "koumubunsyou"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校の仕事を、教員で分担する仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-134",
+      "japanese": "年間行事予定",
+      "reading": "ねんかんぎょうじよてい",
+      "romaji": ["nenkangyoujiyotei", "nenkangyouziyotei"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "1年間の学校行事を、日程ごとにまとめた予定のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-135",
+      "japanese": "学校だより",
+      "reading": "がっこうだより",
+      "romaji": ["gakkoudayori"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校の様子や予定を、保護者に知らせるお便りのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-136",
+      "japanese": "保護者会",
+      "reading": "ほごしゃかい",
+      "romaji": ["hogoshakai", "hogosyakai"],
+      "category": "学校運営",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保護者を集めて、学校や学級の様子を伝え、話し合う会のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-137",
+      "japanese": "個人面談",
+      "reading": "こじんめんだん",
+      "romaji": ["kojinmendann", "kozinmendann"],
+      "category": "学校運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "先生と保護者が、子ども1人について、1対1で話す面談のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-138",
+      "japanese": "学習支援",
+      "reading": "がくしゅうしえん",
+      "romaji": ["gakushuushienn", "gakusyuusienn"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "子どもが、学びやすくなるように手助けすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-139",
+      "japanese": "デジタル教科書",
+      "reading": "でじたるきょうかしょ",
+      "romaji": ["dejitarukyoukasho", "dezitarukyoukasyo"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "紙の教科書の内容を、電子の形にして使えるようにしたもののこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-140",
+      "japanese": "情報モラル",
+      "reading": "じょうほうもらる",
+      "romaji": ["jouhoumoraru", "zyouhoumoraru"],
+      "category": "指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "インターネットなどを、安全に正しく使うための心がまえのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-141",
+      "japanese": "タイピング",
+      "reading": "たいぴんぐ",
+      "romaji": ["taipingu"],
+      "category": "授業",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "キーボードで、文字を打つこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-142",
+      "japanese": "プログラミング教育",
+      "reading": "ぷろぐらみんぐきょういく",
+      "romaji": ["puroguramingukyouiku"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "論理的に考える力を育てるために、プログラムの考え方を学ぶ教育のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-143",
+      "japanese": "総合的な学習",
+      "reading": "そうごうてきながくしゅう",
+      "romaji": ["sougoutekinagakushuu", "sougoutekinagakusyuu"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教科の枠を超えて、課題を見つけ、探究して学ぶ時間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-144",
+      "japanese": "家庭連絡文",
+      "reading": "かていれんらくぶん",
+      "romaji": ["kateirenrakubunn"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校から家庭へ、必要な連絡を伝えるための文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-145",
+      "japanese": "学年打合せ",
+      "reading": "がくねんうちあわせ",
+      "romaji": ["gakunennuchiawase", "gakunennutiawase"],
+      "category": "校務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ学年を担当する教職員が、予定や対応を話し合うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-146",
+      "japanese": "教員研修会",
+      "reading": "きょういんけんしゅうかい",
+      "romaji": ["kyouinkenshuukai", "kyouinkensyuukai"],
+      "category": "校務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教員が知識や指導方法を学ぶために行う会合のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-147",
+      "japanese": "教材分析",
+      "reading": "きょうざいぶんせき",
+      "romaji": ["kyouzaibunseki"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教材の内容や構成を調べ、学習に役立つ点を考えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-148",
+      "japanese": "公開授業",
+      "reading": "こうかいじゅぎょう",
+      "romaji": ["koukaijugyou", "koukaizyugyou"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保護者や教職員などが参観できる形で行う授業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-149",
+      "japanese": "保護者面談",
+      "reading": "ほごしゃめんだん",
+      "romaji": ["hogoshamendann", "hogosyamendann"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教員と保護者が、児童や生徒の様子などを話し合うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-150",
+      "japanese": "個別相談",
+      "reading": "こべつそうだん",
+      "romaji": ["kobetsusoudann", "kobetusoudann"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一人ずつの状況に合わせて、困りごとなどを話し合うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-151",
+      "japanese": "出欠記録",
+      "reading": "しゅっけつきろく",
+      "romaji": ["shukketsukiroku", "syukketukiroku"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "児童や生徒の出席や欠席の状況を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-152",
+      "japanese": "評価入力作業",
+      "reading": "ひょうかにゅうりょくさぎょう",
+      "romaji": ["hyoukanyuuryokusagyou"],
+      "category": "評価",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "児童や生徒の評価内容を、記録用の仕組みに入力する作業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-153",
+      "japanese": "領域別評価",
+      "reading": "りょういきべつひょうか",
+      "romaji": ["ryouikibetsuhyouka", "ryouikibetuhyouka"],
+      "category": "評価",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の領域に分けて、学習の様子を評価すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-154",
+      "japanese": "判定基準",
+      "reading": "はんていきじゅん",
+      "romaji": ["hanteikijunn", "hanteikizyunn"],
+      "category": "評価",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "成果や状態を判断するときに用いる、具体的な目安のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-155",
+      "japanese": "課題提出",
+      "reading": "かだいていしゅつ",
+      "romaji": ["kadaiteishutsu", "kadaiteisyutu"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "児童や生徒が、指定された課題を提出すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-156",
+      "japanese": "定期試験",
+      "reading": "ていきしけん",
+      "romaji": ["teikishikenn", "teikisikenn"],
+      "category": "評価",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学期などの区切りに合わせて、定期的に行う試験のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-157",
+      "japanese": "確認テスト",
+      "reading": "かくにんてすと",
+      "romaji": ["kakunintesuto"],
+      "category": "評価",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学んだ内容を理解しているか確かめるテストのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-158",
+      "japanese": "授業準備",
+      "reading": "じゅぎょうじゅんび",
+      "romaji": ["jugyoujunbi", "zyugyouzyunbi"],
+      "category": "授業",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業を行う前に、教材や教室などを整えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-159",
+      "japanese": "教室環境",
+      "reading": "きょうしつかんきょう",
+      "romaji": ["kyoushitsukankyou", "kyousitukankyou"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習や生活をしやすくするための、教室内の状態や配置のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-160",
+      "japanese": "学級目標",
+      "reading": "がっきゅうもくひょう",
+      "romaji": ["gakkyuumokuhyou"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級で大切にすることや、目指す姿を示した目標のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-161",
+      "japanese": "校内業務分担",
+      "reading": "こうないぎょうむぶんたん",
+      "romaji": ["kounaigyoumubuntann"],
+      "category": "校務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校の中の業務を、教職員の間で分けて担当すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-162",
+      "japanese": "指導記録",
+      "reading": "しどうきろく",
+      "romaji": ["shidoukiroku", "sidoukiroku"],
+      "category": "学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "指導した内容や児童生徒の様子を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-163",
+      "japanese": "学習評価",
+      "reading": "がくしゅうひょうか",
+      "romaji": ["gakushuuhyouka", "gakusyuuhyouka"],
+      "category": "評価",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の成果や過程を、目標に照らして確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-164",
+      "japanese": "単元計画",
+      "reading": "たんげんけいかく",
+      "romaji": ["tangenkeikaku"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一連の授業で学ぶ内容や順序、目標をまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-165",
+      "japanese": "年間カリキュラム",
+      "reading": "ねんかんかりきゅらむ",
+      "romaji": ["nenkankarikyuramu"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一年間に学ぶ内容や授業時期を整理した教育課程の計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-166",
+      "japanese": "授業目標",
+      "reading": "じゅぎょうもくひょう",
+      "romaji": ["jugyoumokuhyou", "zyugyoumokuhyou"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業の終わりまでに、学習者ができるようになること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-167",
+      "japanese": "到達目標",
+      "reading": "とうたつもくひょう",
+      "romaji": ["toutatsumokuhyou", "toutatumokuhyou"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習や活動の後に達成している状態を具体的に示した目標。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-168",
+      "japanese": "学習成果",
+      "reading": "がくしゅうせいか",
+      "romaji": ["gakushuuseika", "gakusyuuseika"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が学びを通じて得た知識や技能、態度のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-169",
+      "japanese": "教材選定",
+      "reading": "きょうざいせんてい",
+      "romaji": ["kyouzaisentei"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業の目的や学習者に合う教材を選ぶこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-170",
+      "japanese": "教材配列",
+      "reading": "きょうざいはいれつ",
+      "romaji": ["kyouzaihairetsu", "kyouzaihairetu"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習内容を、理解しやすい順序で並べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-171",
+      "japanese": "教材提示",
+      "reading": "きょうざいていじ",
+      "romaji": ["kyouzaiteiji", "kyouzaiteizi"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が内容を理解できるよう、教材を示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-172",
+      "japanese": "学習課題",
+      "reading": "がくしゅうかだい",
+      "romaji": ["gakushuukadai", "gakusyuukadai"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が考えたり取り組んだりする課題のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-173",
+      "japanese": "課題設定",
+      "reading": "かだいせってい",
+      "romaji": ["kadaisettei"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の目的に合わせて、取り組む問いや活動を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-174",
+      "japanese": "学習活動",
+      "reading": "がくしゅうかつどう",
+      "romaji": ["gakushuukatsudou", "gakusyuukatudou"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が目標に向けて行う、考察や練習などの活動。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-175",
+      "japanese": "授業展開案",
+      "reading": "じゅぎょうてんかいあん",
+      "romaji": ["jugyoutenkaiann", "zyugyoutenkaiann"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "導入からまとめまでの活動や時間配分を示す計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-176",
+      "japanese": "単元導入",
+      "reading": "たんげんどうにゅう",
+      "romaji": ["tangendounyuu"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "新しい学習内容の目的や見通しを学習者に伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-177",
+      "japanese": "学習の見通し",
+      "reading": "がくしゅうのみとおし",
+      "romaji": ["gakushuunomitooshi", "gakusyuunomitoosi"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "これから学ぶ内容や進め方を、事前に把握した状態。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-178",
+      "japanese": "学習のまとめ",
+      "reading": "がくしゅうのまとめ",
+      "romaji": ["gakushuunomatome", "gakusyuunomatome"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習した内容や大切な点を整理し、確認する活動。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-179",
+      "japanese": "振り返り記述",
+      "reading": "ふりかえりきじゅつ",
+      "romaji": ["furikaerikijutsu", "hurikaerikizyutu"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習内容や取り組み方を、学習者が文章で振り返ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-180",
+      "japanese": "発問計画",
+      "reading": "はつもんけいかく",
+      "romaji": ["hatsumonkeikaku", "hatumonkeikaku"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業で問いかける内容や順序、ねらいを考えた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-181",
+      "japanese": "発問意図",
+      "reading": "はつもんいと",
+      "romaji": ["hatsumonnito", "hatumonnito"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "質問を通じて引き出したい考えや学びのねらい。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-182",
+      "japanese": "板書構成",
+      "reading": "ばんしょこうせい",
+      "romaji": ["banshokousei", "bansyokousei"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業中に示す情報の配置や順序を組み立てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-183",
+      "japanese": "板書記録",
+      "reading": "ばんしょきろく",
+      "romaji": ["banshokiroku", "bansyokiroku"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業で黒板に書いた内容を、後から確認できる形で残すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-184",
+      "japanese": "教材提示装置",
+      "reading": "きょうざいていじそうち",
+      "romaji": ["kyouzaiteijisouchi", "kyouzaiteizisouti"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手元の資料や実物を画面に映して提示する機器のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-185",
+      "japanese": "授業観察",
+      "reading": "じゅぎょうかんさつ",
+      "romaji": ["jugyoukansatsu", "zyugyoukansatu"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業中の学習者や指導の様子を観察して記録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-186",
+      "japanese": "授業参観記録",
+      "reading": "じゅぎょうさんかんきろく",
+      "romaji": ["jugyousankankiroku", "zyugyousankankiroku"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "参観した授業の進行や学習の様子を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-187",
+      "japanese": "指導計画",
+      "reading": "しどうけいかく",
+      "romaji": ["shidoukeikaku", "sidoukeikaku"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "目標や学習内容、指導方法を順序立ててまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-188",
+      "japanese": "授業時数配当表",
+      "reading": "じゅぎょうじすうはあてひょう",
+      "romaji": ["jugyoujisuuhaatehyou", "zyugyouzisuuhaatehyou"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教科や単元ごとに、授業時間数を割り当てた一覧表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-189",
+      "japanese": "教科横断学習",
+      "reading": "きょうかおうだんがくしゅう",
+      "romaji": ["kyoukaoudangakushuu", "kyoukaoudangakusyuu"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の教科の内容を関連づけて行う学習のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-190",
+      "japanese": "教科間連携",
+      "reading": "きょうかかんれんけい",
+      "romaji": ["kyoukakanrenkei"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教科の担当者が内容や時期を相談して授業を組み立てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-191",
+      "japanese": "カリキュラム編成",
+      "reading": "かりきゅらむへんせい",
+      "romaji": ["karikyuramuhensei"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教育目標に沿って学習内容や授業時数を組み立てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-192",
+      "japanese": "カリキュラム評価",
+      "reading": "かりきゅらむひょうか",
+      "romaji": ["karikyuramuhyouka"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教育課程が目標に合い、学習に役立ったか検討すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-193",
+      "japanese": "授業改善",
+      "reading": "じゅぎょうかいぜん",
+      "romaji": ["jugyoukaizenn", "zyugyoukaizenn"],
+      "category": "授業設計",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業の記録や学習者の反応を基に指導を見直すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-194",
+      "japanese": "足場かけ",
+      "reading": "あしばかけ",
+      "romaji": ["ashibakake", "asibakake"],
+      "category": "学習指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が自力で取り組めるよう、一時的な支援を与えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-195",
+      "japanese": "段階的支援",
+      "reading": "だんかいてきしえん",
+      "romaji": ["dankaitekishienn", "dankaitekisienn"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "必要に応じて支援の量や方法を調整しながら学習を助けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-196",
+      "japanese": "個別最適な学び",
+      "reading": "こべつさいてきなまなび",
+      "romaji": ["kobetsusaitekinamanabi", "kobetusaitekinamanabi"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者の状況や進度に応じて、学び方を調整する考え方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-197",
+      "japanese": "協働的な学び",
+      "reading": "きょうどうてきなまなび",
+      "romaji": ["kyoudoutekinamanabi"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "他者との対話や共同作業を通じて理解を深める学び方。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-198",
+      "japanese": "協同学習",
+      "reading": "きょうどうがくしゅう",
+      "romaji": ["kyoudougakushuu", "kyoudougakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "小集団で役割や目標を共有し、互いに学び合う方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-199",
+      "japanese": "探究学習",
+      "reading": "たんきゅうがくしゅう",
+      "romaji": ["tankyuugakushuu", "tankyuugakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "問いを立て、情報を集めて考え、結論をまとめる学習。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-200",
+      "japanese": "問題解決学習",
+      "reading": "もんだいかいけつがくしゅう",
+      "romaji": ["mondaikaiketsugakushuu", "mondaikaiketugakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "課題を見つけ、解決策を考えて実行する学習方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-201",
+      "japanese": "プロジェクト学習",
+      "reading": "ぷろじぇくとがくしゅう",
+      "romaji": ["purojekutogakushuu", "purozyekutogakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "成果物や解決案を作るため、一定期間取り組む学習。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-202",
+      "japanese": "反転授業",
+      "reading": "はんてんじゅぎょう",
+      "romaji": ["hantenjugyou", "hantenzyugyou"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "基礎内容を授業前に学び、授業中は応用や対話に取り組む方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-203",
+      "japanese": "習得学習",
+      "reading": "しゅうとくがくしゅう",
+      "romaji": ["shuutokugakushuu", "syuutokugakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が目標の内容を身に付けるまで、確認と練習を行う方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-204",
+      "japanese": "分散学習",
+      "reading": "ぶんさんがくしゅう",
+      "romaji": ["bunsangakushuu", "bunsangakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一度に詰め込まず、時間を空けて複数回学ぶ方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-205",
+      "japanese": "検索練習",
+      "reading": "けんさくれんしゅう",
+      "romaji": ["kensakurenshuu", "kensakurensyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "資料を見ずに学んだ内容を思い出し、記憶を確かめる学習法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-206",
+      "japanese": "想起練習",
+      "reading": "そうきれんしゅう",
+      "romaji": ["soukirenshuu", "soukirensyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学んだ情報を思い出すことで、知識の定着を促す練習。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-207",
+      "japanese": "間隔反復",
+      "reading": "かんかくはんぷく",
+      "romaji": ["kankakuhanpuku"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "忘れかける頃に復習を繰り返し、記憶を保つ方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-208",
+      "japanese": "概念形成",
+      "reading": "がいねんけいせい",
+      "romaji": ["gainenkeisei"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "事例を比べながら、共通する特徴や意味を理解すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-209",
+      "japanese": "概念地図",
+      "reading": "がいねんちず",
+      "romaji": ["gainenchizu", "gainentizu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "概念同士の関係を、線や語で結び付けて表した図。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-210",
+      "japanese": "思考ツール",
+      "reading": "しこうつーる",
+      "romaji": ["shikoutsu-ru", "sikoutu-ru"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "情報の整理や比較、発想を助ける図や手順のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-211",
+      "japanese": "思考過程",
+      "reading": "しこうかてい",
+      "romaji": ["shikoukatei", "sikoukatei"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "課題に取り組むとき、情報を理解して判断するまでの流れ。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-212",
+      "japanese": "メタ認知",
+      "reading": "めたにんち",
+      "romaji": ["metaninchi", "metaninti"],
+      "category": "学習指導",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "自分の理解や考え方を把握し、調整する働きのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-213",
+      "japanese": "自己調整学習",
+      "reading": "じこちょうせいがくしゅう",
+      "romaji": ["jikochouseigakushuu", "zikotyouseigakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "目標や進み具合を自分で確かめ、学習方法を調整すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-214",
+      "japanese": "学習方略",
+      "reading": "がくしゅうほうりゃく",
+      "romaji": ["gakushuuhouryaku", "gakusyuuhouryaku"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学ぶ内容や目標に合わせて選ぶ学習の方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-215",
+      "japanese": "学習習慣",
+      "reading": "がくしゅうしゅうかん",
+      "romaji": ["gakushuushuukann", "gakusyuusyuukann"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "日々の学習を継続するために身に付いた行動のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-216",
+      "japanese": "学習時間記録",
+      "reading": "がくしゅうじかんきろく",
+      "romaji": ["gakushuujikankiroku", "gakusyuuzikankiroku"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習に取り組んだ時間や日付を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-217",
+      "japanese": "音読指導",
+      "reading": "おんどくしどう",
+      "romaji": ["ondokushidou", "ondokusidou"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文章を声に出して読む方法や理解の仕方を教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-218",
+      "japanese": "読解指導",
+      "reading": "どっかいしどう",
+      "romaji": ["dokkaishidou", "dokkaisidou"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文章の内容や構造を読み取る方法を教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-219",
+      "japanese": "作文指導",
+      "reading": "さくぶんしどう",
+      "romaji": ["sakubunshidou", "sakubunsidou"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文章の構成や表現を考え、書き直す方法を教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-220",
+      "japanese": "発表指導",
+      "reading": "はっぴょうしどう",
+      "romaji": ["happyoushidou", "happyousidou"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "内容を整理し、聞き手へ伝える方法を教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-221",
+      "japanese": "話し合い指導",
+      "reading": "はなしあいしどう",
+      "romaji": ["hanashiaishidou", "hanasiaisidou"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "互いの意見を聞き、考えを深める対話の方法を教えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-222",
+      "japanese": "実験観察",
+      "reading": "じっけんかんさつ",
+      "romaji": ["jikkenkansatsu", "zikkenkansatu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手順に沿って試し、変化や結果を観察する学習活動。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-223",
+      "japanese": "実地学習",
+      "reading": "じっちがくしゅう",
+      "romaji": ["jicchigakushuu", "zittigakusyuu"],
+      "category": "学習指導",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校外の場所や実物を用いて行う学習のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-224",
+      "japanese": "診断的評価",
+      "reading": "しんだんてきひょうか",
+      "romaji": ["shindantekihyouka", "sindantekihyouka"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の開始時に、既有知識や理解の状況を把握する評価。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-225",
+      "japanese": "形成的評価",
+      "reading": "けいせいてきひょうか",
+      "romaji": ["keiseitekihyouka"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の途中で理解を確かめ、指導や学習を調整する評価。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-226",
+      "japanese": "総括的評価",
+      "reading": "そうかつてきひょうか",
+      "romaji": ["soukatsutekihyouka", "soukatutekihyouka"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "単元や学期の終了時に、学習成果をまとめて判断する評価。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-227",
+      "japanese": "評価規準表",
+      "reading": "ひょうかきじゅんひょう",
+      "romaji": ["hyoukakijunhyou", "hyoukakizyunhyou"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "評価の観点と、達成の段階を具体的に示した表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-228",
+      "japanese": "評価尺度",
+      "reading": "ひょうかしゃくど",
+      "romaji": ["hyoukashakudo", "hyoukasyakudo"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "成果や状態を、段階や数値で示すための基準のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-229",
+      "japanese": "自己評価",
+      "reading": "じこひょうか",
+      "romaji": ["jikohyouka", "zikohyouka"],
+      "category": "評価・学習支援",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が自分の理解や成果を基準に照らして確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-230",
+      "japanese": "相互評価",
+      "reading": "そうごひょうか",
+      "romaji": ["sougohyouka"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者同士が、定めた観点に沿って成果を見合うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-231",
+      "japanese": "形成的フィードバック",
+      "reading": "けいせいてきふぃーどばっく",
+      "romaji": ["keiseitekifi-dobakku"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の途中で、次の改善に役立つ具体的な情報を返すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-232",
+      "japanese": "即時フィードバック",
+      "reading": "そくじふぃーどばっく",
+      "romaji": ["sokujifi-dobakku", "sokuzifi-dobakku"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "活動の直後に、結果や改善点を伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-233",
+      "japanese": "学習到達度",
+      "reading": "がくしゅうとうたつど",
+      "romaji": ["gakushuutoutatsudo", "gakusyuutoutatudo"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が目標とする知識や技能にどれだけ達したかの度合い。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-234",
+      "japanese": "評価観点",
+      "reading": "ひょうかかんてん",
+      "romaji": ["hyoukakantenn"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習成果を判断する際に確認する視点のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-235",
+      "japanese": "採点基準表",
+      "reading": "さいてんきじゅんひょう",
+      "romaji": ["saitenkijunhyou", "saitenkizyunhyou"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "課題や試験の採点方法と配点を示した表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-236",
+      "japanese": "誤答分析",
+      "reading": "ごとうぶんせき",
+      "romaji": ["gotoubunseki"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "誤った回答の傾向を調べ、理解の課題を把握すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-237",
+      "japanese": "つまずき分析",
+      "reading": "つまずきぶんせき",
+      "romaji": ["tsumazukibunseki", "tumazukibunseki"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が理解しにくい箇所や原因を調べること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-238",
+      "japanese": "理解度調査",
+      "reading": "りかいどちょうさ",
+      "romaji": ["rikaidochousa", "rikaidotyousa"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習内容をどの程度理解したか、質問や課題で確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-239",
+      "japanese": "学習診断",
+      "reading": "がくしゅうしんだん",
+      "romaji": ["gakushuushindann", "gakusyuusindann"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者の得意分野や課題を、資料から把握すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-240",
+      "japanese": "学習記録",
+      "reading": "がくしゅうきろく",
+      "romaji": ["gakushuukiroku", "gakusyuukiroku"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の内容や成果、振り返りを継続して残した記録。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-241",
+      "japanese": "学習履歴",
+      "reading": "がくしゅうりれき",
+      "romaji": ["gakushuurireki", "gakusyuurireki"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教材や課題への取り組み状況を時系列に記録した情報。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-242",
+      "japanese": "ポートフォリオ評価",
+      "reading": "ぽーとふぉりおひょうか",
+      "romaji": ["po-toforiohyouka"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "作品や記録を集め、成長や学習過程を評価する方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-243",
+      "japanese": "ルーブリック評価",
+      "reading": "るーぶりっくひょうか",
+      "romaji": ["ru-burikkuhyouka"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "評価観点と達成段階を表にし、基準を共有する方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-244",
+      "japanese": "パフォーマンス課題",
+      "reading": "ぱふぉーまんすかだい",
+      "romaji": ["pafo-mansukadai"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "知識を使って、成果物や実演で理解を示す課題のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-245",
+      "japanese": "学習支援計画",
+      "reading": "がくしゅうしえんけいかく",
+      "romaji": ["gakushuushienkeikaku", "gakusyuusienkeikaku"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習上の課題や目標、支援方法をまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-246",
+      "japanese": "合理的配慮",
+      "reading": "ごうりてきはいりょ",
+      "romaji": ["gouritekihairyo"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学びや参加の障壁を減らすため、個別に調整する支援。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-247",
+      "japanese": "支援会議",
+      "reading": "しえんかいぎ",
+      "romaji": ["shienkaigi", "sienkaigi"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者の状況や必要な支援を関係者で話し合う会議。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-248",
+      "japanese": "通級指導",
+      "reading": "つうきゅうしどう",
+      "romaji": ["tsuukyuushidou", "tuukyuusidou"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通常の学級に在籍しながら、必要な時間に個別の指導を受ける形。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-249",
+      "japanese": "教育相談記録",
+      "reading": "きょういくそうだんきろく",
+      "romaji": ["kyouikusoudankiroku"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "相談内容や対応、今後の確認事項を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-250",
+      "japanese": "学習相談",
+      "reading": "がくしゅうそうだん",
+      "romaji": ["gakushuusoudann", "gakusyuusoudann"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習方法や進路などについて、本人と相談すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-251",
+      "japanese": "欠席傾向",
+      "reading": "けっせきけいこう",
+      "romaji": ["kessekikeikou"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "欠席の頻度や時期に見られる変化のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-252",
+      "japanese": "学習意欲",
+      "reading": "がくしゅういよく",
+      "romaji": ["gakushuuiyoku", "gakusyuuiyoku"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学びに取り組み、続けようとする気持ちのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-253",
+      "japanese": "学習参加",
+      "reading": "がくしゅうさんか",
+      "romaji": ["gakushuusanka", "gakusyuusanka"],
+      "category": "評価・学習支援",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "授業や活動に、学習者が関わり取り組むこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-254",
+      "japanese": "学級経営計画",
+      "reading": "がっきゅうけいえいけいかく",
+      "romaji": ["gakkyuukeieikeikaku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学級の目標や活動、環境づくりをまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-255",
+      "japanese": "学級編成",
+      "reading": "がっきゅうへんせい",
+      "romaji": ["gakkyuuhensei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "在籍する子どもを、学級ごとに分けて構成すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-256",
+      "japanese": "学年運営",
+      "reading": "がくねんうんえい",
+      "romaji": ["gakunennunnei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ学年の教職員が連携し、教育活動を進めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-257",
+      "japanese": "学年会議",
+      "reading": "がくねんかいぎ",
+      "romaji": ["gakunenkaigi"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学年の行事や指導方針を教職員で相談する会議。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-258",
+      "japanese": "校内委員会",
+      "reading": "こうないいいんかい",
+      "romaji": ["kounaiiinkai"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校内の課題や活動を担当し、検討するための会議体。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-259",
+      "japanese": "教育課程",
+      "reading": "きょういくかてい",
+      "romaji": ["kyouikukatei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校で学ぶ内容や時数、指導計画を体系化したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-260",
+      "japanese": "学校評価",
+      "reading": "がっこうひょうか",
+      "romaji": ["gakkouhyouka"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校の教育活動や運営の状況を、目標に照らして確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-261",
+      "japanese": "自己評価報告書",
+      "reading": "じこひょうかほうこくしょ",
+      "romaji": ["jikohyoukahoukokusho", "zikohyoukahoukokusyo"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校が教育活動の状況を振り返り、結果をまとめた文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-262",
+      "japanese": "学校運営協議会",
+      "reading": "がっこううんえいきょうぎかい",
+      "romaji": ["gakkouunneikyougikai"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "地域や保護者が学校運営について協議する会議体。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-263",
+      "japanese": "学校安全計画",
+      "reading": "がっこうあんぜんけいかく",
+      "romaji": ["gakkouanzenkeikaku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校内外の安全を守る活動や点検をまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-264",
+      "japanese": "危機管理計画",
+      "reading": "ききかんりけいかく",
+      "romaji": ["kikikanrikeikaku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "緊急事態に備えた役割や連絡、対応手順を定めた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-265",
+      "japanese": "緊急連絡網",
+      "reading": "きんきゅうれんらくもう",
+      "romaji": ["kinkyuurenrakumou"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "緊急時に関係者へ連絡を順に伝えるための一覧。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-266",
+      "japanese": "保護者連絡記録",
+      "reading": "ほごしゃれんらくきろく",
+      "romaji": ["hogosharenrakukiroku", "hogosyarenrakukiroku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保護者への連絡日時や内容、確認事項を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-267",
+      "japanese": "家庭連携",
+      "reading": "かていれんけい",
+      "romaji": ["kateirenkei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "家庭と学校が情報を共有し、子どもの学びを支えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-268",
+      "japanese": "地域連携",
+      "reading": "ちいきれんけい",
+      "romaji": ["chiikirenkei", "tiikirenkei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "地域の人や団体と協力して、学校活動を行うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-269",
+      "japanese": "学校行事計画",
+      "reading": "がっこうぎょうじけいかく",
+      "romaji": ["gakkougyoujikeikaku", "gakkougyouzikeikaku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "行事の目的や日程、担当、準備内容をまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-270",
+      "japanese": "行事実施要項",
+      "reading": "ぎょうじじっしようこう",
+      "romaji": ["gyoujijisshiyoukou", "gyouzizissiyoukou"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "行事の日時や方法、役割分担などを記した文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-271",
+      "japanese": "校外学習計画",
+      "reading": "こうがいがくしゅうけいかく",
+      "romaji": ["kougaigakushuukeikaku", "kougaigakusyuukeikaku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校外で行う学習の行程や安全対策をまとめた計画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-272",
+      "japanese": "引率体制",
+      "reading": "いんそつたいせい",
+      "romaji": ["insotsutaisei", "insotutaisei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "校外活動で子どもを見守る担当者や役割の配置。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-273",
+      "japanese": "出席状況集計",
+      "reading": "しゅっせきじょうきょうしゅうけい",
+      "romaji": ["shussekijoukyoushuukei", "syussekizyoukyousyuukei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "出席や欠席の情報を学級や期間ごとにまとめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-274",
+      "japanese": "出欠連絡",
+      "reading": "しゅっけつれんらく",
+      "romaji": ["shukketsurenraku", "syukketurenraku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "欠席や遅刻などの予定を、家庭から学校へ伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-275",
+      "japanese": "保健調査票",
+      "reading": "ほけんちょうさひょう",
+      "romaji": ["hokenchousahyou", "hokentyousahyou"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "健康状態や配慮事項を確認するために保護者が記入する書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-276",
+      "japanese": "健康情報管理",
+      "reading": "けんこうじょうほうかんり",
+      "romaji": ["kenkoujouhoukanri", "kenkouzyouhoukanri"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者の健康に関する情報を適切に取り扱うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-277",
+      "japanese": "保健室来室記録",
+      "reading": "ほけんしつらいしつきろく",
+      "romaji": ["hokenshitsuraishitsukiroku", "hokensituraisitukiroku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保健室を利用した日時や対応内容を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-278",
+      "japanese": "給食献立表",
+      "reading": "きゅうしょくこんだてひょう",
+      "romaji": ["kyuushokukondatehyou", "kyuusyokukondatehyou"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校給食の料理や食材、提供日を示した一覧表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-279",
+      "japanese": "給食配膳計画",
+      "reading": "きゅうしょくはいぜんけいかく",
+      "romaji": ["kyuushokuhaizenkeikaku", "kyuusyokuhaizenkeikaku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "配膳の担当や順序、必要な用具を事前に決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-280",
+      "japanese": "学校図書館運営",
+      "reading": "がっこうとしょかんうんえい",
+      "romaji": ["gakkoutoshokannunnei", "gakkoutosyokannunnei"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "図書の管理や貸出、学習利用を学校内で進めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-281",
+      "japanese": "図書貸出記録",
+      "reading": "としょかしだしきろく",
+      "romaji": ["toshokashidashikiroku", "tosyokasidasikiroku"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "借りた本や利用者、返却予定などを記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-282",
+      "japanese": "教育実習指導",
+      "reading": "きょういくじっしゅうしどう",
+      "romaji": ["kyouikujisshuushidou", "kyouikuzissyuusidou"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教育実習生の授業や学校での活動を支援すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-283",
+      "japanese": "校務分担",
+      "reading": "こうむぶんたん",
+      "romaji": ["koumubuntann"],
+      "category": "学校・学級運営",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学校運営に必要な業務を教職員で割り振ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-284",
+      "japanese": "学習管理システム",
+      "reading": "がくしゅうかんりしすてむ",
+      "romaji": ["gakushuukanrishisutemu", "gakusyuukanrisisutemu"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教材配布や課題、学習記録を扱うオンラインシステム。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-285",
+      "japanese": "デジタル教材",
+      "reading": "でじたるきょうざい",
+      "romaji": ["dejitarukyouzai", "dezitarukyouzai"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コンピューターや端末で利用する電子形式の教材。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-286",
+      "japanese": "オンライン授業",
+      "reading": "おんらいんじゅぎょう",
+      "romaji": ["onrainjugyou", "onrainzyugyou"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通信ネットワークを介して行う授業のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-287",
+      "japanese": "遠隔学習",
+      "reading": "えんかくがくしゅう",
+      "romaji": ["enkakugakushuu", "enkakugakusyuu"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教室以外の場所から通信機器を使って学ぶこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-288",
+      "japanese": "ハイブリッド授業",
+      "reading": "はいぶりっどじゅぎょう",
+      "romaji": ["haiburiddojugyou", "haiburiddozyugyou"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "対面とオンラインなど、複数の参加方法を組み合わせた授業。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-289",
+      "japanese": "学習用端末管理",
+      "reading": "がくしゅうようたんまつかんり",
+      "romaji": ["gakushuuyoutanmatsukanri", "gakusyuuyoutanmatukanri"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者が使う端末の配布や設定、保守を行うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-290",
+      "japanese": "端末利用規則",
+      "reading": "たんまつりようきそく",
+      "romaji": ["tanmatsuriyoukisoku", "tanmaturiyoukisoku"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習端末を安全に使うための約束を定めたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-291",
+      "japanese": "デジタル提出",
+      "reading": "でじたるていしゅつ",
+      "romaji": ["dejitaruteishutsu", "dezitaruteisyutu"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "課題や作品を、オンラインの仕組みを通して提出すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-292",
+      "japanese": "オンライン小テスト",
+      "reading": "おんらいんしょうてすと",
+      "romaji": ["onrainshoutesuto", "onrainsyoutesuto"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ネットワーク上で回答し、結果を確認する短いテスト。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-293",
+      "japanese": "自動採点",
+      "reading": "じどうさいてん",
+      "romaji": ["jidousaitenn", "zidousaitenn"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "回答をシステムで判定し、点数を付けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-294",
+      "japanese": "アクセシブル教材",
+      "reading": "あくせしぶるきょうざい",
+      "romaji": ["akuseshiburukyouzai", "akusesiburukyouzai"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "障害や利用環境の違いに配慮して利用しやすくした教材。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-295",
+      "japanese": "代替テキスト",
+      "reading": "だいたいてきすと",
+      "romaji": ["daitaitekisuto"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "画像の内容を、画面読み上げなどで伝えるための文章。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-296",
+      "japanese": "字幕付き動画",
+      "reading": "じまくつきどうが",
+      "romaji": ["jimakutsukidouga", "zimakutukidouga"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "音声内容を文字でも確認できる字幕が付いた動画。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-297",
+      "japanese": "教育データ",
+      "reading": "きょういくでーた",
+      "romaji": ["kyouikude-ta"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習状況や教育活動に関して収集・記録した情報。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-298",
+      "japanese": "学習分析",
+      "reading": "がくしゅうぶんせき",
+      "romaji": ["gakushuubunseki", "gakusyuubunseki"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習の記録を調べ、指導や支援の改善に役立てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-299",
+      "japanese": "オンライン教材配信",
+      "reading": "おんらいんきょうざいはいしん",
+      "romaji": ["onrainkyouzaihaishinn", "onrainkyouzaihaisinn"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "教材をネットワークを通じて学習者へ届けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "teaching-300",
+      "japanese": "学習者アカウント",
+      "reading": "がくしゅうしゃあかうんと",
+      "romaji": ["gakushuushaakaunto", "gakusyuusyaakaunto"],
+      "category": "教育ICT",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "学習者がオンライン教材やシステムを使うための登録情報。",
       "related_terms": [],
       "learning_points": [],
       "weak_detection": {

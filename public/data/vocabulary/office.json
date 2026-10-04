@@ -1,7 +1,7 @@
 {
   "job_id": "office",
   "job_name": "事務",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "updated_at": "2026-10-01",
   "items": [
     {
@@ -1293,6 +1293,3126 @@
       "difficulty": 3,
       "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
       "explanation": "新しく入る人のために、必要な書類をそろえたり提出したりすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-093",
+      "japanese": "コピー用紙",
+      "reading": "こぴーようし",
+      "romaji": ["kopi-youshi", "kopi-yousi"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "コピー機やプリンターで使う、印刷用の紙のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-094",
+      "japanese": "ステープラー",
+      "reading": "すてーぷらー",
+      "romaji": ["sute-pura-"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類を、針で留める道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-095",
+      "japanese": "クリアファイル",
+      "reading": "くりあふぁいる",
+      "romaji": ["kuriafairu"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類をはさんで持ち運ぶ、透明な入れ物のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-096",
+      "japanese": "バインダー",
+      "reading": "ばいんだー",
+      "romaji": ["bainda-"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類を綴じて、まとめて保管する道具のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-097",
+      "japanese": "ラベル",
+      "reading": "らべる",
+      "romaji": ["raberu"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ものを見分けるために、貼る札やシールのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-098",
+      "japanese": "郵便物",
+      "reading": "ゆうびんぶつ",
+      "romaji": ["yuubinbutsu", "yuubinbutu"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "郵便で届く、手紙や荷物などのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-099",
+      "japanese": "書留",
+      "reading": "かきとめ",
+      "romaji": ["kakitome"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "送った郵便物の受け渡しを、記録してくれる郵便のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-100",
+      "japanese": "速達",
+      "reading": "そくたつ",
+      "romaji": ["sokutatsu", "sokutatu"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通常より早く届けてもらう、郵便の方法のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-101",
+      "japanese": "代表電話",
+      "reading": "だいひょうでんわ",
+      "romaji": ["daihyoudenwa"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会社への電話を、最初に受ける、代表の番号のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-102",
+      "japanese": "不在",
+      "reading": "ふざい",
+      "romaji": ["fuzai", "huzai"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "担当者が、席にいないこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-103",
+      "japanese": "在席",
+      "reading": "ざいせき",
+      "romaji": ["zaiseki"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "担当者が、自分の席にいること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-104",
+      "japanese": "来訪者",
+      "reading": "らいほうしゃ",
+      "romaji": ["raihousha", "raihousya"],
+      "category": "総務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会社を訪ねてきた人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-105",
+      "japanese": "応接室",
+      "reading": "おうせつしつ",
+      "romaji": ["ousetsushitsu", "ousetusitu"],
+      "category": "総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "来客を迎えて、話をするための部屋のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-106",
+      "japanese": "会議資料",
+      "reading": "かいぎしりょう",
+      "romaji": ["kaigishiryou", "kaigisiryou"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議で使うために、用意する資料のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-107",
+      "japanese": "会議招集",
+      "reading": "かいぎしょうしゅう",
+      "romaji": ["kaigishoushuu", "kaigisyousyuu"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議の日時や場所を知らせて、参加者を集めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-108",
+      "japanese": "出席者",
+      "reading": "しゅっせきしゃ",
+      "romaji": ["shussekisha", "syussekisya"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議や行事に、参加する人のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-109",
+      "japanese": "議題",
+      "reading": "ぎだい",
+      "romaji": ["gidai"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議で話し合う、内容や項目のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-110",
+      "japanese": "決定事項",
+      "reading": "けっていじこう",
+      "romaji": ["ketteijikou", "ketteizikou"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議などで、決まった内容のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-111",
+      "japanese": "期日",
+      "reading": "きじつ",
+      "romaji": ["kijitsu", "kizitu"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "あらかじめ決めた、日付や期限のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-112",
+      "japanese": "締め切り",
+      "reading": "しめきり",
+      "romaji": ["shimekiri", "simekiri"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "受け付けや提出の、最後の期限のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-113",
+      "japanese": "提出",
+      "reading": "ていしゅつ",
+      "romaji": ["teishutsu", "teisyutu"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類などを、相手へ出すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-114",
+      "japanese": "控え",
+      "reading": "ひかえ",
+      "romaji": ["hikae"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "あとで確認するために、手元に残しておく写しのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-115",
+      "japanese": "原本",
+      "reading": "げんぽん",
+      "romaji": ["genponn"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "写しのもとになる、本物の書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-116",
+      "japanese": "写し",
+      "reading": "うつし",
+      "romaji": ["utsushi", "utusi"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "原本を複写して作った、同じ内容の書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-117",
+      "japanese": "文書管理",
+      "reading": "ぶんしょかんり",
+      "romaji": ["bunshokanri", "bunsyokanri"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類を、決まった方法で保管・探索・廃棄すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-118",
+      "japanese": "保管期間",
+      "reading": "ほかんきかん",
+      "romaji": ["hokankikann"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類を、手元に残しておく決まりの期間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-119",
+      "japanese": "廃棄",
+      "reading": "はいき",
+      "romaji": ["haiki"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "いらなくなった物を、処分して捨てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-120",
+      "japanese": "電子データ",
+      "reading": "でんしでーた",
+      "romaji": ["denshide-ta", "denside-ta"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "紙ではなく、コンピューターで扱う形の情報のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-121",
+      "japanese": "共有フォルダ",
+      "reading": "きょうゆうふぉるだ",
+      "romaji": ["kyouyuuforuda"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の人が、同じファイルを使えるようにした保管場所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-122",
+      "japanese": "アクセス権",
+      "reading": "あくせすけん",
+      "romaji": ["akusesukenn"],
+      "category": "総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ファイルやシステムを、見たり直したりしてよい権利のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-123",
+      "japanese": "ファイル名",
+      "reading": "ふぁいるめい",
+      "romaji": ["fairumei"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保存したファイルに付ける、名前のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-124",
+      "japanese": "フォルダ分け",
+      "reading": "ふぉるだわけ",
+      "romaji": ["forudawake"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "ファイルを、種類や用途ごとのフォルダに分けて整理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-125",
+      "japanese": "数式",
+      "reading": "すうしき",
+      "romaji": ["suushiki", "suusiki"],
+      "category": "事務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "表計算ソフトのセルに入れる、計算のための式のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-126",
+      "japanese": "セル",
+      "reading": "せる",
+      "romaji": ["seru"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "表計算ソフトの表の、1つ1つのマス目のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-127",
+      "japanese": "グラフ",
+      "reading": "ぐらふ",
+      "romaji": ["gurafu", "gurahu"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "数字を、図にして見やすく表したもののこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-128",
+      "japanese": "書式設定",
+      "reading": "しょしきせってい",
+      "romaji": ["shoshikisettei", "syosikisettei"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文字や表の、見た目の決まりを整えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-129",
+      "japanese": "差し込み印刷",
+      "reading": "さしこみいんさつ",
+      "romaji": ["sashikomiinsatsu", "sasikomiinsatu"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "宛名などの違う部分を、同じ書類に自動で入れて印刷すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-130",
+      "japanese": "一斉送信",
+      "reading": "いっせいそうしん",
+      "romaji": ["isseisoushinn", "isseisousinn"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ内容を、多くの相手にまとめて送ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-131",
+      "japanese": "自動返信",
+      "reading": "じどうへんしん",
+      "romaji": ["jidouhenshinn", "zidouhensinn"],
+      "category": "事務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "メールを受け取ったときに、自動で返事を送る仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-132",
+      "japanese": "署名",
+      "reading": "しょめい",
+      "romaji": ["shomei", "syomei"],
+      "category": "事務",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "メールの末尾に付ける、名前や連絡先などのまとまりのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-133",
+      "japanese": "支払依頼",
+      "reading": "しはらいいらい",
+      "romaji": ["shiharaiirai", "siharaiirai"],
+      "category": "経理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引先への支払いを、経理に頼むこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-134",
+      "japanese": "仕訳",
+      "reading": "しわけ",
+      "romaji": ["shiwake", "siwake"],
+      "category": "経理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "お金の出入りを、帳簿の決まりに沿って、分類して記録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-135",
+      "japanese": "勘定科目",
+      "reading": "かんじょうかもく",
+      "romaji": ["kanjoukamoku", "kanzyoukamoku"],
+      "category": "経理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "お金の出入りを、種類ごとに分けて示した名前のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-136",
+      "japanese": "消耗品費",
+      "reading": "しょうもうひんひ",
+      "romaji": ["shoumouhinhi", "syoumouhinhi"],
+      "category": "経理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文房具など、使うとなくなる物のために使った費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-137",
+      "japanese": "交通費",
+      "reading": "こうつうひ",
+      "romaji": ["koutsuuhi", "koutuuhi"],
+      "category": "経理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "電車やバスなどの、移動のためにかかった費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-138",
+      "japanese": "給与計算",
+      "reading": "きゅうよけいさん",
+      "romaji": ["kyuuyokeisann"],
+      "category": "総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員に払う給料の、金額を計算すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-139",
+      "japanese": "社会保険",
+      "reading": "しゃかいほけん",
+      "romaji": ["shakaihokenn", "syakaihokenn"],
+      "category": "総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "病気や老後などに備える、国の保険の仕組みのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-140",
+      "japanese": "採用",
+      "reading": "さいよう",
+      "romaji": ["saiyou"],
+      "category": "総務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会社が、新しく人を雇い入れること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-141",
+      "japanese": "退職手続き",
+      "reading": "たいしょくてつづき",
+      "romaji": ["taishokutetsuduki", "taisyokutetuduki"],
+      "category": "総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員が会社をやめるときに行う、一連の手続きのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-142",
+      "japanese": "防災訓練",
+      "reading": "ぼうさいくんれん",
+      "romaji": ["bousaikunrenn"],
+      "category": "総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "災害に備えて、避難などを練習すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-143",
+      "japanese": "設備点検",
+      "reading": "せつびてんけん",
+      "romaji": ["setsubitenkenn", "setubitenkenn"],
+      "category": "総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会社の設備が、正しく動くかを確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-144",
+      "japanese": "封緘",
+      "reading": "ふうかん",
+      "romaji": ["fuukann", "huukann"],
+      "category": "文書管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "封筒や文書の閉じ目を閉じ、開封されていないことを示すこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-145",
+      "japanese": "文書配布",
+      "reading": "ぶんしょはいふ",
+      "romaji": ["bunshohaifu", "bunsyohaihu"],
+      "category": "社内連絡",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書を関係する人や部署へ届けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-146",
+      "japanese": "会議要旨",
+      "reading": "かいぎようし",
+      "romaji": ["kaigiyoushi", "kaigiyousi"],
+      "category": "会議",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議で話し合った内容の要点をまとめたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-147",
+      "japanese": "申請書",
+      "reading": "しんせいしょ",
+      "romaji": ["shinseisho", "sinseisyo"],
+      "category": "文書管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "許可や手続きなどを求めるときに提出する書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-148",
+      "japanese": "社内承認書",
+      "reading": "しゃないしょうにんしょ",
+      "romaji": ["shanaishouninsho", "syanaisyouninsyo"],
+      "category": "文書管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織内で、案件の承認を順に求めるための文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-149",
+      "japanese": "受領印",
+      "reading": "じゅりょういん",
+      "romaji": ["juryouinn", "zyuryouinn"],
+      "category": "文書管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類や品物を受け取ったことを示すために押す印のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-150",
+      "japanese": "送付先",
+      "reading": "そうふさき",
+      "romaji": ["soufusaki", "souhusaki"],
+      "category": "文書管理",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "郵便物や文書を送る相手や場所のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-151",
+      "japanese": "返信用封筒",
+      "reading": "へんしんようふうとう",
+      "romaji": ["henshinnyoufuutou", "hensinnyouhuutou"],
+      "category": "郵便",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "受け取った人が返送するときに使うため、あらかじめ用意した封筒のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-152",
+      "japanese": "郵便番号",
+      "reading": "ゆうびんばんごう",
+      "romaji": ["yuubinbangou"],
+      "category": "郵便",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "郵便物の配達先を地域ごとに示すための番号のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-153",
+      "japanese": "送付状",
+      "reading": "そうふじょう",
+      "romaji": ["soufujou", "souhuzyou"],
+      "category": "郵便",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "送る書類の内容などを、受取人に伝えるために添える文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-154",
+      "japanese": "添付書類",
+      "reading": "てんぷしょるい",
+      "romaji": ["tenpushorui", "tenpusyorui"],
+      "category": "文書管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "申請書などの主な文書に、追加して一緒に提出する書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-155",
+      "japanese": "保管期限",
+      "reading": "ほかんきげん",
+      "romaji": ["hokankigenn"],
+      "category": "文書管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類や記録を保管しておく期間の終わりのこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-156",
+      "japanese": "保存年限",
+      "reading": "ほぞんねんげん",
+      "romaji": ["hozonnengenn"],
+      "category": "文書管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書や記録を保存する年数として定めた期間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-157",
+      "japanese": "機密文書",
+      "reading": "きみつぶんしょ",
+      "romaji": ["kimitsubunsho", "kimitubunsyo"],
+      "category": "文書管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "限られた人だけが扱うよう、組織で管理する文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-158",
+      "japanese": "施錠",
+      "reading": "せじょう",
+      "romaji": ["sejou", "sezyou"],
+      "category": "施設管理",
+      "difficulty": 1,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "鍵をかけて、扉や保管場所を開けられないようにすること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-159",
+      "japanese": "入退室記録",
+      "reading": "にゅうたいしつきろく",
+      "romaji": ["nyuutaishitsukiroku", "nyuutaisitukiroku"],
+      "category": "施設管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "部屋に入った時刻や退出した時刻を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-160",
+      "japanese": "備品台帳",
+      "reading": "びひんだいちょう",
+      "romaji": ["bihindaichou", "bihindaityou"],
+      "category": "備品管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織で使う備品の名称や数量などを記録した一覧のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-161",
+      "japanese": "備品購入申請",
+      "reading": "びひんこうにゅうしんせい",
+      "romaji": ["bihinkounyuushinsei", "bihinkounyuusinsei"],
+      "category": "購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "職場で必要な備品の購入を、組織の承認者に求める書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-162",
+      "japanese": "請求明細書",
+      "reading": "せいきゅうめいさいしょ",
+      "romaji": ["seikyuumeisaisho", "seikyuumeisaisyo"],
+      "category": "購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "納品された商品や数量などを示す書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-163",
+      "japanese": "発送通知",
+      "reading": "はっそうつうち",
+      "romaji": ["hassoutsuuchi", "hassoutuuti"],
+      "category": "郵便",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "荷物や書類を発送したことを、相手に知らせる連絡のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-164",
+      "japanese": "内定通知",
+      "reading": "ないていつうち",
+      "romaji": ["naiteitsuuchi", "naiteituuti"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "採用が決まった人へ、雇用の予定を正式に知らせる文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-165",
+      "japanese": "内定承諾書",
+      "reading": "ないていしょうだくしょ",
+      "romaji": ["naiteishoudakusho", "naiteisyoudakusyo"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "採用内定を受け入れる意思を記し、提出する書類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-166",
+      "japanese": "雇用契約更新",
+      "reading": "こようけいやくこうしん",
+      "romaji": ["koyoukeiyakukoushinn", "koyoukeiyakukousinn"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "期間の定めがある雇用契約を、新たな期間へ延長すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-167",
+      "japanese": "雇用条件通知書",
+      "reading": "こようじょうけんつうちしょ",
+      "romaji": ["koyoujoukentsuuchisho", "koyouzyoukentuutisyo"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "賃金や勤務時間など、雇用時の条件を本人へ示す文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-168",
+      "japanese": "労働条件変更",
+      "reading": "ろうどうじょうけんへんこう",
+      "romaji": ["roudoujoukenhenkou", "roudouzyoukenhenkou"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "賃金や勤務時間など、雇用条件を変更すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-169",
+      "japanese": "配属通知",
+      "reading": "はいぞくつうち",
+      "romaji": ["haizokutsuuchi", "haizokutuuti"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "採用者や異動者の所属先を、本人へ知らせること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-170",
+      "japanese": "人員配置",
+      "reading": "じんいんはいち",
+      "romaji": ["jinninhaichi", "zinninhaiti"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "業務や部署に必要な人を割り当てること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-171",
+      "japanese": "組織図",
+      "reading": "そしきず",
+      "romaji": ["soshikizu", "sosikizu"],
+      "category": "人事・労務",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "部署や役職の関係を、図で表した資料のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-172",
+      "japanese": "職務記述書",
+      "reading": "しょくむきじゅつしょ",
+      "romaji": ["shokumukijutsusho", "syokumukizyutusyo"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "職務の目的や担当範囲、必要な能力を記した文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-173",
+      "japanese": "職務分掌",
+      "reading": "しょくむぶんしょう",
+      "romaji": ["shokumubunshou", "syokumubunsyou"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織内の部署や担当者が受け持つ仕事を定めたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-174",
+      "japanese": "在職証明書",
+      "reading": "ざいしょくしょうめいしょ",
+      "romaji": ["zaishokushoumeisho", "zaisyokusyoumeisyo"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "現在その組織に在籍していることを証明する文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-175",
+      "japanese": "通勤経路申請",
+      "reading": "つうきんけいろしんせい",
+      "romaji": ["tsuukinkeiroshinsei", "tuukinkeirosinsei"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通勤に使う経路や手段を、会社へ届け出る手続き。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-176",
+      "japanese": "休職届",
+      "reading": "きゅうしょくとどけ",
+      "romaji": ["kyuushokutodoke", "kyuusyokutodoke"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "病気などで一定期間仕事を休む申請に使う書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-177",
+      "japanese": "復職届",
+      "reading": "ふくしょくとどけ",
+      "romaji": ["fukushokutodoke", "hukusyokutodoke"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "休職後に職場へ戻る意思や予定を申請する書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-178",
+      "japanese": "異動辞令",
+      "reading": "いどうじれい",
+      "romaji": ["idoujirei", "idouzirei"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "勤務先や職務の変更を、組織が正式に命じる文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-179",
+      "japanese": "退職願",
+      "reading": "たいしょくねがい",
+      "romaji": ["taishokunegai", "taisyokunegai"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員が退職を希望する意思を申し出る書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-180",
+      "japanese": "退職証明書",
+      "reading": "たいしょくしょうめいしょ",
+      "romaji": ["taishokushoumeisho", "taisyokusyoumeisyo"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "退職した事実や在籍期間などを証明する文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-181",
+      "japanese": "扶養申告",
+      "reading": "ふようしんこく",
+      "romaji": ["fuyoushinkoku", "huyousinkoku"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "税や社会保険の手続きに必要な扶養家族の情報を届けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-182",
+      "japanese": "扶養家族届",
+      "reading": "ふようかぞくとどけ",
+      "romaji": ["fuyoukazokutodoke", "huyoukazokutodoke"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "扶養する家族の追加や変更を届け出るための書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-183",
+      "japanese": "育児休業申請",
+      "reading": "いくじきゅうぎょうしんせい",
+      "romaji": ["ikujikyuugyoushinsei", "ikuzikyuugyousinsei"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "育児のため休業を取得する希望を、会社へ申し出ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-184",
+      "japanese": "介護休業申請",
+      "reading": "かいごきゅうぎょうしんせい",
+      "romaji": ["kaigokyuugyoushinsei", "kaigokyuugyousinsei"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "家族の介護のため休業する希望を、会社へ申し出ること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-185",
+      "japanese": "休暇残日数",
+      "reading": "きゅうかざんにっすう",
+      "romaji": ["kyuukazannissuu"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取得できる休暇のうち、まだ使っていない日数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-186",
+      "japanese": "休暇取得状況",
+      "reading": "きゅうかしゅとくじょうきょう",
+      "romaji": ["kyuukashutokujoukyou", "kyuukasyutokuzyoukyou"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員が休暇を取得した日数や時期を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-187",
+      "japanese": "労働時間集計",
+      "reading": "ろうどうじかんしゅうけい",
+      "romaji": ["roudoujikanshuukei", "roudouzikansyuukei"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "勤怠記録をもとに、勤務時間を期間ごとに合計すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-188",
+      "japanese": "時間外労働申請",
+      "reading": "じかんがいろうどうしんせい",
+      "romaji": ["jikangairoudoushinsei", "zikangairoudousinsei"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "所定の勤務時間を超えて働く前に、承認を求める手続き。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-189",
+      "japanese": "勤務実績",
+      "reading": "きんむじっせき",
+      "romaji": ["kinmujisseki", "kinmuzisseki"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "実際に出勤した日や勤務時間を記録した情報のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-190",
+      "japanese": "シフト希望",
+      "reading": "しふときぼう",
+      "romaji": ["shifutokibou", "sihutokibou"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "勤務予定を作る前に、従業員が希望する日時を提出すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-191",
+      "japanese": "健康保険資格取得",
+      "reading": "けんこうほけんしかくしゅとく",
+      "romaji": ["kenkouhokenshikakushutoku", "kenkouhokensikakusyutoku"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員が健康保険へ加入したことを届け出る手続き。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-192",
+      "japanese": "雇用保険資格取得",
+      "reading": "こようほけんしかくしゅとく",
+      "romaji": ["koyouhokenshikakushutoku", "koyouhokensikakusyutoku"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "従業員の雇用保険加入に必要な情報を届け出る手続き。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-193",
+      "japanese": "社会保険資格喪失",
+      "reading": "しゃかいほけんしかくそうしつ",
+      "romaji": ["shakaihokenshikakusoushitsu", "syakaihokensikakusousitu"],
+      "category": "人事・労務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "退職などで社会保険の加入資格がなくなったことを届ける手続き。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-194",
+      "japanese": "給与明細",
+      "reading": "きゅうよめいさい",
+      "romaji": ["kyuuyomeisai"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "支給額や控除額など、給与の計算内容を示す書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-195",
+      "japanese": "賞与計算",
+      "reading": "しょうよけいさん",
+      "romaji": ["shouyokeisann", "syouyokeisann"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "賞与の支給額や控除額を、社内の条件に沿って算出すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-196",
+      "japanese": "給与控除",
+      "reading": "きゅうよこうじょ",
+      "romaji": ["kyuuyokoujo", "kyuuyokouzyo"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "給与から税や保険料などを差し引くこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-197",
+      "japanese": "住民税特別徴収",
+      "reading": "じゅうみんぜいとくべつちょうしゅう",
+      "romaji": ["juuminzeitokubetsuchoushuu", "zyuuminzeitokubetutyousyuu"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "事業者が給与から住民税を差し引き、自治体へ納める方法。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-198",
+      "japanese": "給与振込データ",
+      "reading": "きゅうよふりこみでーた",
+      "romaji": ["kyuuyofurikomide-ta", "kyuuyohurikomide-ta"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "給与を従業員の口座へ振り込むための金融機関向けデータ。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-199",
+      "japanese": "振込依頼データ",
+      "reading": "ふりこみいらいでーた",
+      "romaji": ["furikomiiraide-ta", "hurikomiiraide-ta"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の支払いを金融機関へまとめて依頼するデータ。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-200",
+      "japanese": "支払先口座",
+      "reading": "しはらいさきこうざ",
+      "romaji": ["shiharaisakikouza", "siharaisakikouza"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引先や従業員への振込先として登録した預金口座。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-201",
+      "japanese": "支払予定表",
+      "reading": "しはらいよていひょう",
+      "romaji": ["shiharaiyoteihyou", "siharaiyoteihyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "今後の支払先や金額、期限を一覧にした表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-202",
+      "japanese": "未払費用",
+      "reading": "みはらいひよう",
+      "romaji": ["miharaihiyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "サービスなどを受けたが、まだ支払っていない費用のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-203",
+      "japanese": "前払費用",
+      "reading": "まえばらいひよう",
+      "romaji": ["maebaraihiyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "先に支払った費用のうち、将来の期間に対応する分のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-204",
+      "japanese": "仮払金精算",
+      "reading": "かりばらいきんせいさん",
+      "romaji": ["karibaraikinseisann"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "先に渡した仮払金と、実際に使った金額を照合すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-205",
+      "japanese": "給与支給日",
+      "reading": "きゅうよしきゅうび",
+      "romaji": ["kyuuyoshikyuubi", "kyuuyosikyuubi"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "給与を従業員へ支払う日として定められた日付。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-206",
+      "japanese": "固定資産台帳",
+      "reading": "こていしさんだいちょう",
+      "romaji": ["koteishisandaichou", "koteisisandaityou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "保有する設備などの取得額や使用状況を記録する台帳。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-207",
+      "japanese": "減価償却費",
+      "reading": "げんかしょうきゃくひ",
+      "romaji": ["genkashoukyakuhi", "genkasyoukyakuhi"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "固定資産の取得費用を、使用期間に分けて費用計上する額。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-208",
+      "japanese": "貸借対照表",
+      "reading": "たいしゃくたいしょうひょう",
+      "romaji": ["taishakutaishouhyou", "taisyakutaisyouhyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特定時点の資産・負債・純資産を示す財務諸表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-209",
+      "japanese": "損益計算書",
+      "reading": "そんえきけいさんしょ",
+      "romaji": ["sonnekikeisansho", "sonnekikeisansyo"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間の収益や費用、利益を示す財務諸表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-210",
+      "japanese": "キャッシュフロー計算書",
+      "reading": "きゃっしゅふろーけいさんしょ",
+      "romaji": ["kyasshufuro-keisansho", "kyassyuhuro-keisansyo"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間のお金の流入と流出を示す財務諸表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-211",
+      "japanese": "残高試算表",
+      "reading": "ざんだかしさんひょう",
+      "romaji": ["zandakashisanhyou", "zandakasisanhyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "各勘定科目の残高を一覧にし、借方と貸方を確かめる表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-212",
+      "japanese": "補助元帳",
+      "reading": "ほじょもとちょう",
+      "romaji": ["hojomotochou", "hozyomototyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特定の勘定科目の内訳を、取引先など別に記録する帳簿。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-213",
+      "japanese": "仕訳帳",
+      "reading": "しわけちょう",
+      "romaji": ["shiwakechou", "siwaketyou"],
+      "category": "経理・給与",
+      "difficulty": 2,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引を日付順に、借方と貸方へ分けて記録する帳簿。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-214",
+      "japanese": "会計期間",
+      "reading": "かいけいきかん",
+      "romaji": ["kaikeikikann"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "財務状況や業績を集計する対象となる期間のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-215",
+      "japanese": "月次決算",
+      "reading": "げつじけっさん",
+      "romaji": ["getsujikessann", "getuzikessann"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "月ごとに帳簿を締め、経営状況を集計すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-216",
+      "japanese": "四半期決算",
+      "reading": "しはんきけっさん",
+      "romaji": ["shihankikessann", "sihankikessann"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "三か月ごとに期間を区切り、業績を集計すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-217",
+      "japanese": "決算整理",
+      "reading": "けっさんせいり",
+      "romaji": ["kessanseiri"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "決算時に、期間帰属や資産評価などの仕訳を行うこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-218",
+      "japanese": "勘定残高",
+      "reading": "かんじょうざんだか",
+      "romaji": ["kanjouzandaka", "kanzyouzandaka"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "特定の勘定科目に記録された、現在の差引金額のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-219",
+      "japanese": "売上計上",
+      "reading": "うりあげけいじょう",
+      "romaji": ["uriagekeijou", "uriagekeizyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "商品やサービスの提供に応じて、売上を帳簿に記録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-220",
+      "japanese": "費用計上",
+      "reading": "ひようけいじょう",
+      "romaji": ["hiyoukeijou", "hiyoukeizyou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引や業務で発生した費用を、帳簿に記録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-221",
+      "japanese": "証憑書類",
+      "reading": "しょうひょうしょるい",
+      "romaji": ["shouhyoushorui", "syouhyousyorui"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引や支払いの事実を裏付ける領収書などの書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-222",
+      "japanese": "証憑番号",
+      "reading": "しょうひょうばんごう",
+      "romaji": ["shouhyoubangou", "syouhyoubangou"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "証憑書類を検索や照合しやすくするために付ける番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-223",
+      "japanese": "未払金明細",
+      "reading": "みはらいきんめいさい",
+      "romaji": ["miharaikinmeisai"],
+      "category": "経理・給与",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "まだ支払っていない金額や相手先を項目別に示した一覧。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-224",
+      "japanese": "文書番号",
+      "reading": "ぶんしょばんごう",
+      "romaji": ["bunshobangou", "bunsyobangou"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書を識別し、検索や管理に使うために付ける番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-225",
+      "japanese": "文書分類",
+      "reading": "ぶんしょぶんるい",
+      "romaji": ["bunshobunrui", "bunsyobunrui"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書を種類や業務ごとの規則に従って分けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-226",
+      "japanese": "改訂履歴",
+      "reading": "かいていりれき",
+      "romaji": ["kaiteirireki"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書や手順を変更した日付と内容を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-227",
+      "japanese": "改訂番号",
+      "reading": "かいていばんごう",
+      "romaji": ["kaiteibangou"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書の変更段階を識別するために付ける番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-228",
+      "japanese": "文書承認欄",
+      "reading": "ぶんしょしょうにんらん",
+      "romaji": ["bunshoshouninrann", "bunsyosyouninrann"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書を確認した人や承認した人を記録する欄。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-229",
+      "japanese": "配布先一覧",
+      "reading": "はいふさきいちらん",
+      "romaji": ["haifusakiichirann", "haihusakiitirann"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書や資料を渡す相手をまとめた一覧。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-230",
+      "japanese": "文書回収",
+      "reading": "ぶんしょかいしゅう",
+      "romaji": ["bunshokaishuu", "bunsyokaisyuu"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "更新や廃止に伴い、配布済み文書を集めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-231",
+      "japanese": "文書管理責任者",
+      "reading": "ぶんしょかんりせきにんしゃ",
+      "romaji": ["bunshokanrisekininsha", "bunsyokanrisekininsya"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書の分類や保管、廃棄の管理を担当する人。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-232",
+      "japanese": "電子保存",
+      "reading": "でんしほぞん",
+      "romaji": ["denshihozonn", "densihozonn"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "紙の書類の内容を、電子データとして保管すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-233",
+      "japanese": "電子署名",
+      "reading": "でんししょめい",
+      "romaji": ["denshishomei", "densisyomei"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "電子文書の作成者や改変の有無を確認するための署名情報。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-234",
+      "japanese": "電子帳簿保存",
+      "reading": "でんしちょうぼほぞん",
+      "romaji": ["denshichoubohozonn", "densityoubohozonn"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "帳簿や書類を、法令や社内規則に沿って電子形式で保存すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-235",
+      "japanese": "機密区分",
+      "reading": "きみつくぶん",
+      "romaji": ["kimitsukubunn", "kimitukubunn"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "情報の重要度や公開範囲に応じて定めた分類のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-236",
+      "japanese": "文書廃棄記録",
+      "reading": "ぶんしょはいききろく",
+      "romaji": ["bunshohaikikiroku", "bunsyohaikikiroku"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書を廃棄した日時や方法、担当者を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-237",
+      "japanese": "保存期限通知",
+      "reading": "ほぞんきげんつうち",
+      "romaji": ["hozonkigentsuuchi", "hozonkigentuuti"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "文書の保管期限が近いことを担当者へ知らせること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-238",
+      "japanese": "社内規程集",
+      "reading": "しゃないきていしゅう",
+      "romaji": ["shanaikiteishuu", "syanaikiteisyuu"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織内で適用する規程や規則をまとめたもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-239",
+      "japanese": "規程改定",
+      "reading": "きていかいてい",
+      "romaji": ["kiteikaitei"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織内の規程の内容や適用範囲を変更すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-240",
+      "japanese": "規程周知",
+      "reading": "きていしゅうち",
+      "romaji": ["kiteishuuchi", "kiteisyuuti"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "改定された規程や新しい規則を、対象者へ知らせること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-241",
+      "japanese": "内部統制",
+      "reading": "ないぶとうせい",
+      "romaji": ["naibutousei"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "業務の適正や資産保全などを目的に、組織内で設ける仕組み。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-242",
+      "japanese": "内部監査",
+      "reading": "ないぶかんさ",
+      "romaji": ["naibukansa"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織の業務や統制が、規則に沿っているか独立して確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-243",
+      "japanese": "監査資料",
+      "reading": "かんさしりょう",
+      "romaji": ["kansashiryou", "kansasiryou"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "監査人への説明や確認に用意する記録や文書のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-244",
+      "japanese": "証跡保全",
+      "reading": "しょうせきほぜん",
+      "romaji": ["shousekihozenn", "syousekihozenn"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "確認に必要な記録を、変更や紛失を防いで保存すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-245",
+      "japanese": "個人情報台帳",
+      "reading": "こじんじょうほうだいちょう",
+      "romaji": ["kojinjouhoudaichou", "kozinzyouhoudaityou"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取り扱う個人情報の種類や目的、保管先を記録した一覧。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-246",
+      "japanese": "情報開示申請",
+      "reading": "じょうほうかいじしんせい",
+      "romaji": ["jouhoukaijishinsei", "zyouhoukaizisinsei"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織が保有する情報の確認や開示を求める手続き。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-247",
+      "japanese": "文書受付簿",
+      "reading": "ぶんしょうけつけぼ",
+      "romaji": ["bunshouketsukebo", "bunsyouketukebo"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "受け取った文書の差出人や日付、担当などを記録する帳簿。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-248",
+      "japanese": "持出記録",
+      "reading": "もちだしきろく",
+      "romaji": ["mochidashikiroku", "motidasikiroku"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書類や機器を社外へ持ち出した日時と担当者を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-249",
+      "japanese": "入館記録",
+      "reading": "にゅうかんきろく",
+      "romaji": ["nyuukankiroku"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "施設へ入った人や日時、訪問先を記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-250",
+      "japanese": "来訪予約",
+      "reading": "らいほうよやく",
+      "romaji": ["raihouyoyaku"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "外部の人が訪れる日時や目的を事前に登録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-251",
+      "japanese": "会議室予約表",
+      "reading": "かいぎしつよやくひょう",
+      "romaji": ["kaigishitsuyoyakuhyou", "kaigisituyoyakuhyou"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議室の利用日時や予約者をまとめた表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-252",
+      "japanese": "会議運営",
+      "reading": "かいぎうんえい",
+      "romaji": ["kaigiunnei"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議の準備や進行、記録を整えて実施すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-253",
+      "japanese": "会議進行表",
+      "reading": "かいぎしんこうひょう",
+      "romaji": ["kaigishinkouhyou", "kaigisinkouhyou"],
+      "category": "文書・総務",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議の議題や担当、予定時間を順番に示した表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-254",
+      "japanese": "入館証",
+      "reading": "にゅうかんしょう",
+      "romaji": ["nyuukanshou", "nyuukansyou"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "施設へ入る人が身分や入館許可を示すために使う証票。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-255",
+      "japanese": "入館申請",
+      "reading": "にゅうかんしんせい",
+      "romaji": ["nyuukanshinsei", "nyuukansinsei"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "施設へ立ち入るため、日時や目的を事前に申告すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-256",
+      "japanese": "鍵管理簿",
+      "reading": "かぎかんりぼ",
+      "romaji": ["kagikanribo"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "鍵の貸出先や返却状況を記録する台帳。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-257",
+      "japanese": "防火管理",
+      "reading": "ぼうかかんり",
+      "romaji": ["boukakanri"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "火災を防ぎ、発生時の被害を抑えるための施設管理。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-258",
+      "japanese": "消防設備点検",
+      "reading": "しょうぼうせつびてんけん",
+      "romaji": ["shoubousetsubitenkenn", "syoubousetubitenkenn"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "消火器や火災報知器などの状態を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-259",
+      "japanese": "避難経路図",
+      "reading": "ひなんけいろず",
+      "romaji": ["hinankeirozu"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "災害時に安全な場所へ移動する経路を示した図。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-260",
+      "japanese": "災害備蓄品",
+      "reading": "さいがいびちくひん",
+      "romaji": ["saigaibichikuhinn", "saigaibitikuhinn"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "災害時に必要となる飲料水や非常用品などの備え。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-261",
+      "japanese": "非常用発電機",
+      "reading": "ひじょうようはつでんき",
+      "romaji": ["hijouyouhatsudenki", "hizyouyouhatudenki"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "停電時に電力を供給するための発電設備。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-262",
+      "japanese": "空調設備",
+      "reading": "くうちょうせつび",
+      "romaji": ["kuuchousetsubi", "kuutyousetubi"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "室内の温度や湿度、空気の流れを調整する設備。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-263",
+      "japanese": "給排水設備",
+      "reading": "きゅうはいすいせつび",
+      "romaji": ["kyuuhaisuisetsubi", "kyuuhaisuisetubi"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "建物へ水を供給し、使用後の水を排出する設備。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-264",
+      "japanese": "電力使用量",
+      "reading": "でんりょくしようりょう",
+      "romaji": ["denryokushiyouryou", "denryokusiyouryou"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "一定期間に建物や設備で消費した電気の量。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-265",
+      "japanese": "設備保守契約",
+      "reading": "せつびほしゅけいやく",
+      "romaji": ["setsubihoshukeiyaku", "setubihosyukeiyaku"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "設備の点検や修理を事業者へ委託する契約。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-266",
+      "japanese": "施設利用申請",
+      "reading": "しせつりようしんせい",
+      "romaji": ["shisetsuriyoushinsei", "siseturiyousinsei"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "会議室などの施設を利用するために提出する申請。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-267",
+      "japanese": "清掃委託",
+      "reading": "せいそういたく",
+      "romaji": ["seisouitaku"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "建物の清掃作業を、外部の事業者へ依頼すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-268",
+      "japanese": "廃棄物分別",
+      "reading": "はいきぶつぶんべつ",
+      "romaji": ["haikibutsubunbetsu", "haikibutubunbetu"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "廃棄物を種類や処理方法に応じて分けること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-269",
+      "japanese": "産業廃棄物管理",
+      "reading": "さんぎょうはいきぶつかんり",
+      "romaji": ["sangyouhaikibutsukanri", "sangyouhaikibutukanri"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "事業活動で出る廃棄物の処理状況を適切に管理すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-270",
+      "japanese": "廃棄物処理記録",
+      "reading": "はいきぶつしょりきろく",
+      "romaji": ["haikibutsushorikiroku", "haikibutusyorikiroku"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "廃棄物の種類や量、引き渡し先などを記録したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-271",
+      "japanese": "備蓄品点検",
+      "reading": "びちくひんてんけん",
+      "romaji": ["bichikuhintenkenn", "bitikuhintenkenn"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "非常用品の数量や期限、保管状態を確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-272",
+      "japanese": "消耗品在庫",
+      "reading": "しょうもうひんざいこ",
+      "romaji": ["shoumouhinzaiko", "syoumouhinzaiko"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "事務用品など、使うとなくなる物品の保有数のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-273",
+      "japanese": "購買担当者",
+      "reading": "こうばいたんとうしゃ",
+      "romaji": ["koubaitantousha", "koubaitantousya"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "組織内で物品やサービスの購入手続きを受け持つ人。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-274",
+      "japanese": "見積依頼書",
+      "reading": "みつもりいらいしょ",
+      "romaji": ["mitsumoriiraisho", "mitumoriiraisyo"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "取引先へ価格や納期の見積もりを求める文書。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-275",
+      "japanese": "納入仕様書",
+      "reading": "のうにゅうしようしょ",
+      "romaji": ["nounyuushiyousho", "nounyuusiyousyo"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "納入する物品の仕様や数量、条件を示した書類。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-276",
+      "japanese": "検収記録",
+      "reading": "けんしゅうきろく",
+      "romaji": ["kenshuukiroku", "kensyuukiroku"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "納品物が注文内容や品質条件を満たすか確かめた記録。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-277",
+      "japanese": "購入先選定",
+      "reading": "こうにゅうさきせんてい",
+      "romaji": ["kounyuusakisentei"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "価格や品質、納期などを比べて仕入先を決めること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-278",
+      "japanese": "取引先登録",
+      "reading": "とりひきさきとうろく",
+      "romaji": ["torihikisakitouroku"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "支払いなどに使う取引先の基本情報を登録すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-279",
+      "japanese": "取引先審査",
+      "reading": "とりひきさきしんさ",
+      "romaji": ["torihikisakishinsa", "torihikisakisinsa"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "新しい取引先と契約する前に、必要な情報を確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-280",
+      "japanese": "購買実績",
+      "reading": "こうばいじっせき",
+      "romaji": ["koubaijisseki", "koubaizisseki"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入した物品やサービス、金額などの記録のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-281",
+      "japanese": "購買申請状況",
+      "reading": "こうばいしんせいじょうきょう",
+      "romaji": ["koubaishinseijoukyou", "koubaisinseizyoukyou"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "購入申請が受付や承認、発注のどの段階かを示す情報。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-282",
+      "japanese": "納品予定日",
+      "reading": "のうひんよていび",
+      "romaji": ["nouhinnyoteibi"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "注文した品物が届く予定として示された日付。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-283",
+      "japanese": "納品遅延",
+      "reading": "のうひんちえん",
+      "romaji": ["nouhinchienn", "nouhintienn"],
+      "category": "施設・購買",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "予定日までに注文品が届かないこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-284",
+      "japanese": "業務分担表",
+      "reading": "ぎょうむぶんたんひょう",
+      "romaji": ["gyoumubuntanhyou"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "業務ごとの担当者や役割を一覧にした表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-285",
+      "japanese": "業務引き継ぎ",
+      "reading": "ぎょうむひきつぎ",
+      "romaji": ["gyoumuhikitsugi", "gyoumuhikitugi"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "担当変更時に、作業状況や注意点を次の人へ伝えること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-286",
+      "japanese": "業務フロー図",
+      "reading": "ぎょうむふろーず",
+      "romaji": ["gyoumufuro-zu", "gyoumuhuro-zu"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "仕事の手順や担当間の受け渡しを図で表したもの。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-287",
+      "japanese": "業務改善提案",
+      "reading": "ぎょうむかいぜんていあん",
+      "romaji": ["gyoumukaizenteiann"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "作業の品質や効率を高める方法を提案すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-288",
+      "japanese": "定型業務",
+      "reading": "ていけいぎょうむ",
+      "romaji": ["teikeigyoumu"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手順や頻度があらかじめ決まっている繰り返しの仕事。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-289",
+      "japanese": "臨時業務",
+      "reading": "りんじぎょうむ",
+      "romaji": ["rinjigyoumu", "rinzigyoumu"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "通常の予定にはなく、必要に応じて一時的に行う仕事。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-290",
+      "japanese": "業務依頼票",
+      "reading": "ぎょうむいらいひょう",
+      "romaji": ["gyoumuiraihyou"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "担当部署へ作業を依頼する内容や期限を記した票。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-291",
+      "japanese": "作業依頼番号",
+      "reading": "さぎょういらいばんごう",
+      "romaji": ["sagyouiraibangou"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "個々の依頼を識別し、進捗を追うために付ける番号。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-292",
+      "japanese": "対応状況表",
+      "reading": "たいおうじょうきょうひょう",
+      "romaji": ["taioujoukyouhyou", "taiouzyoukyouhyou"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "依頼や問い合わせの担当、進捗、期限を一覧にした表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-293",
+      "japanese": "期限管理",
+      "reading": "きげんかんり",
+      "romaji": ["kigenkanri"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "提出や対応の期限を記録し、遅れないよう確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-294",
+      "japanese": "作業チェック表",
+      "reading": "さぎょうちぇっくひょう",
+      "romaji": ["sagyouchekkuhyou", "sagyoutyekkuhyou"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "手順や確認項目を並べ、実施状況を記録する表。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-295",
+      "japanese": "ダブルチェック",
+      "reading": "だぶるちぇっく",
+      "romaji": ["daburuchekku", "daburutyekku"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "入力や処理の誤りを減らすため、別の人などが再確認すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-296",
+      "japanese": "入力規則",
+      "reading": "にゅうりょくきそく",
+      "romaji": ["nyuuryokukisoku"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "書式や範囲など、データを入力するときに守る条件のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-297",
+      "japanese": "データ照合",
+      "reading": "でーたしょうごう",
+      "romaji": ["de-tashougou", "de-tasyougou"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "複数の記録を比べ、一致や差異を確かめること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-298",
+      "japanese": "重複データ",
+      "reading": "ちょうふくでーた",
+      "romaji": ["choufukude-ta", "tyouhukude-ta"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "同じ情報が、複数の行やファイルに登録された状態のこと。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-299",
+      "japanese": "データ訂正",
+      "reading": "でーたていせい",
+      "romaji": ["de-tateisei"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "誤って登録された情報を、正しい内容へ修正すること。",
+      "related_terms": [],
+      "learning_points": [],
+      "weak_detection": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "office-300",
+      "japanese": "入力漏れ",
+      "reading": "にゅうりょくもれ",
+      "romaji": ["nyuuryokumore"],
+      "category": "業務・情報管理",
+      "difficulty": 3,
+      "roles": ["senpai", "kakaricho", "buchou", "shachou", "kaicho"],
+      "explanation": "記録すべき項目や情報が、入力されていない状態のこと。",
       "related_terms": [],
       "learning_points": [],
       "weak_detection": {

@@ -1,4 +1,4 @@
-# 飲食の語録(拡張: 第 2 弾の下書き)
+# 飲食の語録(拡張: 第 2 弾の語録)
 
 語録を増やす Issue #182 の第 2 弾です。AI の下書きで、すべて `draft: true`(公開されません)・`review: pending` です。運営者が確認した語だけ、`draft` の行を消して公開します。
 
@@ -16,9 +16,8 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
+    review: confirmed
     note: "店によって呼び方が違う(オーダー端末など)"
-    draft: true
   - id: food-service-088
     japanese: "追加注文"
     reading: "ついかちゅうもん"
@@ -30,8 +29,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-089
     japanese: "復唱"
     reading: "ふくしょう"
@@ -43,8 +41,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-090
     japanese: "オーダーミス"
     reading: "おーだーみす"
@@ -56,8 +53,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-091
     japanese: "アレルゲン"
     reading: "あれるげん"
@@ -69,8 +65,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-092
     japanese: "提供時間"
     reading: "ていきょうじかん"
@@ -82,8 +77,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-093
     japanese: "サーブ"
     reading: "さーぶ"
@@ -95,8 +89,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-094
     japanese: "お会計"
     reading: "おかいけい"
@@ -108,8 +101,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-095
     japanese: "割り勘"
     reading: "わりかん"
@@ -121,8 +113,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-096
     japanese: "別会計"
     reading: "べつかいけい"
@@ -134,8 +125,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-097
     japanese: "個室"
     reading: "こしつ"
@@ -147,8 +137,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-098
     japanese: "貸し切り"
     reading: "かしきり"
@@ -160,8 +149,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-099
     japanese: "宴会"
     reading: "えんかい"
@@ -173,8 +161,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-100
     japanese: "ランチタイム"
     reading: "らんちたいむ"
@@ -186,8 +173,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-101
     japanese: "ピークタイム"
     reading: "ぴーくたいむ"
@@ -199,8 +185,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-102
     japanese: "アイドルタイム"
     reading: "あいどるたいむ"
@@ -212,8 +197,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-103
     japanese: "売上日報"
     reading: "うりあげにっぽう"
@@ -225,8 +209,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-104
     japanese: "人件費"
     reading: "じんけんひ"
@@ -238,8 +221,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-105
     japanese: "歩留まり"
     reading: "ぶどまり"
@@ -251,8 +233,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-106
     japanese: "廃棄ロス"
     reading: "はいきろす"
@@ -264,8 +245,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-107
     japanese: "発注量"
     reading: "はっちゅうりょう"
@@ -277,8 +257,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-108
     japanese: "賞味期限切れ"
     reading: "しょうみきげんぎれ"
@@ -290,8 +269,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-109
     japanese: "先入れ"
     reading: "さきいれ"
@@ -303,8 +281,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-110
     japanese: "常温保存"
     reading: "じょうおんほぞん"
@@ -316,8 +293,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-111
     japanese: "冷蔵保存"
     reading: "れいぞうほぞん"
@@ -329,8 +305,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-112
     japanese: "冷凍保存"
     reading: "れいとうほぞん"
@@ -342,8 +317,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-113
     japanese: "殺菌"
     reading: "さっきん"
@@ -355,8 +329,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-114
     japanese: "除菌"
     reading: "じょきん"
@@ -368,8 +341,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-115
     japanese: "アルコール消毒"
     reading: "あるこーるしょうどく"
@@ -381,8 +353,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-116
     japanese: "検温"
     reading: "けんおん"
@@ -394,8 +365,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-117
     japanese: "体調管理"
     reading: "たいちょうかんり"
@@ -407,8 +377,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-118
     japanese: "使い捨て手袋"
     reading: "つかいすててぶくろ"
@@ -420,8 +389,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-119
     japanese: "エプロン"
     reading: "えぷろん"
@@ -433,8 +401,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-120
     japanese: "三角巾"
     reading: "さんかくきん"
@@ -446,8 +413,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-121
     japanese: "下処理"
     reading: "したしょり"
@@ -459,8 +425,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-122
     japanese: "あく抜き"
     reading: "あくぬき"
@@ -472,8 +437,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-123
     japanese: "湯通し"
     reading: "ゆどおし"
@@ -485,8 +449,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-124
     japanese: "塩抜き"
     reading: "しおぬき"
@@ -498,8 +461,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-125
     japanese: "だしを取る"
     reading: "だしをとる"
@@ -511,8 +473,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-126
     japanese: "灰汁"
     reading: "あく"
@@ -524,8 +485,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-127
     japanese: "焦げ付き"
     reading: "こげつき"
@@ -537,8 +497,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-128
     japanese: "ゆで時間"
     reading: "ゆでじかん"
@@ -550,8 +509,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-129
     japanese: "タイマー"
     reading: "たいまー"
@@ -563,8 +521,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-130
     japanese: "温度計"
     reading: "おんどけい"
@@ -576,8 +533,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-131
     japanese: "秤"
     reading: "はかり"
@@ -589,8 +545,7 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
   - id: food-service-132
     japanese: "盛り付け例"
     reading: "もりつけれい"
@@ -602,6 +557,5 @@ items:
     learning_points: []
     weak_detection:
       enabled: true
-    review: pending
-    draft: true
+    review: confirmed
 ```

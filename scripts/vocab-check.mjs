@@ -123,7 +123,7 @@ try {
       process.exit(1);
     }
     console.log(
-      "\n次: 下書きの語は、人間が確認して、draft の行を消します。全部の語は、確認したら review: confirmed にします。",
+      "\n次: 確認が済んだ語は、原稿で review: confirmed にします。公開する語からは draft の行を消します。",
     );
   }
   if (errors.length > 0 && (args.has("--for-ai") || args.has("--improve"))) process.exit(1);
