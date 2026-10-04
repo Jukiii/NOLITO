@@ -23,14 +23,17 @@ jobs:
                 ...context.repo,
                 issue_number: issue.number,
                 body: [
-                  "@Jukiii",
+                  "@Jukiii-claude",
                   "",
                   "質問として受け付けました。このリポジトリは公開設定のため、Copilot Automationsによる自動回答は利用できません。この通知は回答ではありません。回答はブランチを作らず、このIssueに日本語でコメントしてください。"
                 ].join("\n")
               });
               return;
             }
-            const isTask = labels.includes("bug") || labels.includes("enhancement");
+            const isTask =
+              labels.includes("bug") ||
+              labels.includes("enhancement") ||
+              labels.includes("GitHub操作");
 
             if (isTask && isRepositoryOwner) {
               await github.rest.issues.addAssignees({
