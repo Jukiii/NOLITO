@@ -53,8 +53,8 @@ describe("Issue templates", () => {
     ];
     for (const [filename, phrases] of prompts) {
       const template = readFileSync(`${templateDir}/${filename}`, "utf8");
-      const visible = template.replace(/<!--[\s\S]*?-->/g, "");
-      for (const phrase of phrases) assert.ok(!visible.includes(phrase), `${filename}: ${phrase}`);
+      for (const phrase of phrases)
+        assert.ok(template.includes(`<!-- ${phrase} -->`), `${filename}: ${phrase}`);
     }
     assert.match(
       readFileSync(`${templateDir}/feature.md`, "utf8"),
