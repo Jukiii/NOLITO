@@ -409,7 +409,7 @@ describe("最新かの検査(checkOutputs)・書き出し", () => {
 });
 
 describe("原稿の読み込み(loadSources)", () => {
-  it("content/vocabulary/*.md を、名前順に読む(ファイル名が、職種の id)。ベース 6 つのほか、拡張ファイル(英語で打つ語の下書き。Issue #131)も読む", () => {
+  it("content/vocabulary/*.md を、名前順に読む(ファイル名が、職種の id)。ベース 6 つのほか、拡張ファイルも読む", () => {
     const sources = loadSources(root);
     assert.deepEqual(
       sources.filter((entry) => entry.kind === "base").map((entry) => entry.name),
@@ -420,7 +420,9 @@ describe("原稿の読み込み(loadSources)", () => {
       [
         "engineer",
         "engineer",
+        "engineer",
         ...["food-service", "office", "retail", "sales", "teaching"].flatMap((name) => [
+          name,
           name,
           name,
           name,
@@ -428,6 +430,22 @@ describe("原稿の読み込み(loadSources)", () => {
       ],
     );
     for (const entry of sources) assert.ok(!entry.text.includes("\r"), entry.name);
+  });
+
+  it("バッチ3は、各職種20語の未確認下書きとして追加される", () => {
+    const sources = loadSources(root).filter((entry) => entry.file.endsWith(".ext-batch3.md"));
+    assert.deepEqual(
+      sources.map((entry) => entry.name),
+      ["engineer", "food-service", "office", "retail", "sales", "teaching"],
+    );
+    for (const source of sources) {
+      const { items } = parseVocabularyMarkdown(source.text);
+      assert.equal(items.length, 20, source.name);
+      assert.ok(
+        items.every((item) => item.draft === true && item.review === "pending"),
+        source.name,
+      );
+    }
   });
 
   it("フォルダがなければ、空", () => {
@@ -471,7 +489,7 @@ describe("コマンド", () => {
     assert.match(result.stdout, /人間に見てほしい点\(note\): 54 件/);
     assert.match(result.stdout, /engineer-009\(プルリクエスト\)/);
     // 似た意味の語の候補(Phase 25 PR2)も、警告として出る
-    assert.match(result.stdout, /警告\(直したほうがよい点\): 21 件/);
+    assert.match(result.stdout, /警告\(直したほうがよい点\): 25 件/);
     assert.match(result.stdout, /food-service-007\(仕込み\) と food-service-012\(下ごしらえ\)/);
   });
 
@@ -486,7 +504,7 @@ describe("コマンド", () => {
     assert.ok(!out.includes("japanese: CRM"));
     assert.match(out, /最終判断は、人間が行います/);
     // 似た意味の語の候補(Phase 25 PR2)も、機械の確認結果に含まれる
-    assert.match(out, /- 警告: 21 件/);
+    assert.match(out, /- 警告: 25 件/);
     assert.match(out, /sales-001\(顧客\) と sales-003\(納期\): 説明の文章が似ています/);
   });
 
@@ -497,7 +515,7 @@ describe("コマンド", () => {
     assert.equal(blocks.length, 6);
     const data = parseVocabularyMarkdown(`\`\`\`yaml\n${blocks[0][1]}\n\`\`\``);
     assert.equal(data.job_id, "engineer");
-    assert.equal(data.items.length, 78);
+    assert.equal(data.items.length, 98);
   });
 
   it("vocab:check --improve: 改善提案用プロンプト・候補の件数・語を、YAML で出す(Phase 25)", () => {
