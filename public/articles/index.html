@@ -8,7 +8,7 @@
       (function () {
         try {
           var t = localStorage.getItem("nolito:theme:v1");
-          if (/^(light|white|dark|pretty)$/.test(t)) document.documentElement.dataset.theme = t;
+          if (/^(light|white|dark|pretty|smart)$/.test(t)) document.documentElement.dataset.theme = t;
           var f = localStorage.getItem("nolito:font-size:v1");
           if (f === "large" || f === "xlarge") document.documentElement.dataset.fontSize = f;
           var m = localStorage.getItem("nolito:motion:v1");

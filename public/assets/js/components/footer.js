@@ -8,6 +8,7 @@ const THEME_OPTIONS = [
   { value: "white", label: "ホワイト" },
   { value: "dark", label: "ダーク" },
   { value: "pretty", label: "プリティ" },
+  { value: "smart", label: "スマート" },
 ];
 
 // 文字サイズの選択肢(値は components/font-size.js の FONT_SIZES と同じ)
