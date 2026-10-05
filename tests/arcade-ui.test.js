@@ -115,6 +115,23 @@ describe("game.css のアーケード画面", () => {
     );
   });
 
+  it("プレイ中は画面全体の格子とネオン光をゆっくり流し、動きを減らす設定では停止する", () => {
+    const baseCss = read("public/assets/css/base.css");
+    assert.match(
+      css,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)\s*\{[\s\S]*background-image:[\s\S]*linear-gradient[\s\S]*animation: game-backdrop-drift 32s linear infinite;/,
+    );
+    assert.match(css, /@keyframes game-backdrop-drift\s*\{[\s\S]*background-position:/);
+    assert.match(
+      baseCss,
+      /prefers-reduced-motion: reduce[\s\S]*animation-duration: 0\.01ms !important/,
+    );
+    assert.match(
+      baseCss,
+      /:root\[data-reduced-motion="reduce"\][\s\S]*animation-duration: 0\.01ms !important/,
+    );
+  });
+
   it("危ないときの場面は、背景の流れを残したまま、縁も脈打つ", () => {
     const start = css.indexOf(".scene.is-danger {");
     const block = css.slice(start, css.indexOf("}", start));

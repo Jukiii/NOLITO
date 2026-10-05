@@ -2015,6 +2015,44 @@ body:has([data-game] [data-view="play"]:not([hidden])) .main {
   --container-max: 72rem;
 }
 
+/* プレイ中は画面全体にネオンの光と格子をゆっくり流し、ゲーム画面の外側にも奥行きを出す */
+body:has([data-game] [data-view="play"]:not([hidden])) {
+  background-color: var(--arcade-bg);
+  background-image:
+    radial-gradient(
+      ellipse at 20% 20%,
+      color-mix(in srgb, var(--arcade-cyan) 12%, transparent),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      color-mix(in srgb, var(--arcade-magenta) 10%, transparent),
+      transparent 45%
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--arcade-cyan) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(color-mix(in srgb, var(--arcade-magenta) 8%, transparent) 1px, transparent 1px);
+  background-size:
+    160% 160%,
+    160% 160%,
+    3rem 3rem,
+    3rem 3rem;
+  animation: game-backdrop-drift 32s linear infinite;
+}
+
+@keyframes game-backdrop-drift {
+  to {
+    background-position:
+      100% 100%,
+      0 0,
+      0 3rem,
+      3rem 0;
+  }
+}
+
 /*
  * 横向き(landscape)の低い画面(スマホを横に持ったときなど)では、縦の余白・場面の高さを詰めて、
  * 入力欄が画面の外に出ないようにする(Phase 22 PR1)。並び順(距離ゲージ→場面→単語→入力欄)は変えない。
