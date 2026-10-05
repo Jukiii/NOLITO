@@ -135,7 +135,7 @@ describe("ページの静的な性質", () => {
     assert.match(html, /<title>用語一覧 \| 上司から逃げろ \| NOLITO<\/title>/);
     assert.match(
       html,
-      /rel="canonical" href="https:\/\/nolito\.pages\.dev\/games\/escape-boss\/glossary\/"/,
+      /rel="canonical" href="https:\/\/nolito-jukiii\.com\/games\/escape-boss\/glossary\/"/,
     );
     assert.ok(!html.includes('name="robots"'));
   });

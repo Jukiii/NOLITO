@@ -133,11 +133,11 @@ CREATE TABLE articles (
 
 1. [Google Cloud Console](https://console.cloud.google.com/) で、新しいプロジェクトを作る(名前: `NOLITO`)。
 2. **Google Auth Platform**(旧: OAuth 同意画面)を開く。
-   - **ブランディング**: アプリ名 `NOLITO`、ユーザーサポートメール(あなたのアドレス)、デベロッパーの連絡先メール。
+   - **ブランディング**: アプリ名 `NOLITO`、ユーザーサポートメール(あなたのアドレス)、デベロッパーの連絡先メール。承認済みドメインに `nolito-jukiii.com` を追加し、Google 側で所有権を確認する。
    - **対象(Audience)**: ユーザーの種類は **外部**、公開ステータスは **テスト**のまま。**テストユーザー**に、ログインさせたい人の Google アカウント(あなた自身を含む)を追加する(最大100人)。
    - **データアクセス**: スコープは `openid` と `.../auth/userinfo.email` **だけ**(名前・写真は要らない)。
 3. **クライアント** → **クライアントを作成** → 種類 **ウェブ アプリケーション**、名前 `NOLITO`。
-   - **承認済みのリダイレクト URI**: `https://nolito.pages.dev/auth/google/callback`(**1文字も違わずに**。末尾のスラッシュなし)
+   - **承認済みのリダイレクト URI**: `https://nolito-jukiii.com/auth/google/callback`(**1文字も違わずに**。末尾のスラッシュなし)
    - 「承認済みの JavaScript 生成元」は、空のままでよい(ブラウザに Google のスクリプトを読み込まないため)。
 4. 作成後に出る **クライアント ID** と **クライアントシークレット** を控える(シークレットは、次の手順の入力欄にだけ貼る)。
 
@@ -154,7 +154,7 @@ CREATE TABLE articles (
 | `GOOGLE_CLIENT_ID` | Text | 手順3のクライアント ID |
 | `GOOGLE_CLIENT_SECRET` | **Secret** | 手順3のクライアントシークレット |
 | `SESSION_SECRET` | **Secret** | 32文字以上のランダムな文字列(下のコマンドで作る) |
-| `SITE_ORIGIN` | Text | `https://nolito.pages.dev`(末尾のスラッシュなし) |
+| `SITE_ORIGIN` | Text | `https://nolito-jukiii.com`(末尾のスラッシュなし) |
 | `SIGNUP_MODE` | Text | `invite`(招待制。省略しても `invite`) |
 | `ALLOWED_EMAILS` | Text | ログインを許すメールアドレス(カンマ区切り。例: `you@gmail.com,friend@gmail.com`) |
 | `ADMIN_EMAILS` | Text | **管理者**とするメールアドレス(カンマ区切り。Phase 26。省略すると、管理者はいない=すべて無効) |
@@ -172,8 +172,8 @@ node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"
 
 ## 5. 動作確認
 
-1. `https://nolito.pages.dev/api/me` を開く → `{"enabled":true,"user":null}` と出る(`{"enabled":false}` なら、手順2・4のどれかが足りない)。
-2. `https://nolito.pages.dev/account/` を開く → 「Google でログイン」 → 自分の Google アカウントを選ぶ → `/account/` に戻り、メールアドレスが出る。
+1. `https://nolito-jukiii.com/api/me` を開く → `{"enabled":true,"user":null}` と出る(`{"enabled":false}` なら、手順2・4のどれかが足りない)。
+2. `https://nolito-jukiii.com/account/` を開く → 「Google でログイン」 → 自分の Google アカウントを選ぶ → `/account/` に戻り、メールアドレスが出る。
 3. ニックネームを変えて、再読み込みしても残ることを確認する。ログアウトして、ログイン画面に戻ることを確認する。
 4. 招待していない Google アカウント(または `ALLOWED_EMAILS` から外した自分)で、「まだ利用できません」と出ることを確認する。
 

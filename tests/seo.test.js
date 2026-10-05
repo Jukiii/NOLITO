@@ -37,7 +37,7 @@ describe("検索エンジン向けの基本情報", () => {
     const robots = readFileSync(`${root}public/robots.txt`, "utf8");
     assert.match(
       robots,
-      /^User-agent: \*\nAllow: \/\nSitemap: https:\/\/nolito\.pages\.dev\/sitemap\.xml\n$/,
+      /^User-agent: \*\nAllow: \/\nSitemap: https:\/\/nolito-jukiii\.com\/sitemap\.xml\n$/,
     );
   });
 
@@ -53,8 +53,8 @@ describe("検索エンジン向けの基本情報", () => {
 
     assert.equal(response.status, 200);
     assert.match(response.headers.get("content-type"), /application\/xml/);
-    assert.match(xml, /https:\/\/nolito\.pages\.dev\/games\/escape-boss\//);
-    assert.match(xml, /https:\/\/nolito\.pages\.dev\/articles\/published\//);
+    assert.match(xml, /https:\/\/nolito-jukiii\.com\/games\/escape-boss\//);
+    assert.match(xml, /https:\/\/nolito-jukiii\.com\/articles\/published\//);
     assert.doesNotMatch(xml, /\/articles\/draft\//);
     assert.doesNotMatch(xml, /\/account\/|\/profile\/|\/stats\/|articles-static/);
   });
@@ -106,7 +106,9 @@ describe("検索エンジン向けの基本情報", () => {
       const html = readFileSync(`${root}${filePath}`, "utf8");
       assert.match(html, /<title>[^<]+<\/title>/, path);
       assert.match(html, /<meta\s+name="description"/, path);
-      assert.match(html, /<link\s+rel="canonical"/, path);
+      const canonical = /<link\s+rel="canonical"\s+href="([^"]+)"/.exec(html);
+      assert.ok(canonical, path);
+      assert.equal(canonical[1], new URL(path, site.url).href, path);
       assert.doesNotMatch(html, /<meta\s+name="robots"\s+content="noindex"/, path);
     }
   });

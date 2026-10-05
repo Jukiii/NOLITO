@@ -36,7 +36,7 @@ Phase 28。サイトに問題が起きたときの、**気づき方・止め方�
 ## 3. 確認する(デプロイ後・ロールバック後・復元後)
 
 ```
-npm run smoke -- https://nolito.pages.dev
+npm run smoke -- https://nolito-jukiii.com
 ```
 
 - 主要なページが 200 で開けること・存在しないページが 404 になること・`/api/me` と `/api/products` が JSON を返すこと・画像のキャッシュ期間(1 日)・**同意の前に、ページが Google のアクセス解析を読み込まないこと**を見る。

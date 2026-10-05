@@ -292,7 +292,7 @@ describe("ページの静的な性質", () => {
     assert.ok(!html.includes('name="robots"'));
     assert.match(html, /<title>更新履歴 \| NOLITO<\/title>/);
     assert.match(html, /<meta\s+name="description"/);
-    assert.match(html, /rel="canonical" href="https:\/\/nolito\.pages\.dev\/updates\/"/);
+    assert.match(html, /rel="canonical" href="https:\/\/nolito-jukiii\.com\/updates\/"/);
   });
 
   it("フッターからリンクされている。リンク先(ページ)が、実在する", () => {

@@ -21,11 +21,11 @@ const fakeStorage = (initial = {}) => {
   };
 };
 
-const config = { measurementId: "G-ABC12345", hosts: ["nolito.pages.dev"], policyVersion: 1 };
+const config = { measurementId: "G-ABC12345", hosts: ["nolito-jukiii.com"], policyVersion: 1 };
 
 describe("計測できる状態か", () => {
   it("測定 ID が正しい形で、いまのホストが対象のときだけ", () => {
-    assert.equal(isAnalyticsAvailable(config, "nolito.pages.dev"), true);
+    assert.equal(isAnalyticsAvailable(config, "nolito-jukiii.com"), true);
   });
 
   it("測定 ID が空・不正な形なら、計測しない(既定の状態)", () => {
@@ -39,7 +39,7 @@ describe("計測できる状態か", () => {
       undefined,
     ]) {
       assert.equal(
-        isAnalyticsAvailable({ ...config, measurementId }, "nolito.pages.dev"),
+        isAnalyticsAvailable({ ...config, measurementId }, "nolito-jukiii.com"),
         false,
         String(measurementId),
       );
@@ -49,6 +49,7 @@ describe("計測できる状態か", () => {
   it("対象外のホスト(プレビュー・ローカル・別ドメイン)では計測しない", () => {
     for (const host of [
       "localhost",
+      "nolito.pages.dev",
       "phase-05.nolito.pages.dev",
       "nolito.pages.dev.evil.example",
       "example.com",
@@ -56,7 +57,7 @@ describe("計測できる状態か", () => {
     ]) {
       assert.equal(isAnalyticsAvailable(config, host), false, host);
     }
-    assert.equal(isAnalyticsAvailable({ ...config, hosts: [] }, "nolito.pages.dev"), false);
+    assert.equal(isAnalyticsAvailable({ ...config, hosts: [] }, "nolito-jukiii.com"), false);
   });
 });
 
@@ -233,12 +234,12 @@ describe("Cookie の削除", () => {
 
   it("ホスト名がわかれば、ドメイン属性つきの Cookie も消せるよう、3通りの指定で消す", () => {
     const { doc, written } = fakeEnvironment("_ga=1");
-    doc.location = { hostname: "nolito.pages.dev" };
+    doc.location = { hostname: "nolito-jukiii.com" };
     expireAnalyticsCookies(doc);
     assert.deepEqual(written, [
       "_ga=; Max-Age=0; path=/",
-      "_ga=; Max-Age=0; path=/; domain=nolito.pages.dev",
-      "_ga=; Max-Age=0; path=/; domain=.nolito.pages.dev",
+      "_ga=; Max-Age=0; path=/; domain=nolito-jukiii.com",
+      "_ga=; Max-Age=0; path=/; domain=.nolito-jukiii.com",
     ]);
   });
 

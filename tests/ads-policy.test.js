@@ -38,7 +38,7 @@ describe("広告・収益化について(/ads-policy/)", () => {
   });
 
   it("検索結果に出るページとして、canonical と description がある(noindex ではない)", () => {
-    assert.match(page, /rel="canonical" href="https:\/\/nolito\.pages\.dev\/ads-policy\/"/);
+    assert.match(page, /rel="canonical" href="https:\/\/nolito-jukiii\.com\/ads-policy\/"/);
     assert.match(page, /<meta\s+name="description"/);
     assert.doesNotMatch(page, /noindex/);
   });

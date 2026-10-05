@@ -33,7 +33,7 @@ describe("ページの静的な性質", () => {
     assert.ok(!html.includes('name="robots"'));
     assert.match(html, /<title>NOLITO\(ノリト\)<\/title>/);
     assert.match(html, /<meta\s+name="description"/);
-    assert.match(html, /rel="canonical" href="https:\/\/nolito\.pages\.dev\/"/);
+    assert.match(html, /rel="canonical" href="https:\/\/nolito-jukiii\.com\/"/);
     assert.ok(!html.includes("ただいま準備中です"));
   });
 
