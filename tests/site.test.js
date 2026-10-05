@@ -37,7 +37,11 @@ const pageExists = (href) => {
 describe("サイトの設定の整合", () => {
   const site = readJson("data/site.json");
 
-  it("計測の対象ホストに、サイトの URL のホストが含まれる(独自ドメインにしたら、両方を変える)", () => {
+  it("独自ドメインを正規のサイト URL にする", () => {
+    assert.equal(site.url, "https://nolito-jukiii.com");
+  });
+
+  it("計測の対象ホストに、サイトの URL のホストが含まれる", () => {
     assert.ok(analyticsConfig.hosts.includes(new URL(site.url).hostname));
   });
 

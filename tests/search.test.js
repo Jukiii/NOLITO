@@ -222,7 +222,7 @@ describe("ページの静的な性質", () => {
   it("検索に載せてよいページ(noindex なし)。題名・説明・canonical がある", () => {
     assert.ok(!html.includes('name="robots"'));
     assert.match(html, /<title>検索 \| NOLITO<\/title>/);
-    assert.match(html, /rel="canonical" href="https:\/\/nolito\.pages\.dev\/search\/"/);
+    assert.match(html, /rel="canonical" href="https:\/\/nolito-jukiii\.com\/search\/"/);
   });
 
   it("フォームは role=search。キーワード入力・送信ボタン(WCAG H32)がある", () => {

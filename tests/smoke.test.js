@@ -105,9 +105,9 @@ test("リダイレクトは追わない(意図しない転送を、見逃さな�
 });
 
 test("URL は https(手元の確認は localhost)だけ", () => {
-  assert.equal(normalizeBase("https://nolito.pages.dev/games/"), "https://nolito.pages.dev");
+  assert.equal(normalizeBase("https://nolito-jukiii.com/games/"), "https://nolito-jukiii.com");
   assert.equal(normalizeBase("http://localhost:8788"), "http://localhost:8788");
-  assert.throws(() => normalizeBase("http://nolito.pages.dev"), /https/);
+  assert.throws(() => normalizeBase("http://nolito-jukiii.com"), /https/);
   assert.throws(() => normalizeBase("nolito"), /形が違います/);
 });
 

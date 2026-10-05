@@ -13,7 +13,7 @@
 | プロジェクト名 | NOLITO(個人開発プロダクトポータルサイト)                   |
 | 開発方式       | Claude Codeによる自律開発                                  |
 | リポジトリ     | https://github.com/Jukiii/NOLITO(public)                   |
-| 本番           | https://nolito.pages.dev(Cloudflare Pages)                 |
+| 正規URL        | https://nolito-jukiii.com(Cloudflare Pages 接続確認が必要) |
 | 開発開始日     | 2026-09-19頃(PR #1)                                        |
 | 最終更新日時   | 2026-10-03                                                 |
 | 現在のフェーズ | 運用中(Phase 31 まで完了。以降は Issue 単位で小さく進める) |

@@ -47,7 +47,7 @@ export function normalizeBase(input) {
   try {
     url = new URL(input);
   } catch {
-    throw new Error("URL の形が違います。例: https://nolito.pages.dev");
+    throw new Error("URL の形が違います。例: https://nolito-jukiii.com");
   }
   if (url.protocol !== "https:" && url.hostname !== "localhost" && url.hostname !== "127.0.0.1") {
     throw new Error("https:// の URL を指定してください(手元の確認は localhost だけ)。");

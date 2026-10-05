@@ -21,7 +21,7 @@ import {
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const publicDir = join(root, "public");
-const site = { name: "NOLITO", url: "https://nolito.pages.dev", language: "ja" };
+const site = { name: "NOLITO", url: "https://nolito-jukiii.com", language: "ja" };
 const categoryData = {
   version: 1,
   categories: [
@@ -113,7 +113,7 @@ describe("詳細ページの内容", () => {
     assert.ok(html.includes("<title>サンプルアプリの詳細 | NOLITO</title>"));
     assert.ok(
       html.includes(
-        '<link rel="canonical" href="https://nolito.pages.dev/software/sample-app/" />',
+        '<link rel="canonical" href="https://nolito-jukiii.com/software/sample-app/" />',
       ),
     );
     assert.ok(html.includes('content="サンプルの説明です。"'));
@@ -436,7 +436,7 @@ describe("HTML の安全性", () => {
         url.startsWith("#") ||
           url === "" ||
           isSafeUrl(url) ||
-          url === "https://nolito.pages.dev/software/sample-app/",
+          url === "https://nolito-jukiii.com/software/sample-app/",
         url,
       );
     }

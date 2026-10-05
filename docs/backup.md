@@ -101,7 +101,7 @@ npm run backup:verify -- C:/Users/あなた/nolito-backups/nolito-d1-20260920T15
 
 4. Cloudflare の Pages → **Settings** → **Bindings** で、`DB` の向け先を、新しい D1 に変える(**Production**)。
 5. **Deployments** から、再デプロイする。
-6. `https://nolito.pages.dev/api/me` と、ログイン・ライセンスの一覧が動くか確認する。
+6. `https://nolito-jukiii.com/api/me` と、ログイン・ライセンスの一覧が動くか確認する。
 
 バックアップには、セッション(ログインの状態)も入っているので、多くの人は、ログインしたままになります。**バックアップの時点より後に登録された人・ライセンスは、戻りません**(戻せる範囲は、そのバックアップの時刻まで)。
 

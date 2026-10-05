@@ -5,7 +5,7 @@
 //   GOOGLE_CLIENT_ID     Google の OAuth クライアント ID
 //   GOOGLE_CLIENT_SECRET Google の OAuth クライアントシークレット(シークレット)
 //   SESSION_SECRET       32 文字以上のランダムな文字列(シークレット。state の署名・IP のハッシュに使う)
-//   SITE_ORIGIN          このサイトの URL(例: https://nolito.pages.dev)。リダイレクト先・Origin の確認に使う
+//   SITE_ORIGIN          このサイトの URL(例: https://nolito-jukiii.com)。リダイレクト先・Origin の確認に使う
 //   AUTH_ENABLED         "true" のときだけ、アカウントの機能を有効にする
 //   SIGNUP_MODE          "open" なら誰でもログインできる。それ以外は「招待制」(許可リストだけ)
 //   ALLOWED_EMAILS       招待制で、ログインを許すメールアドレス(カンマ区切り)
