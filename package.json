@@ -36,13 +36,13 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.11.0",
-    "globals": "^17.12.0",
-    "html-validate": "^11.16.0",
+    "globals": "^17.13.0",
+    "html-validate": "^11.16.1",
     "marked": "^18.0.14",
     "prettier": "^3.9.9",
-    "stylelint": "^17.15.0",
+    "stylelint": "^17.16.0",
     "stylelint-config-standard": "^40.0.0",
-    "wrangler": "^4.141.0",
+    "wrangler": "^4.146.0",
     "yaml": "^2.9.1"
   }
 }
