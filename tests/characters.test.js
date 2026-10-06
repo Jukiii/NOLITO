@@ -14,19 +14,16 @@ const PIXEL_SCALE = 3;
 const CHASERS = roles.map((role) => ({
   id: role.id,
   path: `public${role.image}`,
-  image: `public${role.image.replace(".svg", "-realistic.png")}`,
   frame: [120, 80],
 }));
 const PLAYERS = [
   {
     id: "player",
     path: "public/assets/img/escape-boss/player.svg",
-    image: "public/assets/img/escape-boss/player-realistic.png",
   },
   {
     id: "player-panic",
     path: "public/assets/img/escape-boss/player-panic.svg",
-    image: "public/assets/img/escape-boss/player-panic-realistic.png",
   },
 ];
 const ALL = [
@@ -36,7 +33,13 @@ const ALL = [
 const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
 function readPng(path) {
-  const bytes = readFileSync(`${root}${path}`);
+  const svg = read(path);
+  const source =
+    /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 \d+ \d+" width="\d+" height="\d+">\n  <image href="data:image\/png;base64,([A-Za-z0-9+/=]+)" width="\d+" height="\d+" preserveAspectRatio="none" \/>\n<\/svg>\n$/.exec(
+      svg,
+    );
+  assert.ok(source, `${path} は自己完結した PNG 素材を表示します`);
+  const bytes = Buffer.from(source[1], "base64");
   assert.deepEqual(bytes.subarray(0, 8), PNG_SIGNATURE, `${path} は PNG です`);
   assert.equal(bytes.toString("ascii", 12, 16), "IHDR", `${path} に PNG ヘッダーがあります`);
   return {
@@ -50,14 +53,13 @@ function readPng(path) {
 describe("キャラクターの絵の一覧", () => {
   it("5 役職すべてに絵がある。あなたの絵は、ふつうと焦った顔の 2 枚", () => {
     assert.equal(CHASERS.length, 5);
-    for (const { id, path, image } of ALL) {
+    for (const { id, path } of ALL) {
       assert.ok(statSync(`${root}${path}`).isFile(), id);
-      assert.ok(statSync(`${root}${image}`).isFile(), id);
     }
   });
 
   it("7 点のキャラクター画像は、それぞれ異なる", () => {
-    const images = ALL.map(({ image }) => readPng(image).bytes.toString("base64"));
+    const images = ALL.map(({ path }) => readPng(path).bytes.toString("base64"));
     assert.equal(new Set(images).size, ALL.length);
   });
 
@@ -73,14 +75,13 @@ describe("キャラクターの絵の一覧", () => {
   });
 });
 
-for (const { id, path, image, size, frame } of ALL) {
+for (const { id, path, size, frame } of ALL) {
   describe(`絵 ${id}`, () => {
-    it("透明背景の高解像度 PNG を、同一サイト内の素材として読み込む", () => {
+    it("外部参照なしの、透明背景・高解像度 PNG 素材を埋め込む", () => {
       const svg = read(path);
-      const png = readPng(image);
-      assert.equal(
-        svg,
-        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size[0]} ${size[1]}" width="${size[0]}" height="${size[1]}">\n  <image href="/assets/img/escape-boss/${id}-realistic.png" width="${size[0]}" height="${size[1]}" preserveAspectRatio="none" />\n</svg>\n`,
+      const png = readPng(path);
+      assert.ok(
+        svg.includes(`viewBox="0 0 ${size[0]} ${size[1]}" width="${size[0]}" height="${size[1]}"`),
       );
       assert.deepEqual(
         [png.width, png.height],
@@ -108,8 +109,8 @@ describe("危ないときの、あなたの表情", () => {
 
   it("焦った顔の絵は、ふつうの顔と同じ表示寸法", () => {
     assert.deepEqual(
-      [readPng(PLAYERS[0].image).width, readPng(PLAYERS[0].image).height],
-      [readPng(PLAYERS[1].image).width, readPng(PLAYERS[1].image).height],
+      [readPng(PLAYERS[0].path).width, readPng(PLAYERS[0].path).height],
+      [readPng(PLAYERS[1].path).width, readPng(PLAYERS[1].path).height],
     );
   });
 });
