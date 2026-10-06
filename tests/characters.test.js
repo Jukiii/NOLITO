@@ -1,4 +1,3 @@
-// キャラクターの絵(Phase 16 PR 1。Issue #166 PR 3 で立体的な絵に、PR 5(Phase 41)でリアルな 6 コマのスプライトシートに描き直した)のテスト: 絵のファイル(SVG)の形・安全・色と、roles.json・画面との対応。
 import assert from "node:assert/strict";
 import { readFileSync, statSync } from "node:fs";
 import { describe, it } from "node:test";
@@ -10,186 +9,85 @@ const roles = JSON.parse(read("public/data/roles.json"));
 const play = read("public/games/escape-boss/index.html");
 const css = read("public/assets/css/game.css");
 
-const OUTLINE = "#1b2033";
-
-// 追ってくる人の絵(1 コマ 120×80 を 6 コマ並べた 720×80)と、あなたの絵(1 コマ 64×80 を 6 コマ並べた 384×80)
 const FRAMES = 6;
-const CHASERS = roles.map((role) => ({ id: role.id, path: `public${role.image}` }));
+const PIXEL_SCALE = 3;
+const CHASERS = roles.map((role) => ({
+  id: role.id,
+  path: `public${role.image}`,
+  image: `public${role.image.replace(".svg", "-realistic.png")}`,
+  frame: [120, 80],
+}));
 const PLAYERS = [
-  { id: "player", path: "public/assets/img/escape-boss/player.svg" },
-  { id: "player-panic", path: "public/assets/img/escape-boss/player-panic.svg" },
+  {
+    id: "player",
+    path: "public/assets/img/escape-boss/player.svg",
+    image: "public/assets/img/escape-boss/player-realistic.png",
+  },
+  {
+    id: "player-panic",
+    path: "public/assets/img/escape-boss/player-panic.svg",
+    image: "public/assets/img/escape-boss/player-panic-realistic.png",
+  },
 ];
 const ALL = [
-  ...CHASERS.map((c) => ({ ...c, size: [120 * FRAMES, 80], frame: [120, 80] })),
-  ...PLAYERS.map((c) => ({ ...c, size: [64 * FRAMES, 80], frame: [64, 80] })),
+  ...CHASERS.map((item) => ({ ...item, size: [720, 80] })),
+  ...PLAYERS.map((item) => ({ ...item, size: [384, 80], frame: [64, 80] })),
 ];
+const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
-// 使ってよい要素・属性(図形とグラデーションだけ。文字・画像・スクリプト・フィルタ・動き・外部の参照は、使わない)
-const ELEMENTS = new Set([
-  "svg",
-  "defs",
-  "linearGradient",
-  "radialGradient",
-  "stop",
-  "g",
-  "rect",
-  "circle",
-  "ellipse",
-  "line",
-  "path",
-  "polygon",
-]);
-const ATTRIBUTES = new Set([
-  "xmlns",
-  "viewBox",
-  "width",
-  "height",
-  "id",
-  "fill",
-  "fill-opacity",
-  "stroke",
-  "stroke-width",
-  "stroke-linecap",
-  "stroke-linejoin",
-  "opacity",
-  "transform",
-  "x",
-  "y",
-  "cx",
-  "cy",
-  "r",
-  "rx",
-  "ry",
-  "d",
-  "points",
-  "x1",
-  "y1",
-  "x2",
-  "y2",
-  "offset",
-  "stop-color",
-  "stop-opacity",
-]);
-const COLOR = /^(#[0-9a-f]{6}|url\(#[A-Za-z0-9_-]+\))$/;
-
-// SVG を、タグの並びにする(簡単な読み取り。閉じ忘れ・入れ子の誤りを見つける)
-function parseSvg(text) {
-  const tags = [...text.matchAll(/<(\/?)([a-zA-Z][\w:-]*)([^<>]*?)(\/?)>/g)];
-  const stack = [];
-  const elements = [];
-  for (const [, closing, name, rest, selfClosing] of tags) {
-    if (closing) {
-      assert.equal(stack.pop(), name, `${name} の閉じ方が、合っていません`);
-    } else {
-      const attrs = Object.fromEntries(
-        [...rest.matchAll(/([\w:-]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]),
-      );
-      elements.push({ name, attrs });
-      if (!selfClosing) stack.push(name);
-    }
-  }
-  assert.equal(stack.length, 0, "閉じていないタグがあります");
-  return elements;
+function readPng(path) {
+  const bytes = readFileSync(`${root}${path}`);
+  assert.deepEqual(bytes.subarray(0, 8), PNG_SIGNATURE, `${path} は PNG です`);
+  assert.equal(bytes.toString("ascii", 12, 16), "IHDR", `${path} に PNG ヘッダーがあります`);
+  return {
+    bytes,
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+    colorType: bytes[25],
+  };
 }
 
 describe("キャラクターの絵の一覧", () => {
-  it("5 役職すべてに、絵がある(roles.json の image)。あなたの絵は、ふつうと焦った顔の 2 枚", () => {
+  it("5 役職すべてに絵がある。あなたの絵は、ふつうと焦った顔の 2 枚", () => {
     assert.equal(CHASERS.length, 5);
-    for (const { id, path } of ALL) assert.ok(statSync(`${root}${path}`).isFile(), id);
+    for (const { id, path, image } of ALL) {
+      assert.ok(statSync(`${root}${path}`).isFile(), id);
+      assert.ok(statSync(`${root}${image}`).isFile(), id);
+    }
   });
 
-  it("絵は、どれも違う(同じ内容のファイルがない)。焦った顔は、ふつうの顔と違う", () => {
-    const texts = ALL.map(({ path }) => read(path));
-    assert.equal(new Set(texts).size, ALL.length);
+  it("7 点のキャラクター画像は、それぞれ異なる", () => {
+    const images = ALL.map(({ image }) => readPng(image).bytes.toString("base64"));
+    assert.equal(new Set(images).size, ALL.length);
   });
 
-  it("画面(HTML)の絵の大きさの指定が、絵の viewBox と同じ(レイアウトがずれない)", () => {
+  it("HTML の表示寸法は、6 コマの画像シートの比率と合う", () => {
     const sizeOf = (src) => {
       const image = play.match(/<img[^>]*>/g).find((tag) => tag.includes(`src="${src}"`));
-      assert.ok(image, `${src} が、画面にありません`);
+      assert.ok(image, `${src} が、画面にあります`);
       return [/width="(\d+)"/.exec(image)[1], /height="(\d+)"/.exec(image)[1]].map(Number);
     };
-    assert.deepEqual(sizeOf("/assets/img/escape-boss/player.svg"), [64 * FRAMES, 80]);
-    assert.deepEqual(sizeOf("/assets/img/escape-boss/player-panic.svg"), [64 * FRAMES, 80]);
-    assert.deepEqual(sizeOf(roles[0].image), [120 * FRAMES, 80]);
+    assert.deepEqual(sizeOf("/assets/img/escape-boss/player.svg"), [384, 80]);
+    assert.deepEqual(sizeOf("/assets/img/escape-boss/player-panic.svg"), [384, 80]);
+    assert.deepEqual(sizeOf(roles[0].image), [720, 80]);
   });
 });
 
-for (const { id, path, size, frame } of ALL) {
+for (const { id, path, image, size, frame } of ALL) {
   describe(`絵 ${id}`, () => {
-    const text = read(path);
-    const elements = parseSvg(text);
-
-    it("軽い(40KB 以内)。SVG として閉じている。大きさは viewBox・width・height がそろう", () => {
-      assert.ok(
-        statSync(`${root}${path}`).size <= 40960,
-        `${statSync(`${root}${path}`).size} バイト`,
+    it("透明背景の高解像度 PNG を、同一サイト内の素材として読み込む", () => {
+      const svg = read(path);
+      const png = readPng(image);
+      assert.equal(
+        svg,
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size[0]} ${size[1]}" width="${size[0]}" height="${size[1]}">\n  <image href="/assets/img/escape-boss/${id}-realistic.png" width="${size[0]}" height="${size[1]}" preserveAspectRatio="none" />\n</svg>\n`,
       );
-      assert.ok(text.trimStart().startsWith("<svg ") && text.trimEnd().endsWith("</svg>"));
-      const svg = elements[0];
-      assert.equal(svg.name, "svg");
-      assert.equal(svg.attrs.xmlns, "http://www.w3.org/2000/svg");
-      assert.equal(svg.attrs.viewBox, `0 0 ${size[0]} ${size[1]}`);
-      assert.equal(svg.attrs.width, String(size[0]));
-      assert.equal(svg.attrs.height, String(size[1]));
-    });
-
-    it("使う要素・属性は、図形とグラデーションだけ。文字・画像・スクリプト・スタイル・フィルタ・動き・外部の参照は、ない", () => {
-      for (const { name, attrs } of elements) {
-        assert.ok(ELEMENTS.has(name), `要素 ${name}`);
-        for (const [key, value] of Object.entries(attrs)) {
-          assert.ok(ATTRIBUTES.has(key), `属性 ${key}`);
-          if (key === "xmlns") continue;
-          assert.ok(!/https?:|data:|javascript:|\/\//i.test(value), `${key}="${value}"`);
-        }
-      }
-      assert.ok(
-        !/<(script|style|image|foreignObject|text|a|animate|animateTransform|set|filter|mask|clipPath|use|pattern|iframe)\b/i.test(
-          text,
-        ),
-      );
-      assert.ok(!/@import|<!ENTITY|<!DOCTYPE|<\?xml|\son\w+=/i.test(text));
-    });
-
-    it("色は、16 進の色か、同じファイルの中で定義したグラデーション(url(#id))だけ。id は重ならない", () => {
-      const ids = elements.map((e) => e.attrs.id).filter((v) => v !== undefined);
-      assert.equal(new Set(ids).size, ids.length, "id が重なっています");
-      for (const { name, attrs } of elements) {
-        for (const key of ["fill", "stroke", "stop-color"]) {
-          if (attrs[key] === undefined || attrs[key] === "none") continue;
-          assert.match(attrs[key], COLOR, `${key}="${attrs[key]}"`);
-          const ref = /^url\(#([A-Za-z0-9_-]+)\)$/.exec(attrs[key]);
-          if (ref) assert.ok(ids.includes(ref[1]), `${ref[1]} が、定義されていません`);
-        }
-        if (name === "stop") assert.ok(attrs.offset !== undefined && attrs["stop-color"]);
-      }
-      assert.ok(text.includes(OUTLINE), "濃い色(輪郭・髪・目)が、使われていません");
-    });
-
-    it("6 コマ: 1 コマ分の幅ずつ、右へずらした枠(g)が 6 つ。コマは、おおむね違う絵(動いて見える)", () => {
-      const groups = elements.filter(
-        (e) => e.name === "g" && /^translate\(\d+(?:[ ,]+0)?\)$/.test(e.attrs.transform ?? ""),
-      );
-      const xs = groups.map((e) => Number(/\d+/.exec(e.attrs.transform)[0]));
-      assert.deepEqual(
-        xs,
-        Array.from({ length: FRAMES }, (_, i) => i * frame[0]),
-      );
-      const starts = groups.map((g) => text.indexOf(`<g transform="${g.attrs.transform}"`));
-      assert.ok(starts.every((at) => at > 0));
-      const bodies = starts.map((at, i) => text.slice(at, starts[i + 1] ?? text.length));
-      const distinct = new Set(bodies.map((b) => b.replace(/^<g[^>]*>/, "")));
-      assert.ok(distinct.size >= 5, `違うコマは ${distinct.size} 個`);
-    });
-
-    it("顔: 肌のグラデーション(url(#sk))が、使われている", () => {
-      assert.ok(elements.some((e) => e.attrs.fill === "url(#sk)"));
-    });
-
-    it("立体感: グラデーションが 2 つ以上あり、足元の影(楕円)がある", () => {
-      const gradients = elements.filter((e) => /Gradient$/.test(e.name));
-      assert.ok(gradients.length >= 2);
-      assert.ok(elements.some((e) => e.name === "ellipse" && e.attrs.opacity !== undefined));
+      assert.deepEqual([png.width, png.height], [
+        frame[0] * FRAMES * PIXEL_SCALE,
+        frame[1] * PIXEL_SCALE,
+      ]);
+      assert.equal(png.colorType, 6, "アルファ透過のある RGBA 画像です");
+      assert.ok(png.bytes.length <= 200_000, `${png.bytes.length} バイト`);
     });
   });
 }
@@ -200,7 +98,7 @@ describe("危ないときの、あなたの表情", () => {
     assert.match(play, /class="scene__player scene__player--panic"/);
   });
 
-  it("CSS: 焦った顔は、ふつうは隠れ、危ない(.is-danger)ときだけ出る。ふつうの顔は、そのとき隠れる", () => {
+  it("焦った顔は、ふつうは隠れ、危ない(.is-danger)ときだけ出る", () => {
     assert.match(
       css,
       /\.scene__player--panic,\s*\.scene\.is-danger \.scene__player--calm\s*\{\s*display: none;/,
@@ -208,8 +106,10 @@ describe("危ないときの、あなたの表情", () => {
     assert.match(css, /\.scene\.is-danger \.scene__player--panic\s*\{[^}]*display: block;/);
   });
 
-  it("焦った顔の絵は、ふつうの顔と、同じ大きさ(切り替えで、位置がずれない)", () => {
-    const viewBox = (path) => /viewBox="([^"]+)"/.exec(read(path))[1];
-    assert.equal(viewBox(PLAYERS[0].path), viewBox(PLAYERS[1].path));
+  it("焦った顔の絵は、ふつうの顔と同じ表示寸法", () => {
+    assert.deepEqual(
+      [readPng(PLAYERS[0].image).width, readPng(PLAYERS[0].image).height],
+      [readPng(PLAYERS[1].image).width, readPng(PLAYERS[1].image).height],
+    );
   });
 });
