@@ -82,10 +82,10 @@ for (const { id, path, image, size, frame } of ALL) {
         svg,
         `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size[0]} ${size[1]}" width="${size[0]}" height="${size[1]}">\n  <image href="/assets/img/escape-boss/${id}-realistic.png" width="${size[0]}" height="${size[1]}" preserveAspectRatio="none" />\n</svg>\n`,
       );
-      assert.deepEqual([png.width, png.height], [
-        frame[0] * FRAMES * PIXEL_SCALE,
-        frame[1] * PIXEL_SCALE,
-      ]);
+      assert.deepEqual(
+        [png.width, png.height],
+        [frame[0] * FRAMES * PIXEL_SCALE, frame[1] * PIXEL_SCALE],
+      );
       assert.equal(png.colorType, 6, "アルファ透過のある RGBA 画像です");
       assert.ok(png.bytes.length <= 200_000, `${png.bytes.length} バイト`);
     });
