@@ -503,11 +503,18 @@ export function createView(root) {
         // 追ってくる人の動きは、役職ごとに決まっている(roles.json の scene.motion)
         scene.dataset.motion = motionOf(role);
         scene.dataset.simpleGraphics = simpleGraphics ? "true" : "";
-        // 職種の背景は、その職種の絵だけを読み込む(決まった場所の SVG でなければ、背景なし)。
+        // 職種の背景は、その職種の絵だけを読み込む(決まった場所の画像でなければ、背景なし)。
         // グラフィックを抑える設定のときは、そもそも読み込まない
         const background = !simpleGraphics && backgroundOf(job);
-        if (background) scene.style.setProperty("--scene-bg", `url("${background}")`);
-        else scene.style.removeProperty("--scene-bg");
+        if (background) {
+          scene.style.setProperty("--scene-bg", `url("${background}")`);
+          if (background.endsWith(".png"))
+            scene.style.setProperty("--tile-w", "var(--scene-h)");
+          else scene.style.removeProperty("--tile-w");
+        } else {
+          scene.style.removeProperty("--scene-bg");
+          scene.style.removeProperty("--tile-w");
+        }
         scene.classList.remove("is-danger");
         scene.dataset.event = "";
       }
