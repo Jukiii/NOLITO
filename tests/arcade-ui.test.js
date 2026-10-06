@@ -129,7 +129,10 @@ describe("game.css のアーケード画面", () => {
       css,
       /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)::after\s*\{[\s\S]*background-image: url\("\/assets\/img\/escape-boss\/player\.svg"\);[\s\S]*game-backdrop-player-frames 0\.55s steps\(6\) infinite;/,
     );
-    assert.match(css, /@keyframes game-backdrop-chaser-frames\s*\{[\s\S]*background-position: 100% 0/);
+    assert.match(
+      css,
+      /@keyframes game-backdrop-chaser-frames\s*\{[\s\S]*background-position: 100% 0/,
+    );
     assert.match(css, /@keyframes game-backdrop-chase\s*\{[\s\S]*translateX\(8vw\)/);
     assert.doesNotMatch(css, /game-backdrop-drift|game-backdrop-road/);
     assert.match(
