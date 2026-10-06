@@ -2015,41 +2015,72 @@ body:has([data-game] [data-view="play"]:not([hidden])) .main {
   --container-max: 72rem;
 }
 
-/* プレイ中は画面全体にネオンの光と格子をゆっくり流し、ゲーム画面の外側にも奥行きを出す */
+/* プレイ中は、先輩が追いかけてくる場面を画面全体の背景に広げる */
 body:has([data-game] [data-view="play"]:not([hidden])) {
   background-color: var(--arcade-bg);
-  background-image:
-    radial-gradient(
-      ellipse at 20% 20%,
-      color-mix(in srgb, var(--arcade-cyan) 12%, transparent),
-      transparent 42%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      color-mix(in srgb, var(--arcade-magenta) 10%, transparent),
-      transparent 45%
-    ),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--arcade-cyan) 8%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(color-mix(in srgb, var(--arcade-magenta) 8%, transparent) 1px, transparent 1px);
-  background-size:
-    160% 160%,
-    160% 160%,
-    3rem 3rem,
-    3rem 3rem;
-  animation: game-backdrop-drift 32s linear infinite;
+  isolation: isolate;
 }
 
-@keyframes game-backdrop-drift {
+body:has([data-game] [data-view="play"]:not([hidden]))::before,
+body:has([data-game] [data-view="play"]:not([hidden]))::after {
+  position: fixed;
+  z-index: -1;
+  bottom: 2vh;
+  background-repeat: no-repeat;
+  background-size: 600% 100%;
+  content: "";
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+/* 背景の先輩は左から近づき、右側のプレイヤーは走り続ける */
+body:has([data-game] [data-view="play"]:not([hidden]))::before {
+  left: -9vw;
+  width: min(42vw, 32rem);
+  aspect-ratio: 3 / 2;
+  background-image: url("/assets/img/escape-boss/senpai.svg");
+  animation:
+    game-backdrop-chaser-frames 0.7s steps(6) infinite,
+    game-backdrop-chase 6s ease-in-out infinite alternate;
+}
+
+body:has([data-game] [data-view="play"]:not([hidden]))::after {
+  right: 2vw;
+  width: min(22vw, 17rem);
+  aspect-ratio: 4 / 5;
+  background-image: url("/assets/img/escape-boss/player.svg");
+  animation: game-backdrop-player-frames 0.55s steps(6) infinite;
+}
+
+@keyframes game-backdrop-chaser-frames {
   to {
-    background-position:
-      100% 100%,
-      0 0,
-      0 3rem,
-      3rem 0;
+    background-position: 100% 0;
+  }
+}
+
+@keyframes game-backdrop-player-frames {
+  to {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes game-backdrop-chase {
+  to {
+    transform: translateX(8vw);
+  }
+}
+
+@media (width <= 30rem) {
+  body:has([data-game] [data-view="play"]:not([hidden]))::before {
+    left: -18vw;
+    width: 58vw;
+    opacity: 0.16;
+  }
+
+  body:has([data-game] [data-view="play"]:not([hidden]))::after {
+    right: -4vw;
+    width: 34vw;
+    opacity: 0.16;
   }
 }
 

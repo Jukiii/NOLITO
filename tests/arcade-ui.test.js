@@ -115,13 +115,23 @@ describe("game.css のアーケード画面", () => {
     );
   });
 
-  it("プレイ中は画面全体の格子とネオン光をゆっくり流し、動きを減らす設定では停止する", () => {
+  it("プレイ中は先輩が追いかける背景を全画面で動かし、動きを減らす設定では停止する", () => {
     const baseCss = read("public/assets/css/base.css");
     assert.match(
       css,
-      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)\s*\{[\s\S]*background-image:[\s\S]*linear-gradient[\s\S]*animation: game-backdrop-drift 32s linear infinite;/,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)::before,[\s\S]*::after\s*\{[\s\S]*position: fixed;[\s\S]*pointer-events: none;/,
     );
-    assert.match(css, /@keyframes game-backdrop-drift\s*\{[\s\S]*background-position:/);
+    assert.match(
+      css,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)::before\s*\{[\s\S]*background-image: url\("\/assets\/img\/escape-boss\/senpai\.svg"\);[\s\S]*game-backdrop-chaser-frames 0\.7s steps\(6\) infinite,[\s\S]*game-backdrop-chase 6s ease-in-out infinite alternate;/,
+    );
+    assert.match(
+      css,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)::after\s*\{[\s\S]*background-image: url\("\/assets\/img\/escape-boss\/player\.svg"\);[\s\S]*game-backdrop-player-frames 0\.55s steps\(6\) infinite;/,
+    );
+    assert.match(css, /@keyframes game-backdrop-chaser-frames\s*\{[\s\S]*background-position: 100% 0/);
+    assert.match(css, /@keyframes game-backdrop-chase\s*\{[\s\S]*translateX\(8vw\)/);
+    assert.doesNotMatch(css, /game-backdrop-drift|game-backdrop-road/);
     assert.match(
       baseCss,
       /prefers-reduced-motion: reduce[\s\S]*animation-duration: 0\.01ms !important/,
