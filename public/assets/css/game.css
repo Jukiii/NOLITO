@@ -2030,66 +2030,30 @@ body:has([data-game] [data-view="play"]:not([hidden])) .game-play .game-word {
   background: color-mix(in srgb, var(--arcade-panel) 68%, transparent);
 }
 
-body:has([data-game] [data-view="play"]:not([hidden]))::before,
-body:has([data-game] [data-view="play"]:not([hidden]))::after {
+/* 既存の追いかけシーン全体を画面の背景に広げる。職場・人物・道路が、お題の背面にも見える */
+body:has([data-game] [data-view="play"]:not([hidden])) .game-play .scene {
+  --chaser-w: min(56vw, 48vh);
+  --player-w: min(32vw, 32vh);
+  --scene-h: 100vh;
+
   position: fixed;
   z-index: -1;
-  bottom: 2vh;
-  background-repeat: no-repeat;
-  background-size: 600% 100%;
-  content: "";
-  opacity: 0.45;
-  pointer-events: none;
-}
-
-/* 背景の先輩は左から近づき、右側のプレイヤーは走り続ける */
-body:has([data-game] [data-view="play"]:not([hidden]))::before {
-  left: -9vw;
-  width: min(42vw, 32rem);
-  aspect-ratio: 3 / 2;
-  background-image: url("/assets/img/escape-boss/senpai.svg");
-  animation:
-    game-backdrop-chaser-frames 0.7s steps(6) infinite,
-    game-backdrop-chase 6s ease-in-out infinite alternate;
-}
-
-body:has([data-game] [data-view="play"]:not([hidden]))::after {
-  right: 2vw;
-  width: min(22vw, 17rem);
-  aspect-ratio: 4 / 5;
-  background-image: url("/assets/img/escape-boss/player.svg");
-  animation: game-backdrop-player-frames 0.55s steps(6) infinite;
-}
-
-@keyframes game-backdrop-chaser-frames {
-  to {
-    background-position: 100% 0;
-  }
-}
-
-@keyframes game-backdrop-player-frames {
-  to {
-    background-position: 100% 0;
-  }
-}
-
-@keyframes game-backdrop-chase {
-  to {
-    transform: translateX(8vw);
-  }
+  inset: 0;
+  width: auto;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  opacity: 0.62;
 }
 
 @media (width <= 30rem) {
-  body:has([data-game] [data-view="play"]:not([hidden]))::before {
-    left: -18vw;
-    width: 58vw;
-    opacity: 0.16;
-  }
+  body:has([data-game] [data-view="play"]:not([hidden])) .game-play .scene {
+    --chaser-w: min(56vw, 38vh);
+    --player-w: min(32vw, 28vh);
 
-  body:has([data-game] [data-view="play"]:not([hidden]))::after {
-    right: -4vw;
-    width: 34vw;
-    opacity: 0.16;
+    opacity: 0.48;
   }
 }
 

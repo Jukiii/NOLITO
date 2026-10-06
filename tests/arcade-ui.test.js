@@ -115,26 +115,23 @@ describe("game.css のアーケード画面", () => {
     );
   });
 
-  it("プレイ中は先輩が追いかける背景を全画面で動かし、動きを減らす設定では停止する", () => {
+  it("プレイ中は職場・先輩・プレイヤー・道路のシーンを全画面背景に広げる", () => {
     const baseCss = read("public/assets/css/base.css");
+    const html = read("public/games/escape-boss/index.html");
     assert.match(
       css,
-      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)::before,[\s\S]*::after\s*\{[\s\S]*position: fixed;[\s\S]*pointer-events: none;/,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\) \.game-play \.scene\s*\{[\s\S]*position: fixed;[\s\S]*z-index: -1;[\s\S]*inset: 0;[\s\S]*height: 100vh;[\s\S]*height: 100dvh;/,
     );
     assert.match(
       css,
-      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)::before\s*\{[\s\S]*background-image: url\("\/assets\/img\/escape-boss\/senpai\.svg"\);[\s\S]*game-backdrop-chaser-frames 0\.7s steps\(6\) infinite,[\s\S]*game-backdrop-chase 6s ease-in-out infinite alternate;/,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\) \.game-play \.scene\s*\{[\s\S]*--chaser-w: min\(56vw, 48vh\);[\s\S]*--player-w: min\(32vw, 32vh\);[\s\S]*opacity: 0\.62;/,
     );
-    assert.match(
-      css,
-      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\)::after\s*\{[\s\S]*background-image: url\("\/assets\/img\/escape-boss\/player\.svg"\);[\s\S]*game-backdrop-player-frames 0\.55s steps\(6\) infinite;/,
-    );
-    assert.match(
-      css,
-      /@keyframes game-backdrop-chaser-frames\s*\{[\s\S]*background-position: 100% 0/,
-    );
-    assert.match(css, /@keyframes game-backdrop-chase\s*\{[\s\S]*translateX\(8vw\)/);
-    assert.doesNotMatch(css, /game-backdrop-drift|game-backdrop-road/);
+    assert.match(css, /@media \(width <= 30rem\)[\s\S]*--chaser-w: min\(56vw, 38vh\);/);
+    assert.match(html, /class="scene"[^>]*data-chase-only/);
+    assert.match(html, /class="scene__road"/);
+    assert.match(html, /data-chaser/);
+    assert.match(html, /class="scene__player scene__player--calm"/);
+    assert.doesNotMatch(css, /game-backdrop-chaser|game-backdrop-player|game-backdrop-chase/);
     assert.match(
       baseCss,
       /prefers-reduced-motion: reduce[\s\S]*animation-duration: 0\.01ms !important/,
@@ -154,7 +151,7 @@ describe("game.css のアーケード画面", () => {
       css,
       /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\) \.game-play \.game-word\s*\{\s*background: color-mix\(in srgb, var\(--arcade-panel\) 68%, transparent\);/,
     );
-    assert.match(css, /opacity: 0\.45;/);
+    assert.match(css, /opacity: 0\.48;/);
   });
 
   it("危ないときの場面は、背景の流れを残したまま、縁も脈打つ", () => {
