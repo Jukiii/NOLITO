@@ -2021,6 +2021,15 @@ body:has([data-game] [data-view="play"]:not([hidden])) {
   isolation: isolate;
 }
 
+/* 追いかけっこをゲーム枠の内側にも見せ、お題は文字が読める濃さの半透明にする */
+body:has([data-game] [data-view="play"]:not([hidden])) .game-play {
+  background: transparent;
+}
+
+body:has([data-game] [data-view="play"]:not([hidden])) .game-play .game-word {
+  background: color-mix(in srgb, var(--arcade-panel) 68%, transparent);
+}
+
 body:has([data-game] [data-view="play"]:not([hidden]))::before,
 body:has([data-game] [data-view="play"]:not([hidden]))::after {
   position: fixed;
@@ -2029,7 +2038,7 @@ body:has([data-game] [data-view="play"]:not([hidden]))::after {
   background-repeat: no-repeat;
   background-size: 600% 100%;
   content: "";
-  opacity: 0.24;
+  opacity: 0.45;
   pointer-events: none;
 }
 

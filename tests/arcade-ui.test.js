@@ -145,6 +145,18 @@ describe("game.css のアーケード画面", () => {
     );
   });
 
+  it("追いかける背景はプレイ枠の内側にも見え、お題カードは半透明にする", () => {
+    assert.match(
+      css,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\) \.game-play\s*\{\s*background: transparent;/,
+    );
+    assert.match(
+      css,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\) \.game-play \.game-word\s*\{\s*background: color-mix\(in srgb, var\(--arcade-panel\) 68%, transparent\);/,
+    );
+    assert.match(css, /opacity: 0\.45;/);
+  });
+
   it("危ないときの場面は、背景の流れを残したまま、縁も脈打つ", () => {
     const start = css.indexOf(".scene.is-danger {");
     const block = css.slice(start, css.indexOf("}", start));
