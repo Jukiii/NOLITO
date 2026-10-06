@@ -2,17 +2,20 @@
   {
     "id": "engineer",
     "name": "エンジニア",
-    "background": "/assets/img/escape-boss/bg/engineer.png"
+    "background": "/assets/img/escape-boss/bg/engineer.png",
+    "character_dir": "/assets/img/escape-boss/jobs/engineer"
   },
   {
     "id": "sales",
     "name": "営業",
-    "background": "/assets/img/escape-boss/bg/sales.png"
+    "background": "/assets/img/escape-boss/bg/sales.png",
+    "character_dir": "/assets/img/escape-boss/jobs/sales"
   },
   {
     "id": "office",
     "name": "事務",
-    "background": "/assets/img/escape-boss/bg/office.png"
+    "background": "/assets/img/escape-boss/bg/office.png",
+    "character_dir": "/assets/img/escape-boss/jobs/office"
   },
   {
     "id": "food-service",

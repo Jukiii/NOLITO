@@ -2,12 +2,15 @@ import assert from "node:assert/strict";
 import { readFileSync, statSync } from "node:fs";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
+import { chaserImageOf, playerImageOf } from "../public/assets/js/games/escape-boss/scene.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
 const roles = JSON.parse(read("public/data/roles.json"));
+const jobs = JSON.parse(read("public/data/jobs.json"));
 const play = read("public/games/escape-boss/index.html");
 const css = read("public/assets/css/game.css");
+const view = read("public/assets/js/games/escape-boss/view.js");
 
 const FRAMES = 6;
 const PIXEL_SCALE = 3;
@@ -40,6 +43,18 @@ function readPng(path) {
     );
   assert.ok(source, `${path} は自己完結した PNG 素材を表示します`);
   const bytes = Buffer.from(source[1], "base64");
+  assert.deepEqual(bytes.subarray(0, 8), PNG_SIGNATURE, `${path} は PNG です`);
+  assert.equal(bytes.toString("ascii", 12, 16), "IHDR", `${path} に PNG ヘッダーがあります`);
+  return {
+    bytes,
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+    colorType: bytes[25],
+  };
+}
+
+function readSpritePng(path) {
+  const bytes = readFileSync(`${root}${path}`);
   assert.deepEqual(bytes.subarray(0, 8), PNG_SIGNATURE, `${path} は PNG です`);
   assert.equal(bytes.toString("ascii", 12, 16), "IHDR", `${path} に PNG ヘッダーがあります`);
   return {
@@ -111,6 +126,64 @@ describe("危ないときの、あなたの表情", () => {
     assert.deepEqual(
       [readPng(PLAYERS[0].path).width, readPng(PLAYERS[0].path).height],
       [readPng(PLAYERS[1].path).width, readPng(PLAYERS[1].path).height],
+    );
+  });
+});
+
+describe("職種別キャラクター", () => {
+  const characterJobs = jobs.filter((job) => job.character_dir);
+
+  it("利用可能な職種の選択に、味方・敵の各スプライトを切り替える", () => {
+    assert.deepEqual(
+      characterJobs.map((job) => job.id),
+      ["engineer", "sales", "office"],
+    );
+    for (const job of characterJobs) {
+      assert.equal(playerImageOf(job), `${job.character_dir}/player.png`);
+      assert.equal(playerImageOf(job, true), `${job.character_dir}/player-panic.png`);
+      for (const role of roles) {
+        assert.equal(chaserImageOf(job, role), `${job.character_dir}/${role.id}.png`);
+      }
+    }
+    assert.match(view, /data-player-calm/);
+    assert.match(view, /data-player-panic/);
+    assert.match(view, /data-ready-character/);
+    assert.match(view, /chaserImageOf\(job, role\)/);
+    assert.match(view, /playerImageOf\(job, true\)/);
+    assert.match(play, /data-player-calm/);
+    assert.match(play, /data-player-panic/);
+    assert.match(play, /data-ready-character/);
+  });
+
+  it("各スプライトは6コマの透過PNGで、既存の寸法とファイルサイズに収まる", () => {
+    for (const job of characterJobs) {
+      const paths = [
+        playerImageOf(job),
+        playerImageOf(job, true),
+        ...roles.map((role) => chaserImageOf(job, role)),
+      ];
+      for (const path of paths) {
+        const asset = readSpritePng(`public${path}`);
+        const player = path.endsWith("/player.png") || path.endsWith("/player-panic.png");
+        assert.deepEqual([asset.width, asset.height], [player ? 384 : 720, 80], path);
+        assert.equal(asset.colorType, 6, `${path} はアルファチャンネルを持ちます`);
+        assert.ok(asset.bytes.length <= 200_000, `${path}: ${asset.bytes.length} バイト`);
+      }
+    }
+  });
+
+  it("素材がない職種は既存の共通キャラクターを使い、不正な参照は受け付けない", () => {
+    const job = jobs.find((item) => item.id === "food-service");
+    assert.equal(playerImageOf(job), "/assets/img/escape-boss/player.svg");
+    assert.equal(playerImageOf(job, true), "/assets/img/escape-boss/player-panic.svg");
+    assert.equal(chaserImageOf(job, roles[0]), roles[0].image);
+    assert.equal(
+      playerImageOf({ id: "engineer", character_dir: "https://example.com/player.png" }),
+      "/assets/img/escape-boss/player.svg",
+    );
+    assert.equal(
+      chaserImageOf(job, { id: "senpai", image: "https://example.com/senpai.svg" }),
+      roles[0].image,
     );
   });
 });

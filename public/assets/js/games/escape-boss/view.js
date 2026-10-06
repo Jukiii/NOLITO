@@ -5,7 +5,16 @@ import { achievementItem } from "./achievement-item.js";
 import { reviewItem } from "./review-item.js";
 import { activeCues, cueLabel, describeRules, rulesOf } from "./rules.js";
 import { isSkipKey } from "./staging.js";
-import { EVENT_MS, SCENE_EVENTS, backgroundOf, closenessOf, isDanger, motionOf } from "./scene.js";
+import {
+  EVENT_MS,
+  SCENE_EVENTS,
+  backgroundOf,
+  chaserImageOf,
+  closenessOf,
+  isDanger,
+  motionOf,
+  playerImageOf,
+} from "./scene.js";
 import { DEFAULT_DIFFICULTY } from "./difficulty.js";
 
 // 画面の描画。HTML は index.html に静的に書き、ここでは data 属性を目印に中身だけを更新する。
@@ -499,7 +508,10 @@ export function createView(root) {
       setText('[data-stat="goal"]', goal);
       if (!check) {
         setText('[data-stat="role"]', role.name);
-        $("[data-chaser]").setAttribute("src", role.image);
+        $("[data-chaser]").setAttribute("src", chaserImageOf(job, role));
+        $("[data-player-calm]").setAttribute("src", playerImageOf(job));
+        $("[data-player-panic]").setAttribute("src", playerImageOf(job, true));
+        $("[data-ready-character]").setAttribute("src", playerImageOf(job));
         // 追ってくる人の動きは、役職ごとに決まっている(roles.json の scene.motion)
         scene.dataset.motion = motionOf(role);
         scene.dataset.simpleGraphics = simpleGraphics ? "true" : "";
