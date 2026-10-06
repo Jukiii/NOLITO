@@ -35,7 +35,7 @@ const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 function readPng(path) {
   const svg = read(path);
   const source =
-    /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 \d+ \d+" width="\d+" height="\d+">\n  <image href="data:image\/png;base64,([A-Za-z0-9+/=]+)" width="\d+" height="\d+" preserveAspectRatio="none" \/>\n<\/svg>\n$/.exec(
+    /^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0[ ]0[ ]\d+[ ]\d+" width="\d+" height="\d+">\n {2}<image href="data:image\/png;base64,([A-Za-z0-9+/=]+)" width="\d+" height="\d+" preserveAspectRatio="none" \/>\n<\/svg>\n$/.exec(
       svg,
     );
   assert.ok(source, `${path} は自己完結した PNG 素材を表示します`);
