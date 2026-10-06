@@ -2015,6 +2015,48 @@ body:has([data-game] [data-view="play"]:not([hidden])) .main {
   --container-max: 72rem;
 }
 
+/* プレイ中は、先輩が追いかけてくる場面を画面全体の背景に広げる */
+body:has([data-game] [data-view="play"]:not([hidden])) {
+  background-color: var(--arcade-bg);
+  isolation: isolate;
+}
+
+/* 追いかけっこをゲーム枠の内側にも見せ、お題は文字が読める濃さの半透明にする */
+body:has([data-game] [data-view="play"]:not([hidden])) .game-play {
+  background: transparent;
+}
+
+body:has([data-game] [data-view="play"]:not([hidden])) .game-play .game-word {
+  background: color-mix(in srgb, var(--arcade-panel) 68%, transparent);
+}
+
+/* 既存の追いかけシーン全体を画面の背景に広げる。職場・人物・道路が、お題の背面にも見える */
+body:has([data-game] [data-view="play"]:not([hidden])) .game-play .scene {
+  --chaser-w: min(56vw, 48vh);
+  --player-w: min(32vw, 32vh);
+  --scene-h: 100vh;
+
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  width: auto;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  opacity: 0.62;
+}
+
+@media (width <= 30rem) {
+  body:has([data-game] [data-view="play"]:not([hidden])) .game-play .scene {
+    --chaser-w: min(56vw, 38vh);
+    --player-w: min(32vw, 28vh);
+
+    opacity: 0.48;
+  }
+}
+
 /*
  * 横向き(landscape)の低い画面(スマホを横に持ったときなど)では、縦の余白・場面の高さを詰めて、
  * 入力欄が画面の外に出ないようにする(Phase 22 PR1)。並び順(距離ゲージ→場面→単語→入力欄)は変えない。

@@ -40,13 +40,40 @@ export function outroStyleOf(role, kind) {
   return typeof style === "string" && OUTRO_STYLES[kind].includes(style) ? style : null;
 }
 
-// 職種の背景の絵(jobs.json の background)。サイト内の決まった場所の SVG だけを受け付ける。
+// 職種の背景の絵(jobs.json の background)。サイト内の決まった場所の画像だけを受け付ける。
 // CSS の url() に入れるので、引用符・かっこ・空白を含む値、ほかの場所・形式は、使わない(null)
-const BACKGROUND_PATH = /^\/assets\/img\/escape-boss\/bg\/[a-z0-9]+(?:-[a-z0-9]+)*\.svg$/;
+const BACKGROUND_PATH = /^\/assets\/img\/escape-boss\/bg\/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:svg|png)$/;
 export const backgroundOf = (job) =>
   typeof job?.background === "string" && BACKGROUND_PATH.test(job.background)
     ? job.background
     : null;
+
+// 職種別キャラクターの画像。提供されていない職種は、既存の共通キャラクターを使う。
+const CHARACTER_DIR = /^\/assets\/img\/escape-boss\/jobs\/([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+const ROLE_IDS = Object.freeze(["senpai", "kakaricho", "buchou", "shachou", "kaicho"]);
+const PLAYER_IMAGE = "/assets/img/escape-boss/player.svg";
+const PLAYER_PANIC_IMAGE = "/assets/img/escape-boss/player-panic.svg";
+
+function characterDirectoryOf(job) {
+  const match = typeof job?.character_dir === "string" && CHARACTER_DIR.exec(job.character_dir);
+  return match && match[1] === job.id ? job.character_dir : null;
+}
+
+/** 役職の絵。職種別素材がなければ、役職共通の絵に戻す。 */
+export function chaserImageOf(job, role) {
+  const roleId = ROLE_IDS.includes(role?.id) ? role.id : "senpai";
+  const directory = characterDirectoryOf(job);
+  if (directory) return `${directory}/${roleId}.png`;
+  const image = `/assets/img/escape-boss/${roleId}.svg`;
+  return role?.image === image ? role.image : image;
+}
+
+/** プレイヤーの絵。職種別素材がなければ、既存の共通の絵に戻す。 */
+export function playerImageOf(job, panic = false) {
+  const directory = characterDirectoryOf(job);
+  if (directory) return `${directory}/${panic ? "player-panic" : "player"}.png`;
+  return panic ? PLAYER_PANIC_IMAGE : PLAYER_IMAGE;
+}
 
 // 場面の一瞬の演出(miss = ミスで追ってくる人が飛び出す / gain = 正解で引き離す)。CSS の [data-event="…"] と対応する
 export const SCENE_EVENTS = Object.freeze(["miss", "gain"]);
