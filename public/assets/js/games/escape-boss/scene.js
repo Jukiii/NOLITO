@@ -42,8 +42,7 @@ export function outroStyleOf(role, kind) {
 
 // 職種の背景の絵(jobs.json の background)。サイト内の決まった場所の画像だけを受け付ける。
 // CSS の url() に入れるので、引用符・かっこ・空白を含む値、ほかの場所・形式は、使わない(null)
-const BACKGROUND_PATH =
-  /^\/assets\/img\/escape-boss\/bg\/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:svg|png)$/;
+const BACKGROUND_PATH = /^\/assets\/img\/escape-boss\/bg\/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:svg|png)$/;
 export const backgroundOf = (job) =>
   typeof job?.background === "string" && BACKGROUND_PATH.test(job.background)
     ? job.background

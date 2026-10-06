@@ -508,8 +508,7 @@ export function createView(root) {
         const background = !simpleGraphics && backgroundOf(job);
         if (background) {
           scene.style.setProperty("--scene-bg", `url("${background}")`);
-          if (background.endsWith(".png"))
-            scene.style.setProperty("--tile-w", "var(--scene-h)");
+          if (background.endsWith(".png")) scene.style.setProperty("--tile-w", "var(--scene-h)");
           else scene.style.removeProperty("--tile-w");
         } else {
           scene.style.removeProperty("--scene-bg");
