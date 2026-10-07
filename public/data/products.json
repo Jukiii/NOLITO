@@ -74,9 +74,9 @@
       "cta": "遊ぶ",
       "download": null,
       "purchase": null,
-      "version": "0.35.0",
+      "version": "0.36.0",
       "released_at": "2026-09-20",
-      "updated_at": "2026-10-04",
+      "updated_at": "2026-10-07",
       "faq": [
         {
           "question": "記録は、どこに保存されますか?",
@@ -160,6 +160,13 @@
         }
       ],
       "changelog": [
+        {
+          "version": "0.36.0",
+          "date": "2026-10-07",
+          "changes": [
+            "エンジニアの語録を見直し、開発で使う build・deploy と Git のコマンド merge・push・clone・checkout は、英語表記で表示してそのまま入力するようにした"
+          ]
+        },
         {
           "version": "0.35.0",
           "date": "2026-10-04",
