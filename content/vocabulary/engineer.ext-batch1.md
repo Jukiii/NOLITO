@@ -162,8 +162,10 @@ items:
       enabled: true
     review: confirmed
   - id: engineer-044
-    japanese: "デプロイ"
+    japanese: "deploy"
     reading: "でぷろい"
+    romaji: [deploy]
+    typing: deploy
     category: "インフラ"
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -174,8 +176,10 @@ items:
       enabled: true
     review: confirmed
   - id: engineer-045
-    japanese: "ビルド"
+    japanese: "build"
     reading: "びるど"
+    romaji: [build]
+    typing: build
     category: "開発"
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -595,8 +599,10 @@ items:
       enabled: true
     review: confirmed
   - id: engineer-080
-    japanese: "マージ"
+    japanese: "merge"
     reading: "まーじ"
+    romaji: [merge]
+    typing: merge
     category: "開発"
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]

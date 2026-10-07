@@ -161,6 +161,26 @@ describe("実際の語録(全語)", () => {
 });
 
 describe("英語のまま打つ語(typing)", () => {
+  it("Git のコマンドは、英語表記で表示してそのまま入力する", () => {
+    const expected = {
+      "engineer-044": "deploy",
+      "engineer-045": "build",
+      "engineer-173": "import",
+      "engineer-174": "export",
+      "engineer-080": "merge",
+      "engineer-095": "push",
+      "engineer-096": "clone",
+      "engineer-097": "checkout",
+    };
+    for (const [id, spelling] of Object.entries(expected)) {
+      const word = typedWords.find((item) => item.id === id);
+      assert.ok(word, id);
+      assert.equal(word.japanese, spelling, id);
+      assert.equal(word.typing, spelling, id);
+      assert.equal(word.romaji[0], spelling, id);
+    }
+  });
+
   it("英語で打つ語がある。書いたとおりの英字で、どの書き方の設定でも同じに入力できる", () => {
     assert.ok(typedWords.length > 0);
     for (const word of typedWords) {

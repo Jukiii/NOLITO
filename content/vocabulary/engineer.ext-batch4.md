@@ -166,16 +166,20 @@ items:
     explanation: "関連するコードをまとめ、再利用や管理をしやすくした単位のこと。"
     review: confirmed
   - id: "engineer-173"
-    japanese: "インポート"
+    japanese: "import"
     reading: "いんぽーと"
+    romaji: [import]
+    typing: import
     category: "開発"
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
     explanation: "別のモジュールにある機能を、現在のコードで使えるようにすること。"
     review: confirmed
   - id: "engineer-174"
-    japanese: "エクスポート"
+    japanese: "export"
     reading: "えくすぽーと"
+    romaji: [export]
+    typing: export
     category: "開発"
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]

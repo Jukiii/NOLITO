@@ -126,8 +126,10 @@ items:
       enabled: true
     review: confirmed
   - id: engineer-095
-    japanese: "プッシュ"
+    japanese: "push"
     reading: "ぷっしゅ"
+    romaji: [push]
+    typing: push
     category: "開発"
     difficulty: 1
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -138,8 +140,10 @@ items:
       enabled: true
     review: confirmed
   - id: engineer-096
-    japanese: "クローン"
+    japanese: "clone"
     reading: "くろーん"
+    romaji: [clone]
+    typing: clone
     category: "開発"
     difficulty: 2
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
@@ -150,8 +154,10 @@ items:
       enabled: true
     review: confirmed
   - id: engineer-097
-    japanese: "チェックアウト"
+    japanese: "checkout"
     reading: "ちぇっくあうと"
+    romaji: [checkout]
+    typing: checkout
     category: "開発"
     difficulty: 3
     roles: [senpai, kakaricho, buchou, shachou, kaicho]
