@@ -82,6 +82,7 @@ describe("複数の表記", () => {
     assert.ok(accepts("ふぁ", "fa"));
     assert.ok(accepts("りふぁくたりんぐ", "rifakutaringu"));
     assert.ok(accepts("てぃ", "thi"));
+    assert.ok(accepts("うぉ", "who"));
   });
 
   it("長音は - で入力する", () => {
