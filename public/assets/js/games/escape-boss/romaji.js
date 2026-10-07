@@ -36,6 +36,7 @@ const COMBO_ROWS = `
 しぇ=she,sye じぇ=je,zye,jye ちぇ=che,tye,cye
 ふぁ=fa ふぃ=fi ふぇ=fe ふぉ=fo
 てぃ=thi でぃ=dhi うぃ=wi うぇ=we
+うぉ=uxo,who
 `;
 
 // 訓令式で表示するときに、先頭(画面に出す表記)にする書き方。ほかの書き方も、受け付ける
