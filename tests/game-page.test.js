@@ -62,7 +62,7 @@ describe("view.js・main.js が探す目印が、HTML にある", () => {
       "data-check-back",
       "data-check-note",
       "data-word-explanation",
-      "data-result-missed-list",
+      "data-result-words-list",
       'data-stat-label="correct"',
     ]) {
       assert.ok(html.includes(hook), hook);
@@ -213,6 +213,11 @@ describe("復習リスト(成績ページ)", () => {
   it("結果の画面と成績ページは、同じ部品(review-item.js)で、語を描く。表示は el() だけ", () => {
     assert.match(view, /import \{ reviewItem \} from "\.\/review-item\.js"/);
     assert.match(statsPage, /import \{ reviewItem \} from "\.\/review-item\.js"/);
+    assert.match(
+      main,
+      /resultWords\(session\.words, session\.keyStats\.wordMisses, session\.index\)/,
+    );
+    assert.match(view, /renderReviewList\("\[data-result-words-list\]", resultWords\)/);
     const item = read("public/assets/js/games/escape-boss/review-item.js");
     assert.ok(!/innerHTML|outerHTML|insertAdjacentHTML/.test(item));
     assert.match(item, /word\.explanation/);
@@ -442,7 +447,7 @@ describe("「くわしく」(難語の詳細説明・学習ポイント・関連
     assert.match(statsPage, /import \{ reviewItem \} from "\.\/review-item\.js"/);
     assert.match(view, /entries\.map\(reviewItem\)/);
     for (const selector of [
-      "data-result-missed-list",
+      "data-result-words-list",
       "data-check-missed-list",
       "data-check-words-list",
     ]) {

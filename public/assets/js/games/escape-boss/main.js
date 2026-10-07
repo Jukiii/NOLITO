@@ -6,7 +6,6 @@ import {
   checkMiss,
   checkNext,
   createCheckState,
-  missedWords,
   pickCheckWords,
   summarizeCheck,
 } from "./check.js";
@@ -24,7 +23,7 @@ import { grantExp, isRoleUnlocked, recordResult, unlockAchievements } from "./re
 import { jobMasteries } from "./mastery.js";
 import { createLines, lineLevelOf } from "./lines.js";
 import { canonicalLengthOf, createWordMatcher } from "./romaji.js";
-import { buildReviewList, indexWords } from "./review.js";
+import { buildReviewList, indexWords, resultWords } from "./review.js";
 import { roleSoundOf } from "./role-sound.js";
 import { isDanger, outroStyleOf } from "./scene.js";
 import { summarize } from "./score.js";
@@ -701,7 +700,7 @@ function finish() {
       keys: mostMissedKeys(session.keyStats, 3),
       confusions: topConfusions(session.keyStats, 3),
     },
-    missed: missedWords(session.words, session.keyStats.wordMisses),
+    resultWords: resultWords(session.words, session.keyStats.wordMisses, session.index),
   };
   const cleared = state.status === "cleared";
   const extras = [
