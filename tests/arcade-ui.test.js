@@ -108,15 +108,20 @@ describe("game.css のゲーム画面", () => {
     assert.ok(overlay.includes("data-bubble"));
   });
 
-  it("乗り物役職は右向きに反転し、先輩は元の向きを保つ。動きは細かく揺れすぎない", () => {
+  it("車とヘリは右向きに反転し、先輩と自転車は元の向きを保つ。動きは細かく揺れすぎない", () => {
     assert.match(
       css,
-      /\.scene:not\(\[data-motion="run"\]\) \.scene__chaser-img \.scene__sprite\s*\{[^}]*scale: -1 1/,
+      /\.scene\[data-motion="drive"\],\s*\.scene\[data-motion="glide"\],\s*\.scene\[data-motion="aura"\]\s*\{[^}]*--chaser-direction: -1/,
+    );
+    assert.match(
+      css,
+      /\.scene__chaser-img\s*\{[^}]*scale: var\(--chaser-direction, 1\) var\(--chaser-size, 1\)/,
     );
     assert.doesNotMatch(
       css,
-      /\.scene\[data-motion="run"\] \.scene__chaser-img \.scene__sprite\s*\{[^}]*scale:/,
+      /\.scene\[data-motion="(?:run|pedal)"\] \.scene__chaser\s*\{[^}]*scale:/,
     );
+    assert.doesNotMatch(css, /\.scene__chaser-img \.scene__sprite\s*\{[^}]*scale:/);
     assert.match(
       css,
       /\.scene\[data-motion="pedal"\] \.scene__chaser-img\s*\{[^}]*scene-pedal 0\.8s/,

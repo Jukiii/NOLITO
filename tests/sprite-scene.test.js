@@ -25,6 +25,18 @@ describe("コマ送りの絵", () => {
     );
   });
 
+  it("車とヘリだけ追跡枠を反転し、スプライトの切り抜き位置を保つ", () => {
+    assert.match(
+      css,
+      /\.scene\[data-motion="drive"\],\s*\.scene\[data-motion="glide"\],\s*\.scene\[data-motion="aura"\]\s*\{[^}]*--chaser-direction: -1/,
+    );
+    assert.match(
+      css,
+      /\.scene__chaser-img\s*\{[^}]*overflow: hidden;[^}]*scale: var\(--chaser-direction, 1\) var\(--chaser-size, 1\)/,
+    );
+    assert.doesNotMatch(css, /\.scene__chaser-img \.scene__sprite\s*\{[^}]*scale:/);
+  });
+
   it("画面の 4 枚(追ってくる人・ふつうの顔・焦った顔・準備の画面のあなた)が、枠 + 絵の形で、飾り(alt が空)", () => {
     const sprites = html.match(/<img\s+class="scene__sprite"[^>]*>/g) ?? [];
     assert.equal(sprites.length, 4);

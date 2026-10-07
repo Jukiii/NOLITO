@@ -508,6 +508,12 @@
 }
 
 /* 追ってくる人: 外側の枠(.scene__chaser)が位置を、中の絵(.scene__chaser-img)が動きを、受け持つ */
+.scene[data-motion="drive"],
+.scene[data-motion="glide"],
+.scene[data-motion="aura"] {
+  --chaser-direction: -1;
+}
+
 .scene__chaser {
   position: absolute;
   bottom: 1.2rem;
@@ -517,11 +523,12 @@
 }
 
 /* 絵は、6 コマを横に並べた 1 枚(スプライトシート)。枠(overflow: hidden)が 1 コマ分だけ見せ、
-   中の絵(.scene__sprite)を、コマ送りでずらす。枠は、位置・演出・大きさの変化(transform など)を受け持つ */
+   中の絵(.scene__sprite)を、コマ送りでずらす。枠は、向き・動き・大きさの変化(transform など)を受け持つ */
 .scene__chaser-img {
   width: 100%;
   aspect-ratio: 3 / 2;
   overflow: hidden;
+  scale: var(--chaser-direction, 1) var(--chaser-size, 1);
   transform-origin: 50% 100%;
 }
 
@@ -540,11 +547,6 @@
   max-width: none;
   height: 100%;
   animation: sprite-frames var(--sprite-cycle, 0.6s) steps(6) infinite;
-}
-
-/* 乗り物を進行方向(右)へ向ける。先輩は元の向きを保つ。scale はスプライト送りの transform と独立 */
-.scene:not([data-motion="run"]) .scene__chaser-img .scene__sprite {
-  scale: -1 1;
 }
 
 /* 危ないとき(.is-danger)は、あなたの表情が、焦った顔(player-panic.svg)に替わる。2 枚とも、最初から読み込んでおく */
@@ -1037,12 +1039,12 @@
 
 /* 追ってくる人の大きさは、動き(transform のアニメーション)と、重ねられるよう、scale で変える */
 .scene[data-cues~="closing"] .scene__chaser-img {
-  scale: 1.06;
+  --chaser-size: 1.06;
 }
 
 .scene[data-cues~="surge"] .scene__chaser-img,
 .scene[data-cues~="shock"] .scene__chaser-img {
-  scale: 1.12;
+  --chaser-size: 1.12;
 }
 
 /* 役職別の、終わりの演出(roles.json の scene.outro。.scene の data-outro に入る)。
