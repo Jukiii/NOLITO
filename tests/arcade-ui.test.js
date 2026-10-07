@@ -108,8 +108,15 @@ describe("game.css のゲーム画面", () => {
     assert.ok(overlay.includes("data-bubble"));
   });
 
-  it("追う人の絵は右向きに反転し、乗り物の動きは細かく揺れすぎない", () => {
-    assert.match(css, /\.scene__chaser-img \.scene__sprite\s*\{[^}]*scale: -1 1/);
+  it("乗り物役職は右向きに反転し、先輩は元の向きを保つ。動きは細かく揺れすぎない", () => {
+    assert.match(
+      css,
+      /\.scene:not\(\[data-motion="run"\]\) \.scene__chaser-img \.scene__sprite\s*\{[^}]*scale: -1 1/,
+    );
+    assert.doesNotMatch(
+      css,
+      /\.scene\[data-motion="run"\] \.scene__chaser-img \.scene__sprite\s*\{[^}]*scale:/,
+    );
     assert.match(
       css,
       /\.scene\[data-motion="pedal"\] \.scene__chaser-img\s*\{[^}]*scene-pedal 0\.8s/,

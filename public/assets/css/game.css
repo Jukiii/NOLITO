@@ -542,8 +542,8 @@
   animation: sprite-frames var(--sprite-cycle, 0.6s) steps(6) infinite;
 }
 
-/* 乗り物・追う人を進行方向(右)へ向ける。scale はスプライト送りの transform と独立 */
-.scene__chaser-img .scene__sprite {
+/* 乗り物を進行方向(右)へ向ける。先輩は元の向きを保つ。scale はスプライト送りの transform と独立 */
+.scene:not([data-motion="run"]) .scene__chaser-img .scene__sprite {
   scale: -1 1;
 }
 
