@@ -165,6 +165,8 @@ describe("英語のまま打つ語(typing)", () => {
     const expected = {
       "engineer-044": "deploy",
       "engineer-045": "build",
+      "engineer-173": "import",
+      "engineer-174": "export",
       "engineer-080": "merge",
       "engineer-095": "push",
       "engineer-096": "clone",
