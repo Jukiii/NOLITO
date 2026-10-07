@@ -543,10 +543,24 @@
 
 .scene__sprite {
   display: block;
-  width: 600%;
+  width: var(--chaser-sheet-width, 600%);
   max-width: none;
-  height: 100%;
+  height: var(--chaser-sheet-height, 100%);
   animation: sprite-frames var(--sprite-cycle, 0.6s) steps(6) infinite;
+}
+
+/* 車体の端が切れないよう、セダン・リムジンは1コマを90%の大きさで中央に収める */
+.scene[data-motion="drive"],
+.scene[data-motion="glide"] {
+  --chaser-sheet-width: 540%;
+  --chaser-sheet-height: 90%;
+}
+
+.scene[data-motion="drive"] .scene__sprite,
+.scene[data-motion="glide"] .scene__sprite {
+  position: relative;
+  top: 5%;
+  left: 5%;
 }
 
 /* 危ないとき(.is-danger)は、あなたの表情が、焦った顔(player-panic.svg)に替わる。2 枚とも、最初から読み込んでおく */

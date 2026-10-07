@@ -14,7 +14,7 @@ describe("コマ送りの絵", () => {
   it("枠(overflow: hidden)の中に、6 倍の幅の絵を置き、steps(6) で、コマを送る", () => {
     assert.match(css, /\.scene__chaser-img\s*\{[^}]*overflow: hidden/);
     assert.match(css, /\.scene__player\s*\{[^}]*overflow: hidden/);
-    assert.match(css, /\.scene__sprite\s*\{[^}]*width: 600%/);
+    assert.match(css, /\.scene__sprite\s*\{[^}]*width: var\(--chaser-sheet-width, 600%\)/);
     assert.match(
       css,
       /animation: sprite-frames var\(--sprite-cycle, [\d.]+s\) steps\(6\) infinite/,
@@ -35,6 +35,21 @@ describe("コマ送りの絵", () => {
       /\.scene__chaser-img\s*\{[^}]*overflow: hidden;[^}]*scale: var\(--chaser-direction, 1\) var\(--chaser-size, 1\)/,
     );
     assert.doesNotMatch(css, /\.scene__chaser-img \.scene__sprite\s*\{[^}]*scale:/);
+  });
+
+  it("セダンとリムジンの全フレームを少し縮小して中央に収め、車体を切らない", () => {
+    assert.match(
+      css,
+      /\.scene\[data-motion="drive"\],\s*\.scene\[data-motion="glide"\]\s*\{\s*--chaser-sheet-width: 540%;\s*--chaser-sheet-height: 90%;/,
+    );
+    assert.match(
+      css,
+      /\.scene\[data-motion="drive"\] \.scene__sprite,\s*\.scene\[data-motion="glide"\] \.scene__sprite\s*\{\s*position: relative;\s*top: 5%;\s*left: 5%;/,
+    );
+    assert.match(
+      css,
+      /\.scene__sprite\s*\{[^}]*width: var\(--chaser-sheet-width, 600%\)[^}]*height: var\(--chaser-sheet-height, 100%\)/,
+    );
   });
 
   it("画面の 4 枚(追ってくる人・ふつうの顔・焦った顔・準備の画面のあなた)が、枠 + 絵の形で、飾り(alt が空)", () => {
