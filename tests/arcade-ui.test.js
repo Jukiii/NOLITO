@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
 const css = read("public/assets/css/game.css");
+const baseCss = read("public/assets/css/base.css");
 
 describe("game.css のゲーム画面", () => {
   it("色の直書きは、ない(トークンだけ)", () => {
@@ -135,6 +136,25 @@ describe("game.css のゲーム画面", () => {
       /\.scene\[data-motion="glide"\] \.scene__chaser-img\s*\{[^}]*scene-glide 1\.6s/,
     );
     assert.ok(!css.includes("scene-gloss"));
+  });
+
+  it("先輩の走る動きは、上下の揺れと前傾が見える大きさで、アニメーション軽減設定の対象になる", () => {
+    assert.match(
+      css,
+      /\.scene\[data-motion="run"\] \.scene__chaser-img\s*\{\s*animation: scene-run 0\.4s ease-in-out infinite alternate;/,
+    );
+    assert.match(
+      css,
+      /@keyframes scene-run\s*\{\s*from\s*\{\s*transform: translateY\(0\) rotate\(0\);\s*\}\s*to\s*\{\s*transform: translateY\(-0\.45rem\) rotate\(-1deg\);/,
+    );
+    assert.match(
+      baseCss,
+      /prefers-reduced-motion: reduce[\s\S]*animation-duration: 0\.01ms !important/,
+    );
+    assert.match(
+      baseCss,
+      /:root\[data-reduced-motion="reduce"\][\s\S]*animation-duration: 0\.01ms !important/,
+    );
   });
 
   it("追いかける背景はプレイ枠の内側にも見え、お題カードは半透明にする", () => {

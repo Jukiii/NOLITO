@@ -565,7 +565,7 @@
 
 /* run: 走る(徒歩)。速い上下と、前かがみの揺れ */
 .scene[data-motion="run"] .scene__chaser-img {
-  animation: scene-run 0.28s ease-in-out infinite alternate;
+  animation: scene-run 0.4s ease-in-out infinite alternate;
 }
 
 /* pedal: こぐ(自転車)。小さく左右に揺れ、ペダルの動きに合わせる */
@@ -674,11 +674,11 @@
 
 @keyframes scene-run {
   from {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0);
   }
 
   to {
-    transform: translateY(-0.2rem);
+    transform: translateY(-0.45rem) rotate(-1deg);
   }
 }
 
