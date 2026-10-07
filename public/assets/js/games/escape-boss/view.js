@@ -49,6 +49,7 @@ export function createView(root) {
   const inputBox = $("[data-input-box]");
   const gauge = $("[data-gauge]");
   const scene = $("[data-scene]");
+  const sceneOverlay = $("[data-scene-overlay]");
   const setText = (selector, value) => {
     $(selector).textContent = String(value);
   };
@@ -99,6 +100,7 @@ export function createView(root) {
     renderCues([]);
     scene.dataset.stage = "";
     scene.dataset.outro = "";
+    sceneOverlay.dataset.stage = "";
     clearTimeout(bubbleTimer);
     bubble.hidden = true;
     hideReady();
@@ -573,6 +575,7 @@ export function createView(root) {
       clearTimeout(sceneTimer);
       scene.dataset.event = "";
       scene.dataset.stage = kind;
+      sceneOverlay.dataset.stage = kind;
       // 終わりの演出(clear・over)の、役職ごとの見せ方(なければ、全役職共通の演出)
       scene.dataset.outro = (kind === "clear" || kind === "over") && outroStyle ? outroStyle : "";
       $("[data-banner-text]").textContent = text;
@@ -585,6 +588,9 @@ export function createView(root) {
     // 演出を出している間だけ効く。文字のキーでは飛ばさない。ボタン・リンク・選択欄のキーは、奪わない
     bindSkip(onSkip) {
       scene.addEventListener("click", () => {
+        if (staging()) onSkip();
+      });
+      sceneOverlay.addEventListener("click", () => {
         if (staging()) onSkip();
       });
       document.addEventListener("keydown", (event) => {

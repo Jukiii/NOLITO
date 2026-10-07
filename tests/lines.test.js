@@ -285,14 +285,19 @@ describe("main.js のセリフのつなぎ", () => {
     );
   });
 
-  it("吹き出しは飾り(場面の中・aria-hidden)。結果の画面には、セリフの引用を出す", () => {
+  it("吹き出しは独立した前面の飾り(aria-hidden)。結果の画面には、セリフの引用を出す", () => {
     const html = read("public/games/escape-boss/index.html");
     const scene = html.slice(
       html.indexOf('<div class="scene"'),
-      html.indexOf('<div class="game-word">'),
+      html.indexOf('<div class="game-scene-overlay"'),
     );
     assert.match(scene, /aria-hidden="true"/);
-    assert.ok(scene.includes("data-bubble"));
+    const overlay = html.slice(
+      html.indexOf('<div class="game-scene-overlay"'),
+      html.indexOf('<div class="game-word">'),
+    );
+    assert.match(overlay, /aria-hidden="true"/);
+    assert.ok(overlay.includes("data-bubble"));
     assert.match(main, /view\.showResult\(\{ \.\.\.resultView, quote: line \?\? "" \}\)/);
   });
 });

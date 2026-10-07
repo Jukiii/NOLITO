@@ -74,7 +74,7 @@
       "cta": "遊ぶ",
       "download": null,
       "purchase": null,
-      "version": "0.36.0",
+      "version": "0.37.0",
       "released_at": "2026-09-20",
       "updated_at": "2026-10-07",
       "faq": [
@@ -160,6 +160,13 @@
         }
       ],
       "changelog": [
+        {
+          "version": "0.37.0",
+          "date": "2026-10-07",
+          "changes": [
+            "ゲーム画面をテーマに合わせ、入力画面の配置・追跡シーンの向きと動きを調整した"
+          ]
+        },
         {
           "version": "0.36.0",
           "date": "2026-10-07",
