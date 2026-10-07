@@ -19,6 +19,13 @@ export function indexWords(vocabularies) {
   return index;
 }
 
+/** 結果画面用に、表示済みの語を出た順に返す。ミスの有無にかかわらず含める。 */
+export function resultWords(words, wordMisses = {}, currentIndex = words.length - 1) {
+  return words
+    .slice(0, currentIndex + 1)
+    .map((word) => ({ word, misses: wordMisses[word.id] ?? 0 }));
+}
+
 /**
  * 直近 plays プレイの、語ごとのミスの合計。results: 新しい順のプレイ結果。
  * accepts(id) が false の語(語録にない語など)は、数えない。ミスの数が、正の整数でないものも、数えない。

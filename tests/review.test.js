@@ -8,6 +8,7 @@ import {
   REVIEW_PLAYS,
   buildReviewList,
   indexWords,
+  resultWords,
 } from "../public/assets/js/games/escape-boss/review.js";
 import { createEmptyData, normalizeData } from "../public/assets/js/games/escape-boss/storage.js";
 
@@ -43,6 +44,33 @@ describe("語の対応(indexWords)", () => {
   it("items がない・null・空でも、落ちない", () => {
     assert.equal(indexWords([]).size, 0);
     assert.equal(indexWords([{ job_id: "x" }, null, { job_id: "y", items: [] }]).size, 0);
+  });
+});
+
+describe("結果に表示する語(resultWords)", () => {
+  it("実際に表示された語を出た順に返し、ミス回数も付ける", () => {
+    const words = [word("a-001"), word("a-002"), word("a-003")];
+    const before = JSON.stringify(words);
+    assert.deepEqual(
+      resultWords(words, { "a-002": 2 }, 1).map(({ word: item, misses }) => [item.id, misses]),
+      [
+        ["a-001", 0],
+        ["a-002", 2],
+      ],
+    );
+    assert.equal(JSON.stringify(words), before);
+  });
+
+  it("最後に表示中の語は含み、まだ表示していない語は含めない", () => {
+    const words = [word("a-001"), word("a-002"), word("a-003")];
+    assert.deepEqual(
+      resultWords(words, {}, 0).map((entry) => entry.word.id),
+      ["a-001"],
+    );
+    assert.deepEqual(
+      resultWords(words, {}, 2).map((entry) => entry.word.id),
+      ["a-001", "a-002", "a-003"],
+    );
   });
 });
 

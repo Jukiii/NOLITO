@@ -710,7 +710,7 @@ export function createView(root) {
       levelUp = null,
       notice,
       analysis,
-      missed = [],
+      resultWords = [],
       quote = "",
     }) {
       showView("result");
@@ -720,8 +720,8 @@ export function createView(root) {
       if (levelUp)
         setText("[data-result-levelup]", `レベルアップ! レベル${levelUp.to}になりました。`);
       renderAnalysis(analysis);
-      $("[data-result-missed]").hidden = missed.length === 0;
-      renderReviewList("[data-result-missed-list]", missed);
+      $("[data-result-words]").hidden = resultWords.length === 0;
+      renderReviewList("[data-result-words-list]", resultWords);
       const cleared = state.status === "cleared";
       setText("[data-result-title]", cleared ? "逃げ切った!" : "つかまった…");
       setText(
