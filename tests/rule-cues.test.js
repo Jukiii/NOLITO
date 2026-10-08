@@ -221,10 +221,13 @@ describe("CSS", () => {
       scene,
       /\.scene\[data-cues~="surge-warn"\] \.scene__alert \{\s*display: block;\s*animation: scene-alert/,
     );
-    assert.match(scene, /\.scene\[data-cues~="closing"\] \.scene__chaser-img \{\s*scale: 1\.06;/);
     assert.match(
       scene,
-      /\.scene\[data-cues~="surge"\] \.scene__chaser-img,\s*\.scene\[data-cues~="shock"\] \.scene__chaser-img \{\s*scale: 1\.12;/,
+      /\.scene\[data-cues~="closing"\] \.scene__chaser-img \{\s*--chaser-size: 1\.06;/,
+    );
+    assert.match(
+      scene,
+      /\.scene\[data-cues~="surge"\] \.scene__chaser-img,\s*\.scene\[data-cues~="shock"\] \.scene__chaser-img \{\s*--chaser-size: 1\.12;/,
     );
   });
 

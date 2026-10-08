@@ -141,8 +141,10 @@ describe("結果画面・開始画面の配線", () => {
     assert.match(css, /\.game-setup__banner\s*\{[^}]*font-family: var\(--font-display\)/);
   });
 
-  it("結果の画面も、暗い枠(.game-play と同じトークン)。数え上げの欄は、hidden で消える", () => {
+  it("結果の画面は、ゲーム共通のテーマ枠。数え上げの欄は、hidden で消える", () => {
     assert.match(css, /\.game-result,\s*\.game-play,\s*\.game-setup\s*\{/);
+    assert.match(css, /background: var\(--color-surface\)/);
+    assert.ok(!css.includes("color-scheme: dark"));
     assert.match(css, /\.result-score__roll\[hidden\]\s*\{\s*display: none/);
   });
 

@@ -303,16 +303,22 @@ describe("画面(HTML・view.js・CSS)", () => {
   const view = read("public/assets/js/games/escape-boss/view.js");
   const css = read("public/assets/css/game.css");
 
-  it("バナー・吹き出し・紙吹雪は、場面(aria-hidden)の中にある。最初は隠れている", () => {
+  it("バナー・吹き出しは、全画面シーンとは別の前面レイヤーで、最初は隠れている", () => {
     const scene = html.slice(
       html.indexOf('<div class="scene"'),
+      html.indexOf('<div class="game-scene-overlay"'),
+    );
+    const overlay = html.slice(
+      html.indexOf('<div class="game-scene-overlay"'),
       html.indexOf('<div class="game-word">'),
     );
-    for (const mark of ["data-banner", "data-bubble", "data-confetti"]) {
-      assert.ok(scene.includes(mark), mark);
+    assert.ok(scene.includes("data-confetti"));
+    for (const mark of ["data-banner", "data-bubble"]) {
+      assert.ok(overlay.includes(mark), mark);
     }
-    assert.match(scene, /<p class="scene__bubble" data-bubble hidden>/);
-    assert.match(scene, /<div class="scene__banner" data-banner hidden>/);
+    assert.match(overlay, /<p class="scene__bubble" data-bubble hidden>/);
+    assert.match(overlay, /<div class="scene__banner" data-banner hidden>/);
+    assert.match(overlay, /aria-hidden="true"/);
     assert.match(html, /<p class="result__quote" lang="ja" data-result-quote hidden><\/p>/);
   });
 
@@ -335,6 +341,7 @@ describe("画面(HTML・view.js・CSS)", () => {
     assert.match(skip, /if \(!staging\(\) \|\| !isSkipKey\(event\.key\)\) return;/);
     assert.match(skip, /event\.target !== input && event\.target !== document\.body/);
     assert.match(skip, /scene\.addEventListener\("click"/);
+    assert.match(skip, /sceneOverlay\.addEventListener\("click"/);
   });
 
   it("文字は textContent だけで入れる。画面が替わると、演出・吹き出しは消える", () => {
@@ -342,6 +349,8 @@ describe("画面(HTML・view.js・CSS)", () => {
     assert.match(view, /function showView\(name\) \{\s*clearStaging\(\);/);
     assert.match(view, /\$\("\[data-banner-text\]"\)\.textContent = text;/);
     assert.match(view, /\$\("\[data-bubble-text\]"\)\.textContent = text;/);
+    assert.match(view, /sceneOverlay\.dataset\.stage = kind;/);
+    assert.match(view, /sceneOverlay\.dataset\.stage = "";/);
   });
 
   it("CSS: 終わりの演出(clear・over)と、バナー・吹き出しの hidden。色はトークン", () => {

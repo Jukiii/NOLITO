@@ -6,81 +6,26 @@ import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(`${root}${path}`, "utf8").replaceAll("\r\n", "\n");
-const tokens = read("public/assets/css/tokens.css");
 const css = read("public/assets/css/game.css");
+const baseCss = read("public/assets/css/base.css");
 
-const channel = (value) => {
-  const c = value / 255;
-  return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-};
-const luminance = (hex) => {
-  const full = hex.length === 4 ? `#${[...hex.slice(1)].map((c) => c + c).join("")}` : hex;
-  const [r, g, b] = [1, 3, 5].map((i) => Number.parseInt(full.slice(i, i + 2), 16));
-  return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
-};
-const contrast = (a, b) => {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (hi + 0.05) / (lo + 0.05);
-};
-
-const arcade = Object.fromEntries(
-  [...tokens.matchAll(/--(arcade-[a-z0-9-]+):\s*(#[0-9a-fA-F]{3,6})\s*;/g)].map((m) => [
-    m[1],
-    m[2],
-  ]),
-);
-
-describe("アーケード画面のトークン", () => {
-  it("暗い画面の文字・光る色は、背景に対して、読める明るさの比(4.5 以上)", () => {
-    for (const bg of ["arcade-bg", "arcade-panel", "arcade-panel-2"]) {
-      for (const fg of [
-        "arcade-text",
-        "arcade-text-muted",
-        "arcade-cyan",
-        "arcade-yellow",
-        "arcade-green",
-        "arcade-red",
-        "arcade-magenta",
-      ]) {
-        const ratio = contrast(arcade[fg], arcade[bg]);
-        assert.ok(ratio >= 4.5, `${fg} / ${bg}: ${ratio.toFixed(2)}`);
-      }
-    }
-  });
-
-  it("明るい色の上の文字(on-bright)も、読める", () => {
-    for (const bg of ["arcade-red", "arcade-yellow", "arcade-cyan", "arcade-green"]) {
-      assert.ok(contrast(arcade["arcade-on-bright"], arcade[bg]) >= 4.5, bg);
-    }
-  });
-
-  it("場面の窓は、固定の明るい色で、文字・補助の文字・主色が読める", () => {
-    for (const bg of ["arcade-scene-top", "arcade-scene-bottom"]) {
-      for (const fg of ["arcade-scene-ink", "arcade-scene-text-muted", "arcade-scene-primary"]) {
-        assert.ok(contrast(arcade[fg], arcade[bg]) >= 4.5, `${fg} / ${bg}`);
-      }
-    }
-  });
-
-  it("テーマでは上書きしない(どのテーマでも同じ暗い画面)", () => {
-    const afterRoot = tokens.slice(tokens.indexOf("\n}\n"));
-    assert.ok(!/--arcade-/.test(afterRoot));
-  });
-});
-
-describe("game.css のアーケード画面", () => {
+describe("game.css のゲーム画面", () => {
   it("色の直書きは、ない(トークンだけ)", () => {
     const code = css.replace(/\/\*[\s\S]*?\*\//g, "");
     assert.ok(!/#[0-9a-fA-F]{3,8}\b/.test(code), "色の直書き");
     assert.ok(!/\b(?:rgb|hsl)a?\(/.test(code), "rgb()・hsl() の直書き");
   });
 
-  it("ゲーム画面は、どのテーマでも暗い(.game-play がトークンを暗い値にする)", () => {
+  it("ゲーム画面は現在のテーマの色・形を使い、光らせない", () => {
     const start = css.indexOf(".game-setup {\n  --color-bg");
-    const block = css.slice(start, css.indexOf("\n}\n", start));
-    assert.match(block, /--color-bg:\s*var\(--arcade-bg\)/);
-    assert.match(block, /--color-text:\s*var\(--arcade-text\)/);
-    assert.match(block, /color-scheme:\s*dark/);
+    assert.equal(start, -1);
+    const blockStart = css.indexOf(".game-result,\n.game-play,\n.game-setup {");
+    const block = css.slice(blockStart, css.indexOf("\n}\n", blockStart));
+    assert.match(block, /background: var\(--color-surface\)/);
+    assert.match(block, /color: var\(--color-text\)/);
+    assert.match(block, /border-radius: var\(--radius-md\)/);
+    assert.match(block, /--shadow-pop: 0 2px 0 var\(--color-border\)/);
+    assert.ok(!/--arcade-|text-shadow:|color-scheme: dark/.test(css));
   });
 
   it("プレイ中は、ヘッダー・フッター(ほかのページへのリンク)を隠す。スキップリンクは隠さない", () => {
@@ -142,6 +87,76 @@ describe("game.css のアーケード画面", () => {
     );
   });
 
+  it("入力画面は上下中央に置き、セリフと開始/終了バナーは独立した前面レイヤーにする", () => {
+    assert.match(css, /\.game-play\s*\{[^}]*align-content: center;[^}]*min-height: calc\(100dvh/);
+    assert.match(
+      css,
+      /\.game-scene-overlay\s*\{[^}]*position: fixed;[^}]*z-index: var\(--z-header\)/,
+    );
+    assert.match(css, /\.game-scene-overlay\[data-stage="clear"\] \.scene__banner-hint/);
+    const html = read("public/games/escape-boss/index.html");
+    const scene = html.slice(
+      html.indexOf('<div class="scene"'),
+      html.indexOf('</div>\n              <div class="game-scene-overlay"'),
+    );
+    const overlay = html.slice(
+      html.indexOf('<div class="game-scene-overlay"'),
+      html.indexOf('<div class="game-word"'),
+    );
+    assert.ok(!scene.includes("data-banner"));
+    assert.ok(!scene.includes("data-bubble"));
+    assert.ok(overlay.includes("data-banner"));
+    assert.ok(overlay.includes("data-bubble"));
+  });
+
+  it("車とヘリは右向きに反転し、先輩と自転車は元の向きを保つ。動きは細かく揺れすぎない", () => {
+    assert.match(
+      css,
+      /\.scene\[data-motion="drive"\],\s*\.scene\[data-motion="glide"\],\s*\.scene\[data-motion="aura"\]\s*\{[^}]*--chaser-direction: -1/,
+    );
+    assert.match(
+      css,
+      /\.scene__chaser-img\s*\{[^}]*scale: var\(--chaser-direction, 1\) var\(--chaser-size, 1\)/,
+    );
+    assert.doesNotMatch(
+      css,
+      /\.scene\[data-motion="(?:run|pedal)"\] \.scene__chaser\s*\{[^}]*scale:/,
+    );
+    assert.doesNotMatch(css, /\.scene__chaser-img \.scene__sprite\s*\{[^}]*scale:/);
+    assert.match(
+      css,
+      /\.scene\[data-motion="pedal"\] \.scene__chaser-img\s*\{[^}]*scene-pedal 0\.8s/,
+    );
+    assert.match(
+      css,
+      /\.scene\[data-motion="drive"\] \.scene__chaser-img\s*\{[^}]*scene-drive 0\.24s/,
+    );
+    assert.match(
+      css,
+      /\.scene\[data-motion="glide"\] \.scene__chaser-img\s*\{[^}]*scene-glide 1\.6s/,
+    );
+    assert.ok(!css.includes("scene-gloss"));
+  });
+
+  it("先輩の走る動きは、上下の揺れと前傾が見える大きさで、アニメーション軽減設定の対象になる", () => {
+    assert.match(
+      css,
+      /\.scene\[data-motion="run"\] \.scene__chaser-img\s*\{\s*animation: scene-run 0\.4s ease-in-out infinite alternate;/,
+    );
+    assert.match(
+      css,
+      /@keyframes scene-run\s*\{\s*from\s*\{\s*transform: translateY\(0\) rotate\(0\);\s*\}\s*to\s*\{\s*transform: translateY\(-0\.45rem\) rotate\(-1deg\);/,
+    );
+    assert.match(
+      baseCss,
+      /prefers-reduced-motion: reduce[\s\S]*animation-duration: 0\.01ms !important/,
+    );
+    assert.match(
+      baseCss,
+      /:root\[data-reduced-motion="reduce"\][\s\S]*animation-duration: 0\.01ms !important/,
+    );
+  });
+
   it("追いかける背景はプレイ枠の内側にも見え、お題カードは半透明にする", () => {
     assert.match(
       css,
@@ -149,7 +164,7 @@ describe("game.css のアーケード画面", () => {
     );
     assert.match(
       css,
-      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\) \.game-play \.game-word\s*\{\s*background: color-mix\(in srgb, var\(--arcade-panel\) 68%, transparent\);/,
+      /body:has\(\[data-game\] \[data-view="play"\]:not\(\[hidden\]\)\) \.game-play \.game-word\s*\{\s*background: color-mix\(in srgb, var\(--color-surface\) 86%, transparent\);/,
     );
     assert.match(css, /opacity: 0\.48;/);
   });

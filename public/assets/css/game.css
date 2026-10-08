@@ -32,43 +32,23 @@
 }
 
 /*
- * プレイ画面(Issue #166。アーケード風)。暗い枠の「ゲーム画面」だけを、中央に大きく出す。
- * 上から: HUD(職種・正解・ミス = 四隅)→ 距離ゲージ → 場面 → セリフ枠(単語)→ 入力欄 → 下の隅に「音」「やめる」。
- * 枠の中は、どのテーマでも暗い(下の .game-play で、意味のあるトークンを、枠の中だけ上書きする)。
+ * プレイ画面(Issue #166)。上から HUD → 距離ゲージ → 場面 → 単語 → 入力欄。
+ * 表面・文字・形は共通テーマのトークンを使い、テーマごとのデザインに合わせる。
  * aside は display: contents にして、HUD(.game-status)と 2 つのボタンを、枠のグリッドに直接置く。
  */
 .game-result,
 .game-play,
 .game-setup {
-  --color-bg: var(--arcade-bg);
-  --color-surface: var(--arcade-panel);
-  --color-soft: var(--arcade-panel-2);
-  --color-text: var(--arcade-text);
-  --color-text-muted: var(--arcade-text-muted);
-  --color-primary: var(--arcade-cyan);
-  --color-primary-strong: var(--arcade-cyan);
-  --color-on-primary: var(--arcade-on-bright);
-  --color-accent: var(--arcade-yellow);
-  --color-on-accent: var(--arcade-on-bright);
-  --color-border: var(--arcade-cyan);
-  --color-focus: var(--arcade-yellow);
-  --border-width: 3px;
-  --radius-sm: 0;
-  --radius-md: 0;
-  --radius-pill: 0;
-  --shadow-pop: 0 4px 0 var(--arcade-bg);
-  --shadow-pop-sm: 0 2px 0 var(--arcade-bg);
-  --shadow-primary: 0 4px 0 var(--arcade-bg);
+  --shadow-pop: 0 2px 0 var(--color-border);
+  --shadow-pop-sm: 0 1px 0 var(--color-border);
+  --shadow-primary: 0 2px 0 var(--color-border);
 
   padding: var(--space-3);
-  background: var(--arcade-bg);
-  border: 0.375rem solid var(--arcade-cyan);
-  box-shadow:
-    0 0 0 0.25rem var(--arcade-bg),
-    0 0 0 0.5rem var(--arcade-magenta),
-    0 0 2rem 0.5rem var(--arcade-glow);
-  color: var(--arcade-text);
-  color-scheme: dark;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-pop);
+  color: var(--color-text);
 }
 
 .game-play {
@@ -78,7 +58,9 @@
     "main main"
     "sound quit";
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: center;
   gap: var(--space-3);
+  min-height: calc(100dvh - 2 * var(--space-8));
 }
 
 /* 狭い画面では、余白を詰めて、単語と入力欄が、画面に収まりやすいようにする */
@@ -117,20 +99,21 @@
   }
 }
 
-/* 距離ゲージ: 太い、ピクセル風のライフバー。縦の目盛りで、ドットの段に見せる。危ないときは、赤く縞になって、光る */
+/* 距離ゲージ: テーマの色・形を使い、目盛りと縞模様で距離・危険を示す */
 .gauge {
   position: relative;
   height: 2.5rem;
   overflow: hidden;
-  background: var(--arcade-bg);
-  border: 0.25rem solid var(--arcade-cyan);
-  box-shadow: 0 0 0.75rem var(--arcade-cyan);
+  background: var(--color-soft);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-pop-sm);
 }
 
 .gauge__fill {
   width: 0;
   height: 100%;
-  background: var(--arcade-green);
+  background: var(--color-primary);
   transition: width 0.1s linear;
 }
 
@@ -141,34 +124,33 @@
   background: repeating-linear-gradient(
     90deg,
     transparent 0 0.625rem,
-    var(--arcade-bg) 0.625rem 0.75rem
+    var(--color-surface) 0.625rem 0.75rem
   );
   content: "";
   pointer-events: none;
 }
 
-/* 危険なときは色に加えて縞模様と「あぶない!」の文字でも示す(光は 1.2 秒で 1 周。点滅にしない) */
+/* 危険なときはテーマのアクセント色に加えて、縞模様と「あぶない!」の文字でも示す */
 .gauge.is-danger {
-  border-color: var(--arcade-red);
-  box-shadow: 0 0 1rem var(--arcade-red);
+  border-color: var(--color-accent);
   animation: gauge-danger 1.2s ease-in-out infinite alternate;
 }
 
 .gauge.is-danger .gauge__fill {
   background: repeating-linear-gradient(
     45deg,
-    var(--arcade-red) 0 0.75rem,
-    var(--arcade-yellow) 0.75rem 1.5rem
+    var(--color-accent) 0 0.75rem,
+    var(--color-soft) 0.75rem 1.5rem
   );
 }
 
 @keyframes gauge-danger {
   from {
-    box-shadow: 0 0 0.25rem var(--arcade-red);
+    border-width: var(--border-width);
   }
 
   to {
-    box-shadow: 0 0 1.25rem var(--arcade-red);
+    border-width: calc(var(--border-width) + 2px);
   }
 }
 
@@ -180,10 +162,10 @@
 .gauge__danger {
   margin-left: var(--space-2);
   padding: 0 var(--space-3);
-  background: var(--arcade-red);
-  border: var(--border-width) solid var(--arcade-text);
+  background: var(--color-accent);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-pill);
-  color: var(--arcade-on-bright);
+  color: var(--color-on-accent);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
 }
@@ -219,9 +201,9 @@
   position: relative;
   padding: var(--space-6) var(--space-4);
   background: var(--color-surface);
-  border: 0.25rem solid var(--arcade-text);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
-  box-shadow: 0 0.375rem 0 var(--arcade-panel-2);
+  box-shadow: var(--shadow-pop);
   cursor: text;
   text-align: center;
 }
@@ -232,7 +214,7 @@
   left: 25%;
   border: 0.5rem solid transparent;
   border-top: 0;
-  border-bottom: 1rem solid var(--arcade-text);
+  border-bottom: 1rem solid var(--color-border);
   content: "";
 }
 
@@ -258,9 +240,9 @@
   overflow-wrap: anywhere;
 }
 
-/* 打った分は、明るい黄色・太字・下線。まだの分は、暗い紫がかった色。色だけに頼らない */
+/* 打った分は、テーマの主色・太字・下線。色だけに頼らない */
 .game-word__typed {
-  color: var(--arcade-yellow);
+  color: var(--color-primary-strong);
   font-weight: var(--font-weight-black);
   text-decoration: underline;
   text-decoration-thickness: 4px;
@@ -421,15 +403,6 @@
 /* 追跡シーン: 追ってくる人が、距離が減るほど右のあなたに近づく。
    位置(--closeness)は、動きの軽減設定でも、距離に応じて変わる。動き(役職ごとの [data-motion])は、装飾 */
 .scene {
-  /* 場面は、暗い枠の中の、明るい「窓」。背景の絵が淡い色なので、テーマに関係なく、固定の明るい色にする */
-  --color-surface: var(--arcade-scene-bottom);
-  --color-soft: var(--arcade-scene-top);
-  --color-text: var(--arcade-scene-ink);
-  --color-text-muted: var(--arcade-scene-text-muted);
-  --color-primary: var(--arcade-scene-primary);
-  --color-accent: var(--arcade-scene-accent);
-  --color-on-accent: var(--arcade-scene-ink);
-  --color-border: var(--arcade-scene-ink);
   --closeness: 0;
   --chaser-w: 8.5rem;
   --player-w: 4.8rem;
@@ -472,19 +445,22 @@
   }
 }
 
-/* 奥行き: 上から差す光と、足元の床の影を、キャラクターの後ろに敷く(飾り。動かない) */
+/* 奥行き: テーマの主色を薄く重ねる(飾り。動かない) */
 .scene::before {
   position: absolute;
   inset: 0;
   z-index: -1;
   content: "";
-  background:
-    radial-gradient(ellipse 60% 70% at 18% 0%, var(--arcade-scene-light), transparent 70%),
-    linear-gradient(to bottom, transparent 62%, var(--arcade-scene-shade));
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-primary) 8%, transparent),
+    transparent 62%,
+    color-mix(in srgb, var(--color-text) 8%, transparent)
+  );
   pointer-events: none;
 }
 
-/* 危ないとき(距離が 25% 以下)は、場面の縁を、ゲージと同じ黄色で、ゆっくり脈打たせる(動きを減らす設定では、脈打たず、縁だけが残る) */
+/* 危ないとき(距離が 25% 以下)は、場面の縁を、ゲージと同じテーマ色で、ゆっくり脈打たせる */
 .scene.is-danger {
   box-shadow: inset 0 0 0 0.25rem var(--color-accent);
   animation:
@@ -532,6 +508,12 @@
 }
 
 /* 追ってくる人: 外側の枠(.scene__chaser)が位置を、中の絵(.scene__chaser-img)が動きを、受け持つ */
+.scene[data-motion="drive"],
+.scene[data-motion="glide"],
+.scene[data-motion="aura"] {
+  --chaser-direction: -1;
+}
+
 .scene__chaser {
   position: absolute;
   bottom: 1.2rem;
@@ -541,11 +523,12 @@
 }
 
 /* 絵は、6 コマを横に並べた 1 枚(スプライトシート)。枠(overflow: hidden)が 1 コマ分だけ見せ、
-   中の絵(.scene__sprite)を、コマ送りでずらす。枠は、位置・演出・大きさの変化(transform など)を受け持つ */
+   中の絵(.scene__sprite)を、コマ送りでずらす。枠は、向き・動き・大きさの変化(transform など)を受け持つ */
 .scene__chaser-img {
   width: 100%;
   aspect-ratio: 3 / 2;
   overflow: hidden;
+  scale: var(--chaser-direction, 1) var(--chaser-size, 1);
   transform-origin: 50% 100%;
 }
 
@@ -560,10 +543,24 @@
 
 .scene__sprite {
   display: block;
-  width: 600%;
+  width: var(--chaser-sheet-width, 600%);
   max-width: none;
-  height: 100%;
+  height: var(--chaser-sheet-height, 100%);
   animation: sprite-frames var(--sprite-cycle, 0.6s) steps(6) infinite;
+}
+
+/* 車体の端が切れないよう、セダン・リムジンは1コマを90%の大きさで中央に収める */
+.scene[data-motion="drive"],
+.scene[data-motion="glide"] {
+  --chaser-sheet-width: 540%;
+  --chaser-sheet-height: 90%;
+}
+
+.scene[data-motion="drive"] .scene__sprite,
+.scene[data-motion="glide"] .scene__sprite {
+  position: relative;
+  top: 5%;
+  left: 5%;
 }
 
 /* 危ないとき(.is-danger)は、あなたの表情が、焦った顔(player-panic.svg)に替わる。2 枚とも、最初から読み込んでおく */
@@ -582,21 +579,21 @@
 
 /* run: 走る(徒歩)。速い上下と、前かがみの揺れ */
 .scene[data-motion="run"] .scene__chaser-img {
-  animation: scene-run 0.28s ease-in-out infinite alternate;
+  animation: scene-run 0.4s ease-in-out infinite alternate;
 }
 
-/* pedal: こぐ(自転車)。左右に傾く */
+/* pedal: こぐ(自転車)。小さく左右に揺れ、ペダルの動きに合わせる */
 .scene[data-motion="pedal"] .scene__chaser-img {
-  --sprite-cycle: 0.9s;
+  --sprite-cycle: 0.7s;
 
-  animation: scene-pedal 0.55s ease-in-out infinite alternate;
+  animation: scene-pedal 0.8s ease-in-out infinite alternate;
 }
 
-/* drive: エンジンの細かい振動と、後ろに流れる煙(車) */
+/* drive: 控えめなエンジンの揺れと、後ろに流れる煙(車) */
 .scene[data-motion="drive"] .scene__chaser-img {
-  --sprite-cycle: 0.45s;
+  --sprite-cycle: 0.65s;
 
-  animation: scene-drive 0.09s linear infinite alternate;
+  animation: scene-drive 0.24s ease-in-out infinite alternate;
 }
 
 .scene[data-motion="drive"] .scene__chaser::after {
@@ -608,16 +605,14 @@
   background: color-mix(in srgb, var(--color-text) 30%, transparent);
   border-radius: 50%;
   content: "";
-  animation: scene-smoke 0.8s ease-out infinite;
+  animation: scene-smoke 1.2s ease-out infinite;
 }
 
-/* glide: ゆったり滑らかに進み、つやが光る(リムジン) */
+/* glide: ゆったり滑らかに進む(リムジン) */
 .scene[data-motion="glide"] .scene__chaser-img {
-  --sprite-cycle: 1.2s;
+  --sprite-cycle: 0.8s;
 
-  animation:
-    scene-glide 1.1s ease-in-out infinite alternate,
-    scene-gloss 2.4s ease-in-out infinite;
+  animation: scene-glide 1.6s ease-in-out infinite alternate;
 }
 
 /* aura: 浮かんで、オーラをまとう(裏ボス) */
@@ -633,7 +628,7 @@
   inset: -35% -25% -15%;
   background: radial-gradient(
     circle at 50% 55%,
-    color-mix(in srgb, var(--color-primary) 55%, transparent),
+    color-mix(in srgb, var(--color-primary) 18%, transparent),
     transparent 70%
   );
   content: "";
@@ -693,21 +688,21 @@
 
 @keyframes scene-run {
   from {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0);
   }
 
   to {
-    transform: translateY(-0.2rem);
+    transform: translateY(-0.45rem) rotate(-1deg);
   }
 }
 
 @keyframes scene-pedal {
   from {
-    transform: translateY(0);
+    transform: translateY(0) rotate(-0.8deg);
   }
 
   to {
-    transform: translateY(-0.1rem);
+    transform: translateY(-0.05rem) rotate(0.8deg);
   }
 }
 
@@ -717,7 +712,7 @@
   }
 
   to {
-    transform: translateY(-0.1rem) rotate(0.3deg);
+    transform: translateY(-0.05rem) rotate(0.1deg);
   }
 }
 
@@ -740,18 +735,6 @@
 
   to {
     transform: translateY(-0.25rem);
-  }
-}
-
-@keyframes scene-gloss {
-  0%,
-  70%,
-  100% {
-    filter: brightness(1);
-  }
-
-  85% {
-    filter: brightness(1.3);
   }
 }
 
@@ -817,9 +800,16 @@
 }
 
 /* 追ってくる人の吹き出し(セリフ。飾り)。場面の上に、短い間だけ出る。話している人の名前つき */
+.game-scene-overlay {
+  position: fixed;
+  z-index: var(--z-header);
+  inset: 0;
+  pointer-events: none;
+}
+
 .scene__bubble {
   position: absolute;
-  top: var(--space-1);
+  top: max(env(safe-area-inset-top), var(--space-4));
   left: 50%;
   z-index: 3;
   display: flex;
@@ -837,6 +827,7 @@
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-pop-sm);
   transform: translateX(-50%);
+  pointer-events: none;
 }
 
 .scene__bubble[hidden] {
@@ -858,6 +849,7 @@
   align-content: center;
   justify-items: center;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .scene__banner[hidden] {
@@ -888,13 +880,13 @@
 }
 
 /* 終わりの演出では、上の吹き出し(セリフ)と重ならないよう、文字を少し小さくし、飛ばし方の案内は出さない */
-.scene[data-stage="clear"] .scene__banner-hint,
-.scene[data-stage="over"] .scene__banner-hint {
+.game-scene-overlay[data-stage="clear"] .scene__banner-hint,
+.game-scene-overlay[data-stage="over"] .scene__banner-hint {
   display: none;
 }
 
-.scene[data-stage="clear"] .scene__banner-text,
-.scene[data-stage="over"] .scene__banner-text {
+.game-scene-overlay[data-stage="clear"] .scene__banner-text,
+.game-scene-overlay[data-stage="over"] .scene__banner-text {
   font-size: var(--font-size-xl);
 }
 
@@ -1061,12 +1053,12 @@
 
 /* 追ってくる人の大きさは、動き(transform のアニメーション)と、重ねられるよう、scale で変える */
 .scene[data-cues~="closing"] .scene__chaser-img {
-  scale: 1.06;
+  --chaser-size: 1.06;
 }
 
 .scene[data-cues~="surge"] .scene__chaser-img,
 .scene[data-cues~="shock"] .scene__chaser-img {
-  scale: 1.12;
+  --chaser-size: 1.12;
 }
 
 /* 役職別の、終わりの演出(roles.json の scene.outro。.scene の data-outro に入る)。
@@ -1156,7 +1148,7 @@
   opacity: 0;
   background: radial-gradient(
     circle at 88% 65%,
-    var(--glow, var(--color-accent)) 0,
+    color-mix(in srgb, var(--glow, var(--color-accent)) 18%, transparent) 0,
     transparent 55%
   );
 }
@@ -1521,10 +1513,10 @@
   font-weight: 700;
 }
 
-/* 結果の画面(アーケード風)。「RESULT」の飾りの文字(読み上げない)・黄色い大きな見出し・光るスコア */
+/* 結果の画面。「RESULT」の飾りの文字(読み上げない)・見出し・スコア */
 .game-result__label {
   margin: 0 0 var(--space-2);
-  color: var(--arcade-magenta);
+  color: var(--color-primary);
   font-family: var(--font-display);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-black);
@@ -1532,8 +1524,7 @@
 }
 
 .game-result h1 {
-  color: var(--arcade-yellow);
-  text-shadow: 0 0 0.75rem var(--arcade-glow);
+  color: var(--color-primary-strong);
 }
 
 /* 獲得経験値・レベルアップの知らせ(保存の警告と違い、前向きな見た目。実線・アクセントの色) */
@@ -1565,12 +1556,11 @@
 
 .game-result .result-score strong,
 .result-score__roll {
-  color: var(--arcade-yellow);
+  color: var(--color-primary-strong);
   font-family: var(--font-display);
   font-size: var(--font-size-3xl);
   font-variant-numeric: tabular-nums;
   font-weight: var(--font-weight-black);
-  text-shadow: 0 0 0.75rem var(--arcade-glow);
 }
 
 .result-score__roll[hidden] {
@@ -1743,7 +1733,7 @@
   overflow-wrap: anywhere;
 }
 
-/* 開始前の画面(Issue 173)。結果・プレイ中と同じ暗い枠。見出しは飾り(aria-hidden)で、日本語の見出しは、そのまま残る */
+/* 開始前の画面(Issue 173)。結果・プレイ中と同じ枠。見出しは飾り(aria-hidden)で、日本語の見出しは、そのまま残る */
 .game-setup {
   display: grid;
   gap: var(--space-4);
@@ -1758,19 +1748,18 @@
 
 .game-setup__banner {
   margin: 0;
-  color: var(--arcade-yellow);
+  color: var(--color-primary-strong);
   font-family: var(--font-display);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-black);
   letter-spacing: 0.14em;
   text-align: center;
-  text-shadow: 0 0.125rem 0 var(--arcade-magenta);
   overflow-wrap: anywhere;
 }
 
 .game-setup__mode > legend,
 .game-setup__choice > label {
-  color: var(--arcade-cyan);
+  color: var(--color-primary-strong);
 }
 
 .game-setup [data-start] {
@@ -1943,7 +1932,7 @@
 /* 点滅する「PRESS SPACE KEY TO START」。1 周 1.2 秒(光の点滅を避ける)。動きを減らす設定では、見える状態で止まる */
 .game-ready__press {
   margin: 0;
-  color: var(--arcade-yellow);
+  color: var(--color-primary-strong);
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-black);
@@ -2017,7 +2006,7 @@ body:has([data-game] [data-view="play"]:not([hidden])) .main {
 
 /* プレイ中は、先輩が追いかけてくる場面を画面全体の背景に広げる */
 body:has([data-game] [data-view="play"]:not([hidden])) {
-  background-color: var(--arcade-bg);
+  background-color: var(--color-bg);
   isolation: isolate;
 }
 
@@ -2027,7 +2016,7 @@ body:has([data-game] [data-view="play"]:not([hidden])) .game-play {
 }
 
 body:has([data-game] [data-view="play"]:not([hidden])) .game-play .game-word {
-  background: color-mix(in srgb, var(--arcade-panel) 68%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 86%, transparent);
 }
 
 /* 既存の追いかけシーン全体を画面の背景に広げる。職場・人物・道路が、お題の背面にも見える */
@@ -2081,7 +2070,9 @@ body:has([data-game] [data-view="play"]:not([hidden])) .game-play .scene {
       "hud sound quit"
       "main main main";
     grid-template-columns: minmax(0, 1fr) auto auto;
+    align-content: start;
     gap: var(--space-1);
+    min-height: 0;
     padding: var(--space-2);
   }
 
