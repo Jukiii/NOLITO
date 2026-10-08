@@ -110,7 +110,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - ログインは、認可コード + PKCE + state + nonce のリダイレクト方式。**ブラウザに Google のスクリプトを読み込まない**。ID トークンは RS256 だけを受け、署名・`iss`・`aud`・`exp`・`nonce`・`email_verified` を検証する(`functions/_lib/google.js`)。緩めない。スコープは `openid email` だけ(名前・写真は取得しない)。
 - セッションのトークンは、DB には SHA-256 のハッシュだけを置く。Cookie は `__Host-` つき・`Secure`・`HttpOnly`・`SameSite=Lax`。JavaScript から Cookie を読まない・LocalStorage にアカウントの情報を置かない。
 - 状態を変える API(POST・DELETE)は、`guard.js` の `checkCsrf`(Origin が `SITE_ORIGIN` と一致 + `X-NOLITO-CSRF: 1` + JSON)を通す。新しい API も、`requireUser(context, { write: true })` を使う。GET で状態を変えない。
-- **招待制(`SIGNUP_MODE=invite`。既定)**: 許可リスト(`ALLOWED_EMAILS`)にないメールアドレスは、アカウントも作らない。リクエストのたびに再確認する。一般公開(`open`)にする前に、Issue #19(連絡先・ポリシー v2・規約・Google の公開審査)を終える。
+- **招待制(`SIGNUP_MODE=invite`。既定)**: 許可リスト(`ALLOWED_EMAILS`)にないメールアドレスは、アカウントも作らない。リクエストのたびに再確認する。一般公開(`open`)にする前に、Issue #219 の残件(独自ドメインの外部設定・Google の公開状態・運営者の承認)を確認する。独自ドメインの採用とリポジトリ内の正規 URL 更新は決定 `docs/decisions/0095-custom-domain.md` に記録済み。確認が済むまでは招待制を維持する。
 - 監査ログ・回数の制限のキーに、メールアドレス・IP をそのまま入れない。アカウントの削除は、直近 10 分以内にログインしたセッションだけ(`reauth-required`)。
 - サーバーが返すエラーの種類を足したら、`public/assets/js/account/messages.js` の文も足す(`tests/account-page.test.js` が検査する)。表示は `textContent` だけ。
 - `wrangler.toml` はローカル専用。**`pages_build_output_dir` を書かない**(書くと、Cloudflare のダッシュボードの設定が読み取り専用になる)。
@@ -149,7 +149,7 @@ NOLITO(ノリト)個人開発プロダクトポータルサイト。仕様は `d
 - ボット対策(罠の欄・最短 3 秒・回数制限)は、ボットには成功に見せて保存しない。罠の欄は、`display: none` にしない。Turnstile などの外部のスクリプトは、入れない(入れるときは、ポリシーの版を上げる)。
 - `inquiries` に `user_id` を足さない(ログインと結びつけない)。保存は、対応済みから約 180 日で削除(`--purge`)。バックアップも直近 6 か月まで。この約束を変えるときは、ポリシーの版を上げる。
 - **ソースに、制御文字・双方向制御文字を、直接書かない**(文字コードから作る。`tests/contact-page.test.js` が、ソース全体を検査する)。
-- **プライバシーポリシーは、版 2**(`analytics.js` の `policyVersion`・ページの `data-policy-version`・本文の版は、そろえる)。個人情報の取り扱いを変えたら、版を上げて、改定の履歴(§8)に足す。アカウントを一般公開するタイミングで、版3に上げる予定(Issue #19・決定ログ0040)。
+- **プライバシーポリシーは、版 4**(`analytics.js` の `policyVersion`・ページの `data-policy-version`・本文の版は、そろえる)。個人情報の取り扱いを変えたら、版を上げて、改定の履歴(§8)に足す。アカウントを一般公開するときは、Issue #219 の確認・運営者の承認後に版 5 へ上げ、同意を取り直す。独自ドメインの採用だけでは版を上げない(決定 `docs/decisions/0095-custom-domain.md`)。
 - **利用規約は `/terms/`**(2026-09-24 新設。決定は `docs/decisions/0041-terms-and-contact-enabled.md`)。フッターのリンクにある(`config/nav.js`)。プライバシーポリシーのような「版」の管理はしていない(内容を大きく変えたら、ページ上でお知らせする)。
 
 ## 語録の確認(Phase 11)

@@ -11,8 +11,8 @@
 ```yaml
 job_id: engineer
 job_name: エンジニア
-version: 0.7.0
-updated_at: 2026-10-04
+version: 0.9.0
+updated_at: 2026-10-07
 items:
   - id: engineer-001
     japanese: bug

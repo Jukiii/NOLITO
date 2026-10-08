@@ -268,6 +268,8 @@ UPDATE licenses SET revoked_at = strftime('%s', 'now') WHERE id = 'ここにID';
   - 本物の Google で試すには、**開発用の、別の OAuth クライアント**を作り、リダイレクト URI に `http://localhost:8788/auth/google/callback` を入れて、`SITE_ORIGIN=http://localhost:8788` にします(本番のクライアントには、localhost を入れません)。
   - `SITE_ORIGIN` が `http://localhost...` のときだけ、`GOOGLE_AUTH_URL`・`GOOGLE_TOKEN_URL`・`GOOGLE_JWKS_URL`・`GOOGLE_ISSUER` で、偽の Google に差し替えられます(本番では、無視されます)。
 
-## 一般公開の前に(Issue #19)
+## 一般公開の前に(Issue #219)
 
-いまは、招待制の限定公開です。誰でもログインできるようにする前に、Issue #19 の項目(連絡先・プライバシーポリシーの改訂(版を上げる)・利用規約・Google の公開審査とドメインの確認)が要ります。その後、`SIGNUP_MODE=open` にし、フッターに「アカウント」のリンクを足します。
+いまは、引き続き招待制の限定公開です。独自ドメイン `nolito-jukiii.com` は採用済みで、リポジトリ内の正規 URL は更新されています(決定 `docs/decisions/0095-custom-domain.md`)。ただし、Cloudflare Pages/DNS・本番の `SITE_ORIGIN`・Google OAuth の許可ドメインとリダイレクト URI の設定、および Google の同意画面を「本番」にする操作は、管理画面での確認が必要です。
+
+お問い合わせフォームは本番で有効化済みで、利用規約も公開済みです。一般公開に進む場合は、これらの外部設定と Google の公開状態を確認し、運営者の明示的な承認を得てから、別の変更としてプライバシーポリシーを版 4 から 5 に上げ、アカウントページの限定公開中の文言を更新し、フッターにリンクを追加します。最後に運営者の承認を得てから、本番の `SIGNUP_MODE=open` を設定します。それまでは招待制・`/account/` の `noindex`・ナビ非掲載を維持してください。進捗と確認事項は Issue #219 を参照してください。
