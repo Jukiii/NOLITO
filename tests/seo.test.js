@@ -112,4 +112,10 @@ describe("検索エンジン向けの基本情報", () => {
       assert.doesNotMatch(html, /<meta\s+name="robots"\s+content="noindex"/, path);
     }
   });
+
+  it("Google Search Console の確認用メタタグを、値があるときだけ入れる", () => {
+    assert.doesNotMatch(readFileSync(`${root}public/index.html`, "utf8"), /google-site-verification/);
+    const source = JSON.parse(readFileSync(`${root}public/data/site.json`, "utf8"));
+    assert.equal(source.googleSiteVerification, "");
+  });
 });

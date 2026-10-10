@@ -29,7 +29,10 @@ export function renderDocument({
 }) {
   const fullTitle = `${title} | ${site.name}`;
   const url = `${site.url}${canonicalPath}`;
-  return `<!doctype html>
+ const verification = site.googleSiteVerification
+   ? `    <meta name="google-site-verification" content="${escapeHtml(site.googleSiteVerification)}" />\n`
+   : "";
+ return `<!doctype html>
 <html lang="${escapeHtml(site.language)}">
   <head>
     <meta charset="utf-8" />
@@ -49,7 +52,7 @@ export function renderDocument({
     </script>
     <title>${escapeHtml(fullTitle)}</title>
     <meta name="description" content="${escapeHtml(description)}" />
-    <link rel="canonical" href="${escapeHtml(url)}" />
+${verification}    <link rel="canonical" href="${escapeHtml(url)}" />
     <meta property="og:type" content="${escapeHtml(ogType)}" />
     <meta property="og:title" content="${escapeHtml(fullTitle)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
