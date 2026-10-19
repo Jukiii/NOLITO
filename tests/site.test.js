@@ -128,6 +128,21 @@ describe("すべてのページのサイト内リンク", () => {
   });
 });
 
+describe("ゲーム・ツールの案内", () => {
+  it("カテゴリページに、利用方法と関連ガイドへの本文リンクがある", () => {
+    const games = read("games/index.html");
+    assert.match(games, /現在公開中の「上司から逃げろ」/);
+    assert.match(games, /href="\/articles\/escape-boss-guide\/"/);
+    assert.match(games, /href="\/articles\/escape-boss-term-review\/"/);
+
+    const tools = read("tools/index.html");
+    assert.match(tools, /使っている環境のメニューや公式案内で確認/);
+    assert.match(tools, /href="\/tools\/kii-michi\/about\/"/);
+    assert.match(tools, /href="\/articles\/kii-michi-guide\/"/);
+    assert.match(tools, /JSON でバックアップ/);
+  });
+});
+
 describe("広告の枠の配置ルール", () => {
   it("許可されている配置は、ゲームの外のページ・記事・終了画面だけ", () => {
     assert.deepEqual([...AD_PLACEMENTS].sort(), ["article", "game-result", "page"]);
